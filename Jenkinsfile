@@ -29,7 +29,7 @@ node {
         }
         always {
             tryStep "lint stop", {
-                sh "docker-compose -p ${PROJECT} down -v || true"
+                sh "docker-compose -p ${PROJECT} down --rmi local -v || true"
             }
         }
     }
@@ -41,7 +41,7 @@ node {
         }
         always {
             tryStep "test stop", {
-                sh "docker-compose -p ${PROJECT} down -v || true"
+                sh "docker-compose -p ${PROJECT} down --rmi local -v || true"
             }
         }
     }
