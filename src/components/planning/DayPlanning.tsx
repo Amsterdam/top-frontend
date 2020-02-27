@@ -173,10 +173,10 @@ const DayPlanning: FC = () => {
           </SelectWrap>
 
           <LabelsWrap>
-            <LabelInput>lijsten</LabelInput>
-            <LabelSelect>Primair stadium</LabelSelect>
-            <LabelSelect>Secundaire stadia</LabelSelect>
-            <LabelSelect>Geëxcludeerde stadia</LabelSelect>
+            <LabelInput>Lijsten</LabelInput>
+            <LabelSelect>Belangrijkste stadium</LabelSelect>
+            <LabelSelect>Aanvullen met</LabelSelect>
+            <LabelSelect>Weglaten</LabelSelect>
           </LabelsWrap>
 
           <DayPartWrap>
