@@ -20,6 +20,7 @@
     "abortcontroller-polyfill": "^1.4.0",
     "dompurify": "^2.0.8",
     "jwt-decode": "^2.2.0",
+    "immer": "^5.3.6",
     "react": "^16.12.0",
     "react-beautiful-dnd": "^12.1.1",
     "react-dom": "^16.12.0",

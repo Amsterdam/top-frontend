@@ -1,3 +1,5 @@
+import produce from "immer"
+
 type Indices = [number, number, number]
 type Action =
   | { type: "START_FETCHING" }
@@ -46,31 +48,22 @@ const reducer = (state: PlanningState, action: Action) : PlanningState => {
       const { indices } = action.payload
       const { results } = state
       if (results === undefined) return state
-      const { lists, unplanned_cases: unplannedCases } = results
-      const list = lists[indices[0]]
-      if (list === undefined) return state
-      const itineraries = list.itineraries[indices[1]]
-      if (itineraries === undefined) return { ...state }
-      const itinerary = itineraries.splice(indices[2], 1)
-      lists[indices[0]].itineraries[indices[1]] = itineraries
-      unplannedCases.push(itinerary[0])
-      const updatedResults = { ...results, lists, unplanned_cases: unplannedCases }
-      return { ...state, results: updatedResults }
+      const nextResults = produce(results, draft => {
+        const itinerary = draft.lists[indices[0]].itineraries[indices[1]].splice(indices[2], 1)
+        draft.unplanned_cases.push(itinerary[0])
+      })
+      return { ...state, results: nextResults }
     }
     case "ADD_ITINERARY": {
       const { itinerary, indices } = action.payload
       const { results } = state
-      if (results === undefined) return { ...state }
-      const { lists, unplanned_cases: unplannedCases } = results
-      const list = lists[indices[0]]
-      if (list === undefined) return { ...state }
-      const itineraries = list.itineraries[indices[1]]
-      if (itineraries === undefined) return { ...state }
-      itineraries.push(itinerary)
-      lists[indices[0]].itineraries[indices[1]] = itineraries
-      const updatedUnplannedCases = unplannedCases.filter(item => item.case_id !== itinerary.case_id)
-      const updatedResults = { ...results, lists, unplanned_cases: updatedUnplannedCases }
-      return { ...state, results: updatedResults }
+      if (results === undefined) return state
+      const nextResults = produce(results, draft => {
+        draft.lists[indices[0]].itineraries[indices[1]].push(itinerary)
+        const index = draft.unplanned_cases.findIndex(item => item.case_id === itinerary.case_id)
+        if (index > -1) draft.unplanned_cases.splice(index, 1)
+      })
+      return { ...state, results: nextResults }
     }
     default:
       return state
