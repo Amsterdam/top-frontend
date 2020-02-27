@@ -45,10 +45,10 @@ const reducer = (state: PlanningState, action: Action) : PlanningState => {
     case "REMOVE_ITINERARY": {
       const { indices } = action.payload
       const { results } = state
-      if (results === undefined) return { ...state }
+      if (results === undefined) return state
       const { lists, unplanned_cases: unplannedCases } = results
       const list = lists[indices[0]]
-      if (list === undefined) return { ...state }
+      if (list === undefined) return state
       const itineraries = list.itineraries[indices[1]]
       if (itineraries === undefined) return { ...state }
       const itinerary = itineraries.splice(indices[2], 1)

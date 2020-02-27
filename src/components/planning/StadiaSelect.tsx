@@ -1,4 +1,4 @@
-import React, { FC, ReactElement } from "react"
+import React, { FC } from "react"
 import { Select } from "@datapunt/asc-ui"
 import noop from "../../lib/utils/noop"
 

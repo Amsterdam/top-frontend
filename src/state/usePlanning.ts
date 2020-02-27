@@ -55,44 +55,39 @@ const usePlanning = () : [PlanningState, PlanningActions] => {
     dispatch(createClear())
   }
 
-  const removeItinerary = (caseId: CaseId) => {
+  const getIndicesForCase = (caseId: CaseId) : number[] | undefined => {
     const { results } = state
-    if (results === undefined) return
-    let indices: [number, number, number] | undefined = undefined
-    results.lists
-      .forEach((list, index0) =>
-        list.itineraries.forEach(
+    if (results === undefined) return undefined
+    const indices = results.lists
+      .map((list, index0) =>
+        list.itineraries.map(
           (itineraries, index1) => {
             const index2 = itineraries.findIndex(itinerary => itinerary.case_id === caseId)
-            if (index2 !== -1) indices = [index0, index1, index2]
+            return [index0, index1, index2]
           }
         )
       )
+      .flat()
+      .filter(indices => indices[2] !== -1)
+      .flat()
+    return indices.length > 0 ? indices : undefined
+  }
+
+  const removeItinerary = (caseId: CaseId) => {
+    const indices = getIndicesForCase(caseId)
     if (indices === undefined) return
-    dispatch(createRemoveItinerary(indices))
+    dispatch(createRemoveItinerary(indices as [number, number, number]))
   }
 
   const addItinerary = (siblingCaseId: CaseId, caseId: CaseId) => {
     const { results } = state
     if (results === undefined) return
-    let indices: [number, number] | undefined = undefined
-    results.lists
-      .forEach((list, index0) =>
-        list.itineraries.forEach(
-          (itineraries, index1) => {
-            const index2 = itineraries.findIndex(itinerary => itinerary.case_id === siblingCaseId)
-            if (index2 !== -1) indices = [index0, index1]
-          }
-        )
-      )
-    console.log(indices)
+    const indices = getIndicesForCase(siblingCaseId)
     if (indices === undefined) return
     const { unplanned_cases: unplannedCases } = results
     const itinerary = unplannedCases.find(itinerary => itinerary.case_id === caseId)
-    console.log(itinerary)
     if (itinerary === undefined) return
-    console.log(itinerary, indices)
-    dispatch(createAddItinerary(itinerary, indices))
+    dispatch(createAddItinerary(itinerary, indices as [number, number, number]))
   }
 
   return [state, { initialize, generate, clear, removeItinerary, addItinerary }]

@@ -1,4 +1,4 @@
-import React, { FC, ReactElement } from "react"
+import React, { FC } from "react"
 import noop from "../../lib/utils/noop"
 
 type Props = {
