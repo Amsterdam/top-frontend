@@ -71,3 +71,17 @@ declare type PlanningActions = {
   removeItinerary: (a: CaseId) => void
   addItinerary: (a: CaseId, b: CaseId) => void
 }
+
+declare type PlanningSettingsState = {
+  isFetching: boolean
+  data?: {
+    projects: string[]
+    stadia: Stadia
+  }
+  errorMessage?: ErrorMessage
+}
+
+declare type PlanningSettingsActions = {
+  initialize: () => void
+  clear: () => void
+}

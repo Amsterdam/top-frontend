@@ -1,5 +1,6 @@
 import React, { FC } from "react"
 import noop from "../../lib/utils/noop"
+import useGlobalState from "../../hooks/useGlobalState"
 
 type Props = {
   selected?: Stadia
@@ -9,17 +10,13 @@ type Props = {
 
 const StadiaSelectMultiple: FC<Props> = ({ selected = [], disabled = false, onChange = noop }) => {
 
-  const stadia = [
-    "2de Controle",
-    "2de hercontrole",
-    "3de Controle",
-    "3de hercontrole",
-    "Avondronde",
-    "Hercontrole",
-    "Onderzoek advertentie",
-    "Onderzoek buitendienst",
-    "Weekend buitendienstonderzoek"
-  ]
+  const {
+    planningSettings: {
+      data: {
+        stadia = []
+      } = {}
+    }
+  } = useGlobalState()
 
   //const value = multiple ? selected : (selected[0] || "")
   const value = selected

@@ -5,18 +5,15 @@ import useOnChangeState from "../../hooks/useOnChangeState"
 import { getTitle } from "../../lib/days"
 import DayInputs from "./DayInputs"
 import { Button, Spinner } from "@datapunt/asc-ui"
-import { openingDate, openingReasons } from "../../config/planning"
 import createPlanningRequestBody from "../../lib/createPlanningRequestBody"
 import ErrorMessage from "../global/ErrorMessage"
+import PlanningSettings from "./PlanningSettings"
 
 const DayPartWrap = styled.div`
   padding-left: 150px
 `
 const Div = styled.div`
   display: flex
-`
-const SettingsDiv = styled.div`
-  margin-left: 24px
 `
 const Label = styled.label`
   font-weight: bold
@@ -115,15 +112,7 @@ const Planning: FC = () => {
           </ButtonWrap>
         </form>
       </div>
-      <SettingsDiv>
-        <h2>Settings</h2>
-        <Label>openings datum: </Label>
-        <p>{ openingDate }</p>
-        <Label>openings redenen: </Label>
-        <ul>
-          { openingReasons.map(reason => <li key={ reason }>{ reason }</li>) }
-        </ul>
-      </SettingsDiv>
+      <PlanningSettings />
     </Div>
   )
 }

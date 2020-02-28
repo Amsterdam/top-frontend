@@ -8,9 +8,10 @@ import NumberInput from "./NumberInput"
 import StadiaSelect from "./StadiaSelect"
 import StadiaSelectMultiple from "./StadiaSelectMultiple"
 import { Button, Spinner, Select } from "@datapunt/asc-ui"
-import { openingDate, openingReasons, listsDay } from "../../config/planning"
+import { listsDay } from "../../config/planning"
 import createPlanningRequestBody from "../../lib/createPlanningRequestBody"
 import ErrorMessage from "../global/ErrorMessage"
+import PlanningSettings from "./PlanningSettings"
 
 const SelectWrap = styled.div`
   width: 300px
@@ -24,9 +25,6 @@ const DayPartWrap = styled.div`
 `
 const Div = styled.div`
   display: flex
-`
-const SettingsDiv = styled.div`
-  margin-left: 24px
 `
 const Label = styled.label`
   font-weight: bold
@@ -232,15 +230,7 @@ const DayPlanning: FC = () => {
           </ButtonWrap>
         </form>
       </div>
-      <SettingsDiv>
-        <h2>Settings</h2>
-        <Label>openings datum: </Label>
-        <p>{ openingDate }</p>
-        <Label>openings redenen: </Label>
-        <ul>
-          { openingReasons.map(reason => <li key={ reason }>{ reason }</li>) }
-        </ul>
-      </SettingsDiv>
+      <PlanningSettings />
     </Div>
   )
 }

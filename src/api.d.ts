@@ -175,3 +175,5 @@ declare type PlanningResult = {
   error?: string
   data?: PlanningData
 }
+
+declare type PlanningSettingsData = any
