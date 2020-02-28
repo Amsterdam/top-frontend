@@ -39,7 +39,10 @@ const usePlanning = () : [PlanningState, PlanningActions] => {
 
       // Handle error responses
       if (notOk(response)) {
-        dispatch(createSetError(response.statusText))
+        const body = await response.text()
+        const status = response.statusText
+        const errorMessage = `${ status }: ${ body }`
+        dispatch(createSetError(errorMessage))
         return isForbidden(response) ? handleForbiddenResponse() : false
       }
 
