@@ -85,21 +85,21 @@ const DayPlanning: FC = () => {
   const defaultPlanning = listsDay(dayOfWeek)
 
   const [morning, onChangeMorning] = useOnChangeState("0")
-  const morningPrimaryStadiumDefault = (defaultPlanning[0] && defaultPlanning[0].primary_stadium) || ""
+  const morningPrimaryStadiumDefault = defaultPlanning[0] && defaultPlanning[0].primary_stadium
   const morningSecondaryStadiaDefault = (defaultPlanning[0] && defaultPlanning[0].secondary_stadia && defaultPlanning[0].secondary_stadia) || []
   const morningExcludeStadiaDefault = (defaultPlanning[0] && defaultPlanning[0].exclude_stadia && defaultPlanning[0].exclude_stadia) || []
   const [morningPrimaryStadium, onChangeMorningPrimaryStadium] = useOnChangeState(morningPrimaryStadiumDefault)
   const [morningSecondaryStadia, onChangeMorningSecondaryStadia] = useOnChangeStateMultiple(morningSecondaryStadiaDefault)
   const [morningExcludeStadia, onChangeMorningExcludeStadia] = useOnChangeStateMultiple(morningExcludeStadiaDefault)
   const [afternoon, onChangeAfternoon] = useOnChangeState("0")
-  const afternoonPrimaryStadiumDefault = (defaultPlanning[1] && defaultPlanning[1].primary_stadium) || ""
+  const afternoonPrimaryStadiumDefault = defaultPlanning[1] && defaultPlanning[1].primary_stadium
   const afternoonSecondaryStadiaDefault = (defaultPlanning[1] && defaultPlanning[1].secondary_stadia && defaultPlanning[1].secondary_stadia) || []
   const afternoonExcludeStadiaDefault = (defaultPlanning[1] && defaultPlanning[1].exclude_stadia && defaultPlanning[1].exclude_stadia) || []
   const [afternoonPrimaryStadium, onChangeAfternoonPrimaryStadium] = useOnChangeState(afternoonPrimaryStadiumDefault)
   const [afternoonSecondaryStadia, onChangeAfternoonSecondaryStadia] = useOnChangeStateMultiple(afternoonSecondaryStadiaDefault)
   const [afternoonExcludeStadia, onChangeAfternoonExcludeStadia] = useOnChangeStateMultiple(afternoonExcludeStadiaDefault)
   const [evening, onChangeEvening] = useOnChangeState("0")
-  const eveningPrimaryStadiumDefault = (defaultPlanning[2] && defaultPlanning[2].primary_stadium) || ""
+  const eveningPrimaryStadiumDefault = defaultPlanning[2] && defaultPlanning[2].primary_stadium
   const eveningSecondaryStadiaDefault = (defaultPlanning[2] && defaultPlanning[2].secondary_stadia && defaultPlanning[2].secondary_stadia) || []
   const eveningExcludeStadiaDefault = (defaultPlanning[2] && defaultPlanning[2].exclude_stadia && defaultPlanning[2].exclude_stadia) || []
   const [eveningPrimaryStadium, onChangeEveningPrimaryStadium] = useOnChangeState(eveningPrimaryStadiumDefault)
@@ -114,38 +114,38 @@ const DayPlanning: FC = () => {
   const createConfig = () => {
     const config = []
     const morningNum = parseInt(morning, 10)
-    if (morningNum > 0) {
-      config.push({
+    config.push(
+      morningNum > 0 ?
+      {
         number_of_lists: morningNum,
-        primary_stadium: morningPrimaryStadium,
-        secondary_stadia: morningSecondaryStadia.filter(item => item !== ""),
-        exclude_stadia: morningExcludeStadia.filter(item => item !== "")
-      })
-    } else {
-      config.push({ number_of_lists: 0 })
-    }
+        primary_stadium: morningPrimaryStadium || undefined,
+        secondary_stadia: morningSecondaryStadia,
+        exclude_stadia: morningExcludeStadia
+      } :
+      { number_of_lists: 0 }
+    )
     const afternoonNum = parseInt(afternoon, 10)
-    if (afternoonNum > 0) {
-      config.push({
+    config.push(
+      afternoonNum > 0 ?
+      {
         number_of_lists: afternoonNum,
-        primary_stadium: afternoonPrimaryStadium,
-        secondary_stadia: afternoonSecondaryStadia.filter(item => item !== ""),
-        exclude_stadia: afternoonExcludeStadia.filter(item => item !== "")
-      })
-    } else {
-      config.push({ number_of_lists: 0 })
-    }
+        primary_stadium: afternoonPrimaryStadium || undefined,
+        secondary_stadia: afternoonSecondaryStadia,
+        exclude_stadia: afternoonExcludeStadia
+      } :
+      { number_of_lists: 0 }
+    )
     const eveningNum = parseInt(evening, 10)
-    if (eveningNum > 0) {
-      config.push({
+    config.push(
+      eveningNum > 0 ?
+      {
         number_of_lists: eveningNum,
-        primary_stadium: eveningPrimaryStadium,
+        primary_stadium: eveningPrimaryStadium || undefined,
         secondary_stadia: eveningSecondaryStadia,
         exclude_stadia: eveningExcludeStadia
-      })
-    } else {
-      config.push({ number_of_lists: 0 })
-    }
+      } :
+      { number_of_lists: 0 }
+    )
     return config
   }
 
@@ -153,7 +153,6 @@ const DayPlanning: FC = () => {
     event.preventDefault()
     const config = createConfig()
     const params = createPlanningRequestBody(config, dayState)
-    console.log(params)
     generate(params)
   }
 
