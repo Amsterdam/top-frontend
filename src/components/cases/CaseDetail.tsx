@@ -222,7 +222,12 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
 
   // Statements
   const statements = caseItem.statements.map(
-    ({ user, date, statement }) => <P>{ formatDate(date, true) }<br /><strong>{ user }</strong><br />{ statement }</P>)
+    ({ user, date, statement }) =>
+      <Purified
+        className="anonymous"
+        text={ `${ formatDate(date, true) }<br /><strong>${ user }</strong><br />${ replaceNewLines(replaceUrls(statement)) }` }
+        />
+      )
   const showStatements = statements.length > 0
 
   // Stadia
