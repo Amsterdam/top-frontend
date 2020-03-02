@@ -8,12 +8,6 @@ RUN npm ci --unsafe-perm .
 RUN npm run build
 RUN cp serve.json build/
 
-# tmp hack to make path work
-RUN mkdir -p build/looplijsten
-RUN cp build/*.* build/looplijsten/
-RUN cp -r build/static build/looplijsten/
-RUN cp -r build/icons build/looplijsten/
-
 EXPOSE 7000
 
-CMD npm run serve
+CMD npm run serve -n

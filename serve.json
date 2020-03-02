@@ -1,7 +1,6 @@
 {
   "directoryListing": false,
   "rewrites": [
-
     { "source": "login", "destination": "/index.html" },
     { "source": "authentication/callback", "destination": "/index.html" },
     { "source": "zoeken", "destination": "/index.html" },
@@ -10,16 +9,6 @@
     { "source": "notes/*", "destination": "/index.html" },
     { "source": "planning", "destination": "/index.html" },
     { "source": "planning/*", "destination": "/index.html" },
-    { "source": "dagplanning", "destination": "/index.html" },
-
-    { "source": "looplijsten/login", "destination": "/looplijsten/index.html" },
-    { "source": "looplijsten/authentication/callback", "destination": "/looplijsten/index.html" },
-    { "source": "looplijsten/zoeken", "destination": "/looplijsten/index.html" },
-    { "source": "looplijsten/parse", "destination": "/looplijsten/index.html" },
-    { "source": "looplijsten/cases/*", "destination": "/looplijsten/index.html" },
-    { "source": "looplijsten/notes/*", "destination": "/looplijsten/index.html" },
-    { "source": "looplijsten/planning", "destination": "/looplijsten/index.html" },
-    { "source": "looplijsten/planning/*", "destination": "/looplijsten/index.html" },
-    { "source": "looplijsten/dagplanning", "destination": "/looplijsten/index.html" }
+    { "source": "dagplanning", "destination": "/index.html" }
   ]
 }
