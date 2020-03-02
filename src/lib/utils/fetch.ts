@@ -46,4 +46,4 @@ export const del = async (url: URL) => await fetch(url, "DELETE", undefined, fal
 // utils
 export const isOk = (response: OResponse) => response && response.ok
 export const notOk = (response: OResponse) => !isOk(response)
-export const isForbidden = (response: OResponse) => response && response.status === 403
+export const isForbidden = (response: OResponse) => response && (response.status === 401 || response.status === 403)
