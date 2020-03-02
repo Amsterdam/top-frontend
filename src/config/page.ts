@@ -1,6 +1,4 @@
-import { isAcc } from "./environment"
-
-export const basepath = isAcc ? "/looplijsten/" : "/"
+export const basepath = "/"
 
 export const to = (path: string = "") => {
   return `${ basepath }${ path }`

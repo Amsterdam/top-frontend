@@ -3,13 +3,9 @@ import queryParams from "../lib/utils/queryParams"
 import { basepath } from "./page"
 
 const domain =
-  isProduction ? "https://top.amsterdam.nl/" :
-  isAcc || forceAcc ? "https://acc.api.straatnotes.amsterdam.nl/" :
+  isProduction ? "https://api.top.amsterdam.nl/" :
+  isAcc || forceAcc ? "https://acc.api.top.amsterdam.nl/" :
   "http://localhost:8000/"
-const pathPrefix =
-  isProduction ? "api/looplijsten/" :
-  isAcc || forceAcc ? "looplijsten/" :
-  "looplijsten/"
 const apiPath = "api/v1/"
 const authPath = "credentials-authenticate/"
 const authOIDCPath = "oidc-authenticate/"
@@ -17,7 +13,6 @@ const isAuthenticatedPath = "is-authenticated/"
 
 const config = {
   domain,
-  pathPrefix,
   apiPath,
   authPath,
   isAuthenticatedPath,
@@ -26,25 +21,22 @@ const config = {
 export default config
 
 export const getUrl = (path: string, params?: QueryParams) => {
-  const { domain, pathPrefix, apiPath } = config
+  const { domain, apiPath } = config
   const shouldAppendSlash = path.substr(-1) !== "/"
-  const url = `${ domain }${ pathPrefix }${ apiPath }${ path }${ shouldAppendSlash ? "/" : "" }`
+  const url = `${ domain }${ apiPath }${ path }${ shouldAppendSlash ? "/" : "" }`
   return `${ url }${ params ? queryParams(params) : "" }`
 }
 
-export const getIsAuthenticatedUrl = () => {
-  const { domain, pathPrefix, isAuthenticatedPath } = config
-  return `${ domain }${ pathPrefix }${ isAuthenticatedPath }`
-}
-
 export const getAuthUrl = () => {
-  const { domain, pathPrefix, authPath } = config
-  return `${ domain }${ pathPrefix }${ authPath }`
+  return getUrl(authPath)
 }
 
 export const getAuthOIDCUrl = () => {
-  const { domain, pathPrefix, authOIDCPath } = config
-  return `${ domain }${ pathPrefix }${ authOIDCPath }`
+  return getUrl(authOIDCPath)
+}
+
+export const getIsAuthenticatedUrl = () => {
+  return getUrl(isAuthenticatedPath)
 }
 
 export const getOIDCProviderUrl = () => {
@@ -56,7 +48,7 @@ export const getOIDCProviderUrl = () => {
   const redirectProtocol = isProduction || isAcc ? "https://" : "http://"
   const redirectDomain =
     isProduction ? "top.amsterdam.nl" :
-    isAcc ? "acc.straatnotes.amsterdam.nl" :
+    isAcc ? "acc.top.amsterdam.nl" :
     forceAcc ? "localhost:3001" :
     "localhost:3000"
   const redirectUri = `${ redirectProtocol }${ redirectDomain }${ basepath }authentication/callback`
