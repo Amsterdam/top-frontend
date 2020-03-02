@@ -6,6 +6,7 @@ import Navigation from "../components/global/Navigation"
 type Props = RouteComponentProps
 
 const SearchPage: FC<Props> = () => {
+
   return (
     <>
       <Navigation />

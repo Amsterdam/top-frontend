@@ -17,6 +17,7 @@ import PlanningResultPage from "./pages/PlanningResultPage"
 import LoginPage from "./pages/LoginPage"
 import NotFoundPage from "./pages/NotFoundPage"
 import LoginCallbackPage from "./pages/LoginCallbackPage"
+import PageOverlay from "./components/global/PageOverlay"
 
 const Main = styled.main`
   margin: 15px
@@ -36,6 +37,7 @@ const App: FC = () => {
         <Anonymous />
         <div className="App">
           <HeaderWrap />
+          <PageOverlay />
           <Main>
             <Router basepath={ basepath }>
               <ItinerariesPage path="/" />

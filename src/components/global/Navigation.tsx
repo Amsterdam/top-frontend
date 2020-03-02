@@ -11,7 +11,7 @@ const NavWrap = styled.div`
   width: 100%
   top: 50px
   left: 0
-  z-index: 9999
+  z-index: 99
 `
 
 const Nav = styled.nav`
