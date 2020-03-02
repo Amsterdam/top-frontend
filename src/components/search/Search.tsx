@@ -12,7 +12,7 @@ const Div = styled.div`
   justify-content: flex-end
   a {
     position: relative
-    top: -33px
+    top: -45px
     padding: 12px 15px
     margin-bottom: 0
   }

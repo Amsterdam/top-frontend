@@ -26,7 +26,7 @@ const ButtonOuter = styled.div`
 const ClearButtonWrap = styled.div`
   display: inline-block
   width: 50%
-  margin-top: 12px
+  vertical-align: top
 `
 const AddAllButtonWrap = styled.div`
   display: flex
