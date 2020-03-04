@@ -1,9 +1,8 @@
 import React, { FC, useMemo } from "react"
 import useGlobalState from "../../hooks/useGlobalState"
 import styled from "styled-components"
-import Logout from "../auth/Logout"
-import { Button } from "@datapunt/asc-ui"
-import { Login as LoginIcon } from "@datapunt/asc-assets"
+import Logout from "./Logout"
+import LoginAnchor from "./LoginAnchor"
 import { getOIDCProviderUrl } from "../../config/api"
 import ErrorMessage from "../global/ErrorMessage"
 import authToken from "../../lib/authToken"
@@ -23,8 +22,6 @@ const Login: FC = () => {
       user
     }
   } = useGlobalState()
-
-  const gripUri = useMemo(getOIDCProviderUrl, [])
 
   const showErrorMessage = errorMessage !== undefined
 
@@ -60,7 +57,7 @@ const Login: FC = () => {
       }
       { showButton &&
         <div>
-          <a href={ gripUri }>Log in met je ADW account</a>
+          <LoginAnchor />
         </div>
       }
     </Div>
