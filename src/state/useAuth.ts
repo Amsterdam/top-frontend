@@ -1,16 +1,16 @@
 import { useReducer } from "react"
 import reducer, {
   initialState,
-  createStartFetching,
   createInitialize,
   createSetErrorMessage,
   createAuthenticate,
   createUnAuthenticate
 } from "./authReducer"
 import authToken from "../lib/authToken"
-import { get, post, notOk } from "../lib/utils/fetch"
-import { getAuthUrl, getIsAuthenticatedUrl } from "../config/api"
-import { isLoginPage, isLoginCallbackPage } from "../config/page"
+import authUser from "../lib/authUser"
+import { get } from "../lib/utils/fetch"
+import { getIsAuthenticatedUrl } from "../config/api"
+import { isLoginCallbackPage } from "../config/page"
 import { navigateToHome, navigateToLogin } from "../lib/navigateTo"
 import logoutGrip from "../lib/logoutGrip"
 
@@ -33,65 +33,39 @@ const useAuth = () : [AuthState, AuthActions] => {
     const isAuthorized = await isAuthenticated()
     if (isAuthorized) {
       const token = authToken.get()
-      dispatch(createInitialize(token))
-      if (isLoginPage()) navigateToHome()
+      const user = authUser.get()
+      dispatch(createInitialize(token, user))
       return true
     } else {
+      dispatch(createInitialize())
       if (!isLoginCallbackPage()) navigateToLogin()
       return false
     }
   }
 
-  const authenticate = async (email: Email, password: Password) : Promise<boolean> => {
-
-    dispatch(createStartFetching())
-
-    const url = getAuthUrl()
-    const [response, result, errorMessage] = await post(url, { email, password })
-
-    // Handle error responses
-    if (notOk(response)) {
-      const message =
-        response !== undefined && response.status === 401 ? "Ongeldige email, wachtwoord combinatie" :
-        errorMessage !== undefined ? errorMessage! :
-        String(response.status)
-      dispatch(createSetErrorMessage(message))
-      return false
-    }
-
-    // Handle successful login
-    const { access: token } = result
+  const authenticate = (token: AuthToken, user: AuthUser) : boolean => {
     const validToken = authToken.set(token)
     if (!validToken) {
       const message = "Ongeldige auth token"
       dispatch(createSetErrorMessage(message))
       return false
     }
-    dispatch(createAuthenticate(token))
+    authUser.set(user)
+    dispatch(createAuthenticate(token, user))
     navigateToHome()
     return true
   }
 
-  const authenticateToken = (token: AuthToken) : boolean => {
-    const validToken = authToken.set(token)
-    if (!validToken) {
-      const message = "Ongeldige auth token"
-      dispatch(createSetErrorMessage(message))
-      return false
-    }
-    dispatch(createAuthenticate(token))
-    navigateToHome()
-    return true
-  }
-
-  const unAuthenticate = (navigate = true) => {
+  const unAuthenticate = (navigate = true, errorMessage?: string) => {
     authToken.clear()
+    authUser.clear()
     logoutGrip()
     dispatch(createUnAuthenticate())
+    if (errorMessage !== undefined) dispatch(createSetErrorMessage(errorMessage))
     if (navigate) navigateToLogin()
   }
 
-  return [auth, { initialize, authenticate, authenticateToken, unAuthenticate }]
+  return [auth, { initialize, authenticate, unAuthenticate }]
 }
 
 export default useAuth

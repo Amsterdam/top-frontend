@@ -28,12 +28,11 @@ type Value = {
     isAnonymous: boolean
     toggleIsAnonymous: () => void
 
-    authenticate: (a: Email, b: Password) => void
-    authenticateToken: (a: AuthToken) => void
+    authenticate: (a: AuthToken, b: AuthUser) => void
 
     isInitialized: boolean
 
-    clear: () => void
+    clear: (a?: ErrorMessage) => void
   }
 }
 
@@ -42,8 +41,7 @@ const value = {
     auth: authState,
     authActions: {
       initialize: async () => false,
-      authenticate: async (a: Email, b: Password) => false,
-      authenticateToken: (a: AuthToken) => false,
+      authenticate: (a: AuthToken, b: AuthUser) => false,
       unAuthenticate: noop,
     },
 
@@ -84,12 +82,11 @@ const value = {
     isAnonymous: false,
     toggleIsAnonymous: noop,
 
-    authenticate: async (a: Email, b: Password) => {},
-    authenticateToken: (a: AuthToken) => {},
+    authenticate: (a: AuthToken, b: AuthUser) => {},
 
     isInitialized: false,
 
-    clear: noop
+    clear: (a?: ErrorMessage) => {}
   }
 } as Value
 

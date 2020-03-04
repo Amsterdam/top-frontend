@@ -1,73 +1,66 @@
-import React, { FC, FormEvent, useMemo } from "react"
+import React, { FC, useMemo } from "react"
 import useGlobalState from "../../hooks/useGlobalState"
-import useOnChangeState from "../../hooks/useOnChangeState"
 import styled from "styled-components"
+import Logout from "../auth/Logout"
 import { Button } from "@datapunt/asc-ui"
 import { Login as LoginIcon } from "@datapunt/asc-assets"
 import { getOIDCProviderUrl } from "../../config/api"
-
 import ErrorMessage from "../global/ErrorMessage"
-import Input from "../styled/Input"
-
-const Form = styled.form`
-  width: 100%
-  max-width: 300px
-`
+import authToken from "../../lib/authToken"
 
 const Div = styled.div`
-  margin: 32px 0 0 0
-  display: flex
-  align-items: center
-  justify-content: center
-  flex-direction: column
-  height: 75vh
-`
-
-const InputLoginForm = styled(Input)`
-  width: 100%
-  display: block
-  margin-bottom: 18px
+  margin-top: 200px
+  text-align: center
 `
 
 const LoginForm: FC = () => {
 
   const {
-    authenticate,
     auth: {
-      isFetching,
-      errorMessage
+      isInitialized,
+      errorMessage,
+      token,
+      user
     }
   } = useGlobalState()
 
-  const [email, onChangeEmail] = useOnChangeState()
-  const [password, onChangePassword] = useOnChangeState()
-
-  const onSubmit = async (event: FormEvent) => {
-    event.preventDefault()
-    await authenticate(email, password)
-  }
-
   const gripUri = useMemo(getOIDCProviderUrl, [])
 
-  const isDisabled = isFetching
   const showErrorMessage = errorMessage !== undefined
+
+  const decodedToken = token !== undefined ? authToken.decode(token) : undefined
+  const hasSession = decodedToken !== undefined
+  const showSession = hasSession
+  const hasUser = user !== undefined
+  const { email = undefined, firstName = undefined } = user || {}
+  const showCredentials = email !== undefined && firstName !== undefined
+  const exp = decodedToken !== undefined ? decodedToken.exp : 0
+  const date = new Date(exp)
+  const time = `${ date.getHours() }:${ date.getMinutes() }`
+  const showButton = isInitialized && !hasSession
+  const showLogout = isInitialized && hasSession
 
   return (
     <Div className="Login">
-      <Form onSubmit={ onSubmit }>
-        <h1>Looplijsten vakantieverhuur login</h1>
-        <InputLoginForm type="email" placeholder="email" value={ email } onChange={ onChangeEmail } />
-        <InputLoginForm type="password" placeholder="wachtwoord" value={ password } onChange={ onChangePassword } />
-        { showErrorMessage &&
-          <ErrorMessage text={ errorMessage! } />
-        }
-        <Button variant="application" iconLeft={ <LoginIcon /> } disabled={ isDisabled }>Inloggen</Button>
-      </Form>
-      <h2>
-          <a href={gripUri}>
-            Login met KPN Grip
-          </a>
-        </h2>
+      { showErrorMessage &&
+        <ErrorMessage text={ errorMessage! } />
+      }
+      { showSession &&
+        <p>
+          { showCredentials &&
+            <>Ingelogd als: <strong>{ firstName }</strong> ({ email })<br /></>
+          }
+          Je sessie verloopt: <strong>{ time }</strong> uur
+        </p>
+      }
+      { showLogout &&
+        <Logout />
+      }
+      { showButton &&
+        <div>
+          <a href={ gripUri }>Log in met je ADW account</a>
+        </div>
+      }
     </Div>
   )
 }

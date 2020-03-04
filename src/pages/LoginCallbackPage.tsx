@@ -18,7 +18,7 @@ const Div = styled.div`
 const LoginCallbackPage: FC<RouteComponentProps> = () => {
 
   const {
-    authenticateToken
+    authenticate
   } = useGlobalState()
 
   const [loading, setLoading] = useState(false)
@@ -41,8 +41,8 @@ const LoginCallbackPage: FC<RouteComponentProps> = () => {
       const message = `Er ging iets mis bij het inloggen. HTTP Status: ${ httpStatus }`
       setErrorMessage(message)
     } else {
-      const { access } = result
-      authenticateToken(access)
+      const { access, user: { email, first_name: firstName } } = result
+      authenticate(access, { firstName, email })
     }
 
     setLoading(false)

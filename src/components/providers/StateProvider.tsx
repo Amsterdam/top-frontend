@@ -41,13 +41,8 @@ const StateProvider: FC<Props> = ({ children }) => {
   const [planning, planningActions] = usePlanning()
 
   // authenticate
-  const authenticate = async (email: Email, password: Password) => {
-    const isSuccess = await authActions.authenticate(email, password)
-    if (isSuccess) initialize()
-  }
-
-  const authenticateToken = (token: AuthToken) => {
-    const isSuccess = authActions.authenticateToken(token)
+  const authenticate = (token: AuthToken, user: AuthUser) => {
+    const isSuccess = authActions.authenticate(token, user)
     if (isSuccess) initialize()
   }
 
@@ -64,9 +59,9 @@ const StateProvider: FC<Props> = ({ children }) => {
   }
 
   // clear
-  const clear = () => {
+  const clear = (errorMessage?: ErrorMessage) => {
     const shouldNavigateToLogin = !isLoginCallbackPage()
-    authActions.unAuthenticate(shouldNavigateToLogin)
+    authActions.unAuthenticate(shouldNavigateToLogin, errorMessage)
     itinerariesActions.clear()
     planningActions.clear()
   }
@@ -104,7 +99,6 @@ const StateProvider: FC<Props> = ({ children }) => {
       toggleIsAnonymous,
 
       authenticate,
-      authenticateToken,
 
       isInitialized,
 

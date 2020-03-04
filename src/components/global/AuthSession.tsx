@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from "react"
+import { FC, useEffect } from "react"
 import authToken from "../../lib/authToken"
 import useGlobalState from "../../hooks/useGlobalState"
 
@@ -15,9 +15,10 @@ const AuthSession: FC = () => {
     if (token === undefined) return
     const { exp } = authToken.decode(token)
     window.setInterval(() => {
-      if (Date.now() > exp * 1000) clear()
+      if (Date.now() > exp) clear("Sessie verlopen")
     }, interval)
-  }, [token])
+  }, [token, clear, interval])
+
   return null
 }
 

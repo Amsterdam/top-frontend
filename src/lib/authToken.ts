@@ -1,6 +1,6 @@
 import jwtDecode from "jwt-decode"
 
-const key = "vakantieverhuur-looplijsten-token"
+const key = "top-authtoken"
 // A regular expression that detects a valid JWT token
 const regExp = /^[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*$/
 
@@ -35,7 +35,9 @@ const clear = () : boolean => {
 }
 
 const decode = (token: AuthToken) : DecodedAuthToken => {
-  return jwtDecode(token)
+  const decodedToken = jwtDecode(token) as DecodedAuthToken
+  decodedToken.exp = decodedToken.exp * 1000
+  return decodedToken
 }
 
 export default { get, set, clear, decode }
