@@ -1,9 +1,8 @@
-import React, { FC, useMemo } from "react"
+import React, { FC } from "react"
 import useGlobalState from "../../hooks/useGlobalState"
 import styled from "styled-components"
 import Logout from "./Logout"
 import LoginAnchor from "./LoginAnchor"
-import { getOIDCProviderUrl } from "../../config/api"
 import ErrorMessage from "../global/ErrorMessage"
 import authToken from "../../lib/authToken"
 
