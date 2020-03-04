@@ -13,7 +13,7 @@ const Div = styled.div`
   text-align: center
 `
 
-const LoginForm: FC = () => {
+const Login: FC = () => {
 
   const {
     auth: {
@@ -65,4 +65,4 @@ const LoginForm: FC = () => {
   )
 }
 
-export default LoginForm
+export default Login

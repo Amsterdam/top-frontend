@@ -1,11 +1,11 @@
 import React, { FC } from "react"
 import { RouteComponentProps } from "@reach/router"
-import LoginForm from "../components/auth/LoginForm"
+import Login from "../components/auth/Login"
 
 const LoginPage: FC<RouteComponentProps> = () => {
   return (
     <>
-      <LoginForm />
+      <Login />
     </>
   )
 }
