@@ -36,7 +36,9 @@ const Login: FC = () => {
   const showCredentials = email !== undefined && firstName !== undefined
   const exp = decodedToken !== undefined ? decodedToken.exp : 0
   const date = new Date(exp)
-  const time = `${ date.getHours() }:${ date.getMinutes() }`
+  const hours = date.getHours()
+  const minutes = date.getMinutes()
+  const time = `${ hours < 10 ? `0${ hours }` : hours }:${ minutes < 10 ? `0${ minutes }` : minutes }`
   const showButton = isInitialized && !hasSession
   const showLogout = isInitialized && hasSession
 
