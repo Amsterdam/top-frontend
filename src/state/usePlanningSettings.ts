@@ -11,7 +11,6 @@ import reducer, {
 import { get, post, notOk, isForbidden } from "../lib/utils/fetch"
 import { getUrl } from "../config/api"
 import handleForbiddenResponse from "../lib/handleForbiddenResponse"
-import { listsWeek } from "../config/planning"
 
 const usePlanningSettings = () : [PlanningSettingsState, PlanningSettingsActions] => {
 
@@ -44,13 +43,15 @@ const usePlanningSettings = () : [PlanningSettingsState, PlanningSettingsActions
   }
 
   const saveSettings = async (openingDate: string, openingReasons: string[]) => {
-    const prevSettings = state.data && state.data.settings
+    const { data } = state
+    if (data === undefined) return
+    const { settings: prevSettings } = data
     if (prevSettings === undefined) return
-    const settings = { lists: listsWeek, opening_date: openingDate, opening_reasons: openingReasons }
+    const settings = { ...prevSettings, opening_date: openingDate, opening_reasons: openingReasons }
     dispatch(createStartUpdating())
     const [response] = await post(getUrl("settings/planner"), settings)
     if (notOk(response)) dispatch(createSetError("Opslaan mislukt"))
-    dispatch(createSetData({ ...state.data, settings }))
+    dispatch(createSetData({ ...data, settings }))
   }
 
   return [state, { initialize, saveSettings, clear }]

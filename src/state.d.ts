@@ -78,7 +78,7 @@ declare type PlanningSettingsState = {
   data?: {
     projects: string[]
     stadia: Stadia
-    settings: any
+    settings: PlanningSettings
   }
   errorMessage?: ErrorMessage
 }

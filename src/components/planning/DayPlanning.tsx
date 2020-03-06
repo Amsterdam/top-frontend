@@ -89,7 +89,7 @@ const DayPlanning: FC = () => {
   const tomorrow = day + 1 > 6 ? 0 : day + 1
   const dayOfWeek = tomorrow - 1 < 0 ? 6 : tomorrow - 1 // correct sunday => 6
 
-  const defaultPlanning = lists !== undefined ? listsDay(lists, dayOfWeek) : []
+  const defaultPlanning = lists !== undefined ? listsDay(lists!, dayOfWeek) : []
 
   const [morning, onChangeMorning, setMorning] = useOnChangeState("0")
   const morningPrimaryStadiumDefault = defaultPlanning[0] && defaultPlanning[0].primary_stadium
@@ -120,7 +120,7 @@ const DayPlanning: FC = () => {
 
   useEffect(() => {
     if (lists === undefined) return
-    const dayLists = listsDay(lists, dayState)
+    const dayLists = listsDay(lists!, dayState)
     dayLists.forEach((list: any, index: number) => {
       const setState =
         index === 0 ? setMorning :

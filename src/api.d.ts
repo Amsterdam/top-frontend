@@ -176,4 +176,21 @@ declare type PlanningResult = {
   data?: PlanningData
 }
 
-declare type PlanningSettingsData = any
+declare type SettingsList = {
+  name: string
+  number_of_lists: number
+  length_of_lists: number
+  primary_stadium?: Stadium
+  secondary_stadia?: Stadia
+  excluded_stadia?: Stadia
+}
+declare type PlanningSettings = {
+  opening_date: string
+  opening_reasons: string[]
+  lists: SettingsList[]
+}
+declare type PlanningSettingsData = {
+  projects: string[]
+  stadia: Stadia
+  settings: PlanningSettings
+}
