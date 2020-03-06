@@ -52,7 +52,7 @@ const PlanningResult: FC = () => {
   const listsTuesdayAfternoon = listsTuesday.filter(list => list.name.match(/Middag$/) && list.number_of_lists > 0)
   const listsTuesdayPrimary: MorningOrAfternoon =
     (listsTuesdayMorning[0] ? listsTuesdayMorning[0].itineraries.length : 0) >=
-    (listsTuesdayAfternoon[0] ? listsTuesdayMorning[0].itineraries.length : 0) ?
+    (listsTuesdayAfternoon[0] ? listsTuesdayAfternoon[0].itineraries.length : 0) ?
     "morning" :
     "afternoon"
   const listsTuesdayToMap = listsTuesdayPrimary === "morning" ? listsTuesdayMorning : listsTuesdayAfternoon

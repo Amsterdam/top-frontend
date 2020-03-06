@@ -38,16 +38,19 @@ export const listsWeek: Lists =
   [
     {
       name: "Maandag Ochtend",
+      number_of_lists: 0,
       length_of_lists: listLength,
       exclude_stadia: ["Avondronde", "Weekend buitendienstonderzoek"]
     },
     {
       name: "Maandag Middag",
+      number_of_lists: 0,
       length_of_lists: listLength,
       exclude_stadia: ["Avondronde", "Weekend buitendienstonderzoek"]
     },
     {
       name: "Maandag Avond",
+      number_of_lists: 0,
       length_of_lists: listLength,
       primary_stadium: "Avondronde",
       secondary_stadia: [
@@ -59,16 +62,19 @@ export const listsWeek: Lists =
     },
     {
       name: "Dinsdag Ochtend",
+      number_of_lists: 0,
       length_of_lists: listLength,
       exclude_stadia: ["Avondronde", "Weekend buitendienstonderzoek"]
     },
     {
       name: "Dinsdag Middag",
+      number_of_lists: 0,
       length_of_lists: listLength,
       exclude_stadia: ["Avondronde", "Weekend buitendienstonderzoek"]
     },
     {
       name: "Dinsdag Avond",
+      number_of_lists: 0,
       length_of_lists: listLength,
       primary_stadium: "Avondronde",
       secondary_stadia: [
@@ -80,16 +86,19 @@ export const listsWeek: Lists =
     },
     {
       name: "Woensdag Ochtend",
+      number_of_lists: 0,
       length_of_lists: listLength,
       exclude_stadia: ["Avondronde", "Weekend buitendienstonderzoek"]
     },
     {
       name: "Woensdag Middag",
+      number_of_lists: 0,
       length_of_lists: listLength,
       exclude_stadia: ["Avondronde", "Weekend buitendienstonderzoek"]
     },
     {
       name: "Woensdag Avond",
+      number_of_lists: 0,
       length_of_lists: listLength,
       primary_stadium: "Avondronde",
       secondary_stadia: [
@@ -101,6 +110,7 @@ export const listsWeek: Lists =
     },
     {
       name: "Donderdag Ochtend",
+      number_of_lists: 0,
       length_of_lists: listLength,
       primary_stadium: "Onderzoek buitendienst",
       secondary_stadia: [
@@ -111,6 +121,7 @@ export const listsWeek: Lists =
     },
     {
       name: "Donderdag Middag",
+      number_of_lists: 0,
       length_of_lists: listLength,
       primary_stadium: "Onderzoek buitendienst",
       secondary_stadia: [
@@ -121,6 +132,7 @@ export const listsWeek: Lists =
     },
     {
       name: "Donderdag Avond",
+      number_of_lists: 0,
       length_of_lists: listLength,
       primary_stadium: "Avondronde",
       secondary_stadia: [
@@ -132,6 +144,7 @@ export const listsWeek: Lists =
     },
     {
       name: "Vrijdag Ochtend",
+      number_of_lists: 0,
       length_of_lists: listLength,
       primary_stadium: "Onderzoek buitendienst",
       secondary_stadia: [
@@ -142,6 +155,7 @@ export const listsWeek: Lists =
     },
     {
       name: "Vrijdag Middag",
+      number_of_lists: 0,
       length_of_lists: listLength,
       primary_stadium: "Onderzoek buitendienst",
       secondary_stadia: [
@@ -152,6 +166,7 @@ export const listsWeek: Lists =
     },
     {
       name: "Vrijdag Avond",
+      number_of_lists: 0,
       length_of_lists: listLength,
       primary_stadium: "Avondronde",
       secondary_stadia: [
@@ -163,6 +178,7 @@ export const listsWeek: Lists =
     },
     {
       name: "Zaterdag Weekend",
+      number_of_lists: 0,
       length_of_lists: listLengthLong,
       primary_stadium: "Weekend buitendienstonderzoek",
       secondary_stadia: [
@@ -174,6 +190,7 @@ export const listsWeek: Lists =
     },
     {
       name: "Zondag Weekend",
+      number_of_lists: 0,
       length_of_lists: listLengthLong,
       primary_stadium: "Weekend buitendienstonderzoek",
       secondary_stadia: [
@@ -184,11 +201,11 @@ export const listsWeek: Lists =
       exclude_stadia: ["Avondronde"]
     }
   ]
-export const listsDay = (dayOfWeek: number) => {
-    const isWeekend = dayOfWeek > 4
-    const isSunday = dayOfWeek === 6
-    const start = isSunday ? 16 : dayOfWeek * 3
-    const length = isWeekend ? 1 : 3
-    const lists = listsWeek.slice(start, start + length)
-    return lists
-  }
+export const listsDay = (listsWeek: Lists, dayOfWeek: number) => {
+  const isWeekend = dayOfWeek > 4
+  const isSunday = dayOfWeek === 6
+  const start = isSunday ? 16 : dayOfWeek * 3
+  const length = isWeekend ? 1 : 3
+  const lists = listsWeek.slice(start, start + length)
+  return lists
+}

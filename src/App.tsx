@@ -7,6 +7,8 @@ import { basepath } from "./config/page"
 import Anonymous from "./components/global/Anonymous"
 import HeaderWrap from "./components/global/HeaderWrap"
 import ItinerariesPage from "./pages/ItinerariesPage"
+import LoginPage from "./pages/LoginPage"
+import LoginCallbackPage from "./pages/LoginCallbackPage"
 import SearchPage from "./pages/SearchPage"
 import ParsePage from "./pages/ParsePage"
 import CasePage from "./pages/CasePage"
@@ -14,9 +16,8 @@ import NotePage from "./pages/NotePage"
 import PlanningPage from "./pages/PlanningPage"
 import DayPlanningPage from "./pages/DayPlanningPage"
 import PlanningResultPage from "./pages/PlanningResultPage"
-import LoginPage from "./pages/LoginPage"
+import SettingsPage from "./pages/SettingsPage"
 import NotFoundPage from "./pages/NotFoundPage"
-import LoginCallbackPage from "./pages/LoginCallbackPage"
 import PageOverlay from "./components/global/PageOverlay"
 import AuthSession from "./components/auth/AuthSession"
 
@@ -43,6 +44,8 @@ const App: FC = () => {
           <Main>
             <Router basepath={ basepath }>
               <ItinerariesPage path="/" />
+              <LoginPage path="/login" />
+              <LoginCallbackPage path="/authentication/callback" />
               <SearchPage path="/zoeken" />
               <ParsePage path="/parse" />
               <CasePage path="/cases/:caseId" />
@@ -51,8 +54,7 @@ const App: FC = () => {
               <PlanningPage path="/planning" />
               <DayPlanningPage path="/dagplanning" />
               <PlanningResultPage path="/planning/result" />
-              <LoginPage path="/login" />
-              <LoginCallbackPage path="/authentication/callback" />
+              <SettingsPage path="/settings" />
               <NotFoundPage default />
             </Router>
           </Main>

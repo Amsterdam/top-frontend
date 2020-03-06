@@ -9,6 +9,7 @@
     { "source": "notes/*", "destination": "/index.html" },
     { "source": "planning", "destination": "/index.html" },
     { "source": "planning/*", "destination": "/index.html" },
-    { "source": "dagplanning", "destination": "/index.html" }
+    { "source": "dagplanning", "destination": "/index.html" },
+    { "source": "settings", "destination": "/index.html" }
   ]
 }

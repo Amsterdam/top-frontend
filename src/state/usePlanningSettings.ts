@@ -5,11 +5,13 @@ import reducer, {
   createStopFetching,
   createSetData,
   createSetError,
+  createStartUpdating,
   createClear,
 } from "./planningSettingsReducer"
-import { get, notOk, isForbidden } from "../lib/utils/fetch"
+import { get, post, notOk, isForbidden } from "../lib/utils/fetch"
 import { getUrl } from "../config/api"
 import handleForbiddenResponse from "../lib/handleForbiddenResponse"
+import { listsWeek } from "../config/planning"
 
 const usePlanningSettings = () : [PlanningSettingsState, PlanningSettingsActions] => {
 
@@ -19,7 +21,9 @@ const usePlanningSettings = () : [PlanningSettingsState, PlanningSettingsActions
     dispatch(createStartFetching())
     const [responseProjects, resultProjects] = await get(getUrl("constants/projects"))
     const [responseStadia, resultStadia] = await get(getUrl("constants/stadia"))
-    if (isForbidden(responseProjects) || isForbidden(responseStadia)) {
+    const [responseSettings, resultSettings] = await get(getUrl("settings/planner"))
+
+    if (isForbidden(responseProjects) || isForbidden(responseStadia) || isForbidden(responseSettings)) {
       dispatch(createStopFetching())
       return handleForbiddenResponse()
     }
@@ -30,7 +34,8 @@ const usePlanningSettings = () : [PlanningSettingsState, PlanningSettingsActions
     }
     dispatch(createSetData({
       projects: resultProjects.constants,
-      stadia: resultStadia.constants
+      stadia: resultStadia.constants,
+      settings: resultSettings
     }))
   }
 
@@ -38,7 +43,17 @@ const usePlanningSettings = () : [PlanningSettingsState, PlanningSettingsActions
     dispatch(createClear())
   }
 
-  return [state, { initialize, clear }]
+  const saveSettings = async (openingDate: string, openingReasons: string[]) => {
+    const prevSettings = state.data && state.data.settings
+    if (prevSettings === undefined) return
+    const settings = { lists: listsWeek, opening_date: openingDate, opening_reasons: openingReasons }
+    dispatch(createStartUpdating())
+    const [response] = await post(getUrl("settings/planner"), settings)
+    if (notOk(response)) dispatch(createSetError("Opslaan mislukt"))
+    dispatch(createSetData({ ...state.data, settings }))
+  }
+
+  return [state, { initialize, saveSettings, clear }]
 }
 
 export default usePlanningSettings

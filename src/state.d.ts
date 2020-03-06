@@ -74,9 +74,11 @@ declare type PlanningActions = {
 
 declare type PlanningSettingsState = {
   isFetching: boolean
+  isUpdating: boolean
   data?: {
     projects: string[]
     stadia: Stadia
+    settings: any
   }
   errorMessage?: ErrorMessage
 }
@@ -84,4 +86,5 @@ declare type PlanningSettingsState = {
 declare type PlanningSettingsActions = {
   initialize: () => void
   clear: () => void
+  saveSettings: (a: string, b: string[]) => void
 }

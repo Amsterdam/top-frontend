@@ -2,8 +2,6 @@ import React, { FC } from "react"
 import styled from "styled-components"
 import NumberInput from "./NumberInput"
 
-type Input = [string, OnChangeHandler]
-type Inputs = Input[]
 type Props = {
   title?: string
   inputs: Inputs

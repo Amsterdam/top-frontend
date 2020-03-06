@@ -3,16 +3,19 @@ type Action =
   | { type: "STOP_FETCHING" }
   | { type: "SET_DATA", payload: { data: PlanningSettingsData } }
   | { type: "SET_ERROR", payload: { errorMessage: ErrorMessage } }
+  | { type: "START_UPDATING" }
   | { type: "CLEAR" }
 
 export const createStartFetching = () : Action => ({ type: "START_FETCHING" })
 export const createStopFetching = () : Action => ({ type: "STOP_FETCHING" })
 export const createSetData = (data: PlanningSettingsData) : Action => ({ type: "SET_DATA", payload: { data } })
 export const createSetError = (errorMessage: ErrorMessage) : Action => ({ type: "SET_ERROR", payload: { errorMessage } })
+export const createStartUpdating = () : Action => ({ type: "START_UPDATING" })
 export const createClear = () : Action => ({ type: "CLEAR" })
 
 export const initialState: PlanningSettingsState = {
   isFetching: false,
+  isUpdating: false,
   data: undefined,
   errorMessage: undefined
 }
@@ -30,13 +33,19 @@ const reducer = (state: PlanningSettingsState, action: Action) : PlanningSetting
     }
     case "SET_DATA": {
       const isFetching = false
+      const isUpdating = false
       const { data } = action.payload
-      return { ...state, isFetching, data }
+      return { ...state, isFetching, isUpdating, data }
     }
     case "SET_ERROR": {
       const { errorMessage } = action.payload
       const isFetching = false
-      return { ...state, isFetching, errorMessage }
+      const isUpdating = false
+      return { ...state, isFetching, isUpdating, errorMessage }
+    }
+    case "START_UPDATING": {
+      const isUpdating = true
+      return { ...state, isUpdating }
     }
     case "CLEAR":
       return initialState

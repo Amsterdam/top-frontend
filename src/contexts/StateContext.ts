@@ -86,7 +86,8 @@ const value = {
     planningSettings: planningSettingsState,
     planningSettingsActions: {
       initialize: noop,
-      clear: noop
+      clear: noop,
+      saveSettings: (a: string, b: string[]) => {}
     },
 
     isAnonymous: false,

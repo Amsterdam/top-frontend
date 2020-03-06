@@ -1,4 +1,4 @@
-import React, { FC, useState, ChangeEvent, FormEvent } from "react"
+import React, { FC, useState, useEffect, ChangeEvent, FormEvent } from "react"
 import styled from "styled-components"
 import useGlobalState from "../../hooks/useGlobalState"
 import useOnChangeState from "../../hooks/useOnChangeState"
@@ -73,6 +73,15 @@ const DayPlanning: FC = () => {
     },
     planningActions: {
       generate
+    },
+    planningSettings: {
+      data: {
+        settings: {
+          opening_date: openingDate = undefined,
+          opening_reasons: openingReasons = undefined,
+          lists = undefined
+        } = {}
+      } = {}
     }
   } = useGlobalState()
 
@@ -80,23 +89,23 @@ const DayPlanning: FC = () => {
   const tomorrow = day + 1 > 6 ? 0 : day + 1
   const dayOfWeek = tomorrow - 1 < 0 ? 6 : tomorrow - 1 // correct sunday => 6
 
-  const defaultPlanning = listsDay(dayOfWeek)
+  const defaultPlanning = lists !== undefined ? listsDay(lists, dayOfWeek) : []
 
-  const [morning, onChangeMorning] = useOnChangeState("0")
+  const [morning, onChangeMorning, setMorning] = useOnChangeState("0")
   const morningPrimaryStadiumDefault = defaultPlanning[0] && defaultPlanning[0].primary_stadium
   const morningSecondaryStadiaDefault = (defaultPlanning[0] && defaultPlanning[0].secondary_stadia && defaultPlanning[0].secondary_stadia) || []
   const morningExcludeStadiaDefault = (defaultPlanning[0] && defaultPlanning[0].exclude_stadia && defaultPlanning[0].exclude_stadia) || []
   const [morningPrimaryStadium, onChangeMorningPrimaryStadium] = useOnChangeState(morningPrimaryStadiumDefault)
   const [morningSecondaryStadia, onChangeMorningSecondaryStadia] = useOnChangeStateMultiple(morningSecondaryStadiaDefault)
   const [morningExcludeStadia, onChangeMorningExcludeStadia] = useOnChangeStateMultiple(morningExcludeStadiaDefault)
-  const [afternoon, onChangeAfternoon] = useOnChangeState("0")
+  const [afternoon, onChangeAfternoon, setAfternoon] = useOnChangeState("0")
   const afternoonPrimaryStadiumDefault = defaultPlanning[1] && defaultPlanning[1].primary_stadium
   const afternoonSecondaryStadiaDefault = (defaultPlanning[1] && defaultPlanning[1].secondary_stadia && defaultPlanning[1].secondary_stadia) || []
   const afternoonExcludeStadiaDefault = (defaultPlanning[1] && defaultPlanning[1].exclude_stadia && defaultPlanning[1].exclude_stadia) || []
   const [afternoonPrimaryStadium, onChangeAfternoonPrimaryStadium] = useOnChangeState(afternoonPrimaryStadiumDefault)
   const [afternoonSecondaryStadia, onChangeAfternoonSecondaryStadia] = useOnChangeStateMultiple(afternoonSecondaryStadiaDefault)
   const [afternoonExcludeStadia, onChangeAfternoonExcludeStadia] = useOnChangeStateMultiple(afternoonExcludeStadiaDefault)
-  const [evening, onChangeEvening] = useOnChangeState("0")
+  const [evening, onChangeEvening, setEvening] = useOnChangeState("0")
   const eveningPrimaryStadiumDefault = defaultPlanning[2] && defaultPlanning[2].primary_stadium
   const eveningSecondaryStadiaDefault = (defaultPlanning[2] && defaultPlanning[2].secondary_stadia && defaultPlanning[2].secondary_stadia) || []
   const eveningExcludeStadiaDefault = (defaultPlanning[2] && defaultPlanning[2].exclude_stadia && defaultPlanning[2].exclude_stadia) || []
@@ -108,6 +117,20 @@ const DayPlanning: FC = () => {
   const onChange = (event: ChangeEvent<HTMLSelectElement>) => {
     setDay(parseInt(event.target.value, 10))
   }
+
+  useEffect(() => {
+    if (lists === undefined) return
+    const dayLists = listsDay(lists, dayState)
+    dayLists.forEach((list: any, index: number) => {
+      const setState =
+        index === 0 ? setMorning :
+        index === 1 ? setAfternoon :
+        index === 2 ? setEvening : undefined
+      if (setState === undefined) return
+      setState(list.number_of_lists)
+    })
+  }, [lists])
+
 
   const createConfig = () => {
     const config = []
@@ -149,8 +172,10 @@ const DayPlanning: FC = () => {
 
   const onSubmit = (event: FormEvent) => {
     event.preventDefault()
+    if (openingDate === undefined || openingReasons === undefined || lists === undefined) return
     const config = createConfig()
-    const params = createPlanningRequestBody(config, dayState)
+    const dayLists = listsDay(lists, dayState)
+    const params = createPlanningRequestBody(openingDate, openingReasons, dayLists, config)
     generate(params)
   }
 

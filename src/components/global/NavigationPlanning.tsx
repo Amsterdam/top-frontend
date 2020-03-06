@@ -44,6 +44,7 @@ const NavigationPlanning: FC = () => {
 
   const generateActive = isPage("planning")
   const resultActive = isPage("planning/result")
+  const settingsActive = isPage("settings")
 
   return (
     <>
@@ -52,6 +53,7 @@ const NavigationPlanning: FC = () => {
           <Ul>
             <Li isActive={ generateActive }><Link to={ to("planning") }>Genereer looplijsten</Link></Li>
             <Li isActive={ resultActive }><Link to={ to("planning/result") }>Looplijsten</Link></Li>
+            <Li isActive={ settingsActive }><Link to={ to("settings") }>Settings</Link></Li>
           </Ul>
         </Nav>
       </NavWrap>

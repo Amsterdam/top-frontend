@@ -1,6 +1,5 @@
 import React, { FC } from "react"
 import styled from "styled-components"
-import { openingDate } from "../../config/planning"
 import { Spinner } from "@datapunt/asc-ui"
 import useGlobalState from "../../hooks/useGlobalState"
 
@@ -16,27 +15,37 @@ const PlanningSettings: FC = () => {
   const {
     planningSettings: {
       data: {
-        projects = undefined
+        settings: {
+          opening_date: openingDate = undefined,
+          opening_reasons: openingReasons = undefined
+        } = {}
       } = {}
     }
   } = useGlobalState()
 
-  const showSpinner = projects === undefined
-  const showProjects = projects !== undefined
+  const showSpinner = openingReasons === undefined
+  const showOpeningDate = openingDate !== undefined
+  const showOpeningReasons = openingReasons !== undefined
 
   return (
     <Div>
       <h2>Settings</h2>
-      <Label>openings datum: </Label>
-      <p>{ openingDate }</p>
-      <Label>openings redenen: </Label>
+      { showOpeningDate &&
+        <>
+          <Label>openings datum: </Label>
+          <p>{ openingDate }</p>
+        </>
+      }
       { showSpinner &&
         <Spinner size={ 60 } />
       }
-      { showProjects &&
-        <ul>
-          { projects!.map(reason => <li key={ reason }>{ reason }</li>) }
-        </ul>
+      { showOpeningReasons &&
+        <>
+          <Label>openings redenen: </Label>
+          <ul>
+            { openingReasons!.map((reason: string) => <li key={ reason }>{ reason }</li>) }
+          </ul>
+        </>
       }
     </Div>
   )

@@ -1,4 +1,4 @@
-import React, { FC, FormEvent } from "react"
+import React, { FC, FormEvent, useEffect } from "react"
 import styled from "styled-components"
 import useGlobalState from "../../hooks/useGlobalState"
 import useOnChangeState from "../../hooks/useOnChangeState"
@@ -46,27 +46,35 @@ const Planning: FC = () => {
     },
     planningActions: {
       generate
+    },
+    planningSettings: {
+      data: {
+        settings: {
+          opening_date: openingDate = undefined,
+          opening_reasons: openingReasons = undefined,
+          lists = undefined
+        } = {}
+      } = {}
     }
   } = useGlobalState()
 
-  type Input = [string, OnChangeHandler]
-  const mondayMorning = useOnChangeState("1") as unknown as Input
-  const mondayAfternoon = useOnChangeState("1") as unknown as Input
+  const mondayMorning = useOnChangeState("0") as unknown as Input
+  const mondayAfternoon = useOnChangeState("0") as unknown as Input
   const mondayEvening = useOnChangeState("0") as unknown as Input
-  const tuesdayMorning = useOnChangeState("1") as unknown as Input
-  const tuesdayAfternoon = useOnChangeState("1") as unknown as Input
+  const tuesdayMorning = useOnChangeState("0") as unknown as Input
+  const tuesdayAfternoon = useOnChangeState("0") as unknown as Input
   const tuesdayEvening = useOnChangeState("0") as unknown as Input
-  const wednesdayMorning = useOnChangeState("1") as unknown as Input
-  const wednesdayAfternoon = useOnChangeState("1") as unknown as Input
+  const wednesdayMorning = useOnChangeState("0") as unknown as Input
+  const wednesdayAfternoon = useOnChangeState("0") as unknown as Input
   const wednesdayEvening = useOnChangeState("0") as unknown as Input
-  const thursdayMorning = useOnChangeState("2") as unknown as Input
-  const thursdayAfternoon = useOnChangeState("2") as unknown as Input
-  const thursdayEvening = useOnChangeState("1") as unknown as Input
-  const fridayMorning = useOnChangeState("2") as unknown as Input
-  const fridayAfternoon = useOnChangeState("2") as unknown as Input
+  const thursdayMorning = useOnChangeState("0") as unknown as Input
+  const thursdayAfternoon = useOnChangeState("0") as unknown as Input
+  const thursdayEvening = useOnChangeState("0") as unknown as Input
+  const fridayMorning = useOnChangeState("0") as unknown as Input
+  const fridayAfternoon = useOnChangeState("0") as unknown as Input
   const fridayEvening = useOnChangeState("0") as unknown as Input
-  const saturday = useOnChangeState("1") as unknown as Input
-  const sunday = useOnChangeState("1") as unknown as Input
+  const saturday = useOnChangeState("0") as unknown as Input
+  const sunday = useOnChangeState("0") as unknown as Input
 
   const inputs = [
     { title: getTitle(0), inputs: [mondayMorning, mondayAfternoon, mondayEvening] },
@@ -78,10 +86,20 @@ const Planning: FC = () => {
     { title: getTitle(6), inputs: [sunday] }
   ]
 
+  useEffect(() => {
+    if (lists === undefined) return
+    const ls = inputs.map(input => input.inputs).flat(1)
+    lists.forEach((list: any, index: number) => {
+      const setState = ls[index][2]
+      setState(list.number_of_lists)
+    })
+  }, [lists])
+
   const onSubmit = (event: FormEvent) => {
     event.preventDefault()
     const inputsNums = inputs.map(({ inputs }) => inputs.map(input => parseInt(input[0], 10))).flat(1)
-    const params = createPlanningRequestBody(inputsNums)
+    if (openingDate === undefined || openingReasons === undefined || lists === undefined) return
+    const params = createPlanningRequestBody(openingDate, openingReasons, lists, inputsNums)
     generate(params)
   }
 

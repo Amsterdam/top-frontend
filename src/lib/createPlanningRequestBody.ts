@@ -1,5 +1,3 @@
-import { openingDate, openingReasons, listsWeek, listsDay } from "../config/planning"
-
 type ListsConfig = {
   number_of_lists: number
   primary_stadium?: Stadium
@@ -7,9 +5,8 @@ type ListsConfig = {
   exclude_stadia?: Stadia
 }
 
-const createPlanningRequestBody = (inputs: number[] | ListsConfig[], dayOfWeek?: number) => {
+const createPlanningRequestBody = (openingDate: string, openingReasons: string[], lists: any, inputs: number[] | ListsConfig[], dayOfWeek?: number) => {
   const singleDay = dayOfWeek !== undefined
-  const lists = singleDay ? listsDay(dayOfWeek!) : listsWeek
   inputs.forEach((input: number | ListsConfig, index: number) => {
     if (lists[index] === undefined) return
     if (typeof input === "number") {
