@@ -7,6 +7,7 @@
     { "source": "parse", "destination": "/index.html" },
     { "source": "cases/*", "destination": "/index.html" },
     { "source": "notes/*", "destination": "/index.html" },
+    { "source": "genereer", "destination": "/index.html" },
     { "source": "planning", "destination": "/index.html" },
     { "source": "planning/*", "destination": "/index.html" },
     { "source": "dagplanning", "destination": "/index.html" },

@@ -16,6 +16,7 @@ import { getUrl } from "../config/api"
 import handleForbiddenResponse from "../lib/handleForbiddenResponse"
 import promiseSerial from "../lib/utils/promiseSerial"
 import calculateNewPosition from "../lib/calculateNewPosition"
+import { navigateToHome } from "../lib/navigateTo"
 
 const useItineraries = () : [ItinerariesState, ItinerariesActions] => {
 
@@ -34,8 +35,42 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions] => {
       dispatch(createSetErrorMessage(errorMessage))
       return
     }
+    const itineraries = result.itineraries
+      .map((itineraries: any) => itineraries.items)
+      .flat(1) as Itineraries
+    dispatch(createInitialize(itineraries))
+  }
+
+  const create = async (settings: any, users: string[], dayPart: "day" | "evening", num: number) => {
+    const url = getUrl("itineraries")
+    dispatch(createStartFetching())
+    console.log(settings)
+    const body = {
+      team_members: users.map(user => ({ user: { id: user } })),
+      settings: {
+        opening_date: "2019-01-01",
+        target_itinerary_length: num,
+        projects: settings.opening_reasons.map((item: string) => ({ name: item })),
+        primary_stadium: { name: "Onderzoek buitendienst"},
+        //primary_stadium: settings.lists.primary_stadium ? { name: settings.lists.primary_stadium } : undefined,
+        secondary_stadia: [],
+        //secondary_stadia: settings.lists.secondary_stadia ? settings.lists.secondary_stadia.map((stadium: Stadium) => ({ name: stadium })) : undefined,
+        exclude_stadia: settings.lists.exclude_stadia ? settings.lists.exclude_stadia.map((stadium: Stadium) => ({ name: stadium })) : undefined
+      }
+    }
+    const [response, result] = await post(url, body)
+    if (isForbidden(response)) {
+      dispatch(createStopFetching())
+      return handleForbiddenResponse()
+    }
+    if (notOk(response)) {
+      const errorMessage = response ? await response.text() : "Failed to GET"
+      dispatch(createSetErrorMessage(errorMessage))
+      return
+    }
     const itineraries = result.items as Itineraries
     dispatch(createInitialize(itineraries))
+    navigateToHome()
   }
 
   const add = async (caseId: CaseId) => {
@@ -103,6 +138,6 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions] => {
 
   const clear = () => dispatch(createClear())
 
-  return [itinerariesState, { initialize, add, addMany, move, remove, setNote, clear }]
+  return [itinerariesState, { initialize, create, add, addMany, move, remove, setNote, clear }]
 }
 export default useItineraries

@@ -17,6 +17,7 @@ import PlanningPage from "./pages/PlanningPage"
 import DayPlanningPage from "./pages/DayPlanningPage"
 import PlanningResultPage from "./pages/PlanningResultPage"
 import SettingsPage from "./pages/SettingsPage"
+import GeneratePage from "./pages/GeneratePage"
 import NotFoundPage from "./pages/NotFoundPage"
 import PageOverlay from "./components/global/PageOverlay"
 import AuthSession from "./components/auth/AuthSession"
@@ -51,6 +52,7 @@ const App: FC = () => {
               <CasePage path="/cases/:caseId" />
               <NotePage path="/notes/:itineraryId" />
               <NotePage path="/notes/:itineraryId/:id" />
+              <GeneratePage path="/genereer" />
               <PlanningPage path="/planning" />
               <DayPlanningPage path="/dagplanning" />
               <PlanningResultPage path="/planning/result" />

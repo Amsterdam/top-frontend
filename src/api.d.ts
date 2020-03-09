@@ -1,6 +1,7 @@
 declare type Index = number
 declare type ItineraryPosition = number
 
+declare type UUID = string
 declare type Id = number
 declare type OId = Id | undefined
 declare type Ids = Id[]
@@ -194,3 +195,19 @@ declare type PlanningSettingsData = {
   stadia: Stadia
   settings: PlanningSettings
 }
+declare type User = {
+  id: UUID
+  email: Email
+  username: string
+  first_name:	string
+  last_name: string
+}
+declare type Users = User[]
+declare type MappedUser = {
+  id: UUID
+  email: Email
+  username: string
+  firstName:	string
+  lastName: string
+}
+declare type MappedUsers = MappedUser[]

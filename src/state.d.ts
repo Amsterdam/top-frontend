@@ -10,6 +10,7 @@ declare type ItinerariesState = {
 
 declare type ItinerariesActions = {
   initialize: () => void
+  create: (a: any, b: any, c: any, d: any) => void
   add: (a: CaseId) => void
   addMany: (a: CaseIds) => void
   move: (a: Index, b: Index) => void
@@ -87,4 +88,15 @@ declare type PlanningSettingsActions = {
   initialize: () => void
   clear: () => void
   saveSettings: (a: string, b: string[]) => void
+}
+
+declare type UsersState = {
+  isFetching: boolean
+  errorMessage?: ErrorMessage
+  results?: MappedUsers
+}
+
+declare type UsersActions = {
+  initialize: () => void
+  clear: () => void
 }

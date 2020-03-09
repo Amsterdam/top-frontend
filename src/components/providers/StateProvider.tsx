@@ -6,6 +6,7 @@ import useSearch from "../../state/useSearch"
 import useParse from "../../state/useParse"
 import usePlanning from "../../state/usePlanning"
 import usePlanningSettings from "../../state/usePlanningSettings"
+import useUsers from "../../state/useUsers"
 import parseLocationSearch from "../../lib/utils/parseLocationSearch"
 import { isLoginCallbackPage } from "../../config/page"
 
@@ -44,6 +45,9 @@ const StateProvider: FC<Props> = ({ children }) => {
   // planning settings
   const [planningSettings, planningSettingsActions] = usePlanningSettings()
 
+  // users
+  const [users, usersActions] = useUsers()
+
   // authenticate
   const authenticate = (token: AuthToken, user: AuthUser) => {
     const isSuccess = authActions.authenticate(token, user)
@@ -61,6 +65,7 @@ const StateProvider: FC<Props> = ({ children }) => {
     itinerariesActions.initialize()
     planningActions.initialize()
     planningSettingsActions.initialize()
+    await usersActions.initialize()
   }
 
   // clear
@@ -69,6 +74,7 @@ const StateProvider: FC<Props> = ({ children }) => {
     authActions.unAuthenticate(shouldNavigateToLogin, errorMessage)
     itinerariesActions.clear()
     planningActions.clear()
+    usersActions.clear()
   }
 
   // initialization
@@ -102,6 +108,9 @@ const StateProvider: FC<Props> = ({ children }) => {
 
       planningSettings,
       planningSettingsActions,
+
+      users,
+      usersActions,
 
       isAnonymous,
       toggleIsAnonymous,

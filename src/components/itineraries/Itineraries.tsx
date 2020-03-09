@@ -52,7 +52,7 @@ const Itineraries: FC = () => {
   const showSpinner = !isInitialized || isFetching
   const showError = hasError
   const show = !showSpinner && !showError
-  const hasItineraries = itineraries.length > 0
+  const hasItineraries = itineraries !== undefined && itineraries.length > 0
 
   const onClick = () => itineraries.map(itinerary => remove(itinerary.id))
   const Buttons = () => (
@@ -74,7 +74,7 @@ const Itineraries: FC = () => {
       <Buttons />
     </ButtonWrapBottom>
   )
-  const showButtonsBottom = itineraries.length > 4
+  const showButtonsBottom = itineraries !== undefined && itineraries.length > 4
 
   return (
     <div className="Itineraries">

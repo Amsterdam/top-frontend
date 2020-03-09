@@ -6,6 +6,7 @@ import { initialState as searchState } from "../state/searchReducer"
 import { initialState as parseState } from "../state/parseReducer"
 import { initialState as planningState } from "../state/planningReducer"
 import { initialState as planningSettingsState } from "../state/planningSettingsReducer"
+import { initialState as usersState } from "../state/usersReducer"
 
 type Value = {
   state: {
@@ -28,6 +29,8 @@ type Value = {
 
     planningSettings: PlanningSettingsState
     planningSettingsActions: PlanningSettingsActions
+    users: UsersState
+    usersActions: UsersActions
 
     isAnonymous: boolean
     toggleIsAnonymous: () => void
@@ -52,6 +55,7 @@ const value = {
     itineraries: itinerariesState,
     itinerariesActions: {
       initialize: noop,
+      create: async (a: any, b: any, c: any, d: any) => undefined,
       add: noop,
       addMany: noop,
       move: noop,
@@ -88,6 +92,12 @@ const value = {
       initialize: noop,
       clear: noop,
       saveSettings: (a: string, b: string[]) => {}
+    },
+
+    users: usersState,
+    usersActions: {
+      initialize: noop,
+      clear: noop
     },
 
     isAnonymous: false,
