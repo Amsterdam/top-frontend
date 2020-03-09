@@ -49,7 +49,7 @@ pipeline {
           def image = docker.build("${env.DOCKER_REGISTRY}/${env.DOCKER_IMAGE}:${env.COMMIT_HASH}",
             "--no-cache " +
             "--shm-size 1G " +
-            " ./app")
+            " .")
           image.push()
           image.push("latest")
         }
