@@ -1,111 +1,80 @@
 #!groovy
 
-String PROJECT = "fixxx-looplijsten-frontend"
-
-def tryStep(String message, Closure block, Closure tearDown = null) {
-    try {
-        block();
-    }
-    catch (Throwable t) {
-        slackSend message: "${env.JOB_NAME}: ${message} failure ${env.BUILD_URL}", channel: '#ci-channel', color: 'danger'
-
-        throw t;
-    }
-    finally {
-        if (tearDown) {
-            tearDown();
-        }
-    }
+def push_image(tag) {
+  script {
+    def image = docker.image("${env.DOCKER_REGISTRY}/${env.DOCKER_IMAGE}:${env.COMMIT_HASH}")
+    image.push(tag)
+  }
 }
 
-node {
+def deploy(environment) {
+  build job: 'Subtask_Openstack_Playbook',
+    parameters: [
+        [$class: 'StringParameterValue', name: 'INFRASTRUCTURE', value: 'secure'],
+        [$class: 'StringParameterValue', name: 'INVENTORY', value: 'acceptance'],
+        [$class: 'StringParameterValue', name: 'PLAYBOOK', value: 'deploy-looplijsten-frontend.yml'],
+    ]
+}
+
+pipeline {
+  agent any
+  environment {
+    DOCKER_IMAGE = "fixxx/looplijsten-frontend"
+    DOCKER_REGISTRY = "repo.secure.amsterdam.nl"
+  }
+
+  stages {
     stage("Checkout") {
+      steps {
         checkout scm
+        script {
+          env.COMMIT_HASH = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
+        }
+      }
     }
 
-    stage("Lint") {
-        tryStep "lint start", {
-            sh "docker-compose -p ${PROJECT} up --exit-code-from lint"
+    stage("Build docker image") {
+      // We only build a docker image when we're not deploying to production,
+      // to make make sure images deployed to production are deployed to
+      // acceptance first.
+      //
+      // To deploy to production, tag an existing commit (that has already been
+      // build) and push the tag.
+      // (looplijsten actually wants to be able to hotfix to production,
+      // without passing through acceptance)
+      //when { not { buildingTag() } }
+
+      steps {
+        script {
+          def image = docker.build("${env.DOCKER_REGISTRY}/${env.DOCKER_IMAGE}:${env.COMMIT_HASH}",
+            "--no-cache " +
+            "--shm-size 1G " +
+            " ./app")
+          image.push()
+          image.push("latest")
         }
-        always {
-            tryStep "lint stop", {
-                sh "docker-compose -p ${PROJECT} down --rmi local -v || true"
-            }
-        }
+      }
     }
 
-
-    stage("Test") {
-        tryStep "test start", {
-            sh "docker-compose -p ${PROJECT} up --exit-code-from test"
-        }
-        always {
-            tryStep "test stop", {
-                sh "docker-compose -p ${PROJECT} down --rmi local -v || true"
-            }
-        }
+    stage("Push and deploy acceptance image") {
+      when {
+        not { buildingTag() }
+        branch 'master'
+      }
+      steps {
+        push_image("acceptance")
+        deploy("acceptance")
+      }
     }
 
-    stage("Build develop image") {
-        tryStep "build", {
-            def image = docker.build("repo.secure.amsterdam.nl/fixxx/looplijsten-frontend:${env.BUILD_NUMBER}", ".")
-            image.push()
-        }
-    }
-}
-
-String BRANCH = "${env.BRANCH_NAME}"
-
-if (BRANCH == "master") {
-    node {
-        stage('Push acceptance image') {
-            tryStep "image tagging", {
-                def image = docker.image("repo.secure.amsterdam.nl/fixxx/looplijsten-frontend:${env.BUILD_NUMBER}")
-                image.pull()
-                image.push("acceptance")
-            }
-        }
+    stage("Push and deploy production image") {
+      when { buildingTag() }
+      steps {
+        push_image("production")
+        push_image(env.TAG_NAME)
+        deploy("production")
+      }
     }
 
-    node {
-        stage("Deploy to ACC") {
-            tryStep "deployment", {
-                build job: 'Subtask_Openstack_Playbook',
-                        parameters: [
-                                [$class: 'StringParameterValue', name: 'INFRASTRUCTURE', value: 'secure'],
-                                [$class: 'StringParameterValue', name: 'INVENTORY', value: 'acceptance'],
-                                [$class: 'StringParameterValue', name: 'PLAYBOOK', value: 'deploy-looplijsten-frontend.yml'],
-                        ]
-            }
-        }
-    }
-
-    stage('Waiting for approval') {
-        slackSend channel: '#ci-channel', color: 'warning', message: 'Looplijsten frontend is waiting for Production Release - please confirm'
-        input "Deploy to Production?"
-    }
-
-    node {
-        stage('Push production image') {
-            tryStep "image tagging", {
-                def image = docker.image("repo.secure.amsterdam.nl/fixxx/looplijsten-frontend:${env.BUILD_NUMBER}")
-                image.pull()
-                image.push("production")
-                image.push("latest")
-            }
-        }
-    }
-
-    node {
-        stage("Deploy") {
-            tryStep "deployment", {
-                build job: 'Subtask_Openstack_Playbook',
-                        parameters: [
-                                [$class: 'StringParameterValue', name: 'INFRASTRUCTURE', value: 'secure'],
-                                [$class: 'StringParameterValue', name: 'INVENTORY', value: 'production'],
-                                [$class: 'StringParameterValue', name: 'PLAYBOOK', value: 'deploy-looplijsten-frontend.yml'],
-                        ]
-            }
-        }
-    }
+  }
 }
