@@ -1,4 +1,4 @@
-FROM node:12
+FROM node:12 AS builder
 
 ENV DIR /var/www
 
@@ -8,6 +8,7 @@ RUN npm ci --unsafe-perm .
 RUN npm run build
 RUN cp serve.json build/
 
-EXPOSE 7000
-
-CMD npm run serve -n
+FROM nginx:stable-alpine
+ADD nginx.conf /etc/nginx/nginx.conf
+COPY --from=builder /var/www/build /var/www
+CMD nginx -g 'daemon off;'
