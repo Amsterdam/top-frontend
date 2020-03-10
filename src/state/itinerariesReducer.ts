@@ -12,7 +12,6 @@ type Action =
   | { type: "SET_NOTE", payload: { id: Id, noteId: Id, note: string } }
   | { type: "CLEAR" }
 
-
 export const createStartFetching = () : Action => ({ type: "START_FETCHING" })
 export const createStopFetching = () : Action => ({ type: "STOP_FETCHING" })
 export const createSetErrorMessage = (errorMessage: string) : Action => ({ type: "SET_ERROR_MESSAGE", payload: { errorMessage } })

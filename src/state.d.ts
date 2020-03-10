@@ -11,6 +11,7 @@ declare type ItinerariesState = {
 declare type ItinerariesActions = {
   initialize: () => void
   create: (a: any, b: any, c: any, d: any) => void
+  del: (a: Id) => void
   add: (a: CaseId) => void
   addMany: (a: CaseIds) => void
   move: (a: Index, b: Index) => void

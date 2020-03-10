@@ -43,6 +43,7 @@ declare type Itinerary = {
   }
   notes: Notes
   position: ItineraryPosition
+  itinerary: Id
 }
 declare type OItinerary = Itinerary | undefined
 declare type Itineraries = Itinerary[]

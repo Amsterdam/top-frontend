@@ -43,6 +43,7 @@ const Itineraries: FC = () => {
       errorMessage
     },
     itinerariesActions: {
+      del,
       remove
     }
   } = useGlobalState()
@@ -54,7 +55,13 @@ const Itineraries: FC = () => {
   const show = !showSpinner && !showError
   const hasItineraries = itineraries !== undefined && itineraries.length > 0
 
-  const onClick = () => itineraries.map(itinerary => remove(itinerary.id))
+  const onClick = () => {
+    const itinerary = itineraries !== undefined ? itineraries[0] : undefined
+    if (itinerary === undefined) return
+    const { itinerary: id } = itinerary
+    del(id)
+  }
+
   const Buttons = () => (
     <>
       <MapsButton itineraries={ itineraries.map(itinerary => itinerary.case.bwv_data) } />
