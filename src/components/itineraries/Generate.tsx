@@ -20,8 +20,6 @@ const Generate: FC = () => {
     }
   } = useGlobalState()
 
-  console.log(users)
-
   const usersArray = users !== undefined ? users : []
 
   const [teamMember0, onChangeTeamMember0] = useOnChangeState("")

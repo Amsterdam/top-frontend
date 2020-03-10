@@ -3,6 +3,7 @@ import displayAddress from "../../lib/displayAddress"
 import styled from "styled-components"
 import CopyToClipboardButton from "../global/CopyToClipboardButton"
 import PlanningResultItineraries from "./PlanningResultItineraries"
+import itineraryToClipboardText from "../../lib/itineraryToClipboardText"
 
 type Props = {
   title?: string
@@ -31,20 +32,7 @@ const createClipboardText = (lists: BWVData[][], subtitles?: string[]) => {
   return lists.map((list, index) => {
     const subtitle = subtitles && subtitles[index]
     const hasSubtitle = subtitle !== undefined
-    const addressesText = list.map(itinerary => {
-      const {
-        street_name: streetName,
-        street_number: streetNumber,
-        suffix,
-        suffix_letter: suffixLetter,
-        postal_code: postalCode,
-        stadium,
-        case_reason: caseReason
-      } = itinerary
-      const address = displayAddress(streetName, streetNumber, suffixLetter || undefined, suffix || undefined)
-      const text = `${ address } ${ postalCode } ${ stadium } ${ caseReason }`
-      return text
-    }).join(nl) + nl
+    const addressesText = list.map(itineraryToClipboardText).join(nl) + nl
     return `${ hasSubtitle ? subtitle + nl : "" }${ addressesText }${ nl }`
   }).join(nl)
 }

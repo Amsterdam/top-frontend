@@ -16,7 +16,6 @@ import { getUrl } from "../config/api"
 import handleForbiddenResponse from "../lib/handleForbiddenResponse"
 import promiseSerial from "../lib/utils/promiseSerial"
 import calculateNewPosition from "../lib/calculateNewPosition"
-import { navigateToHome } from "../lib/navigateTo"
 
 const useItineraries = () : [ItinerariesState, ItinerariesActions] => {
 
@@ -68,7 +67,6 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions] => {
     }
     const itineraries = result.items as Itineraries
     dispatch(createInitialize(itineraries))
-    navigateToHome()
   }
 
   const del2 = async (id: Id) => {

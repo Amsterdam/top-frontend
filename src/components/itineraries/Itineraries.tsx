@@ -10,6 +10,8 @@ import MapsButton from "./MapsButton"
 import RemoveAllButton from "./RemoveAllButton"
 import Hr from "../styled/Hr"
 import TamTamLink from "../styled/TamTamLink"
+import CopyToClipboardButton from "../global/CopyToClipboardButton"
+import itineraryToClipboardText from "../../lib/itineraryToClipboardText"
 
 type Result = {
   id: Id,
@@ -43,8 +45,7 @@ const Itineraries: FC = () => {
       errorMessage
     },
     itinerariesActions: {
-      del,
-      remove
+      del
     }
   } = useGlobalState()
 
@@ -65,6 +66,7 @@ const Itineraries: FC = () => {
   const Buttons = () => (
     <>
       <MapsButton itineraries={ itineraries.map(itinerary => itinerary.case.bwv_data) } />
+      <CopyToClipboardButton text={ itineraries.map(({ case: { bwv_data } }) => itineraryToClipboardText(bwv_data)).join("\n") } />
       <RemoveAllButton onClick={ onClick } />
     </>
   )
