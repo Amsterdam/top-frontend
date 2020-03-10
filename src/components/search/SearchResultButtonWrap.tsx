@@ -41,9 +41,10 @@ const SearchResultButtonWrap: FC<Props> = ({ id = 0, caseId }) => {
 
   const onClickRemove = (event: FormEvent) => {
     event.preventDefault()
-    const itinerary = itineraries.find(itinerary => itinerary.case.bwv_data.case_id === caseId)
-    if (itinerary === undefined) return
-    remove(itinerary.id)
+    const itineraryItem = itineraries[0].items.find(({ case: { bwv_data: { case_id } } }) => case_id === caseId)
+    if (itineraryItem === undefined) return
+    const { id } = itineraryItem
+    remove(id)
   }
 
   const isItinerary = hasItinerary(caseId)

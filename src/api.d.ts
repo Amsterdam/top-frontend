@@ -36,16 +36,23 @@ declare type Note = {
 }
 declare type ONote = Note | undefined
 declare type Notes = Note[]
-declare type Itinerary = {
+declare type ItineraryItem = {
   id: Id
   case: {
     bwv_data: BWVData
   }
   notes: Notes
   position: ItineraryPosition
-  itinerary: Id
 }
-declare type OItinerary = Itinerary | undefined
+declare type OItineraryItem = ItineraryItem | undefined
+declare type ItineraryItems = ItineraryItem[]
+
+declare type Itinerary = {
+  id: Id
+  team_members: Users
+  items: ItineraryItems
+  settings: Settings
+}
 declare type Itineraries = Itinerary[]
 
 declare type SearchResult = {

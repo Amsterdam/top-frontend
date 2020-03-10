@@ -76,12 +76,12 @@ const reducer = (state: ItinerariesState, action: Action) : ItinerariesState => 
     case "SET_NOTE": {
       const { itineraries: prevItineraries } = state
       const { id, noteId, note } = action.payload
-      const index = prevItineraries.findIndex(itinerary => itinerary.id === id)
+      const index = prevItineraries[0].items.findIndex(item => item.id === id)
       const itineraries = [...prevItineraries]
       if (note !== "") {
-        itineraries[index].notes[0] = { id: noteId, itinerary_item: id, text: note }
+        itineraries[0].items[index].notes[0] = { id: noteId, itinerary_item: id, text: note }
       } else {
-        itineraries[index].notes = []
+        itineraries[0].items[index].notes = []
       }
       return { ...state, itineraries }
     }

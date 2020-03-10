@@ -10,7 +10,7 @@ import confirm from "../../lib/utils/confirm"
 import NoteIcon from "./NoteIcon"
 
 type Props = {
-  itinerary: Itinerary
+  itinerary: ItineraryItem
   index: number
 }
 

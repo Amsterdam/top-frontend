@@ -35,9 +35,7 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions] => {
       dispatch(createSetErrorMessage(errorMessage))
       return
     }
-    const itineraries = result.itineraries
-      .map((itineraries: any) => itineraries.items)
-      .flat(1) as Itineraries
+    const { itineraries } = result
     dispatch(createInitialize(itineraries))
   }
 
@@ -65,7 +63,7 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions] => {
       dispatch(createSetErrorMessage(errorMessage))
       return
     }
-    const itineraries = result.items as Itineraries
+    const itineraries = [result]
     dispatch(createInitialize(itineraries))
   }
 
@@ -83,7 +81,7 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions] => {
       dispatch(createSetErrorMessage(errorMessage))
       return
     }
-    const itineraries = itinerariesState.itineraries.filter(itinerary => itinerary.itinerary !== id)
+    const itineraries = itinerariesState.itineraries.filter(itinerary => itinerary.id !== id)
     dispatch(createInitialize(itineraries))
   }
 
@@ -140,7 +138,8 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions] => {
 
     dispatch(createMove(index, newIndex))
 
-    const { itineraries: items } = itinerariesState
+    const { itineraries } = itinerariesState
+    const items = itineraries[0].items
     const position = calculateNewPosition(items, index, newIndex)
     const id = items[index].id
     patchPosition(id, position)

@@ -5,7 +5,7 @@ import DraggableItinerary from "./DraggableItinerary"
 import useGlobalState from "../../hooks/useGlobalState"
 
 type Props = {
-  itineraries: Itineraries
+  itineraries: ItineraryItems
 }
 
 const Div = styled.div`

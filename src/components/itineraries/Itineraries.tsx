@@ -13,12 +13,6 @@ import TamTamLink from "../styled/TamTamLink"
 import CopyToClipboardButton from "../global/CopyToClipboardButton"
 import itineraryToClipboardText from "../../lib/itineraryToClipboardText"
 
-type Result = {
-  id: Id,
-  items: Itineraries
-  user: string
-}
-
 const ButtonWrap = styled.div`
   display: flex
   justify-content: space-between
@@ -50,31 +44,32 @@ const Itineraries: FC = () => {
     }
   } = useGlobalState()
 
+  console.log(itineraries)
+
   const hasError = errorMessage !== undefined
 
   const showSpinner = !isInitialized || isFetching
   const showError = hasError
   const show = !showSpinner && !showError
   const hasItineraries = itineraries !== undefined && itineraries.length > 0
+  const firstItinerary = hasItineraries ? itineraries[0] : undefined
 
   const onClick = () => {
-    const itinerary = itineraries !== undefined ? itineraries[0] : undefined
-    if (itinerary === undefined) return
-    const { itinerary: id } = itinerary
+    if (firstItinerary === undefined) return
+    const { id } = firstItinerary
     del(id)
   }
 
   const onClickSuggestions = () => {
-    const itinerary = itineraries !== undefined ? itineraries[0] : undefined
-    if (itinerary === undefined) return
-    const { id } = itinerary
+    if (firstItinerary === undefined) return
+    const { id } = firstItinerary
     getSuggestions(id)
   }
 
   const Buttons = () => (
     <>
-      <MapsButton itineraries={ itineraries.map(itinerary => itinerary.case.bwv_data) } />
-      <CopyToClipboardButton text={ itineraries.map(({ case: { bwv_data } }) => itineraryToClipboardText(bwv_data)).join("\n") } />
+      <MapsButton itineraries={ firstItinerary !== undefined ? firstItinerary.items.map(({ case: { bwv_data } }) => bwv_data) : [] } />
+      <CopyToClipboardButton text={ firstItinerary !== undefined ? firstItinerary.items.map(({ case: { bwv_data } }) => itineraryToClipboardText(bwv_data)).join("\n") : "" } />
       <RemoveAllButton onClick={ onClick } />
       <Link to={ to("suggesties") } onClick={ onClickSuggestions }>Voeg toe</Link>
     </>
@@ -103,7 +98,7 @@ const Itineraries: FC = () => {
           hasItineraries ?
             <>
               <ButtonsTop />
-              <DroppableItineraries itineraries={ itineraries } />
+              <DroppableItineraries itineraries={ firstItinerary !== undefined ? firstItinerary.items : [] } />
               { showButtonsBottom &&
                 <ButtonsBottom />
               }
