@@ -3,7 +3,7 @@
 // tag image, push to repo, remove local tagged image
 def tag_image_as(tag) {
   script {
-    docker.image("${DOCKER_IMAGE_URL}:${env.COMMIT_HASH}").image.push(tag)
+    docker.image("${DOCKER_IMAGE_URL}:${env.COMMIT_HASH}").push(tag)
     sh "docker rmi ${DOCKER_IMAGE_URL}:${tag} || true"
   }
 }
