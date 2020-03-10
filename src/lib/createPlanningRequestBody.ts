@@ -5,8 +5,7 @@ type ListsConfig = {
   exclude_stadia?: Stadia
 }
 
-const createPlanningRequestBody = (openingDate: string, openingReasons: string[], lists: any, inputs: number[] | ListsConfig[], dayOfWeek?: number) => {
-  const singleDay = dayOfWeek !== undefined
+const createPlanningRequestBody = (openingDate: string, openingReasons: string[], lists: any, inputs: number[] | ListsConfig[]) => {
   inputs.forEach((input: number | ListsConfig, index: number) => {
     if (lists[index] === undefined) return
     if (typeof input === "number") {

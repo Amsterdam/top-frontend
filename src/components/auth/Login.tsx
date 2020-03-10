@@ -27,7 +27,6 @@ const Login: FC = () => {
   const decodedToken = token !== undefined ? authToken.decode(token) : undefined
   const hasSession = decodedToken !== undefined
   const showSession = hasSession
-  const hasUser = user !== undefined
   const { email = undefined, firstName = undefined } = user || {}
   const showCredentials = email !== undefined && firstName !== undefined
   const exp = decodedToken !== undefined ? decodedToken.exp : 0

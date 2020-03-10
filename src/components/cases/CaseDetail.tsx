@@ -25,10 +25,6 @@ const HrSpaced = styled(Hr)`
   margin: 24px 0
 `
 
-const P = styled.p`
-  margin-bottom: 16px
-`
-
 const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
 
   console.log(caseItem)

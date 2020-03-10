@@ -1,5 +1,4 @@
 import React, { FC, useState } from "react"
-import displayAddress from "../../lib/displayAddress"
 import styled from "styled-components"
 import CopyToClipboardButton from "../global/CopyToClipboardButton"
 import PlanningResultItineraries from "./PlanningResultItineraries"
