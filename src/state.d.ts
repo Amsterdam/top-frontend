@@ -4,15 +4,17 @@ declare type OErrorMessage = ErrorMessage | undefined
 declare type ItinerariesState = {
   isFetching: boolean
   isInitialized: boolean
-  itineraries: Itineraries
   errorMessage?: ErrorMessage
+  itineraries: Itineraries
+  suggestions: BWVData[]
 }
 
 declare type ItinerariesActions = {
   initialize: () => void
   create: (a: any, b: any, c: any, d: any) => void
+  getSuggestions: (a: Id) => void
   del: (a: Id) => void
-  add: (a: CaseId) => void
+  add: (a: Id, b: CaseId) => void
   addMany: (a: CaseIds) => void
   move: (a: Index, b: Index) => void
   remove: (a: Id) => void

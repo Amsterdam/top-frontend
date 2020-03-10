@@ -45,7 +45,8 @@ const Itineraries: FC = () => {
       errorMessage
     },
     itinerariesActions: {
-      del
+      del,
+      getSuggestions
     }
   } = useGlobalState()
 
@@ -63,11 +64,19 @@ const Itineraries: FC = () => {
     del(id)
   }
 
+  const onClickSuggestions = () => {
+    const itinerary = itineraries !== undefined ? itineraries[0] : undefined
+    if (itinerary === undefined) return
+    const { id } = itinerary
+    getSuggestions(id)
+  }
+
   const Buttons = () => (
     <>
       <MapsButton itineraries={ itineraries.map(itinerary => itinerary.case.bwv_data) } />
       <CopyToClipboardButton text={ itineraries.map(({ case: { bwv_data } }) => itineraryToClipboardText(bwv_data)).join("\n") } />
       <RemoveAllButton onClick={ onClick } />
+      <Link to={ to("suggesties") } onClick={ onClickSuggestions }>Voeg toe</Link>
     </>
   )
   const ButtonsTop = () => (

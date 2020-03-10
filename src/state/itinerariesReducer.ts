@@ -10,6 +10,7 @@ type Action =
   | { type: "MOVE", payload: { index: Index, newIndex: Index } }
   | { type: "REMOVE", payload: { id: Id } }
   | { type: "SET_NOTE", payload: { id: Id, noteId: Id, note: string } }
+  | { type: "SET_SUGGESTIONS", payload: { suggestions: BWVData[] } }
   | { type: "CLEAR" }
 
 export const createStartFetching = () : Action => ({ type: "START_FETCHING" })
@@ -21,13 +22,15 @@ export const createUpdate = (id: Id, itinerary: Itinerary) : Action => ({ type: 
 export const createMove = (index: Index, newIndex: Index) : Action => ({ type: "MOVE", payload: { index, newIndex } })
 export const createRemove = (id: Id) : Action => ({ type: "REMOVE", payload: { id } })
 export const createSetNote = (id: Id, noteId: Id, note: string) : Action => ({ type: "SET_NOTE", payload: { id, noteId, note } })
+export const createSetSuggestions = (suggestions: BWVData[]) : Action => ({ type: "SET_SUGGESTIONS", payload: { suggestions } })
 export const createClear = () : Action => ({ type: "CLEAR" })
 
 export const initialState: ItinerariesState = {
   isInitialized: false,
   isFetching: false,
+  errorMessage: undefined,
   itineraries: [],
-  errorMessage: undefined
+  suggestions: []
 }
 
 const reducer = (state: ItinerariesState, action: Action) : ItinerariesState => {
@@ -81,6 +84,11 @@ const reducer = (state: ItinerariesState, action: Action) : ItinerariesState => 
         itineraries[index].notes = []
       }
       return { ...state, itineraries }
+    }
+    case "SET_SUGGESTIONS": {
+      const isFetching = false
+      const { suggestions } = action.payload
+      return { ...state, isFetching, suggestions }
     }
     case "CLEAR": {
       return { ...state, isInitialized: false, itineraries: [] }

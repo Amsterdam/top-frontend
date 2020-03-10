@@ -4,6 +4,7 @@ import IconButton from "../global/IconButton"
 import styled from "styled-components"
 
 type Props = {
+  id?: Id
   caseId: CaseId
 }
 
@@ -20,7 +21,7 @@ const Div = styled.div`
   }
 `
 
-const SearchResultButtonWrap: FC<Props> = ({ caseId }) => {
+const SearchResultButtonWrap: FC<Props> = ({ id = 0, caseId }) => {
 
   const {
     hasItinerary,
@@ -35,7 +36,7 @@ const SearchResultButtonWrap: FC<Props> = ({ caseId }) => {
 
   const onClickAdd = (event: FormEvent) => {
     event.preventDefault()
-    add(caseId)
+    add(id, caseId)
   }
 
   const onClickRemove = (event: FormEvent) => {

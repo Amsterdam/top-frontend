@@ -16,6 +16,7 @@ import NotePage from "./pages/NotePage"
 import PlanningPage from "./pages/PlanningPage"
 import DayPlanningPage from "./pages/DayPlanningPage"
 import PlanningResultPage from "./pages/PlanningResultPage"
+import SuggestionsPage from "./pages/SuggestionsPage"
 import SettingsPage from "./pages/SettingsPage"
 import NotFoundPage from "./pages/NotFoundPage"
 import PageOverlay from "./components/global/PageOverlay"
@@ -43,9 +44,10 @@ const App: FC = () => {
           <AuthSession />
           <Main>
             <Router basepath={ basepath }>
-              <ItinerariesPage path="/" />
               <LoginPage path="/login" />
               <LoginCallbackPage path="/authentication/callback" />
+              <ItinerariesPage path="/" />
+              <SuggestionsPage path="/suggesties" />
               <SearchPage path="/zoeken" />
               <ParsePage path="/parse" />
               <CasePage path="/cases/:caseId" />

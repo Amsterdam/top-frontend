@@ -56,8 +56,9 @@ const value = {
     itinerariesActions: {
       initialize: noop,
       create: async (a: any, b: any, c: any, d: any) => undefined,
+      getSuggestions: async (a: Id) => undefined,
       del: async (a: Id) => undefined,
-      add: noop,
+      add: (a: Id, b: CaseId) => undefined,
       addMany: noop,
       move: noop,
       remove: noop,

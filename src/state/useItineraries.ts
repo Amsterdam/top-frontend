@@ -10,6 +10,7 @@ import reducer, {
   createMove,
   createRemove,
   createSetNote,
+  createSetSuggestions,
   createClear } from "./itinerariesReducer"
 import { get, post, put, patch, del, notOk, isForbidden } from "../lib/utils/fetch"
 import { getUrl } from "../config/api"
@@ -34,7 +35,6 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions] => {
       dispatch(createSetErrorMessage(errorMessage))
       return
     }
-    console.log(result)
     const itineraries = result.itineraries
       .map((itineraries: any) => itineraries.items)
       .flat(1) as Itineraries
@@ -73,7 +73,8 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions] => {
     dispatch(createStartFetching())
     const url = getUrl(`itineraries/${ id }`)
     const [response] = await del(url)
-      if (isForbidden(response)) {
+
+    if (isForbidden(response)) {
       dispatch(createStopFetching())
       return handleForbiddenResponse()
     }
@@ -86,9 +87,33 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions] => {
     dispatch(createInitialize(itineraries))
   }
 
-  const add = async (caseId: CaseId) => {
-    const url = getUrl("itineraries/items")
-    const [response, result] = await post(url, { id: caseId })
+  const getSuggestions = async (id: Id) => {
+
+    dispatch(createStartFetching())
+
+    console.log(id)
+    const url = getUrl(`itineraries/${ id }/suggestions`)
+    const [response, result] = await get(url)
+
+    if (isForbidden(response)) {
+      dispatch(createStopFetching())
+      return handleForbiddenResponse()
+    }
+
+    if (notOk(response)) {
+      const errorMessage = response ? await response.text() : "Failed to GET"
+      dispatch(createSetErrorMessage(errorMessage))
+      return
+    }
+
+    const { cases: suggestions } = result
+    console.log(suggestions, result)
+    dispatch(createSetSuggestions(suggestions))
+  }
+
+  const add = async (id: Id, caseId: CaseId) => {
+    const url = getUrl("itinerary-items")
+    const [response, result] = await post(url, { itinerary: id, case_id: caseId })
     if (isForbidden(response)) return handleForbiddenResponse()
     if (notOk(response)) return alert(`Toevoegen mislukt (case: ${ caseId })`)
     const itinerary = result as Itinerary
@@ -98,7 +123,7 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions] => {
 
   const addMany = async (caseIds: CaseIds) => {
     // sequentially add each case to itineraries, so order is maintained
-    const funcs = caseIds.map(caseId => async () => add(caseId))
+    const funcs = caseIds.map(caseId => async () => add(0, caseId))
     await promiseSerial(funcs)
   }
 
@@ -151,6 +176,6 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions] => {
 
   const clear = () => dispatch(createClear())
 
-  return [itinerariesState, { initialize, create, del: del2, add, addMany, move, remove, setNote, clear }]
+  return [itinerariesState, { initialize, create, del: del2, getSuggestions, add, addMany, move, remove, setNote, clear }]
 }
 export default useItineraries
