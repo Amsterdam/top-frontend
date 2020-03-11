@@ -10,7 +10,16 @@ import Hr from "../styled/Hr"
 import CopyToClipboardButton from "../global/CopyToClipboardButton"
 import itineraryToClipboardText from "../../lib/itineraryToClipboardText"
 import AddButton from "./AddButton"
+import formatDate from "../../lib/utils/formatDate"
 
+const H1 = styled.h1`
+  font-size: 24px
+`
+const Wrap = styled.div`
+  border-bottom: 1px solid #B4B4B4
+  padding-bottom: 12px
+  margin-bottom: 24px
+`
 const ButtonWrap = styled.div`
   display: flex
   justify-content: space-between
@@ -54,6 +63,8 @@ const Itineraries: FC = () => {
     del(itineraryId)
   }
 
+  const title = firstItinerary !== undefined ? `Lijst ${ formatDate(firstItinerary.created_at, true) }` : ""
+
   const Buttons = () => (
     <>
       <MapsButton itineraries={ firstItinerary !== undefined ? firstItinerary.items.map(({ case: { bwv_data } }) => bwv_data) : [] } />
@@ -84,12 +95,13 @@ const Itineraries: FC = () => {
       }
       { show &&
         <>
-          <ButtonsTop />
-          <div>
+          <Wrap>
+            <H1>{ title }</H1>
             { firstItinerary!.team_members.map(
               ({ id, user: { email, first_name } }) => <p key={ id }>{ `${ first_name } (${ email })` }</p>)
             }
-          </div>
+          </Wrap>
+          <ButtonsTop />
           <DroppableItineraries itineraries={ firstItinerary!.items } />
           { showButtonsBottom &&
             <ButtonsBottom />

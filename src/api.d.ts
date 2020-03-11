@@ -55,6 +55,7 @@ type TeamMember = {
 type TeamMembers = TeamMember[]
 declare type Itinerary = {
   id: Id
+  created_at: string
   team_members: TeamMembers
   items: ItineraryItems
   settings: Settings
