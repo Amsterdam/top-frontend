@@ -6,7 +6,7 @@ type Action =
   | { type: "SET_ERROR_MESSAGE", payload: { errorMessage: ErrorMessage } }
   | { type: "INITIALIZE", payload: { itineraries: Itineraries } }
   | { type: "ADD", payload: { itineraries: Itineraries } }
-  | { type: "UPDATE", payload: { id: Id, itinerary: Itinerary } }
+  | { type: "UPDATE", payload: { id: Id, itinerary: ItineraryItem } }
   | { type: "MOVE", payload: { index: Index, newIndex: Index } }
   | { type: "REMOVE", payload: { id: Id } }
   | { type: "SET_NOTE", payload: { id: Id, noteId: Id, note: string } }
@@ -18,7 +18,7 @@ export const createStopFetching = () : Action => ({ type: "STOP_FETCHING" })
 export const createSetErrorMessage = (errorMessage: string) : Action => ({ type: "SET_ERROR_MESSAGE", payload: { errorMessage } })
 export const createInitialize = (itineraries: Itineraries) : Action => ({ type: "INITIALIZE", payload: { itineraries } })
 export const createAdd = (itineraries: Itineraries) : Action => ({ type: "ADD", payload: { itineraries } })
-export const createUpdate = (id: Id, itinerary: Itinerary) : Action => ({ type: "UPDATE", payload: { id, itinerary } })
+export const createUpdate = (id: Id, itinerary: ItineraryItem) : Action => ({ type: "UPDATE", payload: { id, itinerary } })
 export const createMove = (index: Index, newIndex: Index) : Action => ({ type: "MOVE", payload: { index, newIndex } })
 export const createRemove = (id: Id) : Action => ({ type: "REMOVE", payload: { id } })
 export const createSetNote = (id: Id, noteId: Id, note: string) : Action => ({ type: "SET_NOTE", payload: { id, noteId, note } })
@@ -55,16 +55,23 @@ const reducer = (state: ItinerariesState, action: Action) : ItinerariesState => 
       return { ...state, itineraries: prevItineraries.concat(itineraries) }
     }
     case "UPDATE": {
+      const { id, itinerary: { position } } = action.payload
       const { itineraries: prevItineraries } = state
-      const index = prevItineraries.findIndex(itinerary => itinerary.id === action.payload.id)
+      const firstItinerary = prevItineraries[0]
+      if (firstItinerary === undefined) return state
+      const index = firstItinerary.items.findIndex(item => item.id === id)
       const itineraries = [...prevItineraries]
-      itineraries[index] = action.payload.itinerary
+      itineraries[0].items[index].position = position
       return { ...state, itineraries }
     }
     case "MOVE": {
       const { itineraries: prevItineraries } = state
       const { index, newIndex } = action.payload
-      const itineraries = moveInArray(prevItineraries, index, newIndex)
+      const firstItinerary = prevItineraries[0].items
+      if (firstItinerary === undefined) return state
+      const newItineraries = moveInArray(firstItinerary, index, newIndex)
+      const itineraries = [...prevItineraries]
+      itineraries[0].items = newItineraries
       return { ...state, itineraries }
     }
     case "REMOVE": {

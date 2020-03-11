@@ -134,7 +134,7 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions] => {
       const [response, result] = await patch(url, { position })
       if (isForbidden(response)) return handleForbiddenResponse()
       if (notOk(response)) return alert("Verplaatsen mislukt")
-      const itinerary = result as Itinerary
+      const itinerary = result as ItineraryItem
       dispatch(createUpdate(id, itinerary))
     }
 
