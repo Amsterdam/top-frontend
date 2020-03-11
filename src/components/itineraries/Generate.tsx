@@ -4,6 +4,22 @@ import Input from "../styled/Input"
 import { listsDay } from "../../config/planning"
 import useOnChangeState from "../../hooks/useOnChangeState"
 import useGlobalState from "../../hooks/useGlobalState"
+import styled from "styled-components"
+import H1 from "../styled/H1"
+
+const Label = styled.label`
+  font-weight: bold
+`
+const Div = styled.div`
+  margin-bottom: 24px
+`
+const StyledInput = styled(Input)`
+  width: 80px
+  margin-left: 12px
+`
+const RadioButton = styled.input`
+  margin-right: 8px
+`
 
 const Generate: FC = () => {
 
@@ -23,7 +39,6 @@ const Generate: FC = () => {
   } = useGlobalState()
 
   const usersArray = users !== undefined ? users : []
-
 
   const [teamMember0, onChangeTeamMember0, setTeamMember0] = useOnChangeState("")
   const [teamMember1, onChangeTeamMember1] = useOnChangeState("")
@@ -76,35 +91,39 @@ const Generate: FC = () => {
 
   return (
     <div className="Generate">
-      <h1>Genereer je looplijst</h1>
+      <H1>Genereer je looplijst</H1>
       <form onSubmit={ onSubmit }>
         { team.map((tuple, index) => {
             const [value, onChange] = tuple
             const user = value !== "" ? usersArray.find(({ id }) => id === value) : undefined
-            return <div key={ index }>
-              <label>Teamlid { index + 1 }</label>
-              <Select value={ value } onChange={ onChange } disabled={ disabled }>
-                <option value="">-</option>
-                { user !== undefined &&
-                  <option value={ value }>{ `${ user.first_name } (${ user.email })` }</option>
-                }
-                { filteredUsers.map(({ id, first_name, email }) =>
-                  <option key={ id } value={ id }>{ `${ first_name } (${ email })` }</option>)
-                }
-              </Select>
-            </div>
+            return (
+              <Div key={ index }>
+                <Label>Teamlid { index + 1 }</Label>
+                <Select value={ value } onChange={ onChange } disabled={ disabled }>
+                  <option value="">-</option>
+                  { user !== undefined &&
+                    <option value={ value }>{ `${ user.first_name } (${ user.email })` }</option>
+                  }
+                  { filteredUsers.map(({ id, first_name, email }) =>
+                    <option key={ id } value={ id }>{ `${ first_name } (${ email })` }</option>)
+                  }
+                </Select>
+              </Div>
+            )
           })
         }
-        <div>
-          <input type="radio" checked={ isDay } onChange={ setDay } />
-          <label>dag</label>
-          <input type="radio" checked={ isEvening } onChange={ setEvening } />
-          <label>avond</label>
-        </div>
-        <div>
-          <label>Aantal adressen</label>
-          <Input type="number" value={ num } onChange={ onChangeNum } />
-        </div>
+        <Div>
+          <RadioButton type="radio" checked={ isDay } onChange={ setDay } />
+          <Label>dag</Label>
+        </Div>
+        <Div>
+          <RadioButton type="radio" checked={ isEvening } onChange={ setEvening } />
+          <Label>avond</Label>
+        </Div>
+        <Div>
+          <Label>Aantal adressen</Label>
+          <StyledInput type="number" value={ num } onChange={ onChangeNum } />
+        </Div>
         <Button type="submit" variant="secondary" disabled={ isDisabled }>Genereer</Button>
       </form>
     </div>
