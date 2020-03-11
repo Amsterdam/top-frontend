@@ -59,8 +59,6 @@ const Itineraries: FC = () => {
     }
   } = useGlobalState()
 
-  console.log(itineraries)
-
   const hasError = errorMessage !== undefined
 
   const showSpinner = !isInitialized || isFetching
