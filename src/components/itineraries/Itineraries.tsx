@@ -50,8 +50,8 @@ const Itineraries: FC = () => {
 
   const showSpinner = !isInitialized || isFetching
   const showError = hasError
-  const show = !showSpinner && !showError
   const hasItineraries = itineraries !== undefined && itineraries.length > 0
+  const show = !showSpinner && !showError && hasItineraries
   const firstItinerary = hasItineraries ? itineraries[0] : undefined
   const itineraryId = firstItinerary !== undefined ? firstItinerary.id : undefined
 
@@ -90,21 +90,19 @@ const Itineraries: FC = () => {
       { showSpinner &&
         <Spinner size={ 60 } />
       }
-      { show && (
-          hasItineraries ?
-            <>
-              <ButtonsTop />
-              <DroppableItineraries itineraries={ firstItinerary !== undefined ? firstItinerary.items : [] } />
-              { showButtonsBottom &&
-                <ButtonsBottom />
-              }
-            </> :
-            <>
-              <P>Je looplijst is leeg.</P>
-              <P><Link to={ to("zoeken") }>Zoek</Link> adressen om aan je looplijst toe te voegen.</P>
-              <P>Of <TamTamLink to={ to("parse") }>copy+paste</TamTamLink> je TamTam looplijst</P>
-            </>
-        )
+      { show &&
+        <>
+          <ButtonsTop />
+          <div>
+            { firstItinerary!.team_members.map(
+              ({ id, user: { email, first_name } }) => <p key={ id }>{ `${ first_name } (${ email })` }</p>)
+            }
+          </div>
+          <DroppableItineraries itineraries={ firstItinerary!.items } />
+          { showButtonsBottom &&
+            <ButtonsBottom />
+          }
+        </>
       }
       { showError &&
         <ErrorMessage text={ errorMessage! } />

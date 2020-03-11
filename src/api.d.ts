@@ -48,9 +48,14 @@ declare type ItineraryItem = {
 declare type OItineraryItem = ItineraryItem | undefined
 declare type ItineraryItems = ItineraryItem[]
 
+type TeamMember = {
+  id: Id
+  user: User
+}
+type TeamMembers = TeamMember[]
 declare type Itinerary = {
   id: Id
-  team_members: Users
+  team_members: TeamMembers
   items: ItineraryItems
   settings: Settings
 }
