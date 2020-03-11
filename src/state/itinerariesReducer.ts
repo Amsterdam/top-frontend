@@ -70,7 +70,13 @@ const reducer = (state: ItinerariesState, action: Action) : ItinerariesState => 
     case "REMOVE": {
       const { itineraries: prevItineraries } = state
       const { id } = action.payload
-      const itineraries = prevItineraries.filter(itinerary => itinerary.id !== id)
+      const itineraries = prevItineraries
+        .map(itinerary => (
+          {
+            ...itinerary,
+            items: itinerary.items.filter(item => item.id !== id)
+          }
+        ))
       return { ...state, itineraries }
     }
     case "SET_NOTE": {
