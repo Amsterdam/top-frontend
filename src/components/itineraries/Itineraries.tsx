@@ -59,6 +59,7 @@ const Itineraries: FC = () => {
       <MapsButton itineraries={ firstItinerary !== undefined ? firstItinerary.items.map(({ case: { bwv_data } }) => bwv_data) : [] } />
       <CopyToClipboardButton text={ firstItinerary !== undefined ? firstItinerary.items.map(({ case: { bwv_data } }) => itineraryToClipboardText(bwv_data)).join("\n") : "" } />
       <RemoveAllButton onClick={ onClick } />
+      <AddButton itineraryId={ itineraryId! } />
     </>
   )
   const ButtonsTop = () => (
@@ -93,7 +94,6 @@ const Itineraries: FC = () => {
           { showButtonsBottom &&
             <ButtonsBottom />
           }
-          <AddButton itineraryId={ itineraryId! } />
         </>
       }
       { showError &&

@@ -8,21 +8,22 @@ type Props = {
 }
 
 const StyledLink = styled(Link)`
-  position: fixed
-  bottom: 24px
-  left: calc(50% - 15px - 36px);
-  margin: auto
-  display: block
-  width: 72px
-  height: 72px
-  border-radius: 36px
-  background: red
-  color: white
-  font-size: 48px
-  font-weight: bold
-  text-align: center
+  white-space: nowrap;
+  display: inline-flex;
+  -webkit-box-align: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+  color: #004699;
+  border: 1px solid #004699;
+  padding: 12px 15px;
+  transition: color 0.1s ease-in-out 0s, background-color 0.1s ease-in-out 0s;
 `
 
 const AddButton: FC<Props> = ({ itineraryId }) =>
-  <StyledLink to={ to(`suggesties/${ itineraryId }`) }>+</StyledLink>
+  <StyledLink to={ to(`suggesties/${ itineraryId }`) }>Voeg adres toe</StyledLink>
 export default AddButton
