@@ -15,8 +15,9 @@ import reducer, {
 import { get, post, put, patch, del, notOk, isForbidden } from "../lib/utils/fetch"
 import { getUrl } from "../config/api"
 import handleForbiddenResponse from "../lib/handleForbiddenResponse"
-import promiseSerial from "../lib/utils/promiseSerial"
 import calculateNewPosition from "../lib/calculateNewPosition"
+import promiseSerial from "../lib/utils/promiseSerial"
+import currentDate from "../lib/utils/currentDate"
 
 const useItineraries = () : [ItinerariesState, ItinerariesActions] => {
 
@@ -43,6 +44,7 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions] => {
     const url = getUrl("itineraries")
     dispatch(createStartFetching())
     const body = {
+      created_at: currentDate(),
       team_members: users.map(user => ({ user: { id: user } })),
       settings: {
         opening_date: "2019-01-01",

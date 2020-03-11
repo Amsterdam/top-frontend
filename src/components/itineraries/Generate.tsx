@@ -61,7 +61,7 @@ const Generate: FC = () => {
 
   return (
     <div className="Generate">
-      <h1>Genereer</h1>
+      <h1>Genereer je looplijst</h1>
       <form onSubmit={ onSubmit }>
         { team.map((tuple, index) => {
             const [value, onChange] = tuple
