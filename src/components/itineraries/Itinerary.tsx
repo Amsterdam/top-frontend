@@ -1,91 +1,92 @@
-import React, { FC } from "react"
-import { Link } from "@reach/router"
-import { to } from "../../config/page"
+import React, { FC, useState } from "react"
 import styled from "styled-components"
-import Signal from "../global/Signal"
-import displayAddress from "../../lib/displayAddress"
+import DroppableItinerary from "./DroppableItinerary"
+import useGlobalState from "../../hooks/useGlobalState"
+import MapsButton from "./MapsButton"
+import RemoveAllButton from "./RemoveAllButton"
+import CopyToClipboardButton from "../global/CopyToClipboardButton"
+import AddButton from "./AddButton"
+import OptionsButton from "../global/OptionsButton"
+import formatDate from "../../lib/utils/formatDate"
+import itineraryToClipboardText from "../../lib/itineraryToClipboardText"
+import itineraryToCases from "../../lib/itineraryToCases"
 
 type Props = {
-  itinerary: BWVData
-  note?: string
-  showAddress?: boolean
+  itinerary: Itinerary
 }
 
-const Article = styled.article`
-  width: 100%
-  a {
-    display: block
-    margin-bottom: 0
-    padding: 15px 0
+const H1 = styled.h1`
+  font-size: 24px
+`
+const Wrap = styled.div`
+  display: flex
+  justify-content: space-between
+  border-bottom: 1px solid #B4B4B4
+  padding-bottom: 12px
+  margin-bottom: 24px
+`
+const OptionsWrap = styled.div`
+  display: flex
+  flex-direction: column
+  align-items: flex-end
+  button {
+    margin-bottom: 12px
   }
 `
-const Div = styled.div`
-  margin-right: 12px
-`
-const H1 = styled.h1`
-  font-size: 20px
-  line-height: 28px
-  color: black
-`
-const P = styled.p`
-  color: black
-  font-weight: normal
-`
-const PostalCode = styled(P)`
-  font-weight: bold
-`
-const Note = styled.p`
-  margin-bottom: 0
-  font-size: 16px
-  line-height: 1.3em
-  color: gray
-  font-weight: normal
+const ButtonWrap = styled.div`
+  display: flex
+  justify-content: space-between
+  margin-bottom: 15px
+  border-bottom: 1px solid #B4B4B4
+  padding-bottom: 15px
+  button {
+    max-width: 48%
+    overflow: hidden
+  }
 `
 
-const Itinerary: FC<Props> = ({ itinerary, note, showAddress = true }) => {
+const Itinerary: FC<Props> = ({ itinerary }) => {
 
   const {
-    case_id: id,
-    street_name: streetName,
-    street_number: streetNumber,
-    suffix,
-    suffix_letter,
-    postal_code: postalCode,
-    stadium,
-    case_reason: caseReason
-  } = itinerary
+    itinerariesActions: {
+      del
+    }
+  } = useGlobalState()
 
-  const address = displayAddress(streetName, streetNumber, suffix_letter || undefined, suffix || undefined)
-  const showNote = note !== undefined
-  const maxLength = 48
-  const noteString = note ?
-    note!.length > maxLength ?
-    `${ note!.substring(0, maxLength).trim() }…` :
-    note! :
-    undefined
+  const { id, created_at, team_members, items } = itinerary
 
-  const linkTo = to(`cases/${ id }`)
+  const title = `Lijst ${ formatDate(created_at, true) }`
+
+  const [showDialog, setShowDialog] = useState(false)
+  const onClickOptions = () => setShowDialog(!showDialog)
+
+  const onClick = () => del(id)
 
   return (
-    <Article className="Itinerary">
-      <Link to={ linkTo }>
-        <Div>
-          { showAddress &&
+    <div>
+      <Wrap>
+        <div>
+          <H1>{ title }</H1>
+          { team_members.map(
+            ({ id, user: { email, first_name } }) => <p key={ id }>{ `${ first_name } (${ email })` }</p>)
+          }
+        </div>
+        <OptionsWrap>
+          <OptionsButton onClick={ onClickOptions } />
+          { showDialog &&
             <>
-              <H1>{ address }</H1>
-              <PostalCode>{ postalCode }</PostalCode>
+              <CopyToClipboardButton text={ itineraryToCases(itinerary).map(caseItem => itineraryToClipboardText(caseItem)).join("\n") } />
+              <RemoveAllButton onClick={ onClick } />
             </>
           }
-          <div>
-            <P>{ caseReason }</P>
-            <Signal text={ stadium } />
-            { showNote &&
-              <Note>{ noteString }</Note>
-            }
-          </div>
-        </Div>
-      </Link>
-    </Article>
+        </OptionsWrap>
+      </Wrap>
+      <ButtonWrap>
+        <MapsButton cases={ itineraryToCases(itinerary) } />
+        <AddButton itineraryId={ id } />
+      </ButtonWrap>
+      <DroppableItinerary itineraryItems={ items } />
+    </div>
   )
 }
 export default Itinerary

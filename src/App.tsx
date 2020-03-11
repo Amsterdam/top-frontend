@@ -27,11 +27,6 @@ const Main = styled.main`
   margin-top: 0
 `
 
-/* Be careful!
- * Make sure to also add the paths to `/serve.json` file
- * This is required for reloading URLs on acceptatie and production
- */
-
 const App: FC = () => {
 
   return (

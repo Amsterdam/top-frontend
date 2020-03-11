@@ -2,7 +2,7 @@ import React, { FC } from "react"
 import { Spinner } from "@datapunt/asc-ui"
 import ErrorMessage from "../global/ErrorMessage"
 import Generate from "./Generate"
-import Itineraries from "./Itineraries"
+import Itinerary from "./Itinerary"
 import useGlobalState from "../../hooks/useGlobalState"
 
 const ItinerariesMain: FC = () => {
@@ -20,8 +20,9 @@ const ItinerariesMain: FC = () => {
   const hasError = errorMessage !== undefined
   const showError = hasError
   const hasItineraries = itineraries !== undefined && itineraries.length > 0
-  const show = !showSpinner && !showError && hasItineraries
   const showGenerate = !showSpinner && !showError && !hasItineraries
+  const show = !showSpinner && !showError && hasItineraries
+  const itinerary = itineraries[0]
 
   return (
     <div className="ItinerariesMain">
@@ -35,7 +36,7 @@ const ItinerariesMain: FC = () => {
         <Generate />
       }
       { show &&
-        <Itineraries />
+        <Itinerary itinerary={ itinerary }/>
       }
     </div>
   )

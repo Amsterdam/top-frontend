@@ -7,7 +7,7 @@ import { mobile, desktop } from "../../responsiveness/mediaQueries"
 
 type Props = {
   $as?: "a" | "button"
-  itineraries: BWVData[]
+  cases: BWVData[]
 }
 
 const StyledButton = styled(Button)`
@@ -34,16 +34,16 @@ const SpanDesktop = styled.span`
   }
 `
 
-const MapsButton: FC<Props> = ({ $as = "button", itineraries }) => {
+const MapsButton: FC<Props> = ({ $as = "button", cases }) => {
   const onClick = (event: MouseEvent) => {
     event.preventDefault()
-    const path = itineraries
-      .map(itinerary => {
+    const path = cases
+      .map(caseItem => {
         const {
           street_name: streetName,
           street_number: streetNumber,
           postal_code: postalCode
-        } = itinerary
+        } = caseItem
         const address = displayAddress(streetName, streetNumber)
         const city = "Amsterdam"
         return `${ address } ${ postalCode } ${ city }`

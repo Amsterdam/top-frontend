@@ -1,11 +1,11 @@
 import React, { FC } from "react"
 import { DragDropContext, Droppable } from "react-beautiful-dnd"
 import styled from "styled-components"
-import DraggableItinerary from "./DraggableItinerary"
+import DraggableItineraryItem from "./DraggableItineraryItem"
 import useGlobalState from "../../hooks/useGlobalState"
 
 type Props = {
-  itineraries: ItineraryItems
+  itineraryItems: ItineraryItems
 }
 
 const Div = styled.div`
@@ -16,7 +16,7 @@ const DroppableInner = styled.div`
   padding: 0 15px
 `
 
-const DroppableItineraries: FC<Props> = ({ itineraries }) => {
+const DroppableItinerary: FC<Props> = ({ itineraryItems }) => {
 
   const {
     itinerariesActions: {
@@ -31,17 +31,17 @@ const DroppableItineraries: FC<Props> = ({ itineraries }) => {
   }
 
   return (
-    <Div className="DroppableItineraries">
+    <Div>
       <DragDropContext onDragEnd={ onDragEnd }>
-        <Droppable droppableId="itineraries">
+        <Droppable droppableId="itineraryItems">
         {
           (provided, snapshot) =>
             <DroppableInner
               ref={ provided.innerRef }
               { ...provided.droppableProps }
             >
-              { itineraries.map((itinerary, index) =>
-                  <DraggableItinerary key={ itinerary.id } itinerary={ itinerary } index={ index } />)
+              { itineraryItems.map((item, index) =>
+                  <DraggableItineraryItem key={ item.id } itineraryItem={ item } index={ index } />)
               }
               { provided.placeholder }
             </DroppableInner>
@@ -51,4 +51,4 @@ const DroppableItineraries: FC<Props> = ({ itineraries }) => {
     </Div>
   )
 }
-export default DroppableItineraries
+export default DroppableItinerary

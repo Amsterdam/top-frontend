@@ -4,13 +4,13 @@ import { navigate } from "@reach/router"
 import { to } from "../../config/page"
 import styled from "styled-components"
 import IconButton from "../global/IconButton"
-import Itinerary from "./Itinerary"
+import ItineraryItem from "./ItineraryItem"
 import useGlobalState from "../../hooks/useGlobalState"
 import confirm from "../../lib/utils/confirm"
 import NoteIcon from "./NoteIcon"
 
 type Props = {
-  itinerary: ItineraryItem
+  itineraryItem: ItineraryItem
   index: number
 }
 
@@ -32,7 +32,7 @@ const ButtonWrap = styled.div`
   }
 `
 
-const DraggableItinerary: FC<Props> = ({ itinerary, index }) => {
+const DraggableItineraryItem: FC<Props> = ({ itineraryItem, index }) => {
 
   const {
     itinerariesActions: {
@@ -40,7 +40,7 @@ const DraggableItinerary: FC<Props> = ({ itinerary, index }) => {
     }
   } = useGlobalState()
 
-  const { id, case: { bwv_data }, notes } = itinerary
+  const { id, case: { bwv_data }, notes } = itineraryItem
   const noteId = notes[0] && notes[0].id
   const noteText = notes[0] && notes[0].text
   const notePath = `notes/${ id }/${ noteId || "" }`
@@ -66,7 +66,7 @@ const DraggableItinerary: FC<Props> = ({ itinerary, index }) => {
   })
 
   return (
-    <Div className="DraggableItinerary" collapsed={ isCollapsed }>
+    <Div collapsed={ isCollapsed }>
       <Draggable key={ String(id) } draggableId={ String(id) } index={ index }>
       { (provided, snapshot) => (
         <div
@@ -76,7 +76,7 @@ const DraggableItinerary: FC<Props> = ({ itinerary, index }) => {
           style={ getItemStyle(snapshot.isDragging, provided.draggableProps.style) }
         >
           <Inner>
-            <Itinerary itinerary={ bwv_data } note={ noteText } />
+            <ItineraryItem caseItem={ bwv_data } note={ noteText } />
             <ButtonWrap>
               <IconButton iconNode={ <NoteIcon /> } onClick={ () => navigate(to(notePath)) } />
               <IconButton icon="TrashBin" onClick={ onClick } />
@@ -88,4 +88,4 @@ const DraggableItinerary: FC<Props> = ({ itinerary, index }) => {
     </Div>
   )
 }
-export default DraggableItinerary
+export default DraggableItineraryItem

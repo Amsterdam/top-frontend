@@ -79,7 +79,7 @@ const PlanningResultItineraries: FC<Props> = ({ title, itineraries, isCopied = f
         { hasTitle &&
           <H2>{ titleDisplay }</H2>
         }
-        <MapsButton $as="a" itineraries={ itineraries } />
+        <MapsButton $as="a" cases={ itineraries } />
       </H2Wrap>
       <Table>
         <thead>
