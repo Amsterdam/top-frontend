@@ -54,7 +54,7 @@ const Navigation: FC = () => {
     }
   } = useGlobalState()
 
-  const numItineraries = itineraries ? itineraries.length : 0
+  const numItineraries = itineraries ? itineraries.map(itinerary => itinerary.items).flat(1).length : 0
   const showCounter = numItineraries > 0
 
   const looplijstActive = isHomePage()
