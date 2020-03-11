@@ -1,6 +1,4 @@
 import React, { FC } from "react"
-import { Link } from "@reach/router"
-import { to } from "../../config/page"
 import styled from "styled-components"
 import { Spinner } from "@datapunt/asc-ui"
 import ErrorMessage from "../global/ErrorMessage"
@@ -9,9 +7,9 @@ import useGlobalState from "../../hooks/useGlobalState"
 import MapsButton from "./MapsButton"
 import RemoveAllButton from "./RemoveAllButton"
 import Hr from "../styled/Hr"
-import TamTamLink from "../styled/TamTamLink"
 import CopyToClipboardButton from "../global/CopyToClipboardButton"
 import itineraryToClipboardText from "../../lib/itineraryToClipboardText"
+import AddButton from "./AddButton"
 
 const ButtonWrap = styled.div`
   display: flex
@@ -25,9 +23,6 @@ const ButtonWrap = styled.div`
 const ButtonWrapBottom = styled(ButtonWrap)`
   margin-top: 15px
 `
-const P = styled.p`
-  margin-bottom: 16px
-`
 
 const Itineraries: FC = () => {
 
@@ -39,8 +34,7 @@ const Itineraries: FC = () => {
       errorMessage
     },
     itinerariesActions: {
-      del,
-      getSuggestions
+      del
     }
   } = useGlobalState()
 
@@ -65,9 +59,6 @@ const Itineraries: FC = () => {
       <MapsButton itineraries={ firstItinerary !== undefined ? firstItinerary.items.map(({ case: { bwv_data } }) => bwv_data) : [] } />
       <CopyToClipboardButton text={ firstItinerary !== undefined ? firstItinerary.items.map(({ case: { bwv_data } }) => itineraryToClipboardText(bwv_data)).join("\n") : "" } />
       <RemoveAllButton onClick={ onClick } />
-      { itineraryId !== undefined &&
-        <Link to={ to(`suggesties/${ itineraryId }`) }>Voeg toe</Link>
-      }
     </>
   )
   const ButtonsTop = () => (
@@ -102,6 +93,7 @@ const Itineraries: FC = () => {
           { showButtonsBottom &&
             <ButtonsBottom />
           }
+          <AddButton itineraryId={ itineraryId! } />
         </>
       }
       { showError &&
