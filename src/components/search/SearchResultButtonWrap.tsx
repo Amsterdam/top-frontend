@@ -4,7 +4,6 @@ import IconButton from "../global/IconButton"
 import styled from "styled-components"
 
 type Props = {
-  id?: Id
   caseId: CaseId
 }
 
@@ -21,7 +20,7 @@ const Div = styled.div`
   }
 `
 
-const SearchResultButtonWrap: FC<Props> = ({ id = 0, caseId }) => {
+const SearchResultButtonWrap: FC<Props> = ({ caseId }) => {
 
   const {
     hasItinerary,
@@ -34,9 +33,14 @@ const SearchResultButtonWrap: FC<Props> = ({ id = 0, caseId }) => {
     }
   } = useGlobalState()
 
+  const hasItineraries = itineraries !== undefined && itineraries.length > 0
+  const firstItinerary = hasItineraries ? itineraries[0] : undefined
+  const itineraryId = firstItinerary !== undefined ? firstItinerary.id : undefined
+
   const onClickAdd = (event: FormEvent) => {
     event.preventDefault()
-    add(id, caseId)
+    if (itineraryId === undefined) return
+    add(itineraryId, caseId)
   }
 
   const onClickRemove = (event: FormEvent) => {
