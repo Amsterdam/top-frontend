@@ -1,4 +1,4 @@
-import React, { FC } from "react"
+import React, { FC, useState } from "react"
 import styled from "styled-components"
 import { Spinner } from "@datapunt/asc-ui"
 import ErrorMessage from "../global/ErrorMessage"
@@ -10,15 +10,19 @@ import Hr from "../styled/Hr"
 import CopyToClipboardButton from "../global/CopyToClipboardButton"
 import itineraryToClipboardText from "../../lib/itineraryToClipboardText"
 import AddButton from "./AddButton"
+import OptionsButton from "../global/OptionsButton"
 import formatDate from "../../lib/utils/formatDate"
 
 const H1 = styled.h1`
   font-size: 24px
 `
 const Wrap = styled.div`
+  display: flex
+  justify-content: space-between
   border-bottom: 1px solid #B4B4B4
   padding-bottom: 12px
   margin-bottom: 24px
+
 `
 const ButtonWrap = styled.div`
   display: flex
@@ -31,6 +35,14 @@ const ButtonWrap = styled.div`
 `
 const ButtonWrapBottom = styled(ButtonWrap)`
   margin-top: 15px
+`
+const OptionsWrap = styled.div`
+  display: flex
+  flex-direction: column
+  align-items: flex-end
+  button {
+    margin-bottom: 12px
+  }
 `
 
 const Itineraries: FC = () => {
@@ -65,11 +77,12 @@ const Itineraries: FC = () => {
 
   const title = firstItinerary !== undefined ? `Lijst ${ formatDate(firstItinerary.created_at, true) }` : ""
 
+  const [showDialog, setShowDialog] = useState(false)
+  const onClickOptions = () => setShowDialog(!showDialog)
+
   const Buttons = () => (
     <>
       <MapsButton itineraries={ firstItinerary !== undefined ? firstItinerary.items.map(({ case: { bwv_data } }) => bwv_data) : [] } />
-      <CopyToClipboardButton text={ firstItinerary !== undefined ? firstItinerary.items.map(({ case: { bwv_data } }) => itineraryToClipboardText(bwv_data)).join("\n") : "" } />
-      <RemoveAllButton onClick={ onClick } />
       <AddButton itineraryId={ itineraryId! } />
     </>
   )
@@ -96,10 +109,21 @@ const Itineraries: FC = () => {
       { show &&
         <>
           <Wrap>
-            <H1>{ title }</H1>
-            { firstItinerary!.team_members.map(
-              ({ id, user: { email, first_name } }) => <p key={ id }>{ `${ first_name } (${ email })` }</p>)
-            }
+            <div>
+              <H1>{ title }</H1>
+              { firstItinerary!.team_members.map(
+                ({ id, user: { email, first_name } }) => <p key={ id }>{ `${ first_name } (${ email })` }</p>)
+              }
+            </div>
+            <OptionsWrap>
+              <OptionsButton onClick={ onClickOptions } />
+              { showDialog &&
+                <>
+                  <CopyToClipboardButton text={ firstItinerary !== undefined ? firstItinerary.items.map(({ case: { bwv_data } }) => itineraryToClipboardText(bwv_data)).join("\n") : "" } />
+                  <RemoveAllButton onClick={ onClick } />
+                </>
+              }
+            </OptionsWrap>
           </Wrap>
           <ButtonsTop />
           <DroppableItineraries itineraries={ firstItinerary!.items } />
