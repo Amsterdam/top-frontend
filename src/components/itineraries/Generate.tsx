@@ -5,21 +5,33 @@ import { listsDay } from "../../config/planning"
 import useOnChangeState from "../../hooks/useOnChangeState"
 import useGlobalState from "../../hooks/useGlobalState"
 import styled from "styled-components"
-import H1 from "../styled/H1"
 
+const H1 = styled.h1`
+  font-size: 24px
+`
+const H2 = styled.h1`
+  font-size: 16px
+`
 const Label = styled.label`
   font-weight: bold
+`
+const Label2 = styled.label`
+  margin-right: 36px
 `
 const Div = styled.div`
   margin-bottom: 24px
 `
 const StyledInput = styled(Input)`
-  width: 80px
-  margin-left: 12px
+  width: 72px
 `
 const RadioButton = styled.input`
   margin-right: 8px
 `
+const ButtonWrap = styled.div`
+  display: flex
+  justify-content: flex-end
+`
+
 
 const Generate: FC = () => {
 
@@ -92,13 +104,15 @@ const Generate: FC = () => {
   return (
     <div className="Generate">
       <H1>Genereer je looplijst</H1>
+      <H2>Wie zit er vandaag in je team?</H2>
       <form onSubmit={ onSubmit }>
         { team.map((tuple, index) => {
             const [value, onChange] = tuple
             const user = value !== "" ? usersArray.find(({ id }) => id === value) : undefined
+            const label = index <= 1 ? `Toezichthouder ${ index + 1 }` : "Handhaver"
             return (
               <Div key={ index }>
-                <Label>Teamlid { index + 1 }</Label>
+                <Label>{ label }</Label>
                 <Select value={ value } onChange={ onChange } disabled={ disabled }>
                   <option value="">-</option>
                   { user !== undefined &&
@@ -113,18 +127,21 @@ const Generate: FC = () => {
           })
         }
         <Div>
+          <H2>Wat voor looplijst wil je maken?</H2>
           <RadioButton type="radio" checked={ isDay } onChange={ setDay } />
-          <Label>dag</Label>
-        </Div>
-        <Div>
+          <Label2>daglijst</Label2>
           <RadioButton type="radio" checked={ isEvening } onChange={ setEvening } />
-          <Label>avond</Label>
+          <Label2>avondlijst</Label2>
         </Div>
         <Div>
-          <Label>Aantal adressen</Label>
-          <StyledInput type="number" value={ num } onChange={ onChangeNum } />
+          <Label>Hoeveel adressen wil je in je looplijst?</Label>
+          <div>
+            <StyledInput type="number" value={ num } onChange={ onChangeNum } />
+          </div>
         </Div>
-        <Button type="submit" variant="secondary" disabled={ isDisabled }>Genereer</Button>
+        <ButtonWrap>
+          <Button type="submit" variant="secondary" disabled={ isDisabled }>Genereer looplijst</Button>
+        </ButtonWrap>
       </form>
     </div>
   )
