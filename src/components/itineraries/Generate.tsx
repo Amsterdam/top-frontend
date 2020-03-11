@@ -1,4 +1,4 @@
-import React, { FC, useState, ChangeEvent, FormEvent } from "react"
+import React, { FC, useState, useEffect, ChangeEvent, FormEvent } from "react"
 import { Select, Button } from "@datapunt/asc-ui"
 import Input from "../styled/Input"
 import { listsDay } from "../../config/planning"
@@ -8,6 +8,9 @@ import useGlobalState from "../../hooks/useGlobalState"
 const Generate: FC = () => {
 
   const {
+    auth: {
+      user: authUser
+    },
     itinerariesActions: {
       create
     },
@@ -21,7 +24,8 @@ const Generate: FC = () => {
 
   const usersArray = users !== undefined ? users : []
 
-  const [teamMember0, onChangeTeamMember0] = useOnChangeState("")
+
+  const [teamMember0, onChangeTeamMember0, setTeamMember0] = useOnChangeState("")
   const [teamMember1, onChangeTeamMember1] = useOnChangeState("")
   const [teamMember2, onChangeTeamMember2] = useOnChangeState("")
   const team: [string, OnChangeHandler][] = [
@@ -31,6 +35,17 @@ const Generate: FC = () => {
   ]
   const disabled = users === undefined
   const filteredUsers = usersArray.filter(({ id }) => ![teamMember0, teamMember1, teamMember2].includes(id))
+
+  useEffect(() => {
+    if (users === undefined) return
+    if (authUser === undefined) return
+    const { email } = authUser
+    if (email === undefined) return
+    const user = users.find(user => user.email === email)
+    if (user === undefined) return
+    const { id } = user
+    setTeamMember0(id)
+  }, [authUser, users])
 
   const [dayPart, setDayPart] = useState<"day" | "evening">("day")
   const isDay = dayPart === "day"
