@@ -146,7 +146,7 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions] => {
   }
 
   const remove = async (id: Id) => {
-    const url = getUrl(`itineraries/items/${ id }`)
+    const url = getUrl(`itineraries-items/${ id }`)
     const [response] = await del(url)
     if (isForbidden(response)) return handleForbiddenResponse()
     if (notOk(response)) return alert("Verwijderen mislukt")
