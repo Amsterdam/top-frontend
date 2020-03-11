@@ -128,7 +128,7 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions] => {
   const move = (index: Index, newIndex: Index) => {
 
     const patchPosition = async (id: Id, position: ItineraryPosition) => {
-      const url = getUrl(`itineraries/items/${ id }`)
+      const url = getUrl(`itinerary-items/${ id }`)
       const [response, result] = await patch(url, { position })
       if (isForbidden(response)) return handleForbiddenResponse()
       if (notOk(response)) return alert("Verplaatsen mislukt")
@@ -146,7 +146,7 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions] => {
   }
 
   const remove = async (id: Id) => {
-    const url = getUrl(`itineraries-items/${ id }`)
+    const url = getUrl(`itinerary-items/${ id }`)
     const [response] = await del(url)
     if (isForbidden(response)) return handleForbiddenResponse()
     if (notOk(response)) return alert("Verwijderen mislukt")
