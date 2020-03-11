@@ -39,7 +39,7 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions] => {
     dispatch(createInitialize(itineraries))
   }
 
-  const create = async (settings: any, users: string[], dayPart: "day" | "evening", num: number) => {
+  const create = async (settings: any, users: UUIDs, num: number) => {
     const url = getUrl("itineraries")
     dispatch(createStartFetching())
     const body = {

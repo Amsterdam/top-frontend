@@ -2,6 +2,7 @@ declare type Index = number
 declare type ItineraryPosition = number
 
 declare type UUID = string
+declare type UUIDs = UUID[]
 declare type Id = number
 declare type OId = Id | undefined
 declare type Ids = Id[]
@@ -211,11 +212,3 @@ declare type User = {
   last_name: string
 }
 declare type Users = User[]
-declare type MappedUser = {
-  id: UUID
-  email: Email
-  username: string
-  firstName:	string
-  lastName: string
-}
-declare type MappedUsers = MappedUser[]

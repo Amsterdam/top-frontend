@@ -11,7 +11,7 @@ declare type ItinerariesState = {
 
 declare type ItinerariesActions = {
   initialize: () => void
-  create: (a: any, b: any, c: any, d: any) => void
+  create: (a: any, b: UUIDs, c: number) => void
   getSuggestions: (a: Id) => void
   del: (a: Id) => void
   add: (a: Id, b: CaseId) => void
@@ -96,7 +96,7 @@ declare type PlanningSettingsActions = {
 declare type UsersState = {
   isFetching: boolean
   errorMessage?: ErrorMessage
-  results?: MappedUsers
+  results?: Users
 }
 
 declare type UsersActions = {

@@ -26,13 +26,13 @@ const reducer = (state: UsersState, action: Action) : UsersState => {
     case "SET_RESULTS": {
       const isFetching = false
       const { results } = action.payload
-      const mappedResults = results.map(({ id, email, username, first_name: firstName, last_name: lastName }) => (
+      const mappedResults = results.map(({ id, email, username, first_name, last_name }) => (
         {
           id,
           email,
           username,
-          firstName: firstName !== "" ? firstName : email.replace(/@amsterdam.nl$/, ""),
-          lastName
+          first_name: first_name !== "" ? first_name : email.replace(/@amsterdam.nl$/, ""),
+          last_name
         }
       ))
       return { ...state, isFetching, results: mappedResults }

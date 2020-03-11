@@ -30,9 +30,7 @@ const Generate: FC = () => {
     [teamMember2, onChangeTeamMember2]
   ]
   const disabled = users === undefined
-  const filteredUsers = usersArray.filter(({ firstName }) =>
-    firstName !== teamMember0 && firstName !== teamMember1 && firstName !== teamMember2
-  )
+  const filteredUsers = usersArray.filter(({ id }) => ![teamMember0, teamMember1, teamMember2].includes(id))
 
   const [dayPart, setDayPart] = useState<"day" | "evening">("day")
   const isDay = dayPart === "day"
@@ -50,19 +48,15 @@ const Generate: FC = () => {
   const onSubmit = (event: FormEvent) => {
     event.preventDefault()
     if (data === undefined) return
+    if (typeof num !== "number") return
     const userIds = [teamMember0, teamMember1, teamMember2]
-      .map(member => {
-        const user = usersArray.find(user => member === user.firstName)
-        return user !== undefined ? user.id : undefined
-      })
-      .filter(id => id !== undefined)
     const { settings } = data
     const day = (new Date()).getDay()
     const dayIndex = day - 1 < 0 ? 6 : day - 1 // correct sunday => 6
     const dayLists = listsDay(settings.lists, dayIndex)
     const lists = dayLists.length >= 3 && dayPart === "evening" ? dayLists[2] : dayLists[0]
     const s = { ...settings, lists }
-    create(s, userIds, dayPart, num)
+    create(s, userIds, num)
   }
 
   return (
@@ -71,15 +65,16 @@ const Generate: FC = () => {
       <form onSubmit={ onSubmit }>
         { team.map((tuple, index) => {
             const [value, onChange] = tuple
+            const user = value !== "" ? usersArray.find(({ id }) => id === value) : undefined
             return <div key={ index }>
               <label>Teamlid { index + 1 }</label>
               <Select value={ value } onChange={ onChange } disabled={ disabled }>
                 <option value="">-</option>
-                { value !== "" &&
-                  <option value={ value }>{ value }</option>
+                { user !== undefined &&
+                  <option value={ value }>{ `${ user.first_name } (${ user.email })` }</option>
                 }
-                { filteredUsers.map(({ firstName }) =>
-                  <option key={ firstName } value={ firstName }>{ firstName }</option>)
+                { filteredUsers.map(({ id, first_name, email }) =>
+                  <option key={ id } value={ id }>{ `${ first_name } (${ email })` }</option>)
                 }
               </Select>
             </div>
