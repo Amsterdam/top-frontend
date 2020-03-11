@@ -116,10 +116,10 @@ const Generate: FC = () => {
                 <Select value={ value } onChange={ onChange } disabled={ disabled }>
                   <option value="">-</option>
                   { user !== undefined &&
-                    <option value={ value }>{ `${ user.first_name } (${ user.email })` }</option>
+                    <option value={ value }>{ `${ user.full_name }` }</option>
                   }
-                  { filteredUsers.map(({ id, first_name, email }) =>
-                    <option key={ id } value={ id }>{ `${ first_name } (${ email })` }</option>)
+                  { filteredUsers.map(({ id, full_name }) =>
+                    <option key={ id } value={ id }>{ `${ full_name }` }</option>)
                   }
                 </Select>
               </Div>

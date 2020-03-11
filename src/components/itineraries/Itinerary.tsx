@@ -68,7 +68,7 @@ const Itinerary: FC<Props> = ({ itinerary }) => {
         <div>
           <H1>{ title }</H1>
           { team_members.map(
-            ({ id, user: { email, first_name } }) => <p key={ id }>{ `${ first_name } (${ email })` }</p>)
+            ({ id, user: { full_name } }) => <p key={ id }>{ `${ full_name }` }</p>)
           }
         </div>
         <OptionsWrap>
