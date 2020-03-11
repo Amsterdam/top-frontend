@@ -53,17 +53,11 @@ const Itineraries: FC = () => {
   const show = !showSpinner && !showError
   const hasItineraries = itineraries !== undefined && itineraries.length > 0
   const firstItinerary = hasItineraries ? itineraries[0] : undefined
+  const itineraryId = firstItinerary !== undefined ? firstItinerary.id : undefined
 
   const onClick = () => {
-    if (firstItinerary === undefined) return
-    const { id } = firstItinerary
-    del(id)
-  }
-
-  const onClickSuggestions = () => {
-    if (firstItinerary === undefined) return
-    const { id } = firstItinerary
-    getSuggestions(id)
+    if (itineraryId === undefined) return
+    del(itineraryId)
   }
 
   const Buttons = () => (
@@ -71,7 +65,9 @@ const Itineraries: FC = () => {
       <MapsButton itineraries={ firstItinerary !== undefined ? firstItinerary.items.map(({ case: { bwv_data } }) => bwv_data) : [] } />
       <CopyToClipboardButton text={ firstItinerary !== undefined ? firstItinerary.items.map(({ case: { bwv_data } }) => itineraryToClipboardText(bwv_data)).join("\n") : "" } />
       <RemoveAllButton onClick={ onClick } />
-      <Link to={ to("suggesties") } onClick={ onClickSuggestions }>Voeg toe</Link>
+      { itineraryId !== undefined &&
+        <Link to={ to(`suggesties/${ itineraryId }`) }>Voeg toe</Link>
+      }
     </>
   )
   const ButtonsTop = () => (

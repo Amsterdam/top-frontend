@@ -1,10 +1,14 @@
-import React, { FC } from "react"
+import React, { FC, useEffect } from "react"
 import { Spinner } from "@datapunt/asc-ui"
 import ErrorMessage from "../global/ErrorMessage"
 import useGlobalState from "../../hooks/useGlobalState"
 import SearchResult from "../search/SearchResult"
 
-const Suggestions: FC = () => {
+type Props = {
+  id: Id
+}
+
+const Suggestions: FC<Props> = ({ id }) => {
 
   const {
     isInitialized,
@@ -12,8 +16,15 @@ const Suggestions: FC = () => {
       isFetching,
       errorMessage,
       suggestions
+    },
+    itinerariesActions: {
+      getSuggestions
     }
   } = useGlobalState()
+
+  useEffect(() => {
+    getSuggestions(id)
+  }, [id])
 
   const showSpinner = !isInitialized || isFetching
   const hasError = errorMessage !== undefined
