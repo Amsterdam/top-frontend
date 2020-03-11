@@ -32,7 +32,6 @@ const ButtonWrap = styled.div`
   justify-content: flex-end
 `
 
-
 const Generate: FC = () => {
 
   const {

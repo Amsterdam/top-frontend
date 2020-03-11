@@ -91,7 +91,6 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions] => {
 
     dispatch(createStartFetching())
 
-    console.log(id)
     const url = getUrl(`itineraries/${ id }/suggestions`)
     const [response, result] = await get(url)
 
@@ -107,7 +106,6 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions] => {
     }
 
     const { cases: suggestions } = result
-    console.log(suggestions, result)
     dispatch(createSetSuggestions(suggestions))
   }
 

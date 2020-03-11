@@ -1,11 +1,12 @@
 import moveInArray from "../lib/utils/moveInArray"
+import produce from "immer"
 
 type Action =
   | { type: "START_FETCHING" }
   | { type: "STOP_FETCHING" }
   | { type: "SET_ERROR_MESSAGE", payload: { errorMessage: ErrorMessage } }
   | { type: "INITIALIZE", payload: { itineraries: Itineraries } }
-  | { type: "ADD", payload: { itineraries: ItineraryItems } }
+  | { type: "ADD", payload: { itineraryItems: ItineraryItems } }
   | { type: "UPDATE", payload: { id: Id, itinerary: ItineraryItem } }
   | { type: "MOVE", payload: { index: Index, newIndex: Index } }
   | { type: "REMOVE", payload: { id: Id } }
@@ -17,7 +18,7 @@ export const createStartFetching = () : Action => ({ type: "START_FETCHING" })
 export const createStopFetching = () : Action => ({ type: "STOP_FETCHING" })
 export const createSetErrorMessage = (errorMessage: string) : Action => ({ type: "SET_ERROR_MESSAGE", payload: { errorMessage } })
 export const createInitialize = (itineraries: Itineraries) : Action => ({ type: "INITIALIZE", payload: { itineraries } })
-export const createAdd = (itineraries: ItineraryItems) : Action => ({ type: "ADD", payload: { itineraries } })
+export const createAdd = (itineraryItems: ItineraryItems) : Action => ({ type: "ADD", payload: { itineraryItems } })
 export const createUpdate = (id: Id, itinerary: ItineraryItem) : Action => ({ type: "UPDATE", payload: { id, itinerary } })
 export const createMove = (index: Index, newIndex: Index) : Action => ({ type: "MOVE", payload: { index, newIndex } })
 export const createRemove = (id: Id) : Action => ({ type: "REMOVE", payload: { id } })
@@ -50,42 +51,42 @@ const reducer = (state: ItinerariesState, action: Action) : ItinerariesState => 
       return { ...state, isInitialized: true, isFetching: false, itineraries }
     }
     case "ADD": {
-      const { itineraries: prevItineraries } = state
-      const { itineraries } = action.payload
-      prevItineraries[0].items = prevItineraries[0].items.concat(itineraries)
-      return { ...state, itineraries: prevItineraries }
+      const { itineraries } = state
+      if (itineraries[0] === undefined) return state
+      const { itineraryItems } = action.payload
+      const nextItineraries = produce(itineraries, draft => {
+        draft[0].items = draft[0].items.concat(itineraryItems)
+      })
+      return { ...state, itineraries: nextItineraries }
     }
     case "UPDATE": {
+      const { itineraries } = state
+      if (itineraries[0] === undefined) return state
       const { id, itinerary: { position } } = action.payload
-      const { itineraries: prevItineraries } = state
-      const firstItinerary = prevItineraries[0]
-      if (firstItinerary === undefined) return state
-      const index = firstItinerary.items.findIndex(item => item.id === id)
-      const itineraries = [...prevItineraries]
-      itineraries[0].items[index].position = position
-      return { ...state, itineraries }
+      const nextItineraries = produce(itineraries, draft => {
+        const index = itineraries[0].items.findIndex(item => item.id === id)
+        console.log("index", index, id)
+        if (index > -1) itineraries[0].items[index].position = position
+      })
+      return { ...state, itineraries: nextItineraries }
     }
     case "MOVE": {
-      const { itineraries: prevItineraries } = state
+      const { itineraries } = state
+      if (itineraries[0] === undefined) return state
       const { index, newIndex } = action.payload
-      const firstItinerary = prevItineraries[0].items
-      if (firstItinerary === undefined) return state
-      const newItineraries = moveInArray(firstItinerary, index, newIndex)
-      const itineraries = [...prevItineraries]
-      itineraries[0].items = newItineraries
-      return { ...state, itineraries }
+      const nextItineraries = produce(itineraries, draft => {
+        itineraries[0].items = moveInArray(itineraries[0].items, index, newIndex)
+      })
+      return { ...state, itineraries: nextItineraries }
     }
     case "REMOVE": {
-      const { itineraries: prevItineraries } = state
+      const { itineraries } = state
+      if (itineraries[0] === undefined) return state
       const { id } = action.payload
-      const itineraries = prevItineraries
-        .map(itinerary => (
-          {
-            ...itinerary,
-            items: itinerary.items.filter(item => item.id !== id)
-          }
-        ))
-      return { ...state, itineraries }
+      const nextItineraries = produce(itineraries, draft => {
+        draft[0].items = draft[0].items.filter(item => item.id !== id)
+      })
+      return { ...state, itineraries: nextItineraries }
     }
     case "SET_NOTE": {
       const { itineraries: prevItineraries } = state
