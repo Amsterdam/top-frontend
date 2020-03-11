@@ -21,7 +21,8 @@ const StateProvider: FC<Props> = ({ children }) => {
 
   // itineraries
   const [itineraries, itinerariesActions] = useItineraries()
-  const getItinerary = (caseId: CaseId) : OItineraryItem => itineraries.itineraries[0].items.find(itinerary => itinerary.case.bwv_data.case_id === caseId)
+  const getItinerary = (caseId: CaseId) : OItineraryItem =>
+    itineraries.itineraries[0].items.find(itinerary => itinerary.case.bwv_data.case_id === caseId)
   const hasItinerary = (caseId: CaseId) => getItinerary(caseId) !== undefined
   const getItineraryNote = (itineraryItemId: Id, id: Id) : ONote => {
     const itineraryItem = itineraries.itineraries[0].items.find(item => item.id === itineraryItemId)

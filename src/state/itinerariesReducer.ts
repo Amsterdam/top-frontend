@@ -5,7 +5,7 @@ type Action =
   | { type: "STOP_FETCHING" }
   | { type: "SET_ERROR_MESSAGE", payload: { errorMessage: ErrorMessage } }
   | { type: "INITIALIZE", payload: { itineraries: Itineraries } }
-  | { type: "ADD", payload: { itineraries: Itineraries } }
+  | { type: "ADD", payload: { itineraries: ItineraryItems } }
   | { type: "UPDATE", payload: { id: Id, itinerary: ItineraryItem } }
   | { type: "MOVE", payload: { index: Index, newIndex: Index } }
   | { type: "REMOVE", payload: { id: Id } }
@@ -17,7 +17,7 @@ export const createStartFetching = () : Action => ({ type: "START_FETCHING" })
 export const createStopFetching = () : Action => ({ type: "STOP_FETCHING" })
 export const createSetErrorMessage = (errorMessage: string) : Action => ({ type: "SET_ERROR_MESSAGE", payload: { errorMessage } })
 export const createInitialize = (itineraries: Itineraries) : Action => ({ type: "INITIALIZE", payload: { itineraries } })
-export const createAdd = (itineraries: Itineraries) : Action => ({ type: "ADD", payload: { itineraries } })
+export const createAdd = (itineraries: ItineraryItems) : Action => ({ type: "ADD", payload: { itineraries } })
 export const createUpdate = (id: Id, itinerary: ItineraryItem) : Action => ({ type: "UPDATE", payload: { id, itinerary } })
 export const createMove = (index: Index, newIndex: Index) : Action => ({ type: "MOVE", payload: { index, newIndex } })
 export const createRemove = (id: Id) : Action => ({ type: "REMOVE", payload: { id } })
@@ -52,7 +52,8 @@ const reducer = (state: ItinerariesState, action: Action) : ItinerariesState => 
     case "ADD": {
       const { itineraries: prevItineraries } = state
       const { itineraries } = action.payload
-      return { ...state, itineraries: prevItineraries.concat(itineraries) }
+      prevItineraries[0].items = prevItineraries[0].items.concat(itineraries)
+      return { ...state, itineraries: prevItineraries }
     }
     case "UPDATE": {
       const { id, itinerary: { position } } = action.payload

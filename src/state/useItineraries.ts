@@ -116,8 +116,8 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions] => {
     const [response, result] = await post(url, { itinerary: id, case_id: caseId })
     if (isForbidden(response)) return handleForbiddenResponse()
     if (notOk(response)) return alert(`Toevoegen mislukt (case: ${ caseId })`)
-    const itinerary = result as Itinerary
-    const itineraries = [itinerary] as Itineraries
+    const itinerary = result as ItineraryItem
+    const itineraries = [itinerary]
     dispatch(createAdd(itineraries))
   }
 
