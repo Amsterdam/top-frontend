@@ -6,7 +6,6 @@ WORKDIR $DIR
 COPY . $DIR
 RUN npm ci --unsafe-perm .
 RUN npm run build
-RUN cp serve.json build/
 
 FROM nginx:stable-alpine
 ADD nginx.conf /etc/nginx/nginx.conf
