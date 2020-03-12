@@ -28,7 +28,8 @@ const SearchResultSingle: FC<Props> = ({ caseItem }) => {
     postal_code: postalCode,
     case_reason: reason,
     stadium,
-    distance
+    distance,
+    teams
   } = caseItem
   const address = displayAddress(streetName, streetNumber, suffix_letter || undefined, suffix || undefined)
   const linkTo = to(`cases/${ caseId }`)
@@ -38,7 +39,7 @@ const SearchResultSingle: FC<Props> = ({ caseItem }) => {
       <Link to={ linkTo }>
         <SearchResultAddress address={ address } postalCode={ postalCode } />
         <Wrap key={ caseId }>
-          <SearchResultCase reason={ reason } stadium={ stadium } distance={ distance } />
+          <SearchResultCase reason={ reason } stadium={ stadium } distance={ distance } teams={ teams } />
           <SearchResultButtonWrap caseId={ caseId } />
         </Wrap>
       </Link>
