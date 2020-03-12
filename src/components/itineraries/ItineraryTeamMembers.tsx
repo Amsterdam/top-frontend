@@ -65,12 +65,21 @@ const ItineraryTeamMembers: FC<Props> = ({ itineraryId, teamMembers, isEditing =
           { team.map((tuple, index) => {
               const [value, onChange] = tuple
               const user = value !== "" ? usersArray.find(({ id }) => id === value) : undefined
-              console.log(value, user)
               const label = index <= 1 ? `Toezichthouder ${ index + 1 }` : "Handhaver"
+              const disabled = (() => {
+                if (index > 0) return
+                if (users === undefined) return false
+                if (authUser === undefined) return false
+                const { email } = authUser
+                if (email === undefined) return false
+                const user = users.find(user => user.email === email)
+                if (user === undefined) return
+                return user.id === value
+              })()
               return (
                 <Div key={ index }>
                   <Label>{ label }</Label>
-                  <Select value={ value } onChange={ onChange }>
+                  <Select value={ value } onChange={ onChange } disabled={ disabled }>
                     <option value="">-</option>
                     { user !== undefined &&
                       <option value={ value }>{ `${ user.full_name }` }</option>
