@@ -136,12 +136,12 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions] => {
       dispatch(createUpdate(id, itinerary))
     }
 
-    dispatch(createMove(index, newIndex))
-
     const { itineraries } = itinerariesState
-    const items = itineraries[0].items
+    if (itineraries.length === 0) return
+    const { items } = itineraries[0]
     const position = calculateNewPosition(items, index, newIndex)
     const id = items[index].id
+    dispatch(createMove(index, newIndex))
     patchPosition(id, position)
   }
 

@@ -65,7 +65,6 @@ const reducer = (state: ItinerariesState, action: Action) : ItinerariesState => 
       const { id, itinerary: { position } } = action.payload
       const nextItineraries = produce(itineraries, draft => {
         const index = itineraries[0].items.findIndex(item => item.id === id)
-        console.log("index", index, id)
         if (index > -1) itineraries[0].items[index].position = position
       })
       return { ...state, itineraries: nextItineraries }
