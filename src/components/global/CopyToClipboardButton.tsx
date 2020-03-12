@@ -27,10 +27,12 @@ const CopyToClipboardButton: FC<Props> = ({ text, onClick = noop }) => {
     onClick()
   }
 
-  return <>
-    <Button onClick={ onClickHof }>Kopieër naar clipboard</Button>
-    <TextArea ref={ ref } />
-  </>
+  return (
+    <>
+      <Button onClick={ onClickHof }>Kopieër naar clipboard</Button>
+      <TextArea ref={ ref } readOnly />
+    </>
+  )
 }
 
 export default CopyToClipboardButton
