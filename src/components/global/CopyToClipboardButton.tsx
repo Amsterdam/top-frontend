@@ -1,4 +1,4 @@
-import React, { FC, useRef } from "react"
+import React, { FC, useRef, MouseEvent } from "react"
 import { Button } from "@datapunt/asc-ui"
 import styled from "styled-components"
 import noop from "../../lib/utils/noop"
@@ -17,7 +17,8 @@ const CopyToClipboardButton: FC<Props> = ({ text, onClick = noop }) => {
 
   const ref = useRef<HTMLTextAreaElement>(null)
 
-  const onClickWrapped = () => {
+  const onClickHof = (event: MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault()
     const textarea = ref.current
     if (textarea === null) return
     textarea.value = text
@@ -27,7 +28,7 @@ const CopyToClipboardButton: FC<Props> = ({ text, onClick = noop }) => {
   }
 
   return <>
-    <Button onClick={ onClickWrapped }>Kopieër naar clipboard</Button>
+    <Button onClick={ onClickHof }>Kopieër naar clipboard</Button>
     <TextArea ref={ ref } />
   </>
 }
