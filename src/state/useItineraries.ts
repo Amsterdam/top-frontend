@@ -25,7 +25,7 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions] => {
   const [itinerariesState, dispatch] = useReducer(reducer, initialState as never)
 
   const initialize = async () => {
-    const url = getUrl("itineraries")
+    const url = getUrl("itineraries", { created_at: currentDate() })
     dispatch(createStartFetching())
     const [response, result] = await get(url)
     if (isForbidden(response)) {
