@@ -61,12 +61,19 @@ const Itinerary: FC<Props> = ({ itinerary }) => {
 
   const title = `Lijst ${ formatDate(created_at, true) }`
 
+  const [showDialog, setShowDialog] = useState(false)
+  const onClickOptions = () => {
+    setShowDialog(!showDialog)
+    unsetIsEditing()
+  }
+
+  const clipboardText = itineraryToCases(itinerary)
+    .map(caseItem => itineraryToClipboardText(caseItem))
+    .join("\n")
+
   const [isEditing, setIsEditing] = useState(false)
   const unsetIsEditing = () => setIsEditing(false)
   const onClickEdit = () => setIsEditing(!isEditing)
-
-  const [showDialog, setShowDialog] = useState(false)
-  const onClickOptions = () => setShowDialog(!showDialog)
 
   const onClickRemoveAll = () => del(id)
 
@@ -81,7 +88,7 @@ const Itinerary: FC<Props> = ({ itinerary }) => {
           <OptionsButton onClick={ onClickOptions } />
           { showDialog &&
             <>
-              <CopyToClipboardButton text={ itineraryToCases(itinerary).map(caseItem => itineraryToClipboardText(caseItem)).join("\n") } />
+              <CopyToClipboardButton text={ clipboardText } />
               <Button onClick={ onClickEdit }>Wijzig teamleden</Button>
               <RemoveAllButton onClick={ onClickRemoveAll } />
             </>
