@@ -1,7 +1,9 @@
 import React, { FC, useState } from "react"
+import useGlobalState from "../../hooks/useGlobalState"
+import ItineraryTeamMembers from "./ItineraryTeamMembers"
+import { Button } from "@datapunt/asc-ui"
 import { Enlarge } from "@datapunt/asc-assets"
 import DroppableItinerary from "./DroppableItinerary"
-import useGlobalState from "../../hooks/useGlobalState"
 import MapsButton from "./MapsButton"
 import RemoveAllButton from "./RemoveAllButton"
 import CopyToClipboardButton from "../global/CopyToClipboardButton"
@@ -59,26 +61,29 @@ const Itinerary: FC<Props> = ({ itinerary }) => {
 
   const title = `Lijst ${ formatDate(created_at, true) }`
 
+  const [isEditing, setIsEditing] = useState(false)
+  const unsetIsEditing = () => setIsEditing(false)
+  const onClickEdit = () => setIsEditing(!isEditing)
+
   const [showDialog, setShowDialog] = useState(false)
   const onClickOptions = () => setShowDialog(!showDialog)
 
-  const onClick = () => del(id)
+  const onClickRemoveAll = () => del(id)
 
   return (
     <div>
       <Wrap>
         <div>
           <H1>{ title }</H1>
-          { team_members.map(
-            ({ id, user: { full_name } }) => <p key={ id }>{ `${ full_name }` }</p>)
-          }
+          <ItineraryTeamMembers itineraryId={ id } teamMembers={ team_members } isEditing={ isEditing } unsetIsEditing={ unsetIsEditing } />
         </div>
         <OptionsWrap>
           <OptionsButton onClick={ onClickOptions } />
           { showDialog &&
             <>
               <CopyToClipboardButton text={ itineraryToCases(itinerary).map(caseItem => itineraryToClipboardText(caseItem)).join("\n") } />
-              <RemoveAllButton onClick={ onClick } />
+              <Button onClick={ onClickEdit }>Wijzig teamleden</Button>
+              <RemoveAllButton onClick={ onClickRemoveAll } />
             </>
           }
         </OptionsWrap>

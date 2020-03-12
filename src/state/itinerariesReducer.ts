@@ -8,6 +8,7 @@ type Action =
   | { type: "INITIALIZE", payload: { itineraries: Itineraries } }
   | { type: "ADD", payload: { itineraryItems: ItineraryItems } }
   | { type: "UPDATE", payload: { id: Id, itinerary: ItineraryItem } }
+  | { type: "UPDATE_TEAM", payload: { id: Id, teamMembers: TeamMembers } }
   | { type: "MOVE", payload: { index: Index, newIndex: Index } }
   | { type: "REMOVE", payload: { id: Id } }
   | { type: "SET_NOTE", payload: { id: Id, noteId: Id, note: string } }
@@ -20,6 +21,7 @@ export const createSetErrorMessage = (errorMessage: string) : Action => ({ type:
 export const createInitialize = (itineraries: Itineraries) : Action => ({ type: "INITIALIZE", payload: { itineraries } })
 export const createAdd = (itineraryItems: ItineraryItems) : Action => ({ type: "ADD", payload: { itineraryItems } })
 export const createUpdate = (id: Id, itinerary: ItineraryItem) : Action => ({ type: "UPDATE", payload: { id, itinerary } })
+export const createUpdateTeam = (id: Id, teamMembers: TeamMembers) : Action => ({ type: "UPDATE_TEAM", payload: { id, teamMembers } })
 export const createMove = (index: Index, newIndex: Index) : Action => ({ type: "MOVE", payload: { index, newIndex } })
 export const createRemove = (id: Id) : Action => ({ type: "REMOVE", payload: { id } })
 export const createSetNote = (id: Id, noteId: Id, note: string) : Action => ({ type: "SET_NOTE", payload: { id, noteId, note } })
@@ -66,6 +68,15 @@ const reducer = (state: ItinerariesState, action: Action) : ItinerariesState => 
       const nextItineraries = produce(itineraries, draft => {
         const index = itineraries[0].items.findIndex(item => item.id === id)
         if (index > -1) itineraries[0].items[index].position = position
+      })
+      return { ...state, itineraries: nextItineraries }
+    }
+    case "UPDATE_TEAM": {
+      const { itineraries } = state
+      if (itineraries[0] === undefined) return state
+      const { id, teamMembers } = action.payload
+      const nextItineraries = produce(itineraries, draft => {
+        itineraries[0].team_members = teamMembers
       })
       return { ...state, itineraries: nextItineraries }
     }

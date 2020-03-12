@@ -12,6 +12,7 @@ declare type ItinerariesState = {
 declare type ItinerariesActions = {
   initialize: () => void
   create: (a: any, b: UUIDs, c: number) => void
+  updateTeam: (a: Id, b: UUIDs) => void
   getSuggestions: (a: Id) => void
   del: (a: Id) => void
   add: (a: Id, b: CaseId) => void

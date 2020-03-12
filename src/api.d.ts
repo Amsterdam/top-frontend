@@ -48,11 +48,11 @@ declare type ItineraryItem = {
 declare type OItineraryItem = ItineraryItem | undefined
 declare type ItineraryItems = ItineraryItem[]
 
-type TeamMember = {
+declare type TeamMember = {
   id: Id
   user: User
 }
-type TeamMembers = TeamMember[]
+declare type TeamMembers = TeamMember[]
 declare type Itinerary = {
   id: Id
   created_at: string

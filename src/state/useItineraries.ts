@@ -7,6 +7,7 @@ import reducer, {
   createSetErrorMessage,
   createAdd,
   createUpdate,
+  createUpdateTeam,
   createMove,
   createRemove,
   createSetNote,
@@ -67,6 +68,22 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions] => {
     }
     const itineraries = [result]
     dispatch(createInitialize(itineraries))
+  }
+
+  const updateTeam = async (id: Id, users: UUIDs) => {
+
+    const url = getUrl(`itineraries/${ id }/team`)
+    const body = { team_members: users.map(id => ({ user: { id } })) }
+    const [response, result] = await put(url, body)
+
+    if (isForbidden(response)) return handleForbiddenResponse()
+    if (notOk(response)) {
+      const errorMessage = response ? await response.text() : "Failed to PUT"
+      dispatch(createSetErrorMessage(errorMessage))
+      return
+    }
+
+    dispatch(createUpdateTeam(id, result.team_members))
   }
 
   const del2 = async (id: Id) => {
@@ -175,6 +192,6 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions] => {
 
   const clear = () => dispatch(createClear())
 
-  return [itinerariesState, { initialize, create, del: del2, getSuggestions, add, addMany, move, remove, setNote, clear }]
+  return [itinerariesState, { initialize, create, updateTeam, del: del2, getSuggestions, add, addMany, move, remove, setNote, clear }]
 }
 export default useItineraries
