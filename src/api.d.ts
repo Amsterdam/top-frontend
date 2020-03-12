@@ -19,6 +19,7 @@ declare type Address = [StreetName, StreetNumber, StreetSuffix | undefined]
 declare type PostalCode = string
 declare type Stadium = string
 declare type Stadia = Stadium[]
+declare type Distance = number
 
 declare type BWVData = {
   case_id: CaseId
@@ -29,6 +30,7 @@ declare type BWVData = {
   suffix: StreetSuffix | null
   suffix_letter: StreetSuffixLetter | null
   case_reason: string
+  distance?: Distance
 }
 declare type Note = {
   id: Id

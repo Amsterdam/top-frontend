@@ -26,7 +26,8 @@ const SearchResultPlural: FC<Props> = ({ cases }) => {
     street_number: streetNumber,
     suffix,
     suffix_letter,
-    postal_code: postalCode
+    postal_code: postalCode,
+    distance
   } = cases[0]
   const address = displayAddress(streetName, streetNumber, suffix_letter || undefined, suffix || undefined)
 
@@ -43,8 +44,8 @@ const SearchResultPlural: FC<Props> = ({ cases }) => {
         return (
           <Link key={ JSON.stringify(caseItem) } to={ linkTo }>
             <Wrap key={ caseId }>
-              <SearchResultCase reason={ reason } stadium={ stadium } />
-              <SearchResultButtonWrap caseId={ caseId }/>
+              <SearchResultCase reason={ reason } stadium={ stadium } distance={ distance } />
+              <SearchResultButtonWrap caseId={ caseId } />
             </Wrap>
           </Link>
         )
