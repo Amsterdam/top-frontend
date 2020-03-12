@@ -1,11 +1,10 @@
-import React, { FC } from "react"
+import React, { ReactNode, FC } from "react"
 import { Link } from "@reach/router"
-import { Enlarge } from "@datapunt/asc-assets"
-import { to } from "../../config/page"
 import styled from "styled-components"
 
 type Props = {
-  itineraryId: Id
+  to: string,
+  children: ReactNode
 }
 
 const StyledLink = styled(Link)`
@@ -30,6 +29,8 @@ const StyledLink = styled(Link)`
   }
 `
 
-const AddButton: FC<Props> = ({ itineraryId }) =>
-  <StyledLink to={ to(`suggesties/${ itineraryId }`) }><Enlarge /> Voeg adres toe</StyledLink>
-export default AddButton
+const ButtonAnchor: FC<Props> = ({ to, children }) =>
+  <StyledLink to={ to }>
+    { children }
+  </StyledLink>
+export default ButtonAnchor

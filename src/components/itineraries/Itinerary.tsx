@@ -1,15 +1,17 @@
 import React, { FC, useState } from "react"
-import styled from "styled-components"
+import { Enlarge } from "@datapunt/asc-assets"
 import DroppableItinerary from "./DroppableItinerary"
 import useGlobalState from "../../hooks/useGlobalState"
 import MapsButton from "./MapsButton"
 import RemoveAllButton from "./RemoveAllButton"
 import CopyToClipboardButton from "../global/CopyToClipboardButton"
-import AddButton from "./AddButton"
 import OptionsButton from "../global/OptionsButton"
 import formatDate from "../../lib/utils/formatDate"
 import itineraryToClipboardText from "../../lib/itineraryToClipboardText"
 import itineraryToCases from "../../lib/itineraryToCases"
+import ButtonAnchor from "../global/ButtonAnchor"
+import { to } from "../../config/page"
+import styled from "styled-components"
 
 type Props = {
   itinerary: Itinerary
@@ -83,7 +85,7 @@ const Itinerary: FC<Props> = ({ itinerary }) => {
       </Wrap>
       <ButtonWrap>
         <MapsButton cases={ itineraryToCases(itinerary) } />
-        <AddButton itineraryId={ id } />
+        <ButtonAnchor to={ to(`suggesties/${ id }`) }><Enlarge /> Voeg adres toe</ButtonAnchor>
       </ButtonWrap>
       <DroppableItinerary itineraryItems={ items } />
     </div>
