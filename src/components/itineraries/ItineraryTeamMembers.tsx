@@ -38,7 +38,7 @@ const ItineraryTeamMembers: FC<Props> = ({ itineraryId, teamMembers, isEditing =
 
   const usersArray = users !== undefined ? users : []
 
-  const [teamMember0, onChangeTeamMember0, setTeamMember0] = useOnChangeState(teamMembers[0].user.id)
+  const [teamMember0, onChangeTeamMember0] = useOnChangeState(teamMembers[0].user.id)
   const [teamMember1, onChangeTeamMember1] = useOnChangeState(teamMembers[1].user.id)
   const [teamMember2, onChangeTeamMember2] = useOnChangeState(teamMembers[2].user.id)
   const team: [string, OnChangeHandler][] = [

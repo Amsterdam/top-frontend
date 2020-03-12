@@ -74,7 +74,7 @@ const reducer = (state: ItinerariesState, action: Action) : ItinerariesState => 
     case "UPDATE_TEAM": {
       const { itineraries } = state
       if (itineraries[0] === undefined) return state
-      const { id, teamMembers } = action.payload
+      const { teamMembers } = action.payload
       const nextItineraries = produce(itineraries, draft => {
         itineraries[0].team_members = teamMembers
       })
