@@ -99,16 +99,18 @@ const reducer = (state: ItinerariesState, action: Action) : ItinerariesState => 
       return { ...state, itineraries: nextItineraries }
     }
     case "SET_NOTE": {
-      const { itineraries: prevItineraries } = state
+      const { itineraries } = state
+      if (itineraries[0] === undefined) return state
       const { id, noteId, note } = action.payload
-      const index = prevItineraries[0].items.findIndex(item => item.id === id)
-      const itineraries = [...prevItineraries]
-      if (note !== "") {
-        itineraries[0].items[index].notes[0] = { id: noteId, itinerary_item: id, text: note }
-      } else {
-        itineraries[0].items[index].notes = []
-      }
-      return { ...state, itineraries }
+      const nextItineraries = produce(itineraries, draft => {
+        const index = itineraries[0].items.findIndex(item => item.id === id)
+        if (note !== "") {
+          itineraries[0].items[index].notes[0] = { id: noteId, itinerary_item: id, text: note }
+        } else {
+          itineraries[0].items[index].notes = []
+        }
+      })
+      return { ...state, itineraries: nextItineraries }
     }
     case "SET_SUGGESTIONS": {
       const isFetching = false
@@ -116,7 +118,7 @@ const reducer = (state: ItinerariesState, action: Action) : ItinerariesState => 
       return { ...state, isFetching, suggestions }
     }
     case "CLEAR": {
-      return { ...state, isInitialized: false, itineraries: [] }
+      return initialState
     }
     default:
       return state
