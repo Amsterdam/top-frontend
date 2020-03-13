@@ -71,7 +71,7 @@ const Generate: FC = () => {
     if (user === undefined) return
     const { id } = user
     setTeamMember0(id)
-  }, [authUser, users])
+  }, [authUser, users, setTeamMember0])
 
   const [dayPart, setDayPart] = useState<"day" | "evening">("day")
   const isDay = dayPart === "day"

@@ -47,7 +47,7 @@ const Settings: FC = () => {
   const showUpdatingSpinner = disabled
 
   const [date, onChangeDate, setDate] = useOnChangeState(opening_date)
-  useEffect(() => setDate(opening_date), [opening_date])
+  useEffect(() => setDate(opening_date), [setDate, opening_date])
 
   const [checkedProjects, setProjects] = useState<Projects>(opening_reasons)
   const addToProjects = (project: Project) => setProjects(checkedProjects.concat(project))
