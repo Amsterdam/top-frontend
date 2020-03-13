@@ -49,7 +49,7 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions] => {
       team_members: users.map(user => ({ user: { id: user } })),
       settings: {
         opening_date: "2019-01-01",
-        target_itinerary_length: num,
+        target_length: num,
         projects: settings.opening_reasons.map((item: string) => ({ name: item })),
         primary_stadium: settings.lists.primary_stadium ? { name: settings.lists.primary_stadium } : undefined,
         secondary_stadia: settings.lists.secondary_stadia ? settings.lists.secondary_stadia.map((stadium: Stadium) => ({ name: stadium })) : undefined,
