@@ -10,7 +10,6 @@ import ItinerariesPage from "./pages/ItinerariesPage"
 import LoginPage from "./pages/LoginPage"
 import LoginCallbackPage from "./pages/LoginCallbackPage"
 import SearchPage from "./pages/SearchPage"
-import ParsePage from "./pages/ParsePage"
 import CasePage from "./pages/CasePage"
 import NotePage from "./pages/NotePage"
 import PlanningPage from "./pages/PlanningPage"
@@ -44,7 +43,6 @@ const App: FC = () => {
               <ItinerariesPage path="/" />
               <SuggestionsPage path="/suggesties/:id" />
               <SearchPage path="/zoeken" />
-              <ParsePage path="/parse" />
               <CasePage path="/cases/:caseId" />
               <NotePage path="/notes/:itineraryId" />
               <NotePage path="/notes/:itineraryId/:id" />
