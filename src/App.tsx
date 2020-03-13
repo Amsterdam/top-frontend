@@ -12,9 +12,6 @@ import LoginCallbackPage from "./pages/LoginCallbackPage"
 import SearchPage from "./pages/SearchPage"
 import CasePage from "./pages/CasePage"
 import NotePage from "./pages/NotePage"
-import PlanningPage from "./pages/PlanningPage"
-import DayPlanningPage from "./pages/DayPlanningPage"
-import PlanningResultPage from "./pages/PlanningResultPage"
 import SuggestionsPage from "./pages/SuggestionsPage"
 import SettingsPage from "./pages/SettingsPage"
 import NotFoundPage from "./pages/NotFoundPage"
@@ -46,9 +43,6 @@ const App: FC = () => {
               <CasePage path="/cases/:caseId" />
               <NotePage path="/notes/:itineraryId" />
               <NotePage path="/notes/:itineraryId/:id" />
-              <PlanningPage path="/planning" />
-              <DayPlanningPage path="/dagplanning" />
-              <PlanningResultPage path="/planning/result" />
               <SettingsPage path="/settings" />
               <NotFoundPage default />
             </Router>
