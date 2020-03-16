@@ -23,6 +23,7 @@ const useAuth = () : [AuthState, AuthActions] => {
     const hasToken = token !== undefined
     if (!hasToken) return false
     const url = getIsAuthenticatedUrl()
+    // @TODO: Retry on failed GET?
     const [, result] = await get(url) as [undefined, IsAuthenticatedResponse]
     if (result === undefined) return false
     const { is_authenticated: isAuthenticated } = result
