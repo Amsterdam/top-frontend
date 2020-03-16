@@ -7,7 +7,7 @@ type Props = {
   reason: string
   stadium: Stadium
   distance?: number
-  teams?: string[]
+  teams?: TeamMembers[]
 }
 
 const Div = styled.div``
@@ -19,8 +19,8 @@ const P = styled.p`
 const SearchResultCase: FC<Props> = ({ reason, stadium, distance, teams }) => {
 
   const showDistance = distance !== undefined
-  const showTeam = teams !== undefined
-  const team = teams !== undefined && teams[0] !== undefined ? teams[0] : ""
+  const showTeam = teams !== undefined && teams.length > 0
+  const team = showTeam ? teams![0].map(({ user: { full_name } }) => full_name).join(", ") : ""
 
   return (
     <Div className="SearchResultCase">

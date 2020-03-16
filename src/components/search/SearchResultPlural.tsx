@@ -27,8 +27,6 @@ const SearchResultPlural: FC<Props> = ({ cases }) => {
     suffix,
     suffix_letter,
     postal_code: postalCode,
-    distance,
-    teams
   } = cases[0]
   const address = displayAddress(streetName, streetNumber, suffix_letter || undefined, suffix || undefined)
 
@@ -39,7 +37,9 @@ const SearchResultPlural: FC<Props> = ({ cases }) => {
         const {
           case_id: caseId,
           case_reason: reason,
-          stadium
+          stadium,
+          distance,
+          teams
         } = caseItem
         const linkTo = to(`cases/${ caseId }`)
         return (

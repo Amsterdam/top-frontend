@@ -31,7 +31,7 @@ declare type BWVData = {
   suffix_letter: StreetSuffixLetter | null
   case_reason: string
   distance?: Distance
-  teams?: string[]
+  teams?: TeamMembers[]
 }
 declare type Note = {
   id: Id
