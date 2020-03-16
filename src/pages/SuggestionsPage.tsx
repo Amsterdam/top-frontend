@@ -1,7 +1,7 @@
 import React, { FC } from "react"
 import { RouteComponentProps } from "@reach/router"
 import Navigation from "../components/global/Navigation"
-import Suggestions from "../components/itineraries/Suggestions"
+import Suggestions from "../components/search/Suggestions"
 import ErrorMessage from "../components/global/ErrorMessage"
 
 type Props = RouteComponentProps & {
