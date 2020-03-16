@@ -5,6 +5,7 @@ import { listsDay } from "../../config/planning"
 import useOnChangeState from "../../hooks/useOnChangeState"
 import useGlobalState from "../../hooks/useGlobalState"
 import styled from "styled-components"
+import isWeekDay from "../../lib/utils/isWeekDay"
 
 const H1 = styled.h1`
   font-size: 24px
@@ -78,6 +79,8 @@ const Generate: FC = () => {
   const isEvening = dayPart === "evening"
   const setDay = () => setDayPart("day")
   const setEvening = () => setDayPart("evening")
+  const showWeekDay = isWeekDay()
+  const showWeekend = !showWeekDay
 
   const [num, setNum] = useState<number | "">(8)
   const onChangeNum = (event: ChangeEvent<HTMLInputElement>) => {
@@ -127,10 +130,20 @@ const Generate: FC = () => {
         }
         <Div>
           <H2>Wat voor looplijst wil je maken?</H2>
-          <RadioButton type="radio" checked={ isDay } onChange={ setDay } />
-          <Label2>daglijst</Label2>
-          <RadioButton type="radio" checked={ isEvening } onChange={ setEvening } />
-          <Label2>avondlijst</Label2>
+          { showWeekDay &&
+            <>
+              <RadioButton id="day" type="radio" checked={ isDay } onChange={ setDay } />
+              <Label2 htmlFor="day">daglijst</Label2>
+              <RadioButton id="evening" type="radio" checked={ isEvening } onChange={ setEvening } />
+              <Label2 htmlFor="evening">avondlijst</Label2>
+            </>
+          }
+          { showWeekend &&
+            <>
+              <RadioButton id="weekend" type="radio" checked={ true } />
+              <Label2 htmlFor="weekend">weekend</Label2>
+            </>
+          }
         </Div>
         <Div>
           <Label>Hoeveel adressen wil je in je looplijst?</Label>
