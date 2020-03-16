@@ -16,7 +16,6 @@ declare type ItinerariesActions = {
   getSuggestions: (a: Id) => void
   del: (a: Id) => void
   add: (a: Id, b: CaseId) => void
-  addMany: (a: CaseIds) => void
   move: (a: Index, b: Index) => void
   remove: (a: Id) => void
   setNote: (a: Id, b: text, c?: Id) => Promise<boolean>

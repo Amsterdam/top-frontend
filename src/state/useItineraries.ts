@@ -136,12 +136,6 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions] => {
     dispatch(createAdd(itineraries))
   }
 
-  const addMany = async (caseIds: CaseIds) => {
-    // sequentially add each case to itineraries, so order is maintained
-    const funcs = caseIds.map(caseId => async () => add(0, caseId))
-    await promiseSerial(funcs)
-  }
-
   const move = (index: Index, newIndex: Index) => {
 
     const patchPosition = async (id: Id, position: ItineraryPosition) => {
@@ -192,6 +186,6 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions] => {
 
   const clear = () => dispatch(createClear())
 
-  return [itinerariesState, { initialize, create, updateTeam, del: del2, getSuggestions, add, addMany, move, remove, setNote, clear }]
+  return [itinerariesState, { initialize, create, updateTeam, del: del2, getSuggestions, add, move, remove, setNote, clear }]
 }
 export default useItineraries
