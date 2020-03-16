@@ -12,7 +12,7 @@ const P = styled.p`
 
 const SearchResultDistance: FC<Props> = ({ distance }) => {
   const displayKm = distance >= 1000
-  const value = displayKm ? (distance / 1000).toPrecision(2) : distance
+  const value = displayKm ? (distance / 1000).toFixed(2) : Math.round(distance)
   const unit = displayKm ? "km" : "m"
   return <P>{ value } { unit }</P>
 }
