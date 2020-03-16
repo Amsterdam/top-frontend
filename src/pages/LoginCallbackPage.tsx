@@ -35,11 +35,13 @@ const LoginCallbackPage: FC<RouteComponentProps> = () => {
     const { code } = queryParameters
 
     const url = getAuthOIDCUrl()
-    const [response, result] = await post(url, { code })
+    const [response, result, errorMessage] = await post(url, { code })
+    console.log(response)
 
     if (notOk(response)) {
-      const httpStatus = response ? response.status : "Unknown"
-      const message = `Er ging iets mis bij het inloggen. HTTP Status: ${ httpStatus }`
+      const message = response ?
+        `Er ging iets mis bij het inloggen. HTTP Status: ${ response.status || "Unknown" }` :
+        errorMessage
       setErrorMessage(message)
     } else {
       const { access, user: { email, first_name: firstName } } = result
