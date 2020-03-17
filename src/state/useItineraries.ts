@@ -17,7 +17,6 @@ import { get, post, put, patch, del, notOk, isForbidden } from "../lib/utils/fet
 import { getUrl } from "../config/api"
 import handleForbiddenResponse from "../lib/handleForbiddenResponse"
 import calculateNewPosition from "../lib/calculateNewPosition"
-import promiseSerial from "../lib/utils/promiseSerial"
 import currentDate from "../lib/utils/currentDate"
 
 const useItineraries = () : [ItinerariesState, ItinerariesActions] => {
