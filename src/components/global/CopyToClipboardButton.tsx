@@ -17,7 +17,7 @@ const CopyToClipboardButton: FC<Props> = ({ text, onClick = noop }) => {
 
   const ref = useRef<HTMLTextAreaElement>(null)
 
-  const onClickHof = (event: MouseEvent<HTMLButtonElement>) => {
+  const onClickHandler = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
     const textarea = ref.current
     if (textarea === null) return
@@ -29,7 +29,7 @@ const CopyToClipboardButton: FC<Props> = ({ text, onClick = noop }) => {
 
   return (
     <>
-      <Button onClick={ onClickHof }>Kopieër naar clipboard</Button>
+      <Button onClick={ onClickHandler }>Kopieër naar clipboard</Button>
       <TextArea ref={ ref } readOnly />
     </>
   )

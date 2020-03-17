@@ -21,6 +21,9 @@ const ButtonWrap = styled.div`
   display: flex
   justify-content: flex-end
 `
+const StyledButton = styled(Button)`
+  margin: 12px
+`
 
 const ItineraryTeamMembers: FC<Props> = ({ itineraryId, teamMembers, isEditing = false, unsetIsEditing }) => {
 
@@ -48,6 +51,11 @@ const ItineraryTeamMembers: FC<Props> = ({ itineraryId, teamMembers, isEditing =
   ]
   const filteredUsers = usersArray.filter(({ id }) => ![teamMember0, teamMember1, teamMember2].includes(id))
 
+  const onClickClose = (event: FormEvent) => {
+    event.preventDefault()
+    unsetIsEditing()
+  }
+
   const onSubmit = async (event: FormEvent) => {
     event.preventDefault()
     await updateTeam(itineraryId, [teamMember0, teamMember1, teamMember2])
@@ -55,7 +63,7 @@ const ItineraryTeamMembers: FC<Props> = ({ itineraryId, teamMembers, isEditing =
   }
 
   return (
-    <div>
+    <Div>
       { !isEditing &&
         teamMembers.map(({ id, user: { full_name } }) =>
         <p key={ id }>{ `${ full_name }` }</p>)
@@ -93,11 +101,12 @@ const ItineraryTeamMembers: FC<Props> = ({ itineraryId, teamMembers, isEditing =
             })
           }
           <ButtonWrap>
+            <StyledButton variant="textButton" onClick={ onClickClose }>sluiten</StyledButton>
             <Button variant="secondary">Opslaan</Button>
           </ButtonWrap>
         </form>
       }
-    </div>
+    </Div>
   )
 }
 export default ItineraryTeamMembers

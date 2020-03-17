@@ -12,6 +12,7 @@ import formatDate from "../../lib/utils/formatDate"
 import itineraryToClipboardText from "../../lib/itineraryToClipboardText"
 import itineraryToCases from "../../lib/itineraryToCases"
 import ButtonAnchor from "../global/ButtonAnchor"
+import ButtonMenu from "./ButtonMenu"
 import { to } from "../../config/page"
 import styled from "styled-components"
 
@@ -29,24 +30,19 @@ const Wrap = styled.div`
   padding-bottom: 12px
   margin-bottom: 24px
 `
-const OptionsWrap = styled.div`
-  display: flex
-  flex-direction: column
-  align-items: flex-end
-  button {
-    margin-bottom: 12px
-  }
-`
 const ButtonWrap = styled.div`
   display: flex
   justify-content: space-between
-  margin-bottom: 15px
+  margin-bottom: 12px
   border-bottom: 1px solid #B4B4B4
-  padding-bottom: 15px
+  padding-bottom: 4px
   button {
     max-width: 48%
     overflow: hidden
   }
+`
+const ButtonMenuWrap = styled.div`
+  position: relative
 `
 
 const Itinerary: FC<Props> = ({ itinerary }) => {
@@ -70,31 +66,37 @@ const Itinerary: FC<Props> = ({ itinerary }) => {
   const clipboardText = itineraryToCases(itinerary)
     .map(caseItem => itineraryToClipboardText(caseItem))
     .join("\n")
+  const onClickClipboard = () => setShowDialog(false)
 
   const [isEditing, setIsEditing] = useState(false)
   const unsetIsEditing = () => setIsEditing(false)
-  const onClickEdit = () => setIsEditing(!isEditing)
+  const onClickEdit = () => {
+    setIsEditing(!isEditing)
+    setShowDialog(false)
+  }
 
-  const onClickRemoveAll = () => del(id)
+  const onClickRemoveAll = () => {
+    del(id)
+    setShowDialog(false)
+    unsetIsEditing()
+  }
 
   return (
     <div>
       <Wrap>
-        <div>
-          <H1>{ title }</H1>
-          <ItineraryTeamMembers itineraryId={ id } teamMembers={ team_members } isEditing={ isEditing } unsetIsEditing={ unsetIsEditing } />
-        </div>
-        <OptionsWrap>
-          <OptionsButton onClick={ onClickOptions } />
-          { showDialog &&
-            <>
-              <CopyToClipboardButton text={ clipboardText } />
-              <Button onClick={ onClickEdit }>Wijzig teamleden</Button>
-              <RemoveAllButton onClick={ onClickRemoveAll } />
-            </>
-          }
-        </OptionsWrap>
+        <H1>{ title }</H1>
+        <OptionsButton onClick={ onClickOptions } />
       </Wrap>
+      { showDialog &&
+        <ButtonMenuWrap>
+          <ButtonMenu>
+            <CopyToClipboardButton text={ clipboardText } onClick={ onClickClipboard } />
+            <Button onClick={ onClickEdit }>Wijzig teamleden</Button>
+            <RemoveAllButton onClick={ onClickRemoveAll } />
+          </ButtonMenu>
+        </ButtonMenuWrap>
+      }
+      <ItineraryTeamMembers itineraryId={ id } teamMembers={ team_members } isEditing={ isEditing } unsetIsEditing={ unsetIsEditing } />
       <ButtonWrap>
         <MapsButton cases={ itineraryToCases(itinerary) } />
         <ButtonAnchor to={ to(`suggesties/${ id }`) }><Enlarge /> Voeg adres toe</ButtonAnchor>
