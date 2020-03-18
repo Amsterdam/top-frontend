@@ -16,8 +16,8 @@ const ItinerariesMain: FC = () => {
     }
   } = useGlobalState()
 
-  const showSpinner = !isInitialized || isFetching
   const hasError = errorMessage !== undefined
+  const showSpinner = (!isInitialized || isFetching) && !hasError
   const showError = hasError
   const hasItineraries = itineraries !== undefined && itineraries.length > 0
   const showGenerate = !showSpinner && !showError && !hasItineraries
@@ -36,7 +36,7 @@ const ItinerariesMain: FC = () => {
         <Generate />
       }
       { show &&
-        <Itinerary itinerary={ itinerary }/>
+        <Itinerary itinerary={ itinerary } />
       }
     </div>
   )
