@@ -4,6 +4,7 @@ import reducer, {
   createStartFetching,
   createStopFetching,
   createInitialize,
+  createRemoveItinerary,
   createSetErrorMessage,
   createAdd,
   createUpdate,
@@ -68,7 +69,7 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions] => {
     dispatch(createInitialize(itineraries))
   }
 
-  const updateTeam = async (id: Id, users: UUIDs) => {
+  const updateTeam = async (id: Id, users: UUIDs, remove = false) => {
 
     const url = getUrl(`itineraries/${ id }/team`)
     const body = { team_members: users.map(id => ({ user: { id } })) }
@@ -80,8 +81,11 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions] => {
       dispatch(createSetErrorMessage(errorMessage))
       return
     }
-
-    dispatch(createUpdateTeam(id, result.team_members))
+    if (remove === false) {
+      dispatch(createUpdateTeam(id, result.team_members))
+    } else {
+      dispatch(createRemoveItinerary(id))
+    }
   }
 
   const del2 = async (id: Id) => {

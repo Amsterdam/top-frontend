@@ -6,6 +6,7 @@ type Action =
   | { type: "STOP_FETCHING" }
   | { type: "SET_ERROR_MESSAGE", payload: { errorMessage: ErrorMessage } }
   | { type: "INITIALIZE", payload: { itineraries: Itineraries } }
+  | { type: "REMOVE_ITINERARY", payload: { id: Id } }
   | { type: "ADD", payload: { itineraryItems: ItineraryItems } }
   | { type: "UPDATE", payload: { id: Id, itinerary: ItineraryItem } }
   | { type: "UPDATE_TEAM", payload: { id: Id, teamMembers: TeamMembers } }
@@ -18,6 +19,7 @@ export const createStartFetching = () : Action => ({ type: "START_FETCHING" })
 export const createStopFetching = () : Action => ({ type: "STOP_FETCHING" })
 export const createSetErrorMessage = (errorMessage: string) : Action => ({ type: "SET_ERROR_MESSAGE", payload: { errorMessage } })
 export const createInitialize = (itineraries: Itineraries) : Action => ({ type: "INITIALIZE", payload: { itineraries } })
+export const createRemoveItinerary = (id: Id) : Action => ({ type: "REMOVE_ITINERARY", payload: { id } })
 export const createAdd = (itineraryItems: ItineraryItems) : Action => ({ type: "ADD", payload: { itineraryItems } })
 export const createUpdate = (id: Id, itinerary: ItineraryItem) : Action => ({ type: "UPDATE", payload: { id, itinerary } })
 export const createUpdateTeam = (id: Id, teamMembers: TeamMembers) : Action => ({ type: "UPDATE_TEAM", payload: { id, teamMembers } })
@@ -48,6 +50,15 @@ const reducer = (state: ItinerariesState, action: Action) : ItinerariesState => 
     case "INITIALIZE": {
       const { itineraries } = action.payload
       return { ...state, isInitialized: true, isFetching: false, itineraries }
+    }
+    case "REMOVE_ITINERARY": {
+      const { id } = action.payload
+      const { itineraries } = state
+      const nextItineraries = produce(itineraries, draft => {
+        const index = itineraries.findIndex(itinerary => itinerary.id === id)
+        if (index > -1) draft.splice(index, 1)
+      })
+      return { ...state, itineraries: nextItineraries }
     }
     case "ADD": {
       const { itineraries } = state
