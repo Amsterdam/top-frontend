@@ -75,7 +75,7 @@ const reducer = (state: ItinerariesState, action: Action) : ItinerariesState => 
       const { id, itinerary: { position } } = action.payload
       const nextItineraries = produce(itineraries, draft => {
         const index = itineraries[0].items.findIndex(item => item.id === id)
-        if (index > -1) itineraries[0].items[index].position = position
+        if (index > -1) draft[0].items[index].position = position
       })
       return { ...state, itineraries: nextItineraries }
     }
@@ -84,7 +84,7 @@ const reducer = (state: ItinerariesState, action: Action) : ItinerariesState => 
       if (itineraries[0] === undefined) return state
       const { teamMembers } = action.payload
       const nextItineraries = produce(itineraries, draft => {
-        itineraries[0].team_members = teamMembers
+        draft[0].team_members = teamMembers
       })
       return { ...state, itineraries: nextItineraries }
     }
@@ -93,7 +93,7 @@ const reducer = (state: ItinerariesState, action: Action) : ItinerariesState => 
       if (itineraries[0] === undefined) return state
       const { index, newIndex } = action.payload
       const nextItineraries = produce(itineraries, draft => {
-        itineraries[0].items = moveInArray(itineraries[0].items, index, newIndex)
+        draft[0].items = moveInArray(itineraries[0].items, index, newIndex)
       })
       return { ...state, itineraries: nextItineraries }
     }
@@ -113,9 +113,9 @@ const reducer = (state: ItinerariesState, action: Action) : ItinerariesState => 
       const nextItineraries = produce(itineraries, draft => {
         const index = itineraries[0].items.findIndex(item => item.id === id)
         if (note !== "") {
-          itineraries[0].items[index].notes[0] = { id: noteId, itinerary_item: id, text: note }
+          draft[0].items[index].notes[0] = { id: noteId, itinerary_item: id, text: note }
         } else {
-          itineraries[0].items[index].notes = []
+          draft[0].items[index].notes = []
         }
       })
       return { ...state, itineraries: nextItineraries }

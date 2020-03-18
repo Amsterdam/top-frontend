@@ -51,7 +51,7 @@ const reducer = (state: SearchState, action: Action) : SearchState => {
       if (results === undefined) return state
       const nextResults = produce(results, draft => {
         const index = results.findIndex(result => result.data!.cases.find(({ case_id }) => case_id === caseId) !== undefined)
-        if (index > -1) results[index].data!.cases[0].teams = teamMembers !== undefined ? [teamMembers] : undefined
+        if (index > -1) draft[index].data!.cases[0].teams = teamMembers !== undefined ? [teamMembers] : undefined
       })
       return { ...state, results: nextResults }
     }
