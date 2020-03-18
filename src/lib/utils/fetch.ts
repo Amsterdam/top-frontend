@@ -2,8 +2,8 @@ import authToken from "../../lib/authToken"
 
 type Method = "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
 type URL = string
+// @TODO: Set Body and Response to JSON or string type
 type Body = any
-
 type Response = any
 type OResponse = Response | undefined
 type Result = any
