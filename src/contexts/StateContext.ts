@@ -72,6 +72,8 @@ const value = {
     search: searchState,
     searchActions: {
       search: (a: PostalCode, b: StreetNumberString, c: StreetSuffix) => {},
+      getSuggestions: (a: Id) => {},
+      setTeam: (a: CaseId, b?: TeamMembers) => {},
       clear: noop
     },
 

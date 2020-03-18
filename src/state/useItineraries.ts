@@ -126,8 +126,10 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions] => {
   }
 
   const add = async (id: Id, caseId: CaseId) => {
+    dispatch(createStartFetching())
     const url = getUrl("itinerary-items")
     const [response, result] = await post(url, { itinerary: id, case_id: caseId })
+    dispatch(createStopFetching())
     if (isForbidden(response)) return handleForbiddenResponse()
     if (notOk(response)) return alert(`Toevoegen mislukt (case: ${ caseId })`)
     const itinerary = result as ItineraryItem
@@ -156,8 +158,10 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions] => {
   }
 
   const remove = async (id: Id) => {
+    dispatch(createStartFetching())
     const url = getUrl(`itinerary-items/${ id }`)
     const [response] = await del(url)
+    dispatch(createStopFetching())
     if (isForbidden(response)) return handleForbiddenResponse()
     if (notOk(response)) return alert("Verwijderen mislukt")
     dispatch(createRemove(id))

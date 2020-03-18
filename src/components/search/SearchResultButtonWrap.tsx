@@ -20,11 +20,15 @@ const SearchResultButtonWrap: FC<Props> = ({ caseId }) => {
   const {
     hasItinerary,
     itineraries: {
+      isFetching,
       itineraries
     },
     itinerariesActions: {
       add,
       remove
+    },
+    searchActions: {
+      setTeam
     }
   } = useGlobalState()
 
@@ -36,6 +40,9 @@ const SearchResultButtonWrap: FC<Props> = ({ caseId }) => {
     event.preventDefault()
     if (itineraryId === undefined) return
     add(itineraryId, caseId)
+    const team = itineraries.length > 0 ? itineraries[0].team_members : undefined
+    if (team === undefined) return
+    setTeam(caseId, team)
   }
 
   const onClickRemove = (event: FormEvent) => {
@@ -44,20 +51,22 @@ const SearchResultButtonWrap: FC<Props> = ({ caseId }) => {
     if (itineraryItem === undefined) return
     const { id } = itineraryItem
     remove(id)
+    setTeam(caseId)
   }
 
   const isItinerary = hasItinerary(caseId)
   const showAddButton = isItinerary === false
   const showRemoveButton = !showAddButton
+  const disabled = isFetching
 
   return (
     <div className="SearchResultButtonWrap">
       { showAddButton &&
-        <IconButton icon="Enlarge" onClick={ onClickAdd } />
+        <IconButton icon="Enlarge" onClick={ onClickAdd } disabled={ disabled } />
       }
       { showRemoveButton &&
         <Div>
-          <Button variant="textButton" onClick={ onClickRemove }>undo</Button>
+          <Button variant="textButton" onClick={ onClickRemove } disabled={ disabled }>undo</Button>
         </Div>
       }
     </div>

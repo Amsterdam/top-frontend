@@ -1,7 +1,6 @@
 import React, { FC } from "react"
 import styled from "styled-components"
 import Signal from "../global/Signal"
-import SearchResultDistance from "./SearchResultDistance"
 import useGlobalState from "../../hooks/useGlobalState"
 
 type Props = {

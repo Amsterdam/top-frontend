@@ -2,7 +2,10 @@ import { useReducer } from "react"
 import reducer, {
   initialState,
   createStartFetching,
+  createStopFetching,
   createSetResults,
+  createSetTeam,
+  createSetError,
   createClear
 } from "./searchReducer"
 import { get, notOk, isForbidden } from "../lib/utils/fetch"
@@ -25,6 +28,8 @@ const useSearch = () : [SearchState, SearchActions] => {
       const url = getUrl("search", params)
       const [response, result] = await get(url)
 
+      dispatch(createStopFetching())
+
       // Handle error responses
       if (isForbidden(response)) return handleForbiddenResponse()
       if (notOk(response)) return false
@@ -38,11 +43,38 @@ const useSearch = () : [SearchState, SearchActions] => {
     })()
   }
 
+  const getSuggestions = async (itineraryId: Id) => {
+
+    dispatch(createStartFetching())
+
+    const url = getUrl(`itineraries/${ itineraryId }/suggestions`)
+    const [response, result] = await get(url)
+
+    dispatch(createStopFetching())
+
+    if (isForbidden(response)) return handleForbiddenResponse()
+    if (notOk(response)) {
+      const errorMessage = response ? await response.text() : "Failed to GET"
+      dispatch(createSetError(errorMessage))
+      return
+    }
+
+    const { cases } = result
+    const nonEmptyCases = cases.filter((obj: BWVData) => !isEmptyObject(obj))
+    const groupedCases = groupCasesByAddress(nonEmptyCases)
+    const results = groupedCases.map(cases => ({ success: true, data: { cases } }))
+    dispatch(createSetResults(results))
+  }
+
+  const setTeam = (caseId: CaseId, teamMembers?: TeamMembers) => {
+    dispatch(createSetTeam(caseId, teamMembers))
+  }
+
   const clear = () => {
     dispatch(createClear())
   }
 
-  return [state, { search, clear }]
+  return [state, { search, getSuggestions, setTeam, clear }]
 }
 
 export default useSearch

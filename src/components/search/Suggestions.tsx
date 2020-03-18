@@ -2,7 +2,7 @@ import React, { FC, useEffect } from "react"
 import { Spinner } from "@datapunt/asc-ui"
 import ErrorMessage from "../global/ErrorMessage"
 import useGlobalState from "../../hooks/useGlobalState"
-import SearchResult from "../search/SearchResult"
+import SearchResults from "../search/SearchResults"
 
 type Props = {
   id: Id
@@ -12,12 +12,12 @@ const Suggestions: FC<Props> = ({ id }) => {
 
   const {
     isInitialized,
-    itineraries: {
+    search: {
       isFetching,
       errorMessage,
-      suggestions
+      results
     },
-    itinerariesActions: {
+    searchActions: {
       getSuggestions
     }
   } = useGlobalState()
@@ -29,8 +29,8 @@ const Suggestions: FC<Props> = ({ id }) => {
   const showSpinner = !isInitialized || isFetching
   const hasError = errorMessage !== undefined
   const showError = hasError
-  const hasSuggestions = suggestions !== undefined && suggestions.length > 0
-  const show = !showSpinner && !showError && hasSuggestions
+  const hasResults = results !== undefined && results.length > 0
+  const show = !showSpinner && !showError && hasResults
 
   return (
     <div className="Suggestions">
@@ -43,7 +43,7 @@ const Suggestions: FC<Props> = ({ id }) => {
       { show &&
         <>
           <h1>Suggesties</h1>
-          { suggestions.map(suggestion => <SearchResult key={ suggestion.case_id } cases={ [suggestion] } />) }
+          <SearchResults results={ results } />
         </>
       }
     </div>
