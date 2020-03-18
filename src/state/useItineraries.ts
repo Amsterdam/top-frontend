@@ -11,7 +11,6 @@ import reducer, {
   createMove,
   createRemove,
   createSetNote,
-  createSetSuggestions,
   createClear } from "./itinerariesReducer"
 import { get, post, put, patch, del, notOk, isForbidden } from "../lib/utils/fetch"
 import { getUrl } from "../config/api"
@@ -103,28 +102,6 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions] => {
     dispatch(createInitialize(itineraries))
   }
 
-  const getSuggestions = async (id: Id) => {
-
-    dispatch(createStartFetching())
-
-    const url = getUrl(`itineraries/${ id }/suggestions`)
-    const [response, result] = await get(url)
-
-    if (isForbidden(response)) {
-      dispatch(createStopFetching())
-      return handleForbiddenResponse()
-    }
-
-    if (notOk(response)) {
-      const errorMessage = response ? await response.text() : "Failed to GET"
-      dispatch(createSetErrorMessage(errorMessage))
-      return
-    }
-
-    const { cases: suggestions } = result
-    dispatch(createSetSuggestions(suggestions))
-  }
-
   const add = async (id: Id, caseId: CaseId) => {
     dispatch(createStartFetching())
     const url = getUrl("itinerary-items")
@@ -189,6 +166,6 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions] => {
 
   const clear = () => dispatch(createClear())
 
-  return [itinerariesState, { initialize, create, updateTeam, del: del2, getSuggestions, add, move, remove, setNote, clear }]
+  return [itinerariesState, { initialize, create, updateTeam, del: del2, add, move, remove, setNote, clear }]
 }
 export default useItineraries

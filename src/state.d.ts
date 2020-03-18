@@ -6,14 +6,12 @@ declare type ItinerariesState = {
   isInitialized: boolean
   errorMessage?: ErrorMessage
   itineraries: Itineraries
-  suggestions: BWVData[]
 }
 
 declare type ItinerariesActions = {
   initialize: () => void
   create: (a: any, b: UUIDs, c: number) => void
   updateTeam: (a: Id, b: UUIDs) => void
-  getSuggestions: (a: Id) => void
   del: (a: Id) => void
   add: (a: Id, b: CaseId) => void
   move: (a: Index, b: Index) => void
