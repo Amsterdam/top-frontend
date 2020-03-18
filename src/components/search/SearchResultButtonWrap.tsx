@@ -8,11 +8,8 @@ type Props = {
   caseId: CaseId
 }
 
-const Div = styled.div`
-  margin-top: 24px
-  button {
-    padding: 12px
-  }
+const StyledButton = styled(Button)`
+  padding: 12px
 `
 
 const SearchResultButtonWrap: FC<Props> = ({ caseId }) => {
@@ -60,14 +57,12 @@ const SearchResultButtonWrap: FC<Props> = ({ caseId }) => {
   const disabled = isFetching
 
   return (
-    <div className="SearchResultButtonWrap">
+    <div>
       { showAddButton &&
         <IconButton icon="Enlarge" onClick={ onClickAdd } disabled={ disabled } />
       }
       { showRemoveButton &&
-        <Div>
-          <Button variant="textButton" onClick={ onClickRemove } disabled={ disabled }>undo</Button>
-        </Div>
+        <StyledButton variant="textButton" onClick={ onClickRemove } disabled={ disabled }>undo</StyledButton>
       }
     </div>
   )

@@ -1,7 +1,7 @@
 import React, { FC } from "react"
 import { Link } from "@reach/router"
 import styled from "styled-components"
-import SearchResultHeader from "./SearchResultHeader"
+import SearchResultWrap from "./SearchResultWrap"
 import SearchResultAddress from "./SearchResultAddress"
 import SearchResultDistance from "./SearchResultDistance"
 import SearchResultCase from "./SearchResultCase"
@@ -21,6 +21,11 @@ const Wrap = styled.div`
   border-top: 1px solid black
   padding-top: 12px
 `
+const Div = styled.div`
+  display: flex
+  flex-direction: column
+  justify-content: flex-end
+`
 
 const SearchResultPlural: FC<Props> = ({ cases }) => {
 
@@ -37,30 +42,33 @@ const SearchResultPlural: FC<Props> = ({ cases }) => {
   const showDistance = distance !== undefined
 
   return (
-    <div className="SearchResultPlural">
-      <SearchResultHeader>
+    <div>
+      <SearchResultWrap>
         <SearchResultAddress address={ address } postalCode={ postalCode } />
         { showDistance &&
           <SearchResultDistance distance={ distance! } />
         }
-      </SearchResultHeader>
+      </SearchResultWrap>
       { cases.map(caseItem => {
-        const {
-          case_id: caseId,
-          case_reason: reason,
-          stadium,
-          teams
-        } = caseItem
-        const linkTo = to(`cases/${ caseId }`)
-        return (
-          <Link key={ JSON.stringify(caseItem) } to={ linkTo }>
-            <Wrap key={ caseId }>
-              <SearchResultCase reason={ reason } stadium={ stadium } teams={ teams } />
-              <SearchResultButtonWrap caseId={ caseId } />
-            </Wrap>
-          </Link>
-        )
-      })}
+          const {
+            case_id: caseId,
+            case_reason: reason,
+            stadium,
+            teams
+          } = caseItem
+          const linkTo = to(`cases/${ caseId }`)
+          return (
+            <Link key={ JSON.stringify(caseItem) } to={ linkTo }>
+              <Wrap key={ caseId }>
+                <SearchResultCase reason={ reason } stadium={ stadium } teams={ teams } />
+                <Div>
+                  <SearchResultButtonWrap caseId={ caseId } />
+                </Div>
+              </Wrap>
+            </Link>
+          )
+        })
+      }
     </div>
   )
 }

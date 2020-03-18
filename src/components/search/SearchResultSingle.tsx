@@ -1,7 +1,8 @@
 import React, { FC } from "react"
 import { Link } from "@reach/router"
 import styled from "styled-components"
-import SearchResultHeader from "./SearchResultHeader"
+import SearchResultWrap from "./SearchResultWrap"
+import SearchResultMenu from "./SearchResultMenu"
 import SearchResultAddress from "./SearchResultAddress"
 import SearchResultDistance from "./SearchResultDistance"
 import SearchResultCase from "./SearchResultCase"
@@ -12,12 +13,6 @@ import displayAddress from "../../lib/displayAddress"
 type Props = {
   caseItem: BWVData
 }
-
-const Wrap = styled.div`
-  display: flex
-  justify-content: space-between
-  margin-top: 12px
-`
 
 const SearchResultSingle: FC<Props> = ({ caseItem }) => {
 
@@ -39,20 +34,20 @@ const SearchResultSingle: FC<Props> = ({ caseItem }) => {
   const showDistance = distance !== undefined
 
   return (
-    <div className="SearchResultSingle">
-      <Link to={ linkTo }>
-        <SearchResultHeader>
+    <Link to={ linkTo }>
+      <SearchResultWrap>
+        <div>
           <SearchResultAddress address={ address } postalCode={ postalCode } />
+          <SearchResultCase reason={ reason } stadium={ stadium } teams={ teams } />
+        </div>
+        <SearchResultMenu>
           { showDistance &&
             <SearchResultDistance distance={ distance! } />
           }
-        </SearchResultHeader>
-        <Wrap key={ caseId }>
-          <SearchResultCase reason={ reason } stadium={ stadium } teams={ teams } />
           <SearchResultButtonWrap caseId={ caseId } />
-        </Wrap>
-      </Link>
-    </div>
+        </SearchResultMenu>
+      </SearchResultWrap>
+    </Link>
   )
 }
 export default SearchResultSingle
