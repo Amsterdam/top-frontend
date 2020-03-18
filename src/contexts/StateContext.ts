@@ -55,9 +55,9 @@ const value = {
     itineraries: itinerariesState,
     itinerariesActions: {
       initialize: noop,
-      create: async (a: any, b: UUIDs, c: number) => undefined,
-      updateTeam: async (a: Id, b: UUIDs) => undefined,
-      del: async (a: Id) => undefined,
+      create: (a: any, b: UUIDs, c: number) => undefined,
+      updateTeam: (a: Id, b: UUIDs) => undefined,
+      del: (a: Id) => undefined,
       add: (a: Id, b: CaseId) => undefined,
       addMany: noop,
       move: noop,
