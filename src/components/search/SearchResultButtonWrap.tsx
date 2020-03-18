@@ -1,6 +1,7 @@
 import React, { FC, FormEvent } from "react"
 import useGlobalState from "../../hooks/useGlobalState"
 import IconButton from "../global/IconButton"
+import { Button } from "@datapunt/asc-ui"
 import styled from "styled-components"
 
 type Props = {
@@ -8,15 +9,9 @@ type Props = {
 }
 
 const Div = styled.div`
-  span {
-    display: inline-block
-    width: 100%
-    text-align: center
-    color: black
-    font-weight: normal
-  }
+  margin-top: 24px
   button {
-    margin: 10px
+    padding: 12px
   }
 `
 
@@ -62,8 +57,7 @@ const SearchResultButtonWrap: FC<Props> = ({ caseId }) => {
       }
       { showRemoveButton &&
         <Div>
-          <span>In lijst</span>
-          <IconButton icon="TrashBin" onClick={ onClickRemove } size={ 40 } border={ false } />
+          <Button variant="textButton" onClick={ onClickRemove }>undo</Button>
         </Div>
       }
     </div>

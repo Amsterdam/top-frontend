@@ -17,9 +17,9 @@ const PostalCode = styled.p`
 `
 
 const SearchResultAddress: FC<Props> = ({ address, postalCode }) => (
-  <>
+  <div>
     <H1>{ address }</H1>
     <PostalCode>{ postalCode }</PostalCode>
-  </>
+  </div>
 )
 export default SearchResultAddress

@@ -1,7 +1,9 @@
 import React, { FC } from "react"
 import { Link } from "@reach/router"
 import styled from "styled-components"
+import SearchResultHeader from "./SearchResultHeader"
 import SearchResultAddress from "./SearchResultAddress"
+import SearchResultDistance from "./SearchResultDistance"
 import SearchResultCase from "./SearchResultCase"
 import SearchResultButtonWrap from "./SearchResultButtonWrap"
 import { to } from "../../config/page"
@@ -31,15 +33,22 @@ const SearchResultSingle: FC<Props> = ({ caseItem }) => {
     distance,
     teams
   } = caseItem
-  const address = displayAddress(streetName, streetNumber, suffix_letter || undefined, suffix || undefined)
+
   const linkTo = to(`cases/${ caseId }`)
+  const address = displayAddress(streetName, streetNumber, suffix_letter || undefined, suffix || undefined)
+  const showDistance = distance !== undefined
 
   return (
     <div className="SearchResultSingle">
       <Link to={ linkTo }>
-        <SearchResultAddress address={ address } postalCode={ postalCode } />
+        <SearchResultHeader>
+          <SearchResultAddress address={ address } postalCode={ postalCode } />
+          { showDistance &&
+            <SearchResultDistance distance={ distance! } />
+          }
+        </SearchResultHeader>
         <Wrap key={ caseId }>
-          <SearchResultCase reason={ reason } stadium={ stadium } distance={ distance } teams={ teams } />
+          <SearchResultCase reason={ reason } stadium={ stadium } teams={ teams } />
           <SearchResultButtonWrap caseId={ caseId } />
         </Wrap>
       </Link>

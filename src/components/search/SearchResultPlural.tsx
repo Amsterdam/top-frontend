@@ -1,9 +1,12 @@
 import React, { FC } from "react"
 import { Link } from "@reach/router"
 import styled from "styled-components"
+import SearchResultHeader from "./SearchResultHeader"
 import SearchResultAddress from "./SearchResultAddress"
+import SearchResultDistance from "./SearchResultDistance"
 import SearchResultCase from "./SearchResultCase"
 import SearchResultButtonWrap from "./SearchResultButtonWrap"
+
 import { to } from "../../config/page"
 import displayAddress from "../../lib/displayAddress"
 
@@ -27,25 +30,32 @@ const SearchResultPlural: FC<Props> = ({ cases }) => {
     suffix,
     suffix_letter,
     postal_code: postalCode,
+    distance
   } = cases[0]
+
   const address = displayAddress(streetName, streetNumber, suffix_letter || undefined, suffix || undefined)
+  const showDistance = distance !== undefined
 
   return (
     <div className="SearchResultPlural">
-      <SearchResultAddress address={ address } postalCode={ postalCode }/>
+      <SearchResultHeader>
+        <SearchResultAddress address={ address } postalCode={ postalCode } />
+        { showDistance &&
+          <SearchResultDistance distance={ distance! } />
+        }
+      </SearchResultHeader>
       { cases.map(caseItem => {
         const {
           case_id: caseId,
           case_reason: reason,
           stadium,
-          distance,
           teams
         } = caseItem
         const linkTo = to(`cases/${ caseId }`)
         return (
           <Link key={ JSON.stringify(caseItem) } to={ linkTo }>
             <Wrap key={ caseId }>
-              <SearchResultCase reason={ reason } stadium={ stadium } distance={ distance } teams={ teams }/>
+              <SearchResultCase reason={ reason } stadium={ stadium } teams={ teams } />
               <SearchResultButtonWrap caseId={ caseId } />
             </Wrap>
           </Link>

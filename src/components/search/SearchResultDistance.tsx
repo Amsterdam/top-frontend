@@ -6,6 +6,8 @@ type Props = {
 }
 
 const P = styled.p`
+  margin: 0
+  padding: 0 6px
   font-weight: normal
   color: black
 `
