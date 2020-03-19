@@ -2,7 +2,7 @@ import React, { MouseEvent, FC } from "react"
 import { Button } from "@datapunt/asc-ui"
 import styled from "styled-components"
 import noop from "../../lib/utils/noop"
-import { mobile, desktop } from "../../responsiveness/mediaQueries"
+import ResponsiveText from "../global/ResponsiveText"
 
 type Props = {
   onClick?: (event: MouseEvent<HTMLButtonElement>) => void
@@ -14,21 +14,9 @@ const StyledButton = styled(Button)`
   padding: 12px 15px
 `
 
-const SpanMobile = styled.span`
-  @media ${ desktop } {
-    display: none
-  }
-`
-const SpanDesktop = styled.span`
-  @media ${ mobile } {
-    display: none
-  }
-`
-
 const ClearButton: FC<Props> = ({ onClick = noop }) =>
-  <StyledButton variant="textButton" onClick={ onClick}>
-    <SpanMobile>Wis</SpanMobile>
-    <SpanDesktop>Wis velden</SpanDesktop>
+  <StyledButton variant="textButton" onClick={ onClick }>
+    <ResponsiveText text={ ["Wis", "Wis velden"] } />
   </StyledButton>
 
 export default ClearButton

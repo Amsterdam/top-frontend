@@ -3,7 +3,7 @@ import styled from "styled-components"
 import { Button } from "@datapunt/asc-ui"
 import { Location } from "@datapunt/asc-assets"
 import displayAddress from "../../lib/displayAddress"
-import { mobile, desktop } from "../../responsiveness/mediaQueries"
+import ResponsiveText from "../global/ResponsiveText"
 
 type Props = {
   $as?: "a" | "button"
@@ -21,16 +21,6 @@ const StyledButton = styled(Button)`
       background-color: transparent;
     }
     `
-  }
-`
-const SpanMobile = styled.span`
-  @media ${ desktop } {
-    display: none
-  }
-`
-const SpanDesktop = styled.span`
-  @media ${ mobile } {
-    display: none
   }
 `
 
@@ -55,8 +45,7 @@ const MapsButton: FC<Props> = ({ $as = "button", cases }) => {
   }
   return (
     <StyledButton $as={ $as } onClick={ onClick } variant="blank" iconLeft={ $as !== "a" ? <Location /> : null }>
-      <SpanMobile>Maps</SpanMobile>
-      <SpanDesktop>Bekijk op Google Maps</SpanDesktop>
+      <ResponsiveText text={ ["Maps", "Bekijk op Google Maps"] } />
     </StyledButton>
   )
 }
