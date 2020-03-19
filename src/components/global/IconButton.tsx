@@ -1,11 +1,11 @@
 import React, { FC, ReactNode, MouseEvent } from "react"
 import styled from "styled-components"
 import { Button } from "@datapunt/asc-ui"
-import { Enlarge, Minimise, TrashBin, DocumentText } from "@datapunt/asc-assets"
+import { Enlarge, Minimise, TrashBin, DocumentText, Ellipsis } from "@datapunt/asc-assets"
 import noop from "../../lib/utils/noop"
 
 type Props = {
-  icon?: "Enlarge" | "Minimise" | "TrashBin" | "DocumentText"
+  icon?: "Enlarge" | "Minimise" | "TrashBin" | "DocumentText" | "Ellipsis"
   iconNode?: ReactNode
   onClick?: (a: MouseEvent<HTMLButtonElement>) => void
   size?: number
@@ -17,7 +17,8 @@ const iconMap = {
   "Enlarge": <Enlarge />,
   "Minimise": <Minimise />,
   "TrashBin": <TrashBin />,
-  "DocumentText": <DocumentText />
+  "DocumentText": <DocumentText />,
+  "Ellipsis": <Ellipsis />
 }
 
 const StyledButton = styled(Button)`
@@ -26,7 +27,7 @@ const StyledButton = styled(Button)`
 
 const IconButton: FC<Props> = ({ icon, iconNode, onClick = noop, size = 60, border = true, disabled = false }) => {
   const Component = border ? StyledButton : Button
-  const iconElement = icon !== undefined ? iconMap[icon] : iconNode 
+  const iconElement = icon !== undefined ? iconMap[icon] : iconNode
   return <Component onClick={ onClick } size={ size } variant="blank" icon={ iconElement } disabled={ disabled } />
 }
 
