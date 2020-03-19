@@ -16,20 +16,22 @@ const Article = styled.article`
   a {
     display: block
     margin-bottom: 0
-    padding: 15px 0
+    padding: 10px 0
   }
 `
 const Div = styled.div`
   margin-right: 12px
 `
 const H1 = styled.h1`
-  font-size: 20px
+  font-size: 16px
   line-height: 28px
   color: black
+  margin-bottom: 2px
 `
 const P = styled.p`
   color: black
   font-weight: normal
+  margin-bottom: 2px
 `
 const PostalCode = styled(P)`
   font-weight: bold

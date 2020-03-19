@@ -9,7 +9,6 @@ type Props = {
   teams?: TeamMembers[]
 }
 
-const Div = styled.div``
 const P = styled.p`
   font-weight: normal
   color: black
@@ -31,13 +30,13 @@ const SearchResultCase: FC<Props> = ({ reason, stadium, teams }) => {
   const team = hasTeam ? (isOwnTeam ? "In mijn lijst" : `In lijst: ${ teamString }`) : ""
 
   return (
-    <Div className="SearchResultCase">
+    <div>
       <P>{ reason }</P>
       <Signal text={ stadium } />
       { showTeam &&
         <P>{ team }</P>
       }
-    </Div>
+    </div>
   )
 }
 export default SearchResultCase

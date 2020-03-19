@@ -8,8 +8,8 @@ type Props = {
 }
 
 const Div = styled.div`
-  padding: 20px 0 8px
-  border-bottom: 1px solid #767676
+  padding: 10px 0
+  border-bottom: 1px solid #B4B4B4
 `
 
 const SearchResult: FC<Props> = ({ cases }) => {
@@ -18,7 +18,7 @@ const SearchResult: FC<Props> = ({ cases }) => {
   const caseItem = cases[0]
 
   return (
-    <Div className="SearchResult">
+    <Div>
       { showPlural ?
         <SearchResultPlural cases={ cases } /> :
         <SearchResultSingle caseItem={ caseItem! } />

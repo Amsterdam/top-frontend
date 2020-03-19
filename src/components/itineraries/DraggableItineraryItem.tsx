@@ -25,9 +25,9 @@ const Inner = styled.div`
 `
 
 const ButtonWrap = styled.div`
-  margin: 15px 0
+  margin: 10px 0
   button:first-child {
-    margin-bottom: 15px
+    margin-bottom: 10px
   }
 `
 
@@ -58,7 +58,7 @@ const DraggableItineraryItem: FC<Props> = ({ itineraryItem, index }) => {
   const getItemStyle = (isDragging: boolean, draggableStyle: any) => ({
     userSelect: "none",
     background: "white",
-    borderBottom: "1px solid #767676",
+    borderBottom: "1px solid #B4B4B4",
     boxShadow: isDragging ? "0 2px 20px black" : "none",
     padding: isDragging ? "0 20px" : 0,
     ...draggableStyle

@@ -12,7 +12,6 @@ const Span = styled.span`
   background-color: #004699
   border-radius: 6px
   padding: 2px 8px
-  margin-bottom: 8px
   font-weight: bold
   &.signal-issue {
     background-color: #EC0000
