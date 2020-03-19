@@ -4,6 +4,7 @@ import ErrorMessage from "../global/ErrorMessage"
 import useOnChangeState from "../../hooks/useOnChangeState"
 import useGlobalState from "../../hooks/useGlobalState"
 import styled from "styled-components"
+import TeamMembersDisplay from "./TeamMembersDisplay"
 
 type Props = {
   itineraryId: Id
@@ -81,8 +82,7 @@ const ItineraryTeamMembers: FC<Props> = ({ itineraryId, teamMembers, isEditing =
   return (
     <Div>
       { !isEditing &&
-        teamMembers.map(({ id, user: { full_name } }) =>
-        <p key={ id }>{ `${ full_name }` }</p>)
+        <TeamMembersDisplay teamMembers={ teamMembers } />
       }
       { isEditing &&
         <form onSubmit={ onSubmit }>

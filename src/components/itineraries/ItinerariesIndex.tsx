@@ -3,6 +3,7 @@ import styled from "styled-components"
 import { to } from "../../config/page"
 import { Link } from "@reach/router"
 import H1 from "../styled/H1"
+import TeamMembersDisplay from "./TeamMembersDisplay"
 
 type Props = {
   itineraries: Itineraries
@@ -20,7 +21,7 @@ const ItinerariesIndex: FC<Props> = ({ itineraries }) => {
       { itineraries.map(({ id, team_members }) =>
         <p key={ id }>
           <Link to={ to(`itineraries/${ id }`) }>
-            { team_members.map(({ user: { full_name } }) => full_name).join(", ") }
+            <TeamMembersDisplay teamMembers={ team_members } />
           </Link>
         </p>
         )
