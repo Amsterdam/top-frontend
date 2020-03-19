@@ -1,5 +1,7 @@
 import React, { FC, useState, useEffect, ChangeEvent, FormEvent } from "react"
-import { Spinner, Button } from "@datapunt/asc-ui"
+import { Button } from "@datapunt/asc-ui"
+import Spinner from "../global/Spinner"
+import SmallSpinner from "../global/SmallSpinner"
 import useGlobalState from "../../hooks/useGlobalState"
 import useOnChangeState from "../../hooks/useOnChangeState"
 import styled from "styled-components"
@@ -71,7 +73,7 @@ const Settings: FC = () => {
     <div className="Settings">
       <h1>Settings</h1>
       { showSpinner &&
-        <Spinner size={ 60 }/>
+        <Spinner />
       }
       { showSettings &&
         <form onSubmit={ onSubmit }>
@@ -93,7 +95,7 @@ const Settings: FC = () => {
           </Div>
           <ButtonWrap>
             { showUpdatingSpinner &&
-              <Spinner size={ 40 } />
+              <SmallSpinner />
             }
             <Button variant="secondary" type="submit" disabled={ disabled }>Opslaan</Button>
           </ButtonWrap>

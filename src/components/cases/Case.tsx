@@ -1,8 +1,8 @@
 import React, { FC } from "react"
 import useFetch from "../../hooks/useFetch"
-import { Spinner } from "@datapunt/asc-ui"
 import CaseDetail from "./CaseDetail"
 import AnonymousToggle from "./AnonymousToggle"
+import Spinner from "../global/Spinner"
 import ErrorMessage from "../global/ErrorMessage"
 import { navigateToLogin } from "../../lib/navigateTo"
 
@@ -24,7 +24,7 @@ const Case: FC<Props> = ({ caseId }) => {
   return (
     <div className="CaseDetail">
       { showSpinner &&
-        <Spinner size={ 60 } />
+        <Spinner />
       }
       { show &&
         <>

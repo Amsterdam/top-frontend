@@ -1,6 +1,6 @@
 import React, { FC } from "react"
 import useGlobalState from "../../hooks/useGlobalState"
-import { Spinner } from "@datapunt/asc-ui"
+import Spinner from "../global/Spinner"
 import NoteForm from "./NoteForm"
 
 type Props = {
@@ -25,7 +25,7 @@ const Note: FC<Props> = ({ itineraryId, id }) => {
   return (
     <div className="Note">
       { showSpinner &&
-        <Spinner size={ 60 } />
+        <Spinner />
       }
       { showNoteForm &&
         <NoteForm itineraryId={ itineraryId } id={ id } value={ noteValue } />

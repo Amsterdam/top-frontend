@@ -1,5 +1,5 @@
 import React, { FC, useEffect } from "react"
-import { Spinner } from "@datapunt/asc-ui"
+import Spinner from "../global/Spinner"
 import ErrorMessage from "../global/ErrorMessage"
 import useGlobalState from "../../hooks/useGlobalState"
 import SearchResults from "../search/SearchResults"
@@ -37,7 +37,7 @@ const Suggestions: FC<Props> = ({ id }) => {
   return (
     <div className="Suggestions">
       { showSpinner &&
-        <Spinner size={ 60 } />
+        <Spinner />
       }
       { showError &&
         <ErrorMessage text={ errorMessage! } />

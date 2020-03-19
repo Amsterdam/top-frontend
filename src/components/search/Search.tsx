@@ -1,7 +1,7 @@
 import React, { FC } from "react"
 import SearchForm from "./SearchForm"
 import SearchResults from "./SearchResults"
-import { Spinner } from "@datapunt/asc-ui"
+import SmallSpinner from "../global/SmallSpinner"
 import useGlobalState from "../../hooks/useGlobalState"
 
 const Search: FC = () => {
@@ -19,7 +19,7 @@ const Search: FC = () => {
     <div className="Search">
       <SearchForm />
       { showSpinner &&
-        <Spinner size={ 40 } />
+        <SmallSpinner />
       }
       <SearchResults results={ results } />
     </div>

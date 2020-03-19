@@ -1,5 +1,5 @@
 import React, { FC } from "react"
-import { Spinner } from "@datapunt/asc-ui"
+import Spinner from "../global/Spinner"
 import ErrorMessage from "../global/ErrorMessage"
 import Generate from "./Generate"
 import ItinerariesIndex from "./ItinerariesIndex"
@@ -36,7 +36,7 @@ const ItinerariesMain: FC<Props> = ({ id, forceGenerate = false }) => {
   return (
     <div>
       { showSpinner &&
-        <Spinner size={ 60 } />
+        <Spinner />
       }
       { showError &&
         <ErrorMessage text={ errorMessage! } />
