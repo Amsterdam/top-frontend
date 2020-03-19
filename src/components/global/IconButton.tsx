@@ -1,5 +1,4 @@
 import React, { FC, ReactNode, MouseEvent } from "react"
-import styled from "styled-components"
 import { Button } from "@datapunt/asc-ui"
 import StyledButton from "../styled/Button"
 import { Enlarge, Minimise, TrashBin, DocumentText, Ellipsis } from "@datapunt/asc-assets"

@@ -1,4 +1,3 @@
-import React, { FC, useRef, MouseEvent } from "react"
 import { Button } from "@datapunt/asc-ui"
 import styled from "styled-components"
 

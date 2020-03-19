@@ -1,5 +1,4 @@
 import React, { FC, MouseEvent } from "react"
-import styled from "styled-components"
 import Button from "../styled/Button"
 import { TrashBin } from "@datapunt/asc-assets"
 import noop from "../../lib/utils/noop"

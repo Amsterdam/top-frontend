@@ -1,6 +1,5 @@
 import React, { FC } from "react"
 import { Link } from "@reach/router"
-import styled from "styled-components"
 import SearchResultWrap from "./SearchResultWrap"
 import SearchResultMenu from "./SearchResultMenu"
 import SearchResultAddress from "./SearchResultAddress"

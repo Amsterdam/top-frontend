@@ -1,5 +1,4 @@
 import React, { FC, MouseEvent } from "react"
-import styled from "styled-components"
 import { Location } from "@datapunt/asc-assets"
 import Button from "../styled/Button"
 import ResponsiveText from "../global/ResponsiveText"
