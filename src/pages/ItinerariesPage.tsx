@@ -2,7 +2,6 @@ import React, { FC } from "react"
 import { RouteComponentProps } from "@reach/router"
 import ItinerariesMain from "../components/itineraries/ItinerariesMain"
 import Navigation from "../components/global/Navigation"
-import ErrorMessage from "../components/global/ErrorMessage"
 import parseLocationSearch from "../lib/utils/parseLocationSearch"
 
 type Props = {

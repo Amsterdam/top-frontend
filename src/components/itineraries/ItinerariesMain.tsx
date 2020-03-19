@@ -16,7 +16,6 @@ const ItinerariesMain: FC<Props> = ({ id, forceGenerate = false }) => {
   const {
     isInitialized,
     itineraries: {
-      isFetching,
       itineraries,
       errorMessage
     }
