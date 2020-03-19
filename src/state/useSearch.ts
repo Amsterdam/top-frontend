@@ -60,9 +60,7 @@ const useSearch = () : [SearchState, SearchActions] => {
     }
 
     const { cases } = result
-    const nonEmptyCases = cases.filter((obj: BWVData) => !isEmptyObject(obj))
-    const groupedCases = groupCasesByAddress(nonEmptyCases)
-    const results = groupedCases.map(cases => ({ success: true, data: { cases } }))
+    const results = cases.map((caseItem: BWVData) => ({ success: true, data: { cases: [caseItem] } }))
     dispatch(createSetResults(results))
   }
 
