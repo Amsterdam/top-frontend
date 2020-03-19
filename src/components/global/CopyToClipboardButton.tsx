@@ -1,5 +1,6 @@
 import React, { FC, useRef, MouseEvent } from "react"
-import { Button } from "@datapunt/asc-ui"
+import Button from "../styled/Button"
+import { DocumentText } from "@datapunt/asc-assets"
 import styled from "styled-components"
 import noop from "../../lib/utils/noop"
 
@@ -29,7 +30,7 @@ const CopyToClipboardButton: FC<Props> = ({ text, onClick = noop }) => {
 
   return (
     <>
-      <Button onClick={ onClickHandler }>Kopieër naar clipboard</Button>
+      <Button variant="blank" iconLeft={ <DocumentText /> } onClick={ onClickHandler }>Kopieër naar clipboard</Button>
       <TextArea ref={ ref } readOnly />
     </>
   )

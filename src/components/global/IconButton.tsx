@@ -1,6 +1,7 @@
 import React, { FC, ReactNode, MouseEvent } from "react"
 import styled from "styled-components"
 import { Button } from "@datapunt/asc-ui"
+import StyledButton from "../styled/Button"
 import { Enlarge, Minimise, TrashBin, DocumentText, Ellipsis } from "@datapunt/asc-assets"
 import noop from "../../lib/utils/noop"
 
@@ -21,11 +22,7 @@ const iconMap = {
   "Ellipsis": <Ellipsis />
 }
 
-const StyledButton = styled(Button)`
-  border: solid 1px black
-`
-
-const IconButton: FC<Props> = ({ icon, iconNode, onClick = noop, size = 60, border = true, disabled = false }) => {
+const IconButton: FC<Props> = ({ icon, iconNode, onClick = noop, size = 44, border = true, disabled = false }) => {
   const Component = border ? StyledButton : Button
   const iconElement = icon !== undefined ? iconMap[icon] : iconNode
   return <Component onClick={ onClick } size={ size } variant="blank" icon={ iconElement } disabled={ disabled } />

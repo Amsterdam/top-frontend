@@ -1,30 +1,15 @@
 import React, { FC, MouseEvent } from "react"
 import styled from "styled-components"
-import { Button } from "@datapunt/asc-ui"
 import { Location } from "@datapunt/asc-assets"
-import displayAddress from "../../lib/displayAddress"
+import Button from "../styled/Button"
 import ResponsiveText from "../global/ResponsiveText"
+import displayAddress from "../../lib/displayAddress"
 
 type Props = {
-  $as?: "a" | "button"
   cases: BWVData[]
 }
 
-const StyledButton = styled(Button)`
-  ${ ({ $as }) => $as !== "a" ?
-    "border: solid 1px black;" :
-    `
-    margin-bottom: 0;
-    padding: 0;
-    height: auto;
-    &:hover {
-      background-color: transparent;
-    }
-    `
-  }
-`
-
-const MapsButton: FC<Props> = ({ $as = "button", cases }) => {
+const MapsButton: FC<Props> = ({ cases }) => {
   const onClick = (event: MouseEvent) => {
     event.preventDefault()
     const path = cases
@@ -44,9 +29,9 @@ const MapsButton: FC<Props> = ({ $as = "button", cases }) => {
     window.open(href, "_blank")
   }
   return (
-    <StyledButton $as={ $as } onClick={ onClick } variant="blank" iconLeft={ $as !== "a" ? <Location /> : null }>
+    <Button variant="blank" iconLeft={ <Location /> } onClick={ onClick }>
       <ResponsiveText text={ ["Maps", "Bekijk op Google Maps"] } />
-    </StyledButton>
+    </Button>
   )
 }
 export default MapsButton

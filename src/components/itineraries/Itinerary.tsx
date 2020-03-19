@@ -1,9 +1,9 @@
 import React, { FC, useState } from "react"
 import useGlobalState from "../../hooks/useGlobalState"
 import ItineraryTeamMembers from "./ItineraryTeamMembers"
-import { Button } from "@datapunt/asc-ui"
+import Button from "../styled/Button"
 import IconButton from "../global/IconButton"
-import { Enlarge } from "@datapunt/asc-assets"
+import { Enlarge, Card } from "@datapunt/asc-assets"
 import DroppableItinerary from "./DroppableItinerary"
 import MapsButton from "./MapsButton"
 import RemoveAllButton from "./RemoveAllButton"
@@ -92,7 +92,7 @@ const Itinerary: FC<Props> = ({ itinerary }) => {
         <ButtonMenuWrap>
           <ButtonMenu>
             <CopyToClipboardButton text={ clipboardText } onClick={ onClickClipboard } />
-            <Button onClick={ onClickEdit }>Wijzig teamleden</Button>
+            <Button variant="blank" iconLeft={ <Card /> } onClick={ onClickEdit }>Wijzig teamleden</Button>
             <RemoveAllButton onClick={ onClickRemoveAll } />
           </ButtonMenu>
         </ButtonMenuWrap>

@@ -8,19 +8,20 @@ type Props = {
 }
 
 const StyledLink = styled(Link)`
-  white-space: nowrap;
-  display: inline-flex;
-  -webkit-box-align: center;
-  align-items: center;
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 20px;
+  height: 18px
+  white-space: nowrap
+  display: inline-flex
+  -webkit-box-align: center
+  align-items: center
+  cursor: pointer
+  font-size: 16px
+  font-weight: 500
+  line-height: 20px
   color: rgb(255, 255, 255);
-  text-decoration: none;
-  color: #004699;
-  border: 1px solid #004699;
-  padding: 12px 15px;
+  text-decoration: none
+  color: black
+  border: 1px solid black
+  padding: 12px 15px
   transition: color 0.1s ease-in-out 0s, background-color 0.1s ease-in-out 0s;
   svg {
     width: 18px
