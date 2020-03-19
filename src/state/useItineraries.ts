@@ -4,6 +4,7 @@ import reducer, {
   createStartFetching,
   createStopFetching,
   createInitialize,
+  createCreateItinerary,
   createRemoveItinerary,
   createSetErrorMessage,
   createAdd,
@@ -18,6 +19,7 @@ import { getUrl } from "../config/api"
 import handleForbiddenResponse from "../lib/handleForbiddenResponse"
 import calculateNewPosition from "../lib/calculateNewPosition"
 import currentDate from "../lib/utils/currentDate"
+import { navigateToHome } from "../lib/navigateTo"
 
 const useItineraries = () : [ItinerariesState, ItinerariesActions] => {
 
@@ -56,8 +58,8 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions] => {
       }
     }
     const [response, result] = await post(url, body)
+    dispatch(createStopFetching())
     if (isForbidden(response)) {
-      dispatch(createStopFetching())
       return handleForbiddenResponse()
     }
     if (notOk(response)) {
@@ -65,8 +67,8 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions] => {
       dispatch(createSetErrorMessage(errorMessage))
       return
     }
-    const itineraries = [result]
-    dispatch(createInitialize(itineraries))
+    dispatch(createCreateItinerary(result))
+    navigateToHome()
   }
 
   const updateTeam = async (id: Id, users: UUIDs, remove = false) => {
@@ -85,6 +87,7 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions] => {
       dispatch(createUpdateTeam(id, result.team_members))
     } else {
       dispatch(createRemoveItinerary(id))
+      navigateToHome()
     }
   }
 
@@ -104,6 +107,7 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions] => {
     }
     const itineraries = itinerariesState.itineraries.filter(itinerary => itinerary.id !== id)
     dispatch(createInitialize(itineraries))
+    navigateToHome()
   }
 
   const add = async (id: Id, caseId: CaseId) => {

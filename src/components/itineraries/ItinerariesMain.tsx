@@ -2,10 +2,16 @@ import React, { FC } from "react"
 import { Spinner } from "@datapunt/asc-ui"
 import ErrorMessage from "../global/ErrorMessage"
 import Generate from "./Generate"
+import ItinerariesIndex from "./ItinerariesIndex"
 import Itinerary from "./Itinerary"
 import useGlobalState from "../../hooks/useGlobalState"
 
-const ItinerariesMain: FC = () => {
+type Props = {
+  id?: Id
+  forceGenerate?: boolean
+}
+
+const ItinerariesMain: FC<Props> = ({ id, forceGenerate = false }) => {
 
   const {
     isInitialized,
@@ -17,15 +23,19 @@ const ItinerariesMain: FC = () => {
   } = useGlobalState()
 
   const hasError = errorMessage !== undefined
-  const showSpinner = (!isInitialized || isFetching) && !hasError
+  const showSpinner = !isInitialized && !hasError
   const showError = hasError
   const hasItineraries = itineraries !== undefined && itineraries.length > 0
-  const showGenerate = !showSpinner && !showError && !hasItineraries
-  const show = !showSpinner && !showError && hasItineraries
-  const itinerary = itineraries[0]
+  const showGenerate = !showSpinner && !showError && (!hasItineraries || forceGenerate)
+  const show = !showSpinner && !showError && !showGenerate
+  const itinerary = id !== undefined ? itineraries.find(itinerary => itinerary.id === id) : itineraries[0]
+  const showItinerary = itinerary !== undefined
+  const show404 = !showItinerary
+  const itinerariesOther = id !== undefined ? itineraries.filter(itinerary => itinerary.id !== id) : itineraries.slice(1)
+  const hasOtherItineraries = itinerariesOther !== undefined && itinerariesOther.length > 0
 
   return (
-    <div className="ItinerariesMain">
+    <div>
       { showSpinner &&
         <Spinner size={ 60 } />
       }
@@ -36,7 +46,17 @@ const ItinerariesMain: FC = () => {
         <Generate />
       }
       { show &&
-        <Itinerary itinerary={ itinerary } />
+        <>
+          { hasOtherItineraries &&
+            <ItinerariesIndex itineraries={ itinerariesOther } />
+          }
+          { showItinerary &&
+            <Itinerary itinerary={ itinerary! } />
+          }
+          { show404 &&
+            <ErrorMessage text="404" />
+          }
+        </>
       }
     </div>
   )

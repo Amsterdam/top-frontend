@@ -38,6 +38,7 @@ const App: FC = () => {
               <LoginPage path="/login" />
               <LoginCallbackPage path="/authentication/callback" />
               <ItinerariesPage path="/" />
+              <ItinerariesPage path="/itineraries/:id" />
               <SuggestionsPage path="/suggesties/:id" />
               <SearchPage path="/zoeken" />
               <CasePage path="/cases/:caseId" />
