@@ -3,6 +3,8 @@ import { Spinner } from "@datapunt/asc-ui"
 import ErrorMessage from "../global/ErrorMessage"
 import useGlobalState from "../../hooks/useGlobalState"
 import SearchResults from "../search/SearchResults"
+import H1 from "../styled/H1"
+import Hr from "../styled/Hr"
 
 type Props = {
   id: Id
@@ -42,7 +44,9 @@ const Suggestions: FC<Props> = ({ id }) => {
       }
       { show &&
         <>
-          <h1>Suggesties</h1>
+          <H1>Voeg een adres toe</H1>
+          <p>Addressen rondom de adressen in je lijst:</p>
+          <Hr />
           <SearchResults results={ results } />
         </>
       }

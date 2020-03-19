@@ -23,6 +23,9 @@ const Section = styled.section`
 const P = styled.p`
   margin-bottom: 8px
 `
+const StyledH1 = styled(H1)`
+  margin: 8px 0 20px
+`
 
 const CaseDetailSection: FC<Props> = ({ id, title, data, footer }) => {
 
@@ -32,7 +35,7 @@ const CaseDetailSection: FC<Props> = ({ id, title, data, footer }) => {
   return (
     <Section id={ id !== undefined ? id : "" }>
       { hasTitle &&
-        <H1>{ title }</H1>
+        <StyledH1>{ title }</StyledH1>
       }
       { data.map((keyValue, index) => {
           const hasLabel = Array.isArray(keyValue)

@@ -2,6 +2,7 @@ import React, { FC } from "react"
 import styled from "styled-components"
 import { to } from "../../config/page"
 import { Link } from "@reach/router"
+import H1 from "../styled/H1"
 
 type Props = {
   itineraries: Itineraries
@@ -15,7 +16,7 @@ const Div = styled.div`
 const ItinerariesIndex: FC<Props> = ({ itineraries }) => {
   return (
     <Div>
-      <h1>Andere looplijsten voor vandaag</h1>
+      <H1>Andere looplijsten</H1>
       { itineraries.map(({ id, team_members }) =>
         <p key={ id }>
           <Link to={ to(`itineraries/${ id }`) }>

@@ -1,5 +1,6 @@
 import React, { FC, useState, useEffect, ChangeEvent, FormEvent } from "react"
 import { Select, Button } from "@datapunt/asc-ui"
+import H1 from "../styled/H1"
 import Input from "../styled/Input"
 import { listsDay } from "../../config/planning"
 import useOnChangeState from "../../hooks/useOnChangeState"
@@ -7,16 +8,11 @@ import useGlobalState from "../../hooks/useGlobalState"
 import styled from "styled-components"
 import isWeekDay from "../../lib/utils/isWeekDay"
 
-const H1 = styled.h1`
-  font-size: 24px
-`
-const H2 = styled.h1`
-  font-size: 16px
-`
 const Label = styled.label`
   font-weight: bold
 `
 const Label2 = styled.label`
+  font-weight: bold
   margin-right: 36px
 `
 const Div = styled.div`
@@ -106,7 +102,7 @@ const Generate: FC = () => {
   return (
     <div className="Generate">
       <H1>Genereer je looplijst</H1>
-      <H2>Wie zitten er vandaag in je team?</H2>
+      <p>Wie zitten er vandaag in je team?</p>
       <form onSubmit={ onSubmit }>
         { team.map((tuple, index) => {
             const [value, onChange] = tuple
@@ -129,7 +125,7 @@ const Generate: FC = () => {
           })
         }
         <Div>
-          <H2>Wat voor looplijst wil je maken?</H2>
+          <p>Wat voor looplijst wil je maken?</p>
           { showWeekDay &&
             <>
               <RadioButton id="day" type="radio" checked={ isDay } onChange={ setDay } />
@@ -146,7 +142,7 @@ const Generate: FC = () => {
           }
         </Div>
         <Div>
-          <Label>Hoeveel adressen wil je in je looplijst?</Label>
+          <p>Hoeveel adressen wil je in je looplijst?</p>
           <div>
             <StyledInput type="number" value={ num } onChange={ onChangeNum } />
           </div>

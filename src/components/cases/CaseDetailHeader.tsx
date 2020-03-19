@@ -3,6 +3,7 @@ import styled from "styled-components"
 import Signal from "../global/Signal"
 import InvalidDataSpan from "../global/InvalidDataSpan"
 import ScrollToAnchor from "../global/ScrollToAnchor"
+import H1 from "../styled/H1"
 import Label from "../styled/Label"
 
 import Footer from "./Footer"
@@ -28,8 +29,7 @@ const Header = styled.section`
   padding: 15px
 `
 
-const H1 = styled.h1`
-  font-size: 32px
+const StyledH1 = styled(H1)`
   margin: 8px 0
 `
 
@@ -49,7 +49,7 @@ const CaseDetailHeader: FC<Props> = ({ address, postalCode, personCount, caseNum
 
   return (
     <Header>
-      <H1>{ address }</H1>
+      <StyledH1>{ address }</StyledH1>
       <P>{ postalCode }</P>
       { showSignal &&
         <Signal type={ signalType } text={ signal } />

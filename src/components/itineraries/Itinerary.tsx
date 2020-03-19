@@ -1,6 +1,7 @@
 import React, { FC, useState } from "react"
 import useGlobalState from "../../hooks/useGlobalState"
 import ItineraryTeamMembers from "./ItineraryTeamMembers"
+import H1 from "../styled/H1"
 import Button from "../styled/Button"
 import IconButton from "../global/IconButton"
 import { Enlarge, Card } from "@datapunt/asc-assets"
@@ -20,9 +21,6 @@ type Props = {
   itinerary: Itinerary
 }
 
-const H1 = styled.h1`
-  font-size: 24px
-`
 const Wrap = styled.div`
   display: flex
   justify-content: space-between
