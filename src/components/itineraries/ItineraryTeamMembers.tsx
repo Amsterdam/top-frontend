@@ -13,6 +13,11 @@ type Props = {
 }
 
 const Div = styled.div`
+  padding-bottom: 12px
+  border-bottom: 1px solid #B4B4B4
+  margin-bottom: 12px
+`
+const SelectWrap = styled.div`
   margin-bottom: 12px
 `
 const Label = styled.label`
@@ -86,7 +91,7 @@ const ItineraryTeamMembers: FC<Props> = ({ itineraryId, teamMembers, isEditing =
               const user = value !== "" ? usersArray.find(({ id }) => id === value) : undefined
               const label = index <= 1 ? `Toezichthouder ${ index + 1 }` : "Handhaver"
               return (
-                <Div key={ index }>
+                <SelectWrap key={ index }>
                   <Label>{ label }</Label>
                   <Select value={ value } onChange={ onChange }>
                     <option value="">-</option>
@@ -97,16 +102,16 @@ const ItineraryTeamMembers: FC<Props> = ({ itineraryId, teamMembers, isEditing =
                       <option key={ id } value={ id }>{ `${ full_name }` }</option>)
                     }
                   </Select>
-                </Div>
+                </SelectWrap>
               )
             })
           }
           { !authUserIsSelected &&
-            <ErrorMessage text="Pas op! Je bent zelf niet meer als team lid geselecteerd. Je toegang tot deze looplijst vervalt." />
+            <ErrorMessage text="Let op! Je bent zelf niet meer als teamlid geselecteerd. Wanneer je op ‘Bewaren’ klikt vervalt je toegang tot deze lijst" />
           }
           <ButtonWrap>
-            <StyledButton variant="textButton" onClick={ onClickClose }>sluiten</StyledButton>
-            <Button variant="secondary">Opslaan</Button>
+            <StyledButton variant="textButton" onClick={ onClickClose }>Annuleren</StyledButton>
+            <Button variant="secondary">Bewaren</Button>
           </ButtonWrap>
         </form>
       }
