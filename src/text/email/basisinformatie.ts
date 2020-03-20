@@ -28,7 +28,7 @@ Ons systeem toont bij dit adres op dit moment de volgende gegevens uit BAG:
 ${ !isWoonboot ?
 
 `Gebruiksdoel: ${ gebruiksdoel || "-" }
-Soort Object (feitelijk gebruik): ${ gebruik || "" }
+Soort Object (feitelijk gebruik): ${ gebruik || "-" }
 Aantal bouwlagen: ${ aantalBouwlagen !== undefined ? aantalBouwlagen : "-"}
 Verdieping toegang: ${ etage !== undefined ? etage : "-" }
 Aantal kamers: ${ aantalKamers !== undefined ? aantalKamers : "-" }
