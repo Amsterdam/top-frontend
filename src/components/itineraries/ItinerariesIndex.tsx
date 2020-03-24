@@ -19,11 +19,9 @@ const ItinerariesIndex: FC<Props> = ({ itineraries }) => {
     <Div>
       <H1>Andere looplijsten</H1>
       { itineraries.map(({ id, team_members }) =>
-        <p key={ id }>
-          <Link to={ to(`itineraries/${ id }`) }>
-            <TeamMembersDisplay teamMembers={ team_members } />
-          </Link>
-        </p>
+        <Link key={ id } to={ to(`itineraries/${ id }`) }>
+          <TeamMembersDisplay teamMembers={ team_members } />
+        </Link>
         )
       }
     </Div>
