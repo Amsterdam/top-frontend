@@ -56,10 +56,11 @@ const SearchResultPlural: FC<Props> = ({ cases }) => {
             stadium,
             teams
           } = caseItem
+          const key = caseId
           const linkTo = to(`cases/${ caseId }`)
           return (
-            <Link key={ JSON.stringify(caseItem) } to={ linkTo }>
-              <Wrap key={ caseId }>
+            <Link key={ key } to={ linkTo }>
+              <Wrap>
                 <SearchResultCase reason={ reason } stadium={ stadium } teams={ teams } />
                 <Div>
                   <SearchResultButtonWrap caseId={ caseId } />
