@@ -1,8 +1,10 @@
-import React, { FC, FormEvent } from "react"
+import React, { FC, useState, FormEvent } from "react"
 import useGlobalState from "../../hooks/useGlobalState"
 import IconButton from "../global/IconButton"
 import { Button } from "@datapunt/asc-ui"
 import styled from "styled-components"
+import getItineraryByCaseId from "../../lib/getItineraryByCaseId"
+import TeamMembersDisplay from "../itineraries/TeamMembersDisplay"
 
 type Props = {
   caseId: CaseId
@@ -11,11 +13,28 @@ type Props = {
 const StyledButton = styled(Button)`
   padding: 12px
 `
+const Modal = styled.div`
+  position: absolute
+  z-index: 9
+  right: 15px
+  margin-top: -132px
+  background: white
+  width: 240px
+  padding: 12px
+  border: 1px solid black;
+`
+const ModalButton = styled(Button)`
+  display: block
+`
+const P = styled.p`
+  color: black
+  font-weight: normal
+`
 
 const SearchResultButtonWrap: FC<Props> = ({ caseId }) => {
 
   const {
-    hasItinerary,
+    hasItinerary: userHasItinerary,
     itineraries: {
       isFetching,
       itineraries
@@ -29,29 +48,46 @@ const SearchResultButtonWrap: FC<Props> = ({ caseId }) => {
     }
   } = useGlobalState()
 
-  const hasItineraries = itineraries !== undefined && itineraries.length > 0
-  const firstItinerary = hasItineraries ? itineraries[0] : undefined
-  const itineraryId = firstItinerary !== undefined ? firstItinerary.id : undefined
+  const length = itineraries !== undefined ? itineraries.length : 0
+  const hasSingleItinerary = length === 1
+  const hasMultiItineraries = length > 1
+
+  const addToItinerary = (itinerary: Itinerary, caseId: CaseId) => {
+    const { id, team_members: teamMembers } = itinerary
+    add(id, caseId)
+    setTeam(caseId, teamMembers)
+  }
+
+  const [showModal, setShowModal] = useState(false)
 
   const onClickAdd = (event: FormEvent) => {
     event.preventDefault()
-    if (itineraryId === undefined) return
-    add(itineraryId, caseId)
-    const team = itineraries.length > 0 ? itineraries[0].team_members : undefined
-    if (team === undefined) return
-    setTeam(caseId, team)
+    if (hasSingleItinerary) addToItinerary(itineraries[0], caseId)
+    if (hasMultiItineraries) setShowModal(true)
   }
 
   const onClickRemove = (event: FormEvent) => {
     event.preventDefault()
-    const itineraryItem = itineraries[0].items.find(({ case: { bwv_data: { case_id } } }) => case_id === caseId)
+    const itinerary = itineraries !== undefined ? getItineraryByCaseId(itineraries, caseId) : undefined
+    if (itinerary === undefined) return
+    const itineraryItem = itinerary !== undefined ? itinerary.items.find(({ case: { bwv_data: { case_id } } }) => case_id === caseId) : undefined
     if (itineraryItem === undefined) return
     const { id } = itineraryItem
     remove(id)
     setTeam(caseId)
   }
 
-  const isItinerary = hasItinerary(caseId)
+  const onClickModal = (itinerary: Itinerary) => (event: FormEvent) => {
+    event.preventDefault()
+    addToItinerary(itinerary, caseId)
+  }
+
+  const onClickModalClose = (event: FormEvent) => {
+    event.preventDefault()
+    setShowModal(false)
+  }
+
+  const isItinerary = userHasItinerary(caseId)
   const showAddButton = isItinerary === false
   const showRemoveButton = !showAddButton
   const disabled = isFetching
@@ -63,6 +99,17 @@ const SearchResultButtonWrap: FC<Props> = ({ caseId }) => {
       }
       { showRemoveButton &&
         <StyledButton variant="textButton" onClick={ onClickRemove } disabled={ disabled }>undo</StyledButton>
+      }
+      { showModal &&
+        <Modal>
+          <P>Voeg toe aan lijst</P>
+          { itineraries.map(itinerary => {
+              const { id, team_members: teamMembers } = itinerary
+              return <ModalButton key={ id } variant="textButton" onClick={ onClickModal(itinerary) }><TeamMembersDisplay teamMembers={ teamMembers } /></ModalButton>
+            })
+          }
+          <ModalButton variant="textButton" onClick={ onClickModalClose }>sluit</ModalButton>
+        </Modal>
       }
     </div>
   )

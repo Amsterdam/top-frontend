@@ -1,5 +1,5 @@
-import moveInArray from "../lib/utils/moveInArray"
 import produce from "immer"
+import moveInArray from "../lib/utils/moveInArray"
 
 type Action =
   | { type: "START_FETCHING" }
@@ -109,10 +109,10 @@ const reducer = (state: ItinerariesState, action: Action) : ItinerariesState => 
     }
     case "REMOVE": {
       const { itineraries } = state
-      if (itineraries[0] === undefined) return state
       const { id } = action.payload
       const nextItineraries = produce(itineraries, draft => {
-        draft[0].items = draft[0].items.filter(item => item.id !== id)
+        const index = itineraries.findIndex(({ items }) => items.find(item => item.id === id) !== undefined)
+        if (index > -1) draft[index].items = draft[index].items.filter(item => item.id !== id)
       })
       return { ...state, itineraries: nextItineraries }
     }

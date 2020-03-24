@@ -55,13 +55,18 @@ const reducer = (state: SearchState, action: Action) : SearchState => {
     }
     case "SET_TEAM": {
       const { caseId, teamMembers } = action.payload
-      const { results } = state
-      if (results === undefined) return state
+      const { results, suggestions } = state
       const nextResults = produce(results, draft => {
-        const index = results.findIndex(result => result.data!.cases.find(({ case_id }) => case_id === caseId) !== undefined)
+        if (draft === undefined) return draft
+        const index = results!.findIndex(result => result.data!.cases.find(({ case_id }) => case_id === caseId) !== undefined)
         if (index > -1) draft[index].data!.cases[0].teams = teamMembers !== undefined ? [teamMembers] : undefined
       })
-      return { ...state, results: nextResults }
+      const nextSuggestions = produce(suggestions, draft => {
+        if (draft === undefined) return draft
+        const index = suggestions!.findIndex(suggestion => suggestion.data!.cases.find(({ case_id }) => case_id === caseId) !== undefined)
+        if (index > -1) draft[index].data!.cases[0].teams = teamMembers !== undefined ? [teamMembers] : undefined
+      })
+      return { ...state, results: nextResults, suggestions: nextSuggestions }
     }
     case "CLEAR": {
       return initialState
