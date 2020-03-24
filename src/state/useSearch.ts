@@ -4,6 +4,7 @@ import reducer, {
   createStartFetching,
   createStopFetching,
   createSetResults,
+  createSetSuggestions,
   createSetTeam,
   createSetError,
   createClear
@@ -61,7 +62,7 @@ const useSearch = () : [SearchState, SearchActions] => {
 
     const { cases } = result
     const results = cases.map((caseItem: BWVData) => ({ success: true, data: { cases: [caseItem] } }))
-    dispatch(createSetResults(results))
+    dispatch(createSetSuggestions(results))
   }
 
   const setTeam = (caseId: CaseId, teamMembers?: TeamMembers) => {

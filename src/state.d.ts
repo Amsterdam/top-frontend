@@ -39,6 +39,7 @@ declare type SearchState = {
   isFetching: boolean
   query?: Query
   results?: SearchResults
+  suggestions?: SearchResults
   errorMessage?: ErrorMessage
 }
 

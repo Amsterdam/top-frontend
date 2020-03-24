@@ -17,7 +17,7 @@ const Suggestions: FC<Props> = ({ id }) => {
     search: {
       isFetching,
       errorMessage,
-      results
+      suggestions: results
     },
     searchActions: {
       getSuggestions
