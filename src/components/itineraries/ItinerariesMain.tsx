@@ -28,10 +28,9 @@ const ItinerariesMain: FC<Props> = ({ id, forceGenerate = false }) => {
   const showGenerate = !showSpinner && !showError && (!hasItineraries || forceGenerate)
   const show = !showSpinner && !showError && !showGenerate
   const itinerary = id !== undefined ? itineraries.find(itinerary => itinerary.id === id) : itineraries[0]
-  const showItinerary = itinerary !== undefined
-  const show404 = !showItinerary
-  const itinerariesOther = id !== undefined ? itineraries.filter(itinerary => itinerary.id !== id) : itineraries.slice(1)
-  const hasOtherItineraries = itinerariesOther !== undefined && itinerariesOther.length > 0
+  const showSingle = id !== undefined || (itinerary !== undefined && itineraries.length === 1)
+  const showPlural = id === undefined && itineraries.length > 1
+  const show404 = itinerary === undefined
 
   return (
     <div>
@@ -46,10 +45,10 @@ const ItinerariesMain: FC<Props> = ({ id, forceGenerate = false }) => {
       }
       { show &&
         <>
-          { hasOtherItineraries &&
-            <ItinerariesIndex itineraries={ itinerariesOther } />
+          { showPlural &&
+            <ItinerariesIndex itineraries={ itineraries } />
           }
-          { showItinerary &&
+          { showSingle &&
             <Itinerary itinerary={ itinerary! } />
           }
           { show404 &&
