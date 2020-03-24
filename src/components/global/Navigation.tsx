@@ -54,8 +54,10 @@ const Navigation: FC = () => {
     }
   } = useGlobalState()
 
-  const numItineraries = itineraries ? itineraries.map(itinerary => itinerary.items).flat(1).length : 0
-  const showCounter = numItineraries > 0
+  const numItineraries = itineraries !== undefined ? itineraries.length : 0
+  const titleHome = numItineraries === 1 ? "Mijn looplijst" : "Mijn looplijsten"
+  const numItineraryItems = itineraries !== undefined ? itineraries.map(itinerary => itinerary.items).flat(1).length : 0
+  const showCounter = numItineraries === 1 && numItineraryItems > 0
 
   const looplijstActive = isHomePage()
   const searchActive = isPage("zoeken") || isPage("parse")
@@ -65,7 +67,7 @@ const Navigation: FC = () => {
       <NavWrap>
         <Nav>
           <Ul>
-            <Li isActive={ looplijstActive }><Link to={ to() }>Mijn looplijst { showCounter && `(${ numItineraries })` }</Link></Li>
+            <Li isActive={ looplijstActive }><Link to={ to() }>{ titleHome }{ showCounter && ` (${ numItineraryItems })` }</Link></Li>
             <LiSearch isActive={ searchActive }><Link to={ to("zoeken") }><SearchIcon /></Link></LiSearch>
           </Ul>
         </Nav>
