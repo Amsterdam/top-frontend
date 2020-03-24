@@ -8,17 +8,14 @@ type Props = {
   itineraries: Itineraries
 }
 
-const ItinerariesIndex: FC<Props> = ({ itineraries }) => {
-  return (
-    <div>
-      <H1>Looplijsten</H1>
-      { itineraries.map(({ id, team_members }) =>
-        <Link key={ id } to={ to(`itineraries/${ id }`) }>
-          <TeamMembersDisplay teamMembers={ team_members } />
-        </Link>
-        )
-      }
-    </div>
-  )
-}
+const ItinerariesIndex: FC<Props> = ({ itineraries }) =>
+  <div>
+    <H1>Looplijsten</H1>
+    { itineraries.map(({ id, team_members }) =>
+      <Link key={ id } to={ to(`itineraries/${ id }`) }>
+        <TeamMembersDisplay teamMembers={ team_members } />
+      </Link>
+      )
+    }
+  </div>
 export default ItinerariesIndex
