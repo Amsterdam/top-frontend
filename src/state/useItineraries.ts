@@ -42,7 +42,7 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions] => {
     dispatch(createInitialize(itineraries))
   }
 
-  const create = async (settings: any, users: UUIDs, num: number) => {
+  const create = async (settings: any, users: UUIDs, num: number, selfIncluded: boolean) => {
     const url = getUrl("itineraries")
     dispatch(createStartFetching())
     const body = {
@@ -67,7 +67,11 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions] => {
       dispatch(createSetErrorMessage(errorMessage))
       return
     }
-    dispatch(createCreateItinerary(result))
+    if (selfIncluded) {
+      dispatch(createCreateItinerary(result))
+    } else {
+      alert("Looplijst succesvol gegenereerd")
+    }
     navigateToHome()
   }
 

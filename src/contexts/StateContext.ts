@@ -55,7 +55,7 @@ const value = {
     itineraries: itinerariesState,
     itinerariesActions: {
       initialize: noop,
-      create: (a: any, b: UUIDs, c: number) => undefined,
+      create: (a: any, b: UUIDs, c: number, d: boolean) => undefined,
       updateTeam: (a: Id, b: UUIDs, c?: boolean) => undefined,
       del: (a: Id) => undefined,
       add: (a: Id, b: CaseId) => undefined,

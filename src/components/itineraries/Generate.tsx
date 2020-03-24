@@ -48,6 +48,7 @@ const Generate: FC = () => {
 
   const usersArray = users !== undefined ? users : []
 
+  const [authUserId, setAuthUserId] = useState<UUID | undefined>(undefined)
   const [teamMember0, onChangeTeamMember0, setTeamMember0] = useOnChangeState("")
   const [teamMember1, onChangeTeamMember1] = useOnChangeState("")
   const [teamMember2, onChangeTeamMember2] = useOnChangeState("")
@@ -67,6 +68,7 @@ const Generate: FC = () => {
     const user = users.find(user => user.email === email)
     if (user === undefined) return
     const { id } = user
+    setAuthUserId(id)
     setTeamMember0(id)
   }, [authUser, users, setTeamMember0])
 
@@ -90,13 +92,14 @@ const Generate: FC = () => {
     if (data === undefined) return
     if (typeof num !== "number") return
     const userIds = [teamMember0, teamMember1, teamMember2]
+    const selfIncluded = authUserId !== undefined && userIds.includes(authUserId)
     const { settings } = data
     const day = (new Date()).getDay()
     const dayIndex = day - 1 < 0 ? 6 : day - 1 // correct sunday => 6
     const dayLists = listsDay(settings.lists, dayIndex)
     const lists = dayLists.length >= 3 && dayPart === "evening" ? dayLists[2] : dayLists[0]
     const listsSettings = { ...settings, lists }
-    create(listsSettings, userIds, num)
+    create(listsSettings, userIds, num, selfIncluded)
   }
 
   return (
