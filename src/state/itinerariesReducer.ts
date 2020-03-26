@@ -8,7 +8,7 @@ type Action =
   | { type: "INITIALIZE", payload: { itineraries: Itineraries } }
   | { type: "CREATE_ITINERARY", payload: { itinerary: Itinerary } }
   | { type: "REMOVE_ITINERARY", payload: { id: Id } }
-  | { type: "ADD", payload: { itineraryItems: ItineraryItems } }
+  | { type: "ADD", payload: { id: Id, itineraryItems: ItineraryItems } }
   | { type: "UPDATE", payload: { id: Id, itinerary: ItineraryItem } }
   | { type: "UPDATE_TEAM", payload: { id: Id, teamMembers: TeamMembers } }
   | { type: "MOVE", payload: { index: Index, newIndex: Index } }
@@ -22,7 +22,7 @@ export const createSetErrorMessage = (errorMessage: string) : Action => ({ type:
 export const createInitialize = (itineraries: Itineraries) : Action => ({ type: "INITIALIZE", payload: { itineraries } })
 export const createCreateItinerary = (itinerary: Itinerary) : Action => ({ type: "CREATE_ITINERARY", payload: { itinerary } })
 export const createRemoveItinerary = (id: Id) : Action => ({ type: "REMOVE_ITINERARY", payload: { id } })
-export const createAdd = (itineraryItems: ItineraryItems) : Action => ({ type: "ADD", payload: { itineraryItems } })
+export const createAdd = (id: Id, itineraryItems: ItineraryItems) : Action => ({ type: "ADD", payload: { id, itineraryItems } })
 export const createUpdate = (id: Id, itinerary: ItineraryItem) : Action => ({ type: "UPDATE", payload: { id, itinerary } })
 export const createUpdateTeam = (id: Id, teamMembers: TeamMembers) : Action => ({ type: "UPDATE_TEAM", payload: { id, teamMembers } })
 export const createMove = (index: Index, newIndex: Index) : Action => ({ type: "MOVE", payload: { index, newIndex } })
@@ -71,11 +71,12 @@ const reducer = (state: ItinerariesState, action: Action) : ItinerariesState => 
       return { ...state, itineraries: nextItineraries }
     }
     case "ADD": {
+      const { id, itineraryItems } = action.payload
       const { itineraries } = state
-      if (itineraries[0] === undefined) return state
-      const { itineraryItems } = action.payload
+      const index = itineraries.findIndex(itinerary => itinerary.id === id)
+      if (index === -1) return state
       const nextItineraries = produce(itineraries, draft => {
-        draft[0].items = draft[0].items.concat(itineraryItems)
+        draft[index].items = draft[index].items.concat(itineraryItems)
       })
       return { ...state, itineraries: nextItineraries }
     }

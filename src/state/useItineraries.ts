@@ -123,7 +123,7 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions] => {
     if (notOk(response)) return alert(`Toevoegen mislukt (case: ${ caseId })`)
     const itinerary = result as ItineraryItem
     const itineraries = [itinerary]
-    dispatch(createAdd(itineraries))
+    dispatch(createAdd(id, itineraries))
   }
 
   const move = (index: Index, newIndex: Index) => {
