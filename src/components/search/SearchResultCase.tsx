@@ -19,6 +19,9 @@ const SearchResultCase: FC<Props> = ({ reason, stadium, teams }) => {
   const {
     auth: {
       user: { email = "" } = {}
+    },
+    itineraries: {
+      itineraries
     }
   } = useGlobalState()
 
@@ -27,7 +30,10 @@ const SearchResultCase: FC<Props> = ({ reason, stadium, teams }) => {
   const firstTeam = hasTeam ? teams![0] : undefined
   const isOwnTeam = hasTeam && firstTeam!.map(({ user: { email } }) => email).includes(email)
   const teamString = hasTeam ? firstTeam!.map(({ user: { full_name } }) => full_name).join(", ") : ""
-  const team = hasTeam ? (isOwnTeam ? "In mijn lijst" : `In lijst: ${ teamString }`) : ""
+  const hasSingleItinerary = itineraries !== undefined && itineraries.length === 1
+  const team = hasTeam ?
+    (isOwnTeam && hasSingleItinerary ? "In mijn lijst" : `In lijst: ${ teamString }`) :
+    ""
 
   return (
     <div>
