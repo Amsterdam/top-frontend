@@ -37,6 +37,7 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
   const caseCount =  caseItem.bwv_tmp.num_cases !== null ? parseInt(caseItem.bwv_tmp.num_cases, 10) : undefined
   const openCaseCount = caseItem.bwv_tmp.num_open_cases !== null ? caseItem.bwv_tmp.num_open_cases : undefined
   const caseOpening = caseItem.bwv_tmp.openings_reden !== null ? caseItem.bwv_tmp.openings_reden : undefined
+  const fraudProbability = caseItem.fraud_prediction?.fraud_probability
 
   // Related cases
   const relatedCases = caseItem.related_cases
@@ -259,6 +260,7 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
         caseCount={ caseCount }
         openCaseCount={ openCaseCount }
         caseOpening={ caseOpening }
+        fraudProbability={ fraudProbability }
         footer={ { link: `http://www.google.com/maps/place/${ address }, Amsterdam`, title: "Bekijk op Google Maps" } }
         signal={ lastStadia }
       />

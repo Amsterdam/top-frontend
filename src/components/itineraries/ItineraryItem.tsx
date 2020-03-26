@@ -3,10 +3,12 @@ import { Link } from "@reach/router"
 import { to } from "../../config/page"
 import styled from "styled-components"
 import Signal from "../global/Signal"
+import FraudProbability from "../global/FraudProbability"
 import displayAddress from "../../lib/displayAddress"
 
 type Props = {
   caseItem: BWVData
+  fraudPrediction?: FraudPrediction
   note?: string
   showAddress?: boolean
 }
@@ -43,8 +45,13 @@ const Note = styled.p`
   color: gray
   font-weight: normal
 `
+const StyledFraudProbability = styled(FraudProbability)`
+  margin-left: 12px
+  font-weight: bold
+  color: #B4B4B4
+`
 
-const ItineraryItem: FC<Props> = ({ caseItem, note, showAddress = true }) => {
+const ItineraryItem: FC<Props> = ({ caseItem, fraudPrediction, note, showAddress = true }) => {
 
   const {
     case_id: id,
@@ -68,6 +75,9 @@ const ItineraryItem: FC<Props> = ({ caseItem, note, showAddress = true }) => {
 
   const linkTo = to(`cases/${ id }`)
 
+  const fraudProbability = fraudPrediction?.fraud_probability
+  const showFraudProbability = fraudProbability !== undefined
+
   return (
     <Article>
       <Link to={ linkTo }>
@@ -79,7 +89,7 @@ const ItineraryItem: FC<Props> = ({ caseItem, note, showAddress = true }) => {
             </>
           }
           <div>
-            <P>{ caseReason }</P>
+            <P>{ caseReason }{ showFraudProbability && <StyledFraudProbability fraudProbability={ fraudProbability! } /> }</P>
             <Signal text={ stadium } />
             { showNote &&
               <Note>{ noteString }</Note>

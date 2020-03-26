@@ -4,7 +4,7 @@ import SearchResultSingle from "./SearchResultSingle"
 import SearchResultPlural from "./SearchResultPlural"
 
 type Props = {
-  cases: BWVData[]
+  cases: SearchResultCases
 }
 
 const Div = styled.div`

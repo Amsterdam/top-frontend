@@ -11,7 +11,7 @@ import { to } from "../../config/page"
 import displayAddress from "../../lib/displayAddress"
 
 type Props = {
-  cases: BWVData[]
+  cases: SearchResultCases
 }
 
 const Wrap = styled.div`
@@ -35,7 +35,10 @@ const SearchResultPlural: FC<Props> = ({ cases }) => {
     suffix,
     suffix_letter,
     postal_code: postalCode,
-    distance
+    distance,
+    fraud_prediction: {
+      fraud_probability: fraudProbability
+    } = {}
   } = cases[0]
 
   const address = displayAddress(streetName, streetNumber, suffix_letter || undefined, suffix || undefined)
@@ -61,7 +64,7 @@ const SearchResultPlural: FC<Props> = ({ cases }) => {
           return (
             <Link key={ key } to={ linkTo }>
               <Wrap>
-                <SearchResultCase reason={ reason } stadium={ stadium } teams={ teams } />
+                <SearchResultCase reason={ reason } stadium={ stadium } teams={ teams } fraudProbability={ fraudProbability } />
                 <Div>
                   <SearchResultButtonWrap caseId={ caseId } />
                 </Div>

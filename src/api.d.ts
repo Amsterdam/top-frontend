@@ -20,6 +20,10 @@ declare type PostalCode = string
 declare type Stadium = string
 declare type Stadia = Stadium[]
 declare type Distance = number
+declare type FraudPrediction = {
+  fraud_probability: number
+  fraud_prediction: boolean
+}
 
 declare type BWVData = {
   case_id: CaseId
@@ -44,6 +48,7 @@ declare type ItineraryItem = {
   id: Id
   case: {
     bwv_data: BWVData
+    fraud_prediction: FraudPrediction
   }
   notes: Notes
   position: ItineraryPosition
@@ -65,11 +70,13 @@ declare type Itinerary = {
 }
 declare type Itineraries = Itinerary[]
 
+declare type SearchResultCase = BWVData & { fraud_prediction: FraudPrediction }
+declare type SearchResultCases = SearchResultCase[]
 declare type SearchResult = {
   success: boolean
   error?: string
   data?: {
-    cases: BWVData[]
+    cases: SearchResultCases
   }
 }
 declare type SearchResults = SearchResult[]
@@ -171,6 +178,7 @@ declare type Case = {
   vakantie_verhuur: VakantieVerhuur
   related_cases: RelatedCase[]
   statements: Statement[]
+  fraud_prediction: FraudPrediction
 }
 declare type Cases = Case[]
 
