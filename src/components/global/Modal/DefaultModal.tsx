@@ -6,6 +6,8 @@ import Portal from "./Portal";
 import IconButton from "../IconButton";
 
 const FixedWrap = styled.div`  
+  // @TODO refactor our use of z-index. This gets out of hand quickly.
+  
   z-index: 99999; // HeaderWrap has z-index of 9999, we have top that. 
     
   position: fixed;
@@ -46,13 +48,11 @@ const Spacing = styled.div`
   margin: 15px;
 `
 
-interface Props {
+type Props = {
   onClick?: () => void
 }
 
-const defaultClickHandler = () => {
-  window.history.back();
-}
+const defaultClickHandler = () => window.history.back()
 
 const DefaultModal:React.FC<Props> = ({onClick, children}) => (<Portal>
   <FixedWrap>
