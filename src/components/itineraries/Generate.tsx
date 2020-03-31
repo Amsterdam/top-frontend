@@ -9,6 +9,8 @@ import styled from "styled-components"
 import isWeekDay from "../../lib/utils/isWeekDay"
 import DefaultModal from "../global/Modal/DefaultModal"
 import Button from "../styled/Button"
+import parseLocationSearch from "../../lib/utils/parseLocationSearch";
+import {Link} from "@reach/router";
 
 const Label = styled.label`
   font-weight: bold
@@ -82,7 +84,8 @@ const Generate: FC = () => {
   const showWeekDay = isWeekDay()
   const showWeekend = !showWeekDay
 
-  const [showAddAddressModal, setShowAddressModal] = useState<boolean>(false)
+  const { addAddress } = parseLocationSearch(window.location.search)
+  const showAddAddressModal = addAddress === '1'
 
   const [num, setNum] = useState<number | "">(8)
   const onChangeNum = (event: ChangeEvent<HTMLInputElement>) => {
@@ -104,10 +107,6 @@ const Generate: FC = () => {
     const lists = dayLists.length >= 3 && dayPart === "evening" ? dayLists[2] : dayLists[0]
     const listsSettings = { ...settings, lists }
     create(listsSettings, userIds, num, selfIncluded)
-  }
-
-  const onClickAddStartAddress = () => {
-    setShowAddressModal(true)
   }
 
   return (
@@ -159,9 +158,11 @@ const Generate: FC = () => {
           </div>
         </Div>
         <Div>
-          <Button type='button' variant="primary" onClick={ onClickAddStartAddress }>
-            Ik wil starten bij een specifiek adres
-          </Button>
+            <Link to='?addAddress=1'>
+              <Button type='button' variant="primary">
+                Ik wil starten bij een specifiek adres
+              </Button>
+            </Link>
           { showAddAddressModal && <DefaultModal /> }
         </Div>
         <ButtonWrap>

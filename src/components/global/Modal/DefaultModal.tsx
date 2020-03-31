@@ -64,19 +64,23 @@ interface Props {
   onClick?: () => void
 }
 
+const defaultClickHandler = () => {
+  window.history.back();
+}
+
 const DefaultModal:React.FC<Props> = ({onClick, children}) => (<Portal>
   <FixedWrap>
     <TopBar>
-      <Button onClick={() => onClick && onClick()}>
+      <Button onClick={() => onClick
+          ? onClick()
+          : defaultClickHandler()
+      }>
         <CloseIcon />
       </Button>
     </TopBar>
     <ScrollContainer>
       <Spacing>
-        Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vestibulum id ligula porta felis euismod semper. Cras mattis consectetur purus sit amet fermentum. Donec id elit non mi porta gravida at eget metus. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
-        Maecenas faucibus mollis interdum. Donec id elit non mi porta gravida at eget metus. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Maecenas faucibus mollis interdum. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.
-        Cras mattis consectetur purus sit amet fermentum. Sed posuere consectetur est at lobortis. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.
-        Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed odio dui.
+        { children }
       </Spacing>
     </ScrollContainer>
   </FixedWrap>
