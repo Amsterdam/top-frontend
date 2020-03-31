@@ -84,8 +84,7 @@ const Generate: FC = () => {
   const showWeekDay = isWeekDay()
   const showWeekend = !showWeekDay
 
-  const { addAddress } = parseLocationSearch(window.location.search)
-  const showAddAddressModal = addAddress === '1'
+  const showAddAddressModal = window.location.hash === '#add-address'
 
   const [num, setNum] = useState<number | "">(8)
   const onChangeNum = (event: ChangeEvent<HTMLInputElement>) => {
@@ -158,7 +157,7 @@ const Generate: FC = () => {
           </div>
         </Div>
         <Div>
-            <Link to='?addAddress=1'>
+            <Link to='#add-address'>
               <Button type='button' variant="primary">
                 Ik wil starten bij een specifiek adres
               </Button>
