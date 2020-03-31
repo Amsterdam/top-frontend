@@ -6,10 +6,17 @@ const Portal:React.FC = ({children}) => {
   const el = document.createElement("div") as Element;
 
   useEffect(() => {
+    // onMount: append `el` to modal-root..
     modalRoot?.appendChild(el)
-    return () => { modalRoot?.removeChild(el) }
+
+    return () => {
+      // onUnmount: remove `el` from modal-root.
+      modalRoot?.removeChild(el)
+    }
+
   }, [el, modalRoot]);
 
+  // The children of this component are rendered within `el`.
   return createPortal(children, el)
 };
 

@@ -1,5 +1,6 @@
 import React, { FC, useState, useEffect, ChangeEvent, FormEvent } from "react"
-import { Select } from "@datapunt/asc-ui"
+import { Select, Button } from "@datapunt/asc-ui"
+import {Link} from "@reach/router";
 import H1 from "../styled/H1"
 import Input from "../styled/Input"
 import { listsDay } from "../../config/planning"
@@ -8,9 +9,8 @@ import useGlobalState from "../../hooks/useGlobalState"
 import styled from "styled-components"
 import isWeekDay from "../../lib/utils/isWeekDay"
 import DefaultModal from "../global/Modal/DefaultModal"
-import Button from "../styled/Button"
 import parseLocationSearch from "../../lib/utils/parseLocationSearch";
-import {Link} from "@reach/router";
+import AddAddressModal from "./AddAddressModal";
 
 const Label = styled.label`
   font-weight: bold
@@ -163,7 +163,7 @@ const Generate: FC = () => {
                 Ik wil starten bij een specifiek adres
               </Button>
             </Link>
-          { showAddAddressModal && <DefaultModal /> }
+          { showAddAddressModal && <AddAddressModal /> }
         </Div>
         <ButtonWrap>
           <Button type="submit" variant="secondary" disabled={ isDisabled }>Genereer looplijst</Button>

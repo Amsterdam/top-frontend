@@ -20,12 +20,14 @@ const FixedWrap = styled.div`
 
 const TopBar = styled.div`
   background-color: white;
-  position: relative;   // relative, because we want to position close icon absolutely within it.  
+  position: relative;   // relative, because we want to  position the close icon absolutely within it.  
     
   height: ${constants.HEADER_HEIGHT_SMALL}px; 
   text-align:center; 
   border-bottom: 1px solid #DFDFDF;
 `
+
+// Remove default browser-styling from a button
 const Button = styled.button`
   display: block
   cursor: pointer
@@ -52,7 +54,7 @@ const ScrollContainer = styled.div`
   background-color: white;
   flex: 1;
     
-  overflow-y: scroll;
+  overflow-y: auto;
            
   -webkit-overflow-scrolling: touch;  // iOS momentum scrolling. @see: https://developer.mozilla.org/en-US/docs/Web/CSS/-webkit-overflow-scrolling
 `
