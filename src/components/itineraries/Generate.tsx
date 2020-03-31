@@ -1,5 +1,6 @@
 import React, { FC, useState, useEffect, ChangeEvent, FormEvent } from "react"
 import { Select, Button } from "@datapunt/asc-ui"
+import {Link} from "@reach/router";
 import H1 from "../styled/H1"
 import Input from "../styled/Input"
 import { listsDay } from "../../config/planning"
@@ -7,6 +8,9 @@ import useOnChangeState from "../../hooks/useOnChangeState"
 import useGlobalState from "../../hooks/useGlobalState"
 import styled from "styled-components"
 import isWeekDay from "../../lib/utils/isWeekDay"
+import DefaultModal from "../global/Modal/DefaultModal"
+import parseLocationSearch from "../../lib/utils/parseLocationSearch";
+import AddAddressModal from "./AddAddressModal";
 
 const Label = styled.label`
   font-weight: bold
@@ -80,6 +84,8 @@ const Generate: FC = () => {
   const showWeekDay = isWeekDay()
   const showWeekend = !showWeekDay
 
+  const showAddAddressModal = window.location.hash === '#add-address'
+
   const [num, setNum] = useState<number | "">(8)
   const onChangeNum = (event: ChangeEvent<HTMLInputElement>) => {
     const n = parseInt(event.target.value, 10)
@@ -150,6 +156,20 @@ const Generate: FC = () => {
             <StyledInput type="number" value={ num } onChange={ onChangeNum } />
           </div>
         </Div>
+
+        {/*
+        // Work in progress:
+        <Div>
+            <Link to='#add-address'>
+              <Button type='button' variant="primary">
+                Ik wil starten bij een specifiek adres
+              </Button>
+            </Link>
+          { showAddAddressModal && <AddAddressModal /> }
+        </Div>
+        */}
+
+
         <ButtonWrap>
           <Button type="submit" variant="secondary" disabled={ isDisabled }>Genereer looplijst</Button>
         </ButtonWrap>

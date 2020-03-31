@@ -48,6 +48,11 @@ const App: FC = () => {
               <NotFoundPage default />
             </Router>
           </Main>
+          {/*
+            Modals are teleported to this div using React' portals
+            @see https://reactjs.org/docs/portals.html
+          */}
+          <div id='modal-root' />
         </div>
       </ThemeProvider>
     </StateProvider>
