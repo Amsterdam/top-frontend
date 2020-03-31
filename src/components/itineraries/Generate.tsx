@@ -156,6 +156,9 @@ const Generate: FC = () => {
             <StyledInput type="number" value={ num } onChange={ onChangeNum } />
           </div>
         </Div>
+
+        {/*
+        // Work in progress:
         <Div>
             <Link to='#add-address'>
               <Button type='button' variant="primary">
@@ -164,6 +167,9 @@ const Generate: FC = () => {
             </Link>
           { showAddAddressModal && <AddAddressModal /> }
         </Div>
+        */}
+
+
         <ButtonWrap>
           <Button type="submit" variant="secondary" disabled={ isDisabled }>Genereer looplijst</Button>
         </ButtonWrap>
