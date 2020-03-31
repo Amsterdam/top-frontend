@@ -1,5 +1,5 @@
 import React, { FC, useState, useEffect, ChangeEvent, FormEvent } from "react"
-import { Select, Button } from "@datapunt/asc-ui"
+import { Select } from "@datapunt/asc-ui"
 import H1 from "../styled/H1"
 import Input from "../styled/Input"
 import { listsDay } from "../../config/planning"
@@ -7,6 +7,8 @@ import useOnChangeState from "../../hooks/useOnChangeState"
 import useGlobalState from "../../hooks/useGlobalState"
 import styled from "styled-components"
 import isWeekDay from "../../lib/utils/isWeekDay"
+import DefaultModal from "../global/Modal/DefaultModal"
+import Button from "../styled/Button"
 
 const Label = styled.label`
   font-weight: bold
@@ -80,6 +82,8 @@ const Generate: FC = () => {
   const showWeekDay = isWeekDay()
   const showWeekend = !showWeekDay
 
+  const [showAddAddressModal, setShowAddressModal] = useState<boolean>(false)
+
   const [num, setNum] = useState<number | "">(8)
   const onChangeNum = (event: ChangeEvent<HTMLInputElement>) => {
     const n = parseInt(event.target.value, 10)
@@ -100,6 +104,10 @@ const Generate: FC = () => {
     const lists = dayLists.length >= 3 && dayPart === "evening" ? dayLists[2] : dayLists[0]
     const listsSettings = { ...settings, lists }
     create(listsSettings, userIds, num, selfIncluded)
+  }
+
+  const onClickAddStartAddress = () => {
+    setShowAddressModal(true)
   }
 
   return (
@@ -149,6 +157,12 @@ const Generate: FC = () => {
           <div>
             <StyledInput type="number" value={ num } onChange={ onChangeNum } />
           </div>
+        </Div>
+        <Div>
+          <Button type='button' variant="primary" onClick={ onClickAddStartAddress }>
+            Ik wil starten bij een specifiek adres
+          </Button>
+          { showAddAddressModal && <DefaultModal /> }
         </Div>
         <ButtonWrap>
           <Button type="submit" variant="secondary" disabled={ isDisabled }>Genereer looplijst</Button>
