@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import styled from "styled-components";
 import { constants } from "@datapunt/asc-ui"
 
@@ -49,26 +49,43 @@ const Spacing = styled.div`
 `
 
 type Props = {
-  onClick?: () => void
+  onClose?: () => void
 }
 
-const defaultClickHandler = () => window.history.back()
+const ESCAPE_KEYS = ['Escape', '27']
+const defaultCloseHandler = () => window.history.back()
 
-const DefaultModal:React.FC<Props> = ({onClick, children}) => (<Portal>
-  <FixedWrap>
-    <TopBar>
-        <StyledIconButton
-          border={false}
-          icon='Close'
-          onClick={() => onClick ? onClick() : defaultClickHandler()}
-        />
-    </TopBar>
-    <ScrollContainer>
-      <Spacing>
-        { children }
-      </Spacing>
-    </ScrollContainer>
-  </FixedWrap>
-</Portal>)
+const DefaultModal:React.FC<Props> = ({onClose, children}) => {
+  const close = () => onClose ? onClose() : defaultCloseHandler()
 
-export default DefaultModal;
+  const onKeyDown = (event:KeyboardEvent) => {
+    if (ESCAPE_KEYS.includes(event.key)) {
+      close()
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener('keydown', onKeyDown)
+    return () => document.removeEventListener('keydown', onKeyDown)
+  })
+
+  return (
+    <Portal>
+      <FixedWrap>
+        <TopBar>
+          <StyledIconButton
+            border={false}
+            icon='Close'
+            onClick={close}
+          />
+        </TopBar>
+        <ScrollContainer>
+          <Spacing>
+            { children }
+          </Spacing>
+        </ScrollContainer>
+      </FixedWrap>
+    </Portal>)
+}
+
+export default DefaultModal
