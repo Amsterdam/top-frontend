@@ -59,6 +59,7 @@ const Body = styled.div`
 `
 
 const Footer = styled.div`
+  background-color: white;
   padding: 15px;
   
   >button:not(:last-of-type) {
