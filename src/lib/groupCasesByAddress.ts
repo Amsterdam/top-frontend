@@ -1,6 +1,6 @@
 import displayAddress from "./displayAddress"
 
-type Cases = BWVData[]
+type Cases = SearchResultCases
 
 const groupCasesByAddress = (cases: Cases) : Cases[] => {
   const l = cases.length

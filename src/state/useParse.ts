@@ -19,10 +19,10 @@ type ParseResults = ParseResult[]
 type SearchQueryParams = [PostalCode, StreetNumber, StreetSuffix | undefined]
 type OptionalSearchQueryParams = SearchQueryParams | undefined
 
-type FetchResult = { cases: BWVData[] }
+type FetchResult = { cases: SearchResultCases }
 type FetchResults = FetchResult[]
 
-const toSearchResult = (data?: { cases: BWVData[] }, error?: string) : SearchResult => {
+const toSearchResult = (data?: { cases: SearchResultCases }, error?: string) : SearchResult => {
   const success = data !== undefined
   return { success, data, error }
 }

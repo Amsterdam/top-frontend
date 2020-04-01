@@ -1,20 +1,26 @@
 import React, { FC } from "react"
 import styled from "styled-components"
 import Signal from "../global/Signal"
+import FraudProbability from "../global/FraudProbability"
 import useGlobalState from "../../hooks/useGlobalState"
 
 type Props = {
   reason: string
   stadium: Stadium
   teams?: TeamMembers[]
+  fraudProbability?: number
 }
 
 const P = styled.p`
   font-weight: normal
   color: black
 `
-
-const SearchResultCase: FC<Props> = ({ reason, stadium, teams }) => {
+const StyledFraudProbability = styled(FraudProbability)`
+  margin-left: 12px
+  font-weight: bold
+  color: #B4B4B4
+`
+const SearchResultCase: FC<Props> = ({ reason, stadium, teams, fraudProbability }) => {
 
   const {
     auth: {
@@ -35,9 +41,11 @@ const SearchResultCase: FC<Props> = ({ reason, stadium, teams }) => {
     (isOwnTeam && hasSingleItinerary ? "In mijn lijst" : `In lijst: ${ teamString }`) :
     ""
 
+  const showFraudProbability = fraudProbability !== undefined
+
   return (
     <div>
-      <P>{ reason }</P>
+      <P>{ reason }{ showFraudProbability && <StyledFraudProbability fraudProbability={ fraudProbability! } /> }</P>
       <Signal text={ stadium } />
       { showTeam &&
         <P>{ team }</P>

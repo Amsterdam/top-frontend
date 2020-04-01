@@ -39,7 +39,14 @@ const DraggableItineraryItem: FC<Props> = ({ itineraryItem, index }) => {
     }
   } = useGlobalState()
 
-  const { id, case: { bwv_data }, notes } = itineraryItem
+  const {
+    id,
+    case: {
+      bwv_data: caseItem,
+      fraud_prediction: fraudPrediction
+     },
+    notes
+  } = itineraryItem
   const noteId = notes[0] && notes[0].id
   const noteText = notes[0] && notes[0].text
   const notePath = `notes/${ id }/${ noteId || "" }`
@@ -75,7 +82,7 @@ const DraggableItineraryItem: FC<Props> = ({ itineraryItem, index }) => {
           style={ getItemStyle(snapshot.isDragging, provided.draggableProps.style) }
         >
           <Inner>
-            <ItineraryItem caseItem={ bwv_data } note={ noteText } />
+            <ItineraryItem caseItem={ caseItem } fraudPrediction={ fraudPrediction } note={ noteText } />
             <ButtonWrap>
               <IconButton iconNode={ <NoteIcon /> } onClick={ () => navigate(to(notePath)) } />
               <IconButton icon="TrashBin" onClick={ onClick } />

@@ -37,7 +37,7 @@ const useSearch = () : [SearchState, SearchActions] => {
 
       // Set results
       const { cases } = result
-      const nonEmptyCases = cases.filter((obj: BWVData) => !isEmptyObject(obj))
+      const nonEmptyCases = cases.filter((obj: SearchResultCase) => !isEmptyObject(obj))
       const groupedCases = groupCasesByAddress(nonEmptyCases)
       const results = groupedCases.map(cases => ({ success: true, data: { cases } }))
       dispatch(createSetResults(results))
@@ -61,7 +61,7 @@ const useSearch = () : [SearchState, SearchActions] => {
     }
 
     const { cases } = result
-    const results = cases.map((caseItem: BWVData) => ({ success: true, data: { cases: [caseItem] } }))
+    const results = cases.map((caseItem: SearchResultCase) => ({ success: true, data: { cases: [caseItem] } }))
     dispatch(createSetSuggestions(results))
   }
 

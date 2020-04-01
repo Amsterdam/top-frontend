@@ -5,6 +5,7 @@ import InvalidDataSpan from "../global/InvalidDataSpan"
 import ScrollToAnchor from "../global/ScrollToAnchor"
 import H1 from "../styled/H1"
 import Label from "../styled/Label"
+import FraudProbability from "../global/FraudProbability"
 
 import Footer from "./Footer"
 
@@ -17,6 +18,7 @@ type Props = {
   openCaseCount?: number
   caseOpening?: string
   signal?: string
+  fraudProbability?: number
   footer?: {
     title: string
     link: string
@@ -37,7 +39,7 @@ const P = styled.p`
   margin-bottom: 8px
 `
 
-const CaseDetailHeader: FC<Props> = ({ address, postalCode, personCount, caseNumber, caseCount, openCaseCount, caseOpening, footer, signal }) => {
+const CaseDetailHeader: FC<Props> = ({ address, postalCode, personCount, caseNumber, caseCount, openCaseCount, caseOpening, signal, fraudProbability, footer }) => {
   const showFooter = footer !== undefined
   const personText =
     personCount === 0 ? "Geen inschrijvingen" :
@@ -46,6 +48,7 @@ const CaseDetailHeader: FC<Props> = ({ address, postalCode, personCount, caseNum
 
   const signalType = signal === "Issuemelding" ? "ISSUE" : "REGULAR"
   const showSignal = signal !== undefined
+  const showFraudProbability = fraudProbability !== undefined
 
   return (
     <Header>
@@ -78,6 +81,12 @@ const CaseDetailHeader: FC<Props> = ({ address, postalCode, personCount, caseNum
           <InvalidDataSpan />
         }
       </div>
+      { showFraudProbability &&
+        <div>
+          <Label>Voorspelling (bèta)</Label>
+          <FraudProbability fraudProbability={ fraudProbability! } />
+        </div>
+      }
       { showFooter &&
         <Footer>
           <a href={ footer!.link }>{ footer!.title }</a>
