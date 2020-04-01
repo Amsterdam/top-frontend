@@ -187,7 +187,7 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions, ItinerariesSe
   // -----------------------------------------
 
   const getItinerary = (caseId: CaseId) : OItineraryItem =>
-    itinerariesState.itineraries[0].items.find(itinerary => itinerary.case.bwv_data.case_id === caseId)
+    itinerariesState.itineraries[0]?.items.find(itinerary => itinerary.case.bwv_data.case_id === caseId)
   const hasItinerary = (caseId: CaseId) => getItinerary(caseId) !== undefined
   const getItineraryNote = (itineraryItemId: Id, id: Id) : ONote => {
     const itineraryItem = itinerariesState.itineraries[0].items.find(item => item.id === itineraryItemId)
