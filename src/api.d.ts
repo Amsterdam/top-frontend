@@ -184,8 +184,6 @@ declare type Cases = Case[]
 
 declare type List = {
   name: string
-  number_of_lists: number
-  length_of_lists: number
   id: number
   itineraries: BWVData[][]
 }
@@ -205,16 +203,17 @@ declare type PlanningResult = {
 
 declare type SettingsList = {
   name: string
-  number_of_lists: number
-  length_of_lists: number
   primary_stadium?: Stadium
   secondary_stadia?: Stadia
-  excluded_stadia?: Stadia
+  exclude_stadia?: Stadia
 }
+declare type SettingsLists = SettingsList[]
+declare type Project = string
+declare type Projects = Project[]
 declare type PlanningSettings = {
   opening_date: string
-  projects: string[]
-  lists: SettingsList[]
+  projects: Projects
+  lists: SettingsLists
 }
 declare type PlanningSettingsData = {
   projects: string[]

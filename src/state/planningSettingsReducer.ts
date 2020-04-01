@@ -35,6 +35,7 @@ const reducer = (state: PlanningSettingsState, action: Action) : PlanningSetting
       const isFetching = false
       const isUpdating = false
       const { data } = action.payload
+      console.log(state, data)
       return { ...state, isFetching, isUpdating, data }
     }
     case "SET_ERROR": {
