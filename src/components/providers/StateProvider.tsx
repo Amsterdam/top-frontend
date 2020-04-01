@@ -1,4 +1,4 @@
-import React, { FC, ReactNode, useState, useEffect } from "react"
+import React, {FC, ReactNode, useState, useEffect, useRef} from "react"
 import StateContext from '../../contexts/StateContext'
 import useAuth from "../../state/useAuth"
 import useItineraries from "../../state/useItineraries"
@@ -9,61 +9,45 @@ import usePlanningSettings from "../../state/usePlanningSettings"
 import useUsers from "../../state/useUsers"
 import parseLocationSearch from "../../lib/utils/parseLocationSearch"
 import { isLoginCallbackPage } from "../../config/page"
-import useGlobalStateClear from "./hooks/useGlobalStateClear";
+import useCreateClearFunction from "./hooks/useCreateClearFunction";
+import useCreateInitializeFunction from "./hooks/useCreateInitializeFunction";
 
 type Props = {
   children: ReactNode
 }
 
 const StateProvider: FC<Props> = ({ children }) => {
-
   // auth
-  const [auth, authActions] = useAuth()
-
-  // itineraries
   const [itineraries, itinerariesActions, { hasItinerary, getItineraryNote }] = useItineraries()
-
-  // search
+  const [auth, authActions] = useAuth()
   const [search, searchActions] = useSearch()
-
-  // parse
   const [parse, parseActions] = useParse()
+  const [planning, planningActions] = usePlanning()
+  const [users, usersActions] = useUsers()
+  const [planningSettings, planningSettingsActions] = usePlanningSettings()
 
   // anonymous
   const [isAnonymous, setIsAnonymous] = useState(false)
   const toggleIsAnonymous = () => setIsAnonymous(!isAnonymous)
 
-  // planning
-  const [planning, planningActions] = usePlanning()
-
-  // planning settings
-  const [planningSettings, planningSettingsActions] = usePlanningSettings()
-
-  // users
-  const [users, usersActions] = useUsers()
-
-  // TODO make own hook for this one:
   const authenticate = (token: AuthToken, user: AuthUser) => {
     const isSuccess = authActions.authenticate(token, user)
     if (isSuccess) initialize()
   }
 
-  // initialize
+  const clear = useCreateClearFunction(
+    authActions,
+    [itinerariesActions, planningActions, usersActions]
+  )
+
   const isInitialized = auth.isInitialized && itineraries.isInitialized
-  const initialize = async () => {
-    if (isInitialized) return
 
-    const isAuthenticated = await authActions.initialize()
-    if (!isAuthenticated) return clear()
-
-    itinerariesActions.initialize()
-    planningActions.initialize()
-    planningSettingsActions.initialize()
-    await usersActions.initialize()
-  }
-
-  // clear
-  const clear = useGlobalStateClear()
+  const initialize = useCreateInitializeFunction(
+    isInitialized,
+    authActions,
+    clear,
+    [itinerariesActions, planningActions, planningSettingsActions, usersActions]
+  )
 
   // initialization
   useEffect(() => {
@@ -72,7 +56,7 @@ const StateProvider: FC<Props> = ({ children }) => {
     setIsAnonymous(isAnonymous)
 
     initialize()
-  }, [])
+  }, [initialize])
 
   const value = {
     state: {
