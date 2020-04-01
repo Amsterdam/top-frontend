@@ -9,6 +9,7 @@ import usePlanningSettings from "../../state/usePlanningSettings"
 import useUsers from "../../state/useUsers"
 import parseLocationSearch from "../../lib/utils/parseLocationSearch"
 import { isLoginCallbackPage } from "../../config/page"
+import useGlobalStateClear from "./hooks/useGlobalStateClear";
 
 type Props = {
   children: ReactNode
@@ -30,8 +31,6 @@ const StateProvider: FC<Props> = ({ children }) => {
 
   // anonymous
   const [isAnonymous, setIsAnonymous] = useState(false)
-
-  // TODO make own hook for this one:
   const toggleIsAnonymous = () => setIsAnonymous(!isAnonymous)
 
   // planning
@@ -64,13 +63,7 @@ const StateProvider: FC<Props> = ({ children }) => {
   }
 
   // clear
-  const clear = (errorMessage?: ErrorMessage) => {
-    const shouldNavigateToLogin = !isLoginCallbackPage()
-    authActions.unAuthenticate(shouldNavigateToLogin, errorMessage)
-    itinerariesActions.clear()
-    planningActions.clear()
-    usersActions.clear()
-  }
+  const clear = useGlobalStateClear()
 
   // initialization
   useEffect(() => {

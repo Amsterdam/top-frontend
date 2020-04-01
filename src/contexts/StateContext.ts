@@ -8,7 +8,7 @@ import { initialState as planningState } from "../state/planningReducer"
 import { initialState as planningSettingsState } from "../state/planningSettingsReducer"
 import { initialState as usersState } from "../state/usersReducer"
 
-type Value = {
+export type StateContextValue = {
   state: {
     auth: AuthState,
     authActions: AuthActions,
@@ -113,7 +113,7 @@ const value = {
 
     clear: (a?: ErrorMessage) => {}
   }
-} as Value
+} as StateContextValue
 
 const StateContext = createContext(value)
 
