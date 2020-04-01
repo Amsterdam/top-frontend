@@ -73,6 +73,8 @@ const useSearch = () : [SearchState, SearchActions] => {
     dispatch(createClear())
   }
 
+  // We wrap the action-creators in a 'ref' to ensure it never re-triggers a hook:
+  // The action-creators themselves should never change.
   const actionCreators = { search, getSuggestions, setTeam, clear }
   const actionCreatorsRef = useRef(actionCreators)
 

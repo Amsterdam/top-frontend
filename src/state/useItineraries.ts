@@ -195,9 +195,13 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions, ItinerariesSe
     return itineraryItem.notes.find(note => note.id === id)
   }
 
+  // We wrap the action-creators in a 'ref' to ensure it never re-triggers a hook:
+  // The action-creators themselves should never change.
   const actionCreators = { initialize, create, updateTeam, del: del2, add, move, remove, setNote, clear }
   const actionCreatorsRef = useRef(actionCreators)
 
+  // We wrap the selectors in a 'ref' to ensure it never re-triggers a hook:
+  // The selectors themselves should never change.
   const selectors = { getItinerary, hasItinerary, getItineraryNote }
   const selectorsRef = useRef(selectors)
 

@@ -12,7 +12,7 @@ const useCreateClearFunction = (unAuthenticate:AuthActions['unAuthenticate'], cl
     clearables.forEach(clear => clear())
   }
 
-  // We wrap the initialize function in a 'ref' to ensure it never re-triggers a hook:
+  // We wrap the clear function in a 'ref' to ensure it never re-triggers a hook:
   // The clear-function itself should never change.
 
   const ref = useRef(clear)

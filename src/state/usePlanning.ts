@@ -93,6 +93,8 @@ const usePlanning = () : [PlanningState, PlanningActions] => {
     dispatch(createAddItinerary(itinerary, indices as [number, number, number]))
   }
 
+  // We wrap the action-creators in a 'ref' to ensure it never re-triggers a hook:
+  // The action-creators themselves should never change.
   const actionCreators = { initialize, generate, clear, removeItinerary, addItinerary }
   const actionCreatorsRef = useRef(actionCreators)
 

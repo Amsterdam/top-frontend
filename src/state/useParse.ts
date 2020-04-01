@@ -91,6 +91,8 @@ const useParse = () : [ParseState, ParseActions] => {
     dispatch(createClear())
   }
 
+  // We wrap the action-creators in a 'ref' to ensure it never re-triggers a hook:
+  // The action-creators themselves should never change.
   const actionCreators = { parse, clear }
   const actionCreatorsRef = useRef(actionCreators)
 

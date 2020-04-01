@@ -54,6 +54,8 @@ const usePlanningSettings = () : [PlanningSettingsState, PlanningSettingsActions
     dispatch(createSetData({ ...data, settings }))
   }
 
+  // We wrap the action-creators in a 'ref' to ensure it never re-triggers a hook:
+  // The action-creators themselves should never change.
   const actionCreators = { initialize, saveSettings, clear }
   const actionCreatorsRef = useRef(actionCreators)
 
