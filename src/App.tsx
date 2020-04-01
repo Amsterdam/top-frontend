@@ -1,7 +1,7 @@
 import React, { FC } from "react"
 import { Router } from "@reach/router"
 import { ThemeProvider } from "@datapunt/asc-ui"
-import StateProvider from "./components/providers/StateProvider"
+import StateProvider from "./components/providers/StateProvider/StateProvider"
 import styled from "styled-components"
 import { basepath } from "./config/page"
 import Anonymous from "./components/global/Anonymous"

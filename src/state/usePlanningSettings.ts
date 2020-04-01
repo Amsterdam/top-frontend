@@ -1,4 +1,4 @@
-import { useReducer } from "react"
+import {useReducer, useRef} from "react"
 import reducer, {
   initialState,
   createStartFetching,
@@ -54,7 +54,12 @@ const usePlanningSettings = () : [PlanningSettingsState, PlanningSettingsActions
     dispatch(createSetData({ ...data, settings }))
   }
 
-  return [state, { initialize, saveSettings, clear }]
+  // We wrap the action-creators in a 'ref' to ensure it never re-triggers a hook:
+  // The action-creators themselves should never change.
+  const actionCreators = { initialize, saveSettings, clear }
+  const actionCreatorsRef = useRef(actionCreators)
+
+  return [state, actionCreatorsRef.current]
 }
 
 export default usePlanningSettings

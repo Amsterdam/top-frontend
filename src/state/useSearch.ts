@@ -1,4 +1,4 @@
-import { useReducer } from "react"
+import {useReducer, useRef} from "react"
 import reducer, {
   initialState,
   createStartFetching,
@@ -73,7 +73,12 @@ const useSearch = () : [SearchState, SearchActions] => {
     dispatch(createClear())
   }
 
-  return [state, { search, getSuggestions, setTeam, clear }]
+  // We wrap the action-creators in a 'ref' to ensure it never re-triggers a hook:
+  // The action-creators themselves should never change.
+  const actionCreators = { search, getSuggestions, setTeam, clear }
+  const actionCreatorsRef = useRef(actionCreators)
+
+  return [state, actionCreatorsRef.current]
 }
 
 export default useSearch

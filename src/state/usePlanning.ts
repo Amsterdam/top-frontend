@@ -1,4 +1,4 @@
-import { useReducer } from "react"
+import {useReducer, useRef} from "react"
 import reducer, {
   initialState,
   createStartFetching,
@@ -93,7 +93,12 @@ const usePlanning = () : [PlanningState, PlanningActions] => {
     dispatch(createAddItinerary(itinerary, indices as [number, number, number]))
   }
 
-  return [state, { initialize, generate, clear, removeItinerary, addItinerary }]
+  // We wrap the action-creators in a 'ref' to ensure it never re-triggers a hook:
+  // The action-creators themselves should never change.
+  const actionCreators = { initialize, generate, clear, removeItinerary, addItinerary }
+  const actionCreatorsRef = useRef(actionCreators)
+
+  return [state, actionCreatorsRef.current]
 }
 
 export default usePlanning

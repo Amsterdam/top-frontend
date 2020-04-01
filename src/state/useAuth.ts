@@ -1,4 +1,4 @@
-import { useReducer } from "react"
+import {useReducer, useRef} from "react"
 import reducer, {
   initialState,
   createInitialize,
@@ -66,7 +66,12 @@ const useAuth = () : [AuthState, AuthActions] => {
     if (navigate) navigateToLogin()
   }
 
-  return [auth, { initialize, authenticate, unAuthenticate }]
+  // We wrap the action-creators in a 'ref' to ensure it never re-triggers a hook:
+  // The action-creators themselves should never change.
+  const actionCreators = { initialize, authenticate, unAuthenticate }
+  const actionCreatorsRef = useRef(actionCreators)
+
+  return [auth, actionCreatorsRef.current]
 }
 
 export default useAuth

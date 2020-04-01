@@ -1,4 +1,4 @@
-import { useReducer } from "react"
+import {useReducer, useRef} from "react"
 import reducer, {
   initialState,
   createStartFetching,
@@ -21,9 +21,13 @@ import calculateNewPosition from "../lib/calculateNewPosition"
 import currentDate from "../lib/utils/currentDate"
 import { navigateToHome } from "../lib/navigateTo"
 
-const useItineraries = () : [ItinerariesState, ItinerariesActions] => {
+const useItineraries = () : [ItinerariesState, ItinerariesActions, ItinerariesSelectors] => {
 
   const [itinerariesState, dispatch] = useReducer(reducer, initialState as never)
+
+  // -----------------------------------------
+  // Actions:
+  // -----------------------------------------
 
   const initialize = async () => {
     const url = getUrl("itineraries", { created_at: currentDate() })
@@ -178,6 +182,33 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions] => {
 
   const clear = () => dispatch(createClear())
 
-  return [itinerariesState, { initialize, create, updateTeam, del: del2, add, move, remove, setNote, clear }]
+  // -----------------------------------------
+  //  Selectors
+  // -----------------------------------------
+
+  const getItinerary = (caseId: CaseId) : OItineraryItem =>
+    itinerariesState.itineraries[0].items.find(itinerary => itinerary.case.bwv_data.case_id === caseId)
+  const hasItinerary = (caseId: CaseId) => getItinerary(caseId) !== undefined
+  const getItineraryNote = (itineraryItemId: Id, id: Id) : ONote => {
+    const itineraryItem = itinerariesState.itineraries[0].items.find(item => item.id === itineraryItemId)
+    if (itineraryItem === undefined) return
+    return itineraryItem.notes.find(note => note.id === id)
+  }
+
+  // We wrap the action-creators in a 'ref' to ensure it never re-triggers a hook:
+  // The action-creators themselves should never change.
+  const actionCreators = { initialize, create, updateTeam, del: del2, add, move, remove, setNote, clear }
+  const actionCreatorsRef = useRef(actionCreators)
+
+  // We wrap the selectors in a 'ref' to ensure it never re-triggers a hook:
+  // The selectors themselves should never change.
+  const selectors = { getItinerary, hasItinerary, getItineraryNote }
+  const selectorsRef = useRef(selectors)
+
+  return [
+    itinerariesState,
+    actionCreatorsRef.current,
+    selectorsRef.current
+  ]
 }
 export default useItineraries
