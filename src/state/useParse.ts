@@ -1,4 +1,4 @@
-import { useReducer } from "react"
+import {useReducer, useRef} from "react"
 import reducer, {
   initialState,
   createStartFetching,
@@ -91,7 +91,10 @@ const useParse = () : [ParseState, ParseActions] => {
     dispatch(createClear())
   }
 
-  return [state, { parse, clear }]
+  const actionCreators = { parse, clear }
+  const actionCreatorsRef = useRef(actionCreators)
+
+  return [state, actionCreatorsRef.current]
 }
 
 export default useParse

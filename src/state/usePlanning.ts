@@ -1,4 +1,4 @@
-import { useReducer } from "react"
+import {useReducer, useRef} from "react"
 import reducer, {
   initialState,
   createStartFetching,
@@ -93,7 +93,10 @@ const usePlanning = () : [PlanningState, PlanningActions] => {
     dispatch(createAddItinerary(itinerary, indices as [number, number, number]))
   }
 
-  return [state, { initialize, generate, clear, removeItinerary, addItinerary }]
+  const actionCreators = { initialize, generate, clear, removeItinerary, addItinerary }
+  const actionCreatorsRef = useRef(actionCreators)
+
+  return [state, actionCreatorsRef.current]
 }
 
 export default usePlanning

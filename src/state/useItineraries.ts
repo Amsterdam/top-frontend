@@ -1,4 +1,4 @@
-import { useReducer } from "react"
+import {useReducer, useRef} from "react"
 import reducer, {
   initialState,
   createStartFetching,
@@ -195,10 +195,16 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions, ItinerariesSe
     return itineraryItem.notes.find(note => note.id === id)
   }
 
+  const actionCreators = { initialize, create, updateTeam, del: del2, add, move, remove, setNote, clear }
+  const actionCreatorsRef = useRef(actionCreators)
+
+  const selectors = { getItinerary, hasItinerary, getItineraryNote }
+  const selectorsRef = useRef(selectors)
+
   return [
     itinerariesState,
-    { initialize, create, updateTeam, del: del2, add, move, remove, setNote, clear },
-    { getItinerary, hasItinerary, getItineraryNote }
+    actionCreatorsRef.current,
+    selectorsRef.current
   ]
 }
 export default useItineraries

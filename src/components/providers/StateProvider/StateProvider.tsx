@@ -1,4 +1,4 @@
-import React, {FC, ReactNode, useEffect, useRef} from "react"
+import React, {FC, ReactNode, useEffect} from "react"
 import StateContext from '../../../contexts/StateContext'
 import useCreateGlobalState from "./useCreateGlobalState"
 

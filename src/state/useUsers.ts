@@ -1,4 +1,4 @@
-import { useReducer } from "react"
+import {useReducer, useRef} from "react"
 import reducer, {
   initialState,
   createStartFetching,
@@ -33,7 +33,10 @@ const useUsers = () : [UsersState, UsersActions] => {
     dispatch(createClear())
   }
 
-  return [state, { initialize, clear }]
+  const actionCreators ={ initialize, clear }
+  const actionCreatorsRef = useRef(actionCreators)
+
+  return [state, actionCreatorsRef.current]
 }
 
 export default useUsers
