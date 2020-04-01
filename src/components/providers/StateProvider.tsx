@@ -20,15 +20,7 @@ const StateProvider: FC<Props> = ({ children }) => {
   const [auth, authActions] = useAuth()
 
   // itineraries
-  const [itineraries, itinerariesActions] = useItineraries()
-  const getItinerary = (caseId: CaseId) : OItineraryItem =>
-    itineraries.itineraries[0].items.find(itinerary => itinerary.case.bwv_data.case_id === caseId)
-  const hasItinerary = (caseId: CaseId) => getItinerary(caseId) !== undefined
-  const getItineraryNote = (itineraryItemId: Id, id: Id) : ONote => {
-    const itineraryItem = itineraries.itineraries[0].items.find(item => item.id === itineraryItemId)
-    if (itineraryItem === undefined) return
-    return itineraryItem.notes.find(note => note.id === id)
-  }
+  const [itineraries, itinerariesActions, { hasItinerary, getItineraryNote }] = useItineraries()
 
   // search
   const [search, searchActions] = useSearch()
@@ -38,6 +30,8 @@ const StateProvider: FC<Props> = ({ children }) => {
 
   // anonymous
   const [isAnonymous, setIsAnonymous] = useState(false)
+
+  // TODO make own hook for this one:
   const toggleIsAnonymous = () => setIsAnonymous(!isAnonymous)
 
   // planning
@@ -49,7 +43,7 @@ const StateProvider: FC<Props> = ({ children }) => {
   // users
   const [users, usersActions] = useUsers()
 
-  // authenticate
+  // TODO make own hook for this one:
   const authenticate = (token: AuthToken, user: AuthUser) => {
     const isSuccess = authActions.authenticate(token, user)
     if (isSuccess) initialize()

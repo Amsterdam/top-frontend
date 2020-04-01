@@ -20,6 +20,12 @@ declare type ItinerariesActions = {
   clear: () => void
 }
 
+declare type ItinerariesSelectors = {
+  getItinerary: (caseId: CaseId) => OItineraryItem
+  hasItinerary: (caseId: CaseId) => boolean
+  getItineraryNote: (itineraryItemId: Id, id: Id) => ONote
+}
+
 declare type AuthState = {
   isInitialized: boolean
   token?: AuthToken
