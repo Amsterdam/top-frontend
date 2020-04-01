@@ -1,5 +1,5 @@
 import {isLoginCallbackPage} from "../../../../config/page"
-import {useRef} from "react";
+import {useRef} from "react"
 
 export type GlobalStateClearFunction = (errorMessage?: ErrorMessage) => void
 type Clearable = () => void

@@ -1,6 +1,6 @@
 import {GlobalStateClearFunction} from "./useCreateClearFunction"
 import parseLocationSearch from "../../../../lib/utils/parseLocationSearch"
-import {useRef} from "react";
+import {useRef} from "react"
 
 export type StateContextInitializer = (errorMessage?: ErrorMessage) => void
 type Initializable = () => void

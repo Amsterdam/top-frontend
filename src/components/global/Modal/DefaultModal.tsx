@@ -1,9 +1,9 @@
-import React, {useEffect} from "react";
-import styled from "styled-components";
+import React, {useEffect} from "react"
+import styled from "styled-components"
 import { constants } from "@datapunt/asc-ui"
 
-import Portal from "./Portal";
-import IconButton from "../IconButton";
+import Portal from "./Portal"
+import IconButton from "../IconButton"
 
 const FixedWrap = styled.div`  
   // @TODO refactor our use of z-index. This gets out of hand quickly.
