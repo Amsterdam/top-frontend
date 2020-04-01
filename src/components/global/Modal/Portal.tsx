@@ -2,8 +2,8 @@ import React, { useEffect } from 'react'
 import { createPortal } from 'react-dom'
 
 const Portal:React.FC = ({children}) => {
-  const modalRoot = document.getElementById('modal-root');
-  const el = document.createElement("div") as Element;
+  const modalRoot = document.getElementById('modal-root')
+  const el = document.createElement("div") as Element
 
   useEffect(() => {
     // onMount: append `el` to modal-root..
@@ -14,10 +14,10 @@ const Portal:React.FC = ({children}) => {
       modalRoot?.removeChild(el)
     }
 
-  }, [el, modalRoot]);
+  }, [el, modalRoot])
 
   // The children of this component are rendered within `el`.
   return createPortal(children, el)
-};
+}
 
-export default Portal;
+export default Portal
