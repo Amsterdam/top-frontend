@@ -2,8 +2,6 @@ import React, {useEffect} from "react"
 import styled from "styled-components"
 import {constants} from "@datapunt/asc-ui"
 import { ascDefaultTheme } from "@datapunt/asc-core"
-
-import Portal from "./Portal"
 import IconButton from "../IconButton"
 
 const FixedWrap = styled.div`  
@@ -92,24 +90,23 @@ const DefaultModal:React.FC<Props> = ({title, onClose, body, footer}) => {
   })
 
   return (
-    <Portal>
-      <FixedWrap>
-        <TopBar>
-          <h4>{ title }</h4>
-          <StyledIconButton
-            border={false}
-            icon='Close'
-            onClick={close}
-          />
-        </TopBar>
-        <Body>
-          { body }
-        </Body>
-        <Footer>
-          { footer }
-        </Footer>
-      </FixedWrap>
-    </Portal>)
+  <FixedWrap>
+    <TopBar>
+      <h4>{ title }</h4>
+      <StyledIconButton
+        border={false}
+        icon='Close'
+        onClick={close}
+      />
+    </TopBar>
+    <Body>
+      { body }
+    </Body>
+    <Footer>
+      { footer }
+    </Footer>
+  </FixedWrap>
+  )
 }
 
 export default DefaultModal

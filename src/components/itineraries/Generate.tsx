@@ -160,12 +160,12 @@ const Generate: FC = () => {
                 Ik wil starten bij een specifiek adres
               </Button>
             </Link>
-          { showAddAddressModal && <AddAddressModal /> }
         </Div>
         <ButtonWrap>
           <Button type="submit" variant="secondary" disabled={ isDisabled }>Genereer looplijst</Button>
         </ButtonWrap>
       </form>
+      { showAddAddressModal && <AddAddressModal /> }
     </div>
   )
 
