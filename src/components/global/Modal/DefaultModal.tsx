@@ -1,6 +1,7 @@
 import React, {useEffect} from "react"
 import styled from "styled-components"
-import { constants } from "@datapunt/asc-ui"
+import {constants} from "@datapunt/asc-ui"
+import { ascDefaultTheme } from "@datapunt/asc-core"
 
 import Portal from "./Portal"
 import IconButton from "../IconButton"
@@ -21,41 +22,61 @@ const FixedWrap = styled.div`
 `
 
 const TopBar = styled.div`
+  box-sizing: border-box;
+
   background-color: white;
   position: relative;   // relative, because we want to  position the close icon absolutely within it.  
     
   height: ${constants.HEADER_HEIGHT_SMALL}px; 
-  text-align:center; 
-  border-bottom: 1px solid #DFDFDF;
+  padding: 15px;
+     
+  border-bottom: 1px solid ${ascDefaultTheme.colors.tint.level5};
+  
+  h4 {
+    margin:0;
+  }
 `
 
 const StyledIconButton = styled(IconButton)`
   position: absolute;
-  right: 0;
+  right: 15px;
   top: 50%;
   transform: translateY(-50%);
+  
+  height: 24px;
+  width: 24px;
 `
 
-const ScrollContainer = styled.div`
+const Body = styled.div`
   background-color: white;
   flex: 1;
     
   overflow-y: auto;
+  
+  padding: 15px;
            
   -webkit-overflow-scrolling: touch;  // iOS momentum scrolling. @see: https://developer.mozilla.org/en-US/docs/Web/CSS/-webkit-overflow-scrolling
 `
-const Spacing = styled.div`
-  margin: 15px;
+
+const Footer = styled.div`
+  padding: 15px;
+  
+  >button:not(:last-of-type) {
+    margin-right: 15px;
+  }
 `
 
 type Props = {
+  title?: string
   onClose?: () => void
+  body?: JSX.Element
+  footer?: JSX.Element
 }
 
 const ESCAPE_KEYS = ['Escape', '27']
-const defaultCloseHandler = () => window.history.back()
+export const defaultCloseHandler = () => window.history.back()
 
-const DefaultModal:React.FC<Props> = ({onClose, children}) => {
+const DefaultModal:React.FC<Props> = ({title, onClose, body, footer}) => {
   const close = () => onClose ? onClose() : defaultCloseHandler()
 
   const onKeyDown = (event:KeyboardEvent) => {
@@ -73,17 +94,19 @@ const DefaultModal:React.FC<Props> = ({onClose, children}) => {
     <Portal>
       <FixedWrap>
         <TopBar>
+          <h4>{ title }</h4>
           <StyledIconButton
             border={false}
             icon='Close'
             onClick={close}
           />
         </TopBar>
-        <ScrollContainer>
-          <Spacing>
-            { children }
-          </Spacing>
-        </ScrollContainer>
+        <Body>
+          { body }
+        </Body>
+        <Footer>
+          { footer }
+        </Footer>
       </FixedWrap>
     </Portal>)
 }
