@@ -8,14 +8,13 @@ import {TopBar} from "./components/TopBar"
 type Props = {
   title?: string
   onClose?: () => void
-  body?: JSX.Element
   footer?: JSX.Element
 }
 
 const ESCAPE_KEYS = ['Escape', '27']
 export const defaultCloseHandler = () => window.history.back()
 
-const DefaultModal:React.FC<Props> = ({title, onClose, body, footer}) => {
+const DefaultModal:React.FC<Props> = ({title, onClose, children, footer}) => {
   const close = () => onClose ? onClose() : defaultCloseHandler()
 
   const onKeyDown = (event:KeyboardEvent) => {
@@ -39,8 +38,8 @@ const DefaultModal:React.FC<Props> = ({title, onClose, body, footer}) => {
         onClick={close}
       />
     </TopBar>
-    <Body>{ body }</Body>
-    <Footer>{ footer }</Footer>
+    <Body>{ children }</Body>
+    { footer && <Footer>{ footer }</Footer>}
   </FixedWrap>
   )
 }
