@@ -26,7 +26,7 @@ const Suggestions: FC<Props> = ({ id }) => {
 
   useEffect(() => {
     getSuggestions(id)
-  }, [id])
+  }, [getSuggestions, id])
 
   const showSpinner = !isInitialized || isFetching
   const hasError = errorMessage !== undefined

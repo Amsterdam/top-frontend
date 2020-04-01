@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from "react"
+import React, {FC, useState, useEffect, useCallback} from "react"
 import { RouteComponentProps } from "@reach/router"
 import { Spinner } from "@datapunt/asc-ui"
 import ErrorMessage from "../components/global/ErrorMessage"
@@ -27,7 +27,7 @@ const LoginCallbackPage: FC<RouteComponentProps> = () => {
   const showSpinner = loading
   const showErrorMessage = errorMessage !== undefined
 
-  const confirmLogin = async () => {
+  const confirmLogin = useCallback(async () => {
 
     setErrorMessage(undefined)
 
@@ -49,12 +49,12 @@ const LoginCallbackPage: FC<RouteComponentProps> = () => {
     }
 
     setLoading(false)
-  }
+  }, [authenticate])
 
   useEffect(() => {
     setLoading(true)
     confirmLogin()
-  }, [])
+  }, [confirmLogin])
 
   return (
     <Div>
