@@ -5,13 +5,15 @@ import SearchResultWrap from "./SearchResultWrap"
 import SearchResultAddress from "./SearchResultAddress"
 import SearchResultDistance from "./SearchResultDistance"
 import SearchResultCase from "./SearchResultCase"
-import SearchResultButtonWrap from "./SearchResultButtonWrap"
 
 import { to } from "../../config/page"
 import displayAddress from "../../lib/displayAddress"
 
+import {ActionButtonsComponentType} from "./SearchResults"
+
 type Props = {
   cases: SearchResultCases
+  actionButtonsComponent?:ActionButtonsComponentType
 }
 
 const Wrap = styled.div`
@@ -27,7 +29,7 @@ const Div = styled.div`
   justify-content: flex-end
 `
 
-const SearchResultPlural: FC<Props> = ({ cases }) => {
+const SearchResultPlural: FC<Props> = ({ actionButtonsComponent, cases }) => {
 
   const {
     street_name: streetName,
@@ -43,6 +45,8 @@ const SearchResultPlural: FC<Props> = ({ cases }) => {
 
   const address = displayAddress(streetName, streetNumber, suffix_letter || undefined, suffix || undefined)
   const showDistance = distance !== undefined
+
+  const ActionButtonsComponent = actionButtonsComponent
 
   return (
     <div>
@@ -65,9 +69,11 @@ const SearchResultPlural: FC<Props> = ({ cases }) => {
             <Link key={ key } to={ linkTo }>
               <Wrap>
                 <SearchResultCase reason={ reason } stadium={ stadium } teams={ teams } fraudProbability={ fraudProbability } />
-                <Div>
-                  <SearchResultButtonWrap caseId={ caseId } />
-                </Div>
+                { ActionButtonsComponent && (
+                  <Div>
+                    <ActionButtonsComponent caseId={caseId} />
+                  </Div>
+                ) }
               </Wrap>
             </Link>
           )

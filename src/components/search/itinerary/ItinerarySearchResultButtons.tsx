@@ -1,10 +1,10 @@
 import React, { FC, useState, FormEvent } from "react"
-import useGlobalState from "../../hooks/useGlobalState"
-import IconButton from "../global/IconButton"
+import useGlobalState from "../../../hooks/useGlobalState"
+import IconButton from "../../global/IconButton"
 import { Button } from "@datapunt/asc-ui"
 import styled from "styled-components"
-import getItineraryByCaseId from "../../lib/getItineraryByCaseId"
-import TeamMembersDisplay from "../itineraries/TeamMembersDisplay"
+import getItineraryByCaseId from "../../../lib/getItineraryByCaseId"
+import TeamMembersDisplay from "../../itineraries/TeamMembersDisplay"
 
 type Props = {
   caseId: CaseId
@@ -31,7 +31,7 @@ const P = styled.p`
   font-weight: normal
 `
 
-const SearchResultButtonWrap: FC<Props> = ({ caseId }) => {
+const ItinerarySearchResultButtons: FC<Props> = ({ caseId }) => {
 
   const {
     hasItinerary: userHasItinerary,
@@ -114,4 +114,4 @@ const SearchResultButtonWrap: FC<Props> = ({ caseId }) => {
     </div>
   )
 }
-export default SearchResultButtonWrap
+export default ItinerarySearchResultButtons
