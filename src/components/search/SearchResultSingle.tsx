@@ -5,15 +5,16 @@ import SearchResultMenu from "./SearchResultMenu"
 import SearchResultAddress from "./SearchResultAddress"
 import SearchResultDistance from "./SearchResultDistance"
 import SearchResultCase from "./SearchResultCase"
-import SearchResultButtonWrap from "./SearchResultButtonWrap"
 import { to } from "../../config/page"
 import displayAddress from "../../lib/displayAddress"
+import {ActionButtonsComponentType} from "./SearchResults"
 
 type Props = {
   caseItem: SearchResultCase
+  actionButtonsComponent?:ActionButtonsComponentType
 }
 
-const SearchResultSingle: FC<Props> = ({ caseItem }) => {
+const SearchResultSingle: FC<Props> = ({ caseItem, actionButtonsComponent }) => {
 
   const {
     case_id: caseId,
@@ -35,6 +36,8 @@ const SearchResultSingle: FC<Props> = ({ caseItem }) => {
   const address = displayAddress(streetName, streetNumber, suffix_letter || undefined, suffix || undefined)
   const showDistance = distance !== undefined
 
+  const ActionButtonsComponent = actionButtonsComponent
+
   return (
     <Link to={ linkTo }>
       <SearchResultWrap>
@@ -46,7 +49,10 @@ const SearchResultSingle: FC<Props> = ({ caseItem }) => {
           { showDistance &&
             <SearchResultDistance distance={ distance! } />
           }
-          <SearchResultButtonWrap caseId={ caseId } />
+          {
+            ActionButtonsComponent &&
+            <ActionButtonsComponent caseId={caseId} />
+          }
         </SearchResultMenu>
       </SearchResultWrap>
     </Link>

@@ -3,15 +3,19 @@ import styled from "styled-components"
 import SearchResult from "./SearchResult"
 import EmptySearchResult from "./EmptySearchResult"
 
+export type ActionButtonsComponentProps = { caseId: string }
+export type ActionButtonsComponentType = React.ComponentType<ActionButtonsComponentProps>
+
 type Props = {
   results?: SearchResults
+  actionButtonsComponent?:ActionButtonsComponentType
 }
 
 const P = styled.p`
   margin-top: 12px
 `
 
-const SearchResults: FC<Props> = ({ results }) => {
+const SearchResults: FC<Props> = ({ results, actionButtonsComponent }) => {
 
   const showResults = results && results.length > 0
   const showEmpty = results && results.length === 0
@@ -28,7 +32,7 @@ const SearchResults: FC<Props> = ({ results }) => {
         return (
           <div key={ `${ JSON.stringify(result) }_${ index }` }>
             { showSearchResult &&
-              <SearchResult cases={ data!.cases } />
+              <SearchResult cases={ data!.cases } actionButtonsComponent={actionButtonsComponent} />
             }
             { showEmptySearchResult &&
               <EmptySearchResult text={ error } />

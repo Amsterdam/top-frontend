@@ -1,10 +1,14 @@
 import React, { FC } from "react"
 import SearchForm from "./SearchForm"
-import SearchResults from "./SearchResults"
+import SearchResults, {ActionButtonsComponentType} from "./SearchResults"
 import SmallSpinner from "../global/SmallSpinner"
 import useGlobalState from "../../hooks/useGlobalState"
 
-const Search: FC = () => {
+type Props = {
+  actionButtonsComponent?:ActionButtonsComponentType
+}
+
+const Search: FC<Props> = ({ actionButtonsComponent }) => {
 
   const {
     search: {
@@ -21,7 +25,10 @@ const Search: FC = () => {
       { showSpinner &&
         <SmallSpinner />
       }
-      <SearchResults results={ results } />
+      <SearchResults
+        results={ results }
+        actionButtonsComponent={actionButtonsComponent}
+      />
     </div>
   )
 }

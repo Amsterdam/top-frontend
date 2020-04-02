@@ -5,6 +5,7 @@ import useGlobalState from "../../hooks/useGlobalState"
 import SearchResults from "../search/SearchResults"
 import H1 from "../styled/H1"
 import Hr from "../styled/Hr"
+import ItinerarySearchResultButtons from "./itinerary/ItinerarySearchResultButtons"
 
 type Props = {
   id: Id
@@ -47,7 +48,7 @@ const Suggestions: FC<Props> = ({ id }) => {
           <H1>Voeg een adres toe</H1>
           <p>Addressen rondom de adressen in je lijst:</p>
           <Hr />
-          <SearchResults results={ results } />
+          <SearchResults results={ results } actionButtonsComponent={ItinerarySearchResultButtons} />
         </>
       }
     </div>
