@@ -8,7 +8,7 @@ import useOnChangeState from "../../hooks/useOnChangeState"
 import useGlobalState from "../../hooks/useGlobalState"
 import styled from "styled-components"
 import isWeekDay from "../../lib/utils/isWeekDay"
-import AddAddressModal from "./AddAddressModal"
+import AddStartAddressModal from "./add-start-address/AddStartAddressModal"
 
 const Label = styled.label`
   font-weight: bold
@@ -165,7 +165,7 @@ const Generate: FC = () => {
           <Button type="submit" variant="secondary" disabled={ isDisabled }>Genereer looplijst</Button>
         </ButtonWrap>
       </form>
-      { showAddAddressModal && <AddAddressModal /> }
+      { showAddAddressModal && <AddStartAddressModal /> }
     </div>
   )
 
