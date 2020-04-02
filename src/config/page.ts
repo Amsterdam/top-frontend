@@ -5,6 +5,7 @@ export const basepath = "/"
 export const to = (path: string = "") => {
   return `${ basepath }${ path }`
 }
+export const popHash = (str:string) => str.replace(/(#.*)$/, '')
 
 export const isPage = (page: string) => trimTrailingSlash(window.location.pathname) === trimTrailingSlash(to(page))
 export const isLoginPage = () => isPage("login")

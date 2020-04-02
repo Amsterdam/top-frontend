@@ -12,7 +12,7 @@ type Props = {
 }
 
 const ESCAPE_KEYS = ['Escape', '27']
-export const defaultCloseHandler = () => window.history.back()
+const defaultCloseHandler = () => window.history.back()
 
 const DefaultModal:React.FC<Props> = ({title, onClose, children, footer}) => {
   const close = () => onClose ? onClose() : defaultCloseHandler()

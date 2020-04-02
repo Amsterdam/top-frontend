@@ -1,6 +1,6 @@
 import React, { FC, useState, useEffect, ChangeEvent, FormEvent } from "react"
 import { Select, Button } from "@datapunt/asc-ui"
-import {Link} from "@reach/router"
+import {Link, navigate} from "@reach/router"
 import H1 from "../styled/H1"
 import Input from "../styled/Input"
 import { listsDay } from "../../config/planning"
@@ -9,6 +9,8 @@ import useGlobalState from "../../hooks/useGlobalState"
 import styled from "styled-components"
 import isWeekDay from "../../lib/utils/isWeekDay"
 import AddStartAddressModal from "./add-start-address/AddStartAddressModal"
+import {popHash} from "../../config/page"
+import StartAddress from "./add-start-address/StartAddress"
 
 const Label = styled.label`
   font-weight: bold
@@ -106,46 +108,53 @@ const Generate: FC = () => {
     create(listsSettings, userIds, num, selfIncluded)
   }
 
+  const [startAddressCaseId, setStartAddressCaseId] = useState<CaseId | null>(null)
+  const showStartAddress = !!startAddressCaseId
+  const onAddStartAddress = (caseId:CaseId) => {
+    setStartAddressCaseId(caseId)
+    navigate(popHash(window.location.href))
+  }
+
   return (
     <div className="Generate">
       <H1>Genereer je looplijst</H1>
       <p>Wie zitten er vandaag in je team?</p>
       <form onSubmit={ onSubmit }>
         { team.map((tuple, index) => {
-            const [value, onChange] = tuple
-            const user = value !== "" ? usersArray.find(({ id }) => id === value) : undefined
-            const label = index <= 1 ? `Toezichthouder ${ index + 1 }` : "Handhaver"
-            return (
-              <Div key={ index }>
-                <Label>{ label }</Label>
-                <Select value={ value } onChange={ onChange } disabled={ disabled }>
-                  <option value="">-</option>
-                  { user !== undefined &&
-                    <option value={ value }>{ `${ user.full_name }` }</option>
-                  }
-                  { filteredUsers.map(({ id, full_name }) =>
-                    <option key={ id } value={ id }>{ `${ full_name }` }</option>)
-                  }
-                </Select>
-              </Div>
-            )
-          })
+          const [value, onChange] = tuple
+          const user = value !== "" ? usersArray.find(({ id }) => id === value) : undefined
+          const label = index <= 1 ? `Toezichthouder ${ index + 1 }` : "Handhaver"
+          return (
+            <Div key={ index }>
+              <Label>{ label }</Label>
+              <Select value={ value } onChange={ onChange } disabled={ disabled }>
+                <option value="">-</option>
+                { user !== undefined &&
+                <option value={ value }>{ `${ user.full_name }` }</option>
+                }
+                { filteredUsers.map(({ id, full_name }) =>
+                  <option key={ id } value={ id }>{ `${ full_name }` }</option>)
+                }
+              </Select>
+            </Div>
+          )
+        })
         }
         <Div>
           <p>Wat voor looplijst wil je maken?</p>
           { showWeekDay &&
-            <>
-              <RadioButton id="day" type="radio" checked={ isDay } onChange={ setDay } />
-              <Label2 htmlFor="day">daglijst</Label2>
-              <RadioButton id="evening" type="radio" checked={ isEvening } onChange={ setEvening } />
-              <Label2 htmlFor="evening">avondlijst</Label2>
-            </>
+          <>
+            <RadioButton id="day" type="radio" checked={ isDay } onChange={ setDay } />
+            <Label2 htmlFor="day">daglijst</Label2>
+            <RadioButton id="evening" type="radio" checked={ isEvening } onChange={ setEvening } />
+            <Label2 htmlFor="evening">avondlijst</Label2>
+          </>
           }
           { showWeekend &&
-            <>
-              <RadioButton id="weekend" type="radio" checked={ true } />
-              <Label2 htmlFor="weekend">weekend</Label2>
-            </>
+          <>
+            <RadioButton id="weekend" type="radio" checked={ true } />
+            <Label2 htmlFor="weekend">weekend</Label2>
+          </>
           }
         </Div>
         <Div>
@@ -155,17 +164,32 @@ const Generate: FC = () => {
           </div>
         </Div>
         <Div>
-            <Link to='#add-address'>
-              <Button type='button' variant="primary">
-                Ik wil starten bij een specifiek adres
-              </Button>
-            </Link>
+          {
+            showStartAddress
+              ? (<>
+                <Div>
+                  <StartAddress caseId={startAddressCaseId!}/>
+                </Div>
+                <Div>
+                  <Button type='button' variant='primary' onClick={() => setStartAddressCaseId(null)}>
+                    Verwijder startadres
+                  </Button>
+                </Div>
+              </>)
+              : (<Div>
+                <Link to='#add-address'>
+                  <Button type='button' variant="primary">
+                    Ik wil starten bij een specifiek adres
+                  </Button>
+                </Link>
+              </Div>)
+          }
         </Div>
         <ButtonWrap>
           <Button type="submit" variant="secondary" disabled={ isDisabled }>Genereer looplijst</Button>
         </ButtonWrap>
       </form>
-      { showAddAddressModal && <AddStartAddressModal /> }
+      {showAddAddressModal && <AddStartAddressModal onAddStartAddress={onAddStartAddress}/>}
     </div>
   )
 
