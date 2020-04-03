@@ -71,266 +71,78 @@ const Settings: FC = () => {
     setProjects(projects)
   }, [projects])
 
-  // Monday
-  const [mondayPrimaryStadium, onChangeMondayPrimaryStadium, setMondayPrimaryStadium] = useOnChangeState("")
-  const [mondaySecondaryStadia, onChangeMondaySecondaryStadia, setMondaySecondaryStadia] = useOnChangeStateMultiple([])
-  const [mondayExcludedStadia, onChangeMondayExcludedStadia, setMondayExcludedStadia] = useOnChangeStateMultiple([])
-  const [mondayEveningPrimaryStadium, onChangeMondayEveningPrimaryStadium, setMondayEveningPrimaryStadium] = useOnChangeState("")
-  const [mondayEveningSecondaryStadia, onChangeMondayEveningSecondaryStadia, setMondayEveningSecondaryStadia] = useOnChangeStateMultiple([])
-  const [mondayEveningExcludedStadia, onChangeMondayEveningExcludedStadia, setMondayEveningExcludedStadia] = useOnChangeStateMultiple([])
-  // Tuesday
-  const [tuesdayPrimaryStadium, onChangeTuesdayPrimaryStadium, setTuesdayPrimaryStadium] = useOnChangeState("")
-  const [tuesdaySecondaryStadia, onChangeTuesdaySecondaryStadia, setTuesdaySecondaryStadia] = useOnChangeStateMultiple([])
-  const [tuesdayExcludedStadia, onChangeTuesdayExcludedStadia, setTuesdayExcludedStadia] = useOnChangeStateMultiple([])
-  const [tuesdayEveningPrimaryStadium, onChangeTuesdayEveningPrimaryStadium, setTuesdayEveningPrimaryStadium] = useOnChangeState("")
-  const [tuesdayEveningSecondaryStadia, onChangeTuesdayEveningSecondaryStadia, setTuesdayEveningSecondaryStadia] = useOnChangeStateMultiple([])
-  const [tuesdayEveningExcludedStadia, onChangeTuesdayEveningExcludedStadia, setTuesdayEveningExcludedStadia] = useOnChangeStateMultiple([])
-  // Wednesday
-  const [wednesdayPrimaryStadium, onChangeWednesdayPrimaryStadium, setWednesdayPrimaryStadium] = useOnChangeState("")
-  const [wednesdaySecondaryStadia, onChangeWednesdaySecondaryStadia, setWednesdaySecondaryStadia] = useOnChangeStateMultiple([])
-  const [wednesdayExcludedStadia, onChangeWednesdayExcludedStadia, setWednesdayExcludedStadia] = useOnChangeStateMultiple([])
-  const [wednesdayEveningPrimaryStadium, onChangeWednesdayEveningPrimaryStadium, setWednesdayEveningPrimaryStadium] = useOnChangeState("")
-  const [wednesdayEveningSecondaryStadia, onChangeWednesdayEveningSecondaryStadia, setWednesdayEveningSecondaryStadia] = useOnChangeStateMultiple([])
-  const [wednesdayEveningExcludedStadia, onChangeWednesdayEveningExcludedStadia, setWednesdayEveningExcludedStadia] = useOnChangeStateMultiple([])
-  // Thursday
-  const [thursdayPrimaryStadium, onChangeThursdayPrimaryStadium, setThursdayPrimaryStadium] = useOnChangeState("")
-  const [thursdaySecondaryStadia, onChangeThursdaySecondaryStadia, setThursdaySecondaryStadia] = useOnChangeStateMultiple([])
-  const [thursdayExcludedStadia, onChangeThursdayExcludedStadia, setThursdayExcludedStadia] = useOnChangeStateMultiple([])
-  const [thursdayEveningPrimaryStadium, onChangeThursdayEveningPrimaryStadium, setThursdayEveningPrimaryStadium] = useOnChangeState("")
-  const [thursdayEveningSecondaryStadia, onChangeThursdayEveningSecondaryStadia, setThursdayEveningSecondaryStadia] = useOnChangeStateMultiple([])
-  const [thursdayEveningExcludedStadia, onChangeThursdayEveningExcludedStadia, setThursdayEveningExcludedStadia] = useOnChangeStateMultiple([])
-  // Friday
-  const [fridayPrimaryStadium, onChangeFridayPrimaryStadium, setFridayPrimaryStadium] = useOnChangeState("")
-  const [fridaySecondaryStadia, onChangeFridaySecondaryStadia, setFridaySecondaryStadia] = useOnChangeStateMultiple([])
-  const [fridayExcludedStadia, onChangeFridayExcludedStadia, setFridayExcludedStadia] = useOnChangeStateMultiple([])
-  const [fridayEveningPrimaryStadium, onChangeFridayEveningPrimaryStadium, setFridayEveningPrimaryStadium] = useOnChangeState("")
-  const [fridayEveningSecondaryStadia, onChangeFridayEveningSecondaryStadia, setFridayEveningSecondaryStadia] = useOnChangeStateMultiple([])
-  const [fridayEveningExcludedStadia, onChangeFridayEveningExcludedStadia, setFridayEveningExcludedStadia] = useOnChangeStateMultiple([])
-  // Saturday
-  const [saturdayPrimaryStadium, onChangeSaturdayPrimaryStadium, setSaturdayPrimaryStadium] = useOnChangeState("")
-  const [saturdaySecondaryStadia, onChangeSaturdaySecondaryStadia, setSaturdaySecondaryStadia] = useOnChangeStateMultiple([])
-  const [saturdayExcludedStadia, onChangeSaturdayExcludedStadia, setSaturdayExcludedStadia] = useOnChangeStateMultiple([])
-  // Sunday
-  const [sundayPrimaryStadium, onChangeSundayPrimaryStadium, setSundayPrimaryStadium] = useOnChangeState("")
-  const [sundaySecondaryStadia, onChangeSundaySecondaryStadia, setSundaySecondaryStadia] = useOnChangeStateMultiple([])
-  const [sundayExcludedStadia, onChangeSundayExcludedStadia, setSundayExcludedStadia] = useOnChangeStateMultiple([])
-
   const lists = [
     {
       name: "Maandag",
-      primaryStadium: {
-        state: mondayPrimaryStadium,
-        onChange: onChangeMondayPrimaryStadium,
-        setState: setMondayPrimaryStadium
-      },
-      secondaryStadia: {
-        state: mondaySecondaryStadia,
-        onChange: onChangeMondaySecondaryStadia,
-        setState: setMondaySecondaryStadia
-      },
-      excludeStadia: {
-        state: mondayExcludedStadia,
-        onChange: onChangeMondayExcludedStadia,
-        setState: setMondayExcludedStadia
-      }
+      primaryStadium: useOnChangeState(""),
+      secondaryStadia: useOnChangeStateMultiple([]),
+      excludeStadia: useOnChangeStateMultiple([])
     },
     {
       name: "Maandag Avond",
-      primaryStadium: {
-        state: mondayEveningPrimaryStadium,
-        onChange: onChangeMondayEveningPrimaryStadium,
-        setState: setMondayEveningPrimaryStadium
-      },
-      secondaryStadia: {
-        state: mondayEveningSecondaryStadia,
-        onChange: onChangeMondayEveningSecondaryStadia,
-        setState: setMondayEveningSecondaryStadia
-      },
-      excludeStadia: {
-        state: mondayEveningExcludedStadia,
-        onChange: onChangeMondayEveningExcludedStadia,
-        setState: setMondayEveningExcludedStadia
-      }
+      primaryStadium: useOnChangeState(""),
+      secondaryStadia: useOnChangeStateMultiple([]),
+      excludeStadia: useOnChangeStateMultiple([])
     },
     {
       name: "Dinsdag",
-      primaryStadium: {
-        state: tuesdayPrimaryStadium,
-        onChange: onChangeTuesdayPrimaryStadium,
-        setState: setTuesdayPrimaryStadium
-      },
-      secondaryStadia: {
-        state: tuesdaySecondaryStadia,
-        onChange: onChangeTuesdaySecondaryStadia,
-        setState: setTuesdaySecondaryStadia
-      },
-      excludeStadia: {
-        state: tuesdayExcludedStadia,
-        onChange: onChangeTuesdayExcludedStadia,
-        setState: setTuesdayExcludedStadia
-      }
+      primaryStadium: useOnChangeState(""),
+      secondaryStadia: useOnChangeStateMultiple([]),
+      excludeStadia: useOnChangeStateMultiple([])
     },
     {
       name: "Dinsdag Avond",
-      primaryStadium: {
-        state: tuesdayEveningPrimaryStadium,
-        onChange: onChangeTuesdayEveningPrimaryStadium,
-        setState: setTuesdayEveningPrimaryStadium
-      },
-      secondaryStadia: {
-        state: tuesdayEveningSecondaryStadia,
-        onChange: onChangeTuesdayEveningSecondaryStadia,
-        setState: setTuesdayEveningSecondaryStadia
-      },
-      excludeStadia: {
-        state: tuesdayEveningExcludedStadia,
-        onChange: onChangeTuesdayEveningExcludedStadia,
-        setState: setTuesdayEveningExcludedStadia
-      }
+      primaryStadium: useOnChangeState(""),
+      secondaryStadia: useOnChangeStateMultiple([]),
+      excludeStadia: useOnChangeStateMultiple([])
     },
     {
       name: "Woensdag",
-      primaryStadium: {
-        state: wednesdayPrimaryStadium,
-        onChange: onChangeWednesdayPrimaryStadium,
-        setState: setWednesdayPrimaryStadium
-      },
-      secondaryStadia: {
-        state: wednesdaySecondaryStadia,
-        onChange: onChangeWednesdaySecondaryStadia,
-        setState: setWednesdaySecondaryStadia
-      },
-      excludeStadia: {
-        state: wednesdayExcludedStadia,
-        onChange: onChangeWednesdayExcludedStadia,
-        setState: setWednesdayExcludedStadia
-      }
+      primaryStadium: useOnChangeState(""),
+      secondaryStadia: useOnChangeStateMultiple([]),
+      excludeStadia: useOnChangeStateMultiple([])
     },
     {
       name: "Woensdag Avond",
-      primaryStadium: {
-        state: wednesdayEveningPrimaryStadium,
-        onChange: onChangeWednesdayEveningPrimaryStadium,
-        setState: setWednesdayEveningPrimaryStadium
-      },
-      secondaryStadia: {
-        state: wednesdayEveningSecondaryStadia,
-        onChange: onChangeWednesdayEveningSecondaryStadia,
-        setState: setWednesdayEveningSecondaryStadia
-      },
-      excludeStadia: {
-        state: wednesdayEveningExcludedStadia,
-        onChange: onChangeWednesdayEveningExcludedStadia,
-        setState: setWednesdayEveningExcludedStadia
-      }
+      primaryStadium: useOnChangeState(""),
+      secondaryStadia: useOnChangeStateMultiple([]),
+      excludeStadia: useOnChangeStateMultiple([])
     },
     {
       name: "Donderdag",
-      primaryStadium: {
-        state: thursdayPrimaryStadium,
-        onChange: onChangeThursdayPrimaryStadium,
-        setState: setThursdayPrimaryStadium
-      },
-      secondaryStadia: {
-        state: thursdaySecondaryStadia,
-        onChange: onChangeThursdaySecondaryStadia,
-        setState: setThursdaySecondaryStadia
-      },
-      excludeStadia: {
-        state: thursdayExcludedStadia,
-        onChange: onChangeThursdayExcludedStadia,
-        setState: setThursdayExcludedStadia
-      }
+      primaryStadium: useOnChangeState(""),
+      secondaryStadia: useOnChangeStateMultiple([]),
+      excludeStadia: useOnChangeStateMultiple([])
     },
     {
       name: "Donderdag Avond",
-      primaryStadium: {
-        state: thursdayEveningPrimaryStadium,
-        onChange: onChangeThursdayEveningPrimaryStadium,
-        setState: setThursdayEveningPrimaryStadium
-      },
-      secondaryStadia: {
-        state: thursdayEveningSecondaryStadia,
-        onChange: onChangeThursdayEveningSecondaryStadia,
-        setState: setThursdayEveningSecondaryStadia
-      },
-      excludeStadia: {
-        state: thursdayEveningExcludedStadia,
-        onChange: onChangeThursdayEveningExcludedStadia,
-        setState: setThursdayEveningExcludedStadia
-      }
+      primaryStadium: useOnChangeState(""),
+      secondaryStadia: useOnChangeStateMultiple([]),
+      excludeStadia: useOnChangeStateMultiple([])
     },
     {
       name: "Vrijdag",
-      primaryStadium: {
-        state: fridayPrimaryStadium,
-        onChange: onChangeFridayPrimaryStadium,
-        setState: setFridayPrimaryStadium
-      },
-      secondaryStadia: {
-        state: fridaySecondaryStadia,
-        onChange: onChangeFridaySecondaryStadia,
-        setState: setFridaySecondaryStadia
-      },
-      excludeStadia: {
-        state: fridayExcludedStadia,
-        onChange: onChangeFridayExcludedStadia,
-        setState: setFridayExcludedStadia
-      }
+      primaryStadium: useOnChangeState(""),
+      secondaryStadia: useOnChangeStateMultiple([]),
+      excludeStadia: useOnChangeStateMultiple([])
     },
     {
       name: "Vrijdag Avond",
-      primaryStadium: {
-        state: fridayEveningPrimaryStadium,
-        onChange: onChangeFridayEveningPrimaryStadium,
-        setState: setFridayEveningPrimaryStadium
-      },
-      secondaryStadia: {
-        state: fridayEveningSecondaryStadia,
-        onChange: onChangeFridayEveningSecondaryStadia,
-        setState: setFridayEveningSecondaryStadia
-      },
-      excludeStadia: {
-        state: fridayEveningExcludedStadia,
-        onChange: onChangeFridayEveningExcludedStadia,
-        setState: setFridayEveningExcludedStadia
-      }
+      primaryStadium: useOnChangeState(""),
+      secondaryStadia: useOnChangeStateMultiple([]),
+      excludeStadia: useOnChangeStateMultiple([])
     },
     {
       name: "Zaterdag Weekend",
-      primaryStadium: {
-        state: saturdayPrimaryStadium,
-        onChange: onChangeSaturdayPrimaryStadium,
-        setState: setSaturdayPrimaryStadium
-      },
-      secondaryStadia: {
-        state: saturdaySecondaryStadia,
-        onChange: onChangeSaturdaySecondaryStadia,
-        setState: setSaturdaySecondaryStadia
-      },
-      excludeStadia: {
-        state: saturdayExcludedStadia,
-        onChange: onChangeSaturdayExcludedStadia,
-        setState: setSaturdayExcludedStadia
-      }
+      primaryStadium: useOnChangeState(""),
+      secondaryStadia: useOnChangeStateMultiple([]),
+      excludeStadia: useOnChangeStateMultiple([])
     },
     {
       name: "Zondag Weekend",
-      primaryStadium: {
-        state: sundayPrimaryStadium,
-        onChange: onChangeSundayPrimaryStadium,
-        setState: setSundayPrimaryStadium
-      },
-      secondaryStadia: {
-        state: sundaySecondaryStadia,
-        onChange: onChangeSundaySecondaryStadia,
-        setState: setSundaySecondaryStadia
-      },
-      excludeStadia: {
-        state: sundayExcludedStadia,
-        onChange: onChangeSundayExcludedStadia,
-        setState: setSundayExcludedStadia
-      }
+      primaryStadium: useOnChangeState(""),
+      secondaryStadia: useOnChangeStateMultiple([]),
+      excludeStadia: useOnChangeStateMultiple([])
     }
   ]
   useEffect(() => {
@@ -339,13 +151,13 @@ const Settings: FC = () => {
       const list = lists.find(({ name: n }) => n === name)
       if (list === undefined) return
       if (primaryStadium !== undefined) {
-        list.primaryStadium.setState(primaryStadium)
+        list.primaryStadium[2](primaryStadium)
       }
       if (secondaryStadia !== undefined) {
-        list.secondaryStadia.setState(secondaryStadia)
+        list.secondaryStadia[2](secondaryStadia)
       }
       if (excludeStadia !== undefined) {
-        list.excludeStadia.setState(excludeStadia)
+        list.excludeStadia[2](excludeStadia)
       }
     })
   }, [settingsLists, lists])
@@ -358,12 +170,13 @@ const Settings: FC = () => {
     if (settingsLists === undefined) return
     const newLists = lists.map(({ name, primaryStadium, secondaryStadia, excludeStadia }) => ({
       name: name,
-      primary_stadium: primaryStadium.state || undefined,
-      secondary_stadia: secondaryStadia.state,
-      exclude_stadia: excludeStadia.state,
+      primary_stadium: primaryStadium[0] || undefined,
+      secondary_stadia: secondaryStadia[0],
+      exclude_stadia: excludeStadia[0],
       number_of_lists: 0,
       length_of_lists: 0
     }))
+    console.log(newLists)
     saveSettings(date, checkedProjects, newLists)
   }
 
@@ -416,11 +229,11 @@ const Settings: FC = () => {
                     <Div key={ name }>
                       <h3>{ name }</h3>
                       <h4>Primary stadium</h4>
-                      <StadiaSelect selected={ primaryStadium.state ? [primaryStadium.state] : undefined } onChange={ primaryStadium.onChange } />
+                      <StadiaSelect selected={ primaryStadium[0] ? [primaryStadium[0]] : undefined } onChange={ primaryStadium[1] } />
                       <h4>Secondary stadia</h4>
-                      <StadiaSelect selected={ secondaryStadia.state } onChange={ secondaryStadia.onChange } multiple={ true } />
+                      <StadiaSelect selected={ secondaryStadia[0] } onChange={ secondaryStadia[1] } multiple={ true } />
                       <h4>Excluded stadia</h4>
-                      <StadiaSelect selected={ excludeStadia.state } onChange={ excludeStadia.onChange } multiple={ true } />
+                      <StadiaSelect selected={ excludeStadia[0] } onChange={ excludeStadia[1] } multiple={ true } />
                     </Div>
                   )
                 })
