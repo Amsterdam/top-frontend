@@ -25,7 +25,6 @@
     "react-beautiful-dnd": "^12.2.0",
     "react-dom": "^16.13.1",
     "react-scripts": "^3.4.1",
-    "serve": "^11.3.0",
     "smoothscroll-polyfill": "^0.4.4",
     "styled-components": "^4.4.1",
     "typescript": "^3.8.3"
@@ -39,8 +38,7 @@
     "lint": "eslint --cache --ext .ts,.tsx src",
     "lint:fix": "npm run lint -- --fix",
     "lint:quiet": "npm run lint -- --quiet",
-    "eject": "react-scripts eject",
-    "serve": "./node_modules/.bin/serve -p 7000 build"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
