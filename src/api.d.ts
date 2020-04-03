@@ -192,7 +192,7 @@ declare type List = {
 declare type Lists = List[]
 declare type PlanningData = {
   opening_date: string
-  opening_reasons: string[]
+  projects: string[]
   lists: Lists
   unplanned_cases: BWVData[]
 }
@@ -213,7 +213,7 @@ declare type SettingsList = {
 }
 declare type PlanningSettings = {
   opening_date: string
-  opening_reasons: string[]
+  projects: string[]
   lists: SettingsList[]
 }
 declare type PlanningSettingsData = {

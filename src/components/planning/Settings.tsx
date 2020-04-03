@@ -30,11 +30,11 @@ const Settings: FC = () => {
       isFetching,
       isUpdating,
       data: {
-        projects = [],
+        projects: allProjects = [],
         settings = undefined,
         settings: {
           opening_date = "",
-          opening_reasons = []
+          projects = []
         } = {}
       } = {}
     },
@@ -51,13 +51,13 @@ const Settings: FC = () => {
   const [date, onChangeDate, setDate] = useOnChangeState(opening_date)
   useEffect(() => setDate(opening_date), [setDate, opening_date])
 
-  const [checkedProjects, setProjects] = useState<Projects>(opening_reasons)
+  const [checkedProjects, setProjects] = useState<Projects>(projects)
   const addToProjects = (project: Project) => setProjects(checkedProjects.concat(project))
   const removeFromProjects = (project: Project) => setProjects(checkedProjects.filter(p => p !== project))
   useEffect(() => {
-    if (opening_reasons.length === 0) return
-    setProjects(opening_reasons)
-  }, [opening_reasons])
+    if (projects.length === 0) return
+    setProjects(projects)
+  }, [projects])
   const onChangeProject= (project: Project) => (event: ChangeEvent<HTMLInputElement>) => {
     const method = event.target.checked ? addToProjects : removeFromProjects
     method(project)
@@ -82,7 +82,7 @@ const Settings: FC = () => {
             <input type="date" value={ date } onChange={ onChangeDate } />
           </Div>
           <Div>
-          { projects.map(project => {
+          { allProjects.map(project => {
               const checked = checkedProjects.includes(project)
               return (
                 <div key={ project }>

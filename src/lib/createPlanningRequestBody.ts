@@ -5,7 +5,7 @@ type ListsConfig = {
   exclude_stadia?: Stadia
 }
 
-const createPlanningRequestBody = (openingDate: string, openingReasons: string[], lists: any, inputs: number[] | ListsConfig[]) => {
+const createPlanningRequestBody = (openingDate: string, projects: string[], lists: any, inputs: number[] | ListsConfig[]) => {
   inputs.forEach((input: number | ListsConfig, index: number) => {
     if (lists[index] === undefined) return
     if (typeof input === "number") {
@@ -16,7 +16,7 @@ const createPlanningRequestBody = (openingDate: string, openingReasons: string[]
   })
   const body = {
     opening_date: openingDate,
-    opening_reasons: openingReasons,
+    projects,
     lists
   }
   return body
