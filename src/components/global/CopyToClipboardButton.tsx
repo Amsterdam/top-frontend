@@ -18,7 +18,7 @@ const CopyToClipboardButton: FC<Props> = ({ text, onClick = noop }) => {
 
   const ref = useRef<HTMLTextAreaElement>(null)
 
-  const onClickHandler = (event: MouseEvent<HTMLButtonElement>) => {
+  const onClickHandler = (event: MouseEvent) => {
     event.preventDefault()
     const textarea = ref.current
     if (textarea === null) return
