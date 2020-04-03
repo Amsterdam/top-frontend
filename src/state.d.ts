@@ -56,33 +56,6 @@ declare type SearchActions = {
   clear: () => void
 }
 
-declare type ParseState = {
-  isFetching: boolean
-  query?: string
-  results?: SearchResults
-  errorMessage?: ErrorMessage
-}
-
-declare type ParseActions = {
-  parse: (a: string) => void
-  clear: () => void
-}
-
-declare type PlanningState = {
-  isFetching: boolean
-  results?: PlanningData
-  timestamp?: Date
-  errorMessage?: ErrorMessage
-}
-
-declare type PlanningActions = {
-  initialize: () => void
-  generate: (a: any) => void
-  clear: () => void
-  removeItinerary: (a: CaseId) => void
-  addItinerary: (a: CaseId, b: CaseId) => void
-}
-
 declare type PlanningSettingsState = {
   isFetching: boolean
   isUpdating: boolean
