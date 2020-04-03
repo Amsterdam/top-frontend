@@ -55,7 +55,7 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions, ItinerariesSe
       settings: {
         opening_date: "2019-01-01",
         target_length: num,
-        projects: settings.opening_reasons.map((item: string) => ({ name: item })),
+        projects: settings.projects.map((item: string) => ({ name: item })),
         primary_stadium: settings.lists.primary_stadium ? { name: settings.lists.primary_stadium } : undefined,
         secondary_stadia: settings.lists.secondary_stadia ? settings.lists.secondary_stadia.map((stadium: Stadium) => ({ name: stadium })) : undefined,
         exclude_stadia: settings.lists.exclude_stadia ? settings.lists.exclude_stadia.map((stadium: Stadium) => ({ name: stadium })) : undefined

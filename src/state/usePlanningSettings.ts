@@ -42,12 +42,12 @@ const usePlanningSettings = () : [PlanningSettingsState, PlanningSettingsActions
     dispatch(createClear())
   }
 
-  const saveSettings = async (openingDate: string, openingReasons: string[]) => {
+  const saveSettings = async (openingDate: string, projects: string[]) => {
     const { data } = state
     if (data === undefined) return
     const { settings: prevSettings } = data
     if (prevSettings === undefined) return
-    const settings = { ...prevSettings, opening_date: openingDate, opening_reasons: openingReasons }
+    const settings = { ...prevSettings, opening_date: openingDate, projects }
     dispatch(createStartUpdating())
     const [response] = await post(getUrl("settings/planner"), settings)
     if (notOk(response)) dispatch(createSetError("Opslaan mislukt"))
