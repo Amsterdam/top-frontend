@@ -46,6 +46,7 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions, ItinerariesSe
     dispatch(createInitialize(itineraries))
   }
 
+  // @TODO: Add type for settings parameter
   const create = async (settings: any, users: UUIDs, num: number, selfIncluded: boolean) => {
     const url = getUrl("itineraries")
     dispatch(createStartFetching())
