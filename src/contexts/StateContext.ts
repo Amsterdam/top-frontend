@@ -3,8 +3,6 @@ import noop from "../lib/utils/noop"
 import { initialState as authState } from "../state/authReducer"
 import { initialState as itinerariesState } from "../state/itinerariesReducer"
 import { initialState as searchState } from "../state/searchReducer"
-import { initialState as parseState } from "../state/parseReducer"
-import { initialState as planningState } from "../state/planningReducer"
 import { initialState as planningSettingsState } from "../state/planningSettingsReducer"
 import { initialState as usersState } from "../state/usersReducer"
 
@@ -20,12 +18,6 @@ export type StateContextValue = {
 
     search: SearchState
     searchActions: SearchActions
-
-    parse: ParseState
-    parseActions: ParseActions
-
-    planning: PlanningState
-    planningActions: PlanningActions
 
     planningSettings: PlanningSettingsState
     planningSettingsActions: PlanningSettingsActions
@@ -74,21 +66,6 @@ const value = {
       getSuggestions: (a: Id) => {},
       setTeam: (a: CaseId, b?: TeamMembers) => {},
       clear: noop
-    },
-
-    parse: parseState,
-    parseActions: {
-      parse: (a: string) => {},
-      clear: noop
-    },
-
-    planning: planningState,
-    planningActions: {
-      initialize: noop,
-      generate: (a: any) => {},
-      clear: noop,
-      removeItinerary: (a: CaseId) => {},
-      addItinerary: (a: CaseId, b: CaseId) => {}
     },
 
     planningSettings: planningSettingsState,

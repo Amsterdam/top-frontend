@@ -1,4 +1,4 @@
-import {useReducer, useRef} from "react"
+import {useReducer, useMemo} from "react"
 import reducer, {
   initialState,
   createStartFetching,
@@ -36,9 +36,9 @@ const useUsers = () : [UsersState, UsersActions] => {
   // We wrap the action-creators in a 'ref' to ensure it never re-triggers a hook:
   // The action-creators themselves should never change.
   const actionCreators = { initialize, clear }
-  const actionCreatorsRef = useRef(actionCreators)
+  const actionCreatorsMemoized = useMemo(() => actionCreators, [actionCreators])
 
-  return [state, actionCreatorsRef.current]
+  return [state, actionCreatorsMemoized]
 }
 
 export default useUsers

@@ -1,8 +1,6 @@
 import useItineraries from "../../../state/useItineraries"
 import useAuth from "../../../state/useAuth"
 import useSearch from "../../../state/useSearch"
-import useParse from "../../../state/useParse"
-import usePlanning from "../../../state/usePlanning"
 import useUsers from "../../../state/useUsers"
 import usePlanningSettings from "../../../state/usePlanningSettings"
 import useCreateClearFunction from "./hooks/useCreateClearFunction"
@@ -21,8 +19,6 @@ const useCreateGlobalState = (): Result => {
   const [itineraries, itinerariesActions, { hasItinerary, getItineraryNote }] = useItineraries()
   const [auth, authActions] = useAuth()
   const [search, searchActions] = useSearch()
-  const [parse, parseActions] = useParse()
-  const [planning, planningActions] = usePlanning()
   const [users, usersActions] = useUsers()
   const [planningSettings, planningSettingsActions] = usePlanningSettings()
 
@@ -35,7 +31,7 @@ const useCreateGlobalState = (): Result => {
   // Create clear function:
   const clear = useCreateClearFunction(
     authActions.unAuthenticate,
-    [itinerariesActions.clear, planningActions.clear, usersActions.clear]
+    [itinerariesActions.clear, usersActions.clear]
   )
 
   // Create initialize function:
@@ -45,7 +41,6 @@ const useCreateGlobalState = (): Result => {
     setIsAnonymous,
     [
       itinerariesActions.initialize,
-      planningActions.initialize,
       planningSettingsActions.initialize,
       usersActions.initialize
     ]
@@ -68,12 +63,6 @@ const useCreateGlobalState = (): Result => {
 
         search,
         searchActions,
-
-        parse,
-        parseActions,
-
-        planning,
-        planningActions,
 
         planningSettings,
         planningSettingsActions,
