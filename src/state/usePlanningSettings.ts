@@ -42,7 +42,6 @@ const usePlanningSettings = () : [PlanningSettingsState, PlanningSettingsActions
   }
 
   const clear = () => {
-    console.log("clear")
     dispatch(createClear())
   }
 
