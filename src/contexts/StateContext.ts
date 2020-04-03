@@ -72,7 +72,7 @@ const value = {
     planningSettingsActions: {
       initialize: noop,
       clear: noop,
-      saveSettings: (a: string, b: string[]) => {}
+      saveSettings: (a: string, b: string[], c: SettingsLists) => {}
     },
 
     users: usersState,
