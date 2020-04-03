@@ -1,4 +1,4 @@
-import {useReducer, useRef} from "react"
+import {useReducer, useMemo} from "react"
 import reducer, {
   initialState,
   createStartFetching,
@@ -195,20 +195,18 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions, ItinerariesSe
     return itineraryItem.notes.find(note => note.id === id)
   }
 
-  // We wrap the action-creators in a 'ref' to ensure it never re-triggers a hook:
-  // The action-creators themselves should never change.
+  // We memoize the action creators to ensure it only re-triggers a hook when state changes
   const actionCreators = { initialize, create, updateTeam, del: del2, add, move, remove, setNote, clear }
-  const actionCreatorsRef = useRef(actionCreators)
+  const actionCreatorsMemoized = useMemo(() => actionCreators, [actionCreators])
 
-  // We wrap the selectors in a 'ref' to ensure it never re-triggers a hook:
-  // The selectors themselves should never change.
+  // We memoize the selectors to ensure it only re-triggers a hook when state changes
   const selectors = { getItinerary, hasItinerary, getItineraryNote }
-  const selectorsRef = useRef(selectors)
+  const selectorsMemoized = useMemo(() => selectors, [selectors])
 
   return [
     itinerariesState,
-    actionCreatorsRef.current,
-    selectorsRef.current
+    actionCreatorsMemoized,
+    selectorsMemoized
   ]
 }
 export default useItineraries

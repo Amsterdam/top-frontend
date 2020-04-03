@@ -1,4 +1,4 @@
-import {useReducer, useRef} from "react"
+import {useReducer, useMemo} from "react"
 import reducer, {
   initialState,
   createStartFetching,
@@ -73,12 +73,11 @@ const useSearch = () : [SearchState, SearchActions] => {
     dispatch(createClear())
   }
 
-  // We wrap the action-creators in a 'ref' to ensure it never re-triggers a hook:
-  // The action-creators themselves should never change.
+  // We memoize the selectors to ensure it only re-triggers a hook when state changes
   const actionCreators = { search, getSuggestions, setTeam, clear }
-  const actionCreatorsRef = useRef(actionCreators)
+  const actionCreatorsMemoized = useMemo(() => actionCreators, [actionCreators])
 
-  return [state, actionCreatorsRef.current]
+  return [state, actionCreatorsMemoized]
 }
 
 export default useSearch
