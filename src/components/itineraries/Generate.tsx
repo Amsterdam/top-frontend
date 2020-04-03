@@ -39,6 +39,9 @@ const Generate: FC = () => {
     auth: {
       user: authUser
     },
+    itineraries: {
+      isFetching
+    },
     itinerariesActions: {
       create
     },
@@ -61,7 +64,7 @@ const Generate: FC = () => {
     [teamMember1, onChangeTeamMember1],
     [teamMember2, onChangeTeamMember2]
   ]
-  const disabled = users === undefined
+  const userSelectDisabled = users === undefined
   const filteredUsers = usersArray.filter(({ id }) => ![teamMember0, teamMember1, teamMember2].includes(id))
 
   useEffect(() => {
@@ -92,9 +95,10 @@ const Generate: FC = () => {
     setNum(Number.isNaN(n) ? "" : n)
   }
 
-  const isDisabled = teamMember0 === "" || teamMember1 === "" || teamMember2 === "" || num === ""
+  const disabled = isFetching || teamMember0 === "" || teamMember1 === "" || teamMember2 === "" || num === ""
   const onSubmit = (event: FormEvent) => {
     event.preventDefault()
+    if (isFetching) return
     if (data === undefined) return
     if (typeof num !== "number") return
     const userIds = [teamMember0, teamMember1, teamMember2]
@@ -127,7 +131,7 @@ const Generate: FC = () => {
           return (
             <Div key={ index }>
               <Label>{ label }</Label>
-              <Select value={ value } onChange={ onChange } disabled={ disabled }>
+              <Select value={ value } onChange={ onChange } disabled={ userSelectDisabled }>
                 <option value="">-</option>
                 { user !== undefined &&
                 <option value={ value }>{ `${ user.full_name }` }</option>
@@ -186,7 +190,7 @@ const Generate: FC = () => {
           }
         </Div>
         <ButtonWrap>
-          <Button type="submit" variant="secondary" disabled={ isDisabled }>Genereer looplijst</Button>
+          <Button type="submit" variant="secondary" disabled={ disabled }>Genereer looplijst</Button>
         </ButtonWrap>
       </form>
       {showAddAddressModal && <AddStartAddressModal onAddStartAddress={onAddStartAddress}/>}
