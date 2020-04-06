@@ -16,7 +16,7 @@ import logoutGrip from "../lib/logoutGrip"
 
 const useAuth = () : [AuthState, AuthActions] => {
 
-  const [auth, dispatch] = useReducer(reducer, initialState as never)
+  const [state, dispatch] = useReducer(reducer, initialState as never)
 
   const isAuthenticated = async () : Promise<boolean> => {
     const token = authToken.get()
@@ -67,7 +67,7 @@ const useAuth = () : [AuthState, AuthActions] => {
   }
 
   const actionCreators = { initialize, authenticate, unAuthenticate }
-  return [auth, actionCreators]
+  return [state, actionCreators]
 }
 
 export default useAuth
