@@ -55,6 +55,7 @@ const value = {
       move: noop,
       remove: noop,
       setNote: async () => false,
+      setChecked: () => false,
       clear: noop
     },
     hasItinerary: () => false,

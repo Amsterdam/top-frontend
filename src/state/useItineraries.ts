@@ -13,7 +13,8 @@ import reducer, {
   createMove,
   createRemove,
   createSetNote,
-  createClear } from "./itinerariesReducer"
+  createClear, createSetChecked
+} from "./itinerariesReducer"
 import { get, post, put, patch, del, notOk, isForbidden } from "../lib/utils/fetch"
 import { getUrl } from "../config/api"
 import handleForbiddenResponse from "../lib/handleForbiddenResponse"
@@ -183,6 +184,11 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions, ItinerariesSe
 
   const clear = () => dispatch(createClear())
 
+  // @TODO actually call the API instead of mocking it using a setTimeout.
+  const setChecked = (itineraryId: Id, checked:boolean) => setTimeout(() => {
+      dispatch(createSetChecked(itineraryId, checked))
+    }, 1000)
+
   // -----------------------------------------
   //  Selectors
   // -----------------------------------------
@@ -197,7 +203,7 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions, ItinerariesSe
   }
 
   // We memoize the action creators to ensure it only re-triggers a hook when state changes
-  const actionCreators = { initialize, create, updateTeam, del: del2, add, move, remove, setNote, clear }
+  const actionCreators = { initialize, create, updateTeam, del: del2, add, move, remove, setNote, clear, setChecked }
   const actionCreatorsMemoized = useMemo(() => actionCreators, [actionCreators])
 
   // We memoize the selectors to ensure it only re-triggers a hook when state changes

@@ -3,6 +3,9 @@ module.exports = {
     "react-app"
   ],
   rules: {
-    semi: ["error", "never"]
+    "block-spacing": ["error", "always"],
+    "space-unary-ops": ["error"],
+    "space-infix-ops": ["error"],
+    "semi": ["error", "never"]
   }
 }

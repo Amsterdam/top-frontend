@@ -51,6 +51,7 @@ declare type ItineraryItem = {
     fraud_prediction: FraudPrediction
   }
   notes: Notes
+  checked: boolean
   position: ItineraryPosition
 }
 declare type OItineraryItem = ItineraryItem | undefined
