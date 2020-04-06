@@ -27,7 +27,7 @@ const Suggestions: FC<Props> = ({ id }) => {
 
   useEffect(() => {
     getSuggestions(id)
-  }, [getSuggestions, id])
+  }, [id]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const showSpinner = !isInitialized || isFetching
   const hasError = errorMessage !== undefined
