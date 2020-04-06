@@ -18,6 +18,7 @@ declare type ItinerariesActions = {
   remove: (a: Id) => void
   setNote: (a: Id, b: text, c?: Id) => Promise<boolean>
   clear: () => void
+  setChecked: (a: Id, b: boolean) => void
 }
 
 declare type ItinerariesSelectors = {

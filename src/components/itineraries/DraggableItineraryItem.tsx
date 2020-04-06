@@ -8,6 +8,7 @@ import ItineraryItem from "./ItineraryItem"
 import useGlobalState from "../../hooks/useGlobalState"
 import confirm from "../../lib/utils/confirm"
 import NoteIcon from "./NoteIcon"
+import SpinnerCheckbox from "./SpinnerCheckbox"
 
 type Props = {
   itineraryItem: ItineraryItem
@@ -31,10 +32,15 @@ const ButtonWrap = styled.div`
   }
 `
 
+const CheckboxWrap = styled.div`
+  margin: 10px 12px 10px 0;
+`
+
 const DraggableItineraryItem: FC<Props> = ({ itineraryItem, index }) => {
 
   const {
     itinerariesActions: {
+      setChecked,
       remove
     }
   } = useGlobalState()
@@ -45,8 +51,10 @@ const DraggableItineraryItem: FC<Props> = ({ itineraryItem, index }) => {
       bwv_data: caseItem,
       fraud_prediction: fraudPrediction
      },
+    checked,
     notes
   } = itineraryItem
+
   const noteId = notes[0] && notes[0].id
   const noteText = notes[0] && notes[0].text
   const notePath = `notes/${ id }/${ noteId || "" }`
@@ -61,6 +69,8 @@ const DraggableItineraryItem: FC<Props> = ({ itineraryItem, index }) => {
       window.setTimeout(() => remove(id), 500)
     }
   )
+
+  const onCheck= () => setChecked(id, !checked)
 
   const getItemStyle = (isDragging: boolean, draggableStyle: any) => ({
     userSelect: "none",
@@ -82,6 +92,9 @@ const DraggableItineraryItem: FC<Props> = ({ itineraryItem, index }) => {
           style={ getItemStyle(snapshot.isDragging, provided.draggableProps.style) }
         >
           <Inner>
+            <CheckboxWrap>
+              <SpinnerCheckbox checked={checked} onChange={onCheck}/>
+            </CheckboxWrap>
             <ItineraryItem caseItem={ caseItem } fraudPrediction={ fraudPrediction } note={ noteText } />
             <ButtonWrap>
               <IconButton iconNode={ <NoteIcon /> } onClick={ () => navigate(to(notePath)) } />
