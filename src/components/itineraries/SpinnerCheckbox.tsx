@@ -15,7 +15,7 @@ const MARGIN = 6
 const WIDTH = 36
 
 // Calculate spinner size:
-const SIZE = WIDTH - PADDING*2 - MARGIN*2 - BORDER_WIDTH*2
+const SIZE = WIDTH - PADDING * 2 - MARGIN * 2 - BORDER_WIDTH * 2
 
 const StyledSpinner = styled(Spinner)`  
   padding: ${PADDING}px;

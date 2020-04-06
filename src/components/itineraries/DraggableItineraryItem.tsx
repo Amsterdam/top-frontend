@@ -70,7 +70,7 @@ const DraggableItineraryItem: FC<Props> = ({ itineraryItem, index }) => {
     }
   )
 
-  const onCheck= () => setChecked(id, !checked)
+  const onCheck = () => setChecked(id, !checked)
 
   const getItemStyle = (isDragging: boolean, draggableStyle: any) => ({
     userSelect: "none",
