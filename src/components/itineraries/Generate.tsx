@@ -112,8 +112,8 @@ const Generate: FC = () => {
     create(listsSettings, userIds, num, selfIncluded)
   }
 
-  const [startAddressCaseId, setStartAddressCaseId] = useState<CaseId | null>(null)
-  const showStartAddress = !!startAddressCaseId
+  const [startAddressCaseId, setStartAddressCaseId] = useState<CaseId | undefined>(undefined)
+  const showStartAddress = startAddressCaseId !== undefined
   const onAddStartAddress = (caseId:CaseId) => {
     setStartAddressCaseId(caseId)
     navigate(popHash(window.location.href))
@@ -175,7 +175,7 @@ const Generate: FC = () => {
                   <StartAddress caseId={startAddressCaseId!}/>
                 </Div>
                 <Div>
-                  <Button type='button' variant='primary' onClick={() => setStartAddressCaseId(null)}>
+                  <Button type='button' variant='primary' onClick={() => setStartAddressCaseId(undefined)}>
                     Verwijder startadres
                   </Button>
                 </Div>
