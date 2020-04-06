@@ -15,6 +15,12 @@ import isEmptyObject from "../lib/utils/isEmptyObject"
 import groupCasesByAddress from "../lib/groupCasesByAddress"
 import handleForbiddenResponse from "../lib/handleForbiddenResponse"
 
+// casting fraud_prediction possibly null value to undefined
+// @TODO: Make this more abstract to be reused for other response data
+const castFraudPrediction = (caseItem: { fraud_prediction: FraudPrediction | null }) : { fraud_prediction: FraudPrediction | undefined } => {
+  return caseItem.fraud_prediction === null ? { ...caseItem, fraud_prediction: undefined } : caseItem as { fraud_prediction: FraudPrediction }
+}
+
 const useSearch = () : [SearchState, SearchActions] => {
 
   const [state, dispatch] = useReducer(reducer, initialState as never)
@@ -37,7 +43,9 @@ const useSearch = () : [SearchState, SearchActions] => {
 
       // Set results
       const { cases } = result
-      const nonEmptyCases = cases.filter((obj: SearchResultCase) => !isEmptyObject(obj))
+      const nonEmptyCases = cases
+        .filter((obj: SearchResultCase) => !isEmptyObject(obj))
+        .map(castFraudPrediction)
       const groupedCases = groupCasesByAddress(nonEmptyCases)
       const results = groupedCases.map(cases => ({ success: true, data: { cases } }))
       dispatch(createSetResults(results))
@@ -61,7 +69,9 @@ const useSearch = () : [SearchState, SearchActions] => {
     }
 
     const { cases } = result
-    const results = cases.map((caseItem: SearchResultCase) => ({ success: true, data: { cases: [caseItem] } }))
+    const results = cases
+      .map(castFraudPrediction)
+      .map((caseItem: SearchResultCase) => ({ success: true, data: { cases: [caseItem] } }))
     dispatch(createSetSuggestions(results))
   }
 
