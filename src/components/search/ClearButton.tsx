@@ -5,7 +5,7 @@ import noop from "../../lib/utils/noop"
 import ResponsiveText from "../global/ResponsiveText"
 
 type Props = {
-  onClick?: (event: MouseEvent<HTMLButtonElement>) => void
+  onClick?: (event: MouseEvent) => void
 }
 
 const StyledButton = styled(Button)`

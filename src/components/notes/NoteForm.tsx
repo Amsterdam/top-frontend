@@ -46,7 +46,7 @@ const NoteForm: FC<Props> = ({ itineraryId, id, value }) => {
     await saveNote(trimmedText)
   }
 
-  const onClick = async (event: MouseEvent<HTMLButtonElement>) => {
+  const onClick = async (event: MouseEvent) => {
     event.preventDefault()
     event.stopPropagation()
     const time = currentTime()

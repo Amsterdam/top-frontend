@@ -7,7 +7,7 @@ import noop from "../../lib/utils/noop"
 type Props = {
   icon?: "Enlarge" | "Minimise" | "TrashBin" | "DocumentText" | "Ellipsis" | "Close"
   iconNode?: ReactNode
-  onClick?: (a: MouseEvent<HTMLButtonElement>) => void
+  onClick?: (a: MouseEvent) => void
   size?: number
   border?: boolean
   disabled?: boolean

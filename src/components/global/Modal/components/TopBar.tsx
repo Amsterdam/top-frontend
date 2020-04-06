@@ -1,6 +1,5 @@
 import styled from "styled-components"
-import {constants} from "@datapunt/asc-ui"
-import {ascDefaultTheme} from "@datapunt/asc-core"
+import { constants, ascDefaultTheme } from "@datapunt/asc-ui"
 
 export const TopBar = styled.div`
   box-sizing: border-box;
@@ -11,7 +10,7 @@ export const TopBar = styled.div`
   display: flex;
   height: ${constants.HEADER_HEIGHT_SMALL}px; 
   padding: 15px;
-       
+
   h4 {
     flex: 1;
     margin:0;
