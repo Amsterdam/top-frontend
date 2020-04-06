@@ -179,7 +179,7 @@ declare type Case = {
   vakantie_verhuur: VakantieVerhuur
   related_cases: RelatedCase[]
   statements: Statement[]
-  fraud_prediction: FraudPrediction
+  fraud_prediction: FraudPrediction | undefined
 }
 declare type Cases = Case[]
 
