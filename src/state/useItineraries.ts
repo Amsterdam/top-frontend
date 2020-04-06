@@ -24,11 +24,14 @@ import { navigateToHome } from "../lib/navigateTo"
 
 const useItineraries = () : [ItinerariesState, ItinerariesActions, ItinerariesSelectors] => {
 
+  // @TODO: Remove `as never`
   const [state, dispatch] = useReducer(reducer, initialState as never)
 
   // -----------------------------------------
   // Actions:
   // -----------------------------------------
+
+  // @TODO: Split the actions between itineraries and itinerary-items
 
   const initialize = async () => {
     const url = getUrl("itineraries", { created_at: currentDate() })

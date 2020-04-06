@@ -23,6 +23,7 @@ const castFraudPrediction = (caseItem: { fraud_prediction: FraudPrediction | nul
 
 const useSearch = () : [SearchState, SearchActions] => {
 
+  // @TODO: Remove `as never`
   const [state, dispatch] = useReducer(reducer, initialState as never)
 
   const search = (postalCode: PostalCode, streetNumber: StreetNumberString, suffix: StreetSuffix) => {

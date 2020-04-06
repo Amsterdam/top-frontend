@@ -16,6 +16,7 @@ import logoutGrip from "../lib/logoutGrip"
 
 const useAuth = () : [AuthState, AuthActions] => {
 
+  // @TODO: Remove `as never`
   const [state, dispatch] = useReducer(reducer, initialState as never)
 
   const isAuthenticated = async () : Promise<boolean> => {

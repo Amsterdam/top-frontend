@@ -14,6 +14,7 @@ import handleForbiddenResponse from "../lib/handleForbiddenResponse"
 
 const usePlanningSettings = () : [PlanningSettingsState, PlanningSettingsActions] => {
 
+  // @TODO: Remove `as never`
   const [state, dispatch] = useReducer(reducer, initialState as never)
 
   const initialize = async () => {
