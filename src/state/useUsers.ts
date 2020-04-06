@@ -1,4 +1,4 @@
-import {useReducer, useMemo} from "react"
+import { useReducer } from "react"
 import reducer, {
   initialState,
   createStartFetching,
@@ -12,6 +12,7 @@ import handleForbiddenResponse from "../lib/handleForbiddenResponse"
 
 const useUsers = () : [UsersState, UsersActions] => {
 
+  // @TODO: Remove `as never`
   const [state, dispatch] = useReducer(reducer, initialState as never)
 
   const initialize = async () => {
@@ -33,12 +34,9 @@ const useUsers = () : [UsersState, UsersActions] => {
     dispatch(createClear())
   }
 
-  // We wrap the action-creators in a 'ref' to ensure it never re-triggers a hook:
-  // The action-creators themselves should never change.
   const actionCreators = { initialize, clear }
-  const actionCreatorsMemoized = useMemo(() => actionCreators, [actionCreators])
 
-  return [state, actionCreatorsMemoized]
+  return [state, actionCreators]
 }
 
 export default useUsers

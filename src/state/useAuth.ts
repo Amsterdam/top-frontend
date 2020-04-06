@@ -1,4 +1,4 @@
-import {useReducer, useMemo} from "react"
+import { useReducer } from "react"
 import reducer, {
   initialState,
   createInitialize,
@@ -16,7 +16,8 @@ import logoutGrip from "../lib/logoutGrip"
 
 const useAuth = () : [AuthState, AuthActions] => {
 
-  const [auth, dispatch] = useReducer(reducer, initialState as never)
+  // @TODO: Remove `as never`
+  const [state, dispatch] = useReducer(reducer, initialState as never)
 
   const isAuthenticated = async () : Promise<boolean> => {
     const token = authToken.get()
@@ -66,11 +67,8 @@ const useAuth = () : [AuthState, AuthActions] => {
     if (navigate) navigateToLogin()
   }
 
-  // We memoize the action creators to ensure it only re-triggers a hook when state changes
   const actionCreators = { initialize, authenticate, unAuthenticate }
-  const actionCreatorsMemoized = useMemo(() => actionCreators, [actionCreators])
-
-  return [auth, actionCreatorsMemoized]
+  return [state, actionCreators]
 }
 
 export default useAuth

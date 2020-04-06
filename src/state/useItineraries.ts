@@ -1,4 +1,4 @@
-import {useReducer, useMemo} from "react"
+import { useReducer } from "react"
 import reducer, {
   initialState,
   createStartFetching,
@@ -24,11 +24,14 @@ import { navigateToHome } from "../lib/navigateTo"
 
 const useItineraries = () : [ItinerariesState, ItinerariesActions, ItinerariesSelectors] => {
 
-  const [itinerariesState, dispatch] = useReducer(reducer, initialState as never)
+  // @TODO: Remove `as never`
+  const [state, dispatch] = useReducer(reducer, initialState as never)
 
   // -----------------------------------------
   // Actions:
   // -----------------------------------------
+
+  // @TODO: Split the actions between itineraries and itinerary-items
 
   const initialize = async () => {
     const url = getUrl("itineraries", { created_at: currentDate() })
@@ -115,7 +118,7 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions, ItinerariesSe
       dispatch(createSetErrorMessage(errorMessage))
       return
     }
-    const itineraries = itinerariesState.itineraries.filter(itinerary => itinerary.id !== id)
+    const itineraries = state.itineraries.filter(itinerary => itinerary.id !== id)
     dispatch(createInitialize(itineraries))
     navigateToHome()
   }
@@ -143,7 +146,7 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions, ItinerariesSe
       dispatch(createUpdate(id, itinerary))
     }
 
-    const { itineraries } = itinerariesState
+    const { itineraries } = state
     if (itineraries.length === 0) return
     const { items } = itineraries[0]
     const position = calculateNewPosition(items, index, newIndex)
@@ -194,26 +197,21 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions, ItinerariesSe
   // -----------------------------------------
 
   const getItinerary = (caseId: CaseId) : OItineraryItem =>
-    itinerariesState.itineraries[0]?.items.find(itinerary => itinerary.case.bwv_data.case_id === caseId)
+    state.itineraries[0]?.items.find(itinerary => itinerary.case.bwv_data.case_id === caseId)
   const hasItinerary = (caseId: CaseId) => getItinerary(caseId) !== undefined
   const getItineraryNote = (itineraryItemId: Id, id: Id) : ONote => {
-    const itineraryItem = itinerariesState.itineraries[0].items.find(item => item.id === itineraryItemId)
+    const itineraryItem = state.itineraries[0]?.items.find(item => item.id === itineraryItemId)
     if (itineraryItem === undefined) return
     return itineraryItem.notes.find(note => note.id === id)
   }
 
-  // We memoize the action creators to ensure it only re-triggers a hook when state changes
   const actionCreators = { initialize, create, updateTeam, del: del2, add, move, remove, setNote, clear, setChecked }
-  const actionCreatorsMemoized = useMemo(() => actionCreators, [actionCreators])
-
-  // We memoize the selectors to ensure it only re-triggers a hook when state changes
   const selectors = { getItinerary, hasItinerary, getItineraryNote }
-  const selectorsMemoized = useMemo(() => selectors, [selectors])
 
   return [
-    itinerariesState,
-    actionCreatorsMemoized,
-    selectorsMemoized
+    state,
+    actionCreators,
+    selectors
   ]
 }
 export default useItineraries

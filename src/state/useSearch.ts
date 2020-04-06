@@ -1,4 +1,4 @@
-import {useReducer, useMemo} from "react"
+import { useReducer } from "react"
 import reducer, {
   initialState,
   createStartFetching,
@@ -23,6 +23,7 @@ const castFraudPrediction = (caseItem: { fraud_prediction: FraudPrediction | nul
 
 const useSearch = () : [SearchState, SearchActions] => {
 
+  // @TODO: Remove `as never`
   const [state, dispatch] = useReducer(reducer, initialState as never)
 
   const search = (postalCode: PostalCode, streetNumber: StreetNumberString, suffix: StreetSuffix) => {
@@ -83,11 +84,9 @@ const useSearch = () : [SearchState, SearchActions] => {
     dispatch(createClear())
   }
 
-  // We memoize the selectors to ensure it only re-triggers a hook when state changes
   const actionCreators = { search, getSuggestions, setTeam, clear }
-  const actionCreatorsMemoized = useMemo(() => actionCreators, [actionCreators])
 
-  return [state, actionCreatorsMemoized]
+  return [state, actionCreators]
 }
 
 export default useSearch
