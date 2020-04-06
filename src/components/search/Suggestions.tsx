@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from "react"
+import React, { FC, useEffect, useCallback } from "react"
 import Spinner from "../global/Spinner"
 import ErrorMessage from "../global/ErrorMessage"
 import useGlobalState from "../../hooks/useGlobalState"
@@ -25,9 +25,11 @@ const Suggestions: FC<Props> = ({ id }) => {
     }
   } = useGlobalState()
 
+  const getSuggestionsStable = useCallback(getSuggestions, [])
+
   useEffect(() => {
-    getSuggestions(id)
-  }, [id]) // eslint-disable-line react-hooks/exhaustive-deps
+    getSuggestionsStable(id)
+  }, [getSuggestionsStable, id])
 
   const showSpinner = !isInitialized || isFetching
   const hasError = errorMessage !== undefined

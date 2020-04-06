@@ -1,4 +1,4 @@
-import {useReducer, useMemo} from "react"
+import { useReducer } from "react"
 import reducer, {
   initialState,
   createStartFetching,
@@ -57,11 +57,9 @@ const usePlanningSettings = () : [PlanningSettingsState, PlanningSettingsActions
     dispatch(createSetData({ ...data, settings }))
   }
 
-  // We memoize the action creators to ensure it only re-triggers a hook when state changes
   const actionCreators = { initialize, saveSettings, clear }
-  const actionCreatorsMemoized = useMemo(() => actionCreators, [actionCreators])
 
-  return [state, actionCreatorsMemoized]
+  return [state, actionCreators]
 }
 
 export default usePlanningSettings
