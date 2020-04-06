@@ -25,7 +25,7 @@ const normalize = (caseId: CaseId, object: any): SearchResultCase => ({
   suffix: object?.import_adres?.toev,
   suffix_letter: object?.import_adres?.hsltr,
   case_reason: object?.related_cases?.[0]?.case_reason,
-  // TODO add fraud_prediction
+  // @TODO add fraud_prediction
   fraud_prediction: {
     fraud_probability: 0,
     fraud_prediction: false
