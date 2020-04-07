@@ -9,8 +9,13 @@ import useGlobalState from "../../hooks/useGlobalState"
 import styled from "styled-components"
 import isWeekDay from "../../lib/utils/isWeekDay"
 import AddStartAddressModal from "./add-start-address/AddStartAddressModal"
-import {popHash} from "../../config/page"
+import {to} from "../../config/page"
 import StartAddress from "./add-start-address/StartAddress"
+import parseLocationSearch from "../../lib/utils/parseLocationSearch"
+import CaseModal from "./add-start-address/CadeModal"
+import {CaseTo} from "../search/SearchResults"
+import {deleteQueryParam} from "../../lib/utils/deleteQueryParam"
+import {setQueryParam} from "../../lib/utils/setQueryParam"
 
 const Label = styled.label`
   font-weight: bold
@@ -32,6 +37,9 @@ const ButtonWrap = styled.div`
   display: flex
   justify-content: flex-end
 `
+
+const QS_CASE_MODAL = 'modalCaseId'
+const QS_ADD_ADDRESS_MODAL = 'addAddressModal'
 
 const Generate: FC = () => {
   const {
@@ -86,7 +94,9 @@ const Generate: FC = () => {
   const showWeekDay = isWeekDay()
   const showWeekend = !showWeekDay
 
-  const showAddAddressModal = window.location.hash === '#add-address'
+  const { addAddressModal, modalCaseId } = parseLocationSearch(window.location.search)
+  const showAddAddressModal = addAddressModal !== undefined
+  const showCaseModal = modalCaseId !== undefined
 
   const [num, setNum] = useState<number | "">(8)
   const onChangeNum = (event: ChangeEvent<HTMLInputElement>) => {
@@ -113,9 +123,14 @@ const Generate: FC = () => {
 
   const [startAddressCaseId, setStartAddressCaseId] = useState<CaseId | undefined>(undefined)
   const showStartAddress = startAddressCaseId !== undefined
+
+  const caseTo:CaseTo = (caseId:CaseId) => setQueryParam(window.location.search, QS_CASE_MODAL, caseId)
+  const closeAddAddressModal = () => navigate(to(deleteQueryParam(window.location.search, QS_ADD_ADDRESS_MODAL)))
+  const closeCaseModal = () => navigate(to(deleteQueryParam(window.location.search, QS_CASE_MODAL)))
+
   const onAddStartAddress = (caseId:CaseId) => {
     setStartAddressCaseId(caseId)
-    navigate(popHash(window.location.href))
+    closeAddAddressModal()
   }
 
   return (
@@ -171,7 +186,7 @@ const Generate: FC = () => {
             showStartAddress
               ? (<>
                 <Div>
-                  <StartAddress caseId={startAddressCaseId!}/>
+                  <StartAddress caseId={startAddressCaseId!} caseTo={caseTo} />
                 </Div>
                 <Div>
                   <Button type='button' variant='primary' onClick={() => setStartAddressCaseId(undefined)}>
@@ -180,8 +195,8 @@ const Generate: FC = () => {
                 </Div>
               </>)
               : (<Div>
-                <Link to='#add-address'>
-                  <Button type='button' variant="primary">
+                <Link to={to(setQueryParam(window.location.search, QS_ADD_ADDRESS_MODAL, '1'))}>
+                  <Button type='button' variant="textButton">
                     Ik wil starten bij een specifiek adres
                   </Button>
                 </Link>
@@ -192,7 +207,15 @@ const Generate: FC = () => {
           <Button type="submit" variant="secondary" disabled={ disabled }>Genereer looplijst</Button>
         </ButtonWrap>
       </form>
-      {showAddAddressModal && <AddStartAddressModal onAddStartAddress={onAddStartAddress}/>}
+      {showAddAddressModal && <AddStartAddressModal
+        onClose={closeAddAddressModal}
+        onAddStartAddress={onAddStartAddress}
+        caseTo={caseTo}
+      />}
+      {showCaseModal && <CaseModal
+        onClose={closeCaseModal}
+        caseId={modalCaseId}
+      />}
     </div>
   )
 }

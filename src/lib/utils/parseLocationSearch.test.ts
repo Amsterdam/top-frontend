@@ -1,5 +1,13 @@
 import parseLocationSearch from "./parseLocationSearch"
 
+it("empty", () => {
+  expect(parseLocationSearch("")).toEqual({})
+})
+
+it("whitespace", () => {
+  expect(parseLocationSearch(" ")).toEqual({})
+})
+
 it("one", () => {
   expect(parseLocationSearch("?key=value")).toEqual({ key: "value" })
 })

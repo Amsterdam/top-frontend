@@ -2,11 +2,12 @@ import React, { FC } from "react"
 import styled from "styled-components"
 import SearchResultSingle from "./SearchResultSingle"
 import SearchResultPlural from "./SearchResultPlural"
-import {ActionButtonsComponentType} from "./SearchResults"
+import {ActionButtonsComponentType, CaseTo} from "./SearchResults"
 
 type Props = {
   cases: SearchResultCases
   actionButtonsComponent?:ActionButtonsComponentType
+  caseTo?:CaseTo
 }
 
 const Div = styled.div`
@@ -14,15 +15,15 @@ const Div = styled.div`
   border-bottom: 1px solid #B4B4B4
 `
 
-const SearchResult: FC<Props> = ({ cases, actionButtonsComponent }) => {
+const SearchResult: FC<Props> = ({ cases, actionButtonsComponent, caseTo }) => {
   const showPlural = cases.length > 1
   const caseItem = cases[0]
 
   return (
     <Div>
       { showPlural ?
-        <SearchResultPlural cases={ cases } actionButtonsComponent={actionButtonsComponent} /> :
-        <SearchResultSingle caseItem={ caseItem! } actionButtonsComponent={actionButtonsComponent} />
+        <SearchResultPlural caseTo={caseTo} cases={ cases } actionButtonsComponent={actionButtonsComponent} /> :
+        <SearchResultSingle caseTo={caseTo} caseItem={ caseItem! } actionButtonsComponent={actionButtonsComponent} />
       }
     </Div>
   )
