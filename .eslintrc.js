@@ -3,6 +3,7 @@ module.exports = {
     "react-app"
   ],
   rules: {
+    "arrow-body-style": ["error", "as-needed"],
     "no-multiple-empty-lines": ["error"],
     "padded-blocks": ["error", "never"],
     "block-spacing": ["error", "always"],
