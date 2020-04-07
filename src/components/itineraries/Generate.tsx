@@ -11,6 +11,8 @@ import isWeekDay from "../../lib/utils/isWeekDay"
 import AddStartAddressModal from "./add-start-address/AddStartAddressModal"
 import {popHash} from "../../config/page"
 import StartAddress from "./add-start-address/StartAddress"
+import parseLocationSearch from "../../lib/utils/parseLocationSearch"
+import CaseModal from "./add-start-address/CadeModal"
 
 const Label = styled.label`
   font-weight: bold
@@ -86,7 +88,9 @@ const Generate: FC = () => {
   const showWeekDay = isWeekDay()
   const showWeekend = !showWeekDay
 
-  const showAddAddressModal = window.location.hash === '#add-address'
+  const { addAddressModal, modalCaseId } = parseLocationSearch(window.location.search)
+  const showAddAddressModal = addAddressModal !== undefined
+  const showCaseModal = modalCaseId !== undefined
 
   const [num, setNum] = useState<number | "">(8)
   const onChangeNum = (event: ChangeEvent<HTMLInputElement>) => {
@@ -180,7 +184,7 @@ const Generate: FC = () => {
                 </Div>
               </>)
               : (<Div>
-                <Link to='#add-address'>
+                <Link to='?addAddressModal=1'>
                   <Button type='button' variant="textButton">
                     Ik wil starten bij een specifiek adres
                   </Button>
@@ -193,6 +197,7 @@ const Generate: FC = () => {
         </ButtonWrap>
       </form>
       {showAddAddressModal && <AddStartAddressModal onAddStartAddress={onAddStartAddress}/>}
+      {showCaseModal && <CaseModal caseId={modalCaseId} />}
     </div>
   )
 }
