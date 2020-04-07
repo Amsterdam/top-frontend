@@ -10,17 +10,17 @@ export type ActionButtonsComponentType = React.ComponentType<ActionButtonsCompon
 type Props = {
   results?: SearchResults
   actionButtonsComponent?:ActionButtonsComponentType,
-  to?:To
+  caseTo?:CaseTo
 }
 
 const P = styled.p`
   margin-top: 12px
 `
 
-export type To = (caseId:CaseId) => string
-export const defaultTo:To = (caseId:CaseId) => to(`cases/${ caseId }`)
+export type CaseTo = (caseId:CaseId) => string
+export const defaultCaseTo:CaseTo = (caseId:CaseId) => to(`cases/${ caseId }`)
 
-const SearchResults: FC<Props> = ({ results, actionButtonsComponent, to }) => {
+const SearchResults: FC<Props> = ({ results, actionButtonsComponent, caseTo }) => {
   const showResults = results && results.length > 0
   const showEmpty = results && results.length === 0
 
@@ -36,7 +36,7 @@ const SearchResults: FC<Props> = ({ results, actionButtonsComponent, to }) => {
         return (
           <div key={ `${ JSON.stringify(result) }_${ index }` }>
             { showSearchResult &&
-              <SearchResult to={to} cases={ data!.cases } actionButtonsComponent={actionButtonsComponent} />
+              <SearchResult caseTo={caseTo} cases={ data!.cases } actionButtonsComponent={actionButtonsComponent} />
             }
             { showEmptySearchResult &&
               <EmptySearchResult text={ error } />

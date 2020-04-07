@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import DefaultModal from "../../global/Modal/DefaultModal"
 import Search from "../../search/Search"
 import createActionButtons, {OnAddStartAddress} from "./ActionButtons"
-import {To} from "../../search/SearchResults"
+import {CaseTo} from "../../search/SearchResults"
 
 const Div = styled.div`
   padding-bottom: 15px;
@@ -12,11 +12,11 @@ const Div = styled.div`
 
 type Props = {
   onAddStartAddress: OnAddStartAddress
-  to: To
+  caseTo: CaseTo
   onClose: () => void
 }
 
-const AddStartAddressModal: React.FC<Props> = ({ onAddStartAddress, to, onClose }) => (
+const AddStartAddressModal: React.FC<Props> = ({ onAddStartAddress, caseTo, onClose }) => (
   <DefaultModal title='Startadres' onClose={onClose}>
     <Div>
       <b>Bij welk adres wil je beginnen?</b>
@@ -24,7 +24,7 @@ const AddStartAddressModal: React.FC<Props> = ({ onAddStartAddress, to, onClose 
     <Div>
       <Search
         actionButtonsComponent={createActionButtons(onAddStartAddress)}
-        to={to}
+        caseTo={caseTo}
       />
     </Div>
   </DefaultModal>

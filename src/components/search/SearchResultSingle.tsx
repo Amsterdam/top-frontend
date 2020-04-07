@@ -6,15 +6,15 @@ import SearchResultAddress from "./SearchResultAddress"
 import SearchResultDistance from "./SearchResultDistance"
 import SearchResultCase from "./SearchResultCase"
 import displayAddress from "../../lib/displayAddress"
-import {ActionButtonsComponentType, defaultTo, To} from "./SearchResults"
+import {ActionButtonsComponentType, defaultCaseTo, CaseTo} from "./SearchResults"
 
 type Props = {
   caseItem: SearchResultCase
   actionButtonsComponent?:ActionButtonsComponentType
-  to?: To
+  caseTo?: CaseTo
 }
 
-const SearchResultSingle: FC<Props> = ({ caseItem, actionButtonsComponent, to }) => {
+const SearchResultSingle: FC<Props> = ({ caseItem, actionButtonsComponent, caseTo }) => {
   const {
     case_id: caseId,
     street_name: streetName,
@@ -38,7 +38,7 @@ const SearchResultSingle: FC<Props> = ({ caseItem, actionButtonsComponent, to })
   const ActionButtonsComponent = actionButtonsComponent
 
   return (
-    <Link to={ to ? to(caseId) : defaultTo(caseId) }>
+    <Link to={ caseTo ? caseTo(caseId) : defaultCaseTo(caseId) }>
       <SearchResultWrap>
         <div>
           <SearchResultAddress address={ address } postalCode={ postalCode } />

@@ -8,12 +8,12 @@ import SearchResultCase from "./SearchResultCase"
 
 import displayAddress from "../../lib/displayAddress"
 
-import {ActionButtonsComponentType, defaultTo, To} from "./SearchResults"
+import {ActionButtonsComponentType, defaultCaseTo, CaseTo} from "./SearchResults"
 
 type Props = {
   cases: SearchResultCases
   actionButtonsComponent?:ActionButtonsComponentType
-  to?:To
+  caseTo?:CaseTo
 }
 
 const Wrap = styled.div`
@@ -29,7 +29,7 @@ const Div = styled.div`
   justify-content: flex-end
 `
 
-const SearchResultPlural: FC<Props> = ({ actionButtonsComponent, cases, to = defaultTo }) => {
+const SearchResultPlural: FC<Props> = ({ actionButtonsComponent, cases, caseTo = defaultCaseTo }) => {
   const {
     street_name: streetName,
     street_number: streetNumber,
@@ -65,7 +65,7 @@ const SearchResultPlural: FC<Props> = ({ actionButtonsComponent, cases, to = def
           const key = caseId
 
           return (
-            <Link key={ key } to={ to ? to(caseId) : defaultTo(caseId) }>
+            <Link key={ key } to={ caseTo ? caseTo(caseId) : defaultCaseTo(caseId) }>
               <Wrap>
                 <SearchResultCase reason={ reason } stadium={ stadium } teams={ teams } fraudProbability={ fraudProbability } />
                 { ActionButtonsComponent && (
