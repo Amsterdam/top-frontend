@@ -57,6 +57,9 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions, ItinerariesSe
       created_at: currentDate(),
       team_members: users.map(user => ({ user: { id: user } })),
       settings: {
+        start_case: {
+          case_id: settings.startAddressCaseId
+        },
         opening_date: "2019-01-01",
         target_length: num,
         projects: settings.projects.map((item: string) => ({ name: item })),
