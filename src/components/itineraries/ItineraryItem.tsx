@@ -52,7 +52,6 @@ const StyledFraudProbability = styled(FraudProbability)`
 `
 
 const ItineraryItem: FC<Props> = ({ caseItem, fraudPrediction, note, showAddress = true }) => {
-
   const {
     case_id: id,
     street_name: streetName,

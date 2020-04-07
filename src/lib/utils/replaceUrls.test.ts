@@ -1,7 +1,6 @@
 import replaceUrls from "./replaceUrls"
 
 describe("replaceUrls", () => {
-
   it("no match", () => {
     const str = "Abc"
     expect(replaceUrls(str)).toBe("Abc")

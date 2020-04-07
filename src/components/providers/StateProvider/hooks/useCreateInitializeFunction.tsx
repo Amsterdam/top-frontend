@@ -11,7 +11,6 @@ const useCreateInitializeFunction = (
   setIsAnonymous: (bool: boolean) => void,
   initializables: Initializable[]
 ): StateContextInitializer => {
-
   const initializeFunction = async () => {
     const isAuthenticated = await authInitializer()
     if (!isAuthenticated) return clear()

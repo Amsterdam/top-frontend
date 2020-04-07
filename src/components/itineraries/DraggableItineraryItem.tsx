@@ -37,7 +37,6 @@ const CheckboxWrap = styled.div`
 `
 
 const DraggableItineraryItem: FC<Props> = ({ itineraryItem, index }) => {
-
   const {
     itinerariesActions: {
       setChecked,

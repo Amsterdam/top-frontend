@@ -62,7 +62,6 @@ const ClearButtonWrap = styled.div`
 `
 
 const SearchForm: FC = () => {
-
   const {
     search: {
       query

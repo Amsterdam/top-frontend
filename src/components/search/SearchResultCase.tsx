@@ -21,7 +21,6 @@ const StyledFraudProbability = styled(FraudProbability)`
   color: #B4B4B4
 `
 const SearchResultCase: FC<Props> = ({ reason, stadium, teams, fraudProbability }) => {
-
   const {
     auth: {
       user: { email = "" } = {}

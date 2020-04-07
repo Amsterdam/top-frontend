@@ -6,7 +6,6 @@ type Props = {
 }
 
 const ScrollToAnchor: FC<Props> = ({ anchor, text }) => {
-
   const onClick = (event: MouseEvent) => {
     const anchorElement = document.getElementById(anchor)
     if (anchorElement === null) return

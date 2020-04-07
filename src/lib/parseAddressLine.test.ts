@@ -1,7 +1,6 @@
 import parseAddressLine from "./parseAddressLine"
 
 describe("parseAddressLine", () => {
-
   it("straat 12 1234AA", () => {
     const arr = parseAddressLine("straat 5 1234AA")
     expect(arr[0]).toBe("1234AA")

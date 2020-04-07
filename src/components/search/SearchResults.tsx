@@ -16,7 +16,6 @@ const P = styled.p`
 `
 
 const SearchResults: FC<Props> = ({ results, actionButtonsComponent }) => {
-
   const showResults = results && results.length > 0
   const showEmpty = results && results.length === 0
 

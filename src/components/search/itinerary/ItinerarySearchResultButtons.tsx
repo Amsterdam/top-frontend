@@ -32,7 +32,6 @@ const P = styled.p`
 `
 
 const ItinerarySearchResultButtons: FC<Props> = ({ caseId }) => {
-
   const {
     hasItinerary: userHasItinerary,
     itineraries: {

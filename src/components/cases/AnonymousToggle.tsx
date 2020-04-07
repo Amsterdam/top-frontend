@@ -32,7 +32,6 @@ const Span = styled.span`
 `
 
 const AnonymousToggle: FC = () => {
-
   const {
     isAnonymous,
     toggleIsAnonymous

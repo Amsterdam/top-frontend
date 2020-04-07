@@ -7,7 +7,6 @@ import ItinerarySearchResultButtons from "../components/search/itinerary/Itinera
 type Props = RouteComponentProps
 
 const SearchPage: FC<Props> = () => {
-
   return (
     <>
       <Navigation />

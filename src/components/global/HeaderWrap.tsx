@@ -13,7 +13,6 @@ const Wrap = styled.div`
 `
 
 const HeaderWrap: React.FC = () => {
-
   return (
     <Location>
     { ({ location }) => {

@@ -13,12 +13,10 @@ import { getUrl } from "../config/api"
 import handleForbiddenResponse from "../lib/handleForbiddenResponse"
 
 const usePlanningSettings = () : [PlanningSettingsState, PlanningSettingsActions] => {
-
   // @TODO: Remove `as never`
   const [state, dispatch] = useReducer(reducer, initialState as never)
 
   const initialize = async () => {
-
     dispatch(createStartFetching())
 
     // @TODO: This should be fetched in parallel using Promise.all

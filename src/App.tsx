@@ -24,7 +24,6 @@ const Main = styled.main`
 `
 
 const App: FC = () => {
-
   return (
     <StateProvider>
       <ThemeProvider>

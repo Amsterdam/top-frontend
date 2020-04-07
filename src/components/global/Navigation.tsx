@@ -47,7 +47,6 @@ const FocusSpacer = styled.div`
 `
 
 const Navigation: FC = () => {
-
   const {
     itineraries: {
       itineraries

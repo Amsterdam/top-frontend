@@ -34,7 +34,6 @@ const ButtonWrap = styled.div`
 `
 
 const Generate: FC = () => {
-
   const {
     auth: {
       user: authUser
@@ -196,6 +195,5 @@ const Generate: FC = () => {
       {showAddAddressModal && <AddStartAddressModal onAddStartAddress={onAddStartAddress}/>}
     </div>
   )
-
 }
 export default Generate

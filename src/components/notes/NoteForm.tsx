@@ -23,7 +23,6 @@ type Props = {
 }
 
 const NoteForm: FC<Props> = ({ itineraryId, id, value }) => {
-
   const {
     itinerariesActions: {
       setNote

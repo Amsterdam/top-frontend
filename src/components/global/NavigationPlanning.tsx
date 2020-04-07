@@ -41,7 +41,6 @@ const FocusSpacer = styled.div`
 `
 
 const NavigationPlanning: FC = () => {
-
   const settingsActive = isPage("settings")
 
   return (

@@ -9,7 +9,6 @@ type Props = {
 }
 
 const Search: FC<Props> = ({ actionButtonsComponent }) => {
-
   const {
     search: {
       isFetching,

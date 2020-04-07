@@ -15,7 +15,6 @@ type Props = {
 }
 
 const SearchResultSingle: FC<Props> = ({ caseItem, actionButtonsComponent }) => {
-
   const {
     case_id: caseId,
     street_name: streetName,

@@ -1,7 +1,6 @@
 import displayAddress from "./displayAddress"
 
 describe("displayAddress", () => {
-
   it("streetName, streetNumber", () => {
     expect(displayAddress("Alfa betastraat", 12)).toBe("Alfa betastraat 12")
   })

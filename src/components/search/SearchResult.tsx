@@ -15,7 +15,6 @@ const Div = styled.div`
 `
 
 const SearchResult: FC<Props> = ({ cases, actionButtonsComponent }) => {
-
   const showPlural = cases.length > 1
   const caseItem = cases[0]
 

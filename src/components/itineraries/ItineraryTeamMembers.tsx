@@ -33,7 +33,6 @@ const StyledButton = styled(Button)`
 `
 
 const ItineraryTeamMembers: FC<Props> = ({ itineraryId, teamMembers, isEditing = false, unsetIsEditing }) => {
-
   const {
     auth: {
       user: authUser

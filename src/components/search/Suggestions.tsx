@@ -12,7 +12,6 @@ type Props = {
 }
 
 const Suggestions: FC<Props> = ({ id }) => {
-
   const {
     isInitialized,
     search: {

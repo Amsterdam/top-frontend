@@ -26,7 +26,6 @@ const HrSpaced = styled(Hr)`
 `
 
 const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
-
   console.log(caseItem)
 
   // Header

@@ -6,7 +6,6 @@ export type OnAddStartAddress = (caseId:CaseId)=>void
 
 const createActionButtons = (onAddStartAddress:OnAddStartAddress):React.FC<ActionButtonsComponentProps> =>
   ({caseId}) => {
-
     const onClick = (event:MouseEvent) => {
       event.preventDefault()
       onAddStartAddress(caseId)

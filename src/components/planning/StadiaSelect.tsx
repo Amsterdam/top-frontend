@@ -10,7 +10,6 @@ type Props = {
 }
 
 const StadiaSelect: FC<Props> = ({ selected = [], onChange = noop, multiple = false }) => {
-
   const {
     planningSettings: {
       data: {
