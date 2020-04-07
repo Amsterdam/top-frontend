@@ -4,10 +4,11 @@ import Case from "../../cases/Case"
 
 type Props = {
   caseId: CaseId
+  onClose: () =>void
 }
 
 const CaseModal: React.FC<Props> = ({ caseId }) => (
-  <DefaultModal title='Case'>
+  <DefaultModal title='Case details'>
     <Case caseId={caseId}/>
   </DefaultModal>
 )

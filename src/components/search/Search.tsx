@@ -1,14 +1,15 @@
 import React, { FC } from "react"
 import SearchForm from "./SearchForm"
-import SearchResults, {ActionButtonsComponentType} from "./SearchResults"
+import SearchResults, {ActionButtonsComponentType, To} from "./SearchResults"
 import SmallSpinner from "../global/SmallSpinner"
 import useGlobalState from "../../hooks/useGlobalState"
 
 type Props = {
+  to?:To
   actionButtonsComponent?:ActionButtonsComponentType
 }
 
-const Search: FC<Props> = ({ actionButtonsComponent }) => {
+const Search: FC<Props> = ({ actionButtonsComponent, to }) => {
   const {
     search: {
       isFetching,
@@ -25,6 +26,7 @@ const Search: FC<Props> = ({ actionButtonsComponent }) => {
         <SmallSpinner />
       }
       <SearchResults
+        to={to}
         results={ results }
         actionButtonsComponent={actionButtonsComponent}
       />
