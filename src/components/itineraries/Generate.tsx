@@ -117,7 +117,8 @@ const Generate: FC = () => {
     const dayIndex = day - 1 < 0 ? 6 : day - 1 // correct sunday => 6
     const dayLists = listsDay(settings.lists, dayIndex)
     const lists = dayLists.length >= 3 && dayPart === "evening" ? dayLists[2] : dayLists[0]
-    const listsSettings = { ...settings, lists }
+    const listsSettings = { ...settings, lists, startAddressCaseId }
+
     create(listsSettings, userIds, num, selfIncluded)
   }
 
