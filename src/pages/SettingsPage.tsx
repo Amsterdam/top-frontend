@@ -5,13 +5,11 @@ import Settings from "../components/planning/Settings"
 
 type Props = RouteComponentProps
 
-const SettingsPage: FC<Props> = () => {
-  return (
+const SettingsPage: FC<Props> = () => (
     <>
       <NavigationPlanning />
       <Settings />
     </>
   )
-}
 
 export default SettingsPage

@@ -8,13 +8,11 @@ type Props = RouteComponentProps & {
   caseId?: string
 }
 
-const CasePage: FC<Props> = ({ teamId, caseId }) => {
-  return (
+const CasePage: FC<Props> = ({ teamId, caseId }) => (
     <>
       <Navigation />
       <Case caseId={ caseId! } />
     </>
   )
-}
 
 export default CasePage

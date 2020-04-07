@@ -27,17 +27,11 @@ export const getUrl = (path: string, params?: QueryParams) => {
   return `${ url }${ params ? queryParams(params) : "" }`
 }
 
-export const getAuthUrl = () => {
-  return getUrl(authPath)
-}
+export const getAuthUrl = () => getUrl(authPath)
 
-export const getAuthOIDCUrl = () => {
-  return getUrl(authOIDCPath)
-}
+export const getAuthOIDCUrl = () => getUrl(authOIDCPath)
 
-export const getIsAuthenticatedUrl = () => {
-  return getUrl(isAuthenticatedPath)
-}
+export const getIsAuthenticatedUrl = () => getUrl(isAuthenticatedPath)
 
 export const getOIDCProviderUrl = () => {
   const authorizeUri = "https://auth.grip-on-it.com/v2/rjsfm52t/oidc/idp/authorize"

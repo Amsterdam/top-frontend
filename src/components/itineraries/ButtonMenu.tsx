@@ -22,11 +22,9 @@ const Div = styled.div`
   }
 `
 
-const ButtonMenu: FC<Props> = ({ children }) => {
-  return (
+const ButtonMenu: FC<Props> = ({ children }) => (
     <Div>
       { children }
     </Div>
   )
-}
 export default ButtonMenu

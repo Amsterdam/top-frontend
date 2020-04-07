@@ -2,9 +2,7 @@ const trimTrailingSlash = (str: string) => str.replace(/\/$/, "")
 
 export const basepath = "/"
 
-export const to = (path: string = "") => {
-  return `${ basepath }${ path }`
-}
+export const to = (path: string = "") => `${ basepath }${ path }`
 export const popHash = (str:string) => str.replace(/(#.*)$/, '')
 
 export const isPage = (page: string) => trimTrailingSlash(window.location.pathname) === trimTrailingSlash(to(page))

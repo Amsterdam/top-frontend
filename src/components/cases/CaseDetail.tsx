@@ -165,16 +165,14 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
   }, [] as KeyValueDetails)
 
   // Bewoners
-  const people = Array.isArray(caseItem.bwv_personen) ? caseItem.bwv_personen.map(person => {
-    return ({
+  const people = Array.isArray(caseItem.bwv_personen) ? caseItem.bwv_personen.map(person => ({
       name: person.naam,
       initials: person.voorletters,
       sex: person.geslacht,
       born: person.geboortedatum ? formatDate(person.geboortedatum)! : undefined,
       livingSince: person.vestigingsdatum_adres ? formatDate(person.vestigingsdatum_adres)! : undefined,
       died: person.overlijdensdatum ? formatDate(person.overlijdensdatum)! : undefined
-    })
-  }) : []
+    })) : []
   const bewoners = people.reduce((acc: any, person, index, arr) => {
     acc.push(<Span className="anonymous"><strong>{ (index + 1) + ". " + person.initials + " " + person.name + " (" + person.sex + ")" }</strong></Span>)
     acc.push(["Geboren", <span className="anonymous">{ person.born }</span>])
@@ -227,15 +225,13 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
   const showStatements = statements.length > 0
 
   // Stadia
-  const stadiums = caseItem.import_stadia.map(stadium => {
-    return ({
+  const stadiums = caseItem.import_stadia.map(stadium => ({
       description: stadium.sta_oms,
       dateStart: stadium.begindatum ? formatDate(stadium.begindatum, true)! : "-",
       dateEnd: stadium.einddatum ? formatDate(stadium.einddatum, true)! : "-",
       datePeil: stadium.peildatum ? formatDate(stadium.peildatum, true)! : "-",
       num: parseInt(stadium.sta_nr, 10)
-    })
-  })
+    }))
 
   const stadia = stadiums.reduce((acc: any, stadium, index) => {
     const type = stadium.description === "Issuemelding" ? "ISSUE" : "REGULAR"

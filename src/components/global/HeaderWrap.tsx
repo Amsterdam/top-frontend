@@ -12,8 +12,7 @@ const Wrap = styled.div`
   z-index: 9999
 `
 
-const HeaderWrap: React.FC = () => {
-  return (
+const HeaderWrap: React.FC = () => (
     <Location>
     { ({ location }) => {
       const showLogout = !isLoginPage() && !isLoginCallbackPage()
@@ -31,6 +30,5 @@ const HeaderWrap: React.FC = () => {
     } }
     </Location>
   )
-}
 
 export default HeaderWrap
