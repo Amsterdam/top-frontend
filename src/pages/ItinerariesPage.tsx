@@ -9,7 +9,6 @@ type Props = {
 } & RouteComponentProps
 
 const ItinerariesPage: FC<Props> = ({ id: idString = "" }) => {
-
   const idNumber = parseInt(idString, 10)
   const id = !Number.isNaN(idNumber) ? idNumber : undefined
 

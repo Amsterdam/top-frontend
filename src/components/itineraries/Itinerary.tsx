@@ -44,7 +44,6 @@ const ButtonMenuWrap = styled.div`
 `
 
 const Itinerary: FC<Props> = ({ itinerary }) => {
-
   const {
     itinerariesActions: {
       del

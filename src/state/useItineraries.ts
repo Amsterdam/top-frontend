@@ -23,7 +23,6 @@ import currentDate from "../lib/utils/currentDate"
 import { navigateToHome } from "../lib/navigateTo"
 
 const useItineraries = () : [ItinerariesState, ItinerariesActions, ItinerariesSelectors] => {
-
   // @TODO: Remove `as never`
   const [state, dispatch] = useReducer(reducer, initialState as never)
 
@@ -85,7 +84,6 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions, ItinerariesSe
   }
 
   const updateTeam = async (id: Id, users: UUIDs, remove = false) => {
-
     const url = getUrl(`itineraries/${ id }/team`)
     const body = { team_members: users.map(id => ({ user: { id } })) }
     const [response, result] = await put(url, body)
@@ -136,7 +134,6 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions, ItinerariesSe
   }
 
   const move = (index: Index, newIndex: Index) => {
-
     const patchPosition = async (id: Id, position: ItineraryPosition) => {
       const url = getUrl(`itinerary-items/${ id }`)
       const [response, result] = await patch(url, { position })
@@ -166,7 +163,6 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions, ItinerariesSe
   }
 
   const setNote = async (itineraryId: Id, text: string, id?: Id) => {
-
     const url = getUrl(`notes/${ id || "" }`)
     const method = text === "" ? del : id !== undefined ? put : post
     const body = { itinerary_item: itineraryId, text }

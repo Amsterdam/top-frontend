@@ -28,7 +28,6 @@ const StyledH1 = styled(H1)`
 `
 
 const CaseDetailSection: FC<Props> = ({ id, title, data, footer }) => {
-
   const hasTitle = title !== undefined
   const showFooter = footer !== undefined
 

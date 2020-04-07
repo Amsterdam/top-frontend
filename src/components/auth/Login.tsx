@@ -12,7 +12,6 @@ const Div = styled.div`
 `
 
 const Login: FC = () => {
-
   const {
     auth: {
       isInitialized,

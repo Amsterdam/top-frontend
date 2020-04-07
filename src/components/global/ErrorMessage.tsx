@@ -10,11 +10,9 @@ const P = styled.p`
   margin-bottom: 18px
 `
 
-const ErrorMessage: FC<Props> = ({ text }) => {
-  return (
+const ErrorMessage: FC<Props> = ({ text }) => (
     <div className="ErrorMessage">
       <P>{ text }</P>
     </div>
   )
-}
 export default ErrorMessage

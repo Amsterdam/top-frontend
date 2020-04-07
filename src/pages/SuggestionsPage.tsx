@@ -9,7 +9,6 @@ type Props = RouteComponentProps & {
 }
 
 const SuggestionsPage: FC<Props> = ({ id: idString = "" }) => {
-
   const id = parseInt(idString, 10)
   const show = !Number.isNaN(id)
   const show404 = !show

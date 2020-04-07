@@ -17,13 +17,11 @@ const SpanDesktop = styled.span`
   }
 `
 
-const ResponsiveText: FC<Props> = ({ text }) => {
-  return (
+const ResponsiveText: FC<Props> = ({ text }) => (
     <>
       <SpanMobile>{ text[0] }</SpanMobile>
       <SpanDesktop>{ text[1] }</SpanDesktop>
     </>
   )
-}
 
 export default ResponsiveText

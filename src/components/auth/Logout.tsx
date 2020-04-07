@@ -9,7 +9,6 @@ const Div = styled.div`
 `
 
 const Logout: FC = () => {
-
   const {
     clear
   } = useGlobalState()

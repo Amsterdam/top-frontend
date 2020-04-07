@@ -3,7 +3,6 @@ import authToken from "../../lib/authToken"
 import useGlobalState from "../../hooks/useGlobalState"
 
 const AuthSession: FC = () => {
-
   const interval = 10 * 1000
 
   const {

@@ -17,7 +17,6 @@ const DroppableInner = styled.div`
 `
 
 const DroppableItinerary: FC<Props> = ({ itineraryItems }) => {
-
   const {
     itinerariesActions: {
       move

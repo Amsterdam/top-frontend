@@ -11,12 +11,10 @@ import { getUrl } from "../config/api"
 import handleForbiddenResponse from "../lib/handleForbiddenResponse"
 
 const useUsers = () : [UsersState, UsersActions] => {
-
   // @TODO: Remove `as never`
   const [state, dispatch] = useReducer(reducer, initialState as never)
 
   const initialize = async () => {
-
     dispatch(createStartFetching())
 
     const [response, result] = await get(getUrl("users"))

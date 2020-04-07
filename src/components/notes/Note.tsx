@@ -9,7 +9,6 @@ type Props = {
 }
 
 const Note: FC<Props> = ({ itineraryId, id }) => {
-
   const {
     itineraries: {
       isFetching

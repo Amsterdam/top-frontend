@@ -1,5 +1,4 @@
 const parseAddressLine = (line: string) : [PostalCode, StreetNumber, StreetSuffix | undefined] | undefined => {
-
   // postal code
   const regExpPostalCode = /[1-9][0-9]{3}\s?[A-Za-z]{2}/
   const match = line.match(regExpPostalCode)

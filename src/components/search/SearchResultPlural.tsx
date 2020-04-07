@@ -30,7 +30,6 @@ const Div = styled.div`
 `
 
 const SearchResultPlural: FC<Props> = ({ actionButtonsComponent, cases }) => {
-
   const {
     street_name: streetName,
     street_number: streetNumber,

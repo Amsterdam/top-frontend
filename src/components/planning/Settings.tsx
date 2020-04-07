@@ -28,7 +28,6 @@ const ButtonWrap = styled.div`
 `
 
 const Settings: FC = () => {
-
   const {
     planningSettings: {
       isFetching,

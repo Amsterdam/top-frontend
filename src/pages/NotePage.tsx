@@ -10,7 +10,6 @@ type Props = RouteComponentProps & {
 }
 
 const NotePage: FC<Props> = ({ itineraryId: itineraryIdString, id: idString }) => {
-
   const itineraryId = parseInt(itineraryIdString!, 10)
   const id = idString !== undefined ? parseInt(idString, 10) : undefined
   const showNote = !Number.isNaN(itineraryId) && (id === undefined || !Number.isNaN(id))

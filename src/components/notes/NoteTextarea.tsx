@@ -12,7 +12,5 @@ const Textarea = styled(TextareaBase)`
   width: 100%
 `
 
-const NoteTextarea: FC<Props> = ({ text, onChange }) => {
-  return <Textarea rows={ 10 } value={ text } onChange={ onChange } autoFocus />
-}
+const NoteTextarea: FC<Props> = ({ text, onChange }) => <Textarea rows={ 10 } value={ text } onChange={ onChange } autoFocus />
 export default NoteTextarea

@@ -15,7 +15,6 @@ const TextArea = styled.textarea`
 `
 
 const CopyToClipboardButton: FC<Props> = ({ text, onClick = noop }) => {
-
   const ref = useRef<HTMLTextAreaElement>(null)
 
   const onClickHandler = (event: MouseEvent) => {

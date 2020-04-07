@@ -23,9 +23,7 @@ const Main = styled.main`
   margin-top: 0
 `
 
-const App: FC = () => {
-
-  return (
+const App: FC = () => (
     <StateProvider>
       <ThemeProvider>
         <Anonymous />
@@ -57,6 +55,5 @@ const App: FC = () => {
       </ThemeProvider>
     </StateProvider>
   )
-}
 
 export default App

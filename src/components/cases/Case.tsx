@@ -11,7 +11,6 @@ type Props = {
 }
 
 const Case: FC<Props> = ({ caseId }) => {
-
   const [caseItem, isFetching, errorMessage] = useFetch(`cases/${ caseId }`) as [Case, boolean, ErrorMessage]
 
   // @TODO: Clean this up, not checking errorMessage but checking forbidden on response

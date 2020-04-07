@@ -17,7 +17,6 @@ const Div = styled.div`
 `
 
 const LoginCallbackPage: FC<RouteComponentProps> = () => {
-
   const {
     authenticate
   } = useGlobalState()
@@ -28,7 +27,6 @@ const LoginCallbackPage: FC<RouteComponentProps> = () => {
   const showErrorMessage = errorMessage !== undefined
 
   const confirmLogin = useCallback(async () => {
-
     setErrorMessage(undefined)
 
     const queryParameters = parseLocationSearch(window.location.search)

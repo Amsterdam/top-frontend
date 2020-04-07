@@ -12,7 +12,6 @@ type Props = {
 }
 
 const ItinerariesMain: FC<Props> = ({ id, forceGenerate = false }) => {
-
   const {
     isInitialized,
     itineraries: {
