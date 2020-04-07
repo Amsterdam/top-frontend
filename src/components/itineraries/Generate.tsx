@@ -181,7 +181,7 @@ const Generate: FC = () => {
               </>)
               : (<Div>
                 <Link to='#add-address'>
-                  <Button type='button' variant="primary">
+                  <Button type='button' variant="textButton">
                     Ik wil starten bij een specifiek adres
                   </Button>
                 </Link>
