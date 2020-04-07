@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect, ChangeEvent, FormEvent } from "react"
+import React, { FC, useState, useEffect, useCallback, ChangeEvent, FormEvent } from "react"
 import { Button } from "@datapunt/asc-ui"
 import Spinner from "../global/Spinner"
 import SmallSpinner from "../global/SmallSpinner"
@@ -71,6 +71,7 @@ const Settings: FC = () => {
     setProjects(projects)
   }, [projects])
 
+  // stadia
   const lists = [
     {
       name: "Maandag",
@@ -145,7 +146,7 @@ const Settings: FC = () => {
       excludeStadia: useOnChangeStateMultiple([])
     }
   ]
-  useEffect(() => {
+  const initializeStadia = () => {
     if (settingsLists === undefined) return
     settingsLists.forEach(({ name, primary_stadium: primaryStadium, secondary_stadia: secondaryStadia, exclude_stadia: excludeStadia }) => {
       const list = lists.find(({ name: n }) => n === name)
@@ -160,8 +161,9 @@ const Settings: FC = () => {
         list.excludeStadia[2](excludeStadia)
       }
     })
-  }, [settingsLists]) // eslint-disable-line react-hooks/exhaustive-deps
-  // @TODO: enable
+  }
+  const initializeStadiaStable = useCallback(initializeStadia, [settingsLists])
+  useEffect(initializeStadiaStable, [settingsLists, initializeStadiaStable])
 
   const onSubmit = (event: FormEvent) => {
     event.preventDefault()
