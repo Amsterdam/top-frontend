@@ -26,6 +26,9 @@ const ButtonWrap = styled.div`
     margin-left: 12px
   }
 `
+const H4 = styled.h4`
+  margin: 12px 0 4px
+`
 
 const Settings: FC = () => {
 
@@ -232,11 +235,11 @@ const Settings: FC = () => {
                   return (
                     <Div key={ name }>
                       <h3>{ name }</h3>
-                      <h4>Primary stadium</h4>
+                      <H4>Primary stadium</H4>
                       <StadiaSelect selected={ primaryStadium[0] ? [primaryStadium[0]] : undefined } onChange={ primaryStadium[1] } />
-                      <h4>Secondary stadia</h4>
+                      <H4>Secondary stadia</H4>
                       <StadiaSelect selected={ secondaryStadia[0] } onChange={ secondaryStadia[1] } multiple={ true } />
-                      <h4>Excluded stadia</h4>
+                      <H4>Excluded stadia</H4>
                       <StadiaSelect selected={ excludeStadia[0] } onChange={ excludeStadia[1] } multiple={ true } />
                     </Div>
                   )
