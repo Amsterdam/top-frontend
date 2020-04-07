@@ -159,7 +159,8 @@ const Settings: FC = () => {
         list.excludeStadia[2](excludeStadia)
       }
     })
-  }, [settingsLists, lists])
+  }, [settingsLists]) // eslint-disable-line react-hooks/exhaustive-deps
+  // @TODO: enable
 
   const onSubmit = (event: FormEvent) => {
     event.preventDefault()
@@ -172,6 +173,7 @@ const Settings: FC = () => {
       primary_stadium: primaryStadium[0] || undefined,
       secondary_stadia: secondaryStadia[0],
       exclude_stadia: excludeStadia[0],
+      // @TODO: Remove these two props when removed from API
       number_of_lists: 0,
       length_of_lists: 0
     }))

@@ -1,3 +1,5 @@
+// @TODO: Make this hook more generic. Also merge useOnChangeState and useOnChangeStateMultiple
+
 import { useState } from "react"
 
 const useOnChangeState = (defaultState = "") : [string, OnChangeHandler, SetState] => {
