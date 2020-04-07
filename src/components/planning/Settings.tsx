@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect, ChangeEvent, FormEvent } from "react"
+import React, { FC, useState, useEffect, useCallback, ChangeEvent, FormEvent } from "react"
 import { Button } from "@datapunt/asc-ui"
 import Spinner from "../global/Spinner"
 import SmallSpinner from "../global/SmallSpinner"
@@ -25,6 +25,9 @@ const ButtonWrap = styled.div`
   button {
     margin-left: 12px
   }
+`
+const H4 = styled.h4`
+  margin: 12px 0 4px
 `
 
 const Settings: FC = () => {
@@ -70,6 +73,7 @@ const Settings: FC = () => {
     setProjects(projects)
   }, [projects])
 
+  // stadia
   const lists = [
     {
       name: "Maandag",
@@ -144,7 +148,7 @@ const Settings: FC = () => {
       excludeStadia: useOnChangeStateMultiple([])
     }
   ]
-  useEffect(() => {
+  const initializeStadia = () => {
     if (settingsLists === undefined) return
     settingsLists.forEach(({ name, primary_stadium: primaryStadium, secondary_stadia: secondaryStadia, exclude_stadia: excludeStadia }) => {
       const list = lists.find(({ name: n }) => n === name)
@@ -159,8 +163,9 @@ const Settings: FC = () => {
         list.excludeStadia[2](excludeStadia)
       }
     })
-  }, [settingsLists]) // eslint-disable-line react-hooks/exhaustive-deps
-  // @TODO: enable
+  }
+  const initializeStadiaStable = useCallback(initializeStadia, [settingsLists])
+  useEffect(initializeStadiaStable, [settingsLists, initializeStadiaStable])
 
   const onSubmit = (event: FormEvent) => {
     event.preventDefault()
@@ -229,11 +234,11 @@ const Settings: FC = () => {
                   return (
                     <Div key={ name }>
                       <h3>{ name }</h3>
-                      <h4>Primary stadium</h4>
+                      <H4>Primary stadium</H4>
                       <StadiaSelect selected={ primaryStadium[0] ? [primaryStadium[0]] : undefined } onChange={ primaryStadium[1] } />
-                      <h4>Secondary stadia</h4>
+                      <H4>Secondary stadia</H4>
                       <StadiaSelect selected={ secondaryStadia[0] } onChange={ secondaryStadia[1] } multiple={ true } />
-                      <h4>Excluded stadia</h4>
+                      <H4>Excluded stadia</H4>
                       <StadiaSelect selected={ excludeStadia[0] } onChange={ excludeStadia[1] } multiple={ true } />
                     </Div>
                   )
