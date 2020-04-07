@@ -23,11 +23,11 @@ it("last", () => {
     { position: 5 },
     { position: 10 }
   ]
-  const position = calculateNewPosition(items, 0, 2)
+  const position = calculateNewPosition(items, 0, 1)
   expect(position).toBe(20)
 })
 
-it("before", () => {
+it("forwards", () => {
   const items = [
     { position: 5 },
     { position: 10 },
@@ -38,13 +38,13 @@ it("before", () => {
   expect(position).toBe(7.5)
 })
 
-it("after", () => {
+it("backwards", () => {
   const items = [
     { position: 5 },
     { position: 10 },
     { position: 15 },
     { position: 20 }
   ]
-  const position = calculateNewPosition(items, 0, 3)
+  const position = calculateNewPosition(items, 0, 2)
   expect(position).toBe(17.5)
 })

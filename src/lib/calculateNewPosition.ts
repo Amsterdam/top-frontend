@@ -1,9 +1,11 @@
 const calculateNewPosition = (items: { position: ItineraryPosition }[], index: Index, newIndex: Index) : ItineraryPosition => {
   if (index === newIndex) return items[index].position
 
-  const precedingPosition: number = newIndex > 0 ? items[newIndex - 1].position : 0
+  const movedBackwards = index < newIndex
+  const i = movedBackwards ? newIndex + 1 : newIndex
+  const precedingPosition: number = i > 0 ? items[i - 1].position : 0
   const length = items.length
-  const succeedingPosition = newIndex <= length - 1 ? items[newIndex].position : undefined
+  const succeedingPosition = i <= length - 1 ? items[i].position : undefined
   const position = succeedingPosition ?
     precedingPosition + (succeedingPosition - precedingPosition) / 2 :
     items[length - 1].position + 10
