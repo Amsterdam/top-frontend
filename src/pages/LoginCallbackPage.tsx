@@ -16,6 +16,7 @@ const Div = styled.div`
   margin-top: 100px
 `
 
+// @TODO: The logic in this Component should be moved to a seperate Component
 const LoginCallbackPage: FC<RouteComponentProps> = () => {
   const {
     authenticate
