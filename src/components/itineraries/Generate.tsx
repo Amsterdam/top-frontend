@@ -189,7 +189,7 @@ const Generate: FC = () => {
                   <StartAddress caseId={startAddressCaseId!} caseTo={caseTo} />
                 </Div>
                 <Div>
-                  <Button type='button' variant='primary' onClick={() => setStartAddressCaseId(undefined)}>
+                  <Button type='button' variant='textButton' onClick={() => setStartAddressCaseId(undefined)}>
                     Verwijder startadres
                   </Button>
                 </Div>
