@@ -60,7 +60,7 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions, ItinerariesSe
         start_case: {
           case_id: settings.startAddressCaseId
         },
-        opening_date: "2019-01-01",
+        opening_date: settings.opening_date,
         target_length: num,
         projects: settings.projects.map((item: string) => ({ name: item })),
         primary_stadium: settings.lists.primary_stadium ? { name: settings.lists.primary_stadium } : undefined,
