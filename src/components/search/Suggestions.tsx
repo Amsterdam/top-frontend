@@ -1,7 +1,8 @@
-import React, { FC, useEffect, useCallback } from "react"
+import React, { FC, useEffect } from "react"
 import Spinner from "../global/Spinner"
 import ErrorMessage from "../global/ErrorMessage"
 import useGlobalState from "../../hooks/useGlobalState"
+import useMakeStable from "../../hooks/useMakeStable"
 import SearchResults from "../search/SearchResults"
 import H1 from "../styled/H1"
 import Hr from "../styled/Hr"
@@ -24,11 +25,10 @@ const Suggestions: FC<Props> = ({ id }) => {
     }
   } = useGlobalState()
 
-  const getSuggestionsStable = useCallback(getSuggestions, [])
-
+  const getSuggestionsStale = useMakeStable(getSuggestions)
   useEffect(() => {
-    getSuggestionsStable(id)
-  }, [getSuggestionsStable, id])
+    getSuggestionsStale(id)
+  }, [getSuggestionsStale, id])
 
   const showSpinner = !isInitialized || isFetching
   const hasError = errorMessage !== undefined
