@@ -186,10 +186,13 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions, ItinerariesSe
 
   const clear = () => dispatch(createClear())
 
-  // @TODO actually call the API instead of mocking it using a setTimeout.
-  const setChecked = (itineraryId: Id, checked:boolean) => setTimeout(() => {
-      dispatch(createSetChecked(itineraryId, checked))
-    }, 1000)
+  const setChecked = async (itemId: Id, checked:boolean) => {
+    const url = getUrl(`itinerary-items/${ itemId }`)
+    const [response, ] = await patch(url, { checked })
+    if (isForbidden(response)) return handleForbiddenResponse()
+    if (notOk(response)) return alert("Afvinken mislukt")
+    dispatch(createSetChecked(itemId, checked))
+  }
 
   // -----------------------------------------
   //  Selectors
