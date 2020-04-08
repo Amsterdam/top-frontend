@@ -1,34 +1,33 @@
 import React, { FC } from "react"
-import useGlobalState from "../../hooks/useGlobalState"
-import Spinner from "../global/Spinner"
-import NoteForm from "./NoteForm"
+import { ascDefaultTheme } from "@datapunt/asc-ui"
+import styled from "styled-components"
 
 type Props = {
-  itineraryId: Id
-  id?: Id
+  note: Note
 }
 
-const Note: FC<Props> = ({ itineraryId, id }) => {
-  const {
-    itineraries: {
-      isFetching
-    },
-    getItineraryNote
-  } = useGlobalState()
+const H4 = styled.h4`
+  margin-bottom: 4px
+`
 
-  const note = id !== undefined ? getItineraryNote(itineraryId, id) : undefined
-  const noteValue = note !== undefined ? note.text : ""
-  const showSpinner = isFetching
-  const showNoteForm = !isFetching
+const P = styled.p`
+  background: ${ ascDefaultTheme.colors.tint.level2 }
+  padding: 8px
+  margin-bottom: 16px
+`
+
+const Note: FC<Props> = ({ note }) => {
+  const {
+    author: {
+      full_name: fullName
+    },
+    text
+  } = note
 
   return (
-    <div className="Note">
-      { showSpinner &&
-        <Spinner />
-      }
-      { showNoteForm &&
-        <NoteForm itineraryId={ itineraryId } id={ id } value={ noteValue } />
-      }
+    <div>
+      <H4>{ fullName }:</H4>
+      <P>{ text }</P>
     </div>
   )
 }

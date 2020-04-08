@@ -3,13 +3,15 @@ import { Link } from "@reach/router"
 import { to } from "../../config/page"
 import styled from "styled-components"
 import Signal from "../global/Signal"
+import Notes from "./notes/Notes"
 import FraudProbability from "../global/FraudProbability"
 import displayAddress from "../../lib/displayAddress"
+
 
 type Props = {
   caseItem: BWVData
   fraudPrediction?: FraudPrediction
-  note?: string
+  notes: Notes
   showAddress?: boolean
 }
 
@@ -38,20 +40,13 @@ const P = styled.p`
 const PostalCode = styled(P)`
   font-weight: bold
 `
-const Note = styled.p`
-  margin-bottom: 0
-  font-size: 16px
-  line-height: 1.3em
-  color: gray
-  font-weight: normal
-`
 const StyledFraudProbability = styled(FraudProbability)`
   margin-left: 12px
   font-weight: bold
   color: #B4B4B4
 `
 
-const ItineraryItem: FC<Props> = ({ caseItem, fraudPrediction, note, showAddress = true }) => {
+const ItineraryItem: FC<Props> = ({ caseItem, fraudPrediction, notes, showAddress = true }) => {
   const {
     case_id: id,
     street_name: streetName,
@@ -64,14 +59,6 @@ const ItineraryItem: FC<Props> = ({ caseItem, fraudPrediction, note, showAddress
   } = caseItem
 
   const address = displayAddress(streetName, streetNumber, suffix_letter || undefined, suffix || undefined)
-  const showNote = note !== undefined
-  const maxLength = 48
-  const noteString = note ?
-    note!.length > maxLength ?
-    `${ note!.substring(0, maxLength).trim() }…` :
-    note! :
-    undefined
-
   const linkTo = to(`cases/${ id }`)
 
   const fraudProbability = fraudPrediction?.fraud_probability
@@ -90,9 +77,7 @@ const ItineraryItem: FC<Props> = ({ caseItem, fraudPrediction, note, showAddress
           <div>
             <P>{ caseReason }{ showFraudProbability && <StyledFraudProbability fraudProbability={ fraudProbability! } /> }</P>
             <Signal text={ stadium } />
-            { showNote &&
-              <Note>{ noteString }</Note>
-            }
+            <Notes notes={ notes } />
           </div>
         </Div>
       </Link>

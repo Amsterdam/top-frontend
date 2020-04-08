@@ -3,7 +3,7 @@ import NoteTextarea from "./NoteTextarea"
 import { Button } from "@datapunt/asc-ui"
 import styled from "styled-components"
 import useOnChangeState from "../../hooks/useOnChangeState"
-import { navigateToHome } from "../../lib/navigateTo"
+import navigateTo, { navigateToHome } from "../../lib/navigateTo"
 import useGlobalState from "../../hooks/useGlobalState"
 import currentTime from "../../lib/utils/currentTime"
 
@@ -17,16 +17,22 @@ const ButtonWrap = styled.div`
 `
 
 type Props = {
-  itineraryId: Id
+  itineraryItemId: Id
   id?: Id
   value: string
 }
 
-const NoteForm: FC<Props> = ({ itineraryId, id, value }) => {
+const H4 = styled.h4`
+  margin-bottom: 8px
+`
+
+// @TODO: Use final-form here
+const NoteForm: FC<Props> = ({ itineraryItemId, id, value }) => {
   const {
     itinerariesActions: {
-      setNote
-    }
+      setNote,
+    },
+    getItineraryFromItineraryItem
   } = useGlobalState()
 
   const [text, onChangeText] = useOnChangeState(value)
@@ -35,8 +41,10 @@ const NoteForm: FC<Props> = ({ itineraryId, id, value }) => {
 
   const saveNote = async (text: string) => {
     if (text === "" && id === undefined) return
-    const result = await setNote(itineraryId, text, id)
-    if (result) navigateToHome()
+    const result = await setNote(itineraryItemId, text, id)
+    if (!result) return
+    const itinerary = getItineraryFromItineraryItem(itineraryItemId)
+    itinerary !== undefined ? navigateTo(`itineraries/${ itinerary.id }`) : navigateToHome()
   }
 
   const onSubmit = async (event: FormEvent) => {
@@ -54,15 +62,18 @@ const NoteForm: FC<Props> = ({ itineraryId, id, value }) => {
   }
 
   return (
-    <form onSubmit={ onSubmit }>
-      <NoteTextarea text={ text } onChange={ onChangeText } />
-      <ButtonWrap>
-        { showButton &&
-          <Button variant="secondary" onClick={ onClick }>{ nawText }</Button>
-        }
-        <Button variant="secondary">Bewaren</Button>
-      </ButtonWrap>
-    </form>
+    <>
+      <H4>Mijn notitie</H4>
+      <form onSubmit={ onSubmit }>
+        <NoteTextarea text={ text } onChange={ onChangeText } />
+        <ButtonWrap>
+          { showButton &&
+            <Button variant="secondary" onClick={ onClick }>{ nawText }</Button>
+          }
+          <Button variant="secondary">Bewaren</Button>
+        </ButtonWrap>
+      </form>
+    </>
   )
 }
 export default NoteForm

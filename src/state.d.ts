@@ -24,7 +24,8 @@ declare type ItinerariesActions = {
 declare type ItinerariesSelectors = {
   getItinerary: (caseId: CaseId) => OItineraryItem
   hasItinerary: (caseId: CaseId) => boolean
-  getItineraryNote: (itineraryItemId: Id, id: Id) => ONote
+  getItineraryNotes: (itineraryItemId: Id, id: Id) => Notes | undefined
+  getItineraryFromItineraryItem: (id: Id) => OItinerary
 }
 
 declare type AuthState = {

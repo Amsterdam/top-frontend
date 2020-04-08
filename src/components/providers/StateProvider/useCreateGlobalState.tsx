@@ -16,7 +16,7 @@ type Result = {
 
 const useCreateGlobalState = (): Result => {
   // State-slices and actions
-  const [itineraries, itinerariesActions, { hasItinerary, getItineraryNote }] = useItineraries()
+  const [itineraries, itinerariesActions, { hasItinerary, getItineraryNotes, getItineraryFromItineraryItem }] = useItineraries()
   const [auth, authActions] = useAuth()
   const [search, searchActions] = useSearch()
   const [users, usersActions] = useUsers()
@@ -59,7 +59,8 @@ const useCreateGlobalState = (): Result => {
         itineraries,
         itinerariesActions,
         hasItinerary,
-        getItineraryNote,
+        getItineraryNotes,
+        getItineraryFromItineraryItem,
 
         search,
         searchActions,

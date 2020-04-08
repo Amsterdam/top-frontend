@@ -180,7 +180,8 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions, ItinerariesSe
     }
     const newText = result ? result.text : ""
     const noteId = result ? result.id : id
-    dispatch(createSetNote(itineraryId, noteId!, newText))
+    const author = result ? result.author : ""
+    dispatch(createSetNote(itineraryId, noteId!, newText, author))
     return true
   }
 
@@ -194,21 +195,27 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions, ItinerariesSe
     dispatch(createSetChecked(itemId, checked))
   }
 
+
   // -----------------------------------------
   //  Selectors
   // -----------------------------------------
 
   const getItinerary = (caseId: CaseId) : OItineraryItem =>
-    state.itineraries[0]?.items.find(itinerary => itinerary.case.bwv_data.case_id === caseId)
+    state.itineraries.map(({ items }) => items).flat().find(item => item.case.bwv_data.case_id === caseId)
+
   const hasItinerary = (caseId: CaseId) => getItinerary(caseId) !== undefined
-  const getItineraryNote = (itineraryItemId: Id, id: Id) : ONote => {
-    const itineraryItem = state.itineraries[0]?.items.find(item => item.id === itineraryItemId)
-    if (itineraryItem === undefined) return
-    return itineraryItem.notes.find(note => note.id === id)
+
+  const getItineraryNotes = (itineraryItemId: Id, id: Id) : Notes | undefined => {
+    const itineraryItem = state.itineraries.map(({ items }) => items).flat().find(({ id }) => id === itineraryItemId)
+    return itineraryItem !== undefined ? itineraryItem.notes : undefined
   }
 
+  const getItineraryFromItineraryItem = (id: Id) : OItinerary =>
+    state.itineraries.find(({ items }) => items.map(({ id }) => id).includes(id))
+
+
   const actionCreators = { initialize, create, updateTeam, del: del2, add, move, remove, setNote, clear, setChecked }
-  const selectors = { getItinerary, hasItinerary, getItineraryNote }
+  const selectors = { getItinerary, hasItinerary, getItineraryNotes, getItineraryFromItineraryItem }
 
   return [
     state,

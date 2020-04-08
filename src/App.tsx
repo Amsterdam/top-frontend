@@ -40,8 +40,8 @@ const App: FC = () => (
               <SuggestionsPage path="/suggesties/:id" />
               <SearchPage path="/zoeken" />
               <CasePage path="/cases/:caseId" />
-              <NotePage path="/notes/:itineraryId" />
-              <NotePage path="/notes/:itineraryId/:id" />
+              <NotePage path="/notes/:itineraryItemId" />
+              <NotePage path="/notes/:itineraryItemId/:id" />
               <SettingsPage path="/settings" />
               <NotFoundPage default />
             </Router>
