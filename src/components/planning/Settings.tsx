@@ -152,7 +152,7 @@ const Settings: FC = () => {
     const { name, primaryStadium: [,,primaryStadiumSetState], secondaryStadia: [,,secondaryStadiaSetState], excludeStadia: [,,excludeStadiaSetState] } = list
     return ({ name, primaryStadiumSetState, secondaryStadiaSetState, excludeStadiaSetState })
   })
-  const initializeStadia = () => {
+  useEffect(() => {
     if (settingsLists === undefined) return
     settingsLists.forEach(({ name, primary_stadium: primaryStadium, secondary_stadia: secondaryStadia, exclude_stadia: excludeStadia }) => {
       const list = listsSetStates.find(({ name: n }) => n === name)
@@ -167,8 +167,8 @@ const Settings: FC = () => {
         list.excludeStadiaSetState(excludeStadia)
       }
     })
-  }
-  useEffect(initializeStadia, [settingsLists, initializeStadia])
+  }, [settingsLists]) // eslint-disable-line react-hooks/exhaustive-deps
+  // @TODO: Check if final-form will fix this
 
   const onSubmit = (event: FormEvent) => {
     event.preventDefault()
@@ -185,7 +185,6 @@ const Settings: FC = () => {
       number_of_lists: 0,
       length_of_lists: 0
     }))
-    console.log(newLists)
     saveSettings(date, checkedProjects, newLists)
   }
 
