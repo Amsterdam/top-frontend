@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect, useCallback, ChangeEvent, FormEvent } from "react"
+import React, { FC, useState, useEffect, ChangeEvent, FormEvent } from "react"
 import { Button } from "@datapunt/asc-ui"
 import Spinner from "../global/Spinner"
 import SmallSpinner from "../global/SmallSpinner"
@@ -148,24 +148,27 @@ const Settings: FC = () => {
       excludeStadia: useOnChangeStateMultiple([])
     }
   ]
+  const listsSetStates = lists.map(list => {
+    const { name, primaryStadium: [,,primaryStadiumSetState], secondaryStadia: [,,secondaryStadiaSetState], excludeStadia: [,,excludeStadiaSetState] } = list
+    return ({ name, primaryStadiumSetState, secondaryStadiaSetState, excludeStadiaSetState })
+  })
   const initializeStadia = () => {
     if (settingsLists === undefined) return
     settingsLists.forEach(({ name, primary_stadium: primaryStadium, secondary_stadia: secondaryStadia, exclude_stadia: excludeStadia }) => {
-      const list = lists.find(({ name: n }) => n === name)
+      const list = listsSetStates.find(({ name: n }) => n === name)
       if (list === undefined) return
       if (primaryStadium !== undefined) {
-        list.primaryStadium[2](primaryStadium)
+        list.primaryStadiumSetState(primaryStadium)
       }
       if (secondaryStadia !== undefined) {
-        list.secondaryStadia[2](secondaryStadia)
+        list.secondaryStadiaSetState(secondaryStadia)
       }
       if (excludeStadia !== undefined) {
-        list.excludeStadia[2](excludeStadia)
+        list.excludeStadiaSetState(excludeStadia)
       }
     })
   }
-  const initializeStadiaStable = useCallback(initializeStadia, [settingsLists])
-  useEffect(initializeStadiaStable, [settingsLists, initializeStadiaStable])
+  useEffect(initializeStadia, [settingsLists, initializeStadia])
 
   const onSubmit = (event: FormEvent) => {
     event.preventDefault()
