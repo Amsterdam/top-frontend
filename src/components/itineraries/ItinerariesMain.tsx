@@ -1,7 +1,7 @@
 import React, { FC } from "react"
 import Spinner from "../global/Spinner"
 import ErrorMessage from "../global/ErrorMessage"
-import Generate from "./Generate"
+import Generate from "./Generate/Generate"
 import ItinerariesIndex from "./ItinerariesIndex"
 import Itinerary from "./Itinerary"
 import useGlobalState from "../../hooks/useGlobalState"
