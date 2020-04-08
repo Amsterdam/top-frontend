@@ -1,11 +1,20 @@
 declare type Index = number
-declare type ItineraryPosition = number
 
 declare type UUID = string
 declare type UUIDs = UUID[]
 declare type Id = number
 declare type OId = Id | undefined
 declare type Ids = Id[]
+
+declare type User = {
+  id: UUID
+  email: Email
+  username: string
+  first_name:	string
+  last_name: string
+  full_name: string
+}
+declare type Users = User[]
 
 declare type CaseId = string
 declare type CaseIds = CaseId[]
@@ -37,13 +46,17 @@ declare type BWVData = {
   distance?: Distance
   teams?: TeamMembers[]
 }
+
 declare type Note = {
   id: Id
   itinerary_item: Id
   text: string
+  author: User
 }
 declare type ONote = Note | undefined
 declare type Notes = Note[]
+
+declare type ItineraryPosition = number
 declare type ItineraryItem = {
   id: Id
   case: {
@@ -69,6 +82,7 @@ declare type Itinerary = {
   items: ItineraryItems
   settings: Settings
 }
+declare type OItinerary = Itinerary | undefined
 declare type Itineraries = Itinerary[]
 
 declare type SearchResultCase = BWVData & { fraud_prediction: FraudPrediction }
@@ -221,12 +235,3 @@ declare type PlanningSettingsData = {
   stadia: Stadia
   settings: PlanningSettings
 }
-declare type User = {
-  id: UUID
-  email: Email
-  username: string
-  first_name:	string
-  last_name: string
-  full_name: string
-}
-declare type Users = User[]

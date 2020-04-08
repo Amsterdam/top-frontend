@@ -32,4 +32,10 @@ const clear = () : boolean => {
   }
 }
 
-export default { get, set, clear }
+const isAuthUser = (user: User) : boolean => {
+  const authUser = get()
+  if (authUser === undefined) return false
+  return authUser?.email === user.email
+}
+
+export default { get, set, clear, isAuthUser }

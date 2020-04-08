@@ -14,7 +14,8 @@ export type StateContextValue = {
     itineraries: ItinerariesState
     itinerariesActions: ItinerariesActions
     hasItinerary: (a: CaseId) => boolean
-    getItineraryNote: (a: Id, b: Id) => ONote
+    getItineraryNotes: (a: Id, b: Id) => Notes | undefined
+    getItineraryFromItineraryItem: (a: Id) => OItinerary
 
     search: SearchState
     searchActions: SearchActions
@@ -59,7 +60,8 @@ const value = {
       clear: noop
     },
     hasItinerary: () => false,
-    getItineraryNote: (a: Id, b: Id) => undefined,
+    getItineraryNotes: (a: Id, b: Id) => undefined,
+    getItineraryFromItineraryItem: (a: Id) => undefined,
 
     search: searchState,
     searchActions: {

@@ -54,8 +54,7 @@ const DraggableItineraryItem: FC<Props> = ({ itineraryItem, index }) => {
     notes
   } = itineraryItem
 
-  const noteId = notes[0] && notes[0].id
-  const noteText = notes[0] && notes[0].text
+  const noteId = notes[0]?.id
   const notePath = `notes/${ id }/${ noteId || "" }`
 
   const [isCollapsed, setCollapse] = useState(false)
@@ -71,6 +70,7 @@ const DraggableItineraryItem: FC<Props> = ({ itineraryItem, index }) => {
 
   const onCheck = () => setChecked(id, !checked)
 
+  // @TODO: Add type for draggableStyle
   const getItemStyle = (isDragging: boolean, draggableStyle: any) => ({
     userSelect: "none",
     background: "white",
@@ -94,7 +94,7 @@ const DraggableItineraryItem: FC<Props> = ({ itineraryItem, index }) => {
             <CheckboxWrap>
               <SpinnerCheckbox checked={checked} onChange={onCheck}/>
             </CheckboxWrap>
-            <ItineraryItem caseItem={ caseItem } fraudPrediction={ fraudPrediction } note={ noteText } />
+            <ItineraryItem caseItem={ caseItem } fraudPrediction={ fraudPrediction } notes={ notes } />
             <ButtonWrap>
               <IconButton iconNode={ <NoteIcon /> } onClick={ () => navigate(to(notePath)) } />
               <IconButton icon="TrashBin" onClick={ onClick } />
