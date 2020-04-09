@@ -1,5 +1,5 @@
 import React, { FC, useState, useEffect, ChangeEvent, FormEvent } from "react"
-import { Button } from "@datapunt/asc-ui"
+import { Input, Checkbox, Button, breakpoint, color } from "@datapunt/asc-ui"
 import Spinner from "../global/Spinner"
 import SmallSpinner from "../global/SmallSpinner"
 import Hr from "../styled/Hr"
@@ -10,10 +10,18 @@ import styled from "styled-components"
 import StadiaSelect from "./StadiaSelect"
 
 const Div = styled.div`
-  margin-bottom: 18px
+  margin-bottom: 36px
+`
+const DateInputWrap = styled.div`
+  @media screen and ${ breakpoint("min-width", "laptopL") } {
+    max-width: 33%;
+  }
 `
 const ColumnWrap = styled(Div)`
-  column-count: 6
+  column-count: 3;
+  @media screen and ${ breakpoint("min-width", "laptopL") } {
+    column-count: 6;
+  }
 `
 const Label = styled.label`
   display: block
@@ -22,12 +30,16 @@ const Label = styled.label`
 const ButtonWrap = styled.div`
   display: flex
   justify-content: flex-end
+  margin-bottom: 18px
   button {
     margin-left: 12px
   }
 `
 const H4 = styled.h4`
-  margin: 12px 0 4px
+  margin: 18px 0 4px
+`
+const CheckboxesWrap = styled.div`
+  border: 1px solid ${ color("tint", "level5") }
 `
 
 const Settings: FC = () => {
@@ -37,6 +49,7 @@ const Settings: FC = () => {
       isUpdating,
       data: {
         projects: allProjects = [],
+        stadia,
         settings = undefined,
         settings: {
           opening_date = "",
@@ -170,6 +183,12 @@ const Settings: FC = () => {
   }, [settingsLists]) // eslint-disable-line react-hooks/exhaustive-deps
   // @TODO: Check if final-form will fix this
 
+  const createOnChangeCheckbox = (value: Stadium, state: Stadia, setState: SetState) => (event: ChangeEventInput) => {
+    const add = () => setState(state.concat(value))
+    const remove = () => setState(state.filter(item => item !== value))
+    event.target.checked ? add() : remove()
+  }
+
   const onSubmit = (event: FormEvent) => {
     event.preventDefault()
     if (disabled) return
@@ -201,25 +220,27 @@ const Settings: FC = () => {
           <form onSubmit={ onSubmit }>
 
             <Div>
-              <Label>openings datum</Label>
-              <input type="date" value={ date } onChange={ onChangeDate } />
+              <DateInputWrap>
+                <Label>Peildatum</Label>
+                <Input type="date" value={ date } onChange={ onChangeDate } />
+              </DateInputWrap>
             </Div>
 
             <Hr />
 
-            <h1>Openings redenen</h1>
+            <h1>Openingsredenen</h1>
             <ColumnWrap>
-            { showProjects &&
-              allProjects.map(project => {
-                const checked = checkedProjects!.includes(project)
-                return (
-                  <div key={ project }>
-                    <input type="checkbox" checked={ checked } onChange={ onChangeProject(project) }/>
-                    <label>{ project }</label>
-                  </div>
-                )
-              })
-            }
+              { showProjects &&
+                allProjects.map(project => {
+                  const checked = checkedProjects!.includes(project)
+                  return (
+                    <div key={ project }>
+                      <Checkbox checked={ checked } onChange={ onChangeProject(project) } />
+                      <label>{ project }</label>
+                    </div>
+                  )
+                })
+              }
             </ColumnWrap>
 
             <Hr />
@@ -236,23 +257,41 @@ const Settings: FC = () => {
                   return (
                     <Div key={ name }>
                       <h3>{ name }</h3>
-                      <H4>Primary stadium</H4>
-                      <StadiaSelect selected={ primaryStadium[0] ? [primaryStadium[0]] : undefined } onChange={ primaryStadium[1] } />
-                      <H4>Secondary stadia</H4>
-                      <StadiaSelect selected={ secondaryStadia[0] } onChange={ secondaryStadia[1] } multiple={ true } />
-                      <H4>Excluded stadia</H4>
-                      <StadiaSelect selected={ excludeStadia[0] } onChange={ excludeStadia[1] } multiple={ true } />
+                      <H4>1. Zoveel mogelijk</H4>
+                      <StadiaSelect selected={ primaryStadium[0] } onChange={ primaryStadium[1] } />
+                      <H4>2. Aanvullen met</H4>
+                      <CheckboxesWrap>
+                      { stadia!.map(stadium => (
+                          <div key={ stadium }>
+                            <Checkbox checked={ secondaryStadia[0].includes(stadium) } onChange={ createOnChangeCheckbox(stadium, secondaryStadia[0], secondaryStadia[2]) } />
+                            <label>{ stadium }</label>
+                          </div>
+                        ))
+                      }
+                      </CheckboxesWrap>
+                      <H4>3. Uitsluiten</H4>
+                      <CheckboxesWrap>
+                      { stadia!.map(stadium => (
+                          <div key={ stadium }>
+                            <Checkbox checked={ excludeStadia[0].includes(stadium) } onChange={ createOnChangeCheckbox(stadium, excludeStadia[0], excludeStadia[2]) } />
+                            <label>{ stadium }</label>
+                          </div>
+                        ))
+                      }
+                      </CheckboxesWrap>
                     </Div>
                   )
                 })
               }
             </ColumnWrap>
 
+            <Hr />
+
             <ButtonWrap>
               { showUpdatingSpinner &&
                 <SmallSpinner />
               }
-              <Button variant="secondary" type="submit" disabled={ disabled }>Opslaan</Button>
+              <Button variant="secondary" type="submit" disabled={ disabled }>Bewaren</Button>
             </ButtonWrap>
           </form>
 
