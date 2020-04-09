@@ -13,7 +13,7 @@ type Action =
   | { type: "UPDATE_TEAM", payload: { id: Id, teamMembers: TeamMembers } }
   | { type: "MOVE", payload: { index: Index, newIndex: Index } }
   | { type: "REMOVE", payload: { id: Id } }
-  | { type: "SET_NOTE", payload: { id: Id, noteId: Id, note: string, author: User } }
+  | { type: "SET_NOTE", payload: { id: Id, noteId: Id, note: string, author?: User } }
   | { type: "SET_CHECKED", payload: { id: Id, checked: boolean } }
   | { type: "CLEAR" }
 
@@ -28,7 +28,7 @@ export const createUpdate = (id: Id, itinerary: ItineraryItem) : Action => ({ ty
 export const createUpdateTeam = (id: Id, teamMembers: TeamMembers) : Action => ({ type: "UPDATE_TEAM", payload: { id, teamMembers } })
 export const createMove = (index: Index, newIndex: Index) : Action => ({ type: "MOVE", payload: { index, newIndex } })
 export const createRemove = (id: Id) : Action => ({ type: "REMOVE", payload: { id } })
-export const createSetNote = (id: Id, noteId: Id, note: string, author: User) : Action => ({ type: "SET_NOTE", payload: { id, noteId, note, author } })
+export const createSetNote = (id: Id, noteId: Id, note: string, author?: User) : Action => ({ type: "SET_NOTE", payload: { id, noteId, note, author } })
 export const createSetChecked = (id: Id, checked: boolean) : Action => ({ type: "SET_CHECKED", payload: { id, checked } })
 export const createClear = () : Action => ({ type: "CLEAR" })
 
@@ -119,6 +119,9 @@ const reducer = (state: ItinerariesState, action: Action) : ItinerariesState => 
       })
       return { ...state, itineraries: nextItineraries }
     }
+    // @TODO: Clean this mess up
+    // Current data structure in this reducer is: itineraries > hasMany > itinerary-items > hasMany > notes
+    // Probably better to split this up somehow
     case "SET_NOTE": {
       const { itineraries } = state
       const { id, noteId, note, author } = action.payload
@@ -126,10 +129,18 @@ const reducer = (state: ItinerariesState, action: Action) : ItinerariesState => 
       if (itinerariesIndex === -1) return state
       const nextItineraries = produce(itineraries, draft => {
         const index = itineraries[itinerariesIndex].items.findIndex(item => item.id === id)
-        if (note !== "") {
-          draft[itinerariesIndex].items[index].notes[0] = { id: noteId, itinerary_item: id, text: note, author }
+        if (note !== "" && author !== undefined) {
+          const noteIndex = itineraries[itinerariesIndex].items[index].notes.findIndex(note => note.id === noteId)
+          if (noteIndex === -1) {
+            // add new note
+            draft[itinerariesIndex].items[index].notes.push({ id: noteId, itinerary_item: id, text: note, author })
+          } else {
+            // update note
+            draft[itinerariesIndex].items[index].notes[noteIndex] = { id: noteId, itinerary_item: id, text: note, author }
+          }
         } else {
-          draft[itinerariesIndex].items[index].notes = []
+          // delete note
+          draft[itinerariesIndex].items[index].notes = itineraries[itinerariesIndex].items[index].notes.filter(note => note.id !== noteId)
         }
       })
       return { ...state, itineraries: nextItineraries }

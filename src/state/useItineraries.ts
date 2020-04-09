@@ -178,10 +178,14 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions, ItinerariesSe
       alert("Bewaren mislukt")
       return false
     }
-    const newText = result ? result.text : ""
-    const noteId = result ? result.id : id
-    const author = result ? result.author : ""
-    dispatch(createSetNote(itineraryId, noteId!, newText, author))
+    if (result) {
+      // create or update
+      const { id, text, author } = result
+      dispatch(createSetNote(itineraryId, id, text, author))
+    } else {
+      // delete
+      dispatch(createSetNote(itineraryId, id!, text))
+    }
     return true
   }
 
