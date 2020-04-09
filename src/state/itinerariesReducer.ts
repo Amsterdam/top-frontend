@@ -13,7 +13,7 @@ type Action =
   | { type: "UPDATE_TEAM", payload: { id: Id, teamMembers: TeamMembers } }
   | { type: "MOVE", payload: { index: Index, newIndex: Index } }
   | { type: "REMOVE", payload: { id: Id } }
-  | { type: "SET_NOTE", payload: { id: Id, noteId: Id, note: string, author?: User } }
+  | { type: "SET_NOTE", payload: { id: Id, noteId: Id, text: string, author?: User } }
   | { type: "SET_CHECKED", payload: { id: Id, checked: boolean } }
   | { type: "CLEAR" }
 
@@ -28,7 +28,7 @@ export const createUpdate = (id: Id, itinerary: ItineraryItem) : Action => ({ ty
 export const createUpdateTeam = (id: Id, teamMembers: TeamMembers) : Action => ({ type: "UPDATE_TEAM", payload: { id, teamMembers } })
 export const createMove = (index: Index, newIndex: Index) : Action => ({ type: "MOVE", payload: { index, newIndex } })
 export const createRemove = (id: Id) : Action => ({ type: "REMOVE", payload: { id } })
-export const createSetNote = (id: Id, noteId: Id, note: string, author?: User) : Action => ({ type: "SET_NOTE", payload: { id, noteId, note, author } })
+export const createSetNote = (id: Id, noteId: Id, text: string, author?: User) : Action => ({ type: "SET_NOTE", payload: { id, noteId, text, author } })
 export const createSetChecked = (id: Id, checked: boolean) : Action => ({ type: "SET_CHECKED", payload: { id, checked } })
 export const createClear = () : Action => ({ type: "CLEAR" })
 
@@ -124,19 +124,19 @@ const reducer = (state: ItinerariesState, action: Action) : ItinerariesState => 
     // Probably better to split this up somehow
     case "SET_NOTE": {
       const { itineraries } = state
-      const { id, noteId, note, author } = action.payload
+      const { id, noteId, text, author } = action.payload
       const itinerariesIndex = itineraries.findIndex(itinerary => itinerary.items.map(({ id }) => id).includes(id))
       if (itinerariesIndex === -1) return state
       const nextItineraries = produce(itineraries, draft => {
         const index = itineraries[itinerariesIndex].items.findIndex(item => item.id === id)
-        if (note !== "" && author !== undefined) {
+        if (text !== "" && author !== undefined) {
           const noteIndex = itineraries[itinerariesIndex].items[index].notes.findIndex(note => note.id === noteId)
           if (noteIndex === -1) {
             // add new note
-            draft[itinerariesIndex].items[index].notes.push({ id: noteId, itinerary_item: id, text: note, author })
+            draft[itinerariesIndex].items[index].notes.push({ id: noteId, itinerary_item: id, text, author })
           } else {
             // update note
-            draft[itinerariesIndex].items[index].notes[noteIndex] = { id: noteId, itinerary_item: id, text: note, author }
+            draft[itinerariesIndex].items[index].notes[noteIndex] = { id: noteId, itinerary_item: id, text, author }
           }
         } else {
           // delete note
