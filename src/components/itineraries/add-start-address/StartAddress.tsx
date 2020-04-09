@@ -27,12 +27,9 @@ const normalize = (caseId: CaseId, object: any): SearchResultCase => ({
   suffix: object?.import_adres?.toev,
   suffix_letter: object?.import_adres?.hsltr,
   case_reason: object?.related_cases?.[0]?.case_reason,
-  // @TODO add fraud_prediction
-  fraud_prediction: {
-    fraud_probability: 0,
-    fraud_prediction: false
-  }
+  fraud_prediction: object?.fraud_prediction ?? {}
 })
+
 
 const StartAddress: React.FC<Props> = ({caseId, caseTo}) => {
   const [caseItem, isFetching] = useFetch(`cases/${caseId}`) as [any, boolean, OErrorMessage]
