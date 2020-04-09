@@ -47,12 +47,12 @@ type FormValues = {
   users: Array<undefined | null | string>
 }
 
-const getListSettingsForDayPart = (settings: PlanningSettings, dayPart:string) => {
+const getListSettingsForDayPart = (settings: PlanningSettings, dayPart:string, startAddressCaseId?:string) => {
   const day = (new Date()).getDay()
   const dayIndex = day - 1 < 0 ? 6 : day - 1 // correct sunday => 6
   const dayLists = listsDay(settings.lists, dayIndex)
   const lists = dayLists.length >= 3 && dayPart === "evening" ? dayLists[2] : dayLists[0]
-  return {...settings, lists}
+  return {...settings, lists, startAddressCaseId}
 }
 
 const Generate: FC = () => {
@@ -81,7 +81,7 @@ const Generate: FC = () => {
   const onSubmit = (formValues:FormValues) => {
     if (data === undefined) return
     create(
-      getListSettingsForDayPart(data.settings, formValues.dayPart),
+      getListSettingsForDayPart(data.settings, formValues.dayPart, startAddressCaseId),
       filterNullish(formValues.users),
       formValues.num,
       formValues.users.includes(loggedInUser?.id || '')
