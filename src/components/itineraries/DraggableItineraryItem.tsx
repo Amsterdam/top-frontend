@@ -77,6 +77,7 @@ const DraggableItineraryItem: FC<Props> = ({ itineraryItem, index }) => {
     borderBottom: "1px solid #B4B4B4",
     boxShadow: isDragging ? "0 2px 20px black" : "none",
     padding: isDragging ? "0 20px" : 0,
+    outline: 0,
     ...draggableStyle
   })
 
