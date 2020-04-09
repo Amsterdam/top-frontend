@@ -1,7 +1,6 @@
 import React, { FC, useState } from "react"
 import { Draggable } from "react-beautiful-dnd"
-import { navigate } from "@reach/router"
-import { to } from "../../config/page"
+import navigateTo from "../../lib/navigateTo"
 import styled from "styled-components"
 import IconButton from "../global/IconButton"
 import ItineraryItem from "./ItineraryItem"
@@ -9,6 +8,7 @@ import useGlobalState from "../../hooks/useGlobalState"
 import confirm from "../../lib/utils/confirm"
 import NoteIcon from "./NoteIcon"
 import SpinnerCheckbox from "./SpinnerCheckbox"
+import authUser from "../../lib/authUser"
 
 type Props = {
   itineraryItem: ItineraryItem
@@ -54,7 +54,7 @@ const DraggableItineraryItem: FC<Props> = ({ itineraryItem, index }) => {
     notes
   } = itineraryItem
 
-  const noteId = notes[0]?.id
+  const noteId = notes.find(note => authUser.isAuthUser(note.author))?.id
   const notePath = `notes/${ id }/${ noteId || "" }`
 
   const [isCollapsed, setCollapse] = useState(false)
@@ -81,6 +81,7 @@ const DraggableItineraryItem: FC<Props> = ({ itineraryItem, index }) => {
     ...draggableStyle
   })
 
+  // @TODO: Move Inner Component to own file
   return (
     <Div collapsed={ isCollapsed }>
       <Draggable key={ String(id) } draggableId={ String(id) } index={ index }>
@@ -97,7 +98,7 @@ const DraggableItineraryItem: FC<Props> = ({ itineraryItem, index }) => {
             </CheckboxWrap>
             <ItineraryItem caseItem={ caseItem } fraudPrediction={ fraudPrediction } notes={ notes } />
             <ButtonWrap>
-              <IconButton iconNode={ <NoteIcon /> } onClick={ () => navigate(to(notePath)) } />
+              <IconButton iconNode={ <NoteIcon /> } onClick={ () => navigateTo(notePath) } />
               <IconButton icon="TrashBin" onClick={ onClick } />
             </ButtonWrap>
           </Inner>
