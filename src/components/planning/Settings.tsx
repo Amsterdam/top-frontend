@@ -8,6 +8,7 @@ import useOnChangeState from "../../hooks/useOnChangeState"
 import useOnChangeStateMultiple from "../../hooks/useOnChangeStateMultiple"
 import styled from "styled-components"
 import StadiaSelect from "./StadiaSelect"
+import StadiaCheckboxes from "./StadiaCheckboxes"
 import ErrorMessage from "../global/ErrorMessage"
 
 const Div = styled.div`
@@ -39,7 +40,7 @@ const ButtonWrap = styled.div`
 const H4 = styled.h4`
   margin: 18px 0 4px
 `
-const CheckboxesWrap = styled.div`
+const StyledStadiaCheckboxes = styled(StadiaCheckboxes)`
   border: 1px solid ${ color("tint", "level5") }
 `
 
@@ -186,12 +187,6 @@ const Settings: FC = () => {
   }, [settingsLists]) // eslint-disable-line react-hooks/exhaustive-deps
   // @TODO: Check if final-form will fix this
 
-  const createOnChangeCheckbox = (value: Stadium, state: Stadia, setState: SetState) => (event: ChangeEventInput) => {
-    const add = () => setState(state.concat(value))
-    const remove = () => setState(state.filter(item => item !== value))
-    event.target.checked ? add() : remove()
-  }
-
   const onSubmit = (event: FormEvent) => {
     event.preventDefault()
     if (disabled) return
@@ -263,25 +258,9 @@ const Settings: FC = () => {
                       <H4>1. Zoveel mogelijk</H4>
                       <StadiaSelect selected={ primaryStadium[0] } onChange={ primaryStadium[1] } />
                       <H4>2. Aanvullen met</H4>
-                      <CheckboxesWrap>
-                      { stadia!.map(stadium => (
-                          <div key={ stadium }>
-                            <Checkbox id={ `${ name } ${ stadium }` } checked={ secondaryStadia[0].includes(stadium) } onChange={ createOnChangeCheckbox(stadium, secondaryStadia[0], secondaryStadia[2]) } />
-                            <label htmlFor={ `${ name } ${ stadium }` }>{ stadium }</label>
-                          </div>
-                        ))
-                      }
-                      </CheckboxesWrap>
+                      <StyledStadiaCheckboxes name={ `${ name }-secondary` } stadia={ stadia! } state={ secondaryStadia[0] } setState={ secondaryStadia[2] } />
                       <H4>3. Uitsluiten</H4>
-                      <CheckboxesWrap>
-                      { stadia!.map(stadium => (
-                          <div key={ stadium }>
-                            <Checkbox checked={ excludeStadia[0].includes(stadium) } onChange={ createOnChangeCheckbox(stadium, excludeStadia[0], excludeStadia[2]) } />
-                            <label>{ stadium }</label>
-                          </div>
-                        ))
-                      }
-                      </CheckboxesWrap>
+                      <StyledStadiaCheckboxes name={ `${ name }-exclude` } stadia={ stadia! } state={ excludeStadia[0] } setState={ excludeStadia[2] } />
                     </Div>
                   )
                 })
