@@ -9,6 +9,7 @@ import useOnChangeStateMultiple from "../../hooks/useOnChangeStateMultiple"
 import styled from "styled-components"
 import StadiaSelect from "./StadiaSelect"
 import StadiaCheckboxes from "./StadiaCheckboxes"
+import JSONDisplay from "./JSONDisplay"
 import ErrorMessage from "../global/ErrorMessage"
 
 const Div = styled.div`
@@ -205,8 +206,6 @@ const Settings: FC = () => {
     saveSettings(date, checkedProjects, newLists)
   }
 
-  const [showJSON, setShowJSON] = useState(false)
-  const onClickShowJSON = () => setShowJSON(!showJSON)
 
   return (
     <div className="Settings">
@@ -282,13 +281,7 @@ const Settings: FC = () => {
 
           <Hr />
 
-          <h1>Huidige settings (JSON)</h1>
-          <Button onClick={ onClickShowJSON }>{ `${ showJSON ? "Verberg" : "Toon" } JSON` }</Button>
-          { showJSON &&
-            <div>
-              <pre><code>{ JSON.stringify(settings, null, 2) }</code></pre>
-            </div>
-          }
+          <JSONDisplay json={ settings } />
         </>
       }
     </div>
