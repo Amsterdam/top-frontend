@@ -266,8 +266,8 @@ const Settings: FC = () => {
                       <CheckboxesWrap>
                       { stadia!.map(stadium => (
                           <div key={ stadium }>
-                            <Checkbox checked={ secondaryStadia[0].includes(stadium) } onChange={ createOnChangeCheckbox(stadium, secondaryStadia[0], secondaryStadia[2]) } />
-                            <label>{ stadium }</label>
+                            <Checkbox id={ `${ name } ${ stadium }` } checked={ secondaryStadia[0].includes(stadium) } onChange={ createOnChangeCheckbox(stadium, secondaryStadia[0], secondaryStadia[2]) } />
+                            <label htmlFor={ `${ name } ${ stadium }` }>{ stadium }</label>
                           </div>
                         ))
                       }
