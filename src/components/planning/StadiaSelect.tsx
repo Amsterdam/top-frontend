@@ -24,7 +24,7 @@ const StadiaSelect: FC<Props> = ({ selected, onChange = noop }) => {
 
   return (
     <Select value={ selected } disabled={ disabled } onChange={ onChange }>
-      <option>Geen</option>
+      <option value="">Geen</option>
       { showStadia &&
         stadia!.map(stadium =>
         <option key={ stadium } value={ stadium }>{ stadium }</option>
