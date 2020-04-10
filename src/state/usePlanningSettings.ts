@@ -53,7 +53,7 @@ const usePlanningSettings = () : [PlanningSettingsState, PlanningSettingsActions
     dispatch(createStartUpdating())
     const [response, result, errorMessage] = await post(getUrl("settings/planner"), settings)
     if (notOk(response)) return dispatch(createSetError(errorMessage || "Opslaan mislukt"))
-    dispatch(createSetData({ ...data, settings }))
+    dispatch(createSetData({ ...data, settings: result }))
   }
 
   const actionCreators = { initialize, saveSettings, clear }
