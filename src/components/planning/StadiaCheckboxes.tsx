@@ -6,7 +6,7 @@ type Props = {
   stadia: Stadia
   state: Stadia
   setState: SetState
-  className?: string
+  className?: ClassName
 }
 
 const StadiaCheckboxes: FC<Props> = ({ name, stadia, state, setState, className }) => {

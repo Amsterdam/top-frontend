@@ -7,6 +7,7 @@ import useGlobalState from "../../hooks/useGlobalState"
 import useOnChangeState from "../../hooks/useOnChangeState"
 import useOnChangeStateMultiple from "../../hooks/useOnChangeStateMultiple"
 import styled from "styled-components"
+import ProjectsCheckboxes from "./ProjectsCheckboxes"
 import StadiaSelect from "./StadiaSelect"
 import StadiaCheckboxes from "./StadiaCheckboxes"
 import JSONDisplay from "./JSONDisplay"
@@ -79,17 +80,11 @@ const Settings: FC = () => {
 
   // projects
   const [checkedProjects, setProjects] = useState<Projects>()
-  const addToProjects = (project: Project) => setProjects((checkedProjects || []).concat(project))
-  const removeFromProjects = (project: Project) => setProjects((checkedProjects || []).filter(p => p !== project))
-  const onChangeProject = (project: Project) => (event: ChangeEvent<HTMLInputElement>) => {
-    const method = event.target.checked ? addToProjects : removeFromProjects
-    method(project)
-  }
-  const showProjects = checkedProjects !== undefined
   useEffect(() => {
     if (projects === undefined) return
     setProjects(projects)
   }, [projects])
+  const showProjects = allProjects.length > 0 && checkedProjects !== undefined
 
   // stadia
   const lists = [
@@ -228,15 +223,7 @@ const Settings: FC = () => {
             <h1>Openingsredenen</h1>
             <ColumnWrap>
               { showProjects &&
-                allProjects.map(project => {
-                  const checked = checkedProjects!.includes(project)
-                  return (
-                    <div key={ project }>
-                      <Checkbox checked={ checked } onChange={ onChangeProject(project) } />
-                      <label>{ project }</label>
-                    </div>
-                  )
-                })
+                <ProjectsCheckboxes projects={ allProjects } state={ checkedProjects! } setState={ setProjects } />
               }
             </ColumnWrap>
 
