@@ -5,6 +5,7 @@ import SmallSpinner from "../global/SmallSpinner"
 import Hr from "../styled/Hr"
 import useGlobalState from "../../hooks/useGlobalState"
 import useOnChangeState from "../../hooks/useOnChangeState"
+import useOnChangeStateAsync from "../../hooks/useOnChangeStateAsync"
 import useOnChangeStateMultiple from "../../hooks/useOnChangeStateMultiple"
 import styled from "styled-components"
 import ProjectsCheckboxes from "./ProjectsCheckboxes"
@@ -75,8 +76,7 @@ const Settings: FC = () => {
   const showErrorMessage = errorMessage !== undefined
 
   // opening date
-  const [date, onChangeDate, setDate] = useOnChangeState("")
-  useEffect(() => setDate(opening_date), [setDate, opening_date])
+  const [date, onChangeDate, setDate] = useOnChangeStateAsync(opening_date)
 
   // projects
   const [checkedProjects, setProjects] = useState<Projects>()
