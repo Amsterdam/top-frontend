@@ -8,6 +8,7 @@ import useOnChangeState from "../../hooks/useOnChangeState"
 import useOnChangeStateMultiple from "../../hooks/useOnChangeStateMultiple"
 import styled from "styled-components"
 import StadiaSelect from "./StadiaSelect"
+import ErrorMessage from "../global/ErrorMessage"
 
 const Div = styled.div`
   margin-bottom: 36px
@@ -56,7 +57,8 @@ const Settings: FC = () => {
           projects = undefined,
           lists: settingsLists = undefined
         } = {}
-      } = {}
+      } = {},
+      errorMessage
     },
     planningSettingsActions: {
       saveSettings
@@ -67,6 +69,7 @@ const Settings: FC = () => {
   const showSettings = settings !== undefined
   const disabled = isUpdating
   const showUpdatingSpinner = isUpdating
+  const showErrorMessage = errorMessage !== undefined
 
   // opening date
   const [date, onChangeDate, setDate] = useOnChangeState("")
@@ -288,6 +291,9 @@ const Settings: FC = () => {
             <Hr />
 
             <ButtonWrap>
+              { showErrorMessage &&
+                <ErrorMessage text={ errorMessage! } />
+              }
               { showUpdatingSpinner &&
                 <SmallSpinner />
               }

@@ -26,7 +26,8 @@ const fetch = async (url: URL, method: Method = "GET", body?: Body, parseRespons
     const headers = getHeaders(token, body)
     const bodyString = body ? JSON.stringify(body) : undefined
     const response = await window.fetch(url, { method, headers, body: bodyString })
-    if (!response.ok || !parseResponse) return [response]
+    if (!parseResponse) return [response]
+    if (!response.ok) return [response,, await response.text()]
     const data = await response.json()
     return [response, data]
   } catch (err) {

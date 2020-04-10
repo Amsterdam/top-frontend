@@ -51,8 +51,8 @@ const usePlanningSettings = () : [PlanningSettingsState, PlanningSettingsActions
     if (prevSettings === undefined) return
     const settings = { ...prevSettings, opening_date: openingDate, projects, lists }
     dispatch(createStartUpdating())
-    const [response] = await post(getUrl("settings/planner"), settings)
-    if (notOk(response)) dispatch(createSetError("Opslaan mislukt"))
+    const [response, result, errorMessage] = await post(getUrl("settings/planner"), settings)
+    if (notOk(response)) return dispatch(createSetError(errorMessage || "Opslaan mislukt"))
     dispatch(createSetData({ ...data, settings }))
   }
 
