@@ -1,4 +1,4 @@
-import React, { FC, FormEvent } from "react"
+import React, {FC, FormEvent, useState} from "react"
 import { Input, Button, breakpoint, color } from "@datapunt/asc-ui"
 import Spinner from "../global/Spinner"
 import SmallSpinner from "../global/SmallSpinner"
@@ -6,6 +6,7 @@ import Hr from "../styled/Hr"
 import useGlobalState from "../../hooks/useGlobalState"
 import useInputState, { useInputStateMany } from "../../hooks/useInputState"
 import styled from "styled-components"
+import ProjectsCheckboxes from "./ProjectsCheckboxes"
 import StadiaSelect from "./StadiaSelect"
 import Checkboxes from "./Checkboxes"
 import ErrorMessage from "../global/ErrorMessage"
@@ -82,7 +83,12 @@ const Settings: FC = () => {
   const [date, onChangeDate] = useInputState(opening_date)
 
   // projects
-  const [checkedProjects, projectsOnChangeHOF] = useInputStateMany(projects)
+  const [checkedProjects, setProjects] = useState<Projects>()
+  useEffect(() => {
+    if (projects === undefined) return
+    setProjects(projects)
+  }, [projects])
+  const showProjects = allProjects.length > 0 && checkedProjects !== undefined
 
   // stadia
   const getSettingsListByName = (name: string) => settingsLists?.find(({ name: n }) => n === name)
