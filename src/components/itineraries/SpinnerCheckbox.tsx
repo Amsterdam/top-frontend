@@ -1,4 +1,4 @@
-import React, {MouseEvent, useEffect, useState} from "react"
+import React, {MouseEvent, useCallback, useEffect, useState} from "react"
 import styled from "styled-components"
 import { Checkbox, Spinner  } from "@datapunt/asc-ui"
 
@@ -28,21 +28,21 @@ const Wrap = styled.div`
 `
 
 const SpinnerCheckbox:React.FC<Props> = ({ onChange, checked }) => {
-  const [ isLoading, setIsLoading ] = useState(false)
+  const [ isSpinning, setIsSpinning ] = useState(false)
 
-  const handleOnChange = (event:MouseEvent<HTMLInputElement>) => {
-    // Whenever the user makes a change, setIsLoading `true`.
-    setIsLoading(true)
+  const handleOnChange = useCallback((event:MouseEvent<HTMLInputElement>) => {
+    // Whenever the user makes a change, setIsSpinning `true`.
+    setIsSpinning(true)
     onChange(event)
-  }
+  }, [setIsSpinning, onChange])
 
   useEffect(() => {
-    // Whenever 'checked' changes, setIsLoading `false`.
-    setIsLoading(false)
-  }, [checked, setIsLoading])
+    // Whenever 'checked' changes, setIsSpinning `false`.
+    setIsSpinning(false)
+  }, [checked, setIsSpinning])
 
   return <Wrap>
-    { isLoading
+    { isSpinning
       ? (<StyledSpinner size={SIZE} />)
       : (<Checkbox checked={checked} onChange={handleOnChange} />)}
   </Wrap>
