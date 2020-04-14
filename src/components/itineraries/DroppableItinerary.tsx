@@ -5,6 +5,7 @@ import DraggableItineraryItem from "./DraggableItineraryItem"
 import useGlobalState from "../../hooks/useGlobalState"
 
 type Props = {
+  id: Id
   itineraryItems: ItineraryItems
 }
 
@@ -16,7 +17,7 @@ const DroppableInner = styled.div`
   padding: 0 15px
 `
 
-const DroppableItinerary: FC<Props> = ({ itineraryItems }) => {
+const DroppableItinerary: FC<Props> = ({ id, itineraryItems }) => {
   const {
     itinerariesActions: {
       move
@@ -26,7 +27,7 @@ const DroppableItinerary: FC<Props> = ({ itineraryItems }) => {
   const onDragEnd = async (result: any) => {
     if (result.destination === null) return
     const { source: { index }, destination: { index: newIndex } } = result
-    move(index, newIndex)
+    move(id, index, newIndex)
   }
 
   return (
