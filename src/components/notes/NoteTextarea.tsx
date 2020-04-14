@@ -1,16 +1,23 @@
 import React, { FC, ChangeEvent } from "react"
+import { Input } from "@datapunt/asc-ui"
 import styled from "styled-components"
-import TextareaBase from "../styled/Textarea"
 
 type Props = {
-  text: string
+  value: string
   onChange: (a: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
 }
 
-const Textarea = styled(TextareaBase)`
+const StyledInput = styled(Input)`
   display: block
   width: 100%
 `
 
-const NoteTextarea: FC<Props> = ({ text, onChange }) => <Textarea rows={ 10 } value={ text } onChange={ onChange } autoFocus />
+const NoteTextarea: FC<Props> = ({ value, onChange }) =>
+  <StyledInput forwardedAs="textarea"
+    rows={ 10 }
+    value={ value }
+    onChange={ onChange }
+    maxLength={ 1024 }
+    autoFocus
+    />
 export default NoteTextarea
