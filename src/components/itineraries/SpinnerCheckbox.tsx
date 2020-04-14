@@ -17,10 +17,14 @@ const WIDTH = 36
 // Calculate spinner size:
 const SIZE = WIDTH - PADDING * 2 - MARGIN * 2 - BORDER_WIDTH * 2
 
-const StyledSpinner = styled(Spinner)`  
+const StyledSpinner = styled(Spinner)`
   padding: ${PADDING}px;
   border: ${BORDER_WIDTH}px solid black;  
   margin: ${MARGIN}px;
+`
+
+const Wrap = styled.div`
+  cursor: pointer;
 `
 
 const SpinnerCheckbox:React.FC<Props> = ({ onChange, checked }) => {
@@ -37,9 +41,11 @@ const SpinnerCheckbox:React.FC<Props> = ({ onChange, checked }) => {
     setIsLoading(false)
   }, [checked, setIsLoading])
 
-  return isLoading
-    ? (<StyledSpinner size={SIZE} />)
-    : (<Checkbox checked={checked} onChange={handleOnChange} />)
+  return <Wrap>
+    { isLoading
+      ? (<StyledSpinner size={SIZE} />)
+      : (<Checkbox checked={checked} onChange={handleOnChange} />)}
+  </Wrap>
 }
 
 export default SpinnerCheckbox
