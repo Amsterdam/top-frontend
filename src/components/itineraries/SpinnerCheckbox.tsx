@@ -1,4 +1,4 @@
-import React, {MouseEvent, useEffect, useState} from "react"
+import React, {MouseEvent, useCallback, useEffect, useState} from "react"
 import styled from "styled-components"
 import { Checkbox, Spinner  } from "@datapunt/asc-ui"
 
@@ -17,29 +17,35 @@ const WIDTH = 36
 // Calculate spinner size:
 const SIZE = WIDTH - PADDING * 2 - MARGIN * 2 - BORDER_WIDTH * 2
 
-const StyledSpinner = styled(Spinner)`  
+const StyledSpinner = styled(Spinner)`
   padding: ${PADDING}px;
   border: ${BORDER_WIDTH}px solid black;  
   margin: ${MARGIN}px;
 `
 
-const SpinnerCheckbox:React.FC<Props> = ({ onChange, checked }) => {
-  const [ isLoading, setIsLoading ] = useState(false)
+const Wrap = styled.div`
+  cursor: pointer;
+`
 
-  const handleOnChange = (event:MouseEvent<HTMLInputElement>) => {
-    // Whenever the user makes a change, setIsLoading `true`.
-    setIsLoading(true)
+const SpinnerCheckbox:React.FC<Props> = ({ onChange, checked }) => {
+  const [ isSpinning, setIsSpinning ] = useState(false)
+
+  const handleOnChange = useCallback((event:MouseEvent<HTMLInputElement>) => {
+    // Whenever the user makes a change, setIsSpinning `true`.
+    setIsSpinning(true)
     onChange(event)
-  }
+  }, [setIsSpinning, onChange])
 
   useEffect(() => {
-    // Whenever 'checked' changes, setIsLoading `false`.
-    setIsLoading(false)
-  }, [checked, setIsLoading])
+    // Whenever 'checked' changes, setIsSpinning `false`.
+    setIsSpinning(false)
+  }, [checked, setIsSpinning])
 
-  return isLoading
-    ? (<StyledSpinner size={SIZE} />)
-    : (<Checkbox checked={checked} onChange={handleOnChange} />)
+  return <Wrap>
+    { isSpinning
+      ? (<StyledSpinner size={SIZE} />)
+      : (<Checkbox checked={checked} onChange={handleOnChange} />)}
+  </Wrap>
 }
 
 export default SpinnerCheckbox
