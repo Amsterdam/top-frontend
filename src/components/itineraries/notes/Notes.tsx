@@ -25,7 +25,7 @@ const capNote = (text: string) =>
 const Notes: FC<Props> = ({ notes }) => (
   <Div>
   { notes.map(({ id, text, author, author: { full_name: fullName } }) =>
-    <P key={ id }>{ authUser.isAuthUser(author) ? "Ik" : fullName }: { capNote(text) }</P>)
+    <P key={ id }><span className="anonymous">{ authUser.isAuthUser(author) ? "Ik" : fullName }</span>: { capNote(text) }</P>)
   }
   </Div>
 )
