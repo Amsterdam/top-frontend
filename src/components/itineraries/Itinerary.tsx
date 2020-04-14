@@ -98,7 +98,7 @@ const Itinerary: FC<Props> = ({ itinerary }) => {
         <MapsButton cases={ itineraryToCases(itinerary) } />
         <ButtonAnchor to={ to(`suggesties/${ id }`) }><Enlarge /> Voeg adres toe</ButtonAnchor>
       </ButtonWrap>
-      <DroppableItinerary itineraryItems={ items } />
+      <DroppableItinerary id={ id } itineraryItems={ items } />
     </div>
   )
 }
