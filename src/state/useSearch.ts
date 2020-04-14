@@ -1,4 +1,4 @@
-import { useReducer } from "react"
+import { useReducer, useCallback } from "react"
 import reducer, {
   initialState,
   createStartFetching,
@@ -23,7 +23,7 @@ const useSearch = () : [SearchState, SearchActions] => {
   // @TODO: Remove `as never`
   const [state, dispatch] = useReducer(reducer, initialState as never)
 
-  const search = (postalCode: PostalCode, streetNumber: StreetNumberString, suffix: StreetSuffix) => {
+  const search = useCallback((postalCode: PostalCode, streetNumber: StreetNumberString, suffix: StreetSuffix) => {
     (async () => {
       dispatch(createStartFetching([postalCode, streetNumber, suffix]))
 
@@ -46,9 +46,9 @@ const useSearch = () : [SearchState, SearchActions] => {
       const results = groupedCases.map(cases => ({ success: true, data: { cases } }))
       dispatch(createSetResults(results))
     })()
-  }
+  }, [dispatch])
 
-  const getSuggestions = async (itineraryId: Id) => {
+  const getSuggestions = useCallback(async (itineraryId: Id) => {
     dispatch(createStartFetching())
 
     const url = getUrl(`itineraries/${ itineraryId }/suggestions`)
@@ -68,19 +68,18 @@ const useSearch = () : [SearchState, SearchActions] => {
       .map(castFraudPrediction)
       .map((caseItem: SearchResultCase) => ({ success: true, data: { cases: [caseItem] } }))
     dispatch(createSetSuggestions(results))
-  }
+  }, [dispatch])
 
-  const setTeam = (caseId: CaseId, teamMembers?: TeamMembers) => {
+  const setTeam = useCallback((caseId: CaseId, teamMembers?: TeamMembers) => {
     dispatch(createSetTeam(caseId, teamMembers))
-  }
+  }, [dispatch])
 
-  const clear = () => {
+  const clear = useCallback(() => {
     dispatch(createClear())
-  }
+  }, [dispatch])
 
-  const actionCreators = { search, getSuggestions, setTeam, clear }
 
-  return [state, actionCreators]
+  return [state, { search, getSuggestions, setTeam, clear }]
 }
 
 export default useSearch
