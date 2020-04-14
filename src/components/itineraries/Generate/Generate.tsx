@@ -109,6 +109,7 @@ const Generate: FC = () => {
           const isSubmitButtonDisabled = isFetching
             || filterNullish(values.users).length < 3
             || values.num <= 0
+            || values.num > 20
 
           return (
             <form onSubmit={handleSubmit}>
@@ -163,7 +164,7 @@ const Generate: FC = () => {
                 <p>Hoeveel adressen wil je in je looplijst?</p>
                 <div>
                   <Field name="num">
-                    { props => <StyledInput value={props.input.value} onChange={props.input.onChange} type="number" /> }
+                    { props => <StyledInput value={props.input.value} onChange={props.input.onChange} type="number" min='0' max='20' step='1' /> }
                   </Field>
                 </div>
               </Div>
