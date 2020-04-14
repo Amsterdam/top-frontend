@@ -67,7 +67,6 @@ const Settings: FC = () => {
   const hasSettings = settings !== undefined
   const showForm = hasSettings
   const showJSON = hasSettings
-  const disabled = isUpdating
   const showUpdatingSpinner = isUpdating
   const showErrorMessage = errorMessage !== undefined
 
@@ -155,10 +154,10 @@ const Settings: FC = () => {
   ]
 
   const isValidFormState = date !== undefined && checkedProjects !== undefined && settingsLists !== undefined
+  const disabled = isUpdating || !isValidFormState
 
   const onSubmit = (event: FormEvent) => {
     event.preventDefault()
-    if (disabled) return
     if (!isValidFormState) return
     const newLists = lists.map(({ name, primaryStadium, secondaryStadia, excludeStadia }) => ({
       name: name,
