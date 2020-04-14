@@ -23,8 +23,7 @@ const useSearch = () : [SearchState, SearchActions] => {
   // @TODO: Remove `as never`
   const [state, dispatch] = useReducer(reducer, initialState as never)
 
-  const search = useCallback((postalCode: PostalCode, streetNumber: StreetNumberString, suffix: StreetSuffix) => {
-    (async () => {
+  const search = useCallback(async (postalCode: PostalCode, streetNumber: StreetNumberString, suffix: StreetSuffix) => {
       dispatch(createStartFetching([postalCode, streetNumber, suffix]))
 
       const params = { postalCode, streetNumber, suffix }
@@ -44,8 +43,8 @@ const useSearch = () : [SearchState, SearchActions] => {
         .map(castFraudPrediction)
       const groupedCases = groupCasesByAddress(nonEmptyCases)
       const results = groupedCases.map(cases => ({ success: true, data: { cases } }))
+
       dispatch(createSetResults(results))
-    })()
   }, [dispatch])
 
   const getSuggestions = useCallback(async (itineraryId: Id) => {
