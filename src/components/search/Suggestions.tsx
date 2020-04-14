@@ -47,7 +47,7 @@ const Suggestions: FC<Props> = ({ id }) => {
       { show &&
         <>
           <H1>Voeg een adres toe</H1>
-          <p>Addressen rondom de adressen in je lijst:</p>
+          <p>Adressen rondom de adressen in je lijst:</p>
           <Hr />
           <SearchResults results={ results } actionButtonsComponent={ItinerarySearchResultButtons} />
         </>
