@@ -1,15 +1,15 @@
 import { useState, useEffect } from "react"
 import arraysEqual from "../lib/utils/arraysEqual"
 
-const useOnChangeStateAsync = (value = "") : [string, OnChangeHandler, SetState] => {
+const useInputState = (value = "") : [string, OnChangeHandler, SetState] => {
   const [state, setState] = useState(value)
   const onChange = (event: ChangeEventInput) => setState(event.target.value)
   useEffect(() => setState(value), [value])
   return [state, onChange, setState]
 }
-export default useOnChangeStateAsync
+export default useInputState
 
-export const useOnChangeStateMultipleAsync = (defaultState: string[] = []) : [string[], OnChangeHandler, SetState] => {
+export const useInputStatePlural = (defaultState: string[] = []) : [string[], OnChangeHandler, SetState] => {
   const [state, setState] = useState(defaultState)
   const onChange = (event: ChangeEventInput) => {
     const values = (Array.from(event.target.options) as { selected: boolean, value: string }[])

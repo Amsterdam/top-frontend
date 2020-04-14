@@ -4,7 +4,7 @@ import Spinner from "../global/Spinner"
 import SmallSpinner from "../global/SmallSpinner"
 import Hr from "../styled/Hr"
 import useGlobalState from "../../hooks/useGlobalState"
-import useOnChangeStateAsync, { useOnChangeStateMultipleAsync } from "../../hooks/useOnChangeStateAsync"
+import useInputState, { useInputStatePlural } from "../../hooks/useInputState"
 import styled from "styled-components"
 import ProjectsCheckboxes from "./ProjectsCheckboxes"
 import StadiaSelect from "./StadiaSelect"
@@ -72,85 +72,85 @@ const Settings: FC = () => {
   const showErrorMessage = errorMessage !== undefined
 
   // opening date
-  const [date, onChangeDate] = useOnChangeStateAsync(opening_date)
+  const [date, onChangeDate] = useInputState(opening_date)
 
   // projects
-  const [checkedProjects,, setProjects] = useOnChangeStateMultipleAsync(projects)
+  const [checkedProjects,, setProjects] = useInputStatePlural(projects)
 
   // stadia
   const getSettingsListByName = (name: string) => settingsLists?.find(({ name: n }) => n === name)
   const lists = [
     {
       name: "Maandag",
-      primaryStadium: useOnChangeStateAsync(getSettingsListByName("Maandag")?.primary_stadium),
-      secondaryStadia: useOnChangeStateMultipleAsync(getSettingsListByName("Maandag")?.secondary_stadia),
-      excludeStadia: useOnChangeStateMultipleAsync(getSettingsListByName("Maandag")?.exclude_stadia)
+      primaryStadium: useInputState(getSettingsListByName("Maandag")?.primary_stadium),
+      secondaryStadia: useInputStatePlural(getSettingsListByName("Maandag")?.secondary_stadia),
+      excludeStadia: useInputStatePlural(getSettingsListByName("Maandag")?.exclude_stadia)
     },
     {
       name: "Maandag Avond",
-      primaryStadium: useOnChangeStateAsync(getSettingsListByName("Maandag Avond")?.primary_stadium),
-      secondaryStadia: useOnChangeStateMultipleAsync(getSettingsListByName("Maandag Avond")?.secondary_stadia),
-      excludeStadia: useOnChangeStateMultipleAsync(getSettingsListByName("Maandag Avond")?.exclude_stadia)
+      primaryStadium: useInputState(getSettingsListByName("Maandag Avond")?.primary_stadium),
+      secondaryStadia: useInputStatePlural(getSettingsListByName("Maandag Avond")?.secondary_stadia),
+      excludeStadia: useInputStatePlural(getSettingsListByName("Maandag Avond")?.exclude_stadia)
     },
     {
       name: "Dinsdag",
-      primaryStadium: useOnChangeStateAsync(getSettingsListByName("Dinsdag")?.primary_stadium),
-      secondaryStadia: useOnChangeStateMultipleAsync(getSettingsListByName("Dinsdag")?.secondary_stadia),
-      excludeStadia: useOnChangeStateMultipleAsync(getSettingsListByName("Dinsdag")?.exclude_stadia)
+      primaryStadium: useInputState(getSettingsListByName("Dinsdag")?.primary_stadium),
+      secondaryStadia: useInputStatePlural(getSettingsListByName("Dinsdag")?.secondary_stadia),
+      excludeStadia: useInputStatePlural(getSettingsListByName("Dinsdag")?.exclude_stadia)
     },
     {
       name: "Dinsdag Avond",
-      primaryStadium: useOnChangeStateAsync(getSettingsListByName("Dinsdag Avond")?.primary_stadium),
-      secondaryStadia: useOnChangeStateMultipleAsync(getSettingsListByName("Dinsdag Avond")?.secondary_stadia),
-      excludeStadia: useOnChangeStateMultipleAsync(getSettingsListByName("Dinsdag Avond")?.exclude_stadia)
+      primaryStadium: useInputState(getSettingsListByName("Dinsdag Avond")?.primary_stadium),
+      secondaryStadia: useInputStatePlural(getSettingsListByName("Dinsdag Avond")?.secondary_stadia),
+      excludeStadia: useInputStatePlural(getSettingsListByName("Dinsdag Avond")?.exclude_stadia)
     },
     {
       name: "Woensdag",
-      primaryStadium: useOnChangeStateAsync(getSettingsListByName("Woensdag")?.primary_stadium),
-      secondaryStadia: useOnChangeStateMultipleAsync(getSettingsListByName("Woensdag")?.secondary_stadia),
-      excludeStadia: useOnChangeStateMultipleAsync(getSettingsListByName("Woensdag")?.exclude_stadia)
+      primaryStadium: useInputState(getSettingsListByName("Woensdag")?.primary_stadium),
+      secondaryStadia: useInputStatePlural(getSettingsListByName("Woensdag")?.secondary_stadia),
+      excludeStadia: useInputStatePlural(getSettingsListByName("Woensdag")?.exclude_stadia)
     },
     {
       name: "Woensdag Avond",
-      primaryStadium: useOnChangeStateAsync(getSettingsListByName("Woensdag Avond")?.primary_stadium),
-      secondaryStadia: useOnChangeStateMultipleAsync(getSettingsListByName("Woensdag Avond")?.secondary_stadia),
-      excludeStadia: useOnChangeStateMultipleAsync(getSettingsListByName("Woensdag Avond")?.exclude_stadia)
+      primaryStadium: useInputState(getSettingsListByName("Woensdag Avond")?.primary_stadium),
+      secondaryStadia: useInputStatePlural(getSettingsListByName("Woensdag Avond")?.secondary_stadia),
+      excludeStadia: useInputStatePlural(getSettingsListByName("Woensdag Avond")?.exclude_stadia)
     },
     {
       name: "Donderdag",
-      primaryStadium: useOnChangeStateAsync(getSettingsListByName("Donderdag")?.primary_stadium),
-      secondaryStadia: useOnChangeStateMultipleAsync(getSettingsListByName("Donderdag")?.secondary_stadia),
-      excludeStadia: useOnChangeStateMultipleAsync(getSettingsListByName("Donderdag")?.exclude_stadia)
+      primaryStadium: useInputState(getSettingsListByName("Donderdag")?.primary_stadium),
+      secondaryStadia: useInputStatePlural(getSettingsListByName("Donderdag")?.secondary_stadia),
+      excludeStadia: useInputStatePlural(getSettingsListByName("Donderdag")?.exclude_stadia)
     },
     {
       name: "Donderdag Avond",
-      primaryStadium: useOnChangeStateAsync(getSettingsListByName("Donderdag Avond")?.primary_stadium),
-      secondaryStadia: useOnChangeStateMultipleAsync(getSettingsListByName("Donderdag Avond")?.secondary_stadia),
-      excludeStadia: useOnChangeStateMultipleAsync(getSettingsListByName("Donderdag Avond")?.exclude_stadia)
+      primaryStadium: useInputState(getSettingsListByName("Donderdag Avond")?.primary_stadium),
+      secondaryStadia: useInputStatePlural(getSettingsListByName("Donderdag Avond")?.secondary_stadia),
+      excludeStadia: useInputStatePlural(getSettingsListByName("Donderdag Avond")?.exclude_stadia)
     },
     {
       name: "Vrijdag",
-      primaryStadium: useOnChangeStateAsync(getSettingsListByName("Vrijdag")?.primary_stadium),
-      secondaryStadia: useOnChangeStateMultipleAsync(getSettingsListByName("Vrijdag")?.secondary_stadia),
-      excludeStadia: useOnChangeStateMultipleAsync(getSettingsListByName("Vrijdag")?.exclude_stadia)
+      primaryStadium: useInputState(getSettingsListByName("Vrijdag")?.primary_stadium),
+      secondaryStadia: useInputStatePlural(getSettingsListByName("Vrijdag")?.secondary_stadia),
+      excludeStadia: useInputStatePlural(getSettingsListByName("Vrijdag")?.exclude_stadia)
     },
     {
       name: "Vrijdag Avond",
-      primaryStadium: useOnChangeStateAsync(getSettingsListByName("Vrijdag Avond")?.primary_stadium),
-      secondaryStadia: useOnChangeStateMultipleAsync(getSettingsListByName("Vrijdag Avond")?.secondary_stadia),
-      excludeStadia: useOnChangeStateMultipleAsync(getSettingsListByName("Vrijdag Avond")?.exclude_stadia)
+      primaryStadium: useInputState(getSettingsListByName("Vrijdag Avond")?.primary_stadium),
+      secondaryStadia: useInputStatePlural(getSettingsListByName("Vrijdag Avond")?.secondary_stadia),
+      excludeStadia: useInputStatePlural(getSettingsListByName("Vrijdag Avond")?.exclude_stadia)
     },
     {
       name: "Zaterdag Weekend",
-      primaryStadium: useOnChangeStateAsync(getSettingsListByName("Zaterdag Weekend")?.primary_stadium),
-      secondaryStadia: useOnChangeStateMultipleAsync(getSettingsListByName("Zaterdag Weekend")?.secondary_stadia),
-      excludeStadia: useOnChangeStateMultipleAsync(getSettingsListByName("Zaterdag Weekend")?.exclude_stadia)
+      primaryStadium: useInputState(getSettingsListByName("Zaterdag Weekend")?.primary_stadium),
+      secondaryStadia: useInputStatePlural(getSettingsListByName("Zaterdag Weekend")?.secondary_stadia),
+      excludeStadia: useInputStatePlural(getSettingsListByName("Zaterdag Weekend")?.exclude_stadia)
     },
     {
       name: "Zondag Weekend",
-      primaryStadium: useOnChangeStateAsync(getSettingsListByName("Zondag Weekend")?.primary_stadium),
-      secondaryStadia: useOnChangeStateMultipleAsync(getSettingsListByName("Zondag Weekend")?.secondary_stadia),
-      excludeStadia: useOnChangeStateMultipleAsync(getSettingsListByName("Zondag Weekend")?.exclude_stadia)
+      primaryStadium: useInputState(getSettingsListByName("Zondag Weekend")?.primary_stadium),
+      secondaryStadia: useInputStatePlural(getSettingsListByName("Zondag Weekend")?.secondary_stadia),
+      excludeStadia: useInputStatePlural(getSettingsListByName("Zondag Weekend")?.exclude_stadia)
     }
   ]
 
