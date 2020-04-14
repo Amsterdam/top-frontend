@@ -41,17 +41,20 @@ const USER_DROPDOWNS = [
   'Handhaver',
 ]
 
+type DayPart = "day" | "evening"
 type FormValues = {
-  num: number,
-  dayPart: 'day' | 'evening'
+  num: number
+  dayPart: DayPart
   users: Array<undefined | null | string>
 }
 
-const getListSettingsForDayPart = (settings: PlanningSettings, dayPart:string, startAddressCaseId?:string) => {
+const getListSettingsForDayPart = (settings: PlanningSettings, dayPart: DayPart, startAddressCaseId?: string) => {
   const day = (new Date()).getDay()
+  // @TODO: Extract this to lib/util function
   const dayIndex = day - 1 < 0 ? 6 : day - 1 // correct sunday => 6
   const dayLists = listsDay(settings.lists, dayIndex)
-  const lists = dayLists.length >= 3 && dayPart === "evening" ? dayLists[2] : dayLists[0]
+  // @TODO: Extract this to config/planning.ts
+  const lists = dayLists.length >= 2 && dayPart === "evening" ? dayLists[1] : dayLists[0]
   return {...settings, lists, startAddressCaseId}
 }
 
