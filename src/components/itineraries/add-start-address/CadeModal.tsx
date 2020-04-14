@@ -8,7 +8,7 @@ type Props = {
 }
 
 const CaseModal: React.FC<Props> = ({ caseId }) => (
-  <DefaultModal title='Case details'>
+  <DefaultModal title='Zaakinformatie'>
     <Case caseId={caseId}/>
   </DefaultModal>
 )
