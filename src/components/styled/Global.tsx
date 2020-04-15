@@ -1,5 +1,6 @@
 import { createGlobalStyle } from "styled-components"
 
+// @TODO: Eventually all / most of these styling should be moved into components. Only using ASC GlobalStyle
 const Global = createGlobalStyle`
 
   h1, p, a {
@@ -20,6 +21,7 @@ const Global = createGlobalStyle`
   }
 
   // IE11
+  // @TODO: Check if ASC Global Styling already sets this
   main {
     display: block;
   }
