@@ -5,16 +5,14 @@ import { Enlarge, Minimise, TrashBin, DocumentText, Ellipsis, Close } from "@dat
 import noop from "../../lib/utils/noop"
 
 type Props = {
-  icon?: "Enlarge" | "Minimise" | "TrashBin" | "DocumentText" | "Ellipsis" | "Close"
+  className?: ClassName
+  type?: "submit" | "reset" | "button"
+  icon?: keyof typeof iconMap
   iconNode?: ReactNode
   onClick?: (a: MouseEvent) => void
   size?: number
   border?: boolean
   disabled?: boolean
-
-  // By adding this property we make IconButton stylable through styled-components.
-  // https://styled-components.com/docs/advanced#styling-normal-react-components
-  className?: string
 }
 
 const iconMap = {
@@ -26,10 +24,20 @@ const iconMap = {
   "Close": <Close />
 }
 
-const IconButton: FC<Props> = ({ className, icon, iconNode, onClick = noop, size = 44, border = true, disabled = false }) => {
+const IconButton: FC<Props> = ({ className, icon, iconNode, type = "button", onClick = noop, size = 44, border = true, disabled = false }) => {
   const Component = border ? StyledButton : Button
   const iconElement = icon !== undefined ? iconMap[icon] : iconNode
-  return <Component onClick={ onClick } size={ size } variant="blank" icon={ iconElement } disabled={ disabled } className={className} />
+  return (
+    <Component
+      className={ className }
+      type={ type }
+      onClick={ onClick }
+      size={ size }
+      variant="blank"
+      icon={ iconElement }
+      disabled={ disabled }
+      />
+  )
 }
 
 export default IconButton
