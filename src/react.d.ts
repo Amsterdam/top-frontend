@@ -11,3 +11,5 @@ declare type OnChangeHandler = (a: ChangeEventInput) => void
 type Value = string | ReactNode
 declare type KeyValueDetail = Value | [string, Value]
 declare type KeyValueDetails = KeyValueDetail[]
+
+declare type ClassName = string

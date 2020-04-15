@@ -7,8 +7,8 @@ type Props = {
   children: ReactNode
 }
 
+// @TODO: This styling is copied from ASC. Find a better way to apply Button styling.
 const StyledLink = styled(Link)`
-  height: 18px
   white-space: nowrap
   display: inline-flex
   -webkit-box-align: center
@@ -28,6 +28,9 @@ const StyledLink = styled(Link)`
     height: 18px
     margin-right: 12px
   }
+
+  // override global styling
+  margin-bottom: 0
 `
 
 const ButtonAnchor: FC<Props> = ({ to, children }) =>

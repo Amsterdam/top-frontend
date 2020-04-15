@@ -1,6 +1,6 @@
 import React, { FC } from "react"
 import { RouteComponentProps } from "@reach/router"
-import Navigation from "../components/global/Navigation"
+import Navigation from "../components/global/navigation/Navigation"
 import Suggestions from "../components/search/Suggestions"
 import ErrorMessage from "../components/global/ErrorMessage"
 

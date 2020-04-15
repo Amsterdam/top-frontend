@@ -1,5 +1,5 @@
 import React, { FC } from "react"
-import Navigation from "../components/global/Navigation"
+import Navigation from "../components/global/navigation/Navigation"
 import { RouteComponentProps } from "@reach/router"
 import Notes from "../components/notes/Notes"
 import ErrorMessage from "../components/global/ErrorMessage"

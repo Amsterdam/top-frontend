@@ -1,7 +1,7 @@
 import React, { FC } from "react"
 import { RouteComponentProps } from "@reach/router"
 import Search from "../components/search/Search"
-import Navigation from "../components/global/Navigation"
+import Navigation from "../components/global/navigation/Navigation"
 // @TODO: Move this to Search Component
 import ItinerarySearchResultButtons from "../components/search/itinerary/ItinerarySearchResultButtons"
 

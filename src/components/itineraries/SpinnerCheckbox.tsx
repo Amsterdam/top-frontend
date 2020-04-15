@@ -1,45 +1,47 @@
-import React, {MouseEvent, useEffect, useState} from "react"
+import React, {MouseEvent, useCallback, useEffect, useState} from "react"
 import styled from "styled-components"
-import { Checkbox, Spinner  } from "@datapunt/asc-ui"
+import { Checkbox, Spinner, color } from "@datapunt/asc-ui"
 
 type Props = {
   checked: boolean
   onChange: (event:MouseEvent<HTMLInputElement>)=> void
 }
 
-// Because Spinner `size` is somewhat magically calculated
-// I had to destruct the following variables:
-const BORDER_WIDTH = 1
-const PADDING = 2
-const MARGIN = 6
-const WIDTH = 36
-
 // Calculate spinner size:
-const SIZE = WIDTH - PADDING * 2 - MARGIN * 2 - BORDER_WIDTH * 2
+const BORDER_WIDTH = 1
+const DIM = 24
+const SIZE = DIM - 2 * BORDER_WIDTH
 
-const StyledSpinner = styled(Spinner)`  
-  padding: ${PADDING}px;
-  border: ${BORDER_WIDTH}px solid black;  
-  margin: ${MARGIN}px;
+const SpinnerWrap = styled.div`
+  border: 1px solid ${ color("tint", "level7" ) };
+  margin: 6px;
+  width: ${ DIM }px
+  height: ${ DIM }px
+`
+
+const Wrap = styled.div`
+  cursor: pointer;
 `
 
 const SpinnerCheckbox:React.FC<Props> = ({ onChange, checked }) => {
-  const [ isLoading, setIsLoading ] = useState(false)
+  const [ isSpinning, setIsSpinning ] = useState(false)
 
-  const handleOnChange = (event:MouseEvent<HTMLInputElement>) => {
-    // Whenever the user makes a change, setIsLoading `true`.
-    setIsLoading(true)
+  const handleOnChange = useCallback((event:MouseEvent<HTMLInputElement>) => {
+    // Whenever the user makes a change, setIsSpinning `true`.
+    setIsSpinning(true)
     onChange(event)
-  }
+  }, [setIsSpinning, onChange])
 
   useEffect(() => {
-    // Whenever 'checked' changes, setIsLoading `false`.
-    setIsLoading(false)
-  }, [checked, setIsLoading])
+    // Whenever 'checked' changes, setIsSpinning `false`.
+    setIsSpinning(false)
+  }, [checked, setIsSpinning])
 
-  return isLoading
-    ? (<StyledSpinner size={SIZE} />)
-    : (<Checkbox checked={checked} onChange={handleOnChange} />)
+  return <Wrap>
+    { isSpinning
+      ? (<SpinnerWrap><Spinner size={ SIZE } /></SpinnerWrap>)
+      : (<Checkbox checked={checked} onChange={handleOnChange} />)}
+  </Wrap>
 }
 
 export default SpinnerCheckbox

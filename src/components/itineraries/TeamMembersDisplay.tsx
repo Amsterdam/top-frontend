@@ -5,6 +5,6 @@ type Props = {
 }
 
 const TeamMembersDisplay: FC<Props> = ({ teamMembers }) =>
-  <p>{ teamMembers.map(({ id, user: { full_name } }) => full_name).join(", ") }</p>
+  <p className="anonymous">{ teamMembers.map(({ id, user: { full_name } }) => full_name).join(", ") }</p>
 
 export default TeamMembersDisplay

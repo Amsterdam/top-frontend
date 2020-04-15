@@ -2,7 +2,6 @@ import React, { FC, useEffect } from "react"
 import Spinner from "../global/Spinner"
 import ErrorMessage from "../global/ErrorMessage"
 import useGlobalState from "../../hooks/useGlobalState"
-import useMakeStable from "../../hooks/useMakeStable"
 import SearchResults from "../search/SearchResults"
 import H1 from "../styled/H1"
 import Hr from "../styled/Hr"
@@ -25,10 +24,9 @@ const Suggestions: FC<Props> = ({ id }) => {
     }
   } = useGlobalState()
 
-  const getSuggestionsStale = useMakeStable(getSuggestions)
   useEffect(() => {
-    getSuggestionsStale(id)
-  }, [getSuggestionsStale, id])
+    getSuggestions(id)
+  }, [getSuggestions, id])
 
   const showSpinner = !isInitialized || isFetching
   const hasError = errorMessage !== undefined
@@ -47,7 +45,7 @@ const Suggestions: FC<Props> = ({ id }) => {
       { show &&
         <>
           <H1>Voeg een adres toe</H1>
-          <p>Addressen rondom de adressen in je lijst:</p>
+          <p>Adressen rondom de adressen in je lijst:</p>
           <Hr />
           <SearchResults results={ results } actionButtonsComponent={ItinerarySearchResultButtons} />
         </>

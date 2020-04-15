@@ -1,5 +1,6 @@
 import React, { FC } from "react"
 import { Link } from "@reach/router"
+import styled from "styled-components"
 import SearchResultWrap from "./SearchResultWrap"
 import SearchResultMenu from "./SearchResultMenu"
 import SearchResultAddress from "./SearchResultAddress"
@@ -13,6 +14,11 @@ type Props = {
   actionButtonsComponent?:ActionButtonsComponentType
   caseTo?: CaseTo
 }
+
+const StyledLink = styled(Link)`
+  width: 100%
+  display: block
+`
 
 const SearchResultSingle: FC<Props> = ({ caseItem, actionButtonsComponent, caseTo }) => {
   const {
@@ -38,23 +44,23 @@ const SearchResultSingle: FC<Props> = ({ caseItem, actionButtonsComponent, caseT
   const ActionButtonsComponent = actionButtonsComponent
 
   return (
-    <Link to={ caseTo ? caseTo(caseId) : defaultCaseTo(caseId) }>
-      <SearchResultWrap>
+    <SearchResultWrap>
+      <StyledLink to={ caseTo ? caseTo(caseId) : defaultCaseTo(caseId) }>
         <div>
           <SearchResultAddress address={ address } postalCode={ postalCode } />
           <SearchResultCase reason={ reason } stadium={ stadium } teams={ teams } fraudProbability={ fraudProbability } />
         </div>
-        <SearchResultMenu>
-          { showDistance &&
-            <SearchResultDistance distance={ distance! } />
-          }
-          {
-            ActionButtonsComponent &&
-            <ActionButtonsComponent caseId={caseId} />
-          }
-        </SearchResultMenu>
-      </SearchResultWrap>
-    </Link>
+      </StyledLink>
+      <SearchResultMenu>
+        { showDistance &&
+          <SearchResultDistance distance={ distance! } />
+        }
+        {
+          ActionButtonsComponent &&
+          <ActionButtonsComponent caseId={caseId} />
+        }
+      </SearchResultMenu>
+    </SearchResultWrap>
   )
 }
 export default SearchResultSingle

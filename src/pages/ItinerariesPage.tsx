@@ -1,7 +1,7 @@
 import React, { FC } from "react"
 import { RouteComponentProps } from "@reach/router"
 import ItinerariesMain from "../components/itineraries/ItinerariesMain"
-import Navigation from "../components/global/Navigation"
+import Navigation from "../components/global/navigation/Navigation"
 import parseLocationSearch from "../lib/utils/parseLocationSearch"
 
 type Props = {

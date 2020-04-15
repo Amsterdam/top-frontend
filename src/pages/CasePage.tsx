@@ -1,6 +1,6 @@
 import React, { FC } from "react"
 import Case from "../components/cases/Case"
-import Navigation from "../components/global/Navigation"
+import Navigation from "../components/global/navigation/Navigation"
 import { RouteComponentProps } from "@reach/router"
 
 type Props = RouteComponentProps & {

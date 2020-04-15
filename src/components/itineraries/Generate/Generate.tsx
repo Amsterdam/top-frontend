@@ -9,14 +9,11 @@ import useGlobalState from "../../../hooks/useGlobalState"
 import styled from "styled-components"
 import isWeekDay from "../../../lib/utils/isWeekDay"
 import StartAddress from "../add-start-address/StartAddress"
-import UserDropdown from "./UserDropDown"
 import Modals, {caseTo, openModalTo} from "./Modals"
 import {findByProperty} from "../../../lib/utils/findByProperty"
 import {filterNullish} from "../../../lib/utils/filterNullish"
+import TeamMemberFields from "../TeamMemberFields"
 
-const Label = styled.label`
-  font-weight: bold
-`
 const Label2 = styled.label`
   font-weight: bold
   margin-right: 36px
@@ -34,12 +31,6 @@ const ButtonWrap = styled.div`
   display: flex
   justify-content: flex-end
 `
-
-const USER_DROPDOWNS = [
-  'Toezichthouder 1',
-  'Toezichthouder 2',
-  'Handhaver',
-]
 
 type DayPart = "day" | "evening"
 type FormValues = {
@@ -109,22 +100,11 @@ const Generate: FC = () => {
           const isSubmitButtonDisabled = isFetching
             || filterNullish(values.users).length < 3
             || values.num <= 0
+            || values.num > 20
 
           return (
             <form onSubmit={handleSubmit}>
-              { USER_DROPDOWNS.map((label, index) => (
-                <Div key={index}>
-                  <Label>{ label }</Label>
-                  <Field name={`users[${index}]`}>
-                    { ({input: { onChange, value }}) => (
-                      <UserDropdown users={users ?? []}
-                        onChange={onChange}
-                        value={value}
-                        excludedUsers={values.users}
-                      />)}
-                  </Field>
-                </Div>
-              )) }
+              <TeamMemberFields users={users ?? []} alreadySelectedUserIds={values.users}/>
               <Div>
                 <p>Wat voor looplijst wil je maken?</p>
                 { showWeekDay
@@ -163,7 +143,7 @@ const Generate: FC = () => {
                 <p>Hoeveel adressen wil je in je looplijst?</p>
                 <div>
                   <Field name="num">
-                    { props => <StyledInput value={props.input.value} onChange={props.input.onChange} type="number" /> }
+                    { props => <StyledInput value={props.input.value} onChange={props.input.onChange} type="number" min='0' max='20' step='1' /> }
                   </Field>
                 </div>
               </Div>

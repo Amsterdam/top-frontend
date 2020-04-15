@@ -136,7 +136,7 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions, ItinerariesSe
     dispatch(createAdd(id, itineraries))
   }
 
-  const move = (index: Index, newIndex: Index) => {
+  const move = (id: Id, index: Index, newIndex: Index) => {
     const patchPosition = async (id: Id, position: ItineraryPosition) => {
       const url = getUrl(`itinerary-items/${ id }`)
       const [response, result] = await patch(url, { position })
@@ -147,12 +147,13 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions, ItinerariesSe
     }
 
     const { itineraries } = state
-    if (itineraries.length === 0) return
-    const { items } = itineraries[0]
+    const itinerary = itineraries.find(itinerary => itinerary.id === id)
+    if (itinerary === undefined) return
+    const { items } = itinerary
     const position = calculateNewPosition(items, index, newIndex)
-    const id = items[index].id
-    dispatch(createMove(index, newIndex))
-    patchPosition(id, position)
+    const itineraryItemId = items[index].id
+    dispatch(createMove(id, index, newIndex))
+    patchPosition(itineraryItemId, position)
   }
 
   const remove = async (id: Id) => {

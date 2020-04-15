@@ -31,9 +31,8 @@ const Wrap = styled.div`
 const ButtonWrap = styled.div`
   display: flex
   justify-content: space-between
-  margin-bottom: 12px
   border-bottom: 1px solid #B4B4B4
-  padding-bottom: 4px
+  padding-bottom: 12px
   button {
     max-width: 48%
     overflow: hidden
@@ -98,7 +97,7 @@ const Itinerary: FC<Props> = ({ itinerary }) => {
         <MapsButton cases={ itineraryToCases(itinerary) } />
         <ButtonAnchor to={ to(`suggesties/${ id }`) }><Enlarge /> Voeg adres toe</ButtonAnchor>
       </ButtonWrap>
-      <DroppableItinerary itineraryItems={ items } />
+      <DroppableItinerary id={ id } itineraryItems={ items } />
     </div>
   )
 }

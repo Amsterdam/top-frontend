@@ -13,6 +13,8 @@ type Props = {
 const StyledButton = styled(Button)`
   padding: 12px
 `
+// @TODO: Rename this, so there is no confusion with global Modal
+// @TODO: Move to seperate component
 const Modal = styled.div`
   position: absolute
   z-index: 9
@@ -48,6 +50,7 @@ const ItinerarySearchResultButtons: FC<Props> = ({ caseId }) => {
   } = useGlobalState()
 
   const length = itineraries !== undefined ? itineraries.length : 0
+  const hasNoItineraries = length === 0
   const hasSingleItinerary = length === 1
   const hasMultiItineraries = length > 1
 
@@ -89,7 +92,7 @@ const ItinerarySearchResultButtons: FC<Props> = ({ caseId }) => {
   const isItinerary = userHasItinerary(caseId)
   const showAddButton = isItinerary === false
   const showRemoveButton = !showAddButton
-  const disabled = isFetching
+  const disabled = isFetching || hasNoItineraries
 
   return (
     <div>
