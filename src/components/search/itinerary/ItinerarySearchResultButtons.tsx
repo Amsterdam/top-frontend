@@ -64,14 +64,12 @@ const ItinerarySearchResultButtons: FC<Props> = ({ caseId }) => {
 
   const onClickAdd = (event: FormEvent) => {
     event.preventDefault()
-    event.stopPropagation()
     if (hasSingleItinerary) addToItinerary(itineraries[0], caseId)
     if (hasMultiItineraries) setShowModal(true)
   }
 
   const onClickRemove = (event: FormEvent) => {
     event.preventDefault()
-    event.stopPropagation()
     const itinerary = itineraries !== undefined ? getItineraryByCaseId(itineraries, caseId) : undefined
     if (itinerary === undefined) return
     const itineraryItem = itinerary !== undefined ? itinerary.items.find(({ case: { bwv_data: { case_id } } }) => case_id === caseId) : undefined
@@ -83,13 +81,11 @@ const ItinerarySearchResultButtons: FC<Props> = ({ caseId }) => {
 
   const onClickModal = (itinerary: Itinerary) => (event: FormEvent) => {
     event.preventDefault()
-    event.stopPropagation()
     addToItinerary(itinerary, caseId)
   }
 
   const onClickModalClose = (event: FormEvent) => {
     event.preventDefault()
-    event.stopPropagation()
     setShowModal(false)
   }
 
