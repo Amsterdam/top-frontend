@@ -1,4 +1,4 @@
-import { useReducer } from "react"
+import {useCallback, useReducer} from "react"
 import reducer, {
   initialState,
   createStartFetching,
@@ -14,7 +14,7 @@ const useUsers = () : [UsersState, UsersActions] => {
   // @TODO: Remove `as never`
   const [state, dispatch] = useReducer(reducer, initialState as never)
 
-  const initialize = async () => {
+  const initialize = useCallback(async () => {
     dispatch(createStartFetching())
 
     const [response, result] = await get(getUrl("users"))
@@ -26,15 +26,13 @@ const useUsers = () : [UsersState, UsersActions] => {
     // Set results
     const { results } = result
     dispatch(createSetResults(results))
-  }
+  }, [dispatch])
 
-  const clear = () => {
+  const clear = useCallback(() => {
     dispatch(createClear())
-  }
+  }, [dispatch])
 
-  const actionCreators = { initialize, clear }
-
-  return [state, actionCreators]
+  return [state, { initialize, clear }]
 }
 
 export default useUsers
