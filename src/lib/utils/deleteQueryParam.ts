@@ -1,8 +1,10 @@
 import parseLocationSearch from "./parseLocationSearch"
 import queryParams from "./queryParams"
 
-export const deleteQueryParam = (search:string, param:string) => {
+export const deleteQueryParam = (search:string, params:string[]) => {
   const parsed = parseLocationSearch(search)
-  delete parsed[param]
+  for (const param of params) {
+    delete parsed[param]
+  }
   return queryParams(parsed)
 }
