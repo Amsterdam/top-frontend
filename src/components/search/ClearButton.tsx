@@ -15,7 +15,7 @@ const StyledButton = styled(Button)`
 `
 
 const ClearButton: FC<Props> = ({ onClick = noop }) =>
-  <StyledButton variant="textButton" onClick={ onClick }>
+  <StyledButton type='reset' variant="textButton" onClick={ onClick }>
     <ResponsiveText text={ ["Wis", "Wis velden"] } />
   </StyledButton>
 
