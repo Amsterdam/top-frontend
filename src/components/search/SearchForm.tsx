@@ -6,7 +6,8 @@ import InputBase from "../styled/Input"
 import useGlobalState from "../../hooks/useGlobalState"
 import ClearButton from "./ClearButton"
 import { desktop } from "../../responsiveness/mediaQueries"
-import {Form, Field, FieldRenderProps} from "react-final-form"
+import {Form} from "react-final-form"
+import {FormField} from "../form-components/FormComponents"
 
 const Label = styled.label`
   font-weight: 500
@@ -67,16 +68,6 @@ type FormValues = {
   suffix?: string
 }
 
-// @TODO create adapters (or even fields) for all common input-types:
-const InputAdapter:React.FC<FieldRenderProps<string>> = ({input, ...rest}) => (
-  <Input
-    {...input}
-    {...rest}
-    onChange={input.onChange}
-    value={input.value}
-  />
-)
-
 const SearchForm: FC = () => {
   const {
     search: {
@@ -108,20 +99,20 @@ const SearchForm: FC = () => {
           <form onSubmit={ handleSubmit }>
             <InputWrapPostalCode>
               <Label>postcode</Label>
-              <Field
-                component={InputAdapter}
+              <FormField
+                component={Input}
                 name='postalCode'
                 type="text"
                 pattern="\s*[1-9][0-9]{3}\s?[a-zA-Z]{2}\s*"
                 title="Geldige postcodes zijn in de 1234AA of 1234 aa"
                 required
-                autoFocus
+                autofocus
               />
             </InputWrapPostalCode>
             <InputWrapStreetNumber>
               <Label>huisnr.</Label>
-              <Field
-                component={InputAdapter}
+              <FormField
+                component={Input}
                 name='streetNumber'
                 type="number"
                 min="1"
@@ -133,8 +124,8 @@ const SearchForm: FC = () => {
             </InputWrapStreetNumber>
             <InputWrap>
               <Label>hslt.&nbsp;/&nbsp;etage</Label>
-              <Field
-                component={InputAdapter}
+              <FormField
+                component={Input}
                 name='suffix'
                 type="text"
               />
