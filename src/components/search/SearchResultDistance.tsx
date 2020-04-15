@@ -10,6 +10,7 @@ const P = styled.p`
   padding: 0 6px
   font-weight: normal
   color: black
+  white-space: nowrap
 `
 
 const SearchResultDistance: FC<Props> = ({ distance }) => {
