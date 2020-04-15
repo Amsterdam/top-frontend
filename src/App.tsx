@@ -17,6 +17,8 @@ import SettingsPage from "./pages/SettingsPage"
 import NotFoundPage from "./pages/NotFoundPage"
 import PageOverlay from "./components/global/PageOverlay"
 import AuthSession from "./components/auth/AuthSession"
+import { GlobalStyle } from "@datapunt/asc-ui"
+import GlobalStyleApp from "./components/styled/Global"
 
 const Main = styled.main`
   margin: 15px
@@ -24,36 +26,40 @@ const Main = styled.main`
 `
 
 const App: FC = () => (
-    <StateProvider>
-      <ThemeProvider>
-        <Anonymous />
-        <div className="App">
-          <HeaderWrap />
-          <PageOverlay />
-          <AuthSession />
-          <Main>
-            <Router basepath={ basepath }>
-              <LoginPage path="/login" />
-              <LoginCallbackPage path="/authentication/callback" />
-              <ItinerariesPage path="/" />
-              <ItinerariesPage path="/itineraries/:id" />
-              <SuggestionsPage path="/suggesties/:id" />
-              <SearchPage path="/zoeken" />
-              <CasePage path="/cases/:caseId" />
-              <NotePage path="/notes/:itineraryItemId" />
-              <NotePage path="/notes/:itineraryItemId/:id" />
-              <SettingsPage path="/settings" />
-              <NotFoundPage default />
-            </Router>
-          </Main>
-          {/*
-            Modals are teleported to this div using React' portals
-            @see https://reactjs.org/docs/portals.html
-          */}
-          <div id='modal-root' />
-        </div>
-      </ThemeProvider>
-    </StateProvider>
-  )
+  <StateProvider>
+    <ThemeProvider>
+
+      <GlobalStyle />
+      <GlobalStyleApp />
+      <Anonymous />
+
+      <div className="App">
+        <HeaderWrap />
+        <PageOverlay />
+        <AuthSession />
+        <Main>
+          <Router basepath={ basepath }>
+            <LoginPage path="/login" />
+            <LoginCallbackPage path="/authentication/callback" />
+            <ItinerariesPage path="/" />
+            <ItinerariesPage path="/itineraries/:id" />
+            <SuggestionsPage path="/suggesties/:id" />
+            <SearchPage path="/zoeken" />
+            <CasePage path="/cases/:caseId" />
+            <NotePage path="/notes/:itineraryItemId" />
+            <NotePage path="/notes/:itineraryItemId/:id" />
+            <SettingsPage path="/settings" />
+            <NotFoundPage default />
+          </Router>
+        </Main>
+        {/*
+          Modals are teleported to this div using React' portals
+          @see https://reactjs.org/docs/portals.html
+        */}
+        <div id='modal-root' />
+      </div>
+    </ThemeProvider>
+  </StateProvider>
+)
 
 export default App
