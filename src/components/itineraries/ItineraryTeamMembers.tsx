@@ -5,7 +5,7 @@ import useGlobalState from "../../hooks/useGlobalState"
 import styled from "styled-components"
 import TeamMembersDisplay from "./TeamMembersDisplay"
 import {Form} from "react-final-form"
-import TeamFields from "./TeamFields"
+import TeamMemberFields from "./TeamMemberFields"
 import {filterNullish} from "../../lib/utils/filterNullish"
 import {findByProperty} from "../../lib/utils/findByProperty"
 
@@ -82,7 +82,7 @@ const ItineraryTeamMembers: FC<Props> = ({ itineraryId, teamMembers, isEditing =
             const authUserIsSelected = values.users.includes(loggedInUser?.id || '')
 
             return (<form onSubmit={handleSubmit}>
-              <TeamFields users={users ?? []} alreadySelectedUserIds={values.users}/>
+              <TeamMemberFields users={users ?? []} alreadySelectedUserIds={values.users}/>
               { !authUserIsSelected &&
                 <ErrorMessage text="Let op! Je bent zelf niet meer als teamlid geselecteerd. Wanneer je op ‘Bewaren’ klikt vervalt je toegang tot deze lijst" />
               }

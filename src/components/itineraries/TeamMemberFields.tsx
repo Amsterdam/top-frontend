@@ -24,7 +24,7 @@ type Props = {
   alreadySelectedUserIds: Array<undefined|null|string>
 }
 
-const TeamFields:React.FC<Props> = ({users, alreadySelectedUserIds}) => <>
+const TeamMemberFields:React.FC<Props> = ({users, alreadySelectedUserIds}) => <>
     { USER_DROPDOWNS.map((label, index) => (
       <Div key={index}>
         <Label>{label}</Label>
@@ -40,4 +40,4 @@ const TeamFields:React.FC<Props> = ({users, alreadySelectedUserIds}) => <>
     ))}
  </>
 
-export default TeamFields
+export default TeamMemberFields

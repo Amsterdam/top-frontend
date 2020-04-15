@@ -12,7 +12,7 @@ import StartAddress from "../add-start-address/StartAddress"
 import Modals, {caseTo, openModalTo} from "./Modals"
 import {findByProperty} from "../../../lib/utils/findByProperty"
 import {filterNullish} from "../../../lib/utils/filterNullish"
-import TeamFields from "../TeamFields"
+import TeamMemberFields from "../TeamMemberFields"
 
 const Label2 = styled.label`
   font-weight: bold
@@ -104,7 +104,7 @@ const Generate: FC = () => {
 
           return (
             <form onSubmit={handleSubmit}>
-              <TeamFields users={users ?? []} alreadySelectedUserIds={values.users}/>
+              <TeamMemberFields users={users ?? []} alreadySelectedUserIds={values.users}/>
               <Div>
                 <p>Wat voor looplijst wil je maken?</p>
                 { showWeekDay
