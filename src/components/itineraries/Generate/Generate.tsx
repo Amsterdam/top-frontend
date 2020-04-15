@@ -1,5 +1,5 @@
 import React, { FC, useState } from "react"
-import { Form, Field } from "react-final-form"
+import { Form } from "react-final-form"
 import { Button } from "@datapunt/asc-ui"
 import {Link} from "@reach/router"
 import H1 from "../../styled/H1"
@@ -119,6 +119,7 @@ const Generate: FC = () => {
                       value='day'
                       id='day'
                       type='radio'
+                      checked={values.dayPart === 'day'}
                     />
                     <Label2 htmlFor="day">daglijst</Label2>
                     <FormField
@@ -127,6 +128,7 @@ const Generate: FC = () => {
                       value='evening'
                       id="evening"
                       type="radio"
+                      checked={values.dayPart === 'evening'}
                     />
                     <Label2 htmlFor="evening">avondlijst</Label2>
                   </>)

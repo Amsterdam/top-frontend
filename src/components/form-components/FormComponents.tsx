@@ -8,11 +8,12 @@ type NativeElementProps = |
 
 interface Props {
   name: string
+  type?: string
   component: React.ComponentType<any>
 }
 
-export const FormField:React.FC<Props & NativeElementProps> = ({name, component: Component, ...restProps}) => (
-  <Field name={name}>
-    { props => (<Component {...props.input} {...restProps} />) }
+export const FormField:React.FC<Props & NativeElementProps> = ({name, type, component: Component, ...restProps}) => (
+  <Field name={name} type={type}>
+    { props => (<Component {...props.input} type={type} {...restProps} />) }
   </Field>
 )
