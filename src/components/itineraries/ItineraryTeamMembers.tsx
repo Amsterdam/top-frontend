@@ -1,10 +1,13 @@
 import React, { FC, FormEvent } from "react"
-import { Select, Button } from "@datapunt/asc-ui"
+import { Button } from "@datapunt/asc-ui"
 import ErrorMessage from "../global/ErrorMessage"
-import useOnChangeState from "../../hooks/useOnChangeState"
 import useGlobalState from "../../hooks/useGlobalState"
 import styled from "styled-components"
 import TeamMembersDisplay from "./TeamMembersDisplay"
+import {Form} from "react-final-form"
+import TeamFields from "./TeamFields"
+import {filterNullish} from "../../lib/utils/filterNullish"
+import {findByProperty} from "../../lib/utils/findByProperty"
 
 type Props = {
   itineraryId: Id
@@ -18,12 +21,6 @@ const Div = styled.div`
   border-bottom: 1px solid #B4B4B4
   margin-bottom: 12px
 `
-const SelectWrap = styled.div`
-  margin-bottom: 12px
-`
-const Label = styled.label`
-  font-weight: bold
-`
 const ButtonWrap = styled.div`
   display: flex
   justify-content: flex-end
@@ -31,6 +28,10 @@ const ButtonWrap = styled.div`
 const StyledButton = styled(Button)`
   margin: 12px
 `
+
+type FormValues = {
+  users: Array<undefined | null | string>
+}
 
 const ItineraryTeamMembers: FC<Props> = ({ itineraryId, teamMembers, isEditing = false, unsetIsEditing }) => {
   const {
@@ -45,74 +46,53 @@ const ItineraryTeamMembers: FC<Props> = ({ itineraryId, teamMembers, isEditing =
     }
   } = useGlobalState()
 
-  const usersArray = users !== undefined ? users : []
-
-  const [teamMember0, onChangeTeamMember0] = useOnChangeState(teamMembers[0].user.id)
-  const [teamMember1, onChangeTeamMember1] = useOnChangeState(teamMembers[1].user.id)
-  const [teamMember2, onChangeTeamMember2] = useOnChangeState(teamMembers[2].user.id)
-  const team: [string, OnChangeHandler][] = [
-    [teamMember0, onChangeTeamMember0],
-    [teamMember1, onChangeTeamMember1],
-    [teamMember2, onChangeTeamMember2]
-  ]
-  const filteredUsers = usersArray.filter(({ id }) => ![teamMember0, teamMember1, teamMember2].includes(id))
-  const authUserIsSelected = team.filter(tuple => {
-    const [id] = tuple
-    if (users === undefined) return false
-    if (authUser === undefined) return false
-    const { email } = authUser
-    if (email === undefined) return false
-    const user = users.find(user => user.email === email)
-    if (user === undefined) return false
-    return user.id === id
-  }).length > 0
+  const initialUsers = teamMembers.map(member => member.user.id)
+  const loggedInUser = findByProperty(users, 'email', authUser?.email)
 
   const onClickClose = (event: FormEvent) => {
     event.preventDefault()
     unsetIsEditing()
   }
 
-  const onSubmit = async (event: FormEvent) => {
-    event.preventDefault()
-    await updateTeam(itineraryId, [teamMember0, teamMember1, teamMember2], !authUserIsSelected)
-    unsetIsEditing()
+  const onSubmit = async (formValues:FormValues) => {
+    const removeItinerary = !formValues.users.includes(loggedInUser?.id)
+
+    await updateTeam(
+      itineraryId,
+      filterNullish(formValues.users),
+      removeItinerary
+    )
+
+    if (!removeItinerary) {
+      unsetIsEditing()
+    }
   }
 
   return (
     <Div>
-      { !isEditing &&
-        <TeamMembersDisplay teamMembers={ teamMembers } />
-      }
-      { isEditing &&
-        <form onSubmit={ onSubmit }>
-          { team.map((tuple, index) => {
-              const [value, onChange] = tuple
-              const user = value !== "" ? usersArray.find(({ id }) => id === value) : undefined
-              const label = index <= 1 ? `Toezichthouder ${ index + 1 }` : "Handhaver"
-              return (
-                <SelectWrap key={ index }>
-                  <Label>{ label }</Label>
-                  <Select value={ value } onChange={ onChange }>
-                    <option value="">-</option>
-                    { user !== undefined &&
-                      <option value={ value }>{ `${ user.full_name }` }</option>
-                    }
-                    { filteredUsers.map(({ id, full_name }) =>
-                      <option key={ id } value={ id }>{ `${ full_name }` }</option>)
-                    }
-                  </Select>
-                </SelectWrap>
-              )
-            })
-          }
-          { !authUserIsSelected &&
-            <ErrorMessage text="Let op! Je bent zelf niet meer als teamlid geselecteerd. Wanneer je op ‘Bewaren’ klikt vervalt je toegang tot deze lijst" />
-          }
-          <ButtonWrap>
-            <StyledButton variant="textButton" onClick={ onClickClose }>Annuleren</StyledButton>
-            <Button variant="secondary">Bewaren</Button>
-          </ButtonWrap>
-        </form>
+      { !isEditing
+          ? (<TeamMembersDisplay teamMembers={ teamMembers } />)
+          : (<Form
+          keepDirtyOnReinitialize={true}
+          onSubmit={onSubmit}
+          initialValues={{users: initialUsers}}
+          render={({handleSubmit, values}) => {
+            // TODO use form-validation for this.
+            const isSubmitDisabled = filterNullish(values.users).length < 3
+            const authUserIsSelected = values.users.includes(loggedInUser?.id || '')
+
+            return (<form onSubmit={handleSubmit}>
+              <TeamFields users={users ?? []} alreadySelectedUserIds={values.users}/>
+              { !authUserIsSelected &&
+                <ErrorMessage text="Let op! Je bent zelf niet meer als teamlid geselecteerd. Wanneer je op ‘Bewaren’ klikt vervalt je toegang tot deze lijst" />
+              }
+              <ButtonWrap>
+                <StyledButton variant="textButton" onClick={ onClickClose }>Annuleren</StyledButton>
+                <Button variant="secondary" disabled={isSubmitDisabled}>Bewaren</Button>
+              </ButtonWrap>
+            </form>)
+          }}
+        />)
       }
     </Div>
   )
