@@ -33,10 +33,6 @@ const ButtonWrap = styled.div`
   justify-content: space-between
   border-bottom: 1px solid #B4B4B4
   padding-bottom: 12px
-  button {
-    max-width: 48%
-    overflow: hidden
-  }
 `
 const ButtonMenuWrap = styled.div`
   position: relative
@@ -95,7 +91,7 @@ const Itinerary: FC<Props> = ({ itinerary }) => {
       <ItineraryTeamMembers itineraryId={ id } teamMembers={ team_members } isEditing={ isEditing } unsetIsEditing={ unsetIsEditing } />
       <ButtonWrap>
         <MapsButton cases={ itineraryToCases(itinerary) } />
-        <ButtonAnchor to={ to(`suggesties/${ id }`) }><Enlarge /> Voeg adres toe</ButtonAnchor>
+        <ButtonAnchor to={ to(`suggesties/${ id }`) } iconLeft={ <Enlarge /> }>Voeg adres toe</ButtonAnchor>
       </ButtonWrap>
       <DroppableItinerary id={ id } itineraryItems={ items } />
     </div>
