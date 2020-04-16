@@ -1,5 +1,6 @@
 import React, { FC } from "react"
 import styled from "styled-components"
+// @TODO: Use ASC breakpoints
 import { mobile, desktop } from "../../responsiveness/mediaQueries"
 
 type Props = {

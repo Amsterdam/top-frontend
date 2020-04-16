@@ -36,6 +36,7 @@ export type StateContextValue = {
   }
 }
 
+// @TODO: Can we remove this default value (duplicate code) altogether?
 const value = {
   state: {
     auth: authState,
