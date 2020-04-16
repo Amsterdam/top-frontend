@@ -1,6 +1,7 @@
 import React from 'react'
 import {FormField} from "../form-components/FormComponents"
 import styled from "styled-components"
+import {isRequired} from "../form-components/validators/isRequired"
 
 const REASONS = [
   'Bed en breakfast 2019',
@@ -43,6 +44,7 @@ const ReasonCheckboxes: React.FC = () => <>
         component='input'
         type='checkbox'
         value={reason}
+        validate={isRequired}
       />
       <label htmlFor={`projects-${i}`}>
         { reason }

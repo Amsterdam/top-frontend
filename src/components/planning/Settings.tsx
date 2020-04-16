@@ -1,11 +1,15 @@
 import React, { FC } from "react"
 import { Form } from "react-final-form"
-import { Input, breakpoint } from "@datapunt/asc-ui"
+import {Input, breakpoint, Spinner, Button, color} from "@datapunt/asc-ui"
 import styled from "styled-components"
 import JSONDisplay from "./JSONDisplay"
 import DayPartSettings from "./DayPartSettings"
 import {FormField} from "../form-components/FormComponents"
-import ReasonCheckboxes from "./ReasonCheckboxes"
+import ProjectsCheckboxes from "./ReasonCheckboxes"
+import useGlobalState from "../../hooks/useGlobalState"
+import ErrorMessage from "../global/ErrorMessage"
+import SmallSpinner from "../global/SmallSpinner"
+import {isRequired} from "../form-components/validators/isRequired"
 
 const Wrap = styled.div`
   margin-bottom: 100px
@@ -25,7 +29,22 @@ const ColumnWrap = styled(Div)`
   }
 `
 
-const DAYS = [
+const ButtonWrap = styled.div`
+  position: fixed
+  width: 100%
+  bottom: 0
+  left: 0
+  display: flex
+  background-color: ${ color("tint", "level1") };
+  border-top: 1px solid ${ color("tint", "level5") }
+  justify-content: flex-end
+  padding: 18px
+  button {
+    margin-left: 12px
+  }
+`
+
+const DAY_PARTS = [
   'Maandag',
   'Maandag avond',
   'Dinsdag',
@@ -40,25 +59,34 @@ const DAYS = [
   'Weekend avond'
 ]
 
-const INITIAL_LIST = DAYS.map(day => ({ name: day }))
-
-// @TODO these are the initialValues when we don't have any values yet. (e.g. 'Schone lei')
-// Replace this object when we do have values coming
-const INITIAL_VALUES = {
-  lists: INITIAL_LIST
-}
-
 const Settings: FC = () => {
-  const onSubmit = (values:any) => {
-    console.log(values)
+  const {
+    planningSettings: {
+      isFetching,
+      isUpdating,
+      data,
+      errorMessage
+    },
+    planningSettingsActions: {
+      saveSettings
+    }
+  } = useGlobalState()
+
+  const onSubmit = (values:PlanningSettings) => {
+    saveSettings(
+      values.opening_date,
+      values.projects,
+      values.lists
+    )
   }
 
-  return (
-    <Wrap>
+  return isFetching
+  ? <Spinner />
+  : <Wrap>
         <Form
           onSubmit={onSubmit}
-          initialValues={INITIAL_VALUES}
-          render={({ handleSubmit, values }) => (<>
+          initialValues={data?.settings}
+          render={({ handleSubmit, values, hasValidationErrors }) => (<>
             <form onSubmit={handleSubmit}>
               <h1>Peildatum</h1>
               <Div>
@@ -67,21 +95,26 @@ const Settings: FC = () => {
                     component={Input}
                     name='opening_date'
                     type='date'
+                    validate={isRequired}
                   />
                 </DateInputWrap>
               </Div>
               <ColumnWrap>
-                <ReasonCheckboxes />
+                <ProjectsCheckboxes />
               </ColumnWrap>
               <ColumnWrap>
-                { DAYS.map((day, index) => <DayPartSettings key={index} index={index} day={day}/>)}
+                { DAY_PARTS.map((day, index) => <DayPartSettings key={index} index={index} day={day}/>)}
               </ColumnWrap>
-              <JSONDisplay json={ values } />
+              <ButtonWrap>
+                { errorMessage && <ErrorMessage text={ errorMessage! } />}
+                { isUpdating && <SmallSpinner />}
+                <Button variant="secondary" disabled={isUpdating || hasValidationErrors}>Bewaren</Button>
+              </ButtonWrap>
             </form>
+            <JSONDisplay json={ values } />
           </>)}
         />
     </Wrap>
-  )
 }
 
 export default Settings

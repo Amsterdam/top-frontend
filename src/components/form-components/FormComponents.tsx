@@ -25,6 +25,7 @@ type ComponentProps = {
 type Props = {
   name: string
   type?: string
+  validate?: (value:any) => any|undefined
   component: React.ComponentType<any> | 'input' | 'textarea' | 'select'
 }
 
@@ -52,9 +53,9 @@ type Props = {
  * <FormField component={StyledInput} name='foo' />
  * <FormField component={StyledTextArea} cols={10} name='foo' />
  */
-export const FormField:React.FC<NativeElementProps & Props> = ({ component: Component, children, ...props }) =>
+export const FormField:React.FC<NativeElementProps & Props> = ({ component: Component, children, validate, ...props }) =>
   (typeof Component === 'string')
-    ? (<Field component={Component} {...props}>{children}</Field>)
-    : (<Field name={props.name} type={props.type}>
+    ? (<Field component={Component} validate={validate} {...props}>{children}</Field>)
+    : (<Field name={props.name} type={props.type} validate={validate}>
         { fieldRenderProps => (<Component {...fieldRenderProps.input} {...props}>{children}</Component>) }
       </Field>)

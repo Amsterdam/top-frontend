@@ -2,6 +2,7 @@ import {FormField} from "../form-components/FormComponents"
 import React from "react"
 import styled from "styled-components"
 import {color} from "@datapunt/asc-ui"
+import {isRequired} from "../form-components/validators/isRequired"
 
 // TODO add custom checkboxes
 const CheckboxRow = styled.div`
@@ -42,6 +43,7 @@ export const StadiumSettings:React.FC<Props> = ({ dayIndex, fieldName }) => (
           name={fieldName}
           value={value}
           type='checkbox'
+          validate={isRequired}
         />
         <label htmlFor={`${fieldName}-${dayIndex}-${index}`}>
           { value }

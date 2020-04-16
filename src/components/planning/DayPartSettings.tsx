@@ -17,7 +17,7 @@ const H4 = styled.h4`
   margin: 18px 0 4px
 `
 
-const PRIMARY_VALUES = [
+const OPTIONS = [
   'Onderzoek buitendienst',
   '2de Controle',
   '3de Controle',
@@ -35,9 +35,12 @@ const DayPartSettings:React.FC<Props> = ({day, index: dayIndex}) => (
     <h1>{day}</h1>
     <H4>1. Zoveel mogelijk</H4>
 
-    <FormField name={`lists[${dayIndex}].primary_stadium`} component={Select}>
+    <FormField
+      name={`lists[${dayIndex}].primary_stadium`}
+      component={Select}
+    >
       <option value="">Geen</option>
-      { PRIMARY_VALUES.map(value => (<option key={value} value={value}>{value}</option>)) }
+      { OPTIONS.map(value => (<option key={value} value={value}>{value}</option>)) }
     </FormField>
 
     <H4>2. Aanvullen met</H4>
