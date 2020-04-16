@@ -168,7 +168,7 @@ const Settings: FC = () => {
     event.preventDefault()
     if (!isValidFormState) return
     const newLists = lists.map(({ name, primaryStadium, secondaryStadia, excludeStadia }) => ({
-      name: name,
+      name,
       primary_stadium: primaryStadium[0] || undefined,
       secondary_stadia: secondaryStadia[0],
       exclude_stadia: excludeStadia[0]
