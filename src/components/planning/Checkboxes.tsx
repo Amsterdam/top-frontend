@@ -6,25 +6,18 @@ type Options = Option[]
 type Props = {
   options: Options
   state: Options
-  setState: SetState
+  onChangeHOF: OnChangeHandlerHOF
   name?: string
   className?: ClassName
 }
-const Checkboxes: FC<Props> = ({ options, state, setState, name = "", className }) => {
-  const onChange = (option: Option) => (event: ChangeEventInput) => {
-    const add = () => setState(state.concat(option))
-    const remove = () => setState(state.filter(item => item !== option))
-    event.target.checked ? add() : remove()
-  }
-
-  return (
+const Checkboxes: FC<Props> = ({ options, state, onChangeHOF, name = "", className }) => (
     <div className={ className }>
     { options.map(option => {
         const id = `${ name ? `${ name }-` : " " }${ option }`
         const checked = state.includes(option)
         return (
           <div key={ option }>
-            <Checkbox id={ id } checked={ checked } onChange={ onChange(option) } />
+            <Checkbox id={ id } checked={ checked } onChange={ onChangeHOF(option) } />
             <label htmlFor={ id }>{ option }</label>
           </div>
         )
@@ -32,5 +25,4 @@ const Checkboxes: FC<Props> = ({ options, state, setState, name = "", className 
     }
     </div>
   )
-}
 export default Checkboxes

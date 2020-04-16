@@ -9,16 +9,15 @@ const useInputState = (value = "") : [string, OnChangeHandler, SetState] => {
 }
 export default useInputState
 
-export const useInputStatePlural = (defaultState: string[] = []) : [string[], OnChangeHandler, SetState] => {
+export const useInputStatePlural = (defaultState: string[] = []) : [string[], OnChangeHandlerHOF, SetState] => {
   const [firstDefaultState] = useState(defaultState)
 
   const [state, setState] = useState(defaultState)
 
-  const onChange = (event: ChangeEventInput) => {
-    const values = (Array.from(event.target.options) as { selected: boolean, value: string }[])
-      .filter(option => option.selected)
-      .map(option => option.value)
-    setState(values)
+  const onChangeHOF = (option: string) => (event: ChangeEventInput) => {
+    const add = () => setState(state.concat(option))
+    const remove = () => setState(state.filter(item => item !== option))
+    event.target.checked ? add() : remove()
   }
 
   useEffect(() => {
@@ -26,5 +25,5 @@ export const useInputStatePlural = (defaultState: string[] = []) : [string[], On
     setState(defaultState)
   }, [firstDefaultState, defaultState])
 
-  return [state, onChange, setState]
+  return [state, onChangeHOF, setState]
 }

@@ -73,7 +73,7 @@ const Settings: FC = () => {
   const [date, onChangeDate] = useInputState(opening_date)
 
   // projects
-  const [checkedProjects,, setProjects] = useInputStatePlural(projects)
+  const [checkedProjects, projectsOnChangeHOF] = useInputStatePlural(projects)
 
   // stadia
   const getSettingsListByName = (name: string) => settingsLists?.find(({ name: n }) => n === name)
@@ -189,7 +189,7 @@ const Settings: FC = () => {
 
           <h1>Openingsredenen</h1>
           <ColumnWrap>
-            <Checkboxes options={ allProjects } state={ checkedProjects! } setState={ setProjects } />
+            <Checkboxes options={ allProjects } state={ checkedProjects! } onChangeHOF={ projectsOnChangeHOF } />
           </ColumnWrap>
 
           <Hr />
@@ -209,9 +209,9 @@ const Settings: FC = () => {
                     <H4>1. Zoveel mogelijk</H4>
                     <StadiaSelect selected={ primaryStadium[0] } onChange={ primaryStadium[1] } />
                     <H4>2. Aanvullen met</H4>
-                    <StyledCheckboxes name={ `${ name }-secondary` } options={ stadia! } state={ secondaryStadia[0] } setState={ secondaryStadia[2] } />
+                    <StyledCheckboxes name={ `${ name }-secondary` } options={ stadia! } state={ secondaryStadia[0] } onChangeHOF={ secondaryStadia[1] } />
                     <H4>3. Uitsluiten</H4>
-                    <StyledCheckboxes name={ `${ name }-exclude` } options={ stadia! } state={ excludeStadia[0] } setState={ excludeStadia[2] } />
+                    <StyledCheckboxes name={ `${ name }-exclude` } options={ stadia! } state={ excludeStadia[0] } onChangeHOF={ excludeStadia[1] } />
                   </Div>
                 )
               })
