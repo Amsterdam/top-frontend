@@ -9,7 +9,7 @@ const useInputState = (value = "") : [string, OnChangeHandler, SetState] => {
 }
 export default useInputState
 
-export const useInputStatePlural = (defaultState: string[] = []) : [string[], OnChangeHandlerHOF, SetState] => {
+export const useInputStateMany = (defaultState: string[] = []) : [string[], OnChangeHandlerHOF, SetState] => {
   const [firstDefaultState] = useState(defaultState)
 
   const [state, setState] = useState(defaultState)
