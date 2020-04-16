@@ -6,9 +6,8 @@ import Hr from "../styled/Hr"
 import useGlobalState from "../../hooks/useGlobalState"
 import useInputState, { useInputStatePlural } from "../../hooks/useInputState"
 import styled from "styled-components"
-import ProjectsCheckboxes from "./ProjectsCheckboxes"
 import StadiaSelect from "./StadiaSelect"
-import StadiaCheckboxes from "./StadiaCheckboxes"
+import Checkboxes from "./Checkboxes"
 import ErrorMessage from "../global/ErrorMessage"
 import JSONDisplay from "./JSONDisplay"
 
@@ -37,7 +36,7 @@ const ButtonWrap = styled.div`
 const H4 = styled.h4`
   margin: 18px 0 4px
 `
-const StyledStadiaCheckboxes = styled(StadiaCheckboxes)`
+const StyledCheckboxes = styled(Checkboxes)`
   border: 1px solid ${ color("tint", "level5") }
 `
 
@@ -190,7 +189,7 @@ const Settings: FC = () => {
 
           <h1>Openingsredenen</h1>
           <ColumnWrap>
-            <ProjectsCheckboxes projects={ allProjects } state={ checkedProjects! } setState={ setProjects } />
+            <Checkboxes options={ allProjects } state={ checkedProjects! } setState={ setProjects } />
           </ColumnWrap>
 
           <Hr />
@@ -210,9 +209,9 @@ const Settings: FC = () => {
                     <H4>1. Zoveel mogelijk</H4>
                     <StadiaSelect selected={ primaryStadium[0] } onChange={ primaryStadium[1] } />
                     <H4>2. Aanvullen met</H4>
-                    <StyledStadiaCheckboxes name={ `${ name }-secondary` } stadia={ stadia! } state={ secondaryStadia[0] } setState={ secondaryStadia[2] } />
+                    <StyledCheckboxes name={ `${ name }-secondary` } options={ stadia! } state={ secondaryStadia[0] } setState={ secondaryStadia[2] } />
                     <H4>3. Uitsluiten</H4>
-                    <StyledStadiaCheckboxes name={ `${ name }-exclude` } stadia={ stadia! } state={ excludeStadia[0] } setState={ excludeStadia[2] } />
+                    <StyledCheckboxes name={ `${ name }-exclude` } options={ stadia! } state={ excludeStadia[0] } setState={ excludeStadia[2] } />
                   </Div>
                 )
               })

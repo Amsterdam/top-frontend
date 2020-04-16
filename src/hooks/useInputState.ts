@@ -10,16 +10,21 @@ const useInputState = (value = "") : [string, OnChangeHandler, SetState] => {
 export default useInputState
 
 export const useInputStatePlural = (defaultState: string[] = []) : [string[], OnChangeHandler, SetState] => {
+  const [firstDefaultState] = useState(defaultState)
+
   const [state, setState] = useState(defaultState)
+
   const onChange = (event: ChangeEventInput) => {
     const values = (Array.from(event.target.options) as { selected: boolean, value: string }[])
       .filter(option => option.selected)
       .map(option => option.value)
     setState(values)
   }
+
   useEffect(() => {
-    if (arraysEqual(state, defaultState)) return
+    if (arraysEqual(firstDefaultState, defaultState)) return
     setState(defaultState)
-  }, [defaultState, state])
+  }, [firstDefaultState, defaultState])
+
   return [state, onChange, setState]
 }
