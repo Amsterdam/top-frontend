@@ -1,5 +1,5 @@
 import React, { FC, useState } from "react"
-import { Form, Field } from "react-final-form"
+import { Form } from "react-final-form"
 import { Button } from "@datapunt/asc-ui"
 import {Link} from "@reach/router"
 import H1 from "../../styled/H1"
@@ -13,6 +13,7 @@ import Modals, {caseTo, openModalTo} from "./Modals"
 import {findByProperty} from "../../../lib/utils/findByProperty"
 import {filterNullish} from "../../../lib/utils/filterNullish"
 import TeamMemberFields from "../TeamMemberFields"
+import {FormField} from "../../form-components/FormComponents"
 
 const Label2 = styled.label`
   font-weight: bold
@@ -104,33 +105,31 @@ const Generate: FC = () => {
 
           return (
             <form onSubmit={handleSubmit}>
-              <TeamMemberFields users={users ?? []} alreadySelectedUserIds={values.users}/>
+              <TeamMemberFields
+                users={users ?? []}
+                alreadySelectedUserIds={values.users}
+              />
               <Div>
                 <p>Wat voor looplijst wil je maken?</p>
                 { showWeekDay
                   ? (<>
-                    <Field name='dayPart'>
-                      { ({input: { onChange, value }}) => (
-                        <RadioButton
-                          onChange={onChange}
-                          checked={value === 'day'}
-                          value='day'
-                          id="day"
-                          type="radio"
-                        />
-                      )}
-                    </Field>
+                    <FormField
+                      name='dayPart'
+                      component={RadioButton}
+                      value='day'
+                      id='day'
+                      type='radio'
+                      checked={values.dayPart === 'day'}
+                    />
                     <Label2 htmlFor="day">daglijst</Label2>
-                    <Field name='dayPart'>
-                      { ({input: { onChange, value }}) => (
-                        <RadioButton
-                          onChange={onChange}
-                          checked={value === 'evening'}
-                          value='evening'
-                          id="evening"
-                          type="radio"
-                        />) }
-                    </Field>
+                    <FormField
+                      name='dayPart'
+                      component={RadioButton}
+                      value='evening'
+                      id="evening"
+                      type="radio"
+                      checked={values.dayPart === 'evening'}
+                    />
                     <Label2 htmlFor="evening">avondlijst</Label2>
                   </>)
                   : (<>
@@ -142,9 +141,14 @@ const Generate: FC = () => {
               <Div>
                 <p>Hoeveel adressen wil je in je looplijst?</p>
                 <div>
-                  <Field name="num">
-                    { props => <StyledInput value={props.input.value} onChange={props.input.onChange} type="number" min='0' max='20' step='1' /> }
-                  </Field>
+                  <FormField
+                    name="num"
+                    component={StyledInput}
+                    type="number"
+                    min='0'
+                    max='20'
+                    step='1'
+                  />
                 </div>
               </Div>
               <Div>

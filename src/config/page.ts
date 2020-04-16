@@ -2,7 +2,7 @@ import {setQueryParams} from "../lib/utils/setQueryParams"
 import {deleteQueryParam} from "../lib/utils/deleteQueryParam"
 
 const trimTrailingSlash = (str: string) => str.replace(/\/$/, "")
-const stripDoubleSlashes = (str: string) => str.replace(/(?<!http:|https:)\/\//g, "/")
+const stripDoubleSlashes = (str: string) => str.replace(/(\/\/)/g, "/")
 
 export const basepath = "/"
 

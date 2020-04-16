@@ -1,5 +1,6 @@
 import styled from "styled-components"
 
+// @TODO: Remove this. Use ASC
 export default styled.input`
   box-sizing: border-box
   border: 1px solid rgb(118, 118, 118);
