@@ -1,33 +1,52 @@
-import React, { FC, useState, useEffect, ChangeEvent, FormEvent } from "react"
-import { Button } from "@datapunt/asc-ui"
+import React, { FC, FormEvent } from "react"
+import { Input, Button, breakpoint, color } from "@datapunt/asc-ui"
 import Spinner from "../global/Spinner"
 import SmallSpinner from "../global/SmallSpinner"
 import Hr from "../styled/Hr"
 import useGlobalState from "../../hooks/useGlobalState"
-import useOnChangeState from "../../hooks/useOnChangeState"
-import useOnChangeStateMultiple from "../../hooks/useOnChangeStateMultiple"
+import useInputState, { useInputStateMany } from "../../hooks/useInputState"
 import styled from "styled-components"
 import StadiaSelect from "./StadiaSelect"
+import Checkboxes from "./Checkboxes"
+import ErrorMessage from "../global/ErrorMessage"
+import JSONDisplay from "./JSONDisplay"
 
+const Wrap = styled.div`
+  margin-bottom: 100px
+`
+const DateInputWrap = styled.div`
+  @media screen and ${ breakpoint("min-width", "laptopL") } {
+    max-width: 33%;
+  }
+`
 const Div = styled.div`
-  margin-bottom: 18px
+  margin-bottom: 36px
 `
 const ColumnWrap = styled(Div)`
-  column-count: 6
-`
-const Label = styled.label`
-  display: block
-  font-weight: bold
+  column-count: 3;
+  @media screen and ${ breakpoint("min-width", "laptopL") } {
+    column-count: 6;
+  }
 `
 const ButtonWrap = styled.div`
+  position: fixed
+  width: 100%
+  bottom: 0
+  left: 0
   display: flex
+  background-color: ${ color("tint", "level1") };
+  border-top: 1px solid ${ color("tint", "level5") }
   justify-content: flex-end
+  padding: 18px
   button {
     margin-left: 12px
   }
 `
 const H4 = styled.h4`
-  margin: 12px 0 4px
+  margin: 18px 0 4px
+`
+const StyledCheckboxes = styled(Checkboxes)`
+  border: 1px solid ${ color("tint", "level5") }
 `
 
 const Settings: FC = () => {
@@ -37,13 +56,15 @@ const Settings: FC = () => {
       isUpdating,
       data: {
         projects: allProjects = [],
+        stadia,
         settings = undefined,
         settings: {
-          opening_date = "",
+          opening_date = undefined,
           projects = undefined,
           lists: settingsLists = undefined
         } = {}
-      } = {}
+      } = {},
+      errorMessage
     },
     planningSettingsActions: {
       saveSettings
@@ -51,223 +72,177 @@ const Settings: FC = () => {
   } = useGlobalState()
 
   const showSpinner = isFetching
-  const showSettings = settings !== undefined
-  const disabled = isUpdating
+  const hasSettings = settings !== undefined
+  const showForm = hasSettings
+  const showJSON = hasSettings
   const showUpdatingSpinner = isUpdating
+  const showErrorMessage = errorMessage !== undefined
 
   // opening date
-  const [date, onChangeDate, setDate] = useOnChangeState("")
-  useEffect(() => setDate(opening_date), [setDate, opening_date])
+  const [date, onChangeDate] = useInputState(opening_date)
 
   // projects
-  const [checkedProjects, setProjects] = useState<Projects>()
-  const addToProjects = (project: Project) => setProjects((checkedProjects || []).concat(project))
-  const removeFromProjects = (project: Project) => setProjects((checkedProjects || []).filter(p => p !== project))
-  const onChangeProject = (project: Project) => (event: ChangeEvent<HTMLInputElement>) => {
-    const method = event.target.checked ? addToProjects : removeFromProjects
-    method(project)
-  }
-  const showProjects = checkedProjects !== undefined
-  useEffect(() => {
-    if (projects === undefined) return
-    setProjects(projects)
-  }, [projects])
+  const [checkedProjects, projectsOnChangeHOF] = useInputStateMany(projects)
 
   // stadia
+  const getSettingsListByName = (name: string) => settingsLists?.find(({ name: n }) => n === name)
   const lists = [
     {
       name: "Maandag",
-      primaryStadium: useOnChangeState(""),
-      secondaryStadia: useOnChangeStateMultiple([]),
-      excludeStadia: useOnChangeStateMultiple([])
+      primaryStadium: useInputState(getSettingsListByName("Maandag")?.primary_stadium),
+      secondaryStadia: useInputStateMany(getSettingsListByName("Maandag")?.secondary_stadia),
+      excludeStadia: useInputStateMany(getSettingsListByName("Maandag")?.exclude_stadia)
     },
     {
       name: "Maandag Avond",
-      primaryStadium: useOnChangeState(""),
-      secondaryStadia: useOnChangeStateMultiple([]),
-      excludeStadia: useOnChangeStateMultiple([])
+      primaryStadium: useInputState(getSettingsListByName("Maandag Avond")?.primary_stadium),
+      secondaryStadia: useInputStateMany(getSettingsListByName("Maandag Avond")?.secondary_stadia),
+      excludeStadia: useInputStateMany(getSettingsListByName("Maandag Avond")?.exclude_stadia)
     },
     {
       name: "Dinsdag",
-      primaryStadium: useOnChangeState(""),
-      secondaryStadia: useOnChangeStateMultiple([]),
-      excludeStadia: useOnChangeStateMultiple([])
+      primaryStadium: useInputState(getSettingsListByName("Dinsdag")?.primary_stadium),
+      secondaryStadia: useInputStateMany(getSettingsListByName("Dinsdag")?.secondary_stadia),
+      excludeStadia: useInputStateMany(getSettingsListByName("Dinsdag")?.exclude_stadia)
     },
     {
       name: "Dinsdag Avond",
-      primaryStadium: useOnChangeState(""),
-      secondaryStadia: useOnChangeStateMultiple([]),
-      excludeStadia: useOnChangeStateMultiple([])
+      primaryStadium: useInputState(getSettingsListByName("Dinsdag Avond")?.primary_stadium),
+      secondaryStadia: useInputStateMany(getSettingsListByName("Dinsdag Avond")?.secondary_stadia),
+      excludeStadia: useInputStateMany(getSettingsListByName("Dinsdag Avond")?.exclude_stadia)
     },
     {
       name: "Woensdag",
-      primaryStadium: useOnChangeState(""),
-      secondaryStadia: useOnChangeStateMultiple([]),
-      excludeStadia: useOnChangeStateMultiple([])
+      primaryStadium: useInputState(getSettingsListByName("Woensdag")?.primary_stadium),
+      secondaryStadia: useInputStateMany(getSettingsListByName("Woensdag")?.secondary_stadia),
+      excludeStadia: useInputStateMany(getSettingsListByName("Woensdag")?.exclude_stadia)
     },
     {
       name: "Woensdag Avond",
-      primaryStadium: useOnChangeState(""),
-      secondaryStadia: useOnChangeStateMultiple([]),
-      excludeStadia: useOnChangeStateMultiple([])
+      primaryStadium: useInputState(getSettingsListByName("Woensdag Avond")?.primary_stadium),
+      secondaryStadia: useInputStateMany(getSettingsListByName("Woensdag Avond")?.secondary_stadia),
+      excludeStadia: useInputStateMany(getSettingsListByName("Woensdag Avond")?.exclude_stadia)
     },
     {
       name: "Donderdag",
-      primaryStadium: useOnChangeState(""),
-      secondaryStadia: useOnChangeStateMultiple([]),
-      excludeStadia: useOnChangeStateMultiple([])
+      primaryStadium: useInputState(getSettingsListByName("Donderdag")?.primary_stadium),
+      secondaryStadia: useInputStateMany(getSettingsListByName("Donderdag")?.secondary_stadia),
+      excludeStadia: useInputStateMany(getSettingsListByName("Donderdag")?.exclude_stadia)
     },
     {
       name: "Donderdag Avond",
-      primaryStadium: useOnChangeState(""),
-      secondaryStadia: useOnChangeStateMultiple([]),
-      excludeStadia: useOnChangeStateMultiple([])
+      primaryStadium: useInputState(getSettingsListByName("Donderdag Avond")?.primary_stadium),
+      secondaryStadia: useInputStateMany(getSettingsListByName("Donderdag Avond")?.secondary_stadia),
+      excludeStadia: useInputStateMany(getSettingsListByName("Donderdag Avond")?.exclude_stadia)
     },
     {
       name: "Vrijdag",
-      primaryStadium: useOnChangeState(""),
-      secondaryStadia: useOnChangeStateMultiple([]),
-      excludeStadia: useOnChangeStateMultiple([])
+      primaryStadium: useInputState(getSettingsListByName("Vrijdag")?.primary_stadium),
+      secondaryStadia: useInputStateMany(getSettingsListByName("Vrijdag")?.secondary_stadia),
+      excludeStadia: useInputStateMany(getSettingsListByName("Vrijdag")?.exclude_stadia)
     },
     {
       name: "Vrijdag Avond",
-      primaryStadium: useOnChangeState(""),
-      secondaryStadia: useOnChangeStateMultiple([]),
-      excludeStadia: useOnChangeStateMultiple([])
+      primaryStadium: useInputState(getSettingsListByName("Vrijdag Avond")?.primary_stadium),
+      secondaryStadia: useInputStateMany(getSettingsListByName("Vrijdag Avond")?.secondary_stadia),
+      excludeStadia: useInputStateMany(getSettingsListByName("Vrijdag Avond")?.exclude_stadia)
     },
     {
       name: "Zaterdag Weekend",
-      primaryStadium: useOnChangeState(""),
-      secondaryStadia: useOnChangeStateMultiple([]),
-      excludeStadia: useOnChangeStateMultiple([])
+      primaryStadium: useInputState(getSettingsListByName("Zaterdag Weekend")?.primary_stadium),
+      secondaryStadia: useInputStateMany(getSettingsListByName("Zaterdag Weekend")?.secondary_stadia),
+      excludeStadia: useInputStateMany(getSettingsListByName("Zaterdag Weekend")?.exclude_stadia)
     },
     {
       name: "Zondag Weekend",
-      primaryStadium: useOnChangeState(""),
-      secondaryStadia: useOnChangeStateMultiple([]),
-      excludeStadia: useOnChangeStateMultiple([])
+      primaryStadium: useInputState(getSettingsListByName("Zondag Weekend")?.primary_stadium),
+      secondaryStadia: useInputStateMany(getSettingsListByName("Zondag Weekend")?.secondary_stadia),
+      excludeStadia: useInputStateMany(getSettingsListByName("Zondag Weekend")?.exclude_stadia)
     }
   ]
-  const listsSetStates = lists.map(list => {
-    const { name, primaryStadium: [,,primaryStadiumSetState], secondaryStadia: [,,secondaryStadiaSetState], excludeStadia: [,,excludeStadiaSetState] } = list
-    return ({ name, primaryStadiumSetState, secondaryStadiaSetState, excludeStadiaSetState })
-  })
-  useEffect(() => {
-    if (settingsLists === undefined) return
-    settingsLists.forEach(({ name, primary_stadium: primaryStadium, secondary_stadia: secondaryStadia, exclude_stadia: excludeStadia }) => {
-      const list = listsSetStates.find(({ name: n }) => n === name)
-      if (list === undefined) return
-      if (primaryStadium !== undefined) {
-        list.primaryStadiumSetState(primaryStadium)
-      }
-      if (secondaryStadia !== undefined) {
-        list.secondaryStadiaSetState(secondaryStadia)
-      }
-      if (excludeStadia !== undefined) {
-        list.excludeStadiaSetState(excludeStadia)
-      }
-    })
-  }, [settingsLists]) // eslint-disable-line react-hooks/exhaustive-deps
-  // @TODO: Check if final-form will fix this
+
+  const isValidFormState = date !== undefined && checkedProjects !== undefined && settingsLists !== undefined
+  const disabled = isUpdating || !isValidFormState
 
   const onSubmit = (event: FormEvent) => {
     event.preventDefault()
-    if (disabled) return
-    if (date === undefined) return
-    if (checkedProjects === undefined) return
-    if (settingsLists === undefined) return
+    if (!isValidFormState) return
     const newLists = lists.map(({ name, primaryStadium, secondaryStadia, excludeStadia }) => ({
-      name: name,
+      name,
       primary_stadium: primaryStadium[0] || undefined,
       secondary_stadia: secondaryStadia[0],
-      exclude_stadia: excludeStadia[0],
-      // @TODO: Remove these two props when removed from API
-      number_of_lists: 0,
-      length_of_lists: 0
+      exclude_stadia: excludeStadia[0]
     }))
     saveSettings(date, checkedProjects, newLists)
   }
 
-  const [showJSON, setShowJSON] = useState(false)
-  const onClickShowJSON = () => setShowJSON(!showJSON)
-
   return (
-    <div className="Settings">
+    <Wrap>
       { showSpinner &&
         <Spinner />
       }
-      { showSettings &&
-        <>
-          <form onSubmit={ onSubmit }>
+      { showForm &&
+        <form onSubmit={ onSubmit }>
 
-            <Div>
-              <Label>openings datum</Label>
-              <input type="date" value={ date } onChange={ onChangeDate } />
-            </Div>
-
-            <Hr />
-
-            <h1>Openings redenen</h1>
-            <ColumnWrap>
-            { showProjects &&
-              allProjects.map(project => {
-                const checked = checkedProjects!.includes(project)
-                return (
-                  <div key={ project }>
-                    <input type="checkbox" checked={ checked } onChange={ onChangeProject(project) }/>
-                    <label>{ project }</label>
-                  </div>
-                )
-              })
-            }
-            </ColumnWrap>
-
-            <Hr />
-
-            <h1>Stadia</h1>
-            <ColumnWrap>
-              { lists.map(list => {
-                  const {
-                    name,
-                    primaryStadium,
-                    secondaryStadia,
-                    excludeStadia
-                  } = list
-                  return (
-                    <Div key={ name }>
-                      <h3>{ name }</h3>
-                      <H4>Primary stadium</H4>
-                      <StadiaSelect selected={ primaryStadium[0] ? [primaryStadium[0]] : undefined } onChange={ primaryStadium[1] } />
-                      <H4>Secondary stadia</H4>
-                      <StadiaSelect selected={ secondaryStadia[0] } onChange={ secondaryStadia[1] } multiple={ true } />
-                      <H4>Excluded stadia</H4>
-                      <StadiaSelect selected={ excludeStadia[0] } onChange={ excludeStadia[1] } multiple={ true } />
-                    </Div>
-                  )
-                })
-              }
-            </ColumnWrap>
-
-            <ButtonWrap>
-              { showUpdatingSpinner &&
-                <SmallSpinner />
-              }
-              <Button variant="secondary" type="submit" disabled={ disabled }>Opslaan</Button>
-            </ButtonWrap>
-          </form>
+          <h1>Peildatum</h1>
+          <Div>
+            <DateInputWrap>
+              <Input type="date" value={ date } onChange={ onChangeDate } />
+            </DateInputWrap>
+          </Div>
 
           <Hr />
 
-          <h1>Huidige settings (JSON)</h1>
-          <Button onClick={ onClickShowJSON }>{ `${ showJSON ? "Verberg" : "Toon" } JSON` }</Button>
-          { showJSON &&
-            <div>
-              <pre><code>{ JSON.stringify(settings, null, 2) }</code></pre>
-            </div>
-          }
+          <h1>Openingsredenen</h1>
+          <ColumnWrap>
+            <Checkboxes options={ allProjects } state={ checkedProjects! } onChangeHOF={ projectsOnChangeHOF } />
+          </ColumnWrap>
+
+          <Hr />
+
+          <h1>Stadia</h1>
+          <ColumnWrap>
+            { lists.map(list => {
+                const {
+                  name,
+                  primaryStadium,
+                  secondaryStadia,
+                  excludeStadia
+                } = list
+                return (
+                  <Div key={ name }>
+                    <h3>{ name }</h3>
+                    <H4>1. Zoveel mogelijk</H4>
+                    <StadiaSelect selected={ primaryStadium[0] } onChange={ primaryStadium[1] } />
+                    <H4>2. Aanvullen met</H4>
+                    <StyledCheckboxes name={ `${ name }-secondary` } options={ stadia! } state={ secondaryStadia[0] } onChangeHOF={ secondaryStadia[1] } />
+                    <H4>3. Uitsluiten</H4>
+                    <StyledCheckboxes name={ `${ name }-exclude` } options={ stadia! } state={ excludeStadia[0] } onChangeHOF={ excludeStadia[1] } />
+                  </Div>
+                )
+              })
+            }
+          </ColumnWrap>
+
+          <ButtonWrap>
+            { showErrorMessage &&
+              <ErrorMessage text={ errorMessage! } />
+            }
+            { showUpdatingSpinner &&
+              <SmallSpinner />
+            }
+            <Button variant="secondary" disabled={ disabled }>Bewaren</Button>
+          </ButtonWrap>
+        </form>
+      }
+
+      { showJSON &&
+        <>
+          <Hr />
+          <JSONDisplay json={ settings } />
         </>
       }
-    </div>
+    </Wrap>
   )
 }
 

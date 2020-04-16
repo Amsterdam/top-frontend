@@ -45,7 +45,8 @@ const reducer = (state: PlanningSettingsState, action: Action) : PlanningSetting
     }
     case "START_UPDATING": {
       const isUpdating = true
-      return { ...state, isUpdating }
+      const errorMessage = undefined
+      return { ...state, isUpdating, errorMessage }
     }
     case "CLEAR":
       return initialState

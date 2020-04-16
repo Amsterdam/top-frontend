@@ -1,8 +1,9 @@
 import styled from "styled-components"
+import { color } from "@datapunt/asc-ui"
 
 export default styled.hr`
   border: 0
   height: 1px
-  background: #B4B4B4
+  background: ${ color("tint", "level5") }
   margin: 8px 0 16px
 `
