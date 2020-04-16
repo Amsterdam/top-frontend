@@ -51,4 +51,4 @@ export const StadiumSettings:React.FC<Props> = ({ dayIndex, fieldName }) => (
   </Section>
 )
 
-export default StadiumSettings
+export default React.memo(StadiumSettings)

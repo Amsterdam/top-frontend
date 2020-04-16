@@ -48,4 +48,4 @@ const DayPartSettings:React.FC<Props> = ({day, index: dayIndex}) => (
   </Wrap>
 )
 
-export default DayPartSettings
+export default React.memo(DayPartSettings)

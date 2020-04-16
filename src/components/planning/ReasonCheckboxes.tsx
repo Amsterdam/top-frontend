@@ -51,4 +51,4 @@ const ReasonCheckboxes: React.FC = () => <>
   )) }
 </>
 
-export default ReasonCheckboxes
+export default React.memo(ReasonCheckboxes)
