@@ -5,6 +5,7 @@ type Props = {
   text: string
 }
 
+// @TODO: Use ASC
 const P = styled.p`
   color: red
   margin-bottom: 18px

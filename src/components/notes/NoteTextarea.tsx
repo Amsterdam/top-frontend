@@ -7,13 +7,12 @@ type Props = {
   onChange: (a: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
 }
 
-const StyledInput = styled(Input)`
-  display: block
-  width: 100%
-`
+// @TODO: Check why ASC Input does not allow forwardedAs
+const StyledInput = styled(Input)``
 
 const NoteTextarea: FC<Props> = ({ value, onChange }) =>
-  <StyledInput forwardedAs="textarea"
+  <StyledInput
+    forwardedAs="textarea"
     rows={ 10 }
     value={ value }
     onChange={ onChange }

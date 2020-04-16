@@ -1,3 +1,4 @@
+// @TODO: It would be more robust to use listsWeek.name vs. slicing
 export const listsDay = (listsWeek: SettingsLists, dayOfWeek: number) => {
   const isWeekend = dayOfWeek > 4
   const isSunday = dayOfWeek === 6
