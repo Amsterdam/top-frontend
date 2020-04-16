@@ -228,7 +228,7 @@ const Settings: FC = () => {
             { showUpdatingSpinner &&
               <SmallSpinner />
             }
-            <Button variant="secondary" type="submit" disabled={ disabled }>Bewaren</Button>
+            <Button variant="secondary" disabled={ disabled }>Bewaren</Button>
           </ButtonWrap>
         </form>
       }
