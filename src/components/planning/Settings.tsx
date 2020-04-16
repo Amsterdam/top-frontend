@@ -162,10 +162,7 @@ const Settings: FC = () => {
       name: name,
       primary_stadium: primaryStadium[0] || undefined,
       secondary_stadia: secondaryStadia[0],
-      exclude_stadia: excludeStadia[0],
-      // @TODO: Remove these two props when removed from API
-      number_of_lists: 0,
-      length_of_lists: 0
+      exclude_stadia: excludeStadia[0]
     }))
     saveSettings(date, checkedProjects, newLists)
   }
