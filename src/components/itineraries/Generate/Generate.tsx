@@ -33,14 +33,6 @@ const ButtonWrap = styled.div`
   justify-content: flex-end
 `
 
-const MySelect = styled.select`
-  background-color: blue
-`
-
-const MyTextArea = styled.textarea`
-  background-color: blue
-`
-
 type DayPart = "day" | "evening"
 type FormValues = {
   num: number
