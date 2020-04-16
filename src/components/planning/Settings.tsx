@@ -11,13 +11,16 @@ import Checkboxes from "./Checkboxes"
 import ErrorMessage from "../global/ErrorMessage"
 import JSONDisplay from "./JSONDisplay"
 
-const Div = styled.div`
-  margin-bottom: 36px
+const Wrap = styled.div`
+  margin-bottom: 100px
 `
 const DateInputWrap = styled.div`
   @media screen and ${ breakpoint("min-width", "laptopL") } {
     max-width: 33%;
   }
+`
+const Div = styled.div`
+  margin-bottom: 36px
 `
 const ColumnWrap = styled(Div)`
   column-count: 3;
@@ -26,9 +29,15 @@ const ColumnWrap = styled(Div)`
   }
 `
 const ButtonWrap = styled.div`
+  position: fixed
+  width: 100%
+  bottom: 0
+  left: 0
   display: flex
+  background-color: ${ color("tint", "level1") };
+  border-top: 1px solid ${ color("tint", "level5") }
   justify-content: flex-end
-  margin-bottom: 18px
+  padding: 18px
   button {
     margin-left: 12px
   }
@@ -168,7 +177,7 @@ const Settings: FC = () => {
   }
 
   return (
-    <div>
+    <Wrap>
       { showSpinner &&
         <Spinner />
       }
@@ -215,8 +224,6 @@ const Settings: FC = () => {
             }
           </ColumnWrap>
 
-          <Hr />
-
           <ButtonWrap>
             { showErrorMessage &&
               <ErrorMessage text={ errorMessage! } />
@@ -235,7 +242,7 @@ const Settings: FC = () => {
           <JSONDisplay json={ settings } />
         </>
       }
-    </div>
+    </Wrap>
   )
 }
 
