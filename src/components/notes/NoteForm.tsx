@@ -2,7 +2,7 @@ import React, { FC, FormEvent, MouseEvent, useState } from "react"
 import NoteTextarea from "./NoteTextarea"
 import { Button } from "@datapunt/asc-ui"
 import styled from "styled-components"
-import useOnChangeState from "../../hooks/useOnChangeState"
+import useInputState from "../../hooks/useInputState"
 import navigateTo, { navigateToHome } from "../../lib/navigateTo"
 import useGlobalState from "../../hooks/useGlobalState"
 import currentTime from "../../lib/utils/currentTime"
@@ -34,7 +34,7 @@ const NoteForm: FC<Props> = ({ itineraryItemId, id, value }) => {
     getItineraryFromItineraryItem
   } = useGlobalState()
 
-  const [text, onChangeText] = useOnChangeState(value)
+  const [text, onChangeText] = useInputState(value)
   const showButton = text === ""
   const nawText = "Niet aanwezig"
 
