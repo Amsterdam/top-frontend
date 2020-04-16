@@ -68,6 +68,7 @@ const value = {
     searchActions: {
       search: (a: PostalCode, b: StreetNumberString, c: StreetSuffix) => {},
       getSuggestions: (a: Id) => {},
+      getIssues: noop,
       setTeam: (a: CaseId, b?: TeamMembers) => {},
       clear: noop
     },
