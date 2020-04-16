@@ -1,4 +1,4 @@
-import { useReducer } from "react"
+import { useReducer, useCallback } from "react"
 import reducer, {
   initialState,
   createStartFetching,
@@ -16,7 +16,7 @@ const usePlanningSettings = () : [PlanningSettingsState, PlanningSettingsActions
   // @TODO: Remove `as never`
   const [state, dispatch] = useReducer(reducer, initialState as never)
 
-  const initialize = async () => {
+  const initialize = useCallback(async () => {
     dispatch(createStartFetching())
 
     // @TODO: This should be fetched in parallel using Promise.all
@@ -38,13 +38,13 @@ const usePlanningSettings = () : [PlanningSettingsState, PlanningSettingsActions
       stadia: resultStadia.constants,
       settings: resultSettings
     }))
-  }
+  }, [dispatch])
 
-  const clear = () => {
+  const clear = useCallback(() => {
     dispatch(createClear())
-  }
+  }, [dispatch])
 
-  const saveSettings = async (openingDate: string, projects: Projects, lists: SettingsLists) => {
+  const saveSettings = useCallback(async (openingDate: string, projects: Projects, lists: SettingsLists) => {
     const { data } = state
     if (data === undefined) return
     const { settings: prevSettings } = data
@@ -54,7 +54,7 @@ const usePlanningSettings = () : [PlanningSettingsState, PlanningSettingsActions
     const [response, result, errorMessage] = await post(getUrl("settings/planner"), settings)
     if (notOk(response)) return dispatch(createSetError(errorMessage || "Opslaan mislukt"))
     dispatch(createSetData({ ...data, settings: result }))
-  }
+  }, [state, dispatch])
 
   const actionCreators = { initialize, saveSettings, clear }
 
