@@ -86,8 +86,6 @@ const useSearch = () : [SearchState, SearchActions] => {
       return
     }
 
-    console.log(result)
-
     const { cases } = result
     const results = cases
       .map(castFraudPrediction)
