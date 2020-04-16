@@ -106,7 +106,7 @@ const SearchForm: FC = () => {
                 pattern="\s*[1-9][0-9]{3}\s?[a-zA-Z]{2}\s*"
                 title="Geldige postcodes zijn in de 1234AA of 1234 aa"
                 required
-                autofocus
+                autoFocus
               />
             </InputWrapPostalCode>
             <InputWrapStreetNumber>
