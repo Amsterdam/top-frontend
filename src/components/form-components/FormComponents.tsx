@@ -25,7 +25,7 @@ type ComponentProps = {
 type Props = {
   name: string
   type?: string
-  component: React.ComponentType<ComponentProps> | 'input' | 'textarea' | 'select'
+  component: React.ComponentType<any> | 'input' | 'textarea' | 'select'
 }
 
 
