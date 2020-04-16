@@ -18,11 +18,13 @@ const Navigation: FC = () => {
   const showCounter = numItineraries === 1 && numItineraryItems > 0
 
   const homeActive = isHomePage()
+  const issuesActive = isPage("issuemeldingen")
   const searchActive = isPage("zoeken") || isPage("parse")
 
   const d = 24
   const menuItems = [
     { to: to(), text: `${ titleHome }${ showCounter ? ` (${ numItineraryItems })` : "" }`, isActive: homeActive },
+    { to: to("issuemeldingen"), text: "Issuemeldingen", isActive: issuesActive },
     { to: to("zoeken"), text: <SearchIcon width={ d } height={ d } />, isActive: searchActive }
   ]
 

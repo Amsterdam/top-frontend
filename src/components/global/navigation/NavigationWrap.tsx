@@ -31,9 +31,13 @@ const Ul = styled.ul`
   list-style: none
   margin: 0
   padding: 0
-  // @TODO: Make this configurable
   display: flex
   justify-content: space-between
+`
+const UlSpaced = styled(Ul)`
+  li:last-child {
+    margin-left: auto
+  }
 `
 const Li = styled.li`
   border-bottom: 5px solid transparent
@@ -51,17 +55,21 @@ const FocusSpacer = styled.div`
   height: 116px
 `
 
-const NavigationWrap: FC<Props> = ({ menuItems }) => (
+const NavigationWrap: FC<Props> = ({ menuItems }) => {
+  const UlComponent = menuItems.length > 1 ? UlSpaced : Ul
+
+  return (
     <>
       <NavWrap>
         <Nav>
-          <Ul>
+          <UlComponent>
             { menuItems.map(({ to, text, isActive }) => <Li key={ to } isActive={ isActive }><Link to={ to }>{ text }</Link></Li>) }
-          </Ul>
+          </UlComponent>
         </Nav>
       </NavWrap>
       <FocusSpacer />
     </>
   )
+}
 
 export default NavigationWrap

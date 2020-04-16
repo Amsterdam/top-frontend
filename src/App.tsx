@@ -13,6 +13,7 @@ import SearchPage from "./pages/SearchPage"
 import CasePage from "./pages/CasePage"
 import NotePage from "./pages/NotePage"
 import SuggestionsPage from "./pages/SuggestionsPage"
+import IssuesPage from "./pages/IssuesPage"
 import SettingsPage from "./pages/SettingsPage"
 import NotFoundPage from "./pages/NotFoundPage"
 import PageOverlay from "./components/global/PageOverlay"
@@ -44,6 +45,7 @@ const App: FC = () => (
             <ItinerariesPage path="/" />
             <ItinerariesPage path="/itineraries/:id" />
             <SuggestionsPage path="/suggesties/:id" />
+            <IssuesPage path="/issuemeldingen" />
             <SearchPage path="/zoeken" />
             <CasePage path="/cases/:caseId" />
             <NotePage path="/notes/:itineraryItemId" />

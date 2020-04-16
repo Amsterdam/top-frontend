@@ -5,6 +5,7 @@ import reducer, {
   createStopFetching,
   createSetResults,
   createSetSuggestions,
+  createSetIssues,
   createSetTeam,
   createSetError,
   createClear
@@ -14,6 +15,7 @@ import { getUrl } from "../config/api"
 import isEmptyObject from "../lib/utils/isEmptyObject"
 import groupCasesByAddress from "../lib/groupCasesByAddress"
 import handleForbiddenResponse from "../lib/handleForbiddenResponse"
+import currentDate from "../lib/utils/currentDate"
 
 // casting fraud_prediction possibly null value to undefined
 // @TODO: Make this more abstract to be reused for other response data
@@ -69,6 +71,28 @@ const useSearch = () : [SearchState, SearchActions] => {
     dispatch(createSetSuggestions(results))
   }, [dispatch])
 
+  const getIssues = useCallback(async () => {
+    dispatch(createStartFetching())
+
+    const url = getUrl("cases/unplanned", { date: currentDate(), stadium: "Issuemelding" })
+    const [response, result] = await get(url)
+
+    dispatch(createStopFetching())
+
+    if (isForbidden(response)) return handleForbiddenResponse()
+    if (notOk(response)) {
+      const errorMessage = response ? await response.text() : "Failed to GET"
+      dispatch(createSetError(errorMessage))
+      return
+    }
+
+    const { cases } = result
+    const results = cases
+      .map(castFraudPrediction)
+      .map((caseItem: SearchResultCase) => ({ success: true, data: { cases: [caseItem] } }))
+    dispatch(createSetIssues(results))
+  }, [dispatch])
+
   const setTeam = useCallback((caseId: CaseId, teamMembers?: TeamMembers) => {
     dispatch(createSetTeam(caseId, teamMembers))
   }, [dispatch])
@@ -78,7 +102,7 @@ const useSearch = () : [SearchState, SearchActions] => {
   }, [dispatch])
 
 
-  return [state, { search, getSuggestions, setTeam, clear }]
+  return [state, { search, getIssues, getSuggestions, setTeam, clear }]
 }
 
 export default useSearch

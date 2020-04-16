@@ -5,6 +5,7 @@ type Action =
   | { type: "STOP_FETCHING" }
   | { type: "SET_RESULTS", payload: { results: SearchResults } }
   | { type: "SET_SUGGESTIONS", payload: { suggestions: SearchResults } }
+  | { type: "SET_ISSUES", payload: { issues: SearchResults } }
   | { type: "SET_TEAM", payload: { caseId: CaseId, teamMembers?: TeamMembers } }
   | { type: "SET_ERROR", payload: { errorMessage: ErrorMessage } }
   | { type: "CLEAR" }
@@ -13,6 +14,7 @@ export const createStartFetching = (query?: Query) : Action => ({ type: "START_F
 export const createStopFetching = () : Action => ({ type: "STOP_FETCHING" })
 export const createSetResults = (results: SearchResults) : Action => ({ type: "SET_RESULTS", payload: { results } })
 export const createSetSuggestions = (suggestions: SearchResults) : Action => ({ type: "SET_SUGGESTIONS", payload: { suggestions } })
+export const createSetIssues = (issues: SearchResults) : Action => ({ type: "SET_ISSUES", payload: { issues } })
 export const createSetTeam = (caseId: CaseId, teamMembers?: TeamMembers) : Action => ({ type: "SET_TEAM", payload: { caseId, teamMembers } })
 export const createSetError = (errorMessage: ErrorMessage) : Action => ({ type: "SET_ERROR", payload: { errorMessage } })
 export const createClear = () : Action => ({ type: "CLEAR" })
@@ -22,6 +24,7 @@ export const initialState: SearchState = {
   query: undefined,
   results: undefined,
   suggestions: undefined,
+  issues: undefined,
   errorMessage: undefined
 }
 
@@ -47,6 +50,11 @@ const reducer = (state: SearchState, action: Action) : SearchState => {
       const isFetching = false
       const { suggestions } = action.payload
       return { ...state, isFetching, suggestions }
+    }
+    case "SET_ISSUES": {
+      const isFetching = false
+      const { issues } = action.payload
+      return { ...state, isFetching, issues }
     }
     case "SET_ERROR": {
       const { errorMessage } = action.payload

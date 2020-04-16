@@ -48,12 +48,14 @@ declare type SearchState = {
   query?: Query
   results?: SearchResults
   suggestions?: SearchResults
+  issues?: SearchResults
   errorMessage?: ErrorMessage
 }
 
 declare type SearchActions = {
   search: (a: PostalCode, b: StreetNumberString, c: StreetSuffix) => void
   getSuggestions: (a: Id) => void
+  getIssues: () => void
   setTeam: (a: CaseId, b?: TeamMembers) => void
   clear: () => void
 }
