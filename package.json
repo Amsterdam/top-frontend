@@ -28,7 +28,7 @@
     "react-final-form": "^6.4.0",
     "react-scripts": "^3.4.1",
     "smoothscroll-polyfill": "^0.4.4",
-    "styled-components": "^4.4.1",
+    "styled-components": "^5.1.0",
     "typescript": "^3.8.3"
   },
   "scripts": {
