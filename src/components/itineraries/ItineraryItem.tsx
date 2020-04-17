@@ -2,7 +2,7 @@ import React, { FC } from "react"
 import { Link } from "@reach/router"
 import { to } from "../../config/page"
 import styled from "styled-components"
-import Signal from "../global/Signal"
+import StadiumBadge from "../global/StadiumBadge"
 import Notes from "./notes/Notes"
 import FraudProbability from "../global/FraudProbability"
 import displayAddress from "../../lib/displayAddress"
@@ -76,7 +76,7 @@ const ItineraryItem: FC<Props> = ({ caseItem, fraudPrediction, notes, showAddres
           }
           <div>
             <P>{ caseReason }{ showFraudProbability && <StyledFraudProbability fraudProbability={ fraudProbability! } /> }</P>
-            <Signal text={ stadium } />
+            <StadiumBadge text={ stadium } />
             <Notes notes={ notes } />
           </div>
         </Div>

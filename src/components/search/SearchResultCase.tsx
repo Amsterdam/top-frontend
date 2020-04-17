@@ -1,6 +1,6 @@
 import React, { FC } from "react"
 import styled from "styled-components"
-import Signal from "../global/Signal"
+import StadiumBadge from "../global/StadiumBadge"
 import FraudProbability from "../global/FraudProbability"
 import useGlobalState from "../../hooks/useGlobalState"
 
@@ -45,7 +45,7 @@ const SearchResultCase: FC<Props> = ({ reason, stadium, teams, fraudProbability 
   return (
     <div>
       <P>{ reason }{ showFraudProbability && <StyledFraudProbability fraudProbability={ fraudProbability! } /> }</P>
-      <Signal text={ stadium } />
+      <StadiumBadge text={ stadium } />
       { showTeam &&
         <P>{ team }</P>
       }

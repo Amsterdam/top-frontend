@@ -4,7 +4,7 @@ import { to } from "../../config/page"
 import styled from "styled-components"
 import CaseDetailHeader from "./CaseDetailHeader"
 import CaseDetailSection from "./CaseDetailSection"
-import Signal from "../global/Signal"
+import StadiumBadge from "../global/StadiumBadge"
 import Hr from "../styled/Hr"
 import Span from "../styled/Span"
 import MailtoAnchor from "./MailtoAnchor"
@@ -234,8 +234,7 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
     }))
 
   const stadia = stadiums.reduce((acc: any, stadium, index) => {
-    const type = stadium.description === "Issuemelding" ? "ISSUE" : "REGULAR"
-    acc.push(["Stadium", <Signal type={ type } text={ stadium.description }></Signal>])
+    acc.push(["Stadium", <StadiumBadge text={ stadium.description }></StadiumBadge>])
     acc.push(["Start datum", stadium.dateStart])
     acc.push(["Eind datum", stadium.dateEnd])
     acc.push(["Peil datum", stadium.datePeil])

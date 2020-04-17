@@ -1,6 +1,6 @@
 import React, { FC } from "react"
 import styled from "styled-components"
-import Signal from "../global/Signal"
+import StadiumBadge from "../global/StadiumBadge"
 import InvalidDataSpan from "../global/InvalidDataSpan"
 import ScrollToAnchor from "../global/ScrollToAnchor"
 import H1 from "../styled/H1"
@@ -46,16 +46,15 @@ const CaseDetailHeader: FC<Props> = ({ address, postalCode, personCount, caseNum
     personCount === 1 ? "1 persoon" :
     `${ personCount } personen`
 
-  const signalType = signal === "Issuemelding" ? "ISSUE" : "REGULAR"
-  const showSignal = signal !== undefined
+  const showStadiumBadge = signal !== undefined
   const showFraudProbability = fraudProbability !== undefined
 
   return (
     <Header>
       <StyledH1>{ address }</StyledH1>
       <P>{ postalCode }</P>
-      { showSignal &&
-        <Signal type={ signalType } text={ signal } />
+      { showStadiumBadge &&
+        <StadiumBadge text={ signal! } />
       }
       <div>
         <Label>Ingeschreven</Label><span>{ personCount > 0 ? <ScrollToAnchor anchor="personen" text={ personText } /> : personText }</span>
