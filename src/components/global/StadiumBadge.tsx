@@ -4,6 +4,7 @@ import { color } from "@datapunt/asc-ui"
 
 type Props = {
   text: string
+  className?: ClassName
 }
 
 const Span = styled.span`
@@ -15,11 +16,11 @@ const Span = styled.span`
   color: ${ color("tint", "level1") };
 `
 
-const StadiumBadge: FC<Props> = ({ text }) => {
+const StadiumBadge: FC<Props> = ({ text, className }) => {
   const trimmedText = text.trim()
   const hasBody = trimmedText !== ""
   const isIssue = trimmedText === "Issuemelding"
-  return hasBody ? <Span isIssue={ isIssue }>{ trimmedText }</Span> : null
+  return hasBody ? <Span className={ className } isIssue={ isIssue }>{ trimmedText }</Span> : null
 }
 
 export default StadiumBadge
