@@ -26,17 +26,17 @@ type Props = {
 }
 
 const Header = styled.section`
-  border: 1px solid #B4B4B4
-  margin-bottom: 15px
-  padding: 15px
+  border: 1px solid #B4B4B4;
+  margin-bottom: 15px;
+  padding: 15px;
 `
 
 const StyledH1 = styled(H1)`
-  margin: 8px 0
+  margin: 8px 0;
 `
 
 const P = styled.p`
-  margin-bottom: 8px
+  margin-bottom: 8px;
 `
 
 const CaseDetailHeader: FC<Props> = ({ address, postalCode, personCount, caseNumber, caseCount, openCaseCount, caseOpening, signal, fraudProbability, footer }) => {

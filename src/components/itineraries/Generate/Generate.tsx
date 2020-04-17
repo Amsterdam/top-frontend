@@ -16,21 +16,21 @@ import TeamMemberFields from "../TeamMemberFields"
 import {FormField} from "../../form-components/FormComponents"
 
 const Label2 = styled.label`
-  font-weight: bold
-  margin-right: 36px
+  font-weight: bold;
+  margin-right: 36px;
 `
 const Div = styled.div`
-  margin-bottom: 24px
+  margin-bottom: 24px;
 `
 const StyledInput = styled(Input)`
-  width: 72px
+  width: 72px;
 `
 const RadioButton = styled.input`
-  margin-right: 8px
+  margin-right: 8px;
 `
 const ButtonWrap = styled.div`
-  display: flex
-  justify-content: flex-end
+  display: flex;
+  justify-content: flex-end;
 `
 
 type DayPart = "day" | "evening"

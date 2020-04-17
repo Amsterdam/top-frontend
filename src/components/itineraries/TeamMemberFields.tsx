@@ -4,13 +4,13 @@ import React from "react"
 import styled from "styled-components"
 
 const Div = styled.div`
-  padding-bottom: 12px
-  border-bottom: 1px solid #B4B4B4
-  margin-bottom: 12px
+  padding-bottom: 12px;
+  border-bottom: 1px solid #B4B4B4;
+  margin-bottom: 12px;
 `
 
 const Label = styled.label`
-  font-weight: bold
+  font-weight: bold;
 `
 
 const USER_DROPDOWNS = [

@@ -14,41 +14,41 @@ type Props = {
 }
 
 const NavWrap = styled.div`
-  position: fixed
-  width: 100%
-  top: 50px
-  left: 0
-  z-index: 99
+  position: fixed;
+  width: 100%;
+  top: 50px;
+  left: 0;
+  z-index: 99;
 `
 
 const Nav = styled.nav`
-  background-color: ${ color("tint", "level3") }
-  padding: 15px
-  padding-bottom: 0
-  margin-bottom: 15px
+  background-color: ${ color("tint", "level3") };
+  padding: 15px;
+  padding-bottom: 0;
+  margin-bottom: 15px;
 `
 const Ul = styled.ul`
-  list-style: none
-  margin: 0
-  padding: 0
-  display: flex
-  justify-content: space-between
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
 `
 const UlSpaced = styled(Ul)`
   li:last-child {
-    margin-left: auto
+    margin-left: auto;
   }
 `
 const Li = styled.li`
-  border-bottom: 5px solid transparent
+  border-bottom: 5px solid transparent;
   border-bottom-color: ${ (props: { isActive?: boolean }) => props.isActive ? color("secondary") : 'transparent' }
   a {
-    color: ${ color("tint", "level7") }
-    text-decoration: none
-    font-weight: bold
-    display: block
-    margin: 0
-    padding: 0 10px
+    color: ${ color("tint", "level7") };
+    text-decoration: none;
+    font-weight: bold;
+    display: block;
+    margin: 0;
+    padding: 0 10px;
   }
 `
 

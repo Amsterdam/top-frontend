@@ -10,10 +10,10 @@ import { post, notOk } from "../lib/utils/fetch"
 import styled from "styled-components"
 
 const Div = styled.div`
-  display: flex
-  flex-direction: column
-  align-items: center
-  margin-top: 100px
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 100px;
 `
 
 // @TODO: The logic in this Component should be moved to a seperate Component

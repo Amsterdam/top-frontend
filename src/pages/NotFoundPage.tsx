@@ -6,8 +6,8 @@ import styled from "styled-components"
 type Props = RouteComponentProps
 
 const Div = styled.div`
-  margin-top: 200px
-  text-align: center
+  margin-top: 200px;
+  text-align: center;
 `
 
 const NotFoundPage: React.FC<Props> = () => (

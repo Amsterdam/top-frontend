@@ -22,20 +22,20 @@ type Props = {
 }
 
 const Wrap = styled.div`
-  display: flex
-  justify-content: space-between
-  border-bottom: 1px solid #B4B4B4
-  padding-bottom: 12px
-  margin-bottom: 24px
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #B4B4B4;
+  padding-bottom: 12px;
+  margin-bottom: 24px;
 `
 const ButtonWrap = styled.div`
-  display: flex
-  justify-content: space-between
-  border-bottom: 1px solid #B4B4B4
-  padding-bottom: 12px
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #B4B4B4;
+  padding-bottom: 12px;
 `
 const ButtonMenuWrap = styled.div`
-  position: relative
+  position: relative;
 `
 
 const Itinerary: FC<Props> = ({ itinerary }) => {

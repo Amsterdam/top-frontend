@@ -16,19 +16,19 @@ type Props = {
 }
 
 const Div = styled.div`
-  transition: opacity 0.6s ease-out
-  opacity: ${ (props: { collapsed: boolean }) => props.collapsed ? 0 : 1 }
+  transition: opacity 0.6s ease-out;
+  opacity: ${ (props: { collapsed: boolean }) => props.collapsed ? 0 : 1 };
 `
 
 const Inner = styled.div`
-  display: flex
-  justify-content: space-between
+  display: flex;
+  justify-content: space-between;
 `
 
 const ButtonWrap = styled.div`
-  margin: 10px 0 10px 12px 
+  margin: 10px 0 10px 12px ;
   button:first-child {
-    margin-bottom: 10px
+    margin-bottom: 10px;
   }
 `
 

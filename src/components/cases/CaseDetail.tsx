@@ -22,7 +22,7 @@ type Props = {
 }
 
 const HrSpaced = styled(Hr)`
-  margin: 24px 0
+  margin: 24px 0;
 `
 
 const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {

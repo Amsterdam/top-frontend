@@ -16,21 +16,21 @@ const StyledButton = styled(Button)`
 // @TODO: Rename this, so there is no confusion with global Modal
 // @TODO: Move to seperate component
 const Modal = styled.div`
-  position: absolute
-  z-index: 9
-  right: 15px
-  margin-top: -132px
-  background: white
-  width: 240px
-  padding: 12px
+  position: absolute;
+  z-index: 9;
+  right: 15px;
+  margin-top: -132px;
+  background: white;
+  width: 240px;
+  padding: 12px;
   border: 1px solid black;
 `
 const ModalButton = styled(Button)`
-  display: block
+  display: block;
 `
 const P = styled.p`
-  color: black
-  font-weight: normal
+  color: black;
+  font-weight: normal;
 `
 
 const ItinerarySearchResultButtons: FC<Props> = ({ caseId }) => {

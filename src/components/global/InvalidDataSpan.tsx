@@ -3,7 +3,7 @@ import styled from "styled-components"
 
 // @TODO: Use ASC
 const Span = styled.span`
-  color: red
+  color: red;
 `
 
 const InvalidDataSpan: FC = () => <Span>-</Span>

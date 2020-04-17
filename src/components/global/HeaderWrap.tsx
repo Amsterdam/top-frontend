@@ -6,10 +6,10 @@ import { to, isLoginPage, isLoginCallbackPage } from "../../config/page"
 import styled from "styled-components"
 
 const Wrap = styled.div`
-  position: fixed
-  top: 0
-  width: 100%
-  z-index: 9999
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 9999;
 `
 
 const HeaderWrap: React.FC = () => (

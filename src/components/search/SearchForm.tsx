@@ -10,28 +10,28 @@ import {Form} from "react-final-form"
 import {FormField} from "../form-components/FormComponents"
 
 const Label = styled.label`
-  font-weight: 500
-  display: block
-  min-height: 22px
-  margin-bottom: 2px
+  font-weight: 500;
+  display: block;
+  min-height: 22px;
+  margin-bottom: 2px;
 `
 
 const InputWrap = styled.div`
-  display: inline-block
-  width: 60px
+  display: inline-block;
+  width: 60px;
   @media ${ desktop } {
-    width: 90px
+    width: 90px;
   }
 `
 const Input = styled(InputBase)`
-  height: 44px
-  width: calc(100% - 4px)
+  height: 44px;
+  width: calc(100% - 4px);
 `
 
 const InputWrapPostalCode = styled(InputWrap)`
   width: calc(100% - 174px);
   @media ${ desktop } {
-    width: calc(100% - 234px)
+    width: calc(100% - 234px);
   }
 `
 
@@ -39,27 +39,27 @@ const InputWrapStreetNumber = styled(InputWrap)`
   input {
     &::-webkit-inner-spin-button,
     &::-webkit-outer-spin-button {
-      -webkit-appearance: none
-      margin: 0
+      -webkit-appearance: none;
+      margin: 0;
     }
   }
 `
 
 const ButtonWrap = styled.div`
-  vertical-align: top
-  display: inline-block
+  vertical-align: top;
+  display: inline-block;
   button {
-    width: 50px
+    width: 50px;
   }
 `
 const SearchButton = styled(Button)`
-  display: block
-  margin-top: 24px
+  display: block;
+  margin-top: 24px;
 `
 
 const ClearButtonWrap = styled.div`
-  display: flex
-  justify-content: flex-start
+  display: flex;
+  justify-content: flex-start;
 `
 
 type FormValues = {

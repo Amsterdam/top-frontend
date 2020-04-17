@@ -6,11 +6,11 @@ type Props = {
 }
 
 const Div = styled.div`
-  margin-top: 12px
-  border-bottom: 1px solid #767676
+  margin-top: 12px;
+  border-bottom: 1px solid #767676;
 `
 const Span = styled.span`
-  font-style: italic
+  font-style: italic;
 `
 
 const EmptySearchResult: FC<Props> = ({ text = "" }) => (

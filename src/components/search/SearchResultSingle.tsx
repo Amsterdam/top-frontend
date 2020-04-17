@@ -16,10 +16,10 @@ type Props = {
 }
 
 const StyledLink = styled(Link)`
-  color: black
-  text-decoration: none
-  width: 100%
-  display: block
+  color: black;
+  text-decoration: none;
+  width: 100%;
+  display: block;
 `
 
 const SearchResultSingle: FC<Props> = ({ caseItem, actionButtonsComponent, caseTo }) => {

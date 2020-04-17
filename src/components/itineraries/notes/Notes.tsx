@@ -8,12 +8,12 @@ type Props = {
 }
 
 const Div = styled.div`
-  margin-top: 8px
+  margin-top: 8px;
 `
 
 const P = styled.p`
-  margin: 0
-  color: ${ color("tint", "level4") }
+  margin: 0;
+  color: ${ color("tint", "level4") };
 `
 
 const maxLength = 48

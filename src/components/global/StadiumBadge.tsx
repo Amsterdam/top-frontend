@@ -7,12 +7,12 @@ type Props = {
 }
 
 const Span = styled.span`
-  display: inline-block
-  background-color: ${ (props: { isIssue?: boolean }) => props.isIssue ? color("secondary") : color("primary") }
-  border-radius: 6px
-  padding: 2px 8px
-  font-weight: bold
-  color: ${ color("tint", "level1") }
+  display: inline-block;
+  background-color: ${ (props: { isIssue?: boolean }) => props.isIssue ? color("secondary") : color("primary") };
+  border-radius: 6px;
+  padding: 2px 8px;
+  font-weight: bold;
+  color: ${ color("tint", "level1") };
 `
 
 const StadiumBadge: FC<Props> = ({ text }) => {

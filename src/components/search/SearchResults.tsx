@@ -16,12 +16,12 @@ type Props = {
 
 const D = 15
 const Div = styled.div`
-  background: ${ color("tint", "level2") }
-  margin: 0 -${ D }px
-  padding: 0 ${ D }px
+  background: ${ color("tint", "level2") };
+  margin: 0 -${ D }px;
+  padding: 0 ${ D }px;
 `
 const P = styled.p`
-  margin-top: 12px
+  margin-top: 12px;
 `
 
 export type CaseTo = (caseId:CaseId) => string
