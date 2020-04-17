@@ -41,7 +41,7 @@ const UlSpaced = styled(Ul)`
 `
 const Li = styled.li`
   border-bottom: 5px solid transparent;
-  border-bottom-color: ${ (props: { isActive?: boolean }) => props.isActive ? color("secondary") : 'transparent' }
+  border-bottom-color: ${ (props: { isActive?: boolean }) => props.isActive ? color("secondary") : 'transparent' };
   a {
     color: ${ color("tint", "level7") };
     text-decoration: none;
@@ -54,7 +54,7 @@ const Li = styled.li`
 
 // this empty element is used to correct scroll position under fixed header, navigation
 const FocusSpacer = styled.div`
-  height: 116px
+  height: 116px;
 `
 
 const NavigationWrap: FC<Props> = ({ menuItems }) => {

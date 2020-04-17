@@ -22,8 +22,8 @@ import { GlobalStyle } from "@datapunt/asc-ui"
 import GlobalStyleIE11 from "./components/styled/IE11"
 
 const Main = styled.main`
-  margin: 15px
-  margin-top: 0
+  margin: 15px;
+  margin-top: 0;
 `
 
 const App: FC = () => (
