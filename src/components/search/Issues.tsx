@@ -2,7 +2,6 @@ import React, { FC, useEffect } from "react"
 import Spinner from "../global/Spinner"
 import ErrorMessage from "../global/ErrorMessage"
 import H1 from "../styled/H1"
-import Hr from "../styled/Hr"
 import ItinerarySearchResultButtons from "./itinerary/ItinerarySearchResultButtons"
 import useGlobalState from "../../hooks/useGlobalState"
 import SearchResults from "../search/SearchResults"
@@ -31,6 +30,8 @@ const Issues: FC = () => {
   const showError = hasError
   const hasResults = results !== undefined && results.length > 0
   const show = !showSpinner && !showError && hasResults
+  const showResults = hasResults
+  const showEmpty = !hasResults
   const date = formatDate(currentDate(), true, false)
 
   return (
@@ -44,9 +45,15 @@ const Issues: FC = () => {
       { show &&
         <>
           <H1>Open issuemeldingen { date }</H1>
-          <p>Deze issuemeldingen zijn vandaag nog beschikbaar, voeg ze toe aan je lijst.</p>
-          <Hr />
-          <SearchResults results={ results } actionButtonsComponent={ItinerarySearchResultButtons} />
+          { showResults &&
+            <>
+              <p>Deze issuemeldingen zijn vandaag nog beschikbaar, voeg ze toe aan je lijst.</p>
+              <SearchResults results={ results } actionButtonsComponent={ItinerarySearchResultButtons} />
+            </>
+          }
+          { showEmpty &&
+            <p>Geen issuemeldingen beschikbaar</p>
+          }
         </>
       }
     </div>
