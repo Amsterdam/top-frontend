@@ -18,6 +18,7 @@ type Props = {
 
 const StyledLink = styled(Link)`
   text-decoration: none
+  color: black
 `
 
 const Wrap = styled.div`

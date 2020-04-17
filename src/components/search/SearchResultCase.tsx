@@ -3,6 +3,7 @@ import styled from "styled-components"
 import StadiumBadge from "../global/StadiumBadge"
 import FraudProbability from "../global/FraudProbability"
 import useGlobalState from "../../hooks/useGlobalState"
+import { color } from "@datapunt/asc-ui"
 
 type Props = {
   reason: string
@@ -14,11 +15,12 @@ type Props = {
 const P = styled.p`
   font-weight: normal
   color: black
+  margin: 6px 0
 `
 const StyledFraudProbability = styled(FraudProbability)`
   margin-left: 12px
   font-weight: bold
-  color: #B4B4B4
+  color: ${ color("tint", "level4") }
 `
 const SearchResultCase: FC<Props> = ({ reason, stadium, teams, fraudProbability }) => {
   const {

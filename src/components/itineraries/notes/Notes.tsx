@@ -1,5 +1,6 @@
 import React, { FC } from "react"
 import styled from "styled-components"
+import { color } from "@datapunt/asc-ui"
 import authUser from "../../../lib/authUser"
 
 type Props = {
@@ -7,15 +8,12 @@ type Props = {
 }
 
 const Div = styled.div`
-  margin: 4px 0
+  margin-top: 8px
 `
 
 const P = styled.p`
-  margin-bottom: 0
-  font-size: 16px
-  line-height: 1.3em
-  color: gray
-  font-weight: normal
+  margin: 0
+  color: ${ color("tint", "level4") }
 `
 
 const maxLength = 48

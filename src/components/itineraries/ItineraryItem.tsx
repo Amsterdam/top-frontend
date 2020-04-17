@@ -2,6 +2,7 @@ import React, { FC } from "react"
 import { Link } from "@reach/router"
 import { to } from "../../config/page"
 import styled from "styled-components"
+import { color } from "@datapunt/asc-ui"
 import StadiumBadge from "../global/StadiumBadge"
 import Notes from "./notes/Notes"
 import FraudProbability from "../global/FraudProbability"
@@ -15,36 +16,34 @@ type Props = {
   showAddress?: boolean
 }
 
+const SPACING = 12
 const Article = styled.article`
   width: 100%
-  a {
-    text-decoration: none
-    display: block
-    margin-bottom: 0
-    padding: 10px 0
-  }
+`
+const StyledLink = styled(Link)`
+  display: block
+  margin: 0
+  padding: 10px 0
+  text-decoration: none
+  color: ${ color("tint", "level7") }
 `
 const Div = styled.div`
-  margin-right: 12px
+  margin-right: ${ SPACING }px
 `
 const H1 = styled.h1`
-  font-size: 16px
-  line-height: 28px
-  color: black
-  margin-bottom: 2px
+  font-size: 18px
+  margin: 6px 0
 `
 const P = styled.p`
-  color: black
-  font-weight: normal
-  margin-bottom: 2px
+  margin: 6px 0
 `
 const PostalCode = styled(P)`
   font-weight: bold
 `
 const StyledFraudProbability = styled(FraudProbability)`
-  margin-left: 12px
+  margin-left: ${ SPACING }px
   font-weight: bold
-  color: #B4B4B4
+  color: ${ color("tint", "level4") }
 `
 
 const ItineraryItem: FC<Props> = ({ caseItem, fraudPrediction, notes, showAddress = true }) => {
@@ -67,7 +66,7 @@ const ItineraryItem: FC<Props> = ({ caseItem, fraudPrediction, notes, showAddres
 
   return (
     <Article>
-      <Link to={ linkTo }>
+      <StyledLink to={ linkTo }>
         <Div>
           { showAddress &&
             <>
@@ -81,7 +80,7 @@ const ItineraryItem: FC<Props> = ({ caseItem, fraudPrediction, notes, showAddres
             <Notes notes={ notes } />
           </div>
         </Div>
-      </Link>
+      </StyledLink>
     </Article>
   )
 }
