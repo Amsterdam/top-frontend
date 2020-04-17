@@ -4,7 +4,6 @@ import ErrorMessage from "../global/ErrorMessage"
 import useGlobalState from "../../hooks/useGlobalState"
 import SearchResults from "../search/SearchResults"
 import H1 from "../styled/H1"
-import Hr from "../styled/Hr"
 import ItinerarySearchResultButtons from "./itinerary/ItinerarySearchResultButtons"
 
 type Props = {
@@ -33,6 +32,8 @@ const Suggestions: FC<Props> = ({ id }) => {
   const showError = hasError
   const hasResults = results !== undefined && results.length > 0
   const show = !showSpinner && !showError && hasResults
+  const showResults = hasResults
+  const showEmpty = !hasResults
 
   return (
     <div className="Suggestions">
@@ -45,9 +46,15 @@ const Suggestions: FC<Props> = ({ id }) => {
       { show &&
         <>
           <H1>Voeg een adres toe</H1>
-          <p>Adressen rondom de adressen in je lijst:</p>
-          <Hr />
-          <SearchResults results={ results } actionButtonsComponent={ItinerarySearchResultButtons} />
+          { showResults &&
+            <>
+              <p>Adressen rondom de adressen in je lijst:</p>
+              <SearchResults results={ results } actionButtonsComponent={ItinerarySearchResultButtons} />
+            </>
+          }
+          { showEmpty &&
+            <p>Geen adressen beschikbaar</p>
+          }
         </>
       }
     </div>

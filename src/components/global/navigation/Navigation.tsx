@@ -24,7 +24,7 @@ const Navigation: FC = () => {
   const d = 24
   const menuItems = [
     { to: to(), text: `${ titleHome }${ showCounter ? ` (${ numItineraryItems })` : "" }`, isActive: homeActive },
-    { to: to("issuemeldingen"), text: "Issuemeldingen", isActive: issuesActive },
+    { to: to("issuemeldingen"), text: "Open issuemeldingen", isActive: issuesActive },
     { to: to("zoeken"), text: <SearchIcon width={ d } height={ d } />, isActive: searchActive }
   ]
 
