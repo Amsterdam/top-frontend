@@ -16,6 +16,10 @@ type Props = {
   caseTo?:CaseTo
 }
 
+const StyledLink = styled(Link)`
+  text-decoration: none
+`
+
 const Wrap = styled.div`
   display: flex
   justify-content: space-between
@@ -65,7 +69,7 @@ const SearchResultPlural: FC<Props> = ({ actionButtonsComponent, cases, caseTo =
           const key = caseId
 
           return (
-            <Link key={ key } to={ caseTo ? caseTo(caseId) : defaultCaseTo(caseId) }>
+            <StyledLink key={ key } to={ caseTo ? caseTo(caseId) : defaultCaseTo(caseId) }>
               <Wrap>
                 <SearchResultCase reason={ reason } stadium={ stadium } teams={ teams } fraudProbability={ fraudProbability } />
                 { ActionButtonsComponent && (
@@ -74,7 +78,7 @@ const SearchResultPlural: FC<Props> = ({ actionButtonsComponent, cases, caseTo =
                   </Div>
                 ) }
               </Wrap>
-            </Link>
+            </StyledLink>
           )
         })
       }

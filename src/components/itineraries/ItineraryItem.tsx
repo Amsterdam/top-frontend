@@ -18,6 +18,7 @@ type Props = {
 const Article = styled.article`
   width: 100%
   a {
+    text-decoration: none
     display: block
     margin-bottom: 0
     padding: 10px 0

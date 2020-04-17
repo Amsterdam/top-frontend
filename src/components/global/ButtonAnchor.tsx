@@ -12,6 +12,7 @@ type Props = {
 
 const StyledLink = styled(Link)`
   margin-bottom: 0
+  text-decoration: none
 `
 
 const StyledButton = styled(Button)`

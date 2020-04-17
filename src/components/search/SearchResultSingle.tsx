@@ -16,6 +16,7 @@ type Props = {
 }
 
 const StyledLink = styled(Link)`
+  text-decoration: none
   width: 100%
   display: block
 `
