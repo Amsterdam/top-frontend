@@ -19,7 +19,6 @@ import NotFoundPage from "./pages/NotFoundPage"
 import PageOverlay from "./components/global/PageOverlay"
 import AuthSession from "./components/auth/AuthSession"
 import { GlobalStyle } from "@datapunt/asc-ui"
-import GlobalStyleApp from "./components/styled/Global"
 import GlobalStyleIE11 from "./components/styled/IE11"
 
 const Main = styled.main`
@@ -32,9 +31,8 @@ const App: FC = () => (
     <ThemeProvider>
 
       <GlobalStyle />
-      <GlobalStyleApp />
       <GlobalStyleIE11 />
-      
+
       <Anonymous />
 
       <div className="App">
