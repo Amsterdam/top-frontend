@@ -17,21 +17,21 @@ type Props = {
 }
 
 const StyledLink = styled(Link)`
-  text-decoration: none
-  color: black
+  text-decoration: none;
+  color: black;
 `
 
 const Wrap = styled.div`
-  display: flex
-  justify-content: space-between
-  margin-top: 12px
-  border-top: 1px solid black
-  padding-top: 12px
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
+  border-top: 1px solid black;
+  padding-top: 12px;
 `
 const Div = styled.div`
-  display: flex
-  flex-direction: column
-  justify-content: flex-end
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 `
 
 const SearchResultPlural: FC<Props> = ({ actionButtonsComponent, cases, caseTo = defaultCaseTo }) => {

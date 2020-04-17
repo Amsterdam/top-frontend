@@ -17,16 +17,16 @@ type Props = {
 }
 
 const Div = styled.div`
-  padding-bottom: 12px
-  border-bottom: 1px solid #B4B4B4
-  margin-bottom: 12px
+  padding-bottom: 12px;
+  border-bottom: 1px solid #B4B4B4;
+  margin-bottom: 12px;
 `
 const ButtonWrap = styled.div`
-  display: flex
-  justify-content: flex-end
+  display: flex;
+  justify-content: flex-end;
 `
 const StyledButton = styled(Button)`
-  margin: 12px
+  margin: 12px;
 `
 
 type FormValues = {

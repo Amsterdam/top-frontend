@@ -7,8 +7,8 @@ import ErrorMessage from "../global/ErrorMessage"
 import authToken from "../../lib/authToken"
 
 const Div = styled.div`
-  margin-top: 200px
-  text-align: center
+  margin-top: 200px;
+  text-align: center;
 `
 
 const Login: FC = () => {

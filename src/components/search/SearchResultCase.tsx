@@ -13,14 +13,14 @@ type Props = {
 }
 
 const P = styled.p`
-  font-weight: normal
-  color: black
-  margin: 6px 0
+  font-weight: normal;
+  color: black;
+  margin: 6px 0;
 `
 const StyledFraudProbability = styled(FraudProbability)`
-  margin-left: 12px
-  font-weight: bold
-  color: ${ color("tint", "level4") }
+  margin-left: 12px;
+  font-weight: bold;
+  color: ${ color("tint", "level4") };
 `
 const SearchResultCase: FC<Props> = ({ reason, stadium, teams, fraudProbability }) => {
   const {

@@ -7,12 +7,12 @@ type Props = {
 }
 
 const H1 = styled.h1`
-  font-size: 18px
-  margin: 6px 0
+  font-size: 18px;
+  margin: 6px 0;
 `
 const PostalCode = styled.p`
-  font-weight: bold
-  margin: 6px 0
+  font-weight: bold;
+  margin: 6px 0;
 `
 
 const SearchResultAddress: FC<Props> = ({ address, postalCode }) => (

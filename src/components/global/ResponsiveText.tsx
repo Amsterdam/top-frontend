@@ -9,12 +9,12 @@ type Props = {
 
 const SpanMobile = styled.span`
   @media ${ desktop } {
-    display: none
+    display: none;
   }
 `
 const SpanDesktop = styled.span`
   @media ${ mobile } {
-    display: none
+    display: none;
   }
 `
 

@@ -14,17 +14,17 @@ type Props = {
 }
 
 const Section = styled.section`
-  overflow: hidden
-  border: 1px solid #B4B4B4
-  margin-bottom: 15px
-  padding: 12px
+  overflow: hidden;
+  border: 1px solid #B4B4B4;
+  margin-bottom: 15px;
+  padding: 12px;
 `
 
 const P = styled.p`
-  margin-bottom: 8px
+  margin-bottom: 8px;
 `
 const StyledH1 = styled(H1)`
-  margin: 8px 0 20px
+  margin: 8px 0 20px;
 `
 
 const CaseDetailSection: FC<Props> = ({ id, title, data, footer }) => {

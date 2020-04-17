@@ -18,32 +18,32 @@ type Props = {
 
 const SPACING = 12
 const Article = styled.article`
-  width: 100%
+  width: 100%;
 `
 const StyledLink = styled(Link)`
-  display: block
-  margin: 0
-  padding: 10px 0
-  text-decoration: none
-  color: ${ color("tint", "level7") }
+  display: block;
+  margin: 0;
+  padding: 10px 0;
+  text-decoration: none;
+  color: ${ color("tint", "level7") };
 `
 const Div = styled.div`
-  margin-right: ${ SPACING }px
+  margin-right: ${ SPACING }px;
 `
 const H1 = styled.h1`
-  font-size: 18px
-  margin: 6px 0
+  font-size: 18px;
+  margin: 6px 0;
 `
 const P = styled.p`
-  margin: 6px 0
+  margin: 6px 0;
 `
 const PostalCode = styled(P)`
-  font-weight: bold
+  font-weight: bold;
 `
 const StyledFraudProbability = styled(FraudProbability)`
-  margin-left: ${ SPACING }px
-  font-weight: bold
-  color: ${ color("tint", "level4") }
+  margin-left: ${ SPACING }px;
+  font-weight: bold;
+  color: ${ color("tint", "level4") };
 `
 
 const ItineraryItem: FC<Props> = ({ caseItem, fraudPrediction, notes, showAddress = true }) => {

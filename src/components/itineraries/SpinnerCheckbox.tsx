@@ -15,8 +15,8 @@ const SIZE = DIM - 2 * BORDER_WIDTH
 const SpinnerWrap = styled.div`
   border: 1px solid ${ color("tint", "level7" ) };
   margin: 6px;
-  width: ${ DIM }px
-  height: ${ DIM }px
+  width: ${ DIM }px;
+  height: ${ DIM }px;
 `
 
 const Wrap = styled.div`

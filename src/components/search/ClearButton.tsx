@@ -9,9 +9,9 @@ type Props = {
 }
 
 const StyledButton = styled(Button)`
-  font-weight: bold
-  height: auto
-  padding: 12px 15px
+  font-weight: bold;
+  height: auto;
+  padding: 12px 15px;
 `
 
 const ClearButton: FC<Props> = ({ onClick = noop }) =>

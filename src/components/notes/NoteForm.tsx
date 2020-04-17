@@ -8,11 +8,11 @@ import useGlobalState from "../../hooks/useGlobalState"
 import currentTime from "../../lib/utils/currentTime"
 
 const ButtonWrap = styled.div`
-  display: flex
-  justify-content: flex-end
-  margin-top: 12px
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 12px;
   button {
-    margin-left: 12px
+    margin-left: 12px;
   }
 `
 
@@ -23,7 +23,7 @@ type Props = {
 }
 
 const H4 = styled.h4`
-  margin-bottom: 8px
+  margin-bottom: 8px;
 `
 
 const NoteForm: FC<Props> = ({ itineraryItemId, id, value }) => {

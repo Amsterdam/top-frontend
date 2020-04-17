@@ -7,13 +7,13 @@ type Props = {
 }
 
 const H4 = styled.h4`
-  margin-bottom: 4px
+  margin-bottom: 4px;
 `
 
 const P = styled.p`
-  background: ${ ascDefaultTheme.colors.tint.level2 }
-  padding: 8px
-  margin-bottom: 16px
+  background: ${ ascDefaultTheme.colors.tint.level2 };
+  padding: 8px;
+  margin-bottom: 16px;
 `
 
 const Note: FC<Props> = ({ note }) => {
