@@ -6,6 +6,8 @@ import Hr from "../styled/Hr"
 import ItinerarySearchResultButtons from "./itinerary/ItinerarySearchResultButtons"
 import useGlobalState from "../../hooks/useGlobalState"
 import SearchResults from "../search/SearchResults"
+import currentDate from "../../lib/utils/currentDate"
+import formatDate from "../../lib/utils/formatDate"
 
 const Issues: FC = () => {
   const {
@@ -29,6 +31,7 @@ const Issues: FC = () => {
   const showError = hasError
   const hasResults = results !== undefined && results.length > 0
   const show = !showSpinner && !showError && hasResults
+  const date = formatDate(currentDate(), true, false)
 
   return (
     <div className="Suggestions">
@@ -40,7 +43,8 @@ const Issues: FC = () => {
       }
       { show &&
         <>
-          <H1>Issuemeldingen</H1>
+          <H1>Open issuemeldingen { date }</H1>
+          <p>Deze issuemeldingen zijn vandaag nog beschikbaar, voeg ze toe aan je lijst.</p>
           <Hr />
           <SearchResults results={ results } actionButtonsComponent={ItinerarySearchResultButtons} />
         </>
