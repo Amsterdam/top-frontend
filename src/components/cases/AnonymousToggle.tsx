@@ -6,20 +6,19 @@ import EyeButton from "./EyeButton"
 const Div = styled.div`
   position: fixed
   z-index: 9
-  width: calc(100% - 12px);
+  width: 100%
   bottom: 0
   left: 0
   height: 84px
   display: flex
   justify-content: flex-end
   padding-right: 12px
-  padding-top: 12px
 `
 
 const Span = styled.span`
   display: inline-block
-  height: 23px
-  margin-top: 20px
+  height: 28px
+  margin-top: 24px
   margin-right: 16px
   background: rgba(0, 0, 0, 0.8);
   color: white

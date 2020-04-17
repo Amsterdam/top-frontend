@@ -3,6 +3,7 @@ import styled from "styled-components"
 import SearchResult from "./SearchResult"
 import EmptySearchResult from "./EmptySearchResult"
 import {to} from "../../config/page"
+import { color } from "@datapunt/asc-ui"
 
 export type ActionButtonsComponentProps = { caseId: string }
 export type ActionButtonsComponentType = React.ComponentType<ActionButtonsComponentProps>
@@ -13,6 +14,12 @@ type Props = {
   caseTo?:CaseTo
 }
 
+const D = 15
+const Div = styled.div`
+  background: ${ color("tint", "level2") }
+  margin: 0 -${ D }px
+  padding: 0 ${ D }px
+`
 const P = styled.p`
   margin-top: 12px
 `
@@ -25,7 +32,7 @@ const SearchResults: FC<Props> = ({ results, actionButtonsComponent, caseTo }) =
   const showEmpty = results && results.length === 0
 
   return (
-    <div className="SearchResults">
+    <Div>
     {
       showResults &&
       results!.map((result, index) => {
@@ -48,7 +55,7 @@ const SearchResults: FC<Props> = ({ results, actionButtonsComponent, caseTo }) =
     { showEmpty &&
       <P>Geen resultaten</P>
     }
-    </div>
+    </Div>
   )
 }
 export default SearchResults

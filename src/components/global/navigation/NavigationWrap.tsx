@@ -44,6 +44,8 @@ const Li = styled.li`
   border-bottom-color: ${ (props: { isActive?: boolean }) => props.isActive ? color("secondary") : 'transparent' }
   a {
     color: ${ color("tint", "level7") }
+    text-decoration: none
+    font-weight: bold
     display: block
     margin: 0
     padding: 0 10px
