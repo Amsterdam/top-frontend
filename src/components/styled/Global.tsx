@@ -19,11 +19,5 @@ const Global = createGlobalStyle`
     color: #004699;
     font-weight: bold;
   }
-
-  // IE11
-  // @TODO: Check if ASC Global Styling already sets this
-  main {
-    display: block;
-  }
 `
 export default Global

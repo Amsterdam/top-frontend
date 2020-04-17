@@ -20,6 +20,7 @@ import PageOverlay from "./components/global/PageOverlay"
 import AuthSession from "./components/auth/AuthSession"
 import { GlobalStyle } from "@datapunt/asc-ui"
 import GlobalStyleApp from "./components/styled/Global"
+import GlobalStyleIE11 from "./components/styled/IE11"
 
 const Main = styled.main`
   margin: 15px
@@ -32,6 +33,8 @@ const App: FC = () => (
 
       <GlobalStyle />
       <GlobalStyleApp />
+      <GlobalStyleIE11 />
+      
       <Anonymous />
 
       <div className="App">
