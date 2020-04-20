@@ -57,5 +57,11 @@ export const FormField:React.FC<NativeElementProps & Props> = ({ component: Comp
   (typeof Component === 'string')
     ? (<Field component={Component} validate={validate} {...props}>{children}</Field>)
     : (<Field name={props.name} type={props.type} validate={validate}>
-        { fieldRenderProps => (<Component {...fieldRenderProps.input} {...props}>{children}</Component>) }
+        { fieldRenderProps => (<Component
+            checked={fieldRenderProps.input.value !== undefined}
+            {...fieldRenderProps.input}
+            {...props}>
+            {children}
+          </Component>) }
       </Field>)
+

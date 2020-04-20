@@ -1,5 +1,5 @@
 /**
- * Very simple validation method. Given value should be between `low` and `high`.
+ * Very simple validation method. Given value should be below `max`.
  */
 export const isBelow = (max:number|string) => (value:string|number):string|undefined  => {
   const parsedMax = typeof max === 'string'

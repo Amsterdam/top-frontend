@@ -1,16 +1,16 @@
 import React, { FC } from "react"
 import { Form } from "react-final-form"
-import {Input, breakpoint, Button, color} from "@datapunt/asc-ui"
+import {breakpoint, Button, color} from "@datapunt/asc-ui"
 import styled from "styled-components"
 import JSONDisplay from "./JSONDisplay"
 import DayPartSettings from "./DayPartSettings"
-import {FormField} from "../form-components/FormComponents"
 import ProjectsCheckboxes from "./ProjectCheckboxes"
 import useGlobalState from "../../hooks/useGlobalState"
 import ErrorMessage from "../global/ErrorMessage"
 import SmallSpinner from "../global/SmallSpinner"
 import Spinner from "../global/Spinner"
 import {isRequired} from "../form-components/validators/isRequired"
+import TextField from "../form-components/TextField"
 
 const Wrap = styled.div`
   margin-bottom: 100px
@@ -92,8 +92,7 @@ const Settings: FC = () => {
               <h1>Peildatum</h1>
               <Div>
                 <DateInputWrap>
-                  <FormField
-                    component={Input}
+                  <TextField
                     name='opening_date'
                     type='date'
                     validate={isRequired}

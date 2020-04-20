@@ -1,54 +1,31 @@
-import {FormField} from "../form-components/FormComponents"
+import CheckboxField from "../form-components/CheckboxField"
 import React from "react"
 import styled from "styled-components"
 import {color} from "@datapunt/asc-ui"
-import {isRequired} from "../form-components/validators/isRequired"
-
-// TODO add custom checkboxes
-const CheckboxRow = styled.div`
-  input {
-    margin: 10px;
-  }
-`
+import {Label} from "@datapunt/asc-ui"
+import {FieldValidator} from "final-form"
 
 const Section = styled.section`
   border: 1px solid ${ color("tint", "level5") }
 `
-
-const CHECKBOXES = [
-  'Onderzoek buitendienst',
-  '2de Controle',
-  '3de Controle',
-  'Hercontrole',
-  '2de hercontrole',
-  '3de hercontrole',
-  'Avondronde',
-  'Onderzoek advertentie',
-  'Weekend buitendienstonderzoek',
-  'Issuemelding'
-]
-
 export type Props = {
   fieldName: string
-  dayIndex: number
+  stadia: Stadia
+  validate?: FieldValidator<string|string[]>
 }
 
-export const StadiumSettings:React.FC<Props> = ({ dayIndex, fieldName }) => (
+export const StadiumSettings:React.FC<Props> = ({ fieldName, stadia, validate }) => (
   <Section>
-    { CHECKBOXES.map((value, index) => (
-      <CheckboxRow key={value}>
-        <FormField
-          component='input'
-          id={`${fieldName}-${dayIndex}-${index}`}
-          name={fieldName}
-          value={value}
-          type='checkbox'
-          validate={isRequired}
-        />
-        <label htmlFor={`${fieldName}-${dayIndex}-${index}`}>
-          { value }
-        </label>
-      </CheckboxRow>
+    { stadia.map(value => (
+      <div key={value}>
+        <Label label={value}>
+          <CheckboxField
+            name={fieldName}
+            value={value}
+            validate={validate}
+          />
+          </Label>
+      </div>
     )) }
   </Section>
 )

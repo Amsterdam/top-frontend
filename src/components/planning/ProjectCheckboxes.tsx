@@ -1,14 +1,7 @@
 import React from 'react'
-import {FormField} from "../form-components/FormComponents"
-import styled from "styled-components"
 import {isRequired} from "../form-components/validators/isRequired"
-
-// TODO add custom checkboxes
-const CheckboxRow = styled.div`
-  input {
-    margin: 10px;
-  }
-`
+import CheckboxField from "../form-components/CheckboxField"
+import {Label} from "@datapunt/asc-ui"
 
 type Props = {
   projects: string[]
@@ -16,18 +9,15 @@ type Props = {
 
 const ProjectCheckboxes: React.FC<Props> = ({projects}) => <>
   { projects.map(project => (
-    <CheckboxRow key={project}>
-      <label>
-        <FormField
-            name='projects'
-            component='input'
-            type='checkbox'
-            value={project}
-            validate={isRequired}
-          />
-        { project }
-      </label>
-      </CheckboxRow>
+    <div key={project}>
+      <Label label={project}>
+        <CheckboxField
+          name='projects'
+          value={project}
+          validate={isRequired}
+        />
+      </Label>
+      </div>
   )) }
 </>
 
