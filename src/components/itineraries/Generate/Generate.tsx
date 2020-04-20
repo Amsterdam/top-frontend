@@ -1,6 +1,6 @@
 import React, { FC, useState } from "react"
 import { Form } from "react-final-form"
-import { Button, Input } from "@datapunt/asc-ui"
+import { Button, Input, Label } from "@datapunt/asc-ui"
 import {Link} from "@reach/router"
 import { listsDay } from "../../../config/planning"
 import useGlobalState from "../../../hooks/useGlobalState"
@@ -13,8 +13,7 @@ import {filterNullish} from "../../../lib/utils/filterNullish"
 import TeamMemberFields from "../TeamMemberFields"
 import {FormField} from "../../form-components/FormComponents"
 
-const Label2 = styled.label`
-  font-weight: bold;
+const StyledLabel = styled(Label)`
   margin-right: 36px;
 `
 const Div = styled.div`
@@ -120,7 +119,7 @@ const Generate: FC = () => {
                       type='radio'
                       checked={values.dayPart === 'day'}
                     />
-                    <Label2 htmlFor="day">daglijst</Label2>
+                    <StyledLabel label="daglijst" htmlFor="day" />
                     <FormField
                       name='dayPart'
                       component={RadioButton}
@@ -129,11 +128,11 @@ const Generate: FC = () => {
                       type="radio"
                       checked={values.dayPart === 'evening'}
                     />
-                    <Label2 htmlFor="evening">avondlijst</Label2>
+                    <StyledLabel label="avondlijst" htmlFor="evening" />
                   </>)
                   : (<>
                     <RadioButton id="weekend" type="radio" checked={ true } />
-                    <Label2 htmlFor="weekend">weekend</Label2>
+                    <Label label="weekend" htmlFor="weekend" />
                   </>)
                 }
               </Div>
