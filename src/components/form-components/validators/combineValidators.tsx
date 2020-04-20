@@ -1,6 +1,8 @@
-export const combineValidators = (...validators: Array<(value:any) => undefined|string>) => (value:any) => {
+import {FieldState, FieldValidator} from "final-form"
+
+export const combineValidators = (...validators: FieldValidator<any>[]) => (value:any, allValues:object, meta?:FieldState<any>) => {
   for(const validator of validators) {
-    const result = validator(value)
+    const result = validator(value, allValues, meta)
     if (result !== undefined) {
       return result
     }

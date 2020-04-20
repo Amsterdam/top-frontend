@@ -11,10 +11,8 @@ import Modals, {caseTo, openModalTo} from "./Modals"
 import {findByProperty} from "../../../lib/utils/findByProperty"
 import {filterNullish} from "../../../lib/utils/filterNullish"
 import TeamMemberFields from "../TeamMemberFields"
-import RadioField from "../../form-components/RadioField"
+import RadioFieldGroup from "../../form-components/RadioFieldGroup"
 import NumberField from "../../form-components/NumberField"
-import {isBetween} from "../../form-components/validators/isBetween"
-import {combineValidators} from "../../form-components/validators/combineValidators"
 import {isRequired} from "../../form-components/validators/isRequired"
 
 const Div = styled.div`
@@ -22,10 +20,6 @@ const Div = styled.div`
 `
 const StyledNumberControl = styled(NumberField)`
   width: 70px;
-`
-
-const StyledLabel = styled(Label)`
-  padding-right: 10px;
 `
 
 // @TODO: Use ASC Radio
@@ -109,12 +103,11 @@ const Generate: FC = () => {
                 <div><Label label='Wat voor looplijst wil je maken?' /></div>
                 { showWeekDay
                   ? (<>
-                    <StyledLabel label='daglijst' >
-                      <RadioField name='dayPart' value='day' />
-                    </StyledLabel>
-                    <StyledLabel label='avondlijst'>
-                      <RadioField name='dayPart' value='evening' />
-                    </StyledLabel>
+                    <RadioFieldGroup
+                      horizontal={true}
+                      name='dayPart'
+                      options={{ day: 'daglijst', evening: 'avondlijst' }}
+                    />
                   </>)
                   : (<>
                     <RadioButton id="weekend" type="radio" checked={ true } />
@@ -129,7 +122,7 @@ const Generate: FC = () => {
                   max={20}
                   step={1}
                   name='num'
-                  validate={combineValidators(isRequired, isBetween(1, 20))}
+                  validate={isRequired}
                 />
               </Div>
               <Div>
