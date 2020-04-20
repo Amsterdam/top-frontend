@@ -10,9 +10,6 @@ type Props = {
   caseId: CaseId
 }
 
-const StyledButton = styled(Button)`
-  padding: 12px
-`
 // @TODO: Rename this, so there is no confusion with global Modal
 // @TODO: Move to seperate component
 const Modal = styled.div`
@@ -100,7 +97,7 @@ const ItinerarySearchResultButtons: FC<Props> = ({ caseId }) => {
         <IconButton icon="Enlarge" onClick={ onClickAdd } disabled={ disabled } />
       }
       { showRemoveButton &&
-        <StyledButton variant="textButton" onClick={ onClickRemove } disabled={ disabled }>undo</StyledButton>
+        <IconButton icon="TrashBin" onClick={ onClickRemove } disabled={ disabled } />
       }
       { showModal &&
         <Modal>
