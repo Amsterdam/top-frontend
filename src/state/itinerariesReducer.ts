@@ -98,7 +98,7 @@ const reducer = (state: ItinerariesState, action: Action) : ItinerariesState => 
       const index = itineraries.findIndex(itinerary => itinerary.id === id)
       if (index === -1) return state
       const nextItineraries = produce(itineraries, draft => {
-        draft[index].items = draft[index].items.concat(itineraryItems)
+        draft[index].items = itineraryItems.concat(draft[index].items)
       })
       return { ...state, itineraries: nextItineraries }
     }

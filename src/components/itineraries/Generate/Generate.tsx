@@ -84,7 +84,7 @@ const Generate: FC = () => {
   }
 
   return (
-    <div className="Generate">
+    <div>
       <H1>Genereer je looplijst</H1>
       <p>Wie zitten er vandaag in je team?</p>
       <Form
@@ -139,13 +139,13 @@ const Generate: FC = () => {
                 }
               </Div>
               <Div>
-                <p>Hoeveel adressen wil je in je looplijst?</p>
+                <p>Hoeveel adressen wil je in je looplijst? (Max. 20)</p>
                 <div>
                   <FormField
                     name="num"
                     component={StyledInput}
                     type="number"
-                    min='0'
+                    min='1'
                     max='20'
                     step='1'
                   />

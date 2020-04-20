@@ -4,7 +4,7 @@ import ItineraryTeamMembers from "./ItineraryTeamMembers"
 import H1 from "../styled/H1"
 import Button from "../styled/Button"
 import IconButton from "../global/IconButton"
-import { Enlarge, Card } from "@datapunt/asc-assets"
+import { Enlarge, Card, ChevronDown } from "@datapunt/asc-assets"
 import DroppableItinerary from "./DroppableItinerary"
 import MapsButton from "./MapsButton"
 import RemoveAllButton from "./RemoveAllButton"
@@ -77,7 +77,7 @@ const Itinerary: FC<Props> = ({ itinerary }) => {
     <div>
       <Wrap>
         <H1>{ title }</H1>
-        <IconButton icon="Ellipsis" onClick={ onClickOptions } />
+        <Button variant="blank" iconRight={ <ChevronDown /> } onClick={ onClickOptions }>opties</Button>
       </Wrap>
       { showDialog &&
         <ButtonMenuWrap>
