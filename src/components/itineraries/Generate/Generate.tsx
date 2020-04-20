@@ -2,7 +2,6 @@ import React, { FC, useState } from "react"
 import { Form } from "react-final-form"
 import { Button } from "@datapunt/asc-ui"
 import {Link} from "@reach/router"
-import H1 from "../../styled/H1"
 import Input from "../../styled/Input"
 import { listsDay } from "../../../config/planning"
 import useGlobalState from "../../../hooks/useGlobalState"
@@ -85,7 +84,7 @@ const Generate: FC = () => {
 
   return (
     <div>
-      <H1>Genereer je looplijst</H1>
+      <h1>Genereer je looplijst</h1>
       <p>Wie zitten er vandaag in je team?</p>
       <Form
         keepDirtyOnReinitialize={true}

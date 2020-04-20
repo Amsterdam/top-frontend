@@ -3,7 +3,6 @@ import Spinner from "../global/Spinner"
 import ErrorMessage from "../global/ErrorMessage"
 import useGlobalState from "../../hooks/useGlobalState"
 import SearchResults from "../search/SearchResults"
-import H1 from "../styled/H1"
 import ItinerarySearchResultButtons from "./itinerary/ItinerarySearchResultButtons"
 
 type Props = {
@@ -45,7 +44,7 @@ const Suggestions: FC<Props> = ({ id }) => {
       }
       { show &&
         <>
-          <H1>Voeg een adres toe</H1>
+          <h1>Voeg een adres toe</h1>
           { showResults &&
             <>
               <p>Adressen rondom de adressen in je lijst:</p>

@@ -3,7 +3,6 @@ import styled from "styled-components"
 import StadiumBadge from "../global/StadiumBadge"
 import InvalidDataSpan from "../global/InvalidDataSpan"
 import ScrollToAnchor from "../global/ScrollToAnchor"
-import H1 from "../styled/H1"
 import Label from "../styled/Label"
 import FraudProbability from "../global/FraudProbability"
 
@@ -30,9 +29,6 @@ const Header = styled.section`
   margin-bottom: 15px;
   padding: 15px;
 `
-const StyledH1 = styled(H1)`
-  margin: 8px 0;
-`
 const P = styled.p`
   margin-bottom: 8px;
 `
@@ -52,7 +48,7 @@ const CaseDetailHeader: FC<Props> = ({ address, postalCode, personCount, caseNum
 
   return (
     <Header>
-      <StyledH1>{ address }</StyledH1>
+      <h1>{ address }</h1>
       <P>{ postalCode }</P>
       { showStadiumBadge &&
         <StyledStadiumBadge text={ signal! } />
