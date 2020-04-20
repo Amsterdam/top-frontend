@@ -1,6 +1,6 @@
 import React, { FC, useState } from "react"
 import { Form } from "react-final-form"
-import { Button, Input, Label } from "@datapunt/asc-ui"
+import { Button, Label } from "@datapunt/asc-ui"
 import {Link} from "@reach/router"
 import { listsDay } from "../../../config/planning"
 import useGlobalState from "../../../hooks/useGlobalState"
@@ -11,17 +11,23 @@ import Modals, {caseTo, openModalTo} from "./Modals"
 import {findByProperty} from "../../../lib/utils/findByProperty"
 import {filterNullish} from "../../../lib/utils/filterNullish"
 import TeamMemberFields from "../TeamMemberFields"
-import {FormField} from "../../form-components/FormComponents"
+import RadioField from "../../form-components/RadioField"
+import NumberField from "../../form-components/NumberField"
+import {isBetween} from "../../form-components/validators/isBetween"
+import {combineValidators} from "../../form-components/validators/combineValidators"
+import {isRequired} from "../../form-components/validators/isRequired"
 
-const StyledLabel = styled(Label)`
-  margin-right: 36px;
-`
 const Div = styled.div`
   margin-bottom: 24px;
 `
-const StyledInput = styled(Input)`
-  width: 72px;
+const StyledNumberControl = styled(NumberField)`
+  width: 70px;
 `
+
+const StyledLabel = styled(Label)`
+  padding-right: 10px;
+`
+
 // @TODO: Use ASC Radio
 const RadioButton = styled.input`
   margin-right: 8px
@@ -93,42 +99,22 @@ const Generate: FC = () => {
           dayPart: 'day',
           users:[loggedInUser?.id]
         }}
-        render={({ handleSubmit, values }) => {
-          // Could also be solved using form validation.
-          // @see example: https://final-form.org/docs/react-final-form/examples/field-level-validation
-          const isSubmitButtonDisabled = isFetching
-            || filterNullish(values.users).length < 3
-            || values.num <= 0
-            || values.num > 20
-
-          return (
+        render={({ handleSubmit, values, hasValidationErrors }) => (
             <form onSubmit={handleSubmit}>
               <TeamMemberFields
                 users={users ?? []}
                 alreadySelectedUserIds={values.users}
               />
               <Div>
-                <p>Wat voor looplijst wil je maken?</p>
+                <div><Label label='Wat voor looplijst wil je maken?' /></div>
                 { showWeekDay
                   ? (<>
-                    <FormField
-                      name='dayPart'
-                      component={RadioButton}
-                      value='day'
-                      id='day'
-                      type='radio'
-                      checked={values.dayPart === 'day'}
-                    />
-                    <StyledLabel label="daglijst" htmlFor="day" />
-                    <FormField
-                      name='dayPart'
-                      component={RadioButton}
-                      value='evening'
-                      id="evening"
-                      type="radio"
-                      checked={values.dayPart === 'evening'}
-                    />
-                    <StyledLabel label="avondlijst" htmlFor="evening" />
+                    <StyledLabel label='daglijst' >
+                      <RadioField name='dayPart' value='day' />
+                    </StyledLabel>
+                    <StyledLabel label='avondlijst'>
+                      <RadioField name='dayPart' value='evening' />
+                    </StyledLabel>
                   </>)
                   : (<>
                     <RadioButton id="weekend" type="radio" checked={ true } />
@@ -137,17 +123,14 @@ const Generate: FC = () => {
                 }
               </Div>
               <Div>
-                <p>Hoeveel adressen wil je in je looplijst? (Max. 20)</p>
-                <div>
-                  <FormField
-                    name="num"
-                    component={StyledInput}
-                    type="number"
-                    min='1'
-                    max='20'
-                    step='1'
-                  />
-                </div>
+                <div><Label label='Hoeveel adressen wil je in je looplijst? (Max. 20)' /></div>
+                <StyledNumberControl
+                  min={1}
+                  max={20}
+                  step={1}
+                  name='num'
+                  validate={combineValidators(isRequired, isBetween(1, 20))}
+                />
               </Div>
               <Div>
                 {
@@ -172,14 +155,13 @@ const Generate: FC = () => {
                 }
               </Div>
               <ButtonWrap>
-                <Button type="submit" variant="secondary" disabled={ isSubmitButtonDisabled }>
+                <Button type="submit" variant="secondary" disabled={ hasValidationErrors || isFetching }>
                   Genereer looplijst
                 </Button>
               </ButtonWrap>
             </form>
-          )
-        }
-        } />
+        )}
+        />
       <Modals onAddStartAddress={setStartAddressCaseId} />
     </div>
   )
