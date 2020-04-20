@@ -1,7 +1,6 @@
 import React, { FC, useEffect } from "react"
 import Spinner from "../global/Spinner"
 import ErrorMessage from "../global/ErrorMessage"
-import H1 from "../styled/H1"
 import ItinerarySearchResultButtons from "./itinerary/ItinerarySearchResultButtons"
 import useGlobalState from "../../hooks/useGlobalState"
 import SearchResults from "../search/SearchResults"
@@ -44,7 +43,7 @@ const Issues: FC = () => {
       }
       { show &&
         <>
-          <H1>Open issuemeldingen { date }</H1>
+          <h1>Open issuemeldingen { date }</h1>
           { showResults &&
             <>
               <p>Deze issuemeldingen zijn vandaag nog beschikbaar, voeg ze toe aan je lijst.</p>

@@ -1,9 +1,7 @@
 import React, { FC, useState } from "react"
 import { Form } from "react-final-form"
-import { Button } from "@datapunt/asc-ui"
+import { Button, Input, Label } from "@datapunt/asc-ui"
 import {Link} from "@reach/router"
-import H1 from "../../styled/H1"
-import Input from "../../styled/Input"
 import { listsDay } from "../../../config/planning"
 import useGlobalState from "../../../hooks/useGlobalState"
 import styled from "styled-components"
@@ -15,8 +13,7 @@ import {filterNullish} from "../../../lib/utils/filterNullish"
 import TeamMemberFields from "../TeamMemberFields"
 import {FormField} from "../../form-components/FormComponents"
 
-const Label2 = styled.label`
-  font-weight: bold;
+const StyledLabel = styled(Label)`
   margin-right: 36px;
 `
 const Div = styled.div`
@@ -25,8 +22,9 @@ const Div = styled.div`
 const StyledInput = styled(Input)`
   width: 72px;
 `
+// @TODO: Use ASC Radio
 const RadioButton = styled.input`
-  margin-right: 8px;
+  margin-right: 8px
 `
 const ButtonWrap = styled.div`
   display: flex;
@@ -85,7 +83,7 @@ const Generate: FC = () => {
 
   return (
     <div>
-      <H1>Genereer je looplijst</H1>
+      <h1>Genereer je looplijst</h1>
       <p>Wie zitten er vandaag in je team?</p>
       <Form
         keepDirtyOnReinitialize={true}
@@ -121,7 +119,7 @@ const Generate: FC = () => {
                       type='radio'
                       checked={values.dayPart === 'day'}
                     />
-                    <Label2 htmlFor="day">daglijst</Label2>
+                    <StyledLabel label="daglijst" htmlFor="day" />
                     <FormField
                       name='dayPart'
                       component={RadioButton}
@@ -130,11 +128,11 @@ const Generate: FC = () => {
                       type="radio"
                       checked={values.dayPart === 'evening'}
                     />
-                    <Label2 htmlFor="evening">avondlijst</Label2>
+                    <StyledLabel label="avondlijst" htmlFor="evening" />
                   </>)
                   : (<>
                     <RadioButton id="weekend" type="radio" checked={ true } />
-                    <Label2 htmlFor="weekend">weekend</Label2>
+                    <Label label="weekend" htmlFor="weekend" />
                   </>)
                 }
               </Div>

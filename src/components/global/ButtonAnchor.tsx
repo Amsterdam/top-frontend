@@ -1,7 +1,7 @@
 import React, { ReactNode, FC } from "react"
 import { Link } from "@reach/router"
 import styled from "styled-components"
-import { Button, color } from "@datapunt/asc-ui"
+import StyledButton from "../styled/Button"
 
 type Props = {
   to: string,
@@ -13,10 +13,6 @@ type Props = {
 const StyledLink = styled(Link)`
   margin-bottom: 0;
   text-decoration: none;
-`
-
-const StyledButton = styled(Button)`
-  border: solid 1px ${ color("tint", "level6") };
 `
 
 // @TODO: a > button is not valid HTML
