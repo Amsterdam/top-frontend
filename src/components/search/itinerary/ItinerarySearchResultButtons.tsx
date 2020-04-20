@@ -79,6 +79,7 @@ const ItinerarySearchResultButtons: FC<Props> = ({ caseId }) => {
   const onClickModal = (itinerary: Itinerary) => (event: FormEvent) => {
     event.preventDefault()
     addToItinerary(itinerary, caseId)
+    setShowModal(false)
   }
 
   const onClickModalClose = (event: FormEvent) => {
