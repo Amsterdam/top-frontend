@@ -29,7 +29,6 @@ const ButtonWrap = styled.div`
   margin: 10px 0 10px 12px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   button:first-child {
     margin-bottom: 15px;
   }
