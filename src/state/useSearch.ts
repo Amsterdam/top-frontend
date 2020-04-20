@@ -53,13 +53,12 @@ const useSearch = () : [SearchState, SearchActions] => {
     dispatch(createStartFetching())
 
     const url = getUrl(`itineraries/${ itineraryId }/suggestions`)
-    const [response, result] = await get(url)
+    const [response, result, errorMessage = "Failed to GET"] = await get(url)
 
     dispatch(createStopFetching())
 
     if (isForbidden(response)) return handleForbiddenResponse()
     if (notOk(response)) {
-      const errorMessage = response ? await response.text() : "Failed to GET"
       dispatch(createSetError(errorMessage))
       return
     }
@@ -75,13 +74,12 @@ const useSearch = () : [SearchState, SearchActions] => {
     dispatch(createStartFetching())
 
     const url = getUrl("cases/unplanned", { date: currentDate(), stadium: "Issuemelding" })
-    const [response, result] = await get(url)
+    const [response, result, errorMessage = "Failed to GET"] = await get(url)
 
     dispatch(createStopFetching())
 
     if (isForbidden(response)) return handleForbiddenResponse()
     if (notOk(response)) {
-      const errorMessage = response ? await response.text() : "Failed to GET"
       dispatch(createSetError(errorMessage))
       return
     }

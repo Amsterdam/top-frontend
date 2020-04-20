@@ -35,13 +35,12 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions, ItinerariesSe
   const initialize = async () => {
     const url = getUrl("itineraries", { created_at: currentDate() })
     dispatch(createStartFetching())
-    const [response, result] = await get(url)
+    const [response, result, errorMessage = "Failed to GET"] = await get(url)
     if (isForbidden(response)) {
       dispatch(createStopFetching())
       return handleForbiddenResponse()
     }
     if (notOk(response)) {
-      const errorMessage = response ? await response.body() : "Failed to GET"
       dispatch(createSetErrorMessage(errorMessage))
       return
     }
@@ -68,13 +67,12 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions, ItinerariesSe
         exclude_stadia: settings.lists.exclude_stadia ? settings.lists.exclude_stadia.map((stadium: Stadium) => ({ name: stadium })) : undefined
       }
     }
-    const [response, result] = await post(url, body)
+    const [response, result, errorMessage = "Failed to GET"] = await post(url, body)
     dispatch(createStopFetching())
     if (isForbidden(response)) {
       return handleForbiddenResponse()
     }
     if (notOk(response)) {
-      const errorMessage = response ? await response.text() : "Failed to GET"
       dispatch(createSetErrorMessage(errorMessage))
       return
     }
@@ -89,11 +87,10 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions, ItinerariesSe
   const updateTeam = async (id: Id, users: UUIDs, remove = false) => {
     const url = getUrl(`itineraries/${ id }/team`)
     const body = { team_members: users.map(id => ({ user: { id } })) }
-    const [response, result] = await put(url, body)
+    const [response, result, errorMessage = "Failed to PUT"] = await put(url, body)
 
     if (isForbidden(response)) return handleForbiddenResponse()
     if (notOk(response)) {
-      const errorMessage = response ? await response.text() : "Failed to PUT"
       dispatch(createSetErrorMessage(errorMessage))
       return
     }
@@ -108,14 +105,13 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions, ItinerariesSe
   const del2 = async (id: Id) => {
     dispatch(createStartFetching())
     const url = getUrl(`itineraries/${ id }`)
-    const [response] = await del(url)
+    const [response,, errorMessage = "Failed to DELETE"] = await del(url)
 
     if (isForbidden(response)) {
       dispatch(createStopFetching())
       return handleForbiddenResponse()
     }
     if (notOk(response)) {
-      const errorMessage = response ? await response.text() : "Failed to GET"
       dispatch(createSetErrorMessage(errorMessage))
       return
     }
