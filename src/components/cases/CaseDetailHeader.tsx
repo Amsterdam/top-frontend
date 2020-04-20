@@ -3,7 +3,7 @@ import styled from "styled-components"
 import StadiumBadge from "../global/StadiumBadge"
 import InvalidDataSpan from "../global/InvalidDataSpan"
 import ScrollToAnchor from "../global/ScrollToAnchor"
-import Label from "../styled/Label"
+import Label from "./Label"
 import FraudProbability from "../global/FraudProbability"
 
 import Footer from "./Footer"

@@ -1,6 +1,6 @@
 import React, { FC } from "react"
 import styled from "styled-components"
-import Label from "../styled/Label"
+import Label from "./Label"
 import Footer from "./Footer"
 import InvalidDataSpan from "../global/InvalidDataSpan"
 import displayBoolean from "../../lib/displayBoolean"
