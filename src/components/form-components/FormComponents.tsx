@@ -28,7 +28,10 @@ type Props = {
   component: React.ComponentType<ComponentProps> | 'input' | 'textarea' | 'select'
 }
 
+
 /**
+ * @deprecated in favor of <Checkbox /> <Select /> <TextInput /> etc.
+ *
  * Automatically bind react-final-form `fieldRenderProps` to a third-party input component.
  * @see https://final-form.org/docs/react-final-form/types/FieldRenderProps
  *
@@ -49,7 +52,6 @@ type Props = {
  * <FormField component={StyledInput} name='foo' />
  * <FormField component={StyledTextArea} cols={10} name='foo' />
  */
-
 export const FormField:React.FC<NativeElementProps & Props> = ({ component: Component, children, ...props }) =>
   (typeof Component === 'string')
     ? (<Field component={Component} {...props}>{children}</Field>)

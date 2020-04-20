@@ -1,8 +1,7 @@
-import {Field} from "react-final-form"
 import UserDropdown from "./Generate/UserDropDown"
 import React from "react"
 import styled from "styled-components"
-import { Label } from "@datapunt/asc-ui"
+import {Label} from "@datapunt/asc-ui"
 
 const Div = styled.div`
   padding-bottom: 12px;
@@ -24,15 +23,13 @@ type Props = {
 const TeamMemberFields:React.FC<Props> = ({users, alreadySelectedUserIds}) => <>
     { USER_DROPDOWNS.map((label, index) => (
       <Div key={index}>
-        <Label label={ label } />
-        <Field name={`users[${index}]`}>
-          {({input: {onChange, value}}) => (
-            <UserDropdown users={users}
-                          onChange={onChange}
-                          value={value}
-                          excludedUsers={alreadySelectedUserIds}
-            />)}
-        </Field>
+        <div><Label label={label} /></div>
+        <UserDropdown
+          value={alreadySelectedUserIds[index] ?? ''}
+          name={`users[${index}]`}
+          users={users}
+          excludedUsers={alreadySelectedUserIds}
+        />
       </Div>
     ))}
  </>

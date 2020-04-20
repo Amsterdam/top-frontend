@@ -1,24 +1,23 @@
-import {Select} from "@datapunt/asc-ui"
-import React from "react"
+import React, {useMemo} from "react"
+import SelectField from "../../form-components/SelectField"
+import {isRequired} from "../../form-components/validators/isRequired"
 
 type Props = {
+  name: string
+  value: string
   users: User[]
   excludedUsers: Array<undefined|null|string>
-  onChange: (event:any) => void,
-  value: string
 }
 
-const UserDropdown:React.FC<Props> = ({ onChange, users, value, excludedUsers }) => {
-  const filteredUsers =
-    users.filter(user => !excludedUsers.includes(user.id) || user.id === value)
+const UserDropdown:React.FC<Props> = ({ name, value, users, excludedUsers }) => {
+  const options = useMemo(() => users
+    .filter(user => !excludedUsers.includes(user.id) || user.id === value)
+    .reduce((acc, user) => ({ ...acc, [user.id]: user.full_name}), {
+      '': '-'
+    }), [users, excludedUsers, value])
 
   return (
-    <Select onChange={onChange} value={value}>
-      <option value="">-</option>
-      { filteredUsers.map(({ id, full_name }) =>
-        <option key={ id } value={ id }>{ full_name }</option>)
-      }
-    </Select>
+    <SelectField name={name} options={options} validate={isRequired} />
   )
 }
 
