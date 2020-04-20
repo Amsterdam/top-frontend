@@ -1,7 +1,6 @@
 import React, { FC } from "react"
 import styled from "styled-components"
-import H1 from "../styled/H1"
-import Label from "../styled/Label"
+import Label from "./Label"
 import Footer from "./Footer"
 import InvalidDataSpan from "../global/InvalidDataSpan"
 import displayBoolean from "../../lib/displayBoolean"
@@ -23,9 +22,6 @@ const Section = styled.section`
 const P = styled.p`
   margin-bottom: 8px;
 `
-const StyledH1 = styled(H1)`
-  margin: 8px 0 20px;
-`
 
 const CaseDetailSection: FC<Props> = ({ id, title, data, footer }) => {
   const hasTitle = title !== undefined
@@ -34,7 +30,7 @@ const CaseDetailSection: FC<Props> = ({ id, title, data, footer }) => {
   return (
     <Section id={ id !== undefined ? id : "" }>
       { hasTitle &&
-        <StyledH1>{ title }</StyledH1>
+        <h2>{ title }</h2>
       }
       { data.map((keyValue, index) => {
           const hasLabel = Array.isArray(keyValue)

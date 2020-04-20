@@ -1,8 +1,7 @@
 import React, { FC } from "react"
 import styled from "styled-components"
-import { Label, Button, breakpoint } from "@datapunt/asc-ui"
+import { Label, Input as InputBase, Button, breakpoint } from "@datapunt/asc-ui"
 import { Search } from "@datapunt/asc-assets"
-import InputBase from "../styled/Input"
 import useGlobalState from "../../hooks/useGlobalState"
 import ClearButton from "./ClearButton"
 import {Form} from "react-final-form"
@@ -24,7 +23,6 @@ const InputWrap = styled.div`
   }
 `
 const Input = styled(InputBase)`
-  height: 44px;
   width: calc(100% - 4px);
 `
 
@@ -55,6 +53,7 @@ const ButtonWrap = styled.div`
 const SearchButton = styled(Button)`
   display: block;
   margin-top: 24px;
+  height: 40px;
 `
 
 const ClearButtonWrap = styled.div`
@@ -131,7 +130,7 @@ const SearchForm: FC = () => {
               />
             </InputWrap>
             <ButtonWrap>
-              <SearchButton variant="secondary" iconSize={ 24 } icon={ <Search /> } />
+              <SearchButton variant="secondary" iconSize={ 20 } icon={ <Search /> } />
             </ButtonWrap>
             <ClearButtonWrap>
               <ClearButton onClick={ clear } />

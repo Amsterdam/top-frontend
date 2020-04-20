@@ -1,7 +1,6 @@
 import React, { FC, useState } from "react"
 import useGlobalState from "../../hooks/useGlobalState"
 import ItineraryTeamMembers from "./ItineraryTeamMembers"
-import H1 from "../styled/H1"
 import Button from "../styled/Button"
 import { Enlarge, Card, ChevronDown } from "@datapunt/asc-assets"
 import DroppableItinerary from "./DroppableItinerary"
@@ -75,7 +74,7 @@ const Itinerary: FC<Props> = ({ itinerary }) => {
   return (
     <div>
       <Wrap>
-        <H1>{ title }</H1>
+        <h1>{ title }</h1>
         <Button variant="blank" iconRight={ <ChevronDown /> } onClick={ onClickOptions }>opties</Button>
       </Wrap>
       { showDialog &&
