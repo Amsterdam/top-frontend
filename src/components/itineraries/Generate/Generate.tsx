@@ -1,8 +1,7 @@
 import React, { FC, useState } from "react"
 import { Form } from "react-final-form"
-import { Button } from "@datapunt/asc-ui"
+import { Button, Input } from "@datapunt/asc-ui"
 import {Link} from "@reach/router"
-import Input from "../../styled/Input"
 import { listsDay } from "../../../config/planning"
 import useGlobalState from "../../../hooks/useGlobalState"
 import styled from "styled-components"
@@ -24,8 +23,9 @@ const Div = styled.div`
 const StyledInput = styled(Input)`
   width: 72px;
 `
+// @TODO: Use ASC Radio
 const RadioButton = styled.input`
-  margin-right: 8px;
+  margin-right: 8px
 `
 const ButtonWrap = styled.div`
   display: flex;
