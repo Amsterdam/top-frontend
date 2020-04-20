@@ -1,15 +1,15 @@
 import React, { FC } from "react"
 import styled from "styled-components"
-import { Button, Input as InputBase } from "@datapunt/asc-ui"
+import { Label, Input as InputBase, Button, breakpoint } from "@datapunt/asc-ui"
 import { Search } from "@datapunt/asc-assets"
 import useGlobalState from "../../hooks/useGlobalState"
 import ClearButton from "./ClearButton"
-import { desktop } from "../../responsiveness/mediaQueries"
 import {Form} from "react-final-form"
 import {FormField} from "../form-components/FormComponents"
 
-const Label = styled.label`
-  font-weight: 500;
+const BREAKPOINT = "tabletS"
+
+const StyledLabel = styled(Label)`
   display: block;
   min-height: 22px;
   margin-bottom: 2px;
@@ -18,7 +18,7 @@ const Label = styled.label`
 const InputWrap = styled.div`
   display: inline-block;
   width: 60px;
-  @media ${ desktop } {
+  @media screen and ${ breakpoint("min-width", BREAKPOINT) } {
     width: 90px;
   }
 `
@@ -28,7 +28,7 @@ const Input = styled(InputBase)`
 
 const InputWrapPostalCode = styled(InputWrap)`
   width: calc(100% - 174px);
-  @media ${ desktop } {
+  @media screen and ${ breakpoint("min-width", BREAKPOINT) } {
     width: calc(100% - 234px);
   }
 `
@@ -97,7 +97,7 @@ const SearchForm: FC = () => {
         render={({ handleSubmit }) => (
           <form onSubmit={ handleSubmit }>
             <InputWrapPostalCode>
-              <Label>postcode</Label>
+              <StyledLabel label="postcode" />
               <FormField
                 component={Input}
                 name='postalCode'
@@ -109,7 +109,7 @@ const SearchForm: FC = () => {
               />
             </InputWrapPostalCode>
             <InputWrapStreetNumber>
-              <Label>huisnr.</Label>
+              <StyledLabel label="huisnr." />
               <FormField
                 component={Input}
                 name='streetNumber'
@@ -122,7 +122,7 @@ const SearchForm: FC = () => {
               />
             </InputWrapStreetNumber>
             <InputWrap>
-              <Label>hslt.&nbsp;/&nbsp;etage</Label>
+              <StyledLabel label="hslt.&nbsp;/&nbsp;etage" />
               <FormField
                 component={Input}
                 name='suffix'

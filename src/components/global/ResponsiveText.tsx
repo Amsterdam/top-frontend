@@ -1,28 +1,16 @@
 import React, { FC } from "react"
-import styled from "styled-components"
-// @TODO: Use ASC breakpoints
-import { mobile, desktop } from "../../responsiveness/mediaQueries"
+import { Hidden } from "@datapunt/asc-ui"
 
 type Props = {
   text: [string, string]
 }
 
-const SpanMobile = styled.span`
-  @media ${ desktop } {
-    display: none;
-  }
-`
-const SpanDesktop = styled.span`
-  @media ${ mobile } {
-    display: none;
-  }
-`
+const BREAKPOINT = "tabletS"
 
-const ResponsiveText: FC<Props> = ({ text }) => (
-    <>
-      <SpanMobile>{ text[0] }</SpanMobile>
-      <SpanDesktop>{ text[1] }</SpanDesktop>
-    </>
-  )
+const ResponsiveText: FC<Props> = ({ text }) =>
+  <>
+    <Hidden minBreakpoint={ BREAKPOINT }>{ text[0] }</Hidden>
+    <Hidden maxBreakpoint={ BREAKPOINT }>{ text[1] }</Hidden>
+  </>
 
 export default ResponsiveText
