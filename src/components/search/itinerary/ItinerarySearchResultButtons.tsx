@@ -10,9 +10,8 @@ type Props = {
   caseId: CaseId
 }
 
-// @TODO: Rename this, so there is no confusion with global Modal
 // @TODO: Move to seperate component
-const Modal = styled.div`
+const ItineraryModal = styled.div`
   position: absolute;
   z-index: 9;
   right: 15px;
@@ -22,7 +21,7 @@ const Modal = styled.div`
   padding: 12px;
   border: 1px solid black;
 `
-const ModalButton = styled(Button)`
+const ItineraryModalButton = styled(Button)`
   display: block;
 `
 const P = styled.p`
@@ -79,6 +78,7 @@ const ItinerarySearchResultButtons: FC<Props> = ({ caseId }) => {
   const onClickModal = (itinerary: Itinerary) => (event: FormEvent) => {
     event.preventDefault()
     addToItinerary(itinerary, caseId)
+    setShowModal(false)
   }
 
   const onClickModalClose = (event: FormEvent) => {
@@ -100,15 +100,15 @@ const ItinerarySearchResultButtons: FC<Props> = ({ caseId }) => {
         <IconButton icon="TrashBin" onClick={ onClickRemove } disabled={ disabled } />
       }
       { showModal &&
-        <Modal>
+        <ItineraryModal>
           <P>Voeg toe aan lijst</P>
           { itineraries.map(itinerary => {
               const { id, team_members: teamMembers } = itinerary
-              return <ModalButton key={ id } variant="textButton" onClick={ onClickModal(itinerary) }><TeamMembersDisplay teamMembers={ teamMembers } /></ModalButton>
+              return <ItineraryModalButton key={ id } variant="textButton" onClick={ onClickModal(itinerary) }><TeamMembersDisplay teamMembers={ teamMembers } /></ItineraryModalButton>
             })
           }
-          <ModalButton variant="textButton" onClick={ onClickModalClose }>sluit</ModalButton>
-        </Modal>
+          <ItineraryModalButton variant="textButton" onClick={ onClickModalClose }>sluit</ItineraryModalButton>
+        </ItineraryModal>
       }
     </div>
   )
