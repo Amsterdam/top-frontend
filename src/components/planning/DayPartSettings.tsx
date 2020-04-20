@@ -7,6 +7,7 @@ import {StadiumSettings} from "./StadiumSettings"
 type Props = {
   index: number
   day: string
+  stadia: Stadia
 }
 
 const Wrap = styled.div`
@@ -17,20 +18,7 @@ const H4 = styled.h4`
   margin: 18px 0 4px
 `
 
-const OPTIONS = [
-  'Onderzoek buitendienst',
-  '2de Controle',
-  '3de Controle',
-  'Hercontrole',
-  '2de hercontrole',
-  '3de hercontrole',
-  'Avondronde',
-  'Onderzoek advertentie',
-  'Weekend buitendienstonderzoek',
-  'Issuemelding'
-]
-
-const DayPartSettings:React.FC<Props> = ({day, index: dayIndex}) => (
+const DayPartSettings:React.FC<Props> = ({day, index: dayIndex, stadia}) => (
   <Wrap>
     <h1>{day}</h1>
     <H4>1. Zoveel mogelijk</H4>
@@ -40,7 +28,7 @@ const DayPartSettings:React.FC<Props> = ({day, index: dayIndex}) => (
       component={Select}
     >
       <option value="">Geen</option>
-      { OPTIONS.map(value => (<option key={value} value={value}>{value}</option>)) }
+      { stadia.map(value => (<option key={value} value={value}>{value}</option>)) }
     </FormField>
 
     <H4>2. Aanvullen met</H4>

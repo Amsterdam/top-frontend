@@ -1,14 +1,15 @@
 import React, { FC } from "react"
 import { Form } from "react-final-form"
-import {Input, breakpoint, Spinner, Button, color} from "@datapunt/asc-ui"
+import {Input, breakpoint, Button, color} from "@datapunt/asc-ui"
 import styled from "styled-components"
 import JSONDisplay from "./JSONDisplay"
 import DayPartSettings from "./DayPartSettings"
 import {FormField} from "../form-components/FormComponents"
-import ProjectsCheckboxes from "./ReasonCheckboxes"
+import ProjectsCheckboxes from "./ProjectCheckboxes"
 import useGlobalState from "../../hooks/useGlobalState"
 import ErrorMessage from "../global/ErrorMessage"
 import SmallSpinner from "../global/SmallSpinner"
+import Spinner from "../global/Spinner"
 import {isRequired} from "../form-components/validators/isRequired"
 
 const Wrap = styled.div`
@@ -55,8 +56,8 @@ const DAY_PARTS = [
   'Donderdag avond',
   'Vrijdag',
   'Vrijdag avond',
-  'Weekend',
-  'Weekend avond'
+  'Zaterdag weekend',
+  'Zondag weekend'
 ]
 
 const Settings: FC = () => {
@@ -100,10 +101,10 @@ const Settings: FC = () => {
                 </DateInputWrap>
               </Div>
               <ColumnWrap>
-                <ProjectsCheckboxes />
+                <ProjectsCheckboxes projects={data?.projects ?? []} />
               </ColumnWrap>
               <ColumnWrap>
-                { DAY_PARTS.map((day, index) => <DayPartSettings key={index} index={index} day={day}/>)}
+                { DAY_PARTS.map((day, index) => <DayPartSettings key={index} index={index} day={day} stadia={data?.stadia ?? []} />)}
               </ColumnWrap>
               <ButtonWrap>
                 { errorMessage && <ErrorMessage text={ errorMessage! } />}
