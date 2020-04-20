@@ -29,7 +29,8 @@ const Header = styled.section`
   margin-bottom: 15px;
   padding: 15px;
 `
-const P = styled.p`
+const PostalCode = styled.p`
+  font-weight: bold;
   margin-bottom: 8px;
 `
 const StyledStadiumBadge = styled(StadiumBadge)`
@@ -49,7 +50,7 @@ const CaseDetailHeader: FC<Props> = ({ address, postalCode, personCount, caseNum
   return (
     <Header>
       <h1>{ address }</h1>
-      <P>{ postalCode }</P>
+      <PostalCode>{ postalCode }</PostalCode>
       { showStadiumBadge &&
         <StyledStadiumBadge text={ signal! } />
       }
