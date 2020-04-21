@@ -7,6 +7,8 @@ import Label from "./Label"
 import FraudProbability from "../global/FraudProbability"
 
 import Footer from "./Footer"
+import {Link} from "@reach/router"
+import FraudPredictionDetailsModal, {toFraudPredictionModal} from "./FraudPrediction/FraudPredictionDetailsModal"
 
 type Props = {
   address: string
@@ -17,7 +19,7 @@ type Props = {
   openCaseCount?: number
   caseOpening?: string
   signal?: string
-  fraudProbability?: number
+  fraudPrediction?: FraudPrediction
   footer?: {
     title: string
     link: string
@@ -37,7 +39,7 @@ const StyledStadiumBadge = styled(StadiumBadge)`
   margin-bottom: 8px;
 `
 
-const CaseDetailHeader: FC<Props> = ({ address, postalCode, personCount, caseNumber, caseCount, openCaseCount, caseOpening, signal, fraudProbability, footer }) => {
+const CaseDetailHeader: FC<Props> = ({ address, postalCode, personCount, caseNumber, caseCount, openCaseCount, caseOpening, signal, fraudPrediction, footer }) => {
   const showFooter = footer !== undefined
   const personText =
     personCount === 0 ? "Geen inschrijvingen" :
@@ -45,7 +47,7 @@ const CaseDetailHeader: FC<Props> = ({ address, postalCode, personCount, caseNum
     `${ personCount } personen`
 
   const showStadiumBadge = signal !== undefined
-  const showFraudProbability = fraudProbability !== undefined
+  const showFraudProbability = fraudPrediction !== undefined
 
   return (
     <Header>
@@ -80,8 +82,14 @@ const CaseDetailHeader: FC<Props> = ({ address, postalCode, personCount, caseNum
       </div>
       { showFraudProbability &&
         <div>
-          <Label>Voorspelling (bèta)</Label>
-          <FraudProbability fraudProbability={ fraudProbability! } />
+          <Link to={toFraudPredictionModal()}>
+            <Label>Voorspelling (bèta)</Label>
+            <FraudProbability fraudProbability={ fraudPrediction!.fraud_probability } />
+          </Link>
+          <FraudPredictionDetailsModal
+            title={address}
+            fraudPrediction={fraudPrediction!}
+          />
         </div>
       }
       { showFooter &&
@@ -89,6 +97,7 @@ const CaseDetailHeader: FC<Props> = ({ address, postalCode, personCount, caseNum
           <a href={ footer!.link }>{ footer!.title }</a>
         </Footer>
       }
+
     </Header>
   )
 }
