@@ -21,7 +21,7 @@ const Bar = styled.div`
   
   background-color: ${({isPositive}:BarProps) =>  color( isPositive ? 'primary' : 'secondary')}; 
   border-radius: 3px; 
-  height: 20px; 
+  height: 10px; 
   
   margin-top: 5px;
   margin-bottom: 10px;

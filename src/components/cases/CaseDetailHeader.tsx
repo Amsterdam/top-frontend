@@ -45,15 +45,12 @@ const CaseDetailHeader: FC<Props> = ({ address, postalCode, personCount, caseNum
     personCount === 0 ? "Geen inschrijvingen" :
     personCount === 1 ? "1 persoon" :
     `${ personCount } personen`
-
-  const showStadiumBadge = signal !== undefined
-  const showFraudProbability = fraudPrediction !== undefined
-
+  
   return (
     <Header>
       <h1>{ address }</h1>
       <PostalCode>{ postalCode }</PostalCode>
-      { showStadiumBadge &&
+      { signal &&
         <StyledStadiumBadge text={ signal! } />
       }
       <div>
@@ -80,7 +77,7 @@ const CaseDetailHeader: FC<Props> = ({ address, postalCode, personCount, caseNum
           <InvalidDataSpan />
         }
       </div>
-      { showFraudProbability &&
+      { fraudPrediction &&
         <div>
           <Link to={toFraudPredictionModal()}>
             <Label>Voorspelling (bèta)</Label>
