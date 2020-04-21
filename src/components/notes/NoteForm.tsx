@@ -6,7 +6,7 @@ import navigateTo, { navigateToHome } from "../../lib/navigateTo"
 import useGlobalState from "../../hooks/useGlobalState"
 import currentTime from "../../lib/utils/currentTime"
 import TextareaField from "../form-components/TextareaField"
-import {isRequired} from "../form-components/validators/isRequired"
+import { isRequired } from "../form-components/validators/isRequired"
 
 const ButtonWrap = styled.div`
   display: flex;
