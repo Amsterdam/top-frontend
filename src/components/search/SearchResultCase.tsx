@@ -1,9 +1,7 @@
 import React, { FC } from "react"
 import styled from "styled-components"
 import StadiumBadge from "../global/StadiumBadge"
-import FraudProbability from "../global/FraudProbability"
 import useGlobalState from "../../hooks/useGlobalState"
-import { color } from "@datapunt/asc-ui"
 
 type Props = {
   reason: string
@@ -17,12 +15,8 @@ const P = styled.p`
   color: black;
   margin: 6px 0;
 `
-const StyledFraudProbability = styled(FraudProbability)`
-  margin-left: 12px;
-  font-weight: bold;
-  color: ${ color("tint", "level4") };
-`
-const SearchResultCase: FC<Props> = ({ reason, stadium, teams, fraudProbability }) => {
+
+const SearchResultCase: FC<Props> = ({ reason, stadium, teams }) => {
   const {
     auth: {
       user: { email = "" } = {}
@@ -42,11 +36,9 @@ const SearchResultCase: FC<Props> = ({ reason, stadium, teams, fraudProbability 
     (isOwnTeam && hasSingleItinerary ? "In mijn lijst" : `In lijst: ${ teamString }`) :
     ""
 
-  const showFraudProbability = fraudProbability !== undefined
-
   return (
     <div>
-      <P>{ reason }{ showFraudProbability && <StyledFraudProbability fraudProbability={ fraudProbability! } /> }</P>
+      <P>{ reason }</P>
       <StadiumBadge text={ stadium } />
       { showTeam &&
         <P>{ team }</P>

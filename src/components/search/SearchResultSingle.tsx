@@ -49,7 +49,7 @@ const SearchResultSingle: FC<Props> = ({ caseItem, actionButtonsComponent, caseT
     <SearchResultWrap>
       <StyledLink to={ caseTo ? caseTo(caseId) : defaultCaseTo(caseId) }>
         <div>
-          <SearchResultAddress address={ address } postalCode={ postalCode } />
+          <SearchResultAddress address={ address } postalCode={ postalCode } fraudProbability={ fraudProbability } />
           <SearchResultCase reason={ reason } stadium={ stadium } teams={ teams } fraudProbability={ fraudProbability } />
         </div>
       </StyledLink>
