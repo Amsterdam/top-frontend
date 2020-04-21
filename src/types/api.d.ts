@@ -29,9 +29,13 @@ declare type PostalCode = string
 declare type Stadium = string
 declare type Stadia = Stadium[]
 declare type Distance = number
+declare type ShapValues = Record<string, number>
+declare type BusinessRules = Record<string, number>
 declare type FraudPrediction = {
   fraud_probability: number
   fraud_prediction: boolean
+  business_rules: BusinessRules,
+  shap_values: ShapValues,
 }
 
 declare type BWVData = {
