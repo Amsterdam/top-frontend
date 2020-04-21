@@ -8,7 +8,7 @@ export function isRequired<T>(value:T|undefined):string|undefined {
     return message
   }
 
-  if (!value) {
+  if (value === undefined) {
     return message
   }
 
