@@ -1,11 +1,13 @@
 import React, { FC } from "react"
 import styled from "styled-components"
-import { Label, Input as InputBase, Button, breakpoint } from "@datapunt/asc-ui"
+import { Label, Button, breakpoint } from "@datapunt/asc-ui"
 import { Search } from "@datapunt/asc-assets"
 import useGlobalState from "../../hooks/useGlobalState"
 import ClearButton from "./ClearButton"
 import {Form} from "react-final-form"
-import {FormField} from "../form-components/FormComponents"
+import TextField from "../form-components/TextField"
+import {isRequired} from "../form-components/validators/isRequired"
+import NumberField from "../form-components/NumberField"
 
 const BREAKPOINT = "tabletS"
 
@@ -22,15 +24,19 @@ const InputWrap = styled.div`
     width: 90px;
   }
 `
-const Input = styled(InputBase)`
-  width: calc(100% - 4px);
-`
 
 const InputWrapPostalCode = styled(InputWrap)`
   width: calc(100% - 174px);
   @media screen and ${ breakpoint("min-width", BREAKPOINT) } {
     width: calc(100% - 234px);
   }
+`
+
+const StyledTextField = styled(TextField)` 
+  width: calc(100% - 4px);
+`
+const StyledNumberField = styled(NumberField)`g  
+  width: calc(100% - 4px);
 `
 
 const InputWrapStreetNumber = styled(InputWrap)`
@@ -74,7 +80,7 @@ const SearchForm: FC = () => {
     },
     searchActions: {
       search,
-      clear
+      clear: clearGlobalSearchState
     }
   } = useGlobalState()
 
@@ -91,40 +97,34 @@ const SearchForm: FC = () => {
   return (
     <div className="Search">
       <Form
-        keepDirtyOnReinitialize={true}
         onSubmit={onSubmit}
         initialValues={{ postalCode, streetNumber, suffix }}
-        render={({ handleSubmit }) => (
+        render={({ values, handleSubmit, form }) => (
           <form onSubmit={ handleSubmit }>
             <InputWrapPostalCode>
               <StyledLabel label="postcode" />
-              <FormField
-                component={Input}
+              <StyledTextField
                 name='postalCode'
-                type="text"
                 pattern="\s*[1-9][0-9]{3}\s?[a-zA-Z]{2}\s*"
                 title="Geldige postcodes zijn in de 1234AA of 1234 aa"
-                required
                 autoFocus
+                validate={isRequired}
               />
             </InputWrapPostalCode>
             <InputWrapStreetNumber>
               <StyledLabel label="huisnr." />
-              <FormField
-                component={Input}
+              <StyledNumberField
                 name='streetNumber'
-                type="number"
                 min="1"
                 step="1"
                 pattern="\d+"
                 title="Alleen cijfers zijn geldig"
-                required
+                validate={isRequired}
               />
             </InputWrapStreetNumber>
             <InputWrap>
               <StyledLabel label="hslt.&nbsp;/&nbsp;etage" />
-              <FormField
-                component={Input}
+              <StyledTextField
                 name='suffix'
                 type="text"
               />
@@ -133,7 +133,7 @@ const SearchForm: FC = () => {
               <SearchButton variant="secondary" iconSize={ 20 } icon={ <Search /> } />
             </ButtonWrap>
             <ClearButtonWrap>
-              <ClearButton onClick={ clear } />
+              <ClearButton onClick={() => { form.reset(); clearGlobalSearchState() }} />
             </ClearButtonWrap>
           </form>
         )}

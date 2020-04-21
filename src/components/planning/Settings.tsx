@@ -103,7 +103,7 @@ const Settings: FC = () => {
                 <ProjectsCheckboxes projects={data?.projects ?? []} />
               </ColumnWrap>
               <ColumnWrap>
-                { DAY_PARTS.map((day, index) => <DayPartSettings key={index} index={index} day={day} stadia={data?.stadia ?? []} />)}
+                { DAY_PARTS.map((day, index) => <DayPartSettings key={day} index={index} day={day} stadia={data?.stadia ?? []} />)}
               </ColumnWrap>
               <ButtonWrap>
                 { errorMessage && <ErrorMessage text={ errorMessage! } />}

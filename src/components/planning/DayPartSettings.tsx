@@ -1,11 +1,10 @@
 import React from "react"
 import styled from "styled-components"
-import {Select} from "@datapunt/asc-ui"
-import {FormField} from "../form-components/FormComponents"
 import {StadiumSettings} from "./StadiumSettings"
 import {isNotIntersectingWith} from "../form-components/validators/isNotIntersectingWith"
 import {combineValidators} from "../form-components/validators/combineValidators"
 import {isRequired} from "../form-components/validators/isRequired"
+import SelectField from "../form-components/SelectField"
 
 type Props = {
   index: number
@@ -26,18 +25,13 @@ const DayPartSettings:React.FC<Props> = ({day, index: dayIndex, stadia}) => {
   const secondaryStadia = `lists[${dayIndex}].secondary_stadia`
   const excludeStadia = `lists[${dayIndex}].exclude_stadia`
 
+  const options = stadia.reduce((acc, stadium) => ({ ...acc, [stadium]:stadium }), { '': 'Geen' })
+
   return (
     <Wrap>
       <h1>{day}</h1>
       <H4>1. Zoveel mogelijk</H4>
-
-      <FormField
-        name={primaryStadium}
-        component={Select}
-      >
-        <option value="">Geen</option>
-        { stadia.map(value => (<option key={value} value={value}>{value}</option>)) }
-      </FormField>
+      <SelectField name={primaryStadium} options={options} />
 
       <H4>2. Aanvullen met</H4>
       <StadiumSettings
