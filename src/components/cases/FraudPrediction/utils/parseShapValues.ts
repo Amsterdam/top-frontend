@@ -100,10 +100,13 @@ export const parseShapValues = (shapValues:ShapValues, businessRules:BusinessRul
       business: businessRules[key] && roundIfNecessary(businessRules[key])
     }))
 
-  // Split shapvalues into positive ones and negative ones.
+  // Sort, highest shap first.
+  const sorted = [...combined].sort((a,b) => Math.abs(a.shap) > Math.abs(b.shap) ? -1 : 1)
+
+  // Split shapValues into positive ones and negative ones.
   return {
-    positive: combined.filter(filterPositive),
-    negative: combined.filter(filterNegative)
+    positive: sorted.filter(filterPositive),
+    negative: sorted.filter(filterNegative)
   }
 }
 
