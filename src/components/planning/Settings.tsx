@@ -13,7 +13,7 @@ import {isRequired} from "../form-components/validators/isRequired"
 import TextField from "../form-components/TextField"
 
 const Wrap = styled.div`
-  margin-bottom: 100px
+  margin-bottom: 100px;
 `
 const DateInputWrap = styled.div`
   @media screen and ${ breakpoint("min-width", "laptopL") } {
@@ -21,7 +21,7 @@ const DateInputWrap = styled.div`
   }
 `
 const Div = styled.div`
-  margin-bottom: 36px
+  margin-bottom: 36px;
 `
 const ColumnWrap = styled(Div)`
   column-count: 3;
@@ -31,17 +31,17 @@ const ColumnWrap = styled(Div)`
 `
 
 const ButtonWrap = styled.div`
-  position: fixed
-  width: 100%
-  bottom: 0
-  left: 0
-  display: flex
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  display: flex;
   background-color: ${ color("tint", "level1") };
-  border-top: 1px solid ${ color("tint", "level5") }
-  justify-content: flex-end
-  padding: 18px
+  border-top: 1px solid ${ color("tint", "level5") };
+  justify-content: flex-end;
+  padding: 18px;
   button {
-    margin-left: 12px
+    margin-left: 12px;
   }
 `
 
