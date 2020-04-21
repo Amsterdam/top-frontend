@@ -75,7 +75,7 @@ const Itinerary: FC<Props> = ({ itinerary }) => {
     <div>
       <Wrap>
         <h1>{ title }</h1>
-        <Button variant="blank" iconRight={ <ChevronDown /> } onClick={ onClickOptions }>opties</Button>
+        <Button variant="blank" iconRight={ <ChevronDown /> } onClick={ onClickOptions }>Opties</Button>
       </Wrap>
       { showDialog &&
         <ButtonMenuWrap>

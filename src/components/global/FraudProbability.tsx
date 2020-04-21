@@ -1,13 +1,15 @@
 import React, { FC } from "react"
-import Emoji from "./Emoji"
+import FraudProbabilityLabel from "./FraudProbabiltyLabel"
 
 type Props = {
   fraudProbability: number
   className?: string
 }
 
-const FraudProbability: FC<Props> = ({ fraudProbability, className }) => {
-  const fraudProbabilityPercentage = Math.round(fraudProbability * 100)
-  return <span className={ className }><Emoji text="🤖" /> { fraudProbabilityPercentage }%</span>
-}
+const FraudProbability: FC<Props> = ({ fraudProbability, className }) => (
+  <FraudProbabilityLabel className={className}>
+    {Math.round(fraudProbability * 100)}%
+  </FraudProbabilityLabel>
+)
+
 export default FraudProbability

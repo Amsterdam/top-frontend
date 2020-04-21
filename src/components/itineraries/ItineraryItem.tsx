@@ -7,6 +7,7 @@ import StadiumBadge from "../global/StadiumBadge"
 import Notes from "./notes/Notes"
 import FraudProbability from "../global/FraudProbability"
 import displayAddress from "../../lib/displayAddress"
+import FraudProbabilityLabel from "../global/FraudProbabiltyLabel"
 
 
 type Props = {
@@ -46,6 +47,12 @@ const StyledFraudProbability = styled(FraudProbability)`
   color: ${ color("tint", "level4") };
 `
 
+const StyledFraudLabel = styled(FraudProbabilityLabel)`
+  margin-left: ${ SPACING }px;
+  font-weight: normal;
+  color: ${ color("tint", "level4") };
+`
+
 const ItineraryItem: FC<Props> = ({ caseItem, fraudPrediction, notes, showAddress = true }) => {
   const {
     case_id: id,
@@ -71,11 +78,17 @@ const ItineraryItem: FC<Props> = ({ caseItem, fraudPrediction, notes, showAddres
           { showAddress &&
             <>
               <H1>{ address }</H1>
-              <PostalCode>{ postalCode }</PostalCode>
+              <PostalCode>
+                { postalCode }
+                { showFraudProbability
+                  ? <StyledFraudProbability fraudProbability={ fraudProbability! } />
+                  : <StyledFraudLabel>% onbekend</StyledFraudLabel>
+                }
+              </PostalCode>
             </>
           }
           <div>
-            <P>{ caseReason }{ showFraudProbability && <StyledFraudProbability fraudProbability={ fraudProbability! } /> }</P>
+            <P>{ caseReason }</P>
             <StadiumBadge text={ stadium } />
             <Notes notes={ notes } />
           </div>
