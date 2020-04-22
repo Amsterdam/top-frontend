@@ -1,9 +1,10 @@
 import {
   createClear,
-  createSetDetail,
+  createSetDetail, createSetError,
   createSetIsFetching,
   createSetIsUpdating,
   createSetList,
+  createUpdateDetail,
   restReducer,
   State
 } from "./restReducer"
@@ -20,24 +21,41 @@ describe('restReducer', () => {
   const initialState:State<Pet, PetList> = {
     isFetching: false,
     isUpdating: false,
+    error: undefined,
     detail: undefined,
     list: []
   }
 
   it('should set isFetching', () => {
     const state = restReducer(initialState, createSetIsFetching(true))
-    expect(state).toHaveProperty('isFetching', true)
+    expect(state.isFetching).toEqual(true)
   })
 
   it('should set isUpdating', () => {
       const state = restReducer<Pet, PetList>(initialState, createSetIsUpdating(true))
-      expect(state).toHaveProperty('isUpdating', true)
+      expect(state.isUpdating).toEqual(true)
+  })
+
+  it('should set error', () => {
+    const error = { status: 403, message: 'Je hebt geen toegang tot het dierenbestand' }
+    const state = restReducer<Pet, PetList>(initialState, createSetError(error))
+    expect(state.error).toEqual(error)
   })
 
   it('should set detail', () => {
     const pet:Pet = { age: 10, name: 'Fifi', type: 'dog' }
     const state = restReducer<Pet, PetList>(initialState, createSetDetail(pet))
-    expect(state).toHaveProperty('detail', pet)
+    expect(state.detail).toEqual(pet)
+  })
+
+  it('should update detail', () => {
+    let state = initialState
+    const pet:Pet = { age: 10, name: 'Fifi', type: 'dog' }
+
+    state = restReducer<Pet, PetList>(state, createSetDetail(pet))
+    state = restReducer<Pet, PetList>(state, createUpdateDetail({ age: 11 }))
+
+    expect(state.detail?.age).toEqual(11)
   })
 
   it('should set list', () => {
@@ -46,7 +64,7 @@ describe('restReducer', () => {
       { name: 'Milo', type: 'cat' },
     ]
     const state = restReducer<Pet, PetList>(initialState, createSetList(petList))
-    expect(state).toHaveProperty('list', petList)
+    expect(state.list).toEqual(petList)
   })
 
   it('should clear state', () => {
@@ -57,7 +75,7 @@ describe('restReducer', () => {
     state  = restReducer<Pet, PetList>(state, createSetIsUpdating(true))
 
     // Clear state:
-    state  = restReducer<Pet, PetList>(initialState, createClear(initialState))
+    state  = restReducer<Pet, PetList>(state, createClear(initialState))
 
     // Expect state to be equal to initial state:
     expect(state).toEqual(initialState)
