@@ -220,7 +220,20 @@ declare type PlanningResult = {
   data?: PlanningData
 }
 
+declare type Day =
+  | "monday"
+  | "tuesday"
+  | "wednesday"
+  | "thursday"
+  | "friday"
+  | "saturday"
+  | "sunday"
+
+declare type DayPart = "day" | "evening"
+
 declare type SettingsList = {
+  day: Day
+  dayPart: DayPart
   name: string
   primary_stadium?: Stadium
   secondary_stadia?: Stadia

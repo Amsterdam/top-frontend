@@ -2,7 +2,6 @@ import React, { FC, useState } from "react"
 import { Form } from "react-final-form"
 import { Button, Label } from "@datapunt/asc-ui"
 import {Link} from "@reach/router"
-import { listsDay } from "../../../config/planning"
 import useGlobalState from "../../../hooks/useGlobalState"
 import styled from "styled-components"
 import isWeekDay from "../../../lib/utils/isWeekDay"
@@ -14,6 +13,7 @@ import TeamMemberFields from "../TeamMemberFields"
 import RadioFieldGroup from "../../form-components/RadioFieldGroup"
 import NumberField from "../../form-components/NumberField"
 import {isRequired} from "../../form-components/validators/isRequired"
+import {getCurrentDay} from "../../../lib/utils/day"
 
 const Div = styled.div`
   margin-bottom: 24px;
@@ -31,7 +31,7 @@ const ButtonWrap = styled.div`
   justify-content: flex-end;
 `
 
-type DayPart = "day" | "evening"
+
 type FormValues = {
   num: number
   dayPart: DayPart
@@ -39,13 +39,22 @@ type FormValues = {
 }
 
 const getListSettingsForDayPart = (settings: PlanningSettings, dayPart: DayPart, startAddressCaseId?: string) => {
-  const day = (new Date()).getDay()
-  // @TODO: Extract this to lib/util function
-  const dayIndex = day - 1 < 0 ? 6 : day - 1 // correct sunday => 6
-  const dayLists = listsDay(settings.lists, dayIndex)
-  // @TODO: Extract this to config/planning.ts
-  const lists = dayLists.length >= 2 && dayPart === "evening" ? dayLists[1] : dayLists[0]
-  return {...settings, lists, startAddressCaseId}
+  const currentDay = getCurrentDay()
+
+  // saturday and sundays don't do evenings:
+  if (currentDay === 'saturday' || currentDay === 'sunday') {
+    dayPart = 'day'
+  }
+
+  const list = settings
+    .lists
+    .find(list => list.day === currentDay && list.dayPart === dayPart)
+
+  return {
+    ...settings,
+    list,
+    startAddressCaseId
+  }
 }
 
 const Generate: FC = () => {
