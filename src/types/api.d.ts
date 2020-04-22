@@ -232,20 +232,21 @@ declare type Day =
 declare type DayPart = "day" | "evening"
 
 declare type SettingsList = {
-  day: Day
-  dayPart: DayPart
   name: string
   primary_stadium?: Stadium
   secondary_stadia?: Stadia
   exclude_stadia?: Stadia
 }
-declare type SettingsLists = SettingsList[]
+
+// { monday: { evening: { name: '...',  primary_stadium: '...', ... } } }
+declare type SettingsListMap = Record<Day, Record<DayPart, SettingsList>>
+
 declare type Project = string
 declare type Projects = Project[]
 declare type PlanningSettings = {
   opening_date: string
   projects: Projects
-  lists: SettingsLists
+  days:SettingsListMap
 }
 declare type PlanningSettingsData = {
   projects: string[]

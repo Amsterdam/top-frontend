@@ -24,10 +24,27 @@ const DateInputWrap = styled.div`
 const Div = styled.div`
   margin-bottom: 36px;
 `
-const ColumnWrap = styled(Div)`
+const ColumnWrap = styled(Div)`       
   column-count: 3;
   @media screen and ${ breakpoint("min-width", "laptopL") } {
-    column-count: 6;
+    column-count: 5;
+    
+  }
+`
+
+const DayPartSettingsWrap = styled(Div)`
+  display: inline-block;
+    
+  vertical-align: top;
+  width: 33%; // Three columns
+  padding-right: 20px;
+  
+  &:last-of-type {
+    padding-right: 0px;
+  }
+  
+  @media screen and ${ breakpoint("min-width", "laptopL") } {    
+    width: 20%;   // Five columns
   }
 `
 
@@ -53,18 +70,24 @@ export type DayPartConfig = {
 }
 
 const DAY_PARTS:DayPartConfig[] = [
-  {day: 'monday', dayPart: 'day', title: 'Maandag'},
-  {day: 'monday', dayPart: 'evening', title: 'Maandag avond'},
-  {day: 'tuesday', dayPart: 'day', title: 'Dinsdag'},
-  {day: 'tuesday', dayPart: 'evening', title: 'Dinsdag avond'},
-  {day: 'wednesday', dayPart: 'day', title: 'Woensdag'},
-  {day: 'wednesday', dayPart: 'evening', title: 'Woensdag avond'},
-  {day: 'thursday', dayPart: 'day', title: 'Donderdag'},
-  {day: 'thursday', dayPart: 'evening', title: 'Donderdag avond'},
-  {day: 'friday', dayPart: 'day', title: 'Vrijdag'},
-  {day: 'friday', dayPart: 'evening', title: 'Vrijdag avond'},
+  {day: 'monday', dayPart: 'day', title: 'Maandag dag' },
+  {day: 'tuesday', dayPart: 'day', title: 'Dinsdag dag'},
+  {day: 'wednesday', dayPart: 'day', title: 'Woensdag dag'},
+  {day: 'thursday', dayPart: 'day', title: 'Donderdag dag'},
+  {day: 'friday', dayPart: 'day', title: 'Vrijdag dag'},
+]
+
+const WEEKEND:DayPartConfig[] = [
   {day: 'saturday', dayPart: 'day', title: 'Zaterdag weekend'},
   {day: 'sunday', dayPart: 'day', title: 'Zondag weekend'},
+]
+
+const EVENINGS:DayPartConfig[] = [
+  {day: 'monday', dayPart: 'evening', title: 'Maandag avond'},
+  {day: 'tuesday', dayPart: 'evening', title: 'Dinsdag avond'},
+  {day: 'wednesday', dayPart: 'evening', title: 'Woensdag avond'},
+  {day: 'thursday', dayPart: 'evening', title: 'Donderdag avond'},
+  {day: 'friday', dayPart: 'evening', title: 'Vrijdag avond'}
 ]
 
 const Settings: FC = () => {
@@ -84,7 +107,7 @@ const Settings: FC = () => {
     saveSettings(
       values.opening_date,
       values.projects,
-      values.lists
+      values.days
     )
   }
 
@@ -106,17 +129,21 @@ const Settings: FC = () => {
                   />
                 </DateInputWrap>
               </Div>
+
               <ColumnWrap>
                 <ProjectsCheckboxes projects={data?.projects ?? []} />
               </ColumnWrap>
-              <ColumnWrap>
-                { DAY_PARTS.map((dayPartConfig, index) => <DayPartSettings
-                  key={dayPartConfig.title}
-                  index={index}
-                  stadia={data?.stadia ?? []}
-                  {...dayPartConfig}
-                />)}
-              </ColumnWrap>
+
+              { [DAY_PARTS, WEEKEND, EVENINGS].map(row => (
+                <Div>
+                  { row.map(dayPartConfig => (
+                    <DayPartSettingsWrap>
+                      <DayPartSettings key={dayPartConfig.title} stadia={data?.stadia ?? []} {...dayPartConfig} />
+                    </DayPartSettingsWrap>
+                  ))}
+                </Div>
+              )) }
+
               <ButtonWrap>
                 { errorMessage && <ErrorMessage text={ errorMessage! } /> }
                 { submitSucceeded && !dirty && !isUpdating && !errorMessage && <SuccessMessage text='Succesvol opgeslagen' /> }

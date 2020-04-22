@@ -46,13 +46,9 @@ const getListSettingsForDayPart = (settings: PlanningSettings, dayPart: DayPart,
     dayPart = 'day'
   }
 
-  const list = settings
-    .lists
-    .find(list => list.day === currentDay && list.dayPart === dayPart)
-
   return {
     ...settings,
-    list,
+    days: settings.days[currentDay][dayPart],
     startAddressCaseId
   }
 }
