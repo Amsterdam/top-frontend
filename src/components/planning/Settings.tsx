@@ -11,6 +11,7 @@ import SmallSpinner from "../global/SmallSpinner"
 import Spinner from "../global/Spinner"
 import {isRequired} from "../form-components/validators/isRequired"
 import TextField from "../form-components/TextField"
+import { Grid, GridCell, GridArea } from './Grid'
 
 const Wrap = styled.div`
   margin-bottom: 100px;
@@ -26,7 +27,7 @@ const Div = styled.div`
 const ColumnWrap = styled(Div)`
   column-count: 3;
   @media screen and ${ breakpoint("min-width", "laptopL") } {
-    column-count: 6;
+    column-count: 5;
   }
 `
 
@@ -45,19 +46,25 @@ const ButtonWrap = styled.div`
   }
 `
 
-const DAY_PARTS = [
-  'Maandag',
-  'Maandag avond',
-  'Dinsdag',
-  'Dinsdag avond',
-  'Woensdag',
-  'Woensdag avond',
-  'Donderdag',
-  'Donderdag avond',
-  'Vrijdag',
-  'Vrijdag avond',
-  'Zaterdag weekend',
-  'Zondag weekend'
+type DayPart = {
+  area: GridArea,
+  title: string,
+  collapsed: boolean
+}
+
+const DAY_PARTS:DayPart[] = [
+  { area: 'monday', title: 'Maandag', collapsed: false },
+  { area: 'monday_evening', title: 'Maandag avond', collapsed: true },
+  { area: 'tuesday', title: 'Dinsdag', collapsed: false },
+  { area: 'tuesday_evening', title: 'Dinsdag avond', collapsed: true },
+  { area: 'wednesday', title: 'Woensdag', collapsed: false },
+  { area: 'wednesday_evening', title: 'Woensdag avond', collapsed: true },
+  { area: 'thursday', title: 'Donderdag', collapsed: false },
+  { area: 'thursday_evening', title: 'Donderdag avond', collapsed: true },
+  { area: 'friday', title: 'Vrijdag', collapsed: false },
+  { area: 'friday_evening', title: 'Vrijdag avond', collapsed: true },
+  { area: 'saturday', title: 'Zaterdag weekend', collapsed: false },
+  { area: 'sunday', title: 'Zondag weekend', collapsed: false },
 ]
 
 const Settings: FC = () => {
@@ -102,9 +109,19 @@ const Settings: FC = () => {
               <ColumnWrap>
                 <ProjectsCheckboxes projects={data?.projects ?? []} />
               </ColumnWrap>
-              <ColumnWrap>
-                { DAY_PARTS.map((day, index) => <DayPartSettings key={day} index={index} day={day} stadia={data?.stadia ?? []} />)}
-              </ColumnWrap>
+              <Grid>
+                { DAY_PARTS.map(({ title, area, collapsed }, index) => (
+                  <GridCell area={area}>
+                    <DayPartSettings
+                      key={title}
+                      index={index}
+                      day={title}
+                      collapsed={collapsed}
+                      stadia={data?.stadia ?? []}
+                    />
+                  </GridCell>
+                )) }
+              </Grid>
               <ButtonWrap>
                 { errorMessage && <ErrorMessage text={ errorMessage! } />}
                 { isUpdating && <SmallSpinner />}
