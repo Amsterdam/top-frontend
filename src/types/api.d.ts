@@ -239,13 +239,15 @@ declare type SettingsList = {
   secondary_stadia?: Stadia
   exclude_stadia?: Stadia
 }
-declare type SettingsLists = SettingsList[]
+
+declare type SettingsListMap = Record<Day, Record<DayPart, SettingsList>>
+
 declare type Project = string
 declare type Projects = Project[]
 declare type PlanningSettings = {
   opening_date: string
   projects: Projects
-  lists: SettingsLists
+  maps:SettingsListMap
 }
 declare type PlanningSettingsData = {
   projects: string[]

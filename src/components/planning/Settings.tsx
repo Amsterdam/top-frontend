@@ -27,8 +27,11 @@ const Div = styled.div`
 const ColumnWrap = styled(Div)`
   column-count: 3;
   @media screen and ${ breakpoint("min-width", "laptopL") } {
-    column-count: 6;
+    column-count: 5;
   }
+`
+const Column = styled(Div)`
+  break-inside: avoid-column;
 `
 
 const ButtonWrap = styled.div`
@@ -54,17 +57,23 @@ export type DayPartConfig = {
 
 const DAY_PARTS:DayPartConfig[] = [
   {day: 'monday', dayPart: 'day', title: 'Maandag'},
-  {day: 'monday', dayPart: 'evening', title: 'Maandag avond'},
   {day: 'tuesday', dayPart: 'day', title: 'Dinsdag'},
-  {day: 'tuesday', dayPart: 'evening', title: 'Dinsdag avond'},
   {day: 'wednesday', dayPart: 'day', title: 'Woensdag'},
-  {day: 'wednesday', dayPart: 'evening', title: 'Woensdag avond'},
   {day: 'thursday', dayPart: 'day', title: 'Donderdag'},
-  {day: 'thursday', dayPart: 'evening', title: 'Donderdag avond'},
   {day: 'friday', dayPart: 'day', title: 'Vrijdag'},
-  {day: 'friday', dayPart: 'evening', title: 'Vrijdag avond'},
+]
+
+const WEEKEND:DayPartConfig[] = [
   {day: 'saturday', dayPart: 'day', title: 'Zaterdag weekend'},
   {day: 'sunday', dayPart: 'day', title: 'Zondag weekend'},
+]
+
+const EVENINGS:DayPartConfig[] = [
+  {day: 'monday', dayPart: 'evening', title: 'Maandag avond'},
+  {day: 'tuesday', dayPart: 'evening', title: 'Dinsdag avond'},
+  {day: 'wednesday', dayPart: 'evening', title: 'Woensdag avond'},
+  {day: 'thursday', dayPart: 'evening', title: 'Donderdag avond'},
+  {day: 'friday', dayPart: 'evening', title: 'Vrijdag avond'}
 ]
 
 const Settings: FC = () => {
@@ -84,7 +93,7 @@ const Settings: FC = () => {
     saveSettings(
       values.opening_date,
       values.projects,
-      values.lists
+      values.maps
     )
   }
 
@@ -109,14 +118,17 @@ const Settings: FC = () => {
               <ColumnWrap>
                 <ProjectsCheckboxes projects={data?.projects ?? []} />
               </ColumnWrap>
-              <ColumnWrap>
-                { DAY_PARTS.map((dayPartConfig, index) => <DayPartSettings
-                  key={dayPartConfig.title}
-                  index={index}
-                  stadia={data?.stadia ?? []}
-                  {...dayPartConfig}
-                />)}
-              </ColumnWrap>
+
+              { [DAY_PARTS, WEEKEND, EVENINGS].map(row => (
+                <ColumnWrap>
+                  { row.map(dayPartConfig => (
+                    <Column>
+                      <DayPartSettings key={dayPartConfig.title} stadia={data?.stadia ?? []} {...dayPartConfig} />
+                    </Column>
+                  ))}
+                </ColumnWrap>
+              )) }
+
               <ButtonWrap>
                 { errorMessage && <ErrorMessage text={ errorMessage! } /> }
                 { submitSucceeded && !dirty && !isUpdating && !errorMessage && <SuccessMessage text='Succesvol opgeslagen' /> }

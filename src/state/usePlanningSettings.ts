@@ -44,7 +44,7 @@ const usePlanningSettings = () : [PlanningSettingsState, PlanningSettingsActions
     dispatch(createClear())
   }, [dispatch])
 
-  const saveSettings = useCallback(async (openingDate: string, projects: Projects, lists: SettingsLists) => {
+  const saveSettings = useCallback(async (openingDate: string, projects: Projects, lists: SettingsListMap) => {
     const { data } = state
     if (data === undefined) return
     const { settings: prevSettings } = data
