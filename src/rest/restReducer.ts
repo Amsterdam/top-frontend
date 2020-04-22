@@ -21,7 +21,7 @@ type ListAction<LIST> =
 type ClearAction<DETAIL, LIST> =
   | { type: "CLEAR", payload: { initialState: State<DETAIL, LIST> } }
 
-type AllActions<DETAIL, LIST> =
+export type AllActions<DETAIL, LIST> =
   | Action
   | DetailAction<DETAIL>
   | PartialDetailAction<DETAIL>
@@ -75,6 +75,8 @@ export const restReducer = <DETAIL, LIST>(state:State<DETAIL, LIST>, action:AllA
     case 'SET_LIST':
       return { ...state, ...action.payload }
     case 'UPDATE_DETAIL':
+      // NOTE: Not sure if we want to go this route
+      // Its hard to update on the frontend en still keep sync with the backend.
       return (state.detail !== undefined)
         ? { ...state, detail: deepMerge<DETAIL, DeepPartial<DETAIL>>(state.detail, action.payload.partialDetail) }
         : state
