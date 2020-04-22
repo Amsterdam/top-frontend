@@ -7,6 +7,7 @@ import DayPartSettings from "./DayPartSettings"
 import ProjectsCheckboxes from "./ProjectCheckboxes"
 import useGlobalState from "../../hooks/useGlobalState"
 import ErrorMessage from "../global/ErrorMessage"
+import SuccessMessage from "../global/SuccessMessage"
 import SmallSpinner from "../global/SmallSpinner"
 import Spinner from "../global/Spinner"
 import {isRequired} from "../form-components/validators/isRequired"
@@ -87,7 +88,7 @@ const Settings: FC = () => {
         <Form
           onSubmit={onSubmit}
           initialValues={data?.settings}
-          render={({ handleSubmit, values, hasValidationErrors }) => (<>
+          render={({ handleSubmit, values, hasValidationErrors, submitSucceeded, dirty }) => (<>
             <form onSubmit={handleSubmit}>
               <h1>Peildatum</h1>
               <Div>
@@ -106,7 +107,8 @@ const Settings: FC = () => {
                 { DAY_PARTS.map((day, index) => <DayPartSettings key={day} index={index} day={day} stadia={data?.stadia ?? []} />)}
               </ColumnWrap>
               <ButtonWrap>
-                { errorMessage && <ErrorMessage text={ errorMessage! } />}
+                { errorMessage && <ErrorMessage text={ errorMessage! } /> }
+                { submitSucceeded && !dirty && !isUpdating && !errorMessage && <SuccessMessage text='Succesvol opgeslagen' /> }
                 { isUpdating && <SmallSpinner />}
                 <Button variant="secondary" disabled={isUpdating || hasValidationErrors}>Bewaren</Button>
               </ButtonWrap>
