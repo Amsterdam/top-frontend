@@ -2,8 +2,8 @@ import React from "react"
 import styled from "styled-components"
 import {StadiumSettings} from "./StadiumSettings"
 import {isNotIntersectingWith} from "../form-components/validators/isNotIntersectingWith"
-import {combineValidators} from "../form-components/validators/combineValidators"
-import {isRequired} from "../form-components/validators/isRequired"
+//import {combineValidators} from "../form-components/validators/combineValidators"
+//import {isRequired} from "../form-components/validators/isRequired"
 import SelectField from "../form-components/SelectField"
 
 type Props = {
