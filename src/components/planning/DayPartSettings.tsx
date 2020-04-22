@@ -37,14 +37,14 @@ const DayPartSettings:React.FC<Props> = ({day, index: dayIndex, stadia}) => {
       <StadiumSettings
         fieldName={secondaryStadia}
         stadia={stadia}
-        validate={combineValidators(isNotIntersectingWith(excludeStadia), isRequired)}
+        validate={isNotIntersectingWith(excludeStadia)}
       />
 
       <H4>3. Uitsluiten</H4>
       <StadiumSettings
         fieldName={excludeStadia}
         stadia={stadia}
-        validate={combineValidators(isNotIntersectingWith(secondaryStadia), isRequired)}
+        validate={isNotIntersectingWith(secondaryStadia)}
       />
     </Wrap>
   )
