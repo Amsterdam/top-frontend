@@ -26,7 +26,7 @@ const Inner = styled.div`
 `
 
 const ButtonWrap = styled.div`
-  margin: 10px 0 10px 12px;
+  margin: 15px 0 15px 15px;
   display: flex;
   flex-direction: column;
   button:first-child {
@@ -35,7 +35,7 @@ const ButtonWrap = styled.div`
 `
 
 const CheckboxWrap = styled.div`
-  margin: 10px 12px 10px 0;
+  margin: 15px 15px 15px 0;
 `
 
 const DraggableItineraryItem: FC<Props> = ({ itineraryItem, index }) => {

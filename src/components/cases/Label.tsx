@@ -3,9 +3,10 @@ import { color } from "@datapunt/asc-ui"
 
 const Label = styled.label`
   display: inline-block;
-  min-width: 160px;
+  width: 180px;
   padding-right: 20px;
-  color: ${ color("tint", "level4") };
   margin-bottom: 8px;
+  color: ${ color("tint", "level4") };
+  font-weight: 500;
 `
 export default Label

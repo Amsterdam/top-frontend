@@ -18,9 +18,14 @@ const Section = styled.section`
   margin-bottom: 15px;
   padding: 12px;
 `
-
 const P = styled.p`
-  margin-bottom: 8px;
+  margin: 0 0 8px;
+`
+const Span = styled.span`
+  vertical-align: top;
+`
+const StyleInvalidDataSpan = styled(InvalidDataSpan)`
+  vertical-align: top;
 `
 
 const CaseDetailSection: FC<Props> = ({ id, title, data, footer }) => {
@@ -48,8 +53,8 @@ const CaseDetailSection: FC<Props> = ({ id, title, data, footer }) => {
                 <>
                   <Label>{ key }</Label>
                   { isUndefined ?
-                    <InvalidDataSpan /> :
-                    <span>{ value }</span>
+                    <StyleInvalidDataSpan /> :
+                    <Span>{ value }</Span>
                   }
                 </>
               }

@@ -13,7 +13,7 @@ type Props = {
 const P = styled.p`
   font-weight: normal;
   color: black;
-  margin: 6px 0;
+  margin: 10px 0;
 `
 
 const SearchResultCase: FC<Props> = ({ reason, stadium, teams }) => {

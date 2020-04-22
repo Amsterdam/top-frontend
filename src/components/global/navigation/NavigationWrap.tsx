@@ -46,7 +46,8 @@ const Li = styled.li`
   a {
     color: ${ color("tint", "level7") };
     text-decoration: none;
-    font-weight: bold;
+    font-weight: 500;
+    font-size: 18px;
     display: block;
     margin: 0;
     padding: 0 10px;
