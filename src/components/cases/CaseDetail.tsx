@@ -25,6 +25,11 @@ const HrSpaced = styled(Hr)`
   margin: 24px 0;
 `
 
+const P = styled.p`
+  display: inline-block;
+  margin: 0;
+`
+
 const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
   console.log(caseItem)
 
@@ -157,7 +162,7 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
     const { datum, anoniem, naam, telnr, text } = item
     acc.push(["Datum melding", datum || "-"])
     acc.push(["Anonieme melding", anoniem])
-    acc.push(["Melder", <p className="anonymous"> { naam }</p> || "-"])
+    acc.push(["Melder", <P className="anonymous"> { naam }</P> || "-"])
     acc.push(["Melder telefoonnummer", telnr ? <a className="anonymous" href={ "tel://" + telnr }>{ telnr }</a> : "-"])
     acc.push(<Purified className="anonymous" text={ text } />)
     if (index < meldingen.length - 1) acc.push(<HrSpaced />)

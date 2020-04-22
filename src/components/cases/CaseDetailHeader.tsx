@@ -38,6 +38,9 @@ const PostalCode = styled.p`
 const StyledStadiumBadge = styled(StadiumBadge)`
   margin-bottom: 8px;
 `
+const Span = styled.span`
+  vertical-align: top;
+`
 
 const CaseDetailHeader: FC<Props> = ({ address, postalCode, personCount, caseNumber, caseCount, openCaseCount, caseOpening, signal, fraudPrediction, footer }) => {
   const showFooter = footer !== undefined
@@ -45,7 +48,7 @@ const CaseDetailHeader: FC<Props> = ({ address, postalCode, personCount, caseNum
     personCount === 0 ? "Geen inschrijvingen" :
     personCount === 1 ? "1 persoon" :
     `${ personCount } personen`
-  
+
   return (
     <Header>
       <h1>{ address }</h1>
@@ -54,26 +57,26 @@ const CaseDetailHeader: FC<Props> = ({ address, postalCode, personCount, caseNum
         <StyledStadiumBadge text={ signal! } />
       }
       <div>
-        <Label>Ingeschreven</Label><span>{ personCount > 0 ? <ScrollToAnchor anchor="personen" text={ personText } /> : personText }</span>
+        <Label>Ingeschreven</Label><Span>{ personCount > 0 ? <ScrollToAnchor anchor="personen" text={ personText } /> : personText }</Span>
       </div>
       <div>
         <Label>Zaaknummer</Label>
         { caseNumber !== undefined && caseCount !== undefined ?
-          <span><strong>{ caseNumber }</strong> van { caseCount }</span> :
+          <Span><strong>{ caseNumber }</strong> van { caseCount }</Span> :
           <InvalidDataSpan />
         }
       </div>
       <div>
         <Label>Open zaken</Label>
         { openCaseCount !== undefined ?
-          <span>{ openCaseCount }</span> :
+          <Span>{ openCaseCount }</Span> :
           <InvalidDataSpan />
         }
       </div>
       <div>
         <Label>Openingsreden</Label>
         { caseOpening !== undefined ?
-          <span>{ caseOpening }</span> :
+          <Span>{ caseOpening }</Span> :
           <InvalidDataSpan />
         }
       </div>
