@@ -11,7 +11,7 @@ import SmallSpinner from "../global/SmallSpinner"
 import Spinner from "../global/Spinner"
 import {isRequired} from "../form-components/validators/isRequired"
 import TextField from "../form-components/TextField"
-import { Grid, GridCell, GridArea } from './Grid'
+import { Grid, GridCell } from './Grid'
 
 const Wrap = styled.div`
   margin-bottom: 100px;
@@ -47,24 +47,26 @@ const ButtonWrap = styled.div`
 `
 
 type DayPart = {
-  area: GridArea,
+  row: number,
+  column: number,
   title: string,
   collapsed: boolean
 }
 
+// We use row and column indices here because:
 const DAY_PARTS:DayPart[] = [
-  { area: 'monday', title: 'Maandag', collapsed: false },
-  { area: 'monday_evening', title: 'Maandag avond', collapsed: true },
-  { area: 'tuesday', title: 'Dinsdag', collapsed: false },
-  { area: 'tuesday_evening', title: 'Dinsdag avond', collapsed: true },
-  { area: 'wednesday', title: 'Woensdag', collapsed: false },
-  { area: 'wednesday_evening', title: 'Woensdag avond', collapsed: true },
-  { area: 'thursday', title: 'Donderdag', collapsed: false },
-  { area: 'thursday_evening', title: 'Donderdag avond', collapsed: true },
-  { area: 'friday', title: 'Vrijdag', collapsed: false },
-  { area: 'friday_evening', title: 'Vrijdag avond', collapsed: true },
-  { area: 'saturday', title: 'Zaterdag weekend', collapsed: false },
-  { area: 'sunday', title: 'Zondag weekend', collapsed: false },
+  { row: 1, column: 1, title: 'Maandag', collapsed: false },
+  { row: 3, column: 1, title: 'Maandag avond', collapsed: true },
+  { row: 1, column: 2, title: 'Dinsdag', collapsed: false },
+  { row: 3, column: 2, title: 'Dinsdag avond', collapsed: true },
+  { row: 1, column: 3, title: 'Woensdag', collapsed: false },
+  { row: 3, column: 3, title: 'Woensdag avond', collapsed: true },
+  { row: 1, column: 4, title: 'Donderdag', collapsed: false },
+  { row: 3, column: 4, title: 'Donderdag avond', collapsed: true },
+  { row: 1, column: 5, title: 'Vrijdag', collapsed: false },
+  { row: 3, column: 5, title: 'Vrijdag avond', collapsed: true },
+  { row: 2, column: 1, title: 'Zaterdag weekend', collapsed: false },
+  { row: 2, column: 2, title: 'Zondag weekend', collapsed: false },
 ]
 
 const Settings: FC = () => {
@@ -110,8 +112,8 @@ const Settings: FC = () => {
                 <ProjectsCheckboxes projects={data?.projects ?? []} />
               </ColumnWrap>
               <Grid>
-                { DAY_PARTS.map(({ title, area, collapsed }, index) => (
-                  <GridCell area={area}>
+                { DAY_PARTS.map(({ title, row, column, collapsed }, index) => (
+                  <GridCell row={row} column={column}>
                     <DayPartSettings
                       key={title}
                       index={index}
