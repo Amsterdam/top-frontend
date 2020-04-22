@@ -46,19 +46,25 @@ const ButtonWrap = styled.div`
   }
 `
 
-const DAY_PARTS = [
-  'Maandag',
-  'Maandag avond',
-  'Dinsdag',
-  'Dinsdag avond',
-  'Woensdag',
-  'Woensdag avond',
-  'Donderdag',
-  'Donderdag avond',
-  'Vrijdag',
-  'Vrijdag avond',
-  'Zaterdag weekend',
-  'Zondag weekend'
+export type DayPartConfig = {
+  day: Day
+  dayPart: DayPart
+  title: string
+}
+
+const DAY_PARTS:DayPartConfig[] = [
+  {day: 'monday', dayPart: 'day', title: 'Maandag'},
+  {day: 'monday', dayPart: 'evening', title: 'Maandag avond'},
+  {day: 'tuesday', dayPart: 'day', title: 'Dinsdag'},
+  {day: 'tuesday', dayPart: 'evening', title: 'Dinsdag avond'},
+  {day: 'wednesday', dayPart: 'day', title: 'Woensdag'},
+  {day: 'wednesday', dayPart: 'evening', title: 'Woensdag avond'},
+  {day: 'thursday', dayPart: 'day', title: 'Donderdag'},
+  {day: 'thursday', dayPart: 'evening', title: 'Donderdag avond'},
+  {day: 'friday', dayPart: 'day', title: 'Vrijdag'},
+  {day: 'friday', dayPart: 'evening', title: 'Vrijdag avond'},
+  {day: 'saturday', dayPart: 'day', title: 'Zaterdag weekend'},
+  {day: 'sunday', dayPart: 'day', title: 'Zondag weekend'},
 ]
 
 const Settings: FC = () => {
@@ -104,7 +110,12 @@ const Settings: FC = () => {
                 <ProjectsCheckboxes projects={data?.projects ?? []} />
               </ColumnWrap>
               <ColumnWrap>
-                { DAY_PARTS.map((day, index) => <DayPartSettings key={day} index={index} day={day} stadia={data?.stadia ?? []} />)}
+                { DAY_PARTS.map((dayPartConfig, index) => <DayPartSettings
+                  key={dayPartConfig.title}
+                  index={index}
+                  stadia={data?.stadia ?? []}
+                  {...dayPartConfig}
+                />)}
               </ColumnWrap>
               <ButtonWrap>
                 { errorMessage && <ErrorMessage text={ errorMessage! } /> }

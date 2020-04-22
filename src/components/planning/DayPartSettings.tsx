@@ -5,10 +5,13 @@ import {isNotIntersectingWith} from "../form-components/validators/isNotIntersec
 import {combineValidators} from "../form-components/validators/combineValidators"
 import {isRequired} from "../form-components/validators/isRequired"
 import SelectField from "../form-components/SelectField"
+import {Field} from "react-final-form"
 
 type Props = {
+  title: string,
   index: number
-  day: string
+  day: Day,
+  dayPart: DayPart,
   stadia: Stadia
 }
 
@@ -20,16 +23,23 @@ const H4 = styled.h4`
   margin: 18px 0 4px
 `
 
-const DayPartSettings:React.FC<Props> = ({day, index: dayIndex, stadia}) => {
-  const primaryStadium = `lists[${dayIndex}].primary_stadium`
-  const secondaryStadia = `lists[${dayIndex}].secondary_stadia`
-  const excludeStadia = `lists[${dayIndex}].exclude_stadia`
+const getFieldName = (dayIndex:number, name:string) =>
+  `lists[${dayIndex}].${name}`
 
+const DayPartSettings:React.FC<Props> = ({index: dayIndex, title, day, dayPart, stadia}) => {
+  const primaryStadium = getFieldName(dayIndex, 'primary_stadium')
+  const secondaryStadia = getFieldName(dayIndex, 'secondary_stadia')
+  const excludeStadia = getFieldName(dayIndex, 'exclude_stadia')
+  const dayName = getFieldName(dayIndex, 'day')
+  const dayPartName = getFieldName(dayIndex, 'dayPart')
   const options = stadia.reduce((acc, stadium) => ({ ...acc, [stadium]:stadium }), { '': 'Geen' })
 
   return (
     <Wrap>
-      <h1>{day}</h1>
+      <Field name={dayName} component='input' type='hidden' initialValue={day} />
+      <Field name={dayPartName} component='input' type='hidden' initialValue={dayPart} />
+
+      <h1>{title}</h1>
       <H4>1. Zoveel mogelijk</H4>
       <SelectField name={primaryStadium} options={options} />
 
