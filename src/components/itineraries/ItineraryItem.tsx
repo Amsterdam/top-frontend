@@ -17,14 +17,15 @@ type Props = {
   showAddress?: boolean
 }
 
-const SPACING = 12
+const SPACING = 24
+const LINE_MARGIN = 10
 const Article = styled.article`
   width: 100%;
 `
 const StyledLink = styled(Link)`
   display: block;
   margin: 0;
-  padding: 10px 0;
+  padding: 15px 0;
   text-decoration: none;
   color: ${ color("tint", "level7") };
 `
@@ -33,17 +34,17 @@ const Div = styled.div`
 `
 const H1 = styled.h1`
   font-size: 18px;
-  margin: 6px 0;
+  margin: ${ LINE_MARGIN }px 0;
 `
 const P = styled.p`
-  margin: 6px 0;
+  margin: ${ LINE_MARGIN }px 0;
 `
 const PostalCode = styled(P)`
-  font-weight: bold;
+  font-weight: 500;
 `
 const StyledFraudProbability = styled(FraudProbability)`
   margin-left: ${ SPACING }px;
-  font-weight: bold;
+  font-weight: 500;
   color: ${ color("tint", "level4") };
 `
 
