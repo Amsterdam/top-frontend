@@ -1,5 +1,5 @@
-import {StateContextInitializer} from "./useCreateInitializeFunction"
-import {useRef} from "react"
+import { StateContextInitializer } from "./useCreateInitializeFunction"
+import { useRef } from "react"
 
 const useCreateAuthenticateFunction = (authActions:AuthActions, initialize:StateContextInitializer) => {
   const authenticate = (token: AuthToken, user: AuthUser) => {

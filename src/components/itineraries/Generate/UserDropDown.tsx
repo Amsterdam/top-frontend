@@ -1,6 +1,6 @@
-import React, {useMemo} from "react"
+import React, { useMemo } from "react"
 import SelectField from "../../form-components/SelectField"
-import {isRequired} from "../../form-components/validators/isRequired"
+import { isRequired } from "../../form-components/validators/isRequired"
 
 type Props = {
   name: string
@@ -12,8 +12,8 @@ type Props = {
 const UserDropdown:React.FC<Props> = ({ name, value, users, excludedUsers }) => {
   const options = useMemo(() => users
     .filter(user => !excludedUsers.includes(user.id) || user.id === value)
-    .reduce((acc, user) => ({ ...acc, [user.id]: user.full_name}), {
-      '': '-'
+    .reduce((acc, user) => ({ ...acc, [user.id]: user.full_name }), {
+      "": "-"
     }), [users, excludedUsers, value])
 
   return (

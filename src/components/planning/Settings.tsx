@@ -1,6 +1,6 @@
 import React, { FC } from "react"
 import { Form } from "react-final-form"
-import {breakpoint, Button, color} from "@datapunt/asc-ui"
+import { breakpoint, Button, color } from "@datapunt/asc-ui"
 import styled from "styled-components"
 import JSONDisplay from "./JSONDisplay"
 import DayPartSettings from "./DayPartSettings"
@@ -10,7 +10,7 @@ import ErrorMessage from "../global/ErrorMessage"
 import SuccessMessage from "../global/SuccessMessage"
 import SmallSpinner from "../global/SmallSpinner"
 import Spinner from "../global/Spinner"
-import {isRequired} from "../form-components/validators/isRequired"
+import { isRequired } from "../form-components/validators/isRequired"
 import TextField from "../form-components/TextField"
 
 const Wrap = styled.div`
@@ -47,18 +47,18 @@ const ButtonWrap = styled.div`
 `
 
 const DAY_PARTS = [
-  'Maandag',
-  'Maandag avond',
-  'Dinsdag',
-  'Dinsdag avond',
-  'Woensdag',
-  'Woensdag avond',
-  'Donderdag',
-  'Donderdag avond',
-  'Vrijdag',
-  'Vrijdag avond',
-  'Zaterdag weekend',
-  'Zondag weekend'
+  "Maandag",
+  "Maandag avond",
+  "Dinsdag",
+  "Dinsdag avond",
+  "Woensdag",
+  "Woensdag avond",
+  "Donderdag",
+  "Donderdag avond",
+  "Vrijdag",
+  "Vrijdag avond",
+  "Zaterdag weekend",
+  "Zondag weekend"
 ]
 
 const Settings: FC = () => {

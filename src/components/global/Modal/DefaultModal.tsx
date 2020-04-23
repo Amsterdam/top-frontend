@@ -1,9 +1,9 @@
-import React, {useEffect} from "react"
-import {FixedWrap} from "./components/FixedWrap"
-import {StyledIconButton} from "./components/StyledIconButton"
-import {Body} from "./components/Body"
-import {Footer} from "./components/Footer"
-import {TopBar} from "./components/TopBar"
+import React, { useEffect } from "react"
+import { FixedWrap } from "./components/FixedWrap"
+import { StyledIconButton } from "./components/StyledIconButton"
+import { Body } from "./components/Body"
+import { Footer } from "./components/Footer"
+import { TopBar } from "./components/TopBar"
 
 type Props = {
   title?: string
@@ -11,10 +11,10 @@ type Props = {
   footer?: JSX.Element
 }
 
-const ESCAPE_KEYS = ['Escape', '27']
+const ESCAPE_KEYS = ["Escape", "27"]
 const defaultCloseHandler = () => window.history.back()
 
-const DefaultModal:React.FC<Props> = ({title, onClose, children, footer}) => {
+const DefaultModal:React.FC<Props> = ({ title, onClose, children, footer }) => {
   const close = () => onClose ? onClose() : defaultCloseHandler()
 
   const onKeyDown = (event:KeyboardEvent) => {
@@ -24,8 +24,8 @@ const DefaultModal:React.FC<Props> = ({title, onClose, children, footer}) => {
   }
 
   useEffect(() => {
-    document.addEventListener('keydown', onKeyDown)
-    return () => document.removeEventListener('keydown', onKeyDown)
+    document.addEventListener("keydown", onKeyDown)
+    return () => document.removeEventListener("keydown", onKeyDown)
   })
 
   return (

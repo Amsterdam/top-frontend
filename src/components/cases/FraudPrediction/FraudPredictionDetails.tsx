@@ -1,8 +1,8 @@
-import React from 'react'
+import React from "react"
 
 import styled from "styled-components"
-import {parseShapValues} from "./utils/parseShapValues"
-import {ShapValue} from "./ShapValue"
+import { parseShapValues } from "./utils/parseShapValues"
+import { ShapValue } from "./ShapValue"
 
 const Section = styled.section`
   border: 1px solid #B4B4B4

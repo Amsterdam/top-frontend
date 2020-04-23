@@ -11,7 +11,7 @@ describe("authUser", () => {
     it("is not", () => {
       const user = { email: "a@example.com" }
       authUser.set(user)
-      expect(authUser.isAuthUser({ email: "b@example.com"})).toBe(false)
+      expect(authUser.isAuthUser({ email: "b@example.com" })).toBe(false)
     })
   })
 })

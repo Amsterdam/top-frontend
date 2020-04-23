@@ -7,8 +7,8 @@ import Label from "./Label"
 import FraudProbability from "../global/FraudProbability"
 
 import Footer from "./Footer"
-import {Link} from "@reach/router"
-import FraudPredictionDetailsModal, {toFraudPredictionModal} from "./FraudPrediction/FraudPredictionDetailsModal"
+import { Link } from "@reach/router"
+import FraudPredictionDetailsModal, { toFraudPredictionModal } from "./FraudPrediction/FraudPredictionDetailsModal"
 
 type Props = {
   address: string

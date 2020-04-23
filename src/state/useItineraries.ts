@@ -190,7 +190,7 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions, ItinerariesSe
 
   const setChecked = async (itemId: Id, checked:boolean) => {
     const url = getUrl(`itinerary-items/${ itemId }`)
-    const [response, ] = await patch(url, { checked })
+    const [response ] = await patch(url, { checked })
     if (isForbidden(response)) return handleForbiddenResponse()
     if (notOk(response)) return alert("Afvinken mislukt")
     dispatch(createSetChecked(itemId, checked))

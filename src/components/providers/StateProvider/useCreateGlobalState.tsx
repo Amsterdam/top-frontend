@@ -4,8 +4,8 @@ import useSearch from "../../../state/useSearch"
 import useUsers from "../../../state/useUsers"
 import usePlanningSettings from "../../../state/usePlanningSettings"
 import useCreateClearFunction from "./hooks/useCreateClearFunction"
-import useCreateInitializeFunction, {StateContextInitializer} from "./hooks/useCreateInitializeFunction"
-import {StateContextValue} from "../../../contexts/StateContext"
+import useCreateInitializeFunction, { StateContextInitializer } from "./hooks/useCreateInitializeFunction"
+import { StateContextValue } from "../../../contexts/StateContext"
 import useCreateAnonymousHandlers from "./hooks/useCreateAnonymousHandlers"
 import useCreateAuthenticateFunction from "./hooks/useCreateAuthenticateFunction"
 
@@ -23,7 +23,7 @@ const useCreateGlobalState = (): Result => {
   const [planningSettings, planningSettingsActions] = usePlanningSettings()
 
   // Anonymous handlers:
-  const {isAnonymous, setIsAnonymous, toggleIsAnonymous} = useCreateAnonymousHandlers()
+  const { isAnonymous, setIsAnonymous, toggleIsAnonymous } = useCreateAnonymousHandlers()
 
   // Are we initialized yet?
   const isInitialized = auth.isInitialized && itineraries.isInitialized

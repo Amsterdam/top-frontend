@@ -1,4 +1,4 @@
-import {useCallback, useReducer} from "react"
+import { useCallback, useReducer } from "react"
 import reducer, {
   initialState,
   createStartFetching,

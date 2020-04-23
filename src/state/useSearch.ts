@@ -66,7 +66,7 @@ const useSearch = () : [SearchState, SearchActions] => {
     const { cases } = result
     const results = cases
       .map(castFraudPrediction)
-      .map((caseItem: SearchResultCase) => ({ success: true, data: { cases: [caseItem] } }))
+      .map((caseItem: SearchResultCase) => ({ success: true, data: { cases: [caseItem]} }))
     dispatch(createSetSuggestions(results))
   }, [dispatch])
 
@@ -87,7 +87,7 @@ const useSearch = () : [SearchState, SearchActions] => {
     const { cases } = result
     const results = cases
       .map(castFraudPrediction)
-      .map((caseItem: SearchResultCase) => ({ success: true, data: { cases: [caseItem] } }))
+      .map((caseItem: SearchResultCase) => ({ success: true, data: { cases: [caseItem]} }))
     dispatch(createSetIssues(results))
   }, [dispatch])
 

@@ -2,7 +2,7 @@ import React, { FC } from "react"
 import styled from "styled-components"
 import SearchResult from "./SearchResult"
 import EmptySearchResult from "./EmptySearchResult"
-import {to} from "../../config/page"
+import { to } from "../../config/page"
 import { color } from "@datapunt/asc-ui"
 
 export type ActionButtonsComponentProps = { caseId: string }

@@ -4,11 +4,15 @@ module.exports = {
   ],
   rules: {
     "arrow-body-style": ["error", "as-needed"],
-    "no-multiple-empty-lines": ["error"],
-    "padded-blocks": ["error", "never"],
     "block-spacing": ["error", "always"],
+    "comma-dangle": ["error", "never"],
+    "no-multiple-empty-lines": ["error"],
+    "object-curly-spacing": ["error", "always", { "arraysInObjects": false }],
+    "padded-blocks": ["error", "never"],
+    "quotes": ["error", "double", { "avoidEscape": true }],
     "space-unary-ops": ["error"],
     "space-infix-ops": ["error"],
-    "semi": ["error", "never"]
+    "semi": ["error", "never"],
+    "template-curly-spacing": ["error", "always"]
   }
 }

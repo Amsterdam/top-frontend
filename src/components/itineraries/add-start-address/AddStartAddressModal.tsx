@@ -1,10 +1,10 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from "react"
+import styled from "styled-components"
 
 import DefaultModal from "../../global/Modal/DefaultModal"
 import Search from "../../search/Search"
-import createActionButtons, {OnAddStartAddress} from "./ActionButtons"
-import {CaseTo} from "../../search/SearchResults"
+import createActionButtons, { OnAddStartAddress } from "./ActionButtons"
+import { CaseTo } from "../../search/SearchResults"
 
 const Div = styled.div`
   padding-bottom: 15px;

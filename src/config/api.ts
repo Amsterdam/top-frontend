@@ -50,7 +50,7 @@ export const getOIDCProviderUrl = () => {
     response_type: responseType,
     scope,
     client_id: clientId,
-    redirect_uri: redirectUri,
+    redirect_uri: redirectUri
   })
   return `${ authorizeUri }${ queryParamsString }`
 }

@@ -1,4 +1,4 @@
-import React, {MouseEvent, useCallback, useEffect, useState} from "react"
+import React, { MouseEvent, useCallback, useEffect, useState } from "react"
 import styled from "styled-components"
 import { Checkbox, Spinner, color } from "@datapunt/asc-ui"
 

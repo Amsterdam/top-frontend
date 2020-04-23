@@ -1,10 +1,10 @@
-import {isLoginCallbackPage} from "../../../../config/page"
-import {useRef} from "react"
+import { isLoginCallbackPage } from "../../../../config/page"
+import { useRef } from "react"
 
 export type GlobalStateClearFunction = (errorMessage?: ErrorMessage) => void
 type Clearable = () => void
 
-const useCreateClearFunction = (unAuthenticate:AuthActions['unAuthenticate'], clearables:Clearable[]):GlobalStateClearFunction => {
+const useCreateClearFunction = (unAuthenticate:AuthActions["unAuthenticate"], clearables:Clearable[]):GlobalStateClearFunction => {
   const clear = (errorMessage?: ErrorMessage) => {
     const shouldNavigateToLogin = !isLoginCallbackPage()
 

@@ -29,7 +29,7 @@ ${ !isWoonboot ?
 
 `Gebruiksdoel: ${ gebruiksdoel || "-" }
 Soort Object (feitelijk gebruik): ${ gebruik || "-" }
-Aantal bouwlagen: ${ aantalBouwlagen !== undefined ? aantalBouwlagen : "-"}
+Aantal bouwlagen: ${ aantalBouwlagen !== undefined ? aantalBouwlagen : "-" }
 Verdieping toegang: ${ etage !== undefined ? etage : "-" }
 Aantal kamers: ${ aantalKamers !== undefined ? aantalKamers : "-" }
 Woonoppervlak: ${ oppervlak !== undefined ? `${ oppervlak } m² ` : "-" }`

@@ -43,7 +43,7 @@ const reducer = (state: SearchState, action: Action) : SearchState => {
     }
     case "SET_RESULTS": {
       const isFetching = false
-      const { results = [] } = action.payload
+      const { results = []} = action.payload
       return { ...state, isFetching, results }
     }
     case "SET_SUGGESTIONS": {

@@ -1,18 +1,18 @@
 import React from "react"
 import { Input as AscInput } from "@datapunt/asc-ui"
-import {useField} from "react-final-form"
-import {FieldValidator} from "final-form"
+import { useField } from "react-final-form"
+import { FieldValidator } from "final-form"
 import noop from "../../lib/utils/noop"
-import {combineValidators} from "./validators/combineValidators"
-import {isAbove} from "./validators/isAbove"
-import {isBelow} from "./validators/isBelow"
+import { combineValidators } from "./validators/combineValidators"
+import { isAbove } from "./validators/isAbove"
+import { isBelow } from "./validators/isBelow"
 
 export type Props = {
   name: string
   validate?: FieldValidator<number>
 } & React.InputHTMLAttributes<HTMLInputElement>
 
-const NumberField:React.FC<Props> = ({name, validate = noop, ...restProps}) => {
+const NumberField:React.FC<Props> = ({ name, validate = noop, ...restProps }) => {
   if (restProps.min !== undefined) {
     validate = combineValidators(isAbove(restProps.min), validate)
   }
@@ -24,7 +24,7 @@ const NumberField:React.FC<Props> = ({name, validate = noop, ...restProps}) => {
     meta,
     input
   } = useField(name, {
-    type: 'number',
+    type: "number",
     validate
   })
 
