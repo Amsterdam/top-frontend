@@ -11,6 +11,10 @@ import { getIn } from 'final-form'
 export const isNotIntersectingWith = (field:string) => (value:any, allValues:object) => {
   const other = getIn(allValues, field)
 
+  if (value === undefined || other === undefined) {
+    return undefined
+  }
+
   if (!Array.isArray(value) || !Array.isArray(other)) {
     console.error('Fields should be arrays')
     return undefined
