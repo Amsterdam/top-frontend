@@ -2,7 +2,7 @@ import React, { FC } from "react"
 import styled from "styled-components"
 import SearchResultSingle from "./SearchResultSingle"
 import SearchResultPlural from "./SearchResultPlural"
-import {ActionButtonsComponentType, CaseTo} from "./SearchResults"
+import { ActionButtonsComponentType, CaseTo } from "./SearchResults"
 
 type Props = {
   cases: SearchResultCases

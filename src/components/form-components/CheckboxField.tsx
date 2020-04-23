@@ -1,7 +1,7 @@
 import React from "react"
-import {Checkbox as AscCheckbox} from "@datapunt/asc-ui"
-import {useField} from "react-final-form"
-import {FieldValidator} from "final-form"
+import { Checkbox as AscCheckbox } from "@datapunt/asc-ui"
+import { useField } from "react-final-form"
+import { FieldValidator } from "final-form"
 
 
 type Props = {
@@ -10,9 +10,9 @@ type Props = {
   validate?: FieldValidator<string>
 }
 
-const CheckboxField:React.FC<React.HTMLAttributes<HTMLInputElement> & Props> = ({name, value, validate, ...restProps}) => {
+const CheckboxField:React.FC<React.HTMLAttributes<HTMLInputElement> & Props> = ({ name, value, validate, ...restProps }) => {
   const { input, meta } = useField(name, {
-    type: 'checkbox',
+    type: "checkbox",
     value,
     validate
   })

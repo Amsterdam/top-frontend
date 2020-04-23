@@ -1,6 +1,6 @@
 import React, { FC } from "react"
 import { Form } from "react-final-form"
-import {breakpoint, Button, color} from "@datapunt/asc-ui"
+import { breakpoint, Button, color } from "@datapunt/asc-ui"
 import styled from "styled-components"
 import JSONDisplay from "./JSONDisplay"
 import DayPartSettings from "./DayPartSettings"
@@ -10,7 +10,7 @@ import ErrorMessage from "../global/ErrorMessage"
 import SuccessMessage from "../global/SuccessMessage"
 import SmallSpinner from "../global/SmallSpinner"
 import Spinner from "../global/Spinner"
-import {isRequired} from "../form-components/validators/isRequired"
+import { isRequired } from "../form-components/validators/isRequired"
 import TextField from "../form-components/TextField"
 
 const Wrap = styled.div`
@@ -70,24 +70,24 @@ export type DayPartConfig = {
 }
 
 const DAY_PARTS:DayPartConfig[] = [
-  {day: 'monday', dayPart: 'day', title: 'Maandag dag' },
-  {day: 'tuesday', dayPart: 'day', title: 'Dinsdag dag'},
-  {day: 'wednesday', dayPart: 'day', title: 'Woensdag dag'},
-  {day: 'thursday', dayPart: 'day', title: 'Donderdag dag'},
-  {day: 'friday', dayPart: 'day', title: 'Vrijdag dag'},
+  { day: "monday", dayPart: "day", title: "Maandag dag" },
+  { day: "tuesday", dayPart: "day", title: "Dinsdag dag" },
+  { day: "wednesday", dayPart: "day", title: "Woensdag dag" },
+  { day: "thursday", dayPart: "day", title: "Donderdag dag" },
+  { day: "friday", dayPart: "day", title: "Vrijdag dag" }
 ]
 
 const WEEKEND:DayPartConfig[] = [
-  {day: 'saturday', dayPart: 'day', title: 'Zaterdag weekend'},
-  {day: 'sunday', dayPart: 'day', title: 'Zondag weekend'},
+  { day: "saturday", dayPart: "day", title: "Zaterdag weekend" },
+  { day: "sunday", dayPart: "day", title: "Zondag weekend" }
 ]
 
 const EVENINGS:DayPartConfig[] = [
-  {day: 'monday', dayPart: 'evening', title: 'Maandag avond'},
-  {day: 'tuesday', dayPart: 'evening', title: 'Dinsdag avond'},
-  {day: 'wednesday', dayPart: 'evening', title: 'Woensdag avond'},
-  {day: 'thursday', dayPart: 'evening', title: 'Donderdag avond'},
-  {day: 'friday', dayPart: 'evening', title: 'Vrijdag avond'}
+  { day: "monday", dayPart: "evening", title: "Maandag avond" },
+  { day: "tuesday", dayPart: "evening", title: "Dinsdag avond" },
+  { day: "wednesday", dayPart: "evening", title: "Woensdag avond" },
+  { day: "thursday", dayPart: "evening", title: "Donderdag avond" },
+  { day: "friday", dayPart: "evening", title: "Vrijdag avond" }
 ]
 
 const Settings: FC = () => {

@@ -5,10 +5,10 @@ export const TopBar = styled.div`
   box-sizing: border-box;
 
   background-color: white;    
-  border-bottom: 1px solid ${ascDefaultTheme.colors.tint.level5};
+  border-bottom: 1px solid ${ ascDefaultTheme.colors.tint.level5 };
     
   display: flex;
-  height: ${constants.HEADER_HEIGHT_SMALL}px; 
+  height: ${ constants.HEADER_HEIGHT_SMALL }px; 
   padding: 15px;
 
   h4 {

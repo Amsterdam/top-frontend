@@ -1,9 +1,9 @@
 import CheckboxField from "../form-components/CheckboxField"
 import React from "react"
 import styled from "styled-components"
-import {color} from "@datapunt/asc-ui"
-import {Label} from "@datapunt/asc-ui"
-import {FieldValidator} from "final-form"
+import { color } from "@datapunt/asc-ui"
+import { Label } from "@datapunt/asc-ui"
+import { FieldValidator } from "final-form"
 
 const Section = styled.section`
   border: 1px solid ${ color("tint", "level5") }

@@ -43,7 +43,7 @@ const value = {
     authActions: {
       initialize: async () => false,
       authenticate: (a: AuthToken, b: AuthUser) => false,
-      unAuthenticate: noop,
+      unAuthenticate: noop
     },
 
     itineraries: itinerariesState,

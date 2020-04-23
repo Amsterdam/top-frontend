@@ -1,6 +1,6 @@
-import styled, {css} from "styled-components"
-import {themeColor} from "@datapunt/asc-ui"
-import {focusStyleOutline} from "@datapunt/asc-ui/es/utils"
+import styled, { css } from "styled-components"
+import { themeColor } from "@datapunt/asc-ui"
+import { focusStyleOutline } from "@datapunt/asc-ui/es/utils"
 
 type StyleProps = {
   error?: string | boolean
@@ -15,22 +15,22 @@ type StyleProps = {
 const Textarea = styled.textarea<StyleProps>`
   appearance: none;
   font-size: 1rem;
-  border: solid 1px ${themeColor('tint', 'level5')};
+  border: solid 1px ${ themeColor("tint", "level5") };
   border-radius: 0;
   box-sizing: border-box;
   line-height: 18px;
   padding: 10px;
   width: 100%;
-  ${focusStyleOutline(2, 0.5)}
+  ${ focusStyleOutline(2, 0.5) }
   
-  ${({ error }) => !error && css`
+  ${ ({ error }) => !error && css`
       &:hover {
-        border-color: ${themeColor('tint', 'level6')};
+        border-color: ${ themeColor("tint", "level6") };
       }
-  `}
-  ${({ error }) => error && css`
-      border-color: ${themeColor('secondary', 'main')};
-  `}
+  ` }
+  ${ ({ error }) => error && css`
+      border-color: ${ themeColor("secondary", "main") };
+  ` }
 `
 
 export default Textarea

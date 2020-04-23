@@ -1,4 +1,4 @@
-import {FieldState, FieldValidator} from "final-form"
+import { FieldState, FieldValidator } from "final-form"
 
 export const combineValidators = (...validators: FieldValidator<any>[]) => (value:any, allValues:object, meta?:FieldState<any>) => {
   for(const validator of validators) {

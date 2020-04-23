@@ -1,5 +1,5 @@
-import {setQueryParams} from "../lib/utils/setQueryParams"
-import {deleteQueryParam} from "../lib/utils/deleteQueryParam"
+import { setQueryParams } from "../lib/utils/setQueryParams"
+import { deleteQueryParam } from "../lib/utils/deleteQueryParam"
 
 const trimTrailingSlash = (str: string) => str.replace(/\/$/, "")
 const stripDoubleSlashes = (str: string) => str.replace(/(\/\/)/g, "/")
@@ -11,7 +11,7 @@ export const to = (path: string = "") =>
 
 type StringMap = {[key:string]:string}
 export const toMergeQueryString = (params:StringMap) =>
-  to(`${window.location.pathname}${setQueryParams(window.location.search, params)}`)
+  to(`${ window.location.pathname }${ setQueryParams(window.location.search, params) }`)
 
 export const toDeleteQueryStringParams = (params:string[]) =>
   to(deleteQueryParam(window.location.search, params))

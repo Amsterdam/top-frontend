@@ -1,6 +1,6 @@
 import React, { FC } from "react"
 import SearchForm from "./SearchForm"
-import SearchResults, {ActionButtonsComponentType, CaseTo} from "./SearchResults"
+import SearchResults, { ActionButtonsComponentType, CaseTo } from "./SearchResults"
 import SmallSpinner from "../global/SmallSpinner"
 import useGlobalState from "../../hooks/useGlobalState"
 

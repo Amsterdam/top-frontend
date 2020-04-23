@@ -1,6 +1,6 @@
 import React from "react"
-import {useField} from "react-final-form"
-import {FieldValidator} from "final-form"
+import { useField } from "react-final-form"
+import { FieldValidator } from "final-form"
 import noop from "../../lib/utils/noop"
 import Textarea from "./components/Textarea"
 
@@ -10,12 +10,12 @@ export type Props = {
 } & React.TextareaHTMLAttributes<HTMLTextAreaElement>
 
 
-const TextareaField:React.FC<Props> = ({name, validate = noop, ...restProps}) => {
+const TextareaField:React.FC<Props> = ({ name, validate = noop, ...restProps }) => {
   const {
     meta,
     input
   } = useField(name, {
-    type: 'text',
+    type: "text",
     validate
   })
 

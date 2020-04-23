@@ -1,9 +1,9 @@
-import React from 'react'
+import React from "react"
 import styled from "styled-components"
-import {Spinner} from "@datapunt/asc-ui"
+import { Spinner } from "@datapunt/asc-ui"
 import SearchResultSingle from "../../search/SearchResultSingle"
 import useFetch from "../../../hooks/useFetch"
-import {CaseTo} from "../../search/SearchResults"
+import { CaseTo } from "../../search/SearchResults"
 
 const Div = styled.div`
   box-sizing: border-box;
@@ -31,8 +31,8 @@ const normalize = (caseId: CaseId, object: any): SearchResultCase => ({
 })
 
 
-const StartAddress: React.FC<Props> = ({caseId, caseTo}) => {
-  const [caseItem, isFetching] = useFetch(`cases/${caseId}`) as [any, boolean, OErrorMessage]
+const StartAddress: React.FC<Props> = ({ caseId, caseTo }) => {
+  const [caseItem, isFetching] = useFetch(`cases/${ caseId }`) as [any, boolean, OErrorMessage]
 
   return (<>
     <b>Startadres:</b>

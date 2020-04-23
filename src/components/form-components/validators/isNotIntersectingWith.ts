@@ -1,4 +1,4 @@
-import { getIn } from 'final-form'
+import { getIn } from "final-form"
 
 /**
  * Given value should be intersecting with another value.
@@ -16,13 +16,13 @@ export const isNotIntersectingWith = (field:string) => (value:any, allValues:obj
   }
 
   if (!Array.isArray(value) || !Array.isArray(other)) {
-    console.error('Fields should be arrays')
+    console.error("Fields should be arrays")
     return undefined
   }
 
   for(const item of value) {
     if (other.includes(item)) {
-      return `${item} komt in beide lijstjes voor`
+      return `${ item } komt in beide lijstjes voor`
     }
   }
 
