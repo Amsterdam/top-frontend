@@ -9,10 +9,18 @@ import { getIn } from "final-form"
  *
  */
 export const isNotIntersectingWith = (field:string) => (value:any, allValues:object) => {
-  const other = getIn(allValues, field)
+  let other = getIn(allValues, field)
 
   if (value === undefined || other === undefined) {
     return undefined
+  }
+
+  if (typeof value === "string") {
+    value = [value]
+  }
+
+  if (typeof other === "string") {
+    other = [other]
   }
 
   if (!Array.isArray(value) || !Array.isArray(other)) {
