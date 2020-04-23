@@ -1,12 +1,10 @@
 import UserDropdown from "./Generate/UserDropDown"
 import React from "react"
 import styled from "styled-components"
-import {Label} from "@datapunt/asc-ui"
+import {Heading} from "@datapunt/asc-ui"
 
 const Div = styled.div`
-  padding-bottom: 12px;
-  border-bottom: 1px solid #B4B4B4;
-  margin-bottom: 12px;
+  margin-bottom: 24px;
 `
 
 const USER_DROPDOWNS = [
@@ -23,7 +21,7 @@ type Props = {
 const TeamMemberFields:React.FC<Props> = ({users, alreadySelectedUserIds}) => <>
     { USER_DROPDOWNS.map((label, index) => (
       <Div key={index}>
-        <div><Label label={label} /></div>
+        <Heading forwardedAs="h4">{label}</Heading>
         <UserDropdown
           value={alreadySelectedUserIds[index] ?? ''}
           name={`users[${index}]`}

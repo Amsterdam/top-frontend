@@ -3,14 +3,10 @@ import { Select as AscSelect } from "@datapunt/asc-ui"
 import {useField} from "react-final-form"
 import {FieldValidator} from "final-form"
 
-type Options = {
-  [key:string]: string
-}
-
 export type Props = {
   name: string
   validate?: FieldValidator<string>,
-  options: Options
+  options: Record<string, string>
 } & React.HTMLAttributes<HTMLSelectElement>
 
 const SelectField:React.FC<Props> = ({name, validate, options, ...restProps}) => {

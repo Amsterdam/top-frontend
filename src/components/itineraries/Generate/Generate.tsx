@@ -1,6 +1,6 @@
 import React, { FC, useState } from "react"
 import { Form } from "react-final-form"
-import { Button, Label } from "@datapunt/asc-ui"
+import { Button, Label, Heading } from "@datapunt/asc-ui"
 import {Link} from "@reach/router"
 import { listsDay } from "../../../config/planning"
 import useGlobalState from "../../../hooks/useGlobalState"
@@ -29,6 +29,9 @@ const RadioButton = styled.input`
 const ButtonWrap = styled.div`
   display: flex;
   justify-content: flex-end;
+`
+const StyledHeading = styled(Heading)`
+  margin-bottom: 16px
 `
 
 type DayPart = "day" | "evening"
@@ -83,8 +86,8 @@ const Generate: FC = () => {
 
   return (
     <div>
-      <h1>Genereer je looplijst</h1>
-      <p>Wie zitten er vandaag in je team?</p>
+      <StyledHeading>Genereer je looplijst</StyledHeading>
+      <Heading forwardedAs="h3">Wie zitten er vandaag in je team?</Heading>
       <Form
         keepDirtyOnReinitialize={true}
         onSubmit={onSubmit}
@@ -100,7 +103,7 @@ const Generate: FC = () => {
                 alreadySelectedUserIds={values.users}
               />
               <Div>
-                <div><Label label='Wat voor looplijst wil je maken?' /></div>
+                <Heading forwardedAs="h4">Wat voor looplijst wil je maken?</Heading>
                 { showWeekDay
                   ? (<>
                     <RadioFieldGroup
@@ -116,7 +119,7 @@ const Generate: FC = () => {
                 }
               </Div>
               <Div>
-                <div><Label label='Hoeveel adressen wil je in je looplijst? (Max. 20)' /></div>
+                <Heading forwardedAs="h4">Hoeveel adressen wil je in je looplijst? (Max. 20)</Heading>
                 <StyledNumberControl
                   min={1}
                   max={20}
