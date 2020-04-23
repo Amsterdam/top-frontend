@@ -7,7 +7,7 @@ import SearchResultAddress from "./SearchResultAddress"
 import SearchResultDistance from "./SearchResultDistance"
 import SearchResultCase from "./SearchResultCase"
 import displayAddress from "../../lib/displayAddress"
-import {ActionButtonsComponentType, defaultCaseTo, CaseTo} from "./SearchResults"
+import { ActionButtonsComponentType, defaultCaseTo, CaseTo } from "./SearchResults"
 
 type Props = {
   caseItem: SearchResultCase

@@ -1,7 +1,7 @@
-import React from 'react'
-import {CaseTo} from "../../search/SearchResults"
-import {navigate} from "@reach/router"
-import {toDeleteQueryStringParams, toMergeQueryString} from "../../../config/page"
+import React from "react"
+import { CaseTo } from "../../search/SearchResults"
+import { navigate } from "@reach/router"
+import { toDeleteQueryStringParams, toMergeQueryString } from "../../../config/page"
 import parseLocationSearch from "../../../lib/utils/parseLocationSearch"
 import AddStartAddressModal from "../add-start-address/AddStartAddressModal"
 import CaseModal from "../add-start-address/CadeModal"
@@ -10,11 +10,11 @@ type Props = {
   onAddStartAddress: (caseId:CaseId) => void
 }
 
-const QS_CASE_MODAL = 'modalCaseId'
-const QS_ADD_ADDRESS_MODAL = 'addAddressModal'
+const QS_CASE_MODAL = "modalCaseId"
+const QS_ADD_ADDRESS_MODAL = "addAddressModal"
 
-export const openModalTo = () => toMergeQueryString({[QS_ADD_ADDRESS_MODAL]: '1'})
-export const caseTo:CaseTo = (caseId:CaseId) => toMergeQueryString({[QS_CASE_MODAL]: caseId})
+export const openModalTo = () => toMergeQueryString({ [QS_ADD_ADDRESS_MODAL]: "1" })
+export const caseTo:CaseTo = (caseId:CaseId) => toMergeQueryString({ [QS_CASE_MODAL]: caseId })
 const closeAddAddressModal = () => navigate(toDeleteQueryStringParams([QS_ADD_ADDRESS_MODAL]))
 const closeCaseModal = () => navigate(toDeleteQueryStringParams([QS_CASE_MODAL]))
 

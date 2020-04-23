@@ -1,13 +1,13 @@
-import React from 'react'
-import {isRequired} from "../form-components/validators/isRequired"
+import React from "react"
+import { isRequired } from "../form-components/validators/isRequired"
 import CheckboxField from "../form-components/CheckboxField"
-import {Label} from "@datapunt/asc-ui"
+import { Label } from "@datapunt/asc-ui"
 
 type Props = {
   projects: string[]
 }
 
-const ProjectCheckboxes: React.FC<Props> = ({projects}) => <>
+const ProjectCheckboxes: React.FC<Props> = ({ projects }) => <>
   { projects.map(project => (
     <div key={project}>
       <Label label={project}>

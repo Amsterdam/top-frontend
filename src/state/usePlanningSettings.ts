@@ -6,7 +6,7 @@ import reducer, {
   createSetData,
   createSetError,
   createStartUpdating,
-  createClear,
+  createClear
 } from "./planningSettingsReducer"
 import { get, post, notOk, isForbidden } from "../lib/utils/fetch"
 import { getUrl } from "../config/api"

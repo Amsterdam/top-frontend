@@ -1,19 +1,19 @@
 import React, { FC, useState } from "react"
 import { Form } from "react-final-form"
 import { Button, Label, Heading } from "@datapunt/asc-ui"
-import {Link} from "@reach/router"
+import { Link } from "@reach/router"
 import useGlobalState from "../../../hooks/useGlobalState"
 import styled from "styled-components"
 import isWeekDay from "../../../lib/utils/isWeekDay"
 import StartAddress from "../add-start-address/StartAddress"
-import Modals, {caseTo, openModalTo} from "./Modals"
-import {findByProperty} from "../../../lib/utils/findByProperty"
-import {filterNullish} from "../../../lib/utils/filterNullish"
+import Modals, { caseTo, openModalTo } from "./Modals"
+import { findByProperty } from "../../../lib/utils/findByProperty"
+import { filterNullish } from "../../../lib/utils/filterNullish"
 import TeamMemberFields from "../TeamMemberFields"
 import RadioFieldGroup from "../../form-components/RadioFieldGroup"
 import NumberField from "../../form-components/NumberField"
-import {isRequired} from "../../form-components/validators/isRequired"
-import {getCurrentDay} from "../../../lib/utils/day"
+import { isRequired } from "../../form-components/validators/isRequired"
+import { getCurrentDay } from "../../../lib/utils/day"
 
 const Div = styled.div`
   margin-bottom: 24px;
@@ -45,8 +45,8 @@ const getListSettingsForDayPart = (settings: PlanningSettings, dayPart: DayPart,
   const currentDay = getCurrentDay()
 
   // saturday and sundays don't do evenings:
-  if (currentDay === 'saturday' || currentDay === 'sunday') {
-    dayPart = 'day'
+  if (currentDay === "saturday" || currentDay === "sunday") {
+    dayPart = "day"
   }
 
   return {
@@ -77,7 +77,7 @@ const Generate: FC = () => {
 
   const [startAddressCaseId, setStartAddressCaseId] = useState<CaseId | undefined>(undefined)
   const showWeekDay = isWeekDay()
-  const loggedInUser = findByProperty(users, 'email', authUser?.email)
+  const loggedInUser = findByProperty(users, "email", authUser?.email)
 
   const onSubmit = (formValues:FormValues) => {
     if (data === undefined) return
@@ -85,7 +85,7 @@ const Generate: FC = () => {
       getListSettingsForDayPart(data.settings, formValues.dayPart, startAddressCaseId),
       filterNullish(formValues.users),
       formValues.num,
-      formValues.users.includes(loggedInUser?.id || '')
+      formValues.users.includes(loggedInUser?.id || "")
     )
   }
 
@@ -98,7 +98,7 @@ const Generate: FC = () => {
         onSubmit={onSubmit}
         initialValues={{
           num: 8,
-          dayPart: 'day',
+          dayPart: "day",
           users:[loggedInUser?.id]
         }}
         render={({ handleSubmit, values, hasValidationErrors }) => (
@@ -114,7 +114,7 @@ const Generate: FC = () => {
                     <RadioFieldGroup
                       horizontal={true}
                       name='dayPart'
-                      options={{ day: 'daglijst', evening: 'avondlijst' }}
+                      options={{ day: "daglijst", evening: "avondlijst" }}
                     />
                   </>)
                   : (<>

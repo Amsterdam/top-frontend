@@ -1,7 +1,7 @@
 import React from "react"
 import { Input as AscInput } from "@datapunt/asc-ui"
-import {useField} from "react-final-form"
-import {FieldValidator} from "final-form"
+import { useField } from "react-final-form"
+import { FieldValidator } from "final-form"
 import noop from "../../lib/utils/noop"
 
 export type Props = {
@@ -9,12 +9,12 @@ export type Props = {
   validate?: FieldValidator<number>
 } & React.InputHTMLAttributes<HTMLInputElement>
 
-const TextField:React.FC<Props> = ({name, validate = noop, ...restProps}) => {
+const TextField:React.FC<Props> = ({ name, validate = noop, ...restProps }) => {
   const {
     meta,
     input
   } = useField(name, {
-    type: 'text',
+    type: "text",
     validate
   })
 

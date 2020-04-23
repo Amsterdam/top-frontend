@@ -41,7 +41,7 @@ const UlSpaced = styled(Ul)`
 `
 const Li = styled.li`
   border-bottom: 5px solid transparent;
-  border-bottom-color: ${ (props: { isActive?: boolean }) => props.isActive ? color("secondary") : 'transparent' };
+  border-bottom-color: ${ (props: { isActive?: boolean }) => props.isActive ? color("secondary") : "transparent" };
   min-height: 33px;
   a {
     color: ${ color("tint", "level7") };

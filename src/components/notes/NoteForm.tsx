@@ -36,7 +36,7 @@ const NAW_TEXT = "Niet aanwezig"
 const NoteForm: FC<Props> = ({ itineraryItemId, id, value }) => {
   const {
     itinerariesActions: {
-      setNote,
+      setNote
     },
     getItineraryFromItineraryItem
   } = useGlobalState()
@@ -66,7 +66,7 @@ const NoteForm: FC<Props> = ({ itineraryItemId, id, value }) => {
       <Form
         onSubmit={onSubmit}
         initialValues={{ text: value }}
-        render={({handleSubmit, values: { text }, hasValidationErrors}) => (
+        render={({ handleSubmit, values: { text }, hasValidationErrors }) => (
           <form onSubmit={ handleSubmit }>
             <TextareaField 
               name='text'

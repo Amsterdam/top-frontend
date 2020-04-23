@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react"
 import DefaultModal from "../../global/Modal/DefaultModal"
 import Case from "../../cases/Case"
 

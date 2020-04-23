@@ -1,8 +1,8 @@
 import React from "react"
 import styled from "styled-components"
 import { AccordionWrapper, Accordion } from "@datapunt/asc-ui"
-import {StadiumSettings} from "./StadiumSettings"
-import {isNotIntersectingWith} from "../form-components/validators/isNotIntersectingWith"
+import { StadiumSettings } from "./StadiumSettings"
+import { isNotIntersectingWith } from "../form-components/validators/isNotIntersectingWith"
 import SelectField from "../form-components/SelectField"
 
 type Props = {
@@ -28,18 +28,18 @@ const H4 = styled.h4`
 `
 
 const getFieldName = (day:Day, dayPart:DayPart, name:string) =>
-  `days.${day}.${dayPart}.${name}`
+  `days.${ day }.${ dayPart }.${ name }`
 
-const DayPartSettings:React.FC<Props> = ({title, day, dayPart, stadia}) => {
-  const primaryStadium = getFieldName(day, dayPart, 'primary_stadium')
-  const secondaryStadia = getFieldName(day, dayPart, 'secondary_stadia')
-  const excludeStadia = getFieldName(day, dayPart, 'exclude_stadia')
+const DayPartSettings:React.FC<Props> = ({ title, day, dayPart, stadia }) => {
+  const primaryStadium = getFieldName(day, dayPart, "primary_stadium")
+  const secondaryStadia = getFieldName(day, dayPart, "secondary_stadia")
+  const excludeStadia = getFieldName(day, dayPart, "exclude_stadia")
 
-  const options = stadia.reduce((acc, stadium) => ({ ...acc, [stadium]:stadium }), { '': 'Geen' })
+  const options = stadia.reduce((acc, stadium) => ({ ...acc, [stadium]:stadium }), { "": "Geen" })
 
   return (
     <AccordionWrapper>
-      <StyledAccordion title={title} isOpen={dayPart !== 'evening'}>
+      <StyledAccordion title={title} isOpen={dayPart !== "evening"}>
       <H4>1. Zoveel mogelijk</H4>
       <SelectField name={primaryStadium} options={options} />
       <H4>2. Aanvullen met</H4>

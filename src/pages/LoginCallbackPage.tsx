@@ -1,11 +1,11 @@
-import React, {FC, useState, useEffect, useCallback} from "react"
+import React, { FC, useState, useEffect, useCallback } from "react"
 import { RouteComponentProps } from "@reach/router"
 import { Spinner } from "@datapunt/asc-ui"
 import ErrorMessage from "../components/global/ErrorMessage"
 import LoginAnchor from "../components/auth/LoginAnchor"
 import useGlobalState from "../hooks/useGlobalState"
 import { getAuthOIDCUrl } from "../config/api"
-import parseLocationSearch from '../lib/utils/parseLocationSearch'
+import parseLocationSearch from "../lib/utils/parseLocationSearch"
 import { post, notOk } from "../lib/utils/fetch"
 import styled from "styled-components"
 

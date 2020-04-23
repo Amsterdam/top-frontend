@@ -4,10 +4,10 @@ import ErrorMessage from "../global/ErrorMessage"
 import useGlobalState from "../../hooks/useGlobalState"
 import styled from "styled-components"
 import TeamMembersDisplay from "./TeamMembersDisplay"
-import {Form} from "react-final-form"
+import { Form } from "react-final-form"
 import TeamMemberFields from "./TeamMemberFields"
-import {filterNullish} from "../../lib/utils/filterNullish"
-import {findByProperty} from "../../lib/utils/findByProperty"
+import { filterNullish } from "../../lib/utils/filterNullish"
+import { findByProperty } from "../../lib/utils/findByProperty"
 
 type Props = {
   itineraryId: Id
@@ -47,7 +47,7 @@ const ItineraryTeamMembers: FC<Props> = ({ itineraryId, teamMembers, isEditing =
   } = useGlobalState()
 
   const initialUsers = teamMembers.map(member => member.user.id)
-  const loggedInUser = findByProperty(users, 'email', authUser?.email)
+  const loggedInUser = findByProperty(users, "email", authUser?.email)
 
   const onClickClose = (event: FormEvent) => {
     event.preventDefault()
@@ -75,11 +75,11 @@ const ItineraryTeamMembers: FC<Props> = ({ itineraryId, teamMembers, isEditing =
           : (<Form
           keepDirtyOnReinitialize={true}
           onSubmit={onSubmit}
-          initialValues={{users: initialUsers}}
-          render={({handleSubmit, values}) => {
+          initialValues={{ users: initialUsers }}
+          render={({ handleSubmit, values }) => {
             // TODO use form-validation for this.
             const isSubmitDisabled = filterNullish(values.users).length < 3
-            const authUserIsSelected = values.users.includes(loggedInUser?.id || '')
+            const authUserIsSelected = values.users.includes(loggedInUser?.id || "")
 
             return (<form onSubmit={handleSubmit}>
               <TeamMemberFields users={users ?? []} alreadySelectedUserIds={values.users}/>

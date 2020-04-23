@@ -1,7 +1,7 @@
 import React, { FC } from "react"
 import styled from "styled-components"
 import FraudProbability from "../global/FraudProbability"
-import {color} from "@datapunt/asc-ui"
+import { color } from "@datapunt/asc-ui"
 import FraudProbabilityLabel from "../global/FraudProbabiltyLabel"
 
 type Props = {

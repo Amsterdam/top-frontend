@@ -1,5 +1,5 @@
-import React, {FC, ReactNode, useEffect} from "react"
-import StateContext from '../../../contexts/StateContext'
+import React, { FC, ReactNode, useEffect } from "react"
+import StateContext from "../../../contexts/StateContext"
 import useCreateGlobalState from "./useCreateGlobalState"
 
 type Props = {

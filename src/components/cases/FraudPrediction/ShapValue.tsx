@@ -1,6 +1,6 @@
-import React from 'react'
-import styled, {keyframes} from 'styled-components'
-import { color } from '@datapunt/asc-ui'
+import React from "react"
+import styled, { keyframes } from "styled-components"
+import { color } from "@datapunt/asc-ui"
 
 type Props = {
   title: string
@@ -11,22 +11,22 @@ type Props = {
 
 const barAnimation = (shap:number) => keyframes`
   to { 
-    width: ${Math.abs(shap * 1000)}%; 
+    width: ${ Math.abs(shap * 1000) }%; 
   }
 `
 
-type BarProps = Pick<Props, 'shap' | 'isPositive'>
+type BarProps = Pick<Props, "shap" | "isPositive">
 const Bar = styled.div`
   width: 0;
   
-  background-color: ${({isPositive}:BarProps) =>  color( isPositive ? 'primary' : 'secondary')}; 
+  background-color: ${ ({ isPositive }:BarProps) =>  color( isPositive ? "primary" : "secondary") }; 
   border-radius: 3px; 
   height: 10px; 
   
   margin-top: 5px;
   margin-bottom: 10px;
   
-  animation: ${({shap}:BarProps) => barAnimation(shap)} 1s 1;  
+  animation: ${ ({ shap }:BarProps) => barAnimation(shap) } 1s 1;  
   animation-fill-mode: forwards;  
 `
 

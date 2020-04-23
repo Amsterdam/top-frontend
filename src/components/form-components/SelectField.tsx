@@ -1,7 +1,7 @@
 import React from "react"
 import { Select as AscSelect } from "@datapunt/asc-ui"
-import {useField} from "react-final-form"
-import {FieldValidator} from "final-form"
+import { useField } from "react-final-form"
+import { FieldValidator } from "final-form"
 
 export type Props = {
   name: string
@@ -9,9 +9,9 @@ export type Props = {
   options: Record<string, string>
 } & React.HTMLAttributes<HTMLSelectElement>
 
-const SelectField:React.FC<Props> = ({name, validate, options, ...restProps}) => {
+const SelectField:React.FC<Props> = ({ name, validate, options, ...restProps }) => {
   const { input, meta } = useField(name, {
-    type: 'select',
+    type: "select",
     validate
   })
 
