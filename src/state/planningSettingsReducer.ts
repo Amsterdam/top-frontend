@@ -6,12 +6,12 @@ type Action =
   | { type: "START_UPDATING" }
   | { type: "CLEAR" }
 
-export const createStartFetching = () : Action => ({ type: "START_FETCHING" })
-export const createStopFetching = () : Action => ({ type: "STOP_FETCHING" })
-export const createSetData = (data: PlanningSettingsData) : Action => ({ type: "SET_DATA", payload: { data } })
-export const createSetError = (errorMessage: ErrorMessage) : Action => ({ type: "SET_ERROR", payload: { errorMessage } })
-export const createStartUpdating = () : Action => ({ type: "START_UPDATING" })
-export const createClear = () : Action => ({ type: "CLEAR" })
+export const createStartFetching = (): Action => ({ type: "START_FETCHING" })
+export const createStopFetching = (): Action => ({ type: "STOP_FETCHING" })
+export const createSetData = (data: PlanningSettingsData): Action => ({ type: "SET_DATA", payload: { data } })
+export const createSetError = (errorMessage: ErrorMessage): Action => ({ type: "SET_ERROR", payload: { errorMessage } })
+export const createStartUpdating = (): Action => ({ type: "START_UPDATING" })
+export const createClear = (): Action => ({ type: "CLEAR" })
 
 export const initialState: PlanningSettingsState = {
   isFetching: false,
@@ -20,7 +20,7 @@ export const initialState: PlanningSettingsState = {
   errorMessage: undefined
 }
 
-const reducer = (state: PlanningSettingsState, action: Action) : PlanningSettingsState => {
+const reducer = (state: PlanningSettingsState, action: Action): PlanningSettingsState => {
   switch (action.type) {
     case "START_FETCHING": {
       const isFetching = true

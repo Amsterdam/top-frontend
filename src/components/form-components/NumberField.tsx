@@ -12,7 +12,7 @@ export type Props = {
   validate?: FieldValidator<number>
 } & React.InputHTMLAttributes<HTMLInputElement>
 
-const NumberField:React.FC<Props> = ({ name, validate = noop, ...restProps }) => {
+const NumberField: React.FC<Props> = ({ name, validate = noop, ...restProps }) => {
   if (restProps.min !== undefined) {
     validate = combineValidators(isAbove(restProps.min), validate)
   }

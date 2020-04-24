@@ -14,7 +14,7 @@ type Props = {
   fraudPrediction: FraudPrediction
 }
 
-export const FraudPredictionDetails:React.FC<Props> = ({ fraudPrediction }) => {
+export const FraudPredictionDetails: React.FC<Props> = ({ fraudPrediction }) => {
   const {
     fraud_probability: fraudProbability,
     business_rules: businessRules,

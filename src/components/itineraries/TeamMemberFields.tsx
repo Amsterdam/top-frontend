@@ -18,7 +18,7 @@ type Props = {
   alreadySelectedUserIds: Array<undefined|null|string>
 }
 
-const TeamMemberFields:React.FC<Props> = ({ users, alreadySelectedUserIds }) => <>
+const TeamMemberFields: React.FC<Props> = ({ users, alreadySelectedUserIds }) => <>
     { USER_DROPDOWNS.map((label, index) => (
       <Div key={index}>
         <Heading forwardedAs="h4">{label}</Heading>

@@ -11,7 +11,7 @@ import { ActionButtonsComponentType, defaultCaseTo, CaseTo } from "./SearchResul
 
 type Props = {
   caseItem: SearchResultCase
-  actionButtonsComponent?:ActionButtonsComponentType
+  actionButtonsComponent?: ActionButtonsComponentType
   caseTo?: CaseTo
 }
 

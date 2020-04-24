@@ -20,7 +20,7 @@ const getHeaders = (token?: AuthToken, body?: Body) => {
   return headers
 }
 
-const fetch = async (url: URL, method: Method = "GET", body?: Body, parseResponse = true) : Promise<Return> => {
+const fetch = async (url: URL, method: Method = "GET", body?: Body, parseResponse = true): Promise<Return> => {
   try {
     const token = authToken.get()
     const headers = getHeaders(token, body)

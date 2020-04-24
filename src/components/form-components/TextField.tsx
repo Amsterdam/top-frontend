@@ -9,7 +9,7 @@ export type Props = {
   validate?: FieldValidator<number>
 } & React.InputHTMLAttributes<HTMLInputElement>
 
-const TextField:React.FC<Props> = ({ name, validate = noop, ...restProps }) => {
+const TextField: React.FC<Props> = ({ name, validate = noop, ...restProps }) => {
   const {
     meta,
     input

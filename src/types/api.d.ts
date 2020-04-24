@@ -34,8 +34,8 @@ declare type BusinessRules = Record<string, number>
 declare type FraudPrediction = {
   fraud_probability: number
   fraud_prediction: boolean
-  business_rules: BusinessRules,
-  shap_values: ShapValues,
+  business_rules: BusinessRules
+  shap_values: ShapValues
 }
 
 declare type BWVData = {
@@ -246,7 +246,7 @@ declare type Projects = Project[]
 declare type PlanningSettings = {
   opening_date: string
   projects: Projects
-  days:SettingsListMap
+  days: SettingsListMap
 }
 declare type PlanningSettingsData = {
   projects: string[]

@@ -14,11 +14,11 @@ import { isLoginCallbackPage } from "../config/page"
 import { navigateToHome, navigateToLogin } from "../lib/navigateTo"
 import logoutGrip from "../lib/logoutGrip"
 
-const useAuth = () : [AuthState, AuthActions] => {
+const useAuth = (): [AuthState, AuthActions] => {
   // @TODO: Remove `as never`
   const [state, dispatch] = useReducer(reducer, initialState as never)
 
-  const isAuthenticated = async () : Promise<boolean> => {
+  const isAuthenticated = async (): Promise<boolean> => {
     const token = authToken.get()
     const hasToken = token !== undefined
     if (!hasToken) return false
@@ -30,7 +30,7 @@ const useAuth = () : [AuthState, AuthActions] => {
     return isAuthenticated
   }
 
-  const initialize = async () : Promise<boolean> => {
+  const initialize = async (): Promise<boolean> => {
     const isAuthorized = await isAuthenticated()
     if (isAuthorized) {
       const token = authToken.get()
@@ -44,7 +44,7 @@ const useAuth = () : [AuthState, AuthActions] => {
     }
   }
 
-  const authenticate = (token: AuthToken, user: AuthUser) : boolean => {
+  const authenticate = (token: AuthToken, user: AuthUser): boolean => {
     const validToken = authToken.set(token)
     if (!validToken) {
       const message = "Ongeldige auth token"

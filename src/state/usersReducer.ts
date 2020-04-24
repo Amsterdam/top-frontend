@@ -4,10 +4,10 @@ type Action =
   | { type: "SET_ERROR", payload: { errorMessage: ErrorMessage } }
   | { type: "CLEAR" }
 
-export const createStartFetching = () : Action => ({ type: "START_FETCHING" })
-export const createSetResults = (results: Users) : Action => ({ type: "SET_RESULTS", payload: { results } })
-export const createSetError = (errorMessage: ErrorMessage) : Action => ({ type: "SET_ERROR", payload: { errorMessage } })
-export const createClear = () : Action => ({ type: "CLEAR" })
+export const createStartFetching = (): Action => ({ type: "START_FETCHING" })
+export const createSetResults = (results: Users): Action => ({ type: "SET_RESULTS", payload: { results } })
+export const createSetError = (errorMessage: ErrorMessage): Action => ({ type: "SET_ERROR", payload: { errorMessage } })
+export const createClear = (): Action => ({ type: "CLEAR" })
 
 export const initialState: UsersState = {
   isFetching: false,
@@ -15,7 +15,7 @@ export const initialState: UsersState = {
   results: undefined
 }
 
-const reducer = (state: UsersState, action: Action) : UsersState => {
+const reducer = (state: UsersState, action: Action): UsersState => {
   switch (action.type) {
     case "START_FETCHING": {
       const isFetching = true

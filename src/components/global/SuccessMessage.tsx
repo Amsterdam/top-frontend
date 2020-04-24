@@ -4,7 +4,7 @@ type Props = {
   text: string
 }
 
-const SuccessMessage:React.FC<Props> = ({ text }) => (
+const SuccessMessage: React.FC<Props> = ({ text }) => (
   <div>
     <p>{ text }</p>
   </div>

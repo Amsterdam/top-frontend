@@ -4,7 +4,7 @@ import { Checkbox, Spinner, color } from "@datapunt/asc-ui"
 
 type Props = {
   checked: boolean
-  onChange: (event:MouseEvent<HTMLInputElement>)=> void
+  onChange: (event: MouseEvent<HTMLInputElement>) => void
 }
 
 // Calculate spinner size:
@@ -23,10 +23,10 @@ const Wrap = styled.div`
   cursor: pointer;
 `
 
-const SpinnerCheckbox:React.FC<Props> = ({ onChange, checked }) => {
+const SpinnerCheckbox: React.FC<Props> = ({ onChange, checked }) => {
   const [ isSpinning, setIsSpinning ] = useState(false)
 
-  const handleOnChange = useCallback((event:MouseEvent<HTMLInputElement>) => {
+  const handleOnChange = useCallback((event: MouseEvent<HTMLInputElement>) => {
     // Whenever the user makes a change, setIsSpinning `true`.
     setIsSpinning(true)
     onChange(event)

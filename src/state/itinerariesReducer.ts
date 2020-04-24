@@ -17,23 +17,23 @@ type Action =
   | { type: "SET_CHECKED", payload: { id: Id, checked: boolean } }
   | { type: "CLEAR" }
 
-export const createStartFetching = () : Action => ({ type: "START_FETCHING" })
-export const createStopFetching = () : Action => ({ type: "STOP_FETCHING" })
-export const createSetErrorMessage = (errorMessage: string) : Action => ({ type: "SET_ERROR_MESSAGE", payload: { errorMessage } })
+export const createStartFetching = (): Action => ({ type: "START_FETCHING" })
+export const createStopFetching = (): Action => ({ type: "STOP_FETCHING" })
+export const createSetErrorMessage = (errorMessage: string): Action => ({ type: "SET_ERROR_MESSAGE", payload: { errorMessage } })
 
-export const createInitialize = (itineraries: Itineraries) : Action => ({ type: "INITIALIZE", payload: { itineraries } })
-export const createCreateItinerary = (itinerary: Itinerary) : Action => ({ type: "CREATE_ITINERARY", payload: { itinerary } })
-export const createRemoveItinerary = (id: Id) : Action => ({ type: "REMOVE_ITINERARY", payload: { id } })
-export const createUpdateTeam = (id: Id, teamMembers: TeamMembers) : Action => ({ type: "UPDATE_ITINERARY_TEAM", payload: { id, teamMembers } })
+export const createInitialize = (itineraries: Itineraries): Action => ({ type: "INITIALIZE", payload: { itineraries } })
+export const createCreateItinerary = (itinerary: Itinerary): Action => ({ type: "CREATE_ITINERARY", payload: { itinerary } })
+export const createRemoveItinerary = (id: Id): Action => ({ type: "REMOVE_ITINERARY", payload: { id } })
+export const createUpdateTeam = (id: Id, teamMembers: TeamMembers): Action => ({ type: "UPDATE_ITINERARY_TEAM", payload: { id, teamMembers } })
 
-export const createAdd = (id: Id, itineraryItems: ItineraryItems) : Action => ({ type: "ADD", payload: { id, itineraryItems } })
-export const createUpdate = (id: Id, itinerary: ItineraryItem) : Action => ({ type: "UPDATE", payload: { id, itinerary } })
-export const createMove = (id: Id, index: Index, newIndex: Index) : Action => ({ type: "MOVE", payload: { id, index, newIndex } })
-export const createRemove = (id: Id) : Action => ({ type: "REMOVE", payload: { id } })
-export const createSetNote = (id: Id, noteId: Id, text: string, author?: User) : Action => ({ type: "SET_NOTE", payload: { id, noteId, text, author } })
-export const createSetChecked = (id: Id, checked: boolean) : Action => ({ type: "SET_CHECKED", payload: { id, checked } })
+export const createAdd = (id: Id, itineraryItems: ItineraryItems): Action => ({ type: "ADD", payload: { id, itineraryItems } })
+export const createUpdate = (id: Id, itinerary: ItineraryItem): Action => ({ type: "UPDATE", payload: { id, itinerary } })
+export const createMove = (id: Id, index: Index, newIndex: Index): Action => ({ type: "MOVE", payload: { id, index, newIndex } })
+export const createRemove = (id: Id): Action => ({ type: "REMOVE", payload: { id } })
+export const createSetNote = (id: Id, noteId: Id, text: string, author?: User): Action => ({ type: "SET_NOTE", payload: { id, noteId, text, author } })
+export const createSetChecked = (id: Id, checked: boolean): Action => ({ type: "SET_CHECKED", payload: { id, checked } })
 
-export const createClear = () : Action => ({ type: "CLEAR" })
+export const createClear = (): Action => ({ type: "CLEAR" })
 
 export const initialState: ItinerariesState = {
   isInitialized: false,
@@ -46,7 +46,7 @@ export const initialState: ItinerariesState = {
 // Find a better solution to remove the many findIndex calls
 // Current data structure in this reducer is: itineraries > hasMany > itinerary-items > hasMany > notes
 
-const reducer = (state: ItinerariesState, action: Action) : ItinerariesState => {
+const reducer = (state: ItinerariesState, action: Action): ItinerariesState => {
   switch (action.type) {
     case "START_FETCHING": {
       return { ...state, isFetching: true, errorMessage: undefined }

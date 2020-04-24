@@ -5,11 +5,11 @@ type Action =
   | { type: "SET_ERROR_MESSAGE", payload: { errorMessage: ErrorMessage } }
   | { type: "UNAUTHENTICATE" }
 
-export const createInitialize = (token?: AuthToken, user?: AuthUser) : Action => ({ type: "INITIALIZE", payload: { token, user } })
-export const createStartFetching = () : Action => ({ type: "START_FETCHING" })
-export const createAuthenticate = (token: AuthToken, user: AuthUser) : Action => ({ type: "AUTHENTICATE", payload: { token, user } })
-export const createSetErrorMessage = (errorMessage: ErrorMessage) : Action => ({ type: "SET_ERROR_MESSAGE", payload: { errorMessage } })
-export const createUnAuthenticate = () : Action => ({ type: "UNAUTHENTICATE" })
+export const createInitialize = (token?: AuthToken, user?: AuthUser): Action => ({ type: "INITIALIZE", payload: { token, user } })
+export const createStartFetching = (): Action => ({ type: "START_FETCHING" })
+export const createAuthenticate = (token: AuthToken, user: AuthUser): Action => ({ type: "AUTHENTICATE", payload: { token, user } })
+export const createSetErrorMessage = (errorMessage: ErrorMessage): Action => ({ type: "SET_ERROR_MESSAGE", payload: { errorMessage } })
+export const createUnAuthenticate = (): Action => ({ type: "UNAUTHENTICATE" })
 
 export const initialState: AuthState = {
   isInitialized: false,
@@ -18,7 +18,7 @@ export const initialState: AuthState = {
   errorMessage: undefined
 }
 
-const reducer = (state: AuthState, action: Action) : AuthState => {
+const reducer = (state: AuthState, action: Action): AuthState => {
   switch (action.type) {
     case "INITIALIZE": {
       const isInitialized = true

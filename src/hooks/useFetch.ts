@@ -3,7 +3,7 @@ import { useState, useEffect } from "react"
 import { getUrl } from "../config/api"
 import { get, isOk } from "../lib/utils/fetch"
 
-const useFetch = (path: string) : [any, boolean, OErrorMessage] => {
+const useFetch = (path: string): [any, boolean, OErrorMessage] => {
   const [isFetching, setIsFetching] = useState(true)
   const [error, setError] = useState<ErrorMessage>()
   const [data, setData] = useState()

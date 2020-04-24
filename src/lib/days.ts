@@ -10,7 +10,7 @@ const days = [
   { key: "sunday", title: "zondag" }
 ]
 export default days
-export const getTitle = (key: string | number, capitalize = false) : string => {
+export const getTitle = (key: string | number, capitalize = false): string => {
   const isKey = typeof key === "string"
   const day = isKey ? days.find(day => day.key === key) : days[key as Index]
   const str = day ? day.title : ""

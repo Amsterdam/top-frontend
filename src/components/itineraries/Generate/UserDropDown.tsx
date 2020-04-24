@@ -9,7 +9,7 @@ type Props = {
   excludedUsers: Array<undefined|null|string>
 }
 
-const UserDropdown:React.FC<Props> = ({ name, value, users, excludedUsers }) => {
+const UserDropdown: React.FC<Props> = ({ name, value, users, excludedUsers }) => {
   const options = useMemo(() => users
     .filter(user => !excludedUsers.includes(user.id) || user.id === value)
     .reduce((acc, user) => ({ ...acc, [user.id]: user.full_name }), {

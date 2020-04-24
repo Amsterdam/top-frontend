@@ -1,4 +1,4 @@
-const itineraryToCases = (itinerary?: Itinerary) : BWVData[] =>
+const itineraryToCases = (itinerary?: Itinerary): BWVData[] =>
   itinerary !== undefined
     ? itinerary
         .items

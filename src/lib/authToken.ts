@@ -4,7 +4,7 @@ const key = "top-authtoken"
 // A regular expression that detects a valid JWT token
 const regExp = /^[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*$/
 
-const get = () : OAuthToken => {
+const get = (): OAuthToken => {
   try {
     return localStorage.getItem(key) || undefined
   } catch (err) {
@@ -13,7 +13,7 @@ const get = () : OAuthToken => {
   }
 }
 
-const set = (token: AuthToken) : boolean => {
+const set = (token: AuthToken): boolean => {
   if (regExp.test(token) === false) return false
   try {
     localStorage.setItem(key, token)
@@ -24,7 +24,7 @@ const set = (token: AuthToken) : boolean => {
   }
 }
 
-const clear = () : boolean => {
+const clear = (): boolean => {
   try {
     localStorage.removeItem(key)
     return true
@@ -34,7 +34,7 @@ const clear = () : boolean => {
   }
 }
 
-const decode = (token: AuthToken) : DecodedAuthToken => {
+const decode = (token: AuthToken): DecodedAuthToken => {
   const decodedToken = jwtDecode(token) as DecodedAuthToken
   decodedToken.exp = decodedToken.exp * 1000
   return decodedToken

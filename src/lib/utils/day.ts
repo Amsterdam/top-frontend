@@ -1,4 +1,4 @@
-const DAYS:Day[] = [
+const DAYS: Day[] = [
   "monday",
   "tuesday",
   "wednesday",
@@ -8,5 +8,5 @@ const DAYS:Day[] = [
   "sunday"
 ]
 
-export const getCurrentDay = ():Day =>
+export const getCurrentDay = (): Day =>
   DAYS[new Date().getDay() - 1]

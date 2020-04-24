@@ -4,7 +4,7 @@ import { FieldValidator } from "final-form"
 import { RadioGroup, Radio, Label } from "@datapunt/asc-ui"
 
 type Options = {
-  [key:string]: string
+  [key: string]: string
 }
 
 export type Props = {
@@ -14,7 +14,7 @@ export type Props = {
   validate?: FieldValidator<string>
 } & React.HTMLAttributes<HTMLInputElement>
 
-const RadioFieldGroup:React.FC<Props> = ({ name, horizontal, validate, options }) => (
+const RadioFieldGroup: React.FC<Props> = ({ name, horizontal, validate, options }) => (
     <RadioGroup name={name} horizontal={horizontal}>
       { Object
         .entries(options)
@@ -28,12 +28,12 @@ const RadioFieldGroup:React.FC<Props> = ({ name, horizontal, validate, options }
 
 type RadioControlProps = {
   id: string
-  value: string,
-  name: string,
+  value: string
+  name: string
   validate?: FieldValidator<string>
 }
 
-const RadioControl:React.FC<RadioControlProps> = ({ id, value, name, validate }) => {
+const RadioControl: React.FC<RadioControlProps> = ({ id, value, name, validate }) => {
   const { input } = useField(name, {
     type: "radio",
     value,

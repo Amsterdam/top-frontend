@@ -5,11 +5,11 @@ import { FieldValidator } from "final-form"
 
 export type Props = {
   name: string
-  validate?: FieldValidator<string>,
+  validate?: FieldValidator<string>
   options: Record<string, string>
 } & React.HTMLAttributes<HTMLSelectElement>
 
-const SelectField:React.FC<Props> = ({ name, validate, options, ...restProps }) => {
+const SelectField: React.FC<Props> = ({ name, validate, options, ...restProps }) => {
   const { input, meta } = useField(name, {
     type: "select",
     validate

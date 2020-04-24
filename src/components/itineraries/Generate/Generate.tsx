@@ -79,7 +79,7 @@ const Generate: FC = () => {
   const showWeekDay = isWeekDay()
   const loggedInUser = findByProperty(users, "email", authUser?.email)
 
-  const onSubmit = (formValues:FormValues) => {
+  const onSubmit = (formValues: FormValues) => {
     if (data === undefined) return
     create(
       getListSettingsForDayPart(data.settings, formValues.dayPart, startAddressCaseId),

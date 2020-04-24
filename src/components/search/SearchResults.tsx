@@ -10,8 +10,8 @@ export type ActionButtonsComponentType = React.ComponentType<ActionButtonsCompon
 
 type Props = {
   results?: SearchResults
-  actionButtonsComponent?:ActionButtonsComponentType,
-  caseTo?:CaseTo
+  actionButtonsComponent?: ActionButtonsComponentType
+  caseTo?: CaseTo
 }
 
 const D = 15
@@ -24,8 +24,8 @@ const P = styled.p`
   margin-top: 12px;
 `
 
-export type CaseTo = (caseId:CaseId) => string
-export const defaultCaseTo:CaseTo = (caseId:CaseId) => to(`cases/${ caseId }`)
+export type CaseTo = (caseId: CaseId) => string
+export const defaultCaseTo: CaseTo = (caseId: CaseId) => to(`cases/${ caseId }`)
 
 const SearchResults: FC<Props> = ({ results, actionButtonsComponent, caseTo }) => {
   const showResults = results && results.length > 0
