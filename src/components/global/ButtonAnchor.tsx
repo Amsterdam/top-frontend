@@ -4,7 +4,7 @@ import styled from "styled-components"
 import StyledButton from "../styled/Button"
 
 type Props = {
-  to: string,
+  to: string
   children?: ReactNode
   // @TODO: Restrict iconLeft type to ASC Assets
   iconLeft?: ReactNode

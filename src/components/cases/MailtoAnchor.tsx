@@ -3,13 +3,13 @@ import { email, subject, body } from "../../text/email/basisinformatie"
 
 type Props = {
   isWoonboot: boolean
-  address: string,
-  postalCode: string,
-  gebruiksdoel?: string,
-  gebruik?: string,
+  address: string
+  postalCode: string
+  gebruiksdoel?: string
+  gebruik?: string
   aantalBouwlagen?: number
-  etage?: number,
-  aantalKamers?: number,
+  etage?: number
+  aantalKamers?: number
   oppervlak?: number
   woonbootStatus?: string
   woonbootIndicatie?: boolean

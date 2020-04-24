@@ -7,9 +7,9 @@ import SelectField from "../form-components/SelectField"
 import { combineValidators } from "../form-components/validators/combineValidators"
 
 type Props = {
-  title: string,
-  day: Day,
-  dayPart: DayPart,
+  title: string
+  day: Day
+  dayPart: DayPart
   stadia: Stadia
 }
 

@@ -10,7 +10,7 @@ export type ActionButtonsComponentType = React.ComponentType<ActionButtonsCompon
 
 type Props = {
   results?: SearchResults
-  actionButtonsComponent?:ActionButtonsComponentType,
+  actionButtonsComponent?:ActionButtonsComponentType
   caseTo?:CaseTo
 }
 

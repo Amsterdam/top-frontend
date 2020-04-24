@@ -8,8 +8,8 @@ import { initialState as usersState } from "../state/usersReducer"
 
 export type StateContextValue = {
   state: {
-    auth: AuthState,
-    authActions: AuthActions,
+    auth: AuthState
+    authActions: AuthActions
 
     itineraries: ItinerariesState
     itinerariesActions: ItinerariesActions

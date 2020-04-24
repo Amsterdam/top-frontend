@@ -10,7 +10,7 @@ import useCreateAnonymousHandlers from "./hooks/useCreateAnonymousHandlers"
 import useCreateAuthenticateFunction from "./hooks/useCreateAuthenticateFunction"
 
 type Result = {
-  initialize: StateContextInitializer,
+  initialize: StateContextInitializer
   value: StateContextValue
 }
 

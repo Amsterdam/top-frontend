@@ -7,8 +7,8 @@ type CombinedShapValue = {
 }
 
 type SplitCombinedShapValue = {
-  positive: CombinedShapValue[],
-  negative: CombinedShapValue[],
+  positive: CombinedShapValue[]
+  negative: CombinedShapValue[]
 }
 
 // We're only interested in these values:

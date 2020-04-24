@@ -28,8 +28,8 @@ const RadioFieldGroup:React.FC<Props> = ({ name, horizontal, validate, options }
 
 type RadioControlProps = {
   id: string
-  value: string,
-  name: string,
+  value: string
+  name: string
   validate?: FieldValidator<string>
 }
 

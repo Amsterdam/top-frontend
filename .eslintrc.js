@@ -13,6 +13,18 @@ module.exports = {
     "space-unary-ops": ["error"],
     "space-infix-ops": ["error"],
     "semi": ["error", "never"],
-    "template-curly-spacing": ["error", "always"]
+    "template-curly-spacing": ["error", "always"],
+
+    "@typescript-eslint/consistent-type-definitions": ["error", "type"],
+    "@typescript-eslint/member-delimiter-style": ["error", {
+      multiline: {
+        delimiter: "none",
+        requireLast: true
+      },
+      singleline: {
+        delimiter: "comma",
+        requireLast: false
+      },
+    }]
   }
 }

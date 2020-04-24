@@ -34,8 +34,8 @@ declare type BusinessRules = Record<string, number>
 declare type FraudPrediction = {
   fraud_probability: number
   fraud_prediction: boolean
-  business_rules: BusinessRules,
-  shap_values: ShapValues,
+  business_rules: BusinessRules
+  shap_values: ShapValues
 }
 
 declare type BWVData = {

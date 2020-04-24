@@ -5,7 +5,7 @@ import { FieldValidator } from "final-form"
 
 export type Props = {
   name: string
-  validate?: FieldValidator<string>,
+  validate?: FieldValidator<string>
   options: Record<string, string>
 } & React.HTMLAttributes<HTMLSelectElement>
 
