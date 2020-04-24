@@ -14,10 +14,10 @@ type Props = {
 const ESCAPE_KEYS = ["Escape", "27"]
 const defaultCloseHandler = () => window.history.back()
 
-const DefaultModal:React.FC<Props> = ({ title, onClose, children, footer }) => {
+const DefaultModal: React.FC<Props> = ({ title, onClose, children, footer }) => {
   const close = () => onClose ? onClose() : defaultCloseHandler()
 
-  const onKeyDown = (event:KeyboardEvent) => {
+  const onKeyDown = (event: KeyboardEvent) => {
     if (ESCAPE_KEYS.includes(event.key)) {
       close()
     }

@@ -4,7 +4,7 @@ import Case from "../../cases/Case"
 
 type Props = {
   caseId: CaseId
-  onClose: () =>void
+  onClose: () => void
 }
 
 const CaseModal: React.FC<Props> = ({ caseId }) => (

@@ -8,7 +8,7 @@ import { getIn } from "final-form"
  * <Checkboxes name='otherField' validate={isNotIntersectingWith('field')} />
  *
  */
-export const isNotIntersectingWith = (field:string) => (value:any, allValues:object) => {
+export const isNotIntersectingWith = (field: string) => (value: any, allValues: object) => {
   let other = getIn(allValues, field)
 
   if (value === undefined || other === undefined) {

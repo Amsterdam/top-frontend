@@ -69,7 +69,7 @@ export type DayPartConfig = {
   title: string
 }
 
-const DAY_PARTS:DayPartConfig[] = [
+const DAY_PARTS: DayPartConfig[] = [
   { day: "monday", dayPart: "day", title: "Maandag dag" },
   { day: "tuesday", dayPart: "day", title: "Dinsdag dag" },
   { day: "wednesday", dayPart: "day", title: "Woensdag dag" },
@@ -77,12 +77,12 @@ const DAY_PARTS:DayPartConfig[] = [
   { day: "friday", dayPart: "day", title: "Vrijdag dag" }
 ]
 
-const WEEKEND:DayPartConfig[] = [
+const WEEKEND: DayPartConfig[] = [
   { day: "saturday", dayPart: "day", title: "Zaterdag weekend" },
   { day: "sunday", dayPart: "day", title: "Zondag weekend" }
 ]
 
-const EVENINGS:DayPartConfig[] = [
+const EVENINGS: DayPartConfig[] = [
   { day: "monday", dayPart: "evening", title: "Maandag avond" },
   { day: "tuesday", dayPart: "evening", title: "Dinsdag avond" },
   { day: "wednesday", dayPart: "evening", title: "Woensdag avond" },
@@ -103,7 +103,7 @@ const Settings: FC = () => {
     }
   } = useGlobalState()
 
-  const onSubmit = (values:PlanningSettings) => {
+  const onSubmit = (values: PlanningSettings) => {
     saveSettings(
       values.opening_date,
       values.projects,

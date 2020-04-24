@@ -14,7 +14,7 @@ export type Props = {
   validate?: FieldValidator<string|string[]>
 }
 
-export const StadiumSettings:React.FC<Props> = ({ fieldName, stadia, validate }) => (
+export const StadiumSettings: React.FC<Props> = ({ fieldName, stadia, validate }) => (
   <Section>
     { stadia.map(value => (
       <div key={value}>

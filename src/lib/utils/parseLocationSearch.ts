@@ -1,4 +1,4 @@
-const parseLocationSearch = (search: string) : Record<string, string>=> {
+const parseLocationSearch = (search: string): Record<string, string>=> {
   const trimmedSearch = search.trim()
 
   if (trimmedSearch === "") return {}

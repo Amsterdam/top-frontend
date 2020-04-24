@@ -2,7 +2,7 @@ import displayAddress from "./displayAddress"
 
 type Cases = SearchResultCases
 
-const groupCasesByAddress = (cases: Cases) : Cases[] => {
+const groupCasesByAddress = (cases: Cases): Cases[] => {
   const l = cases.length
   if (l === 0) return []
   if (l === 1) return [cases]

@@ -25,6 +25,11 @@ module.exports = {
         delimiter: "comma",
         requireLast: false
       },
+    }],
+    "@typescript-eslint/type-annotation-spacing": ["error", {
+      before: false,
+      after: true,
+      overrides: { arrow: { before: true, after: true } }
     }]
   }
 }

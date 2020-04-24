@@ -24,10 +24,10 @@ const H4 = styled.h4`
   margin: 18px 0 4px
 `
 
-const getFieldName = (day:Day, dayPart:DayPart, name:string) =>
+const getFieldName = (day: Day, dayPart: DayPart, name: string) =>
   `days.${ day }.${ dayPart }.${ name }`
 
-const DayPartSettings:React.FC<Props> = ({ title, day, dayPart, stadia }) => {
+const DayPartSettings: React.FC<Props> = ({ title, day, dayPart, stadia }) => {
   const primaryStadium = getFieldName(day, dayPart, "primary_stadium")
   const secondaryStadia = getFieldName(day, dayPart, "secondary_stadia")
   const excludeStadia = getFieldName(day, dayPart, "exclude_stadia")

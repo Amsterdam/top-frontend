@@ -12,7 +12,7 @@ import { get, post, notOk, isForbidden } from "../lib/utils/fetch"
 import { getUrl } from "../config/api"
 import handleForbiddenResponse from "../lib/handleForbiddenResponse"
 
-const usePlanningSettings = () : [PlanningSettingsState, PlanningSettingsActions] => {
+const usePlanningSettings = (): [PlanningSettingsState, PlanningSettingsActions] => {
   // @TODO: Remove `as never`
   const [state, dispatch] = useReducer(reducer, initialState as never)
 

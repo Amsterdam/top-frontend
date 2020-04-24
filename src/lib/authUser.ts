@@ -1,6 +1,6 @@
 const key = "top-authuser"
 
-const get = () : OAuthUser => {
+const get = (): OAuthUser => {
   try {
     const userStringified = localStorage.getItem(key)
     if (userStringified == null) return
@@ -22,7 +22,7 @@ const set = (user: AuthUser) => {
   }
 }
 
-const clear = () : boolean => {
+const clear = (): boolean => {
   try {
     localStorage.removeItem(key)
     return true
@@ -32,7 +32,7 @@ const clear = () : boolean => {
   }
 }
 
-const isAuthUser = (user: User) : boolean => {
+const isAuthUser = (user: User): boolean => {
   const authUser = get()
   if (authUser === undefined) return false
   return authUser?.email === user.email

@@ -10,7 +10,7 @@ export type Props = {
 } & React.TextareaHTMLAttributes<HTMLTextAreaElement>
 
 
-const TextareaField:React.FC<Props> = ({ name, validate = noop, ...restProps }) => {
+const TextareaField: React.FC<Props> = ({ name, validate = noop, ...restProps }) => {
   const {
     meta,
     input

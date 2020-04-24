@@ -13,7 +13,7 @@ type Props = {
   title: string
 }
 
-const FraudPredictionDetailsModal:React.FC<Props> = ({ title, fraudPrediction }) => {
+const FraudPredictionDetailsModal: React.FC<Props> = ({ title, fraudPrediction }) => {
   const parsedQueryString = parseLocationSearch(window.location.search)
 
   return <>

@@ -10,14 +10,14 @@ type Action =
   | { type: "SET_ERROR", payload: { errorMessage: ErrorMessage } }
   | { type: "CLEAR" }
 
-export const createStartFetching = (query?: Query) : Action => ({ type: "START_FETCHING", payload: { query } })
-export const createStopFetching = () : Action => ({ type: "STOP_FETCHING" })
-export const createSetResults = (results: SearchResults) : Action => ({ type: "SET_RESULTS", payload: { results } })
-export const createSetSuggestions = (suggestions: SearchResults) : Action => ({ type: "SET_SUGGESTIONS", payload: { suggestions } })
-export const createSetIssues = (issues: SearchResults) : Action => ({ type: "SET_ISSUES", payload: { issues } })
-export const createSetTeam = (caseId: CaseId, teamMembers?: TeamMembers) : Action => ({ type: "SET_TEAM", payload: { caseId, teamMembers } })
-export const createSetError = (errorMessage: ErrorMessage) : Action => ({ type: "SET_ERROR", payload: { errorMessage } })
-export const createClear = () : Action => ({ type: "CLEAR" })
+export const createStartFetching = (query?: Query): Action => ({ type: "START_FETCHING", payload: { query } })
+export const createStopFetching = (): Action => ({ type: "STOP_FETCHING" })
+export const createSetResults = (results: SearchResults): Action => ({ type: "SET_RESULTS", payload: { results } })
+export const createSetSuggestions = (suggestions: SearchResults): Action => ({ type: "SET_SUGGESTIONS", payload: { suggestions } })
+export const createSetIssues = (issues: SearchResults): Action => ({ type: "SET_ISSUES", payload: { issues } })
+export const createSetTeam = (caseId: CaseId, teamMembers?: TeamMembers): Action => ({ type: "SET_TEAM", payload: { caseId, teamMembers } })
+export const createSetError = (errorMessage: ErrorMessage): Action => ({ type: "SET_ERROR", payload: { errorMessage } })
+export const createClear = (): Action => ({ type: "CLEAR" })
 
 export const initialState: SearchState = {
   isFetching: false,
@@ -28,7 +28,7 @@ export const initialState: SearchState = {
   errorMessage: undefined
 }
 
-const reducer = (state: SearchState, action: Action) : SearchState => {
+const reducer = (state: SearchState, action: Action): SearchState => {
   switch (action.type) {
     case "START_FETCHING": {
       const { query } = action.payload

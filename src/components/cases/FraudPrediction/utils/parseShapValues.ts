@@ -12,7 +12,7 @@ type SplitCombinedShapValue = {
 }
 
 // We're only interested in these values:
-const relevantShapValues:string[] = [
+const relevantShapValues: string[] = [
   "begindatum",
   "eigenaar",
   "woonfraude",
@@ -66,7 +66,7 @@ const relevantShapValues:string[] = [
 
 // Some shap-value keys are hard to grasp.
 // We translate them into something useful with this map:
-const translationMap: {[translation:string]: string} = {
+const translationMap: {[translation: string]: string} = {
    "aantal_gezinsverhouding_1": "Aantal gezinshoofd met kinderen",
    "ratio_gezinsverhouding_1": "Ratio gezinshoofd met kinderen",
    "aantal_gezinsverhouding_2": "Aantal gezinshoofd met echtgenoot",
@@ -81,14 +81,14 @@ const translationMap: {[translation:string]: string} = {
    "ratio_gezinsverhouding_6": "Ratio alleenstaande"
 }
 
-const translate = (str:string) => translationMap[str] ?? str
+const translate = (str: string) => translationMap[str] ?? str
 
-const humanize = (str:string) => capitalize(str.replace(/_/g, " "))
+const humanize = (str: string) => capitalize(str.replace(/_/g, " "))
 
-const filterPositive = (shapValue:CombinedShapValue) => shapValue.shap > 0
-const filterNegative = (shapValue:CombinedShapValue) => shapValue.shap < 0
+const filterPositive = (shapValue: CombinedShapValue) => shapValue.shap > 0
+const filterNegative = (shapValue: CombinedShapValue) => shapValue.shap < 0
 
-export const parseShapValues = (shapValues:ShapValues, businessRules:BusinessRules):SplitCombinedShapValue => {
+export const parseShapValues = (shapValues: ShapValues, businessRules: BusinessRules): SplitCombinedShapValue => {
   const combined = Object
     .entries(shapValues)
     // We're only interested in the relevant ones:
@@ -112,4 +112,4 @@ export const parseShapValues = (shapValues:ShapValues, businessRules:BusinessRul
 
 // @see https://stackoverflow.com/a/11832950
 // > to ensure things like 1.005 roundIfNecessary correctly, we use
-export const roundIfNecessary = (num:number) => Math.round((num + Number.EPSILON) * 100) / 100
+export const roundIfNecessary = (num: number) => Math.round((num + Number.EPSILON) * 100) / 100

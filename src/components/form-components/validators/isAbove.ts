@@ -1,7 +1,7 @@
 /**
  * Very simple validation method. Given value should be above `min`.
  */
-export const isAbove = (min:number|string) => (value:string|number):string|undefined  => {
+export const isAbove = (min: number|string) => (value: string|number): string|undefined  => {
   const parsedMin = typeof min === "string"
     ? parseFloat(min)
     : min

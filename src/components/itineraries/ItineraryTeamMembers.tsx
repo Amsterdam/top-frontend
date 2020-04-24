@@ -54,7 +54,7 @@ const ItineraryTeamMembers: FC<Props> = ({ itineraryId, teamMembers, isEditing =
     unsetIsEditing()
   }
 
-  const onSubmit = async (formValues:FormValues) => {
+  const onSubmit = async (formValues: FormValues) => {
     const removeItinerary = !formValues.users.includes(loggedInUser?.id)
 
     await updateTeam(

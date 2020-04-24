@@ -9,7 +9,7 @@ export type Props = {
   options: Record<string, string>
 } & React.HTMLAttributes<HTMLSelectElement>
 
-const SelectField:React.FC<Props> = ({ name, validate, options, ...restProps }) => {
+const SelectField: React.FC<Props> = ({ name, validate, options, ...restProps }) => {
   const { input, meta } = useField(name, {
     type: "select",
     validate

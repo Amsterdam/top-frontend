@@ -22,7 +22,7 @@ import calculateNewPosition from "../lib/calculateNewPosition"
 import currentDate from "../lib/utils/currentDate"
 import { navigateToHome } from "../lib/navigateTo"
 
-const useItineraries = () : [ItinerariesState, ItinerariesActions, ItinerariesSelectors] => {
+const useItineraries = (): [ItinerariesState, ItinerariesActions, ItinerariesSelectors] => {
   // @TODO: Remove `as never`
   const [state, dispatch] = useReducer(reducer, initialState as never)
 
@@ -189,7 +189,7 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions, ItinerariesSe
 
   const clear = () => dispatch(createClear())
 
-  const setChecked = async (itemId: Id, checked:boolean) => {
+  const setChecked = async (itemId: Id, checked: boolean) => {
     const url = getUrl(`itinerary-items/${ itemId }`)
     const [response ] = await patch(url, { checked })
     if (isForbidden(response)) return handleForbiddenResponse()
@@ -202,17 +202,17 @@ const useItineraries = () : [ItinerariesState, ItinerariesActions, ItinerariesSe
   //  Selectors
   // -----------------------------------------
 
-  const getItinerary = (caseId: CaseId) : OItineraryItem =>
+  const getItinerary = (caseId: CaseId): OItineraryItem =>
     state.itineraries.map(({ items }) => items).flat().find(item => item.case.bwv_data.case_id === caseId)
 
   const hasItinerary = (caseId: CaseId) => getItinerary(caseId) !== undefined
 
-  const getItineraryNotes = (itineraryItemId: Id, id: Id) : Notes | undefined => {
+  const getItineraryNotes = (itineraryItemId: Id, id: Id): Notes | undefined => {
     const itineraryItem = state.itineraries.map(({ items }) => items).flat().find(({ id }) => id === itineraryItemId)
     return itineraryItem !== undefined ? itineraryItem.notes : undefined
   }
 
-  const getItineraryFromItineraryItem = (id: Id) : OItinerary =>
+  const getItineraryFromItineraryItem = (id: Id): OItinerary =>
     state.itineraries.find(({ items }) => items.map(({ id }) => id).includes(id))
 
 

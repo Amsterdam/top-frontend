@@ -12,8 +12,8 @@ import { ActionButtonsComponentType, defaultCaseTo, CaseTo } from "./SearchResul
 
 type Props = {
   cases: SearchResultCases
-  actionButtonsComponent?:ActionButtonsComponentType
-  caseTo?:CaseTo
+  actionButtonsComponent?: ActionButtonsComponentType
+  caseTo?: CaseTo
 }
 
 const StyledLink = styled(Link)`

@@ -10,7 +10,7 @@ type Props = {
   validate?: FieldValidator<string>
 }
 
-const CheckboxField:React.FC<React.HTMLAttributes<HTMLInputElement> & Props> = ({ name, value, validate, ...restProps }) => {
+const CheckboxField: React.FC<React.HTMLAttributes<HTMLInputElement> & Props> = ({ name, value, validate, ...restProps }) => {
   const { input, meta } = useField(name, {
     type: "checkbox",
     value,

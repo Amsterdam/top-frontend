@@ -6,8 +6,8 @@ import { ActionButtonsComponentType, CaseTo } from "./SearchResults"
 
 type Props = {
   cases: SearchResultCases
-  actionButtonsComponent?:ActionButtonsComponentType
-  caseTo?:CaseTo
+  actionButtonsComponent?: ActionButtonsComponentType
+  caseTo?: CaseTo
 }
 
 const Div = styled.div`

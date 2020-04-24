@@ -1,4 +1,4 @@
-const calculateNewPosition = (items: { position: ItineraryPosition }[], index: Index, newIndex: Index) : ItineraryPosition => {
+const calculateNewPosition = (items: { position: ItineraryPosition }[], index: Index, newIndex: Index): ItineraryPosition => {
   if (index === newIndex) return items[index].position
 
   const movedBackwards = index < newIndex

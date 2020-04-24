@@ -5,8 +5,8 @@ import SmallSpinner from "../global/SmallSpinner"
 import useGlobalState from "../../hooks/useGlobalState"
 
 type Props = {
-  caseTo?:CaseTo
-  actionButtonsComponent?:ActionButtonsComponentType
+  caseTo?: CaseTo
+  actionButtonsComponent?: ActionButtonsComponentType
 }
 
 const Search: FC<Props> = ({ actionButtonsComponent, caseTo }) => {

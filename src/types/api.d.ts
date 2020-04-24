@@ -246,7 +246,7 @@ declare type Projects = Project[]
 declare type PlanningSettings = {
   opening_date: string
   projects: Projects
-  days:SettingsListMap
+  days: SettingsListMap
 }
 declare type PlanningSettingsData = {
   projects: string[]
