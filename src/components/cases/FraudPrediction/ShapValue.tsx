@@ -19,7 +19,7 @@ type BarProps = Pick<Props, "shap" | "isPositive">
 const Bar = styled.div`
   width: 0;
   
-  background-color: ${ ({ isPositive }: BarProps) =>  color( isPositive ? "primary" : "secondary") }; 
+  background-color: ${ ({ isPositive }: BarProps) => color( isPositive ? "primary" : "secondary") }; 
   border-radius: 3px; 
   height: 10px; 
   
