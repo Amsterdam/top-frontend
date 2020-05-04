@@ -37,7 +37,7 @@ export type Props = {
  * ```
  *
  */
-const Box = styled.div<Props>`  
+const Box = styled.div`  
     display:flex;
     flex-wrap: wrap;
     box-sizing: border-box;

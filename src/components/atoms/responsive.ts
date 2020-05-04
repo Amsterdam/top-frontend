@@ -34,10 +34,10 @@ const breakPoints: BreakPoint[] = [
  * Wraps given cssRules in the corresponding media-query:
  */
 export const mq = (bk: BreakPoint, cssRules: any) => css`
-      @media screen and ${ breakpoint("min-width", bk) } {
-        ${ cssRules }        
-      }        
-  `
+  @media screen and ${ breakpoint("min-width", bk) } {
+    ${ cssRules }        
+  }        
+`
 
 /**
  * Wraps 'responsive-props' in media-queries if necessary.
@@ -50,15 +50,15 @@ export const responsiveProps = <T extends Record<string, any>>(props: T, map: { 
     .map(([key, fun]) => fun(props[key]))
 
   const mediaQueries = breakPoints
-    .map(bk => {
+    .map(bp => {
       // See if we can make css-rules for this breakpoint:
       const responsiveCssRules = Object
         .entries<UnitFunction>(map)
-        .filter(([key]) => props?.[key]?.[bk] !== undefined)
-        .map(([key, fun]) => fun(props[key][bk]))
+        .filter(([key]) => props?.[key]?.[bp] !== undefined)
+        .map(([key, fun]) => fun(props[key][bp]))
 
       return (responsiveCssRules.length > 0)
-        ? mq(bk, responsiveCssRules) // Wrap css-rules in a mediaQuery
+        ? mq(bp, responsiveCssRules) // Wrap css-rules in a mediaQuery
         : undefined // Undefined -> filter out later
     })
     .filter(_ => _ !== undefined)
