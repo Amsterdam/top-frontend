@@ -1,10 +1,10 @@
 import React from "react"
-import { CaseTo } from "../../search/SearchResults"
+import { CaseTo } from "../../../search/SearchResults"
 import { navigate } from "@reach/router"
-import { toDeleteQueryStringParams, toMergeQueryString } from "../../../config/page"
-import parseLocationSearch from "../../../lib/utils/parseLocationSearch"
-import AddStartAddressModal from "../add-start-address/AddStartAddressModal"
-import CaseModal from "../add-start-address/CadeModal"
+import { toDeleteQueryStringParams, toMergeQueryString } from "../../../../config/page"
+import parseLocationSearch from "../../../../lib/utils/parseLocationSearch"
+import AddStartAddressModal from "../../add-start-address/AddStartAddressModal"
+import CaseModal from "../../add-start-address/CadeModal"
 
 type Props = {
   onAddStartAddress: (caseId: CaseId) => void

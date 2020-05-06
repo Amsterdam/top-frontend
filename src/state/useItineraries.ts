@@ -21,6 +21,8 @@ import handleForbiddenResponse from "../lib/handleForbiddenResponse"
 import calculateNewPosition from "../lib/calculateNewPosition"
 import currentDate from "../lib/utils/currentDate"
 import { navigateToHome } from "../lib/navigateTo"
+import { GenerateItineraryFormValues } from "../components/itineraries/Generate/Generate"
+import { wrapInNameObject, wrapInNameObjects } from "../lib/utils/wrapInNameObject"
 
 const useItineraries = (): [ItinerariesState, ItinerariesActions, ItinerariesSelectors] => {
   // @TODO: Remove `as never`
@@ -48,27 +50,40 @@ const useItineraries = (): [ItinerariesState, ItinerariesActions, ItinerariesSel
     dispatch(createInitialize(itineraries))
   }
 
-  // @TODO: Add type for settings parameter
-  const create = async (settings: any, users: UUIDs, num: number, selfIncluded: boolean) => {
+  const create = async (values: GenerateItineraryFormValues, selfIncluded: boolean) => {
+    const {
+      openingsDate,
+      projects,
+      users,
+      startAddress,
+      numAddresses,
+      dayPart: {
+        settingsList: { primary_stadium, secondary_stadia, exclude_stadia }
+      }
+    } = values
+
     const url = getUrl("itineraries")
     dispatch(createStartFetching())
+
+    // Map to request-body:
     const body = {
       created_at: currentDate(),
-      team_members: users.map(user => ({ user: { id: user } })),
+      team_members: users.map(({ id }) => ({ user: { id } })),
       settings: {
         start_case: {
-          case_id: settings.startAddressCaseId
+          case_id: startAddress
         },
-        opening_date: settings.opening_date,
-        target_length: num,
-        projects: settings.projects.map((item: string) => ({ name: item })),
-        primary_stadium: settings.days.primary_stadium ? { name: settings.days.primary_stadium } : undefined,
-        secondary_stadia: settings.days.secondary_stadia ? settings.days.secondary_stadia.map((stadium: Stadium) => ({ name: stadium })) : undefined,
-        exclude_stadia: settings.days.exclude_stadia ? settings.days.exclude_stadia.map((stadium: Stadium) => ({ name: stadium })) : undefined
+        opening_date: openingsDate,
+        target_length: numAddresses,
+        projects: wrapInNameObjects(projects),
+        primary_stadium:  wrapInNameObject(primary_stadium),
+        secondary_stadia: wrapInNameObjects(secondary_stadia),
+        exclude_stadia: wrapInNameObjects(exclude_stadia)
       }
     }
 
     const [response, result, errorMessage = "Failed to GET"] = await post(url, body)
+
     dispatch(createStopFetching())
     if (isForbidden(response)) {
       return handleForbiddenResponse()
@@ -82,7 +97,8 @@ const useItineraries = (): [ItinerariesState, ItinerariesActions, ItinerariesSel
     } else {
       alert("Looplijst succesvol gegenereerd")
     }
-    navigateToHome()
+
+    return navigateToHome()
   }
 
   const updateTeam = async (id: Id, users: UUIDs, remove = false) => {
