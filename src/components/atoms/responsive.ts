@@ -46,7 +46,7 @@ export const mq = (bk: BreakPoint, cssRules: any) => css`
 export const responsiveProps = <T extends Record<string, any>>(props: T, map: { [key in keyof T]: UnitFunction }) => {
   const nonResponsiveRules = Object
     .entries<UnitFunction>(map)
-    .filter(([key]) => typeof props[key] === "string" || typeof props[key] === "number" )
+    .filter(([key]) => typeof props[key] === "string" || typeof props[key] === "number" || typeof props[key] === "boolean" || typeof props[key] === "undefined" )
     .map(([key, fun]) => fun(props[key]))
 
   const mediaQueries = breakPoints

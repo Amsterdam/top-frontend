@@ -1,7 +1,6 @@
 import React from 'react'
 import { addDecorator, configure } from '@storybook/react'
-import { GlobalStyle, ThemeProvider, themeColor } from '@datapunt/asc-ui'
-import styled from "styled-components";
+import { GlobalStyle, ThemeProvider } from '@datapunt/asc-ui'
 import { addParameters } from '@storybook/react';
 
 // automatically import all files ending in *.stories.js
@@ -11,8 +10,6 @@ const extendedTheme = {
   globalStyle: `
   `,
 }
-
-
 
 function withGlobalStyles(storyFn) {
   return (

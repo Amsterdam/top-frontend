@@ -87,7 +87,3 @@ declare type UsersActions = {
   initialize: () => void
   clear: () => void
 }
-
-declare type UsersSelectors= {
-  getLoggedInUser
-}

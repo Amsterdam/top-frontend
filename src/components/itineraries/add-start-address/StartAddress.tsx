@@ -1,19 +1,10 @@
 import React from "react"
-import styled from "styled-components"
 import { Spinner } from "@datapunt/asc-ui"
 import { LabelDiv } from "amsterdam-react-final-form"
 import SearchResultSingle from "../../search/SearchResultSingle"
 import useFetch from "../../../hooks/useFetch"
 import { CaseTo } from "../../search/SearchResults"
 import Box from "../../atoms/Box/Box"
-
-const Div = styled.div`
-  box-sizing: border-box;
-  padding: 15px;
-  border: 1px solid black;
-  min-height:100px;
-  width: 100%;
-`
 
 type Props = {
   caseTo: CaseTo

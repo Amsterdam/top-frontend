@@ -1,35 +1,38 @@
 import React from "react"
 import Box from "./Box"
-import { number, array, withKnobs, select, text } from "@storybook/addon-knobs"
-import { Responsive } from "../responsive"
+import { withKnobs, select, text, boolean } from "@storybook/addon-knobs"
 
 export default {
   title: "Box",
   decorators: [withKnobs]
 }
 
+const arrayToObject = (array: Array<string|number>) => array.reduce(
+  (acc, val) => ({ ...acc, [val]: val }), {}
+)
 
-// TODO make utility for these `select` values :-)
+const zeroToTwelve = arrayToObject([0, 1,2,3,4,5,6,7,8,9,10,11,12])
+const hAlign = arrayToObject(["flex-start","flex-end","center","space-between","space-around","space-evenly"])
+const vAlign = arrayToObject(["flex-start", "flex-end", "center", "baseline", "stretch", "auto"])
 
 export const Example = () => (
-  // @ts-ignore
   <Box
-    p={select("p", { "1": 1, "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9, "10": 10, "11": 11, "12": 12, undefined: undefined }, undefined)}
-    pt={select("pt", { "1": 1, "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9, "10": 10, "11": 11, "12": 12, undefined: undefined }, undefined)}
-    pr={select("pr", { "1": 1, "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9, "10": 10, "11": 11, "12": 12, undefined: undefined }, undefined)}
-    pb={select("pb", { "1": 1, "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9, "10": 10, "11": 11, "12": 12, undefined: undefined }, undefined)}
-    pl={select("pl", { "1": 1, "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9, "10": 10, "11": 11, "12": 12, undefined: undefined }, undefined)}
+    p={select("p", zeroToTwelve, 0)}
+    pt={select("pt", zeroToTwelve, 0)}
+    pr={select("pr", zeroToTwelve, 0)}
+    pb={select("pb", zeroToTwelve, 0)}
+    pl={select("pl", zeroToTwelve, 0)}
 
-    m={select("m", { "1": 1, "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9, "10": 10, "11": 11, "12": 12, undefined: undefined }, undefined)}
-    mt={select("mt", { "1": 1, "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9, "10": 10, "11": 11, "12": 12, undefined: undefined }, undefined)}
-    mr={select("mr", { "1": 1, "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9, "10": 10, "11": 11, "12": 12, undefined: undefined }, undefined)}
-    mb={select("mb", { "1": 1, "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9, "10": 10, "11": 11, "12": 12, undefined: undefined }, undefined)}
-    ml={select("ml", { "1": 1, "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9, "10": 10, "11": 11, "12": 12, undefined: undefined }, undefined)}
+    m={select("m", zeroToTwelve, 0)}
+    mt={select("mt", zeroToTwelve, 0)}
+    mr={select("mr", zeroToTwelve, 0)}
+    mb={select("mb", zeroToTwelve, 0)}
+    ml={select("ml", zeroToTwelve, 0)}
 
-    width={select("width", { "1": 1, "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9, "10": 10, "11": 11, "12": 12, undefined: undefined }, undefined)}
-    bgColor={select("bgColor", { "level1":"level1", "level2":"level2", "level3":"level3", "level4":"level4", "level5":"level5", "undefined": undefined }, undefined)}
-    hAlign={select("hAlign", { "flex-start": "flex-start", "flex-end": "flex-end", "center": "center", "space-between": "space-between", "space-around": "space-around", "space-evenly": "space-evenly", "undefined": undefined }, undefined)}
-    vAlign={select("vAlign", { "flex-start": "flex-start", "flex-end": "flex-end", "center": "center", "baseline": "baseline", "stretch": "stretch", "auto": "auto", "undefined": undefined }, undefined)}
+    width={select("width", zeroToTwelve, 0)}
+    bgColor={select("bgColor", arrayToObject(["level1", "level2", "level3", "level4", "level5"]), "level1")}
+    hAlign={select("hAlign", hAlign, "flex-start")}
+    vAlign={select("vAlign", vAlign, "flex-start")}
   >
     { text("content", "Donec id elit non mi porta gravida at eget metus. Donec id elit non mi porta gravida at eget metus. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec id elit non mi porta gravida at eget metus. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Etiam porta sem malesuada magna mollis euismod.") }
   </Box>
@@ -45,8 +48,20 @@ export const CombinedExample = () => (
       Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
       Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.
     </Box>
-    <Box width={{ mobileS: 12, tabletM: 6 }} p={2} bgColor='level2' vAlign='flex-end' hAlign='flex-end'>
+    <Box width={{ mobileS: 12, tabletM: 6 }}
+         p={2}
+         bgColor='level2'
+         hAlign={select("hAlign", hAlign, "flex-end")}
+         vAlign={select("vAlign", vAlign, "flex-end")}>
       aligned
     </Box>
+  </Box>
+)
+
+export const StretchedExample = () => (
+  <Box>
+    <Box p={2} bgColor='level3' width={select("width: 1", zeroToTwelve, 3)} stretch={boolean("stretch: 1", false)}>1</Box>
+    <Box p={2} bgColor='level4' width={select("width: 2", zeroToTwelve, 3)} stretch={boolean("stretch: 2", false)}>2</Box>
+    <Box p={2} bgColor='level5' width={select("width: 3", zeroToTwelve, 0)} stretch={boolean("stretch: 3", true)}>3</Box>
   </Box>
 )

@@ -21,6 +21,8 @@ export type Props = {
 
   hAlign?: Responsive<"flex-start" | "flex-end" | "center" | "space-between" | "space-around" | "space-evenly">
   vAlign?: Responsive<"flex-start" | "flex-end" | "center" | "baseline" | "stretch" | "auto">
+  
+  stretch?: Responsive<boolean>
 }
 
 /**
@@ -31,7 +33,7 @@ export type Props = {
  * Example usage:
  *
  * ```
- *    <Box padding={{ mobileS: 0, tabletM: 1 }} bgColor='level3' >
+ *    <Box p={{ mobileS: 0, tabletM: 1 }} bgColor='level3' >
  *      Foo
  *    </Box>
  * ```
@@ -58,10 +60,14 @@ const Box = styled.div`
     
       "bgColor": unit => css`background-color: ${ themeColor("tint", unit) };`,
     
-      "width": unit => css`width ${ (unit / 12) * 100 }%;`,
+      "width": unit => css`width ${ (unit / 12) * 100 }%;`,  
 
       "hAlign": unit => css`justify-content: ${ unit };`,
-      "vAlign": unit => css`align-items: ${ unit };`
+      "vAlign": unit => css`align-items: ${ unit };`,
+  
+      "stretch": unit => unit 
+        ? css`flex: 1;` 
+        : "" 
     }) }
   `
 

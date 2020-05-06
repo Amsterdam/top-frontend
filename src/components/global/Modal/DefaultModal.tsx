@@ -4,6 +4,7 @@ import { StyledIconButton } from "./components/StyledIconButton"
 import { Body } from "./components/Body"
 import { Footer } from "./components/Footer"
 import { TopBar } from "./components/TopBar"
+import Portal from "./Portal"
 
 type Props = {
   title?: string
@@ -29,18 +30,20 @@ const DefaultModal: React.FC<Props> = ({ title, onClose, children, footer }) => 
   })
 
   return (
-  <FixedWrap>
-    <TopBar>
-      <h4>{ title }</h4>
-      <StyledIconButton
-        border={false}
-        icon='Close'
-        onClick={close}
-      />
-    </TopBar>
-    <Body>{ children }</Body>
-    { footer && <Footer>{ footer }</Footer>}
-  </FixedWrap>
+    <Portal>
+      <FixedWrap>
+        <TopBar>
+          <h4>{ title }</h4>
+          <StyledIconButton
+            border={false}
+            icon='Close'
+            onClick={close}
+          />
+        </TopBar>
+        <Body>{ children }</Body>
+        { footer && <Footer>{ footer }</Footer>}
+      </FixedWrap>
+    </Portal>
   )
 }
 

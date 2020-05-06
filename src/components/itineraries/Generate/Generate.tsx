@@ -59,7 +59,6 @@ const Generate: FC = () => {
       }}
       render={({ handleSubmit, values, hasValidationErrors, submitting }) => (
         <form onSubmit={handleSubmit}>
-          <pre>{ JSON.stringify(values, null, 2) }</pre>
           <Box pb={4}>
             <Heading>Genereer je looplijst</Heading>
           </Box>
