@@ -8,15 +8,6 @@ import { Form } from "react-final-form"
 import Box from "../atoms/Box/Box"
 import { mq } from "../atoms/responsive"
 
-const StreetNumberField = styled(NumberField)`
-  input {
-    &::-webkit-inner-spin-button,
-    &::-webkit-outer-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
-  }
-`
 
 const StyledButton = styled(Button)`  
   margin-top: 0;
@@ -76,13 +67,14 @@ const SearchForm: FC = () => {
                 />
               </Box>
               <Box width={{ mobileS: 12, tabletS: 2, desktop: 1 }} p={1}>
-                <StreetNumberField
+                <NumberField
                   label='Huisnr.'
                   name='streetNumber'
                   min="1"
                   step="1"
                   pattern="\d+"
                   title="Alleen cijfers zijn geldig"
+                  hideNumberSpinner={true}
                   validate={isRequired()}
                   tabIndex={2}
                 />
