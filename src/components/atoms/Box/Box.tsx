@@ -15,7 +15,7 @@ export type Props = {
   mb?: Responsive<number>
   ml?: Responsive<number>
 
-  width?: Responsive<0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12>
+  width?: Responsive<0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | "auto">
 
   bgColor?: Responsive<"level1" | "level2" | "level3" | "level4" | "level5">
 
@@ -23,6 +23,8 @@ export type Props = {
   vAlign?: Responsive<"flex-start" | "flex-end" | "center" | "baseline" | "stretch" | "auto">
   
   stretch?: Responsive<boolean>
+  
+  direction?: Responsive<"row" | "row-reverse" | "column" | "column-reverse">
 }
 
 /**
@@ -60,14 +62,20 @@ const Box = styled.div`
     
       "bgColor": unit => css`background-color: ${ themeColor("tint", unit) };`,
     
-      "width": unit => css`width ${ (unit / 12) * 100 }%;`,  
+      "width": unit => typeof unit === "number"
+        ? css`width: ${ (unit / 12) * 100 }%;`
+        : unit === "auto"
+            ? css`width: auto;`
+            : "",
 
       "hAlign": unit => css`justify-content: ${ unit };`,
       "vAlign": unit => css`align-items: ${ unit };`,
   
       "stretch": unit => unit 
         ? css`flex: 1;` 
-        : "" 
+        : "" ,
+  
+      "direction": unit => css`flex-direction: ${ unit };`
     }) }
   `
 
