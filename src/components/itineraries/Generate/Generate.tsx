@@ -13,6 +13,7 @@ import { getDayPartOptions } from "./util/getDayPartOptions"
 export type GenerateItineraryFormValues = {
   openingsDate: string
   projects: Projects
+  postalCodeRange: PostalCodeRange
   numAddresses: number
   dayPart: { label: string, settingsList: SettingsList }
   users: User[]
@@ -52,6 +53,7 @@ const Generate: FC = () => {
       initialValues={{
         openingsDate: data.settings.opening_date,
         projects: data.settings.projects,
+        postalCodeRange: data.settings.postal_code,
         numAddresses: 8,
         dayPart: dayPartOptions[0],
         users: [loggedInUser!]
