@@ -14,7 +14,7 @@ export const StartAddressField: React.FC<Props> = ({ name }) => {
   const { input: { value, onChange } } = useField<CaseId>(name, {})
 
   return (
-    <Box pt={4}>
+    <Box pt={4} pb={4}>
       {
         value
           ? <>

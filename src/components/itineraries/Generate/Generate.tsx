@@ -3,10 +3,9 @@ import { Form } from "react-final-form"
 import _difference from "lodash/difference"
 import { Button, Heading } from "@datapunt/asc-ui"
 import useGlobalState from "../../../hooks/useGlobalState"
-import { isRequired } from "../../form-components/validators/isRequired"
 import Box from "../../atoms/Box/Box"
 import Spinner from "../../global/Spinner"
-import { LabelDiv, NumberField, ComplexSelectField, ComplexRadioFields } from "amsterdam-react-final-form"
+import { LabelDiv, NumberField, ComplexSelectField, ComplexRadioFields, isRequired } from "amsterdam-react-final-form"
 import { StartAddressField } from "./StartAddress/StartAddressField"
 import { useLoggedInUser } from "../../../state/useLoggedInUser"
 import { getDayPartOptions } from "./util/getDayPartOptions"
@@ -59,7 +58,7 @@ const Generate: FC = () => {
       }}
       render={({ handleSubmit, values, hasValidationErrors, submitting }) => (
         <form onSubmit={handleSubmit}>
-          <Box pb={4}>
+          <Box pb={4} pt={4}>
             <Heading>Genereer je looplijst</Heading>
           </Box>
           <LabelDiv>Wie zitten er vandaag in je team?</LabelDiv>
@@ -69,7 +68,7 @@ const Generate: FC = () => {
             optionLabelField='full_name'
             withEmptyOption={true}
             options={_difference(users!, _difference(values.users, [values.users?.[0]]))}
-            validate={isRequired}
+            validate={isRequired()}
           />
           <ComplexSelectField
             label='Toezichthouder 2'
@@ -77,7 +76,7 @@ const Generate: FC = () => {
             optionLabelField='full_name'
             withEmptyOption={true}
             options={_difference(users!, _difference(values.users, [values.users?.[1]]))}
-            validate={isRequired}
+            validate={isRequired()}
           />
           <ComplexSelectField
               label='Handhaver'
@@ -85,7 +84,7 @@ const Generate: FC = () => {
               optionLabelField='full_name'
               withEmptyOption={true}
               options={_difference(users!, _difference(values.users, [values.users?.[2]]))}
-              validate={isRequired}
+              validate={isRequired()}
           />
           <ComplexRadioFields
             label='Wat voor looplijst wil je maken?'
@@ -99,7 +98,7 @@ const Generate: FC = () => {
             max={20}
             step={1}
             name='numAddresses'
-            validate={isRequired}
+            validate={isRequired()}
           />
           <StartAddressField name='startAddress' />
           <Box hAlign='flex-end'>
