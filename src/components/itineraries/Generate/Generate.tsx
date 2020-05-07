@@ -58,7 +58,7 @@ const Generate: FC = () => {
         dayPart: dayPartOptions[0],
         users: [loggedInUser!]
       }}
-      render={({ handleSubmit, values, hasValidationErrors, submitting }) => (
+      render={({ handleSubmit, values, hasValidationErrors, submitting, pristine }) => (
         <form onSubmit={handleSubmit}>
           <Box pb={4} pt={4}>
             <Heading>Genereer je looplijst</Heading>
@@ -104,7 +104,7 @@ const Generate: FC = () => {
           />
           <StartAddressField name='startAddress' />
           <Box hAlign='flex-end'>
-            <Button type="submit" variant="secondary" disabled={submitting || hasValidationErrors || data === undefined}>
+            <Button type="submit" variant="secondary" disabled={pristine || submitting || hasValidationErrors || data === undefined}>
               Genereer looplijst
             </Button>
           </Box>

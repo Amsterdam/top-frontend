@@ -3,6 +3,7 @@ import { RouteComponentProps } from "@reach/router"
 import ItinerariesMain from "../components/itineraries/ItinerariesMain"
 import Navigation from "../components/global/navigation/Navigation"
 import parseLocationSearch from "../lib/utils/parseLocationSearch"
+import { IsFetchingSpinner } from "../components/atoms/PageSpinner/IsFetchingSpinner"
 
 type Props = {
   id?: string
@@ -18,7 +19,9 @@ const ItinerariesPage: FC<Props> = ({ id: idString = "" }) => {
   return (
     <>
       <Navigation />
-      <ItinerariesMain id={ id } forceGenerate={ forceGenerate } />
+      <IsFetchingSpinner>
+        <ItinerariesMain id={ id } forceGenerate={ forceGenerate } />
+      </IsFetchingSpinner>
     </>
   )
 }

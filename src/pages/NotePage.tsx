@@ -3,6 +3,7 @@ import Navigation from "../components/global/navigation/Navigation"
 import { RouteComponentProps } from "@reach/router"
 import Notes from "../components/notes/Notes"
 import ErrorMessage from "../components/global/ErrorMessage"
+import { IsFetchingSpinner } from "../components/atoms/PageSpinner/IsFetchingSpinner"
 
 type Props = RouteComponentProps & {
   itineraryItemId?: string
@@ -18,12 +19,14 @@ const NotePage: FC<Props> = ({ itineraryItemId: itineraryItemIdString, id: idStr
   return (
     <>
       <Navigation />
-      { showNote &&
-        <Notes itineraryItemId={ itineraryItemId } id={ id } />
-      }
-      { show404 &&
-        <ErrorMessage text="Pagina niet gevonden" />
-      }
+      <IsFetchingSpinner>
+        { showNote &&
+          <Notes itineraryItemId={ itineraryItemId } id={ id } />
+        }
+        { show404 &&
+          <ErrorMessage text="Pagina niet gevonden" />
+        }
+      </IsFetchingSpinner>
     </>
   )
 }
