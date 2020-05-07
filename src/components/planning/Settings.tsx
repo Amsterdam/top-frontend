@@ -1,46 +1,65 @@
 import React, { FC } from "react"
 import { Form } from "react-final-form"
-import { breakpoint, Button, color } from "@datapunt/asc-ui"
+import { breakpoint, Button, themeColor, themeSpacing } from "@datapunt/asc-ui"
+import {
+  TextField,
+  CheckboxFields,
+  isRequired,
+  NumberField,
+  isAboveOtherField, isBelowOtherField
+} from "amsterdam-react-final-form"
 import styled from "styled-components"
 import JSONDisplay from "./JSONDisplay"
 import DayPartSettings from "./DayPartSettings"
-import ProjectsCheckboxes from "./ProjectCheckboxes"
 import useGlobalState from "../../hooks/useGlobalState"
 import ErrorMessage from "../global/ErrorMessage"
 import SuccessMessage from "../global/SuccessMessage"
 import SmallSpinner from "../global/SmallSpinner"
 import Spinner from "../global/Spinner"
-import { isRequired } from "../form-components/validators/isRequired"
-import TextField from "../form-components/TextField"
+import Box from "../atoms/Box/Box"
+import { arrayToObject } from "../../lib/arrayToObject"
 
 const Wrap = styled.div`
   margin-bottom: 100px;
 `
-const DateInputWrap = styled.div`
-  @media screen and ${ breakpoint("min-width", "laptopL") } {
-    max-width: 33%;
+
+const ColumnWrap = styled.div`
+  margin-bottom: ${ themeSpacing(9) };
+  
+  columns: 1;
+       
+  @media screen and ${ breakpoint("min-width", "tabletS") } {    
+    columns: 2;
   }
-`
-const Div = styled.div`
-  margin-bottom: 36px;
-`
-const ColumnWrap = styled(Div)`       
-  column-count: 3;
-  @media screen and ${ breakpoint("min-width", "laptopL") } {
-    column-count: 5;
-    
+  
+  @media screen and ${ breakpoint("min-width", "tabletM") } {    
+    columns: 3;
+  }
+  
+  @media screen and ${ breakpoint("min-width", "laptopL") } {    
+    columns: 5;
   }
 `
 
-const DayPartSettingsWrap = styled(Div)`
+const DayPartSettingsWrap = styled.div`
   display: inline-block;
     
   vertical-align: top;
-  width: 33%; // Three columns
+  
   padding-right: 20px;
   
   &:last-of-type {
     padding-right: 0px;
+  }
+  
+  width: 100%; // one column
+
+  @media screen and ${ breakpoint("min-width", "tabletS") } {    
+    width: 50%;   // Two columns
+  }
+  
+  @media screen and ${ breakpoint("min-width", "tabletM") } {    
+    width: 33%;   // Three columns
   }
   
   @media screen and ${ breakpoint("min-width", "laptopL") } {    
@@ -48,19 +67,12 @@ const DayPartSettingsWrap = styled(Div)`
   }
 `
 
-const ButtonWrap = styled.div`
-  position: fixed;
-  width: 100%;
+const FixedBox = styled(Box)`
+  position: fixed;  
   bottom: 0;
   left: 0;
-  display: flex;
-  background-color: ${ color("tint", "level1") };
-  border-top: 1px solid ${ color("tint", "level5") };
-  justify-content: flex-end;
-  padding: 18px;
-  button {
-    margin-left: 12px;
-  }
+  height: 85px;  
+  border-top: 1px solid ${ themeColor("tint", "level5") };
 `
 
 export type DayPartConfig = {
@@ -103,58 +115,74 @@ const Settings: FC = () => {
     }
   } = useGlobalState()
 
+
   const onSubmit = (values: PlanningSettings) => {
     saveSettings(
       values.opening_date,
       values.projects,
-      values.days
+      values.days,
+      values.postal_code
     )
   }
 
   return isFetching
   ? <Spinner />
-  : <Wrap>
-        <Form
-          onSubmit={onSubmit}
-          initialValues={data?.settings}
-          render={({ handleSubmit, values, hasValidationErrors, submitSucceeded, dirty }) => (<>
-            <form onSubmit={handleSubmit}>
-              <h1>Peildatum</h1>
-              <Div>
-                <DateInputWrap>
-                  <TextField
-                    name='opening_date'
-                    type='date'
-                    validate={isRequired}
-                  />
-                </DateInputWrap>
-              </Div>
-
-              <ColumnWrap>
-                <ProjectsCheckboxes projects={data?.projects ?? []} />
-              </ColumnWrap>
-
-              { [DAY_PARTS, WEEKEND, EVENINGS].map(row => (
-                <Div>
-                  { row.map(dayPartConfig => (
-                    <DayPartSettingsWrap>
-                      <DayPartSettings key={dayPartConfig.title} stadia={data?.stadia ?? []} {...dayPartConfig} />
-                    </DayPartSettingsWrap>
-                  ))}
-                </Div>
-              )) }
-
-              <ButtonWrap>
-                { errorMessage && <ErrorMessage text={ errorMessage! } /> }
-                { submitSucceeded && !dirty && !isUpdating && !errorMessage && <SuccessMessage text='Succesvol opgeslagen' /> }
-                { isUpdating && <SmallSpinner />}
-                <Button variant="secondary" disabled={isUpdating || hasValidationErrors}>Bewaren</Button>
-              </ButtonWrap>
-            </form>
-            <JSONDisplay json={ values } />
-          </>)}
-        />
-    </Wrap>
+  : <Form
+      onSubmit={onSubmit}
+      initialValues={data?.settings}
+      render={({ handleSubmit, values, hasValidationErrors, submitSucceeded, dirty }) => (
+         <Wrap>
+           <form onSubmit={handleSubmit}>
+             <Box pb={9} width={{ laptop: 4 }}>
+               <TextField
+                 label='Peildatum'
+                 name='opening_date'
+                 type='date'
+                 validate={isRequired()}
+               />
+               <NumberField
+                 label='Postcode van'
+                 name="postal_code.range_start"
+                 min={1000}
+                 max={1109}
+                 validate={isBelowOtherField("postal_code.range_end", "De waarde moet lager zijn dan \"Postcode tot\"")}
+               />
+               <NumberField
+                 label='Postcode tot'
+                 name='postal_code.range_end'
+                 min={1000}
+                 max={1109}
+                 validate={isAboveOtherField("postal_code.range_start", "De waarde moet hoger zijn dan \"Postcode van\"")}
+               />
+             </Box>
+             <ColumnWrap>
+               <CheckboxFields
+                 name="projects"
+                 options={arrayToObject(data?.projects ?? [])}
+                 validate={isRequired()}
+               />
+             </ColumnWrap>
+             { [DAY_PARTS, WEEKEND, EVENINGS].map((row, index) => (
+               <Box pb={9} key={index}>
+                 { row.map((dayPartConfig) => (
+                   <DayPartSettingsWrap key={dayPartConfig.title}>
+                     <DayPartSettings stadia={data?.stadia ?? []} {...dayPartConfig} />
+                   </DayPartSettingsWrap>
+                 ))}
+               </Box>
+             )) }
+             <FixedBox hAlign='flex-end' vAlign='center' p={4} bgColor='level1'>
+               { errorMessage && <ErrorMessage text={ errorMessage! } /> }
+               { submitSucceeded && !dirty && !isUpdating && !errorMessage && <SuccessMessage text='Succesvol opgeslagen' /> }
+               { isUpdating && <SmallSpinner />}
+               <Box pl={3} width='auto'>
+                 <Button variant="secondary" disabled={isUpdating || hasValidationErrors}>Bewaren</Button>
+               </Box>
+             </FixedBox>
+           </form>
+           <JSONDisplay json={ values } />
+         </Wrap>)
+      } />
 }
 
 export default Settings

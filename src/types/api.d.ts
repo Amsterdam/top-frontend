@@ -243,11 +243,19 @@ declare type SettingsListMap = Record<Day, Record<DayPart, SettingsList>>
 
 declare type Project = string
 declare type Projects = Project[]
+
+declare type PostalCodeRange = {
+  range_start: string
+  range_end: string
+}
+
 declare type PlanningSettings = {
   opening_date: string
   projects: Projects
   days: SettingsListMap
+  postal_code: PostalCodeRange
 }
+
 declare type PlanningSettingsData = {
   projects: string[]
   stadia: Stadia

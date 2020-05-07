@@ -54,6 +54,7 @@ const useItineraries = (): [ItinerariesState, ItinerariesActions, ItinerariesSel
     const {
       openingsDate,
       projects,
+      postalCodeRange,
       users,
       startAddress,
       numAddresses,
@@ -73,6 +74,8 @@ const useItineraries = (): [ItinerariesState, ItinerariesActions, ItinerariesSel
         start_case: {
           case_id: startAddress
         },
+        postal_code_range_start: postalCodeRange?.range_start,
+        postal_code_range_end: postalCodeRange?.range_end,
         opening_date: openingsDate,
         target_length: numAddresses,
         projects: wrapInNameObjects(projects),
