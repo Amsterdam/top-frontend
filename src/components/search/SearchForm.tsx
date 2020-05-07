@@ -43,7 +43,6 @@ const SearchForm: FC = () => {
   const [ postalCode, streetNumber, suffix ] = query ?? []
 
   return (
-    <div className="Search">
       <Form
         onSubmit={onSubmit}
         initialValues={{
@@ -53,7 +52,7 @@ const SearchForm: FC = () => {
         }}
         render={({ handleSubmit, form }) => (
           <form onSubmit={ handleSubmit }>
-            <Box>
+            <Box pb={4}>
               <Box stretch={true} p={1}>
                 <TextField
                   label='Postcode'
@@ -88,6 +87,7 @@ const SearchForm: FC = () => {
               </Box>
               <Box width={{ mobileS: 6, tabletS: "auto" }} p={1} pt={4}>
                 <StyledButton
+                  type="reset"
                   variant="tertiary"
                   iconSize={ 20 }
                   icon={ <Close /> }
@@ -100,6 +100,7 @@ const SearchForm: FC = () => {
               </Box>
               <Box width={{ mobileS: 6, tabletS: "auto" }} p={1} pt={4} hAlign="flex-end">
                 <StyledButton
+                  type="submit"
                   variant="secondary"
                   iconSize={ 20 }
                   icon={ <Search /> }
@@ -110,7 +111,6 @@ const SearchForm: FC = () => {
           </form>
         )}
       />
-    </div>
   )
 }
 
