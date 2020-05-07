@@ -1,10 +1,8 @@
 import React from "react"
 import styled from "styled-components"
-import { AccordionWrapper, Accordion } from "@datapunt/asc-ui"
-import { StadiumSettings } from "./StadiumSettings"
-import { isNotIntersectingWith } from "../form-components/validators/isNotIntersectingWith"
-import SelectField from "../form-components/SelectField"
-import { combineValidators } from "../form-components/validators/combineValidators"
+import { CheckboxFields, combineValidators, isNotIntersectingWith, SelectField } from "amsterdam-react-final-form"
+import { AccordionWrapper, Accordion, themeColor, themeSpacing } from "@datapunt/asc-ui"
+import { arrayToObject } from "../../lib/arrayToObject"
 
 type Props = {
   title: string
@@ -18,6 +16,11 @@ const StyledAccordion = styled(Accordion)`
   span {
     font-weight: bold;
   }
+`
+
+const Section = styled.section`
+  padding: ${ themeSpacing(2) };
+  border: 1px solid ${ themeColor("tint", "level5") }
 `
 
 const H4 = styled.h4`
@@ -40,25 +43,29 @@ const DayPartSettings: React.FC<Props> = ({ title, day, dayPart, stadia }) => {
       <SelectField
         name={primaryStadium}
         options={options}
-        validate={isNotIntersectingWith(excludeStadia)}
+        validate={isNotIntersectingWith(excludeStadia, "\"{item}\" is al geselecteerd bij \"Uitsluiten\"")}
       />
       <H4>2. Aanvullen met</H4>
-      <StadiumSettings
-        fieldName={secondaryStadia}
-        stadia={stadia}
-        validate={isNotIntersectingWith(excludeStadia)}
-      />
+      <Section>
+        <CheckboxFields
+          name={secondaryStadia}
+          options={arrayToObject(stadia)}
+          validate={isNotIntersectingWith(excludeStadia, "\"{item}\" is al geselecteerd bij \"Uitsluiten\"")}
+        />
+      </Section>
       <H4>3. Uitsluiten</H4>
-      <StadiumSettings
-        fieldName={excludeStadia}
-        stadia={stadia}
-        validate={
-          combineValidators(
-            isNotIntersectingWith(primaryStadium),
-            isNotIntersectingWith(secondaryStadia)
-          )
-        }
-      />
+      <Section>
+        <CheckboxFields
+          name={excludeStadia}
+          options={arrayToObject(stadia)}
+          validate={
+            combineValidators(
+              isNotIntersectingWith(primaryStadium, "\"{item}\" is al geselecteerd bij \"Zoveel mogelijk\""),
+              isNotIntersectingWith(secondaryStadia, "\"{item}\" is al geselecteerd bij \"Aanvullen met\"")
+            )
+          }
+        />
+      </Section>
       </StyledAccordion>
     </AccordionWrapper>
   )
