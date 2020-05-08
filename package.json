@@ -43,6 +43,7 @@
     "@types/react-dom": "^16.9.6",
     "@types/smoothscroll-polyfill": "^0.3.1",
     "@types/styled-components": "^5.1.0",
+    "dtsgenerator": "^2.5.1",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
     "husky": "^4.2.5",
@@ -60,7 +61,8 @@
     "lint:quiet": "npm run lint -- --quiet",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9009 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "swagger:generate-schema": "dtsgen -o ./src/__generated__/apiSchema.d.ts -n API --url https://acc.api.top.amsterdam.nl/api/v1/swagger/?format=openapi"
   },
   "eslintConfig": {
     "extends": "react-app"
