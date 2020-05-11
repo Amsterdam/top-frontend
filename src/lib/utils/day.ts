@@ -8,5 +8,5 @@ const DAYS: Days = [
   "saturday"
 ]
 
-export const getCurrentDay = (): Day =>
+export default (): Day =>
   DAYS[new Date().getDay()]
