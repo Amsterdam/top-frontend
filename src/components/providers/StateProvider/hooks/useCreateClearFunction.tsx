@@ -1,5 +1,5 @@
+import { useCallback } from "react"
 import { isLoginCallbackPage } from "../../../../config/page"
-import { useRef } from "react"
 
 export type GlobalStateClearFunction = (errorMessage?: ErrorMessage) => void
 type Clearable = () => void
@@ -11,12 +11,7 @@ const useCreateClearFunction = (unAuthenticate: (a: boolean, b: OErrorMessage) =
     unAuthenticate(shouldNavigateToLogin, errorMessage)
     clearables.forEach(clear => clear())
   }
-
-  // We wrap the clear function in a 'ref' to ensure it never re-triggers a hook:
-  // The clear-function itself should never change.
-
-  const ref = useRef(clear)
-  return ref.current
+  return useCallback(clear, [])
 }
 
 export default useCreateClearFunction
