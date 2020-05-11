@@ -1,4 +1,4 @@
-const DAYS: Day[] = [
+const DAYS: Days = [
   "sunday",
   "monday",
   "tuesday",
