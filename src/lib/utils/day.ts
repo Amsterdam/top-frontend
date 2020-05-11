@@ -8,5 +8,4 @@ const DAYS: Days = [
   "saturday"
 ]
 
-export default (): Day =>
-  DAYS[new Date().getDay()]
+export default (date: Date = new Date()): Day => DAYS[date.getDay()]
