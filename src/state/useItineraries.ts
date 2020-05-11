@@ -24,7 +24,7 @@ import { navigateToHome } from "../lib/navigateTo"
 import { GenerateItineraryFormValues } from "../components/itineraries/Generate/Generate"
 import { wrapInNameObject, wrapInNameObjects } from "../lib/utils/wrapInNameObject"
 
-const useItineraries = (): [ItinerariesState, ItinerariesActions, ItinerariesSelectors] => {
+const useItineraries = () => {
   // @TODO: Remove `as never`
   const [state, dispatch] = useReducer(reducer, initialState as never)
 
@@ -242,6 +242,6 @@ const useItineraries = (): [ItinerariesState, ItinerariesActions, ItinerariesSel
     state,
     actionCreators,
     selectors
-  ]
+  ] as const
 }
 export default useItineraries

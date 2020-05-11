@@ -14,7 +14,7 @@ import { isLoginCallbackPage } from "../config/page"
 import { navigateToHome, navigateToLogin } from "../lib/navigateTo"
 import logoutGrip from "../lib/logoutGrip"
 
-const useAuth = (): [AuthState, AuthActions] => {
+const useAuth = () => {
   // @TODO: Remove `as never`
   const [state, dispatch] = useReducer(reducer, initialState as never)
 
@@ -67,7 +67,7 @@ const useAuth = (): [AuthState, AuthActions] => {
   }
 
   const actionCreators = { initialize, authenticate, unAuthenticate }
-  return [state, actionCreators]
+  return [state, actionCreators] as const
 }
 
 export default useAuth

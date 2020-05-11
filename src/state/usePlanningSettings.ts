@@ -12,7 +12,7 @@ import { get, post, notOk, isForbidden } from "../lib/utils/fetch"
 import { getUrl } from "../config/api"
 import handleForbiddenResponse from "../lib/handleForbiddenResponse"
 
-const usePlanningSettings = (): [PlanningSettingsState, PlanningSettingsActions] => {
+const usePlanningSettings = () => {
   // @TODO: Remove `as never`
   const [state, dispatch] = useReducer(reducer, initialState as never)
 
@@ -58,7 +58,7 @@ const usePlanningSettings = (): [PlanningSettingsState, PlanningSettingsActions]
 
   const actionCreators = { initialize, saveSettings, clear }
 
-  return [state, actionCreators]
+  return [state, actionCreators] as const
 }
 
 export default usePlanningSettings
