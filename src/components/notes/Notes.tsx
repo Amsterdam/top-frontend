@@ -13,11 +13,6 @@ type Props = {
 
 const Notes: FC<Props> = ({ itineraryItemId, id }) => {
   const {
-    itineraries: {
-      isFetching
-    }
-  } = useGlobalState()
-  const {
     getItineraryNotes
   } = useGlobalActions()
 
@@ -27,18 +22,10 @@ const Notes: FC<Props> = ({ itineraryItemId, id }) => {
   const otherNotes = notes.filter(({ author }) => !author || !isAuthUser(author))
   const noteValue = userNotes[0]?.text || ""
 
-  const showSpinner = isFetching
-  const showNoteForm = !isFetching
-
   return (
     <div className="Note">
-      { showSpinner &&
-        <Spinner />
-      }
       { otherNotes.map(note => <Note key={ note.id } note={ note } />) }
-      { showNoteForm &&
-        <NoteForm itineraryItemId={ itineraryItemId } id={ id } value={ noteValue } />
-      }
+      <NoteForm itineraryItemId={ itineraryItemId } id={ id } value={ noteValue } />
     </div>
   )
 }
