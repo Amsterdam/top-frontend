@@ -5,7 +5,6 @@ import { Button, Heading } from "@datapunt/asc-ui"
 import useGlobalState from "../../../hooks/useGlobalState"
 import useGlobalActions from "../../../hooks/useGlobalActions"
 import Box from "../../atoms/Box/Box"
-import Spinner from "../../global/Spinner"
 import { LabelDiv, NumberField, ComplexSelectField, ComplexRadioFields, isRequired } from "amsterdam-react-final-form"
 import { StartAddressField } from "../add-start-address/StartAddressField"
 import { useLoggedInUser } from "../../../state/useLoggedInUser"
@@ -44,7 +43,7 @@ const Generate: FC = () => {
   )
 
   if (!data) {
-    return <Spinner />
+    return null
   }
 
   const dayPartOptions = getDayPartOptions(data.settings)
