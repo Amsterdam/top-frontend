@@ -10,9 +10,7 @@ import formatDate from "../../lib/utils/formatDate"
 
 const Issues: FC = () => {
   const {
-    isInitialized,
     search: {
-      isFetching,
       errorMessage,
       issues: results
     }
@@ -32,20 +30,15 @@ const Issues: FC = () => {
     }
   }, [getIssues, clear])
 
-  const showSpinner = !isInitialized || isFetching
-  const hasError = errorMessage !== undefined
-  const showError = hasError
+  const showError = errorMessage !== undefined
   const hasResults = results !== undefined && results.length > 0
-  const show = !showSpinner && !showError
+  const show = !showError
   const showResults = hasResults
   const showEmpty = !hasResults
   const date = formatDate(currentDate(), true, false)
 
   return (
     <div className="Suggestions">
-      { showSpinner &&
-        <Spinner />
-      }
       { showError &&
         <ErrorMessage text={ errorMessage! } />
       }

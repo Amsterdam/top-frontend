@@ -1,7 +1,5 @@
 import React, { FC } from "react"
-import useGlobalState from "../../hooks/useGlobalState"
 import useGlobalActions from "../../hooks/useGlobalActions"
-import Spinner from "../global/Spinner"
 import Note from "./Note"
 import NoteForm from "./NoteForm"
 import authUser from "../../lib/authUser"
