@@ -3,6 +3,7 @@ import { Form } from "react-final-form"
 import _difference from "lodash/difference"
 import { Button, Heading } from "@datapunt/asc-ui"
 import useGlobalState from "../../../hooks/useGlobalState"
+import useGlobalActions from "../../../hooks/useGlobalActions"
 import Box from "../../atoms/Box/Box"
 import Spinner from "../../global/Spinner"
 import { LabelDiv, NumberField, ComplexSelectField, ComplexRadioFields, isRequired } from "amsterdam-react-final-form"
@@ -24,7 +25,9 @@ const Generate: FC = () => {
   const {
     itinerariesActions: {
       create
-    },
+    }
+  } = useGlobalActions()
+  const {
     planningSettings: {
       data
     },

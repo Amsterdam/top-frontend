@@ -2,6 +2,7 @@ import React, { FC, FormEvent } from "react"
 import { Button } from "@datapunt/asc-ui"
 import ErrorMessage from "../global/ErrorMessage"
 import useGlobalState from "../../hooks/useGlobalState"
+import useGlobalActions from "../../hooks/useGlobalActions"
 import styled from "styled-components"
 import TeamMembersDisplay from "./TeamMembersDisplay"
 import { Form } from "react-final-form"
@@ -38,13 +39,16 @@ const ItineraryTeamMembers: FC<Props> = ({ itineraryId, teamMembers, isEditing =
     auth: {
       user: authUser
     },
-    itinerariesActions: {
-      updateTeam
-    },
     users: {
       results: users
     }
   } = useGlobalState()
+
+  const {
+    itinerariesActions: {
+      updateTeam
+    }
+  } = useGlobalActions()
 
   const initialUsers = teamMembers.map(member => member.user.id)
   const loggedInUser = findByProperty(users, "email", authUser?.email)

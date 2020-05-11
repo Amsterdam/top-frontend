@@ -1,5 +1,6 @@
 import React, { FC } from "react"
 import useGlobalState from "../../hooks/useGlobalState"
+import useGlobalActions from "../../hooks/useGlobalActions"
 import Spinner from "../global/Spinner"
 import Note from "./Note"
 import NoteForm from "./NoteForm"
@@ -14,9 +15,11 @@ const Notes: FC<Props> = ({ itineraryItemId, id }) => {
   const {
     itineraries: {
       isFetching
-    },
-    getItineraryNotes
+    }
   } = useGlobalState()
+  const {
+    getItineraryNotes
+  } = useGlobalActions()
 
   const notes = getItineraryNotes(itineraryItemId, 1) || []
   const { isAuthUser } = authUser

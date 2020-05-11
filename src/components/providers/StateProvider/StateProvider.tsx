@@ -3,14 +3,15 @@ import StateContext from "../../../contexts/StateContext"
 import useCreateGlobalState from "./useCreateGlobalState"
 
 const StateProvider: FC = ({ children }) => {
-  const { initialize, value } = useCreateGlobalState()
+  const { initialize, state, actions } = useCreateGlobalState()
+  const value = { state, actions }
 
   useEffect(() => {
     initialize()
   }, [initialize])
 
   return (
-    <StateContext.Provider value={ value! }>
+    <StateContext.Provider value={ value }>
       { children }
     </StateContext.Provider>
   )

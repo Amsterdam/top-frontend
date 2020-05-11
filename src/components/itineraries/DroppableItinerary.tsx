@@ -2,7 +2,7 @@ import React, { FC } from "react"
 import { DragDropContext, Droppable } from "react-beautiful-dnd"
 import styled from "styled-components"
 import DraggableItineraryItem from "./DraggableItineraryItem"
-import useGlobalState from "../../hooks/useGlobalState"
+import useGlobalActions from "../../hooks/useGlobalActions"
 
 type Props = {
   id: Id
@@ -22,7 +22,7 @@ const DroppableItinerary: FC<Props> = ({ id, itineraryItems }) => {
     itinerariesActions: {
       move
     }
-  } = useGlobalState()
+  } = useGlobalActions()
 
   const onDragEnd = async (result: any) => {
     if (result.destination === null) return

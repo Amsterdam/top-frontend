@@ -3,7 +3,7 @@ import { Button } from "@datapunt/asc-ui"
 import styled from "styled-components"
 import { Form } from "react-final-form"
 import navigateTo, { navigateToHome } from "../../lib/navigateTo"
-import useGlobalState from "../../hooks/useGlobalState"
+import useGlobalActions from "../../hooks/useGlobalActions"
 import currentTime from "../../lib/utils/currentTime"
 import TextareaField from "../form-components/TextareaField"
 import { isRequired } from "../form-components/validators/isRequired"
@@ -39,7 +39,7 @@ const NoteForm: FC<Props> = ({ itineraryItemId, id, value }) => {
       setNote
     },
     getItineraryFromItineraryItem
-  } = useGlobalState()
+  } = useGlobalActions()
 
   // TODO should be handled in the new restReducer
   const [isUpdating, setIsUpdating] = useState(false)
@@ -68,7 +68,7 @@ const NoteForm: FC<Props> = ({ itineraryItemId, id, value }) => {
         initialValues={{ text: value }}
         render={({ handleSubmit, values: { text }, hasValidationErrors }) => (
           <form onSubmit={ handleSubmit }>
-            <TextareaField 
+            <TextareaField
               name='text'
               rows={ 10 }
               maxLength={ 1024 }

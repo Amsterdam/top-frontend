@@ -12,6 +12,7 @@ import styled from "styled-components"
 import JSONDisplay from "./JSONDisplay"
 import DayPartSettings from "./DayPartSettings"
 import useGlobalState from "../../hooks/useGlobalState"
+import useGlobalActions from "../../hooks/useGlobalActions"
 import ErrorMessage from "../global/ErrorMessage"
 import SuccessMessage from "../global/SuccessMessage"
 import SmallSpinner from "../global/SmallSpinner"
@@ -26,53 +27,53 @@ const Wrap = styled.div`
 
 const ColumnWrap = styled.div`
   margin-bottom: ${ themeSpacing(9) };
-  
+
   columns: 1;
-       
-  @media screen and ${ breakpoint("min-width", "tabletS") } {    
+
+  @media screen and ${ breakpoint("min-width", "tabletS") } {
     columns: 2;
   }
-  
-  @media screen and ${ breakpoint("min-width", "tabletM") } {    
+
+  @media screen and ${ breakpoint("min-width", "tabletM") } {
     columns: 3;
   }
-  
-  @media screen and ${ breakpoint("min-width", "laptopL") } {    
+
+  @media screen and ${ breakpoint("min-width", "laptopL") } {
     columns: 5;
   }
 `
 
 const DayPartSettingsWrap = styled.div`
   display: inline-block;
-    
+
   vertical-align: top;
-  
+
   padding-right: 20px;
-  
+
   &:last-of-type {
     padding-right: 0px;
   }
-  
+
   width: 100%; // one column
 
-  @media screen and ${ breakpoint("min-width", "tabletS") } {    
+  @media screen and ${ breakpoint("min-width", "tabletS") } {
     width: 50%;   // Two columns
   }
-  
-  @media screen and ${ breakpoint("min-width", "tabletM") } {    
+
+  @media screen and ${ breakpoint("min-width", "tabletM") } {
     width: 33%;   // Three columns
   }
-  
-  @media screen and ${ breakpoint("min-width", "laptopL") } {    
+
+  @media screen and ${ breakpoint("min-width", "laptopL") } {
     width: 20%;   // Five columns
   }
 `
 
 const FixedBox = styled(Box)`
-  position: fixed;  
+  position: fixed;
   bottom: 0;
   left: 0;
-  height: 85px;  
+  height: 85px;
   border-top: 1px solid ${ themeColor("tint", "level5") };
 `
 
@@ -110,11 +111,13 @@ const Settings: FC = () => {
       isUpdating,
       data,
       errorMessage
-    },
+    }
+  } = useGlobalState()
+  const {
     planningSettingsActions: {
       saveSettings
     }
-  } = useGlobalState()
+  } = useGlobalActions()
 
   return isFetching
   ? <Spinner />

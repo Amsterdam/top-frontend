@@ -1,5 +1,5 @@
 import React, { FC, useState } from "react"
-import useGlobalState from "../../hooks/useGlobalState"
+import useGlobalActions from "../../hooks/useGlobalActions"
 import ItineraryTeamMembers from "./ItineraryTeamMembers"
 import Button from "../styled/Button"
 import { Enlarge, Card, ChevronDown } from "@datapunt/asc-assets"
@@ -41,7 +41,7 @@ const Itinerary: FC<Props> = ({ itinerary }) => {
     itinerariesActions: {
       del
     }
-  } = useGlobalState()
+  } = useGlobalActions()
 
   const { id, created_at, team_members, items } = itinerary
 

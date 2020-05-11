@@ -1,5 +1,6 @@
 import React, { FC, useState, FormEvent } from "react"
 import useGlobalState from "../../../hooks/useGlobalState"
+import useGlobalActions from "../../../hooks/useGlobalActions"
 import IconButton from "../../global/IconButton"
 import { Button } from "@datapunt/asc-ui"
 import styled from "styled-components"
@@ -31,11 +32,13 @@ const P = styled.p`
 
 const ItinerarySearchResultButtons: FC<Props> = ({ caseId }) => {
   const {
-    hasItinerary: userHasItinerary,
     itineraries: {
       isFetching,
       itineraries
-    },
+    }
+  } = useGlobalState()
+  const {
+    hasItinerary: userHasItinerary,
     itinerariesActions: {
       add,
       remove
@@ -43,7 +46,7 @@ const ItinerarySearchResultButtons: FC<Props> = ({ caseId }) => {
     searchActions: {
       setTeam
     }
-  } = useGlobalState()
+  } = useGlobalActions()
 
   const length = itineraries !== undefined ? itineraries.length : 0
   const hasNoItineraries = length === 0
