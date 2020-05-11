@@ -111,15 +111,20 @@ const Settings: FC = () => {
       errorMessage
     }
   } = useGlobalState()
+
   const {
     planningSettingsActions: {
       saveSettings
     }
   } = useGlobalActions()
 
+  if (data?.settings === undefined) {
+    return null
+  }
+
   return <Form
       onSubmit={saveSettings}
-      initialValues={data?.settings}
+      initialValues={data.settings}
       render={({ handleSubmit, values, hasValidationErrors, submitSucceeded, dirty }) => (
          <Wrap>
            <form onSubmit={handleSubmit}>

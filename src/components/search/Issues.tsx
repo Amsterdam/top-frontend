@@ -1,5 +1,4 @@
 import React, { FC, useEffect } from "react"
-import Spinner from "../global/Spinner"
 import ErrorMessage from "../global/ErrorMessage"
 import ItinerarySearchResultButtons from "./itinerary/ItinerarySearchResultButtons"
 import useGlobalState from "../../hooks/useGlobalState"
