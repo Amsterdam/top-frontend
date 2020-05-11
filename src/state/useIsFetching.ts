@@ -2,7 +2,6 @@ import useGlobalState from "../hooks/useGlobalState"
 
 export const useIsFetching = () => {
   const {
-
     itineraries: {
       isFetching: isFetchingItineraries
     },

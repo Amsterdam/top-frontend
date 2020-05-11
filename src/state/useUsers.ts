@@ -10,7 +10,7 @@ import { get, notOk, isForbidden } from "../lib/utils/fetch"
 import { getUrl } from "../config/api"
 import handleForbiddenResponse from "../lib/handleForbiddenResponse"
 
-const useUsers = (): [UsersState, UsersActions] => {
+const useUsers = () => {
   // @TODO: Remove `as never`
   const [state, dispatch] = useReducer(reducer, initialState as never)
 
@@ -32,7 +32,7 @@ const useUsers = (): [UsersState, UsersActions] => {
     dispatch(createClear())
   }, [dispatch])
 
-  return [state, { initialize, clear }]
+  return [state, { initialize, clear }] as const
 }
 
 export default useUsers

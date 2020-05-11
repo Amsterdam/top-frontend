@@ -21,7 +21,7 @@ import currentDate from "../lib/utils/currentDate"
 // @TODO: Make this more abstract to be reused for other response data
 const castFraudPrediction = (caseItem: { fraud_prediction: FraudPrediction | null }): { fraud_prediction: FraudPrediction | undefined } => caseItem.fraud_prediction === null ? { ...caseItem, fraud_prediction: undefined } : caseItem as { fraud_prediction: FraudPrediction }
 
-const useSearch = (): [SearchState, SearchActions] => {
+const useSearch = () => {
   // @TODO: Remove `as never`
   const [state, dispatch] = useReducer(reducer, initialState as never)
 
@@ -100,7 +100,7 @@ const useSearch = (): [SearchState, SearchActions] => {
   }, [dispatch])
 
 
-  return [state, { search, getIssues, getSuggestions, setTeam, clear }]
+  return [state, { search, getIssues, getSuggestions, setTeam, clear }] as const
 }
 
 export default useSearch

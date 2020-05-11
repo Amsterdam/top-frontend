@@ -1,12 +1,8 @@
-import React, { FC, ReactNode, useEffect } from "react"
+import React, { FC, useEffect } from "react"
 import StateContext from "../../../contexts/StateContext"
 import useCreateGlobalState from "./useCreateGlobalState"
 
-type Props = {
-  children: ReactNode
-}
-
-const StateProvider: FC<Props> = ({ children }) => {
+const StateProvider: FC = ({ children }) => {
   const { initialize, value } = useCreateGlobalState()
 
   useEffect(() => {
@@ -14,7 +10,7 @@ const StateProvider: FC<Props> = ({ children }) => {
   }, [initialize])
 
   return (
-    <StateContext.Provider value={ value }>
+    <StateContext.Provider value={ value! }>
       { children }
     </StateContext.Provider>
   )
