@@ -4,7 +4,7 @@ import { useRef } from "react"
 export type GlobalStateClearFunction = (errorMessage?: ErrorMessage) => void
 type Clearable = () => void
 
-const useCreateClearFunction = (unAuthenticate: AuthActions["unAuthenticate"], clearables: Clearable[]): GlobalStateClearFunction => {
+const useCreateClearFunction = (unAuthenticate: (a: boolean, b: OErrorMessage) => void, clearables: Clearable[]): GlobalStateClearFunction => {
   const clear = (errorMessage?: ErrorMessage) => {
     const shouldNavigateToLogin = !isLoginCallbackPage()
 

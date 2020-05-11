@@ -4,17 +4,11 @@ import useSearch from "../../../state/useSearch"
 import useUsers from "../../../state/useUsers"
 import usePlanningSettings from "../../../state/usePlanningSettings"
 import useCreateClearFunction from "./hooks/useCreateClearFunction"
-import useCreateInitializeFunction, { StateContextInitializer } from "./hooks/useCreateInitializeFunction"
-import { StateContextValue } from "../../../contexts/StateContext"
+import useCreateInitializeFunction from "./hooks/useCreateInitializeFunction"
 import useCreateAnonymousHandlers from "./hooks/useCreateAnonymousHandlers"
 import useCreateAuthenticateFunction from "./hooks/useCreateAuthenticateFunction"
 
-type Result = {
-  initialize: StateContextInitializer
-  value: StateContextValue
-}
-
-const useCreateGlobalState = (): Result => {
+const useCreateGlobalState = () => {
   // State-slices and actions
   const [itineraries, itinerariesActions, { hasItinerary, getItineraryNotes, getItineraryFromItineraryItem }] = useItineraries()
   const [auth, authActions] = useAuth()

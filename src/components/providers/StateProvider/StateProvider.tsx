@@ -10,7 +10,7 @@ const StateProvider: FC = ({ children }) => {
   }, [initialize])
 
   return (
-    <StateContext.Provider value={ value }>
+    <StateContext.Provider value={ value! }>
       { children }
     </StateContext.Provider>
   )
