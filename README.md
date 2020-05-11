@@ -10,6 +10,9 @@
 
 ## development
 
+Run:
+- `npm run swagger:generate-schema` or `npm run swagger:generate-schema:acc` to fetch the latest API-schemas.
+
 Connect to acceptance backend
 - `npm run start:acc`
 - open `http://localhost:3001/` in browser

@@ -18,6 +18,7 @@ import SmallSpinner from "../global/SmallSpinner"
 import Spinner from "../global/Spinner"
 import Box from "../atoms/Box/Box"
 import { arrayToObject } from "../../lib/arrayToObject"
+import { Day, DayPart } from "../../lib/utils/day"
 
 const Wrap = styled.div`
   margin-bottom: 100px;
@@ -115,20 +116,10 @@ const Settings: FC = () => {
     }
   } = useGlobalState()
 
-
-  const onSubmit = (values: PlanningSettings) => {
-    saveSettings(
-      values.opening_date,
-      values.projects,
-      values.days,
-      values.postal_code
-    )
-  }
-
   return isFetching
   ? <Spinner />
   : <Form
-      onSubmit={onSubmit}
+      onSubmit={saveSettings}
       initialValues={data?.settings}
       render={({ handleSubmit, values, hasValidationErrors, submitSucceeded, dirty }) => (
          <Wrap>

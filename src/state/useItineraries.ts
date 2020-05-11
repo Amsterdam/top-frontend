@@ -59,7 +59,7 @@ const useItineraries = (): [ItinerariesState, ItinerariesActions, ItinerariesSel
       startAddress,
       numAddresses,
       dayPart: {
-        settingsList: { primary_stadium, secondary_stadia, exclude_stadia }
+        settingsList
       }
     } = values
 
@@ -79,9 +79,9 @@ const useItineraries = (): [ItinerariesState, ItinerariesActions, ItinerariesSel
         opening_date: openingsDate,
         target_length: numAddresses,
         projects: wrapInNameObjects(projects),
-        primary_stadium:  wrapInNameObject(primary_stadium),
-        secondary_stadia: wrapInNameObjects(secondary_stadia),
-        exclude_stadia: wrapInNameObjects(exclude_stadia)
+        primary_stadium:  wrapInNameObject(settingsList?.primary_stadium),
+        secondary_stadia: wrapInNameObjects(settingsList?.secondary_stadia),
+        exclude_stadia: wrapInNameObjects(settingsList?.exclude_stadia)
       }
     }
 

@@ -15,7 +15,7 @@ export type GenerateItineraryFormValues = {
   projects: Projects
   postalCodeRange: PostalCodeRange
   numAddresses: number
-  dayPart: { label: string, settingsList: SettingsList }
+  dayPart: { label: string, settingsList?: API.PlannerListSettings }
   users: User[]
   startAddress?: CaseId
 }
