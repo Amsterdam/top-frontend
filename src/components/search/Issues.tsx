@@ -16,13 +16,18 @@ const Issues: FC = () => {
       issues: results
     },
     searchActions: {
-      getIssues
+      getIssues,
+      clear
     }
   } = useGlobalState()
 
   useEffect(() => {
     getIssues()
-  }, [getIssues])
+    return () => {
+      // Clear onUnMount, to prevent flickering
+      clear()
+    }
+  }, [getIssues, clear])
 
   const showSpinner = !isInitialized || isFetching
   const hasError = errorMessage !== undefined

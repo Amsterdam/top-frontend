@@ -4,13 +4,16 @@ import Search from "../components/search/Search"
 import Navigation from "../components/global/navigation/Navigation"
 // @TODO: Move this to Search Component
 import ItinerarySearchResultButtons from "../components/search/itinerary/ItinerarySearchResultButtons"
+import { IsFetchingSpinner } from "../components/atoms/PageSpinner/IsFetchingSpinner"
 
 type Props = RouteComponentProps
 
 const SearchPage: FC<Props> = () => (
     <>
       <Navigation />
-      <Search actionButtonsComponent={ItinerarySearchResultButtons} />
+      <IsFetchingSpinner>
+        <Search actionButtonsComponent={ItinerarySearchResultButtons} />
+      </IsFetchingSpinner>
     </>
   )
 
