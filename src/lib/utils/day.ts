@@ -1,12 +1,12 @@
 const DAYS: Day[] = [
+  "sunday",
   "monday",
   "tuesday",
   "wednesday",
   "thursday",
   "friday",
-  "saturday",
-  "sunday"
+  "saturday"
 ]
 
 export const getCurrentDay = (): Day =>
-  DAYS[new Date().getDay() - 1]
+  DAYS[new Date().getDay()]
