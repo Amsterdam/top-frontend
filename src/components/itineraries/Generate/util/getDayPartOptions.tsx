@@ -1,4 +1,4 @@
-import { getCurrentDay } from "../../../../lib/utils/day"
+import getCurrentDay from "../../../../lib/utils/day"
 import isWeekDay from "../../../../lib/utils/isWeekDay"
 
 export const getDayPartOptions = (settings: PlanningSettings) => {

@@ -1,12 +1,11 @@
-const DAYS: Day[] = [
+const DAYS: Days = [
+  "sunday",
   "monday",
   "tuesday",
   "wednesday",
   "thursday",
   "friday",
-  "saturday",
-  "sunday"
+  "saturday"
 ]
 
-export const getCurrentDay = (): Day =>
-  DAYS[new Date().getDay() - 1]
+export default (date = new Date()): Day => DAYS[date.getDay()]

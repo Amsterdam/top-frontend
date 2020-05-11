@@ -228,6 +228,7 @@ declare type Day =
   | "friday"
   | "saturday"
   | "sunday"
+declare type Days = Day[]
 
 declare type DayPart = "day" | "evening"
 
