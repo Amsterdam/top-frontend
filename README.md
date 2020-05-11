@@ -11,7 +11,10 @@
 ## development
 
 Run:
-- `npm run swagger:generate-schema` or `npm run swagger:generate-schema:acc` to fetch the latest API-schemas.
+- `git clone https://github.com/Amsterdam/fixxx-looplijsten-frontend.git`
+- `cd fixxx-looplijsten-frontend`
+- `npm install`
+- `npm run swagger:generate-schema:acc` to fetch the latest API-schemas
 
 Connect to acceptance backend
 - `npm run start:acc`
