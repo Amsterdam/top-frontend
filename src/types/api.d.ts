@@ -207,40 +207,6 @@ declare type List = {
   itineraries: BWVData[][]
 }
 declare type Lists = List[]
-declare type PlanningData = {
-  opening_date: string
-  projects: string[]
-  lists: Lists
-  unplanned_cases: BWVData[]
-}
-
-declare type PlanningResult = {
-  success: boolean
-  error?: string
-  data?: PlanningData
-}
-
-declare type Day =
-  | "monday"
-  | "tuesday"
-  | "wednesday"
-  | "thursday"
-  | "friday"
-  | "saturday"
-  | "sunday"
-declare type Days = Day[]
-
-declare type DayPart = "day" | "evening"
-
-declare type SettingsList = {
-  name: string
-  primary_stadium?: Stadium
-  secondary_stadia?: Stadia
-  exclude_stadia?: Stadia
-}
-
-// { monday: { evening: { name: '...',  primary_stadium: '...', ... } } }
-declare type SettingsListMap = Record<Day, Record<DayPart, SettingsList>>
 
 declare type Project = string
 declare type Projects = Project[]
@@ -250,15 +216,8 @@ declare type PostalCodeRange = {
   range_end: string
 }
 
-declare type PlanningSettings = {
-  opening_date: string
-  projects: Projects
-  days: SettingsListMap
-  postal_code: PostalCodeRange
-}
-
 declare type PlanningSettingsData = {
   projects: string[]
   stadia: Stadia
-  settings: PlanningSettings
+  settings: Api.PlannerSettings
 }

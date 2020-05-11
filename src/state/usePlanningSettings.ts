@@ -44,12 +44,12 @@ const usePlanningSettings = (): [PlanningSettingsState, PlanningSettingsActions]
     dispatch(createClear())
   }, [dispatch])
 
-  const saveSettings = useCallback(async (openingDate: string, projects: Projects, days: SettingsListMap, postalCode: PostalCodeRange) => {
+  const saveSettings = useCallback(async (values: API.PlannerSettings) => {
     const { data } = state
     if (data === undefined) return
     const { settings: prevSettings } = data
     if (prevSettings === undefined) return
-    const settings = { ...prevSettings, opening_date: openingDate, projects, days, postal_code: postalCode }
+    const settings = { ...prevSettings, ...values }
     dispatch(createStartUpdating())
     const [response, result, errorMessage] = await post(getUrl("settings/planner"), settings)
     if (notOk(response)) return dispatch(createSetError(errorMessage || "Opslaan mislukt"))

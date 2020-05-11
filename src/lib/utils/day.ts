@@ -1,4 +1,7 @@
-const DAYS: Days = [
+export type Day = keyof API.PlannerWeekSettings
+export type DayPart = keyof API.PlannerDaySettings
+
+const DAYS: Day[] = [
   "sunday",
   "monday",
   "tuesday",

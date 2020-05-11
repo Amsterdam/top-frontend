@@ -3,6 +3,7 @@ import styled from "styled-components"
 import { CheckboxFields, combineValidators, isNotIntersectingWith, SelectField } from "amsterdam-react-final-form"
 import { AccordionWrapper, Accordion, themeColor, themeSpacing } from "@datapunt/asc-ui"
 import { arrayToObject } from "../../lib/arrayToObject"
+import { Day, DayPart } from "../../lib/utils/day"
 
 type Props = {
   title: string

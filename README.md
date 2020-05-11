@@ -10,6 +10,12 @@
 
 ## development
 
+Run:
+- `git clone https://github.com/Amsterdam/fixxx-looplijsten-frontend.git`
+- `cd fixxx-looplijsten-frontend`
+- `npm install`
+- `npm run swagger:generate-schema:acc` to fetch the latest API-schemas
+
 Connect to acceptance backend
 - `npm run start:acc`
 - open `http://localhost:3001/` in browser

@@ -74,7 +74,7 @@ declare type PlanningSettingsState = {
 declare type PlanningSettingsActions = {
   initialize: () => void
   clear: () => void
-  saveSettings: (a: string, b: string[], c: SettingsLists, d: PostalCodeRange) => void
+  saveSettings: (a: API.PlannerSettings) => void
 }
 
 declare type UsersState = {
