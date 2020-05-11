@@ -16,7 +16,6 @@ import useGlobalActions from "../../hooks/useGlobalActions"
 import ErrorMessage from "../global/ErrorMessage"
 import SuccessMessage from "../global/SuccessMessage"
 import SmallSpinner from "../global/SmallSpinner"
-import Spinner from "../global/Spinner"
 import Box from "../atoms/Box/Box"
 import { arrayToObject } from "../../lib/arrayToObject"
 import { Day, DayPart } from "../../lib/utils/day"
@@ -107,7 +106,6 @@ const EVENINGS: DayPartConfig[] = [
 const Settings: FC = () => {
   const {
     planningSettings: {
-      isFetching,
       isUpdating,
       data,
       errorMessage
@@ -119,9 +117,7 @@ const Settings: FC = () => {
     }
   } = useGlobalActions()
 
-  return isFetching
-  ? <Spinner />
-  : <Form
+  return <Form
       onSubmit={saveSettings}
       initialValues={data?.settings}
       render={({ handleSubmit, values, hasValidationErrors, submitSucceeded, dirty }) => (
