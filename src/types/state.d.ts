@@ -1,6 +1,3 @@
-declare type ErrorMessage = string
-declare type OErrorMessage = ErrorMessage | undefined
-
 declare type ItinerariesState = {
   isFetching: boolean
   isInitialized: boolean

@@ -5,9 +5,9 @@ declare type StateContextValue = {
 
     itineraries: ItinerariesState
     itinerariesActions: ItinerariesActions
-    hasItinerary: (a: CaseId) => boolean
-    getItineraryNotes: (a: Id, b: Id) => Notes | undefined
-    getItineraryFromItineraryItem: (a: Id) => OItinerary
+    hasItinerary: (caseId: CaseId) => boolean
+    getItineraryNotes: (itineraryItemId: Id, id: Id) => Notes | undefined
+    getItineraryFromItineraryItem: (id: Id) => OItinerary
 
     search: SearchState
     searchActions: SearchActions
