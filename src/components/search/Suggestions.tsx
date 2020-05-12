@@ -33,7 +33,7 @@ const Suggestions: FC<Props> = ({ id }) => {
   const hasError = errorMessage !== undefined
   const showError = hasError
   const hasResults = results !== undefined && results.length > 0
-  const show = !showSpinner && !showError && hasResults
+  const show = !showSpinner && !showError
   const showResults = hasResults
   const showEmpty = !hasResults
 
