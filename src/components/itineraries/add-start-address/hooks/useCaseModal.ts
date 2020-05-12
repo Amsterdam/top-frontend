@@ -1,3 +1,3 @@
 import { useQueryStringModal } from "../../../../lib/queryString/useQueryStringModal"
 
-export const useCaseModal = () => useQueryStringModal("modalCaseId")
+export const useCaseModal = () => useQueryStringModal("modal.case")
