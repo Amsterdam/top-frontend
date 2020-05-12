@@ -32,8 +32,6 @@ const Issues: FC = () => {
     }
   }, [getIssues, clear])
 
-  const results = results2 !== undefined ? [] : undefined
-
   const showSpinner = !isInitialized || isFetching
   const hasError = errorMessage !== undefined
   const showError = hasError
