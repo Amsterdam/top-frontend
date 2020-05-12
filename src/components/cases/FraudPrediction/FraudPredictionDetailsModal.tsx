@@ -1,12 +1,7 @@
 import React from "react"
-import { toMergeQueryString } from "../../../config/page"
-import parseLocationSearch from "../../../lib/utils/parseLocationSearch"
 import DefaultModal from "../../global/Modal/DefaultModal"
 import { FraudPredictionDetails } from "./FraudPredictionDetails"
-
-const QS_FRAUD_PROBABILITY_MODAL = "modalFraudProbability"
-
-export const toFraudPredictionModal = () => toMergeQueryString({ [QS_FRAUD_PROBABILITY_MODAL]: "1" })
+import { useFraudPredictionModal } from "./hooks/useFraudPredictionModal"
 
 type Props = {
   fraudPrediction: FraudPrediction
@@ -14,13 +9,17 @@ type Props = {
 }
 
 const FraudPredictionDetailsModal: React.FC<Props> = ({ title, fraudPrediction }) => {
-  const parsedQueryString = parseLocationSearch(window.location.search)
+  const { shouldShow } = useFraudPredictionModal()
 
-  return <>
-    { parsedQueryString[QS_FRAUD_PROBABILITY_MODAL] && (<DefaultModal title={title}>
+  if (!shouldShow) {
+    return null
+  }
+
+  return (
+    <DefaultModal title={title}>
       <FraudPredictionDetails fraudPrediction={fraudPrediction} />
-    </DefaultModal>) }
-  </>
+    </DefaultModal>
+  )
 }
 
 export default FraudPredictionDetailsModal

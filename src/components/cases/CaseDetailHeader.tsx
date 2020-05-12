@@ -8,7 +8,8 @@ import FraudProbability from "../global/FraudProbability"
 
 import Footer from "./Footer"
 import { Link } from "@reach/router"
-import FraudPredictionDetailsModal, { toFraudPredictionModal } from "./FraudPrediction/FraudPredictionDetailsModal"
+import FraudPredictionDetailsModal from "./FraudPrediction/FraudPredictionDetailsModal"
+import { useFraudPredictionModal } from "./FraudPrediction/hooks/useFraudPredictionModal"
 
 type Props = {
   address: string
@@ -43,6 +44,8 @@ const Span = styled.span`
 `
 
 const CaseDetailHeader: FC<Props> = ({ address, postalCode, personCount, caseNumber, caseCount, openCaseCount, caseOpening, signal, fraudPrediction, footer }) => {
+  const { getUrl: getToFraudPredictionModalUrl } = useFraudPredictionModal()
+
   const showFooter = footer !== undefined
   const personText =
     personCount === 0 ? "Geen inschrijvingen" :
@@ -82,7 +85,7 @@ const CaseDetailHeader: FC<Props> = ({ address, postalCode, personCount, caseNum
       </div>
       { fraudPrediction &&
         <div>
-          <Link to={toFraudPredictionModal()}>
+          <Link to={getToFraudPredictionModalUrl()}>
             <Label>Voorspelling (bèta)</Label>
             <FraudProbability fraudProbability={ fraudPrediction!.fraud_probability } />
           </Link>
