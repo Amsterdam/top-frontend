@@ -1,19 +1,25 @@
 import { queryString } from "./queryString"
 
-export const queryStringProp = (editor: ReturnType<typeof queryString>, param: string) => {
-  const get = () => editor.getParameter(param)
+/**
+ * Immutable queryString manager for a single prop.
+ * Because its immutable you can use it safely within a hook.
+ *
+ * @see `useQueryStringProp`
+ */
+export const queryStringProp = (qs: ReturnType<typeof queryString>, param: string) => {
+  const get = () => qs.getParameter(param)
 
-  const exists = () => editor.hasParameter(param)
+  const exists = () => qs.hasParameter(param)
 
   const del = () =>
-    queryStringProp(editor.deleteParameter(param), param)
+    queryStringProp(qs.deleteParameter(param), param)
 
   const set = (value: string) =>
-    queryStringProp(editor.setParameter(param, value), param)
+    queryStringProp(qs.setParameter(param, value), param)
 
   return {
-    getUrl: editor.getUrl,
-    navigateToUrl: editor.navigateToUrl,
+    getUrl: qs.getUrl,
+    navigateToUrl: qs.navigateToUrl,
     get,
     set,
     exists,
