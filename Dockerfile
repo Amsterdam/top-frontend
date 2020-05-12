@@ -4,7 +4,7 @@ ENV DIR /var/www
 
 WORKDIR $DIR
 COPY . $DIR
-RUN npm ci --unsafe-perm --production .
+RUN npm ci --unsafe-perm .
 RUN npm run build
 
 FROM nginx:stable-alpine
