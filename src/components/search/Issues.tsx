@@ -14,7 +14,7 @@ const Issues: FC = () => {
     search: {
       isFetching,
       errorMessage,
-      issues: results
+      issues: results2
     }
   } = useGlobalState()
   const {
@@ -32,11 +32,13 @@ const Issues: FC = () => {
     }
   }, [getIssues, clear])
 
+  const results = results2 !== undefined ? [] : undefined
+
   const showSpinner = !isInitialized || isFetching
   const hasError = errorMessage !== undefined
   const showError = hasError
   const hasResults = results !== undefined && results.length > 0
-  const show = !showSpinner && !showError && hasResults
+  const show = !showSpinner && !showError
   const showResults = hasResults
   const showEmpty = !hasResults
   const date = formatDate(currentDate(), true, false)
