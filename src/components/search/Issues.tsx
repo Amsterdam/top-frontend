@@ -14,7 +14,7 @@ const Issues: FC = () => {
     search: {
       isFetching,
       errorMessage,
-      issues: results2
+      issues: results
     }
   } = useGlobalState()
   const {
