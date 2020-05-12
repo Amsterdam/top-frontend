@@ -3,6 +3,7 @@ import Spinner from "../global/Spinner"
 import ErrorMessage from "../global/ErrorMessage"
 import ItinerarySearchResultButtons from "./itinerary/ItinerarySearchResultButtons"
 import useGlobalState from "../../hooks/useGlobalState"
+import useGlobalActions from "../../hooks/useGlobalActions"
 import SearchResults from "../search/SearchResults"
 import currentDate from "../../lib/utils/currentDate"
 import formatDate from "../../lib/utils/formatDate"
@@ -14,12 +15,14 @@ const Issues: FC = () => {
       isFetching,
       errorMessage,
       issues: results
-    },
+    }
+  } = useGlobalState()
+  const {
     searchActions: {
       getIssues,
       clear
     }
-  } = useGlobalState()
+  } = useGlobalActions()
 
   useEffect(() => {
     getIssues()

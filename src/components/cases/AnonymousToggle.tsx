@@ -1,5 +1,6 @@
 import React, { FC } from "react"
 import useGlobalState from "../../hooks/useGlobalState"
+import useGlobalActions from "../../hooks/useGlobalActions"
 import styled from "styled-components"
 import EyeButton from "./EyeButton"
 
@@ -32,9 +33,11 @@ const Span = styled.span`
 
 const AnonymousToggle: FC = () => {
   const {
-    isAnonymous,
-    toggleIsAnonymous
+    isAnonymous
   } = useGlobalState()
+  const {
+    toggleIsAnonymous
+  } = useGlobalActions()
 
   const showLabel = !isAnonymous
 

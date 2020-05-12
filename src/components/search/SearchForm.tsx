@@ -4,17 +4,18 @@ import { TextField, NumberField, isRequired, isMatchingRegex, combineValidators 
 import { Button } from "@datapunt/asc-ui"
 import { Search, Close } from "@datapunt/asc-assets"
 import useGlobalState from "../../hooks/useGlobalState"
+import useGlobalActions from "../../hooks/useGlobalActions"
 import { Form } from "react-final-form"
 import Box from "../atoms/Box/Box"
 import { mq } from "../atoms/responsive"
 
 
-const StyledButton = styled(Button)`  
+const StyledButton = styled(Button)`
   margin-top: 0;
-  
+
   ${ mq("tabletS", css`
     margin-top: 30px;
-  `) }  
+  `) }
 `
 
 type FormValues = {
@@ -27,12 +28,14 @@ const SearchForm: FC = () => {
   const {
     search: {
       query
-    },
+    }
+  } = useGlobalState()
+  const {
     searchActions: {
       search,
       clear: clearGlobalSearchState
     }
-  } = useGlobalState()
+  } = useGlobalActions()
 
   const onSubmit = async ({ postalCode, streetNumber, suffix }: FormValues) => search(
       postalCode,

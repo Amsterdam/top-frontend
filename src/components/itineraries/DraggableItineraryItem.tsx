@@ -4,7 +4,7 @@ import navigateTo from "../../lib/navigateTo"
 import styled from "styled-components"
 import IconButton from "../global/IconButton"
 import ItineraryItem from "./ItineraryItem"
-import useGlobalState from "../../hooks/useGlobalState"
+import useGlobalActions from "../../hooks/useGlobalActions"
 import confirm from "../../lib/utils/confirm"
 import NoteIcon from "./NoteIcon"
 import SpinnerCheckbox from "./SpinnerCheckbox"
@@ -44,7 +44,7 @@ const DraggableItineraryItem: FC<Props> = ({ itineraryItem, index }) => {
       setChecked,
       remove
     }
-  } = useGlobalState()
+  } = useGlobalActions()
 
   const {
     id,

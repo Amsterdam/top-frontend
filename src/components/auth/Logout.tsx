@@ -1,5 +1,5 @@
 import React, { FC } from "react"
-import useGlobalState from "../../hooks/useGlobalState"
+import useGlobalActions from "../../hooks/useGlobalActions"
 import styled from "styled-components"
 import { Button } from "@datapunt/asc-ui"
 import { Logout as LogoutIcon } from "@datapunt/asc-assets"
@@ -11,7 +11,7 @@ const Div = styled.div`
 const Logout: FC = () => {
   const {
     clear
-  } = useGlobalState()
+  } = useGlobalActions()
 
   const onClick = () => clear()
 

@@ -45,35 +45,27 @@ const useCreateGlobalState = () => {
 
   return {
     initialize,
-    value: {
-      state: {
-        auth,
-        authActions,
-
-        itineraries,
-        itinerariesActions,
-        hasItinerary,
-        getItineraryNotes,
-        getItineraryFromItineraryItem,
-
-        search,
-        searchActions,
-
-        planningSettings,
-        planningSettingsActions,
-
-        users,
-        usersActions,
-
-        isAnonymous,
-        toggleIsAnonymous,
-
-        authenticate,
-
-        isInitialized,
-
-        clear
-      }
+    state: {
+      isInitialized,
+      isAnonymous,
+      auth,
+      itineraries,
+      search,
+      planningSettings,
+      users
+    },
+    actions: {
+      authActions,
+      itinerariesActions,
+      hasItinerary,
+      getItineraryNotes,
+      getItineraryFromItineraryItem,
+      searchActions,
+      planningSettingsActions,
+      usersActions,
+      toggleIsAnonymous,
+      authenticate,
+      clear
     }
   }
 }

@@ -3,7 +3,7 @@ import { RouteComponentProps } from "@reach/router"
 import { Spinner } from "@datapunt/asc-ui"
 import ErrorMessage from "../components/global/ErrorMessage"
 import LoginAnchor from "../components/auth/LoginAnchor"
-import useGlobalState from "../hooks/useGlobalState"
+import useGlobalActions from "../hooks/useGlobalActions"
 import { getAuthOIDCUrl } from "../config/api"
 import parseLocationSearch from "../lib/utils/parseLocationSearch"
 import { post, notOk } from "../lib/utils/fetch"
@@ -20,7 +20,7 @@ const Div = styled.div`
 const LoginCallbackPage: FC<RouteComponentProps> = () => {
   const {
     authenticate
-  } = useGlobalState()
+  } = useGlobalActions()
 
   const [loading, setLoading] = useState(false)
   const [errorMessage, setErrorMessage] = useState<string | undefined>()

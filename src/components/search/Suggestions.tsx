@@ -2,6 +2,7 @@ import React, { FC, useEffect } from "react"
 import Spinner from "../global/Spinner"
 import ErrorMessage from "../global/ErrorMessage"
 import useGlobalState from "../../hooks/useGlobalState"
+import useGlobalActions from "../../hooks/useGlobalActions"
 import SearchResults from "../search/SearchResults"
 import ItinerarySearchResultButtons from "./itinerary/ItinerarySearchResultButtons"
 
@@ -16,11 +17,13 @@ const Suggestions: FC<Props> = ({ id }) => {
       isFetching,
       errorMessage,
       suggestions: results
-    },
+    }
+  } = useGlobalState()
+  const {
     searchActions: {
       getSuggestions
     }
-  } = useGlobalState()
+  } = useGlobalActions()
 
   useEffect(() => {
     getSuggestions(id)
