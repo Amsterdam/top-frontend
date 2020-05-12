@@ -4,7 +4,8 @@ import styled from "styled-components"
 import DefaultModal from "../../global/Modal/DefaultModal"
 import Search from "../../search/Search"
 import createActionButtons, { OnAddStartAddress } from "./ActionButtons"
-import { CaseTo } from "../../search/SearchResults"
+import { useStartAddressModal } from "./hooks/useStartAddressModal"
+import { useCaseModal } from "./hooks/useCaseModal"
 
 const Div = styled.div`
   padding-bottom: 15px;
@@ -12,23 +13,34 @@ const Div = styled.div`
 
 type Props = {
   onAddStartAddress: OnAddStartAddress
-  caseTo: CaseTo
-  onClose: () => void
 }
 
-const AddStartAddressModal: React.FC<Props> = ({ onAddStartAddress, caseTo, onClose }) => (
-  <DefaultModal title='Startadres' onClose={onClose}>
-    <Div>
-      <b>Bij welk adres wil je beginnen?</b>
-    </Div>
-    <Div>
-      <Search
-        actionButtonsComponent={createActionButtons(onAddStartAddress)}
-        caseTo={caseTo}
-      />
-    </Div>
-  </DefaultModal>
-)
+const AddStartAddressModal: React.FC<Props> = ({ onAddStartAddress }) => {
+  const { getUrl: getCaseUrl } = useCaseModal()
+  const { shouldShow, handleClose } = useStartAddressModal()
 
+  if (!shouldShow) {
+    return null
+  }
+
+  const handleAddAddress = (caseId: CaseId) => {
+    onAddStartAddress(caseId)
+    return handleClose()
+  }
+
+  return (
+    <DefaultModal title='Startadres' onClose={handleClose}>
+      <Div>
+        <b>Bij welk adres wil je beginnen?</b>
+      </Div>
+      <Div>
+        <Search
+          actionButtonsComponent={createActionButtons(handleAddAddress)}
+          caseTo={getCaseUrl}
+        />
+      </Div>
+    </DefaultModal>
+  )
+}
 
 export default AddStartAddressModal
