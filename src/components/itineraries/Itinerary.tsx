@@ -3,6 +3,7 @@ import useGlobalActions from "../../hooks/useGlobalActions"
 import ItineraryTeamMembers from "./ItineraryTeamMembers"
 import Button from "../styled/Button"
 import { Enlarge, Card, ChevronDown } from "@datapunt/asc-assets"
+import { breakpoint } from "@datapunt/asc-ui"
 import DroppableItinerary from "./DroppableItinerary"
 import MapsButton from "./MapsButton"
 import RemoveAllButton from "./RemoveAllButton"
@@ -25,6 +26,12 @@ const Wrap = styled.div`
   border-bottom: 1px solid #B4B4B4;
   padding-bottom: 12px;
   margin-bottom: 24px;
+`
+const H1 = styled.h1`
+  font-size: 1.1em;
+  @media screen and ${ breakpoint("min-width", "tabletS") } {
+    font-size: 2em;
+  }
 `
 const ButtonWrap = styled.div`
   display: flex;
@@ -74,7 +81,7 @@ const Itinerary: FC<Props> = ({ itinerary }) => {
   return (
     <div>
       <Wrap>
-        <h1>{ title }</h1>
+        <H1>{ title }</H1>
         <Button variant="blank" iconRight={ <ChevronDown /> } onClick={ onClickOptions }>Opties</Button>
       </Wrap>
       { showDialog &&
