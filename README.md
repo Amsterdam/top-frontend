@@ -22,7 +22,7 @@ Connect to acceptance backend
 
 ## deployment
 - `master` branch is automatically deployed to [acceptance](https://acc.top.amsterdam.nl)
-- tag any branch, but preferably master, with a tag like `v1.0.0` to deploy that specific commit to production
+- tag any branch, but preferably master, with a tag like `v1.0.0` to deploy that specific commit to [production](https://top.amsterdam.nl)
 
 ## Original README
 
