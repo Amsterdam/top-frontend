@@ -20,6 +20,10 @@ Connect to acceptance backend
 - `npm run start:acc`
 - open `http://localhost:3001/` in browser
 
+## deployment
+- `master` branch is automatically deployed to [acceptance](https://acc.top.amsterdam.nl)
+- tag any branch, but preferably master, with a tag like `v1.0.0` to deploy that specific commit to [production](https://top.amsterdam.nl)
+
 ## Original README
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
