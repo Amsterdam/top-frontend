@@ -2,6 +2,7 @@ import useItineraries from "../../../state/useItineraries"
 import useAuth from "../../../state/useAuth"
 import useSearch from "../../../state/useSearch"
 import useUsers from "../../../state/useUsers"
+import useProjects from "../../../state/useProjects"
 import usePlanningSettings from "../../../state/usePlanningSettings"
 import useCreateClearFunction from "./hooks/useCreateClearFunction"
 import useCreateInitializeFunction from "./hooks/useCreateInitializeFunction"
@@ -15,6 +16,7 @@ const useCreateGlobalState = () => {
   const [search, searchActions] = useSearch()
   const [users, usersActions] = useUsers()
   const [planningSettings, planningSettingsActions] = usePlanningSettings()
+  const [projects, projectsActions] = useProjects()
 
   // Anonymous handlers:
   const { isAnonymous, setIsAnonymous, toggleIsAnonymous } = useCreateAnonymousHandlers()
@@ -36,7 +38,8 @@ const useCreateGlobalState = () => {
     [
       itinerariesActions.initialize,
       planningSettingsActions.initialize,
-      usersActions.initialize
+      usersActions.initialize,
+      projectsActions.index
     ]
   )
 
