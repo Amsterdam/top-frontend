@@ -1,5 +1,4 @@
 import React, { FC, useEffect } from "react"
-import Spinner from "../global/Spinner"
 import ErrorMessage from "../global/ErrorMessage"
 import useGlobalState from "../../hooks/useGlobalState"
 import useGlobalActions from "../../hooks/useGlobalActions"
@@ -12,9 +11,7 @@ type Props = {
 
 const Suggestions: FC<Props> = ({ id }) => {
   const {
-    isInitialized,
     search: {
-      isFetching,
       errorMessage,
       suggestions: results
     }
@@ -29,19 +26,14 @@ const Suggestions: FC<Props> = ({ id }) => {
     getSuggestions(id)
   }, [getSuggestions, id])
 
-  const showSpinner = !isInitialized || isFetching
-  const hasError = errorMessage !== undefined
-  const showError = hasError
+  const showError = errorMessage !== undefined
   const hasResults = results !== undefined && results.length > 0
-  const show = !showSpinner && !showError
+  const show = !showError
   const showResults = hasResults
   const showEmpty = !hasResults
 
   return (
     <div className="Suggestions">
-      { showSpinner &&
-        <Spinner />
-      }
       { showError &&
         <ErrorMessage text={ errorMessage! } />
       }
