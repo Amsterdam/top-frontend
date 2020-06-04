@@ -1,22 +1,84 @@
 import React, { FC } from "react"
-import styled, { css } from "styled-components"
-import { TextField, NumberField, isRequired, isMatchingRegex, combineValidators } from "amsterdam-react-final-form"
-import { Button } from "@datapunt/asc-ui"
+import { ScaffoldForm, Scaffold, ScaffoldAvailableFields } from "amsterdam-react-final-form"
+import { FormPositioner, FormPositionerFields } from "amsterdam-scaffold-form/package"
+import {
+  combineValidators,
+  isMatchingRegex,
+  isRequired
+} from "amsterdam-react-final-form"
+
 import { Search, Close } from "@datapunt/asc-assets"
+
 import useGlobalState from "../../hooks/useGlobalState"
 import useGlobalActions from "../../hooks/useGlobalActions"
-import { Form } from "react-final-form"
-import Box from "../atoms/Box/Box"
-import { mq } from "../atoms/responsive"
 
+// We have these fields available for scaffolding:
+const definition: FormPositionerFields<ScaffoldAvailableFields> = {
+  postalCode: {
+    type: "TextField",
+    props: {
+      label:"Postcode",
+      name: "postalCode",
+      autoFocus: true,
+      validate: combineValidators(
+        isRequired(),
+        isMatchingRegex(/\s*[1-9][0-9]{3}\s?[a-zA-Z]{2}\s*/, "Geldige postcodes zijn: 1234AA of 1234 aa")
+      ),
+      tabIndex: 1
+    }
+  },
+  streetNumber: {
+    type: "NumberField",
+    props: {
+      label: "Huisnr.",
+      name: "streetNumber",
+      min: "1",
+      step: "1",
+      pattern: "\\d+",
+      title: "Alleen cijfers zijn geldig",
+      hideNumberSpinner: true,
+      validate: isRequired(),
+      tabIndex: 2
+    }
+  },
+  suffix: {
+    type: "TextField",
+    props: {
+      label: "Hslt. / etage",
+      name: "suffix",
+      tabIndex: 3
+    }
+  },
+  reset: {
+    type: "ResetButton",
+    props: {
+      alignedHorizontally: { tabletM: true },
+      icon: <Close />
+    }
+  },
+  submit: {
+    type: "SubmitButton",
+    props: {
+      alignedHorizontally: { tabletM: true },
+      icon: <Search />,
+      tabIndex: 4,
+      align: "right"
+    }
+  }
+}
 
-const StyledButton = styled(Button)`
-  margin-top: 0;
-
-  ${ mq("tabletS", css`
-    margin-top: 30px;
-  `) }
-`
+// Align these fields in a grid using FormPositioner:
+export const scaffoldProps = new FormPositioner(definition)
+  // From mobile and bigger we align using a custom grid:
+  .setGrid("mobileS", "1fr 1fr", [
+    // Grid:
+    ["postalCode", "postalCode"],
+    ["streetNumber", "suffix"],
+    ["reset", "submit"]
+  ])
+  // From tablet and bigger we align horizontal:
+  .setHorizontal("tabletM", "3fr 1fr 1fr auto auto")
+  .getScaffoldProps()
 
 type FormValues = {
   postalCode: string
@@ -30,90 +92,30 @@ const SearchForm: FC = () => {
       query
     }
   } = useGlobalState()
+
   const {
     searchActions: {
       search,
-      clear: clearGlobalSearchState
+      clear: onReset
     }
   } = useGlobalActions()
 
   const onSubmit = async ({ postalCode, streetNumber, suffix }: FormValues) => search(
-      postalCode,
-      streetNumber,
-      suffix ?? ""
+    postalCode,
+    streetNumber,
+    suffix ?? ""
   )
 
-  const [ postalCode, streetNumber, suffix ] = query ?? []
+  const [ postalCode, streetNumber, suffix ] = query ?? ["", ""]
 
   return (
-      <Form
-        onSubmit={onSubmit}
-        initialValues={{
-          postalCode: postalCode ?? "",
-          streetNumber: streetNumber ?? "",
-          suffix
-        }}
-        render={({ handleSubmit, form }) => (
-          <form onSubmit={ handleSubmit }>
-            <Box pb={4}>
-              <Box stretch={true} p={1}>
-                <TextField
-                  label='Postcode'
-                  name="postalCode"
-                  autoFocus
-                  validate={combineValidators(
-                    isRequired(),
-                    isMatchingRegex(/\s*[1-9][0-9]{3}\s?[a-zA-Z]{2}\s*/, "Geldige postcodes zijn: 1234AA of 1234 aa")
-                  )}
-                  tabIndex={1}
-                />
-              </Box>
-              <Box width={{ mobileS: 12, tabletS: 2, desktop: 1 }} p={1}>
-                <NumberField
-                  label='Huisnr.'
-                  name='streetNumber'
-                  min="1"
-                  step="1"
-                  pattern="\d+"
-                  title="Alleen cijfers zijn geldig"
-                  hideNumberSpinner={true}
-                  validate={isRequired()}
-                  tabIndex={2}
-                />
-              </Box>
-              <Box width={{ mobileS: 12, tabletS: 2, desktop: 1 }} p={1}>
-                <TextField
-                  label='Hslt.&nbsp;/&nbsp;etage'
-                  name="suffix"
-                  tabIndex={3}
-                />
-              </Box>
-              <Box width={{ mobileS: 6, tabletS: "auto" }} p={1} pt={4}>
-                <StyledButton
-                  type="reset"
-                  variant="tertiary"
-                  iconSize={ 20 }
-                  icon={ <Close /> }
-                  onClick={(e: React.MouseEvent) => {
-                    e.preventDefault()
-                    form.reset()
-                    clearGlobalSearchState()
-                  }}
-                />
-              </Box>
-              <Box width={{ mobileS: 6, tabletS: "auto" }} p={1} pt={4} hAlign="flex-end">
-                <StyledButton
-                  type="submit"
-                  variant="secondary"
-                  iconSize={ 20 }
-                  icon={ <Search /> }
-                  tabIndex={4}
-                />
-              </Box>
-            </Box>
-          </form>
-        )}
-      />
+    <ScaffoldForm
+      onSubmit={onSubmit}
+      onReset={onReset}
+      initialValues={{ postalCode, streetNumber, suffix }}
+    >
+      <Scaffold {...scaffoldProps} />
+    </ScaffoldForm>
   )
 }
 
