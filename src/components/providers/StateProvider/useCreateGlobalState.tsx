@@ -17,7 +17,6 @@ const useCreateGlobalState = () => {
   const [auth, authActions] = useAuth()
   const [search, searchActions] = useSearch()
   const [users, usersActions] = useUsers()
-  const [planningSettings, planningSettingsActions] = usePlanningSettings()
   const [projects, projectsActions] = useProjects()
   const [stadia, stadiaActions] = useStadia()
   const [settings, settingsActions] = useSettings()
@@ -41,7 +40,6 @@ const useCreateGlobalState = () => {
     setIsAnonymous,
     [
       itinerariesActions.initialize,
-      planningSettingsActions.initialize,
       usersActions.initialize,
       projectsActions.index,
       stadiaActions.index,
@@ -60,7 +58,9 @@ const useCreateGlobalState = () => {
       auth,
       itineraries,
       search,
-      planningSettings,
+      projects,
+      stadia,
+      settings,
       users
     },
     actions: {
@@ -70,7 +70,9 @@ const useCreateGlobalState = () => {
       getItineraryNotes,
       getItineraryFromItineraryItem,
       searchActions,
-      planningSettingsActions,
+      projectsActions,
+      stadiaActions,
+      settingsActions,
       usersActions,
       toggleIsAnonymous,
       authenticate,

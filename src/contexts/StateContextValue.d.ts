@@ -5,7 +5,9 @@ declare type StateContextValue = {
     isAnonymous: boolean
     itineraries: ItinerariesState
     search: SearchState
-    planningSettings: PlanningSettingsState
+    projects: typeof API.Project.name
+    stadia: typeof API.Stadia.name
+    settings: API.planningSettings
     users: UsersState
   }
   actions: {
@@ -14,8 +16,8 @@ declare type StateContextValue = {
     hasItinerary: (caseId: CaseId) => boolean
     getItineraryNotes: (itineraryItemId: Id, id: Id) => Notes | undefined
     getItineraryFromItineraryItem: (id: Id) => OItinerary
+    settingsActions: any
     searchActions: SearchActions
-    planningSettingsActions: PlanningSettingsActions
     usersActions: UsersActions
     toggleIsAnonymous: () => void
     authenticate: (a: AuthToken, b: AuthUser) => void

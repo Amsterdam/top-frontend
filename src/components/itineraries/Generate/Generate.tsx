@@ -27,13 +27,15 @@ const Generate: FC = () => {
     }
   } = useGlobalActions()
   const {
-    planningSettings: {
+    settings: {
       data
     },
     users: {
       results: users
     }
   } = useGlobalState()
+
+  console.log(data)
 
   const loggedInUser = useLoggedInUser()
 
@@ -46,16 +48,16 @@ const Generate: FC = () => {
     return null
   }
 
-  const dayPartOptions = getDayPartOptions(data.settings)
+  const dayPartOptions = getDayPartOptions(data)
 
   return (
     <Form
       keepDirtyOnReinitialize={true}
       onSubmit={handleSubmit}
       initialValues={{
-        openingsDate: data.settings.opening_date,
-        projects: data.settings.projects,
-        postalCodeRange: data.settings.postal_code,
+        openingsDate: data?.opening_date,
+        projects: data?.projects,
+        postalCodeRange: data?.postal_code,
         numAddresses: 8,
         dayPart: dayPartOptions[0],
         users: [loggedInUser!]

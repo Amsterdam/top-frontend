@@ -105,26 +105,31 @@ const EVENINGS: DayPartConfig[] = [
 
 const Settings: FC = () => {
   const {
-    planningSettings: {
+    projects: {
+      data: projects
+    },
+    stadia: {
+      data: stadia
+    },
+    settings: {
+      isFetching,
       isUpdating,
-      data,
+      data: settings,
       errorMessage
     }
   } = useGlobalState()
 
   const {
-    planningSettingsActions: {
-      saveSettings
+    settingsActions: {
+      update
     }
   } = useGlobalActions()
 
-  if (data?.settings === undefined) {
-    return null
-  }
+  if (projects === undefined || stadia === undefined || settings === undefined) return null
 
   return <Form
-      onSubmit={saveSettings}
-      initialValues={data.settings}
+      onSubmit={update}
+      initialValues={settings}
       render={({ handleSubmit, values, hasValidationErrors, submitSucceeded, dirty }) => (
          <Wrap>
            <form onSubmit={handleSubmit}>
@@ -153,7 +158,7 @@ const Settings: FC = () => {
              <ColumnWrap>
                <CheckboxFields
                  name="projects"
-                 options={arrayToObject(data?.projects ?? [])}
+                 options={arrayToObject(projects ?? [])}
                  validate={isRequired()}
                />
              </ColumnWrap>
@@ -161,7 +166,7 @@ const Settings: FC = () => {
                <Box pb={9} key={index}>
                  { row.map((dayPartConfig) => (
                    <DayPartSettingsWrap key={dayPartConfig.title}>
-                     <DayPartSettings stadia={data?.stadia ?? []} {...dayPartConfig} />
+                     <DayPartSettings stadia={stadia ?? []} {...dayPartConfig} />
                    </DayPartSettingsWrap>
                  ))}
                </Box>
