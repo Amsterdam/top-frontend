@@ -35,8 +35,6 @@ const Generate: FC = () => {
     }
   } = useGlobalState()
 
-  console.log(data)
-
   const loggedInUser = useLoggedInUser()
 
   const handleSubmit = useCallback(
