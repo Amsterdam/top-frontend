@@ -112,7 +112,6 @@ const Settings: FC = () => {
       data: stadia
     },
     settings: {
-      isFetching,
       isUpdating,
       data: settings,
       errorMessage
