@@ -11,9 +11,9 @@ import { useLoggedInUser } from "../../../state/useLoggedInUser"
 import { getDayPartOptions } from "./util/getDayPartOptions"
 
 export type GenerateItineraryFormValues = {
-  openingsDate: string
   projects: Projects
-  postalCodeRange: PostalCodeRange
+  openingsDate: string
+  postalCodeRange: API.PlannerPostalCodeSettings
   numAddresses: number
   dayPart: { label: string, settingsList?: API.PlannerListSettings }
   users: User[]

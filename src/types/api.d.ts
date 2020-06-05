@@ -26,7 +26,7 @@ declare type StreetSuffix = string
 declare type StreetSuffixLetter = string
 declare type Address = [StreetName, StreetNumber, StreetSuffix | undefined]
 declare type PostalCode = string
-declare type Stadium = string
+declare type Stadium = API.Stadium.name
 declare type Stadia = Stadium[]
 declare type Distance = number
 declare type ShapValues = Record<string, number>
@@ -208,13 +208,8 @@ declare type List = {
 }
 declare type Lists = List[]
 
-declare type Project = string
+declare type Project = API.Project.name
 declare type Projects = Project[]
-
-declare type PostalCodeRange = {
-  range_start: string
-  range_end: string
-}
 
 declare type PlanningSettingsData = {
   projects: string[]
