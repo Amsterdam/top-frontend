@@ -53,7 +53,7 @@
     "enzyme-adapter-react-16": "^1.15.2",
     "husky": "^4.2.5",
     "lint-staged": "^10.2.6",
-    "typescript": "^3.9.3"
+    "typescript": "^3.9.5"
   },
   "scripts": {
     "start": "react-scripts start",
