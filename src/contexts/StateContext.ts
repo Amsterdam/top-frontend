@@ -1,5 +1,5 @@
 import { createContext } from "react"
-import type { ItemsState, RecordState } from "globalstate-hooks"
+import type { ItemsState, RecordState, RecordActions } from "globalstate-hooks"
 
 export type StateContext = {
   state: {
@@ -19,7 +19,7 @@ export type StateContext = {
     hasItinerary: (caseId: CaseId) => boolean
     getItineraryNotes: (itineraryItemId: Id, id: Id) => Notes | undefined
     getItineraryFromItineraryItem: (id: Id) => OItinerary
-    settingsActions: any
+    settingsActions: Pick<RecordActions<API.PlannerSettings>, "index" | "update" | "clear">
     searchActions: SearchActions
     usersActions: UsersActions
     toggleIsAnonymous: () => void
