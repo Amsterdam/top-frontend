@@ -25,12 +25,6 @@ declare type SearchActions = {
   clear: () => void
 }
 
-declare type PlanningSettingsActions = {
-  initialize: () => void
-  clear: () => void
-  saveSettings: (a: API.PlannerSettings) => void
-}
-
 declare type UsersActions = {
   initialize: () => void
   clear: () => void
