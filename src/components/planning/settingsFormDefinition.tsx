@@ -83,7 +83,7 @@ export const createDefinition = (projects: Projects, stadia: Stadia) => {
     opening_date: {
       type: "TextField",
       props: {
-        label: "Peildatum",
+        label: "Begindatum",
         name: "opening_date",
         type: "date",
         validate: isRequired()
