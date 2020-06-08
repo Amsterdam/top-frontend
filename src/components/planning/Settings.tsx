@@ -127,7 +127,7 @@ const Settings: FC = () => {
   if (projects === undefined || stadia === undefined || settings === undefined) return null
 
   return <Form
-      onSubmit={ (values: API.PlannerSettings) => update(values) }
+      onSubmit={ async (values: API.PlannerSettings) => update(values) }
       initialValues={settings}
       render={({ handleSubmit, values, hasValidationErrors, submitSucceeded, dirty }) => (
          <Wrap>
