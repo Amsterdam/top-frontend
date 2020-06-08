@@ -1,21 +1,20 @@
 import React, { FC, useState } from "react"
 import { Button } from "@datapunt/asc-ui"
-import JSONBlock from "../global/JSONBlock"
+import JSONBlock from "../../global/JSONBlock"
+import { useFormState } from "react-final-form"
 
-type Props = {
-  json?: Record<string, any>
-}
+const JSONDisplay: FC = () => {
+  const { values } = useFormState()
 
-const JSONDisplay: FC<Props> = ({ json }) => {
   const [showJSON, setShowJSON] = useState(false)
   const onClickShowJSON = () => setShowJSON(!showJSON)
 
   return (
     <div>
       <h1>Huidige settings (JSON)</h1>
-      <Button onClick={ onClickShowJSON }>{ `${ showJSON ? "Verberg" : "Toon" } JSON` }</Button>
+      <Button onClick={ onClickShowJSON } type="button">{ `${ showJSON ? "Verberg" : "Toon" } JSON` }</Button>
       { showJSON &&
-        <JSONBlock json={ json } />
+        <JSONBlock json={ values } />
       }
     </div>
   )
