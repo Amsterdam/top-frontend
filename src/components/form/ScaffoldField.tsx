@@ -7,9 +7,9 @@ import AddressPicker, { AddressPickerProps } from "./AddressPicker/AddressPicker
 
 export type Field =
   // NOTE: add your own custom types here:
+  | { type: "AddressPicker", props: AddressPickerProps }
   | { type: "Collapsible", props: CollapsibleProps }
   | { type: "UniqueDropdown", props: UniqueDropdownProps }
-  | { type: "AddressPicker", props: AddressPickerProps }
   | ScaffoldAvailableFields
 
 type ScaffoldFieldProps = {

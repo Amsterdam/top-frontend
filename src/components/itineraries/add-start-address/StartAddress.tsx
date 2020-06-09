@@ -1,6 +1,5 @@
 import React from "react"
 import { Spinner } from "@datapunt/asc-ui"
-import { LabelDiv } from "amsterdam-react-final-form"
 import SearchResultSingle from "../../search/SearchResultSingle"
 import useFetch from "../../../hooks/useFetch"
 import { CaseTo } from "../../search/SearchResults"
@@ -28,8 +27,7 @@ const StartAddress: React.FC<Props> = ({ caseId, caseTo }) => {
   const [caseItem, isFetching] = useFetch(`cases/${ caseId }`) as [any, boolean, OErrorMessage]
 
   return (<>
-    <LabelDiv>Startadres:</LabelDiv>
-    <Box p={4} bgColor='level2'>
+    <Box pt={3} pb={3} pl={2} pr={2} bgColor='level2'>
       { isFetching
           ? <Spinner />
           : <SearchResultSingle caseItem={normalize(caseId, caseItem)!} caseTo={caseTo} />

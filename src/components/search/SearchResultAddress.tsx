@@ -13,7 +13,7 @@ type Props = {
 const LINE_MARGIN = 10
 const H1 = styled.h1`
   font-size: 18px;
-  margin: ${ LINE_MARGIN }px 0;
+  margin: 0 0 ${ LINE_MARGIN }px 0;
 `
 const PostalCode = styled.p`
   font-weight: 500;
