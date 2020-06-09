@@ -3,11 +3,13 @@ import { ScaffoldAvailableFields, ScaffoldField as AmsterdamScaffoldField } from
 
 import Collapsible, { CollapsibleProps } from "./Collapsible/Collapsible"
 import UniqueDropdown , { UniqueDropdownProps } from "./UniqueDropdown/UniqueDropdown"
+import AddressPicker, { AddressPickerProps } from "./AddressPicker/AddressPicker"
 
 export type Field =
   // NOTE: add your own custom types here:
   | { type: "Collapsible", props: CollapsibleProps }
   | { type: "UniqueDropdown", props: UniqueDropdownProps }
+  | { type: "AddressPicker", props: AddressPickerProps }
   | ScaffoldAvailableFields
 
 type ScaffoldFieldProps = {
@@ -17,6 +19,8 @@ type ScaffoldFieldProps = {
 const ScaffoldField: React.FC<ScaffoldFieldProps> = ({ field }) => {
   switch (field.type) {
     // NOTE: add your own custom components here:
+    case "AddressPicker":
+      return <AddressPicker {...field.props} />
     case "Collapsible":
       return <Collapsible {...field.props} />
     case "UniqueDropdown":

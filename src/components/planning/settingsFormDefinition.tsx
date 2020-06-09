@@ -67,7 +67,6 @@ const createDayPartDefinition = (label: string, day: Day, dayPart: DayPart, stad
     type: "Collapsible",
     props: {
       isOpen,
-      name: "",
       label,
       fields
     }
