@@ -8,7 +8,7 @@ export default {
 
 const fields: Fields = {
   field1: {
-    type: "UserDropDown",
+    type: "UniqueDropdown",
     props: {
       label: "field 0",
       name: "field[0]",
@@ -17,7 +17,7 @@ const fields: Fields = {
     }
   },
   field2: {
-    type: "UserDropDown",
+    type: "UniqueDropdown",
     props: {
       label: "field 1",
       name: "field[1]",
@@ -26,7 +26,7 @@ const fields: Fields = {
     }
   },
   field3: {
-    type: "UserDropDown",
+    type: "UniqueDropdown",
     props: {
       label: "field 2",
       name: "field[2]",
