@@ -1,5 +1,5 @@
 import React, { FC, useCallback } from "react"
-import { ScaffoldForm } from "amsterdam-react-final-form"
+import { DebugFormValues, ScaffoldForm } from "amsterdam-react-final-form"
 import useGlobalState from "../../../hooks/useGlobalState"
 import useGlobalActions from "../../../hooks/useGlobalActions"
 import { useLoggedInUser } from "../../../state/useLoggedInUser"
