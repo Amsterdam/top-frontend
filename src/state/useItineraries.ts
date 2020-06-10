@@ -23,6 +23,7 @@ import currentDate from "../lib/utils/currentDate"
 import { navigateToHome } from "../lib/navigateTo"
 import { GenerateItineraryFormValues } from "../components/itineraries/Generate/Generate"
 import { wrapInNameObject, wrapInNameObjects } from "../lib/utils/wrapInNameObject"
+import capture from "../sentry/capture"
 
 const useItineraries = () => {
   // @TODO: Remove `as never`
@@ -92,6 +93,8 @@ const useItineraries = () => {
       return handleForbiddenResponse()
     }
     if (notOk(response)) {
+      console.log(response)
+      if (response?.status === undefined) capture(`Failed to fetch: ${ url }`)
       dispatch(createSetErrorMessage(errorMessage))
       return
     }
