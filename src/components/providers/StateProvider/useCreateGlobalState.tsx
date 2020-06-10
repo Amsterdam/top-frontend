@@ -2,7 +2,9 @@ import useItineraries from "../../../state/useItineraries"
 import useAuth from "../../../state/useAuth"
 import useSearch from "../../../state/useSearch"
 import useUsers from "../../../state/useUsers"
-import usePlanningSettings from "../../../state/usePlanningSettings"
+import useProjects from "../../../state/useProjects"
+import useStadia from "../../../state/useStadia"
+import useSettings from "../../../state/useSettings"
 import useCreateClearFunction from "./hooks/useCreateClearFunction"
 import useCreateInitializeFunction from "./hooks/useCreateInitializeFunction"
 import useCreateAnonymousHandlers from "./hooks/useCreateAnonymousHandlers"
@@ -14,7 +16,9 @@ const useCreateGlobalState = () => {
   const [auth, authActions] = useAuth()
   const [search, searchActions] = useSearch()
   const [users, usersActions] = useUsers()
-  const [planningSettings, planningSettingsActions] = usePlanningSettings()
+  const [projects, projectsActions] = useProjects()
+  const [stadia, stadiaActions] = useStadia()
+  const [settings, settingsActions] = useSettings()
 
   // Anonymous handlers:
   const { isAnonymous, setIsAnonymous, toggleIsAnonymous } = useCreateAnonymousHandlers()
@@ -35,8 +39,10 @@ const useCreateGlobalState = () => {
     setIsAnonymous,
     [
       itinerariesActions.initialize,
-      planningSettingsActions.initialize,
-      usersActions.initialize
+      usersActions.initialize,
+      projectsActions.index,
+      stadiaActions.index,
+      settingsActions.index
     ]
   )
 
@@ -51,7 +57,9 @@ const useCreateGlobalState = () => {
       auth,
       itineraries,
       search,
-      planningSettings,
+      projects,
+      stadia,
+      settings,
       users
     },
     actions: {
@@ -61,7 +69,9 @@ const useCreateGlobalState = () => {
       getItineraryNotes,
       getItineraryFromItineraryItem,
       searchActions,
-      planningSettingsActions,
+      projectsActions,
+      stadiaActions,
+      settingsActions,
       usersActions,
       toggleIsAnonymous,
       authenticate,

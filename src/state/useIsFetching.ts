@@ -5,8 +5,8 @@ export const useIsFetching = () => {
     itineraries: {
       isFetching: isFetchingItineraries
     },
-    planningSettings: {
-      isFetching: isFetchingPlanningSettings
+    settings: {
+      isFetching: isFetchingSettings
     },
     users: {
       isFetching: isFetchingUsers
@@ -16,5 +16,5 @@ export const useIsFetching = () => {
     }
   } = useGlobalState()
 
-  return isFetchingItineraries || isFetchingPlanningSettings || isFetchingUsers || isFetchingSearch
+  return isFetchingItineraries || isFetchingSettings || isFetchingUsers || isFetchingSearch
 }

@@ -23,17 +23,6 @@ declare type SearchState = {
   errorMessage?: ErrorMessage
 }
 
-declare type PlanningSettingsState = {
-  isFetching: boolean
-  isUpdating: boolean
-  data?: {
-    projects: string[]
-    stadia: Stadia
-    settings: PlanningSettings
-  }
-  errorMessage?: ErrorMessage
-}
-
 declare type UsersState = {
   isFetching: boolean
   errorMessage?: ErrorMessage

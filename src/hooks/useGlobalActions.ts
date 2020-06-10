@@ -1,8 +1,8 @@
 import { useContext } from "react"
-import stateContext from "../contexts/StateContext"
+import stateContext, { StateContext } from "../contexts/StateContext"
 
 const useGlobalState = () => {
-  const { actions } = useContext(stateContext) as StateContextValue
+  const { actions } = useContext(stateContext) as StateContext
   return actions
 }
 

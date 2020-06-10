@@ -8,9 +8,9 @@ import { generateItineraryFormDefinition } from "../form/itinerary/itineraryForm
 import Scaffold from "../../form/Scaffold"
 
 export type GenerateItineraryFormValues = {
-  openingsDate: string
   projects: Projects
-  postalCodeRange: PostalCodeRange
+  openingsDate: string
+  postalCodeRange: API.PlannerPostalCodeSettings
   numAddresses: number
   dayPart: { label: string, settingsList?: API.PlannerListSettings }
   users: User[]
@@ -24,7 +24,7 @@ const Generate: FC = () => {
     }
   } = useGlobalActions()
   const {
-    planningSettings: {
+    settings: {
       data
     },
     users: {
@@ -43,7 +43,7 @@ const Generate: FC = () => {
     return null
   }
 
-  const dayPartOptions = getDayPartOptions(data.settings)
+  const dayPartOptions = getDayPartOptions(data)
   const fields = generateItineraryFormDefinition(users!, dayPartOptions)
 
   return (
@@ -51,9 +51,9 @@ const Generate: FC = () => {
       keepDirtyOnReinitialize={true}
       onSubmit={handleSubmit}
       initialValues={{
-        openingsDate: data.settings.opening_date,
-        projects: data.settings.projects,
-        postalCodeRange: data.settings.postal_code,
+        openingsDate: data?.opening_date,
+        projects: data?.projects,
+        postalCodeRange: data?.postal_code,
         numAddresses: 8,
         dayPart: dayPartOptions[0],
         users: [loggedInUser!]

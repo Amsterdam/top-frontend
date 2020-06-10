@@ -1,6 +1,7 @@
 import { useCallback } from "react"
 import { GlobalStateClearFunction } from "./useCreateClearFunction"
 import parseLocationSearch from "../../../../lib/utils/parseLocationSearch"
+import authToken from "../../../../lib/authToken"
 
 export type StateContextInitializer = (errorMessage?: ErrorMessage) => void
 type Initializable = () => void
@@ -11,7 +12,9 @@ const useCreateInitializeFunction = (
   setIsAnonymous: (bool: boolean) => void,
   initializables: Initializable[]
 ): StateContextInitializer => {
+  const token = authToken.get()
   const initialize = async () => {
+    if (token === undefined) return
     const isAuthenticated = await authInitializer()
     if (!isAuthenticated) return clear()
 
@@ -22,7 +25,7 @@ const useCreateInitializeFunction = (
 
     initializables.forEach(initialize => initialize())
   }
-  return useCallback(initialize, [])
+  return useCallback(initialize, [token])
 }
 
 

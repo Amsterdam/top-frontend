@@ -11,33 +11,40 @@ import FixedSubmitButton from "./components/FixedSubmitButton"
 import JSONDisplay from "./components/JSONDisplay"
 
 const Wrap = styled.div`
-  margin: 0 8px 100px 8px  
+  margin: 0 8px 100px 8px
 `
 
 const Settings: FC = () => {
   const {
-    planningSettings: {
-      data,
+    projects: {
+      data: projects
+    },
+    stadia: {
+      data: stadia
+    },
+    settings: {
+      data: settings,
       errorMessage
     }
   } = useGlobalState()
 
   const {
-    planningSettingsActions: {
-      saveSettings
+    settingsActions: {
+      update
     }
   } = useGlobalActions()
 
-  const projects = data?.projects ?? []
-  const stadia = data?.stadia ?? []
-  const definition = useMemo(() => createDefinition(projects, stadia), [ projects, stadia ])
+  const definition = useMemo(() => createDefinition(projects ?? [], stadia ?? []), [ projects, stadia ])
 
-  if (data?.settings === undefined) {
+  if (projects === undefined || stadia === undefined || settings === undefined) {
     return null
   }
 
   return <Wrap>
-    <ScaffoldForm onSubmit={saveSettings} initialValues={data?.settings}>
+    <ScaffoldForm
+      onSubmit={ async (values: API.PlannerSettings) => update(values)}
+      initialValues={settings}
+      >
       <Scaffold {...definition} />
       <FixedSubmitButton errorMessage={errorMessage} />
       <JSONDisplay />
