@@ -38,7 +38,7 @@
     "@storybook/react": "^5.3.19",
     "@types/dompurify": "^2.0.2",
     "@types/enzyme": "^3.10.5",
-    "@types/jest": "^25.2.3",
+    "@types/jest": "^26.0.0",
     "@types/jwt-decode": "^2.2.1",
     "@types/lodash": "^4.14.153",
     "@types/node": "^14.0.5",
