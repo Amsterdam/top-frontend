@@ -1,9 +1,10 @@
 import { useRestActions } from "globalstate-hooks"
 import baseApi from "./utils/api"
-import additionalHeaders from "./utils/additionalHeaders"
+import useAdditionalHeaders from "./utils/useAdditionalHeaders"
 import afterFailure from "./utils/afterFailure"
 
 const useStadia = () => {
+  const additionalHeaders = useAdditionalHeaders()
   const api = {
     ...baseApi,
     additionalHeaders,

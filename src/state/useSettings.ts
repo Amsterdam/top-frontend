@@ -1,9 +1,10 @@
 import { useRestRecordActions } from "globalstate-hooks"
 import baseApi from "./utils/api"
-import additionalHeaders from "./utils/additionalHeaders"
+import useAdditionalHeaders from "./utils/useAdditionalHeaders"
 import afterFailure from "./utils/afterFailure"
 
 const useSettings = () => {
+  const additionalHeaders = useAdditionalHeaders()
   const api = {
     ...baseApi,
     additionalHeaders,

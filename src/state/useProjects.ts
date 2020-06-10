@@ -1,9 +1,10 @@
 import { useRestActions } from "globalstate-hooks"
 import baseApi from "./utils/api"
-import additionalHeaders from "./utils/additionalHeaders"
 import afterFailure from "./utils/afterFailure"
+import useAdditionalHeaders from "./utils/useAdditionalHeaders"
 
 const useProjects = () => {
+  const additionalHeaders = useAdditionalHeaders()
   const api = {
     ...baseApi,
     additionalHeaders,
