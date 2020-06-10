@@ -23,7 +23,6 @@ const Settings: FC = () => {
       data: stadia
     },
     settings: {
-      isUpdating,
       data: settings,
       errorMessage
     }
