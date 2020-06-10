@@ -1,14 +1,11 @@
 import React, { FC, useCallback } from "react"
-import { Form } from "react-final-form"
-import _difference from "lodash/difference"
-import { Button, Heading } from "@datapunt/asc-ui"
+import { ScaffoldForm } from "amsterdam-react-final-form"
 import useGlobalState from "../../../hooks/useGlobalState"
 import useGlobalActions from "../../../hooks/useGlobalActions"
-import Box from "../../atoms/Box/Box"
-import { LabelDiv, NumberField, ComplexSelectField, ComplexRadioFields, isRequired } from "amsterdam-react-final-form"
-import { StartAddressField } from "../add-start-address/StartAddressField"
 import { useLoggedInUser } from "../../../state/useLoggedInUser"
 import { getDayPartOptions } from "./util/getDayPartOptions"
+import { generateItineraryFormDefinition } from "../form/itinerary/itineraryFormDefinition"
+import Scaffold from "../../form/Scaffold"
 
 export type GenerateItineraryFormValues = {
   openingsDate: string
@@ -47,9 +44,10 @@ const Generate: FC = () => {
   }
 
   const dayPartOptions = getDayPartOptions(data.settings)
+  const fields = generateItineraryFormDefinition(users!, dayPartOptions)
 
   return (
-    <Form
+    <ScaffoldForm
       keepDirtyOnReinitialize={true}
       onSubmit={handleSubmit}
       initialValues={{
@@ -60,59 +58,9 @@ const Generate: FC = () => {
         dayPart: dayPartOptions[0],
         users: [loggedInUser!]
       }}
-      render={({ handleSubmit, values, hasValidationErrors, submitting, pristine }) => (
-        <form onSubmit={handleSubmit}>
-          <Box pb={4} pt={4}>
-            <Heading>Genereer je looplijst</Heading>
-          </Box>
-          <LabelDiv>Wie zitten er vandaag in je team?</LabelDiv>
-          <ComplexSelectField
-            label='Toezichthouder 1'
-            name='users[0]'
-            optionLabelField='full_name'
-            withEmptyOption={true}
-            options={_difference(users!, _difference(values.users, [values.users?.[0]]))}
-            validate={isRequired()}
-          />
-          <ComplexSelectField
-            label='Toezichthouder 2'
-            name='users[1]'
-            optionLabelField='full_name'
-            withEmptyOption={true}
-            options={_difference(users!, _difference(values.users, [values.users?.[1]]))}
-            validate={isRequired()}
-          />
-          <ComplexSelectField
-              label='Handhaver'
-              name='users[2]'
-              optionLabelField='full_name'
-              withEmptyOption={true}
-              options={_difference(users!, _difference(values.users, [values.users?.[2]]))}
-              validate={isRequired()}
-          />
-          <ComplexRadioFields
-            label='Wat voor looplijst wil je maken?'
-            name='dayPart'
-            optionLabelField='label'
-            options={dayPartOptions}
-          />
-          <NumberField
-            label='Hoeveel adressen wil je in je looplijst? (Max. 20)'
-            min={1}
-            max={20}
-            step={1}
-            name='numAddresses'
-            validate={isRequired()}
-          />
-          <StartAddressField name='startAddress' />
-          <Box hAlign='flex-end'>
-            <Button type="submit" variant="secondary" disabled={pristine || submitting || hasValidationErrors || data === undefined}>
-              Genereer looplijst
-            </Button>
-          </Box>
-        </form>
-      )}
-    />
+    >
+      <Scaffold fields={fields} />
+    </ScaffoldForm>
   )
 }
 

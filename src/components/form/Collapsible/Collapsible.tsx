@@ -4,7 +4,6 @@ import { Accordion, AccordionWrapper, themeSpacing } from "@datapunt/asc-ui"
 import { ComposedField, Scaffold, ScaffoldFields } from "amsterdam-react-final-form"
 
 export type CollapsibleProps = React.ComponentProps<typeof ComposedField> & {
-  name: string
   isOpen?: boolean
   fields: ScaffoldFields
 }
@@ -16,7 +15,7 @@ const Wrap = styled.div`
 /**
  * Renders a group of fields wrapped within a collapsible accordion
  */
-const Collapsible: React.FC<CollapsibleProps> = ({ name, position, align, isOpen, label, fields }) => (
+const Collapsible: React.FC<CollapsibleProps> = ({ position, align, isOpen, label, fields }) => (
   <ComposedField position={position} align={align}>
     <Wrap>
       <AccordionWrapper>
