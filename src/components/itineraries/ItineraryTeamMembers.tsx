@@ -1,14 +1,10 @@
-import React, { FC, FormEvent } from "react"
-import { Button } from "@datapunt/asc-ui"
-import ErrorMessage from "../global/ErrorMessage"
+import React, { FC, useCallback } from "react"
 import useGlobalState from "../../hooks/useGlobalState"
 import useGlobalActions from "../../hooks/useGlobalActions"
 import styled from "styled-components"
 import TeamMembersDisplay from "./TeamMembersDisplay"
-import { Form } from "react-final-form"
-import TeamMemberFields from "./TeamMemberFields"
-import { filterNullish } from "../../lib/utils/filterNullish"
-import { findByProperty } from "../../lib/utils/findByProperty"
+import TeamMemberForm from "./form/teamMembers/TeamMemberForm"
+import { useLoggedInUser } from "../../state/useLoggedInUser"
 
 type Props = {
   itineraryId: Id
@@ -22,23 +18,12 @@ const Div = styled.div`
   border-bottom: 1px solid #B4B4B4;
   margin-bottom: 12px;
 `
-const ButtonWrap = styled.div`
-  display: flex;
-  justify-content: flex-end;
-`
-const StyledButton = styled(Button)`
-  margin: 12px;
-`
-
 type FormValues = {
-  users: Array<undefined | null | string>
+  users: User[]
 }
 
 const ItineraryTeamMembers: FC<Props> = ({ itineraryId, teamMembers, isEditing = false, unsetIsEditing }) => {
   const {
-    auth: {
-      user: authUser
-    },
     users: {
       results: users
     }
@@ -50,53 +35,26 @@ const ItineraryTeamMembers: FC<Props> = ({ itineraryId, teamMembers, isEditing =
     }
   } = useGlobalActions()
 
-  const initialUsers = teamMembers.map(member => member.user.id)
-  const loggedInUser = findByProperty(users, "email", authUser?.email)
+  const loggedInUser = useLoggedInUser()
 
-  const onClickClose = (event: FormEvent) => {
-    event.preventDefault()
-    unsetIsEditing()
-  }
+  const handleSubmit = useCallback(async ({ users }: FormValues) => {
+    const ids = users.map(_ => _.id)
+    const removeItinerary = !ids.includes(loggedInUser!.id)
 
-  const onSubmit = async (formValues: FormValues) => {
-    const removeItinerary = !formValues.users.includes(loggedInUser?.id)
-
-    await updateTeam(
-      itineraryId,
-      filterNullish(formValues.users),
-      removeItinerary
-    )
+    await updateTeam(itineraryId, ids, removeItinerary)
 
     if (!removeItinerary) {
       unsetIsEditing()
     }
-  }
+  }, [ loggedInUser, itineraryId, unsetIsEditing, updateTeam ])
+
+  const initialValues = teamMembers.map(member => member.user)
 
   return (
     <Div>
       { !isEditing
           ? (<TeamMembersDisplay teamMembers={ teamMembers } />)
-          : (<Form
-          keepDirtyOnReinitialize={true}
-          onSubmit={onSubmit}
-          initialValues={{ users: initialUsers }}
-          render={({ handleSubmit, values }) => {
-            // TODO use form-validation for this.
-            const isSubmitDisabled = filterNullish(values.users).length < 3
-            const authUserIsSelected = values.users.includes(loggedInUser?.id || "")
-
-            return (<form onSubmit={handleSubmit}>
-              <TeamMemberFields users={users ?? []} alreadySelectedUserIds={values.users}/>
-              { !authUserIsSelected &&
-                <ErrorMessage text="Let op! Je bent zelf niet meer als teamlid geselecteerd. Wanneer je op ‘Bewaren’ klikt vervalt je toegang tot deze lijst" />
-              }
-              <ButtonWrap>
-                <StyledButton variant="textButton" onClick={ onClickClose }>Annuleren</StyledButton>
-                <Button variant="secondary" disabled={isSubmitDisabled}>Bewaren</Button>
-              </ButtonWrap>
-            </form>)
-          }}
-        />)
+          : (<TeamMemberForm onSubmit={handleSubmit} onReset={unsetIsEditing} users={users!} initialUsers={initialValues} />)
       }
     </Div>
   )

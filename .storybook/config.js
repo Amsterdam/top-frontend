@@ -1,7 +1,16 @@
 import React from 'react'
+import styled from 'styled-components'
+import { LocationProvider } from "@reach/router"
 import { addDecorator, configure } from '@storybook/react'
-import { GlobalStyle, ThemeProvider } from '@datapunt/asc-ui'
+import { GlobalStyle, ThemeProvider, themeSpacing } from '@datapunt/asc-ui'
 import { addParameters } from '@storybook/react';
+
+import StateProvider from "../src/components/providers/StateProvider/StateProvider"
+
+const Wrap = styled.div`
+  padding: ${ themeSpacing(5) };
+`
+
 
 // automatically import all files ending in *.stories.js
 const req = require.context('../src', true, /\.stories\.(tsx)$/)
@@ -13,12 +22,23 @@ const extendedTheme = {
 
 function withGlobalStyles(storyFn) {
   return (
-    <ThemeProvider overrides={extendedTheme}>
-      <>
-        <GlobalStyle />
-        {storyFn()}
-      </>
-    </ThemeProvider>
+    <StateProvider>
+      <ThemeProvider overrides={extendedTheme}>
+        <LocationProvider>
+          <>
+            <GlobalStyle />
+            <Wrap>
+              {storyFn()}
+            </Wrap>
+            {/*
+              Modals are teleported to this div using React' portals
+              @see https://reactjs.org/docs/portals.html
+            */}
+            <div id='modal-root' />
+          </>
+        </LocationProvider>
+      </ThemeProvider>
+    </StateProvider>
   )
 }
 

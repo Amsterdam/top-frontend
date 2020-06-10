@@ -11,7 +11,6 @@ const fields: Fields = {
   collapsible: {
     type: "Collapsible",
     props: {
-      name: "days.monday.day",
       label: "Maandag dag",
       isOpen: true,
       fields: {
