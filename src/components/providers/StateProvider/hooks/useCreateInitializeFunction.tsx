@@ -14,7 +14,6 @@ const useCreateInitializeFunction = (
 ): StateContextInitializer => {
   const token = authToken.get()
   const initialize = async () => {
-    if (token === undefined) return
     const isAuthenticated = await authInitializer()
     if (!isAuthenticated) return clear()
 
@@ -23,6 +22,7 @@ const useCreateInitializeFunction = (
     const isAnonymous = anonymous === "1"
     setIsAnonymous(isAnonymous)
 
+    if (token === undefined) return
     initializables.forEach(initialize => initialize())
   }
   return useCallback(initialize, [token])
