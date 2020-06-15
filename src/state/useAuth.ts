@@ -13,6 +13,7 @@ import { getIsAuthenticatedUrl } from "../config/api"
 import { isLoginCallbackPage } from "../config/page"
 import { navigateToHome, navigateToLogin } from "../lib/navigateTo"
 import logoutGrip from "../lib/logoutGrip"
+import capture from "../sentry/capture"
 
 const useAuth = () => {
   // @TODO: Remove `as never`
@@ -24,8 +25,12 @@ const useAuth = () => {
     if (!hasToken) return false
     const url = getIsAuthenticatedUrl()
     // @TODO: Retry on failed GET?
-    const [, result] = await get(url) as [undefined, IsAuthenticatedResponse]
-    if (result === undefined) return false
+    const [response, result] = await get(url)
+    if (result === undefined) {
+      console.log(response)
+      if (response?.status === undefined) capture(`Failed to fetch: ${ url }`)
+      return false
+    }
     const { is_authenticated: isAuthenticated } = result
     return isAuthenticated
   }
