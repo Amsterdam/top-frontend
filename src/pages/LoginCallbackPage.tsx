@@ -8,6 +8,7 @@ import { getAuthOIDCUrl } from "../config/api"
 import parseLocationSearch from "../lib/utils/parseLocationSearch"
 import { post, notOk } from "../lib/utils/fetch"
 import styled from "styled-components"
+import capture from "../sentry/capture"
 
 const Div = styled.div`
   display: flex;
@@ -42,6 +43,7 @@ const LoginCallbackPage: FC<RouteComponentProps> = () => {
         `Er ging iets mis bij het inloggen. HTTP Status: ${ response.status || "Unknown" }` :
         errorMessage
       setErrorMessage(message)
+      if (response?.status === undefined) capture(`Failed to fetch: ${ url }`)
     } else {
       const { access, user: { email, first_name: firstName } } = result
       authenticate(access, { firstName, email })
