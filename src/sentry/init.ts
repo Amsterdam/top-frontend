@@ -1,15 +1,14 @@
 import * as Sentry from "@sentry/browser"
 import { dsn } from "../config/sentry"
-
-const environment = process.env.NODE_ENV
-const release = process.env.GIT_COMMIT
+import { isDevelopment, isAcc, isProduction } from "../config/environment"
 
 export default () => {
-  if (environment !== "development") {
+  if (isDevelopment === false) {
+    const environment = isProduction ? "production" : isAcc ? "acceptance" : undefined
+    // @TODO: Pass Git commit hash as third argument
     Sentry.init({
       dsn,
-      environment,
-      release
+      environment
     })
   }
 }
