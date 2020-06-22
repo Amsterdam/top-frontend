@@ -3,7 +3,7 @@ import styled from "styled-components"
 import { color } from "@datapunt/asc-ui"
 
 type Props = {
-  text: string
+  text?: string
   className?: ClassName
 }
 
@@ -17,7 +17,7 @@ const Span = styled.span`
 `
 
 const StadiumBadge: FC<Props> = ({ text, className }) => {
-  const trimmedText = text.trim()
+  const trimmedText = text?.trim() ?? ""
   const hasBody = trimmedText !== ""
   const isIssue = trimmedText === "Issuemelding"
   return hasBody ? <Span className={ className } isIssue={ isIssue }>{ trimmedText }</Span> : null
