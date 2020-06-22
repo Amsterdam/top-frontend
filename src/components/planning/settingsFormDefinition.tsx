@@ -100,7 +100,7 @@ export const createDefinition = (projects: Projects, stadia: Stadia) => {
     postal_code_end: {
       type: "NumberField",
       props: {
-        label: "Postcode van",
+        label: "Postcode tot",
         name: "postal_code.range_end",
         min: 1000,
         max: 1109,
