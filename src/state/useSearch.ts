@@ -28,7 +28,7 @@ const useSearch = () => {
   const search = useCallback(async (postalCode: PostalCode, streetNumber: StreetNumberString, suffix: StreetSuffix) => {
       dispatch(createStartFetching([postalCode, streetNumber, suffix]))
 
-      const params = { postalCode, streetNumber, suffix }
+      const params = { postalCode: postalCode.replace(/\s/g, ""), streetNumber, suffix }
       const url = getUrl("search", params)
       const [response, result] = await get(url)
 
