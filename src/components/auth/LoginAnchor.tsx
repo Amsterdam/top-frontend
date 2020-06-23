@@ -1,6 +1,8 @@
 import React, { FC, useMemo } from "react"
 import styled from "styled-components"
-import { getOIDCProviderUrl } from "../../config/api"
+import { isLocal } from "../../config/environment"
+import { getOIDCProviderUrl, authOIDDummyCode } from "../../config/api"
+import { to } from "../../config/page"
 
 // @TODO: Use ASC
 const A = styled.a`
@@ -25,6 +27,7 @@ const A = styled.a`
 
 const LoginAnchor: FC = () => {
   const gripUri = useMemo(getOIDCProviderUrl, [])
-  return <A href={ gripUri }>Log in met je ADW account</A>
+  const href = isLocal ? to(`authentication/callback?code=${ authOIDDummyCode }`) : gripUri
+  return <A href={ href }>Log in met je ADW account</A>
 }
 export default LoginAnchor
