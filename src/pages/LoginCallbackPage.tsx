@@ -40,7 +40,7 @@ const LoginCallbackPage: FC<RouteComponentProps> = () => {
 
     if (notOk(response)) {
       const message = response ?
-        `Er ging iets mis bij het inloggen. HTTP Status: ${ response.status || "Unknown" }` :
+        `Er ging iets mis bij het inloggen. HTTP Status: ${ response.status ?? "Unknown" }` :
         errorMessage
       setErrorMessage(message)
       if (response?.status === undefined) capture(`Failed to fetch: ${ url }`)
