@@ -77,6 +77,8 @@ const createDayPartDefinition = (label: string, day: Day, dayPart: DayPart, stad
  * Creates form definition for planningSettings
  */
 export const createDefinition = (projects: Projects, stadia: Stadia) => {
+  const postalCodeMin = 1000
+  const postalCodeMax = 1109
   const definition: FormPositionerFields<Field> = {
     opening_date: {
       type: "TextField",
@@ -92,8 +94,8 @@ export const createDefinition = (projects: Projects, stadia: Stadia) => {
       props: {
         label: "Postcode van",
         name: "postal_code.range_start",
-        min: 1000,
-        max: 1109,
+        min: postalCodeMin,
+        max: postalCodeMax,
         validate: isBelowOtherField("postal_code.range_end", "De waarde moet lager zijn dan \"Postcode tot\"")
       }
     },
@@ -102,8 +104,8 @@ export const createDefinition = (projects: Projects, stadia: Stadia) => {
       props: {
         label: "Postcode tot",
         name: "postal_code.range_end",
-        min: 1000,
-        max: 1109,
+        min: postalCodeMin,
+        max: postalCodeMax,
         validate: isAboveOtherField("postal_code.range_start", "De waarde moet hoger zijn dan \"Postcode van\"")
       }
     },
