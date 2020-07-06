@@ -9,7 +9,7 @@
     "@sentry/browser": "^5.18.1",
     "abortcontroller-polyfill": "^1.4.0",
     "amsterdam-react-final-form": "^0.1.72",
-    "amsterdam-scaffold-form": "^0.1.24",
+    "amsterdam-scaffold-form": "^0.1.26",
     "dompurify": "^2.0.12",
     "final-form": "^4.19.1",
     "final-form-arrays": "^3.0.2",
