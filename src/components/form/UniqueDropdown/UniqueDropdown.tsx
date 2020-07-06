@@ -31,7 +31,7 @@ const UniqueDropdown: React.FC<UniqueDropdownProps> = ({ options, ...restProps }
   const { input: { value: ownValue } } = useField(restProps.name)
 
   const otherFieldValues = _difference(allFieldValues || [], [ownValue])
-  const filteredOptions = options.filter(alreadySelected(otherFieldValues))
+  const filteredOptions = options?.filter(alreadySelected(otherFieldValues)) ?? []
 
   return (<ComplexSelectField {...restProps} options={filteredOptions} />)
 }
