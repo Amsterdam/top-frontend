@@ -60,7 +60,7 @@ const createDayPartDefinition = (label: string, day: Day, dayPart: DayPart, stad
   const fields = new FormPositioner(definition)
     .setVertical("mobileS")
     .getFields()
-  
+
 
   // Wrap in a Collapsible:
   return {
@@ -81,7 +81,7 @@ export const createDefinition = (projects: Projects, stadia: Stadia) => {
     opening_date: {
       type: "TextField",
       props: {
-        label: "Begindatum",
+        label: "Kies de begindatum van het meest recente stadium",
         name: "opening_date",
         type: "date",
         validate: isRequired()
@@ -117,7 +117,7 @@ export const createDefinition = (projects: Projects, stadia: Stadia) => {
         columnCount: { laptop: 3, laptopL: 5 }
       }
     },
-    
+
     monday_day: createDayPartDefinition("Maandag dag", "monday", "day", stadia, true),
     monday_evening: createDayPartDefinition("Maandag avond", "monday", "evening", stadia),
 
@@ -129,7 +129,7 @@ export const createDefinition = (projects: Projects, stadia: Stadia) => {
 
     thursday_day: createDayPartDefinition("Donderdag dag", "thursday", "day", stadia, true),
     thursday_evening: createDayPartDefinition("Donderdag avond", "thursday", "evening", stadia),
-    
+
     friday_day: createDayPartDefinition("Vrijdag dag", "friday", "day", stadia, true),
     friday_evening: createDayPartDefinition("Vrijdag avond", "friday", "evening", stadia),
 
@@ -167,4 +167,3 @@ export const createDefinition = (projects: Projects, stadia: Stadia) => {
     ])
     .getScaffoldProps()
 }
-
