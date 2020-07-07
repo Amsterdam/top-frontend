@@ -5,6 +5,7 @@
   "dependencies": {
     "@datapunt/asc-assets": "^0.20.0",
     "@datapunt/asc-ui": "^0.20.0",
+    "@dtsgenerator/replace-namespace": "^1.3.1",
     "@reach/router": "^1.3.4",
     "@sentry/browser": "^5.19.0",
     "abortcontroller-polyfill": "^1.4.0",
@@ -69,8 +70,9 @@
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9009 -s public",
     "storybook:build": "build-storybook -s public",
-    "swagger:generate-schema:acc": "dtsgen -o ./src/__generated__/apiSchema.d.ts -n API --url https://acc.api.top.amsterdam.nl/api/v1/schema/",
-    "swagger:generate-schema": "dtsgen -o ./src/__generated__/apiSchema.d.ts -n API --url https://api.top.amsterdam.nl/api/v1/schema/"
+    "swagger:generate-schema:local": "dtsgen -o ./src/__generated__/apiSchema.d.ts --config ./scripts/dtsgen.json --url http://localhost:8000/api/v1/schema/",
+    "swagger:generate-schema:acc": "dtsgen -o ./src/__generated__/apiSchema.d.ts --config ./scripts/dtsgen.json --url https://acc.api.top.amsterdam.nl/api/v1/schema/",
+    "swagger:generate-schema": "dtsgen -o ./src/__generated__/apiSchema.d.ts --config ./scripts/dtsgen.json --url https://api.top.amsterdam.nl/api/v1/schema/"
   },
   "eslintConfig": {
     "extends": "react-app"
