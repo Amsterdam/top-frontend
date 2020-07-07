@@ -75,8 +75,7 @@ const useItineraries = () => {
         start_case: {
           case_id: startAddress
         },
-        postal_code_range_start: postalCodeRange?.range_start,
-        postal_code_range_end: postalCodeRange?.range_end,
+        postal_code_settings: postalCodeRange,
         opening_date: openingsDate,
         target_length: numAddresses,
         projects: wrapInNameObjects(projects),

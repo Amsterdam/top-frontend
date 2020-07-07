@@ -42,7 +42,11 @@ const Settings: FC = () => {
 
   return <Wrap>
     <ScaffoldForm
-      onSubmit={ async (values: API.PlannerSettings) => update(values)}
+      onSubmit={ async (values: API.PlannerSettings) => {
+        // @TODO: Filtering should be handled by form definition
+        const filtered = { ...values, postal_codes: values.postal_codes?.filter(i => i != null) ?? []}
+        update(filtered)
+      } }
       initialValues={settings}
       >
       <Scaffold {...definition} />

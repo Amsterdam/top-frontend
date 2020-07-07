@@ -10,6 +10,9 @@ import { Day, DayPart } from "../../lib/utils/day"
 import { arrayToObject } from "../../lib/arrayToObject"
 import { FormPositioner, FormPositionerFields } from "amsterdam-scaffold-form/package"
 import { Field } from "../form/ScaffoldField"
+import postalCodeValidatorStart from "./validators/postalCodeValidatorStart"
+import postalCodeValidatorEnd from "./validators/postalCodeValidatorEnd"
+
 
 /**
  * Creates form-definition for collapsible day-part-groups.
@@ -77,6 +80,7 @@ const createDayPartDefinition = (label: string, day: Day, dayPart: DayPart, stad
  * Creates form definition for planningSettings
  */
 export const createDefinition = (projects: Projects, stadia: Stadia) => {
+  // @TODO: Move to config
   const postalCodeMin = 1000
   const postalCodeMax = 1109
   const definition: FormPositionerFields<Field> = {
@@ -89,24 +93,38 @@ export const createDefinition = (projects: Projects, stadia: Stadia) => {
         validate: isRequired()
       }
     },
-    postal_code_start: {
-      type: "NumberField",
+    postal_codes: {
+      type: "ArrayField",
       props: {
-        label: "Postcode van",
-        name: "postal_code.range_start",
-        min: postalCodeMin,
-        max: postalCodeMax,
-        validate: isBelowOtherField("postal_code.range_end", "De waarde moet lager zijn dan \"Postcode tot\"")
-      }
-    },
-    postal_code_end: {
-      type: "NumberField",
-      props: {
-        label: "Postcode tot",
-        name: "postal_code.range_end",
-        min: postalCodeMin,
-        max: postalCodeMax,
-        validate: isAboveOtherField("postal_code.range_start", "De waarde moet hoger zijn dan \"Postcode van\"")
+        name: "postal_codes",
+        allowAdd: true,
+        allowRemove: true,
+        columns: "1fr 1fr auto",
+        label: "Postcode ranges",
+        scaffoldFields: {
+          postal_code_range_start: {
+            type: "NumberField",
+            props: {
+              name: "range_start",
+              min: postalCodeMin,
+              max: postalCodeMax,
+              // @TODO: Position should not be necessary
+              position: { row: 0, column: 0 },
+              validate: postalCodeValidatorStart
+            }
+          },
+          postal_code_range_end: {
+            type: "NumberField",
+            props: {
+              name: "range_end",
+              min: postalCodeMin,
+              max: postalCodeMax,
+              // @TODO: Position should not be necessary
+              position: { row: 0, column: 1 },
+              validate: postalCodeValidatorEnd
+            }
+          }
+        }
       }
     },
     projects: {
@@ -147,7 +165,7 @@ export const createDefinition = (projects: Projects, stadia: Stadia) => {
     .setGrid("laptop", "1fr 1fr 1fr", [
       /* eslint-disable no-multi-spaces */
       [ "opening_date"                                                ],
-      [ "postal_code_start",  "postal_code_end"                       ],
+      [ "postal_codes",       "postal_codes"                          ],
       [ "projects",           "projects",         "projects"          ],
       [ "monday_day",         "tuesday_day",      "wednesday_day"     ],
       [ "thursday_day",       "friday_day"                            ],
@@ -160,7 +178,7 @@ export const createDefinition = (projects: Projects, stadia: Stadia) => {
     .setGrid("laptopL", "1fr 1fr 1fr 1fr 1fr", [
       /* eslint-disable no-multi-spaces */
       [ "opening_date"                                                                                        ],
-      [ "postal_code_start",  "postal_code_end"                                                               ],
+      [ "postal_codes",       "postal_codes"                                                                  ],
       [ "projects",           "projects",         "projects",           "projects",         "projects"        ],
       [ "monday_day",         "tuesday_day",      "wednesday_day",      "thursday_day",     "friday_day"      ],
       [ "saturday_day",       "sunday_day"                                                                    ],
