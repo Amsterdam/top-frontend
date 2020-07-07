@@ -1,5 +1,4 @@
 import {
-  isAboveOtherField,
   isBelowOtherField
 } from "amsterdam-react-final-form"
 

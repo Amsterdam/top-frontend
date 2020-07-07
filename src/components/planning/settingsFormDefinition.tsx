@@ -1,7 +1,5 @@
 import {
   combineValidators,
-  isAboveOtherField,
-  isBelowOtherField,
   isNotIntersectingWith,
   isRequired, ScaffoldAvailableFields
 } from "amsterdam-react-final-form"
