@@ -10,12 +10,12 @@ const options = {
   start: {
     replace: "end",
     message: "De waarde moet lager zijn dan \"Postcode tot\"",
-    validator: isAboveOtherField
+    validator: isBelowOtherField
   },
   end: {
     replace: "start",
     message: "De waarde moet hoger zijn dan \"Postcode van\"",
-    validator: isBelowOtherField
+    validator: isAboveOtherField
   }
 }
 
