@@ -95,7 +95,11 @@ export const createDefinition = (projects: Projects, stadia: Stadia) => {
         name: "postal_codes",
         allowAdd: true,
         allowRemove: true,
-        columns: "1fr 1fr auto",
+        minItems: 1,
+        columns: {
+          "mobileS": "1fr 1fr auto",
+          "laptop": "1fr 1fr 1fr"
+        },
         label: "Postcode gebieden",
         scaffoldFields: {
           postal_code_range_start: {
@@ -159,7 +163,7 @@ export const createDefinition = (projects: Projects, stadia: Stadia) => {
     .setGrid("laptop", "1fr 1fr 1fr", [
       /* eslint-disable no-multi-spaces */
       [ "opening_date"                                                ],
-      [ "postal_codes",       "postal_codes"                          ],
+      [ "postal_codes",       "postal_codes",     "postal_codes"      ],
       [ "projects",           "projects",         "projects"          ],
       [ "monday_day",         "tuesday_day",      "wednesday_day"     ],
       [ "thursday_day",       "friday_day"                            ],
@@ -172,7 +176,7 @@ export const createDefinition = (projects: Projects, stadia: Stadia) => {
     .setGrid("laptopL", "1fr 1fr 1fr 1fr 1fr", [
       /* eslint-disable no-multi-spaces */
       [ "opening_date"                                                                                        ],
-      [ "postal_codes",       "postal_codes"                                                                  ],
+      [ "postal_codes",       "postal_codes",     "postal_codes"                                              ],
       [ "projects",           "projects",         "projects",           "projects",         "projects"        ],
       [ "monday_day",         "tuesday_day",      "wednesday_day",      "thursday_day",     "friday_day"      ],
       [ "saturday_day",       "sunday_day"                                                                    ],
