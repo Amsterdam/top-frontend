@@ -8,9 +8,7 @@ import { Day, DayPart } from "../../lib/utils/day"
 import { arrayToObject } from "../../lib/arrayToObject"
 import { FormPositioner, FormPositionerFields } from "amsterdam-scaffold-form/package"
 import { Field } from "../form/ScaffoldField"
-import postalCodeValidatorStart from "./validators/postalCodeValidatorStart"
-import postalCodeValidatorEnd from "./validators/postalCodeValidatorEnd"
-
+import postalCodeSiblingValidator from "./validators/postalCodeSiblingValidator"
 
 /**
  * Creates form-definition for collapsible day-part-groups.
@@ -108,7 +106,7 @@ export const createDefinition = (projects: Projects, stadia: Stadia) => {
               max: postalCodeMax,
               // @TODO: Position should not be necessary
               position: { row: 0, column: 0 },
-              validate: postalCodeValidatorStart
+              validate: postalCodeSiblingValidator("start")
             }
           },
           postal_code_range_end: {
@@ -119,7 +117,7 @@ export const createDefinition = (projects: Projects, stadia: Stadia) => {
               max: postalCodeMax,
               // @TODO: Position should not be necessary
               position: { row: 0, column: 1 },
-              validate: postalCodeValidatorEnd
+              validate: postalCodeSiblingValidator("end")
             }
           }
         }
