@@ -96,16 +96,15 @@ export const createDefinition = (projects: Projects, stadia: Stadia) => {
         allowAdd: true,
         allowRemove: true,
         columns: "1fr 1fr auto",
-        label: "Postcode ranges",
+        label: "Postcode gebieden",
         scaffoldFields: {
           postal_code_range_start: {
             type: "NumberField",
             props: {
               name: "range_start",
+              label: "Van",
               min: postalCodeMin,
               max: postalCodeMax,
-              // @TODO: Position should not be necessary
-              position: { row: 0, column: 0 },
               validate: postalCodeSiblingValidator("start")
             }
           },
@@ -113,10 +112,9 @@ export const createDefinition = (projects: Projects, stadia: Stadia) => {
             type: "NumberField",
             props: {
               name: "range_end",
+              label: "Tot",
               min: postalCodeMin,
               max: postalCodeMax,
-              // @TODO: Position should not be necessary
-              position: { row: 0, column: 1 },
               validate: postalCodeSiblingValidator("end")
             }
           }
