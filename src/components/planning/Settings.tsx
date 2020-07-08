@@ -14,6 +14,8 @@ const Wrap = styled.div`
   margin: 0 8px 100px 8px
 `
 
+const filterEmptyPostalCodes = (settings: API.PlannerSettings) => ({ ...settings, postal_codes: settings.postal_codes?.filter(i => i != null) ?? []})
+
 const Settings: FC = () => {
   const {
     projects: {
@@ -44,8 +46,7 @@ const Settings: FC = () => {
     <ScaffoldForm
       onSubmit={ async (values: API.PlannerSettings) => {
         // @TODO: Filtering should be handled by form definition
-        const filtered = { ...values, postal_codes: values.postal_codes?.filter(i => i != null) ?? []}
-        update(filtered)
+        update(filterEmptyPostalCodes(values))
       } }
       initialValues={settings}
       >
