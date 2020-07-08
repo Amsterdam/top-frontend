@@ -10,7 +10,7 @@ import Scaffold from "../../form/Scaffold"
 export type GenerateItineraryFormValues = {
   projects: Projects
   openingsDate: string
-  postalCodeRange: API.PlannerPostalCodeSettings
+  postalCodeRange: API.PlannerPostalCodeSettings[]
   numAddresses: number
   dayPart: { label: string, settingsList?: API.PlannerListSettings }
   users: User[]
@@ -53,7 +53,7 @@ const Generate: FC = () => {
       initialValues={{
         openingsDate: data?.opening_date,
         projects: data?.projects,
-        postalCodeRange: data?.postal_code,
+        postalCodeRange: data?.postal_codes,
         numAddresses: 8,
         dayPart: dayPartOptions[0],
         users: [loggedInUser!]

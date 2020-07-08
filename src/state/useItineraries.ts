@@ -71,12 +71,11 @@ const useItineraries = () => {
     const body = {
       created_at: currentDate(),
       team_members: users.map(({ id }) => ({ user: { id } })),
+      postal_code_settings: postalCodeRange,
       settings: {
         start_case: {
           case_id: startAddress
         },
-        postal_code_range_start: postalCodeRange?.range_start,
-        postal_code_range_end: postalCodeRange?.range_end,
         opening_date: openingsDate,
         target_length: numAddresses,
         projects: wrapInNameObjects(projects),

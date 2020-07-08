@@ -1,7 +1,5 @@
 import {
   combineValidators,
-  isAboveOtherField,
-  isBelowOtherField,
   isNotIntersectingWith,
   isRequired, ScaffoldAvailableFields
 } from "amsterdam-react-final-form"
@@ -10,6 +8,7 @@ import { Day, DayPart } from "../../lib/utils/day"
 import { arrayToObject } from "../../lib/arrayToObject"
 import { FormPositioner, FormPositionerFields } from "amsterdam-scaffold-form/package"
 import { Field } from "../form/ScaffoldField"
+import postalCodeSiblingValidator from "./validators/postalCodeSiblingValidator"
 
 /**
  * Creates form-definition for collapsible day-part-groups.
@@ -60,7 +59,7 @@ const createDayPartDefinition = (label: string, day: Day, dayPart: DayPart, stad
   const fields = new FormPositioner(definition)
     .setVertical("mobileS")
     .getFields()
-  
+
 
   // Wrap in a Collapsible:
   return {
@@ -77,34 +76,53 @@ const createDayPartDefinition = (label: string, day: Day, dayPart: DayPart, stad
  * Creates form definition for planningSettings
  */
 export const createDefinition = (projects: Projects, stadia: Stadia) => {
+  // @TODO: Move to config
+  const postalCodeMin = 1000
+  const postalCodeMax = 1109
   const definition: FormPositionerFields<Field> = {
     opening_date: {
       type: "TextField",
       props: {
-        label: "Begindatum",
+        label: "Kies de begindatum van het meest recente stadium",
         name: "opening_date",
         type: "date",
         validate: isRequired()
       }
     },
-    postal_code_start: {
-      type: "NumberField",
+    postal_codes: {
+      type: "ArrayField",
       props: {
-        label: "Postcode van",
-        name: "postal_code.range_start",
-        min: 1000,
-        max: 1109,
-        validate: isBelowOtherField("postal_code.range_end", "De waarde moet lager zijn dan \"Postcode tot\"")
-      }
-    },
-    postal_code_end: {
-      type: "NumberField",
-      props: {
-        label: "Postcode tot",
-        name: "postal_code.range_end",
-        min: 1000,
-        max: 1109,
-        validate: isAboveOtherField("postal_code.range_start", "De waarde moet hoger zijn dan \"Postcode van\"")
+        name: "postal_codes",
+        allowAdd: true,
+        allowRemove: true,
+        minItems: 1,
+        columns: {
+          "mobileS": "1fr 1fr auto",
+          "laptop": "1fr 1fr 1fr"
+        },
+        label: "Postcode gebieden",
+        scaffoldFields: {
+          postal_code_range_start: {
+            type: "NumberField",
+            props: {
+              name: "range_start",
+              label: "Van",
+              min: postalCodeMin,
+              max: postalCodeMax,
+              validate: postalCodeSiblingValidator("start")
+            }
+          },
+          postal_code_range_end: {
+            type: "NumberField",
+            props: {
+              name: "range_end",
+              label: "Tot",
+              min: postalCodeMin,
+              max: postalCodeMax,
+              validate: postalCodeSiblingValidator("end")
+            }
+          }
+        }
       }
     },
     projects: {
@@ -117,7 +135,7 @@ export const createDefinition = (projects: Projects, stadia: Stadia) => {
         columnCount: { laptop: 3, laptopL: 5 }
       }
     },
-    
+
     monday_day: createDayPartDefinition("Maandag dag", "monday", "day", stadia, true),
     monday_evening: createDayPartDefinition("Maandag avond", "monday", "evening", stadia),
 
@@ -129,7 +147,7 @@ export const createDefinition = (projects: Projects, stadia: Stadia) => {
 
     thursday_day: createDayPartDefinition("Donderdag dag", "thursday", "day", stadia, true),
     thursday_evening: createDayPartDefinition("Donderdag avond", "thursday", "evening", stadia),
-    
+
     friday_day: createDayPartDefinition("Vrijdag dag", "friday", "day", stadia, true),
     friday_evening: createDayPartDefinition("Vrijdag avond", "friday", "evening", stadia),
 
@@ -145,7 +163,7 @@ export const createDefinition = (projects: Projects, stadia: Stadia) => {
     .setGrid("laptop", "1fr 1fr 1fr", [
       /* eslint-disable no-multi-spaces */
       [ "opening_date"                                                ],
-      [ "postal_code_start",  "postal_code_end"                       ],
+      [ "postal_codes",       "postal_codes",     "postal_codes"      ],
       [ "projects",           "projects",         "projects"          ],
       [ "monday_day",         "tuesday_day",      "wednesday_day"     ],
       [ "thursday_day",       "friday_day"                            ],
@@ -158,7 +176,7 @@ export const createDefinition = (projects: Projects, stadia: Stadia) => {
     .setGrid("laptopL", "1fr 1fr 1fr 1fr 1fr", [
       /* eslint-disable no-multi-spaces */
       [ "opening_date"                                                                                        ],
-      [ "postal_code_start",  "postal_code_end"                                                               ],
+      [ "postal_codes",       "postal_codes",     "postal_codes"                                              ],
       [ "projects",           "projects",         "projects",           "projects",         "projects"        ],
       [ "monday_day",         "tuesday_day",      "wednesday_day",      "thursday_day",     "friday_day"      ],
       [ "saturday_day",       "sunday_day"                                                                    ],
@@ -167,4 +185,3 @@ export const createDefinition = (projects: Projects, stadia: Stadia) => {
     ])
     .getScaffoldProps()
 }
-
