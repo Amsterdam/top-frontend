@@ -67,12 +67,13 @@
     "lint": "eslint --cache --ext .ts,.tsx src",
     "lint:fix": "npm run lint -- --fix",
     "lint:quiet": "npm run lint -- --quiet",
-    "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9009 -s public",
     "storybook:build": "build-storybook -s public",
     "swagger:generate-schema:local": "dtsgen -o ./src/__generated__/apiSchema.d.ts --config ./scripts/dtsgen.json --url http://localhost:8000/api/v1/schema/",
     "swagger:generate-schema:acc": "dtsgen -o ./src/__generated__/apiSchema.d.ts --config ./scripts/dtsgen.json --url https://acc.api.top.amsterdam.nl/api/v1/schema/",
-    "swagger:generate-schema": "dtsgen -o ./src/__generated__/apiSchema.d.ts --config ./scripts/dtsgen.json --url https://api.top.amsterdam.nl/api/v1/schema/"
+    "swagger:generate-schema": "dtsgen -o ./src/__generated__/apiSchema.d.ts --config ./scripts/dtsgen.json --url https://api.top.amsterdam.nl/api/v1/schema/",
+    "deploy:acc": "git push origin master",
+    "deploy:prod": "npm version patch && git push origin HEAD --follow-tags"
   },
   "eslintConfig": {
     "extends": "react-app"
