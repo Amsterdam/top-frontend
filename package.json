@@ -51,7 +51,7 @@
     "@types/react-dom": "^16.9.8",
     "@types/smoothscroll-polyfill": "^0.3.1",
     "@types/styled-components": "^5.1.1",
-    "dtsgenerator": "^3.1.1",
+    "dtsgenerator": "^3.2.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
     "husky": "^4.2.5",
