@@ -1,19 +1,30 @@
-import { Fields } from "../../form/Scaffold"
+import React from "react"
 import { FormPositioner } from "amsterdam-scaffold-form/package"
 
-export const stepOne = () => {
+import { Fields } from "../../../form/Scaffold"
+
+export type FormValues = {
+  situation?: string
+}
+export type Step = "stepOne" | "notableThings" | "suggestion" | "nextVisit" | "accessGranted"
+
+type HandleBack = (e: React.MouseEvent) => void
+
+export const stepOne = (handleBack: HandleBack) => {
   const fields: Fields = {
     time: {
       type: "TextField",
       props: {
         name: "time",
         label: "Starttijd onderzoek",
-        type: "time"
+        type: "time",
+        isRequired: true
       }
     },
     situation: {
       type: "RadioFields",
       props: {
+        isRequired: true,
         name: "situation",
         label: "Welke situatie is van toepassing?",
         options: {
@@ -37,11 +48,12 @@ export const stepOne = () => {
     .getScaffoldProps()
 }
 
-export const notableThings = (situation: string) => {
+export const notableThings = (handleBack: HandleBack, situation: string) => {
   const fields: Fields = ({
     notableThings: {
       type: "CheckboxFields",
       props: {
+        isRequired: true,
         name: "notableThings",
         label: "Opvallende zaken",
         hint: `${ situation }. Zijn er zaken die verder opvielen?`,
@@ -54,6 +66,14 @@ export const notableThings = (situation: string) => {
         }
       }
     },
+    back: {
+      type: "Button",
+      props: {
+        variant: "tertiary",
+        onClick: handleBack,
+        label: "Vorige"
+      }
+    },
     submit: {
       type: "SubmitButton",
       props: {
@@ -64,15 +84,19 @@ export const notableThings = (situation: string) => {
   })
 
   return new FormPositioner(fields)
-    .setVertical("mobileS")
+    .setGrid("mobileS", "1fr 1fr", [
+      ["notableThings", "notableThings"],
+      ["back", "submit"]
+    ])
     .getScaffoldProps()
 }
 
-export const suggestion = (situation: string) => {
+export const suggestion = (handleBack: HandleBack, situation: string) => {
   const fields: Fields = ({
     suggestion: {
       type: "RadioFields",
       props: {
+        isRequired: true,
         name: "suggestion",
         label: "Suggestie nieuw bezoek",
         hint: `${ situation }. Heb je een suggestie wanneer dit adres het beste opnieuw bezocht kan worden?`,
@@ -94,6 +118,14 @@ export const suggestion = (situation: string) => {
         name: "explanation"
       }
     },
+    back: {
+      type: "Button",
+      props: {
+        variant: "tertiary",
+        onClick: handleBack,
+        label: "Vorige"
+      }
+    },
     submit: {
       type: "SubmitButton",
       props: {
@@ -104,12 +136,16 @@ export const suggestion = (situation: string) => {
   })
 
   return new FormPositioner(fields)
-    .setVertical("mobileS")
+    .setGrid("mobileS", "1fr 1fr", [
+      ["suggestion", "suggestion"],
+      ["explanation", "explanation"],
+      ["back", "submit"]
+    ])
     .getScaffoldProps()
 }
 
 
-export const nextVisit = () => {
+export const nextVisit = (handleBack: HandleBack) => {
   const fields: Fields = {
     nextVisit: {
       type: "RadioFields",
@@ -150,6 +186,14 @@ export const nextVisit = () => {
         }
       }
     },
+    back: {
+      type: "Button",
+      props: {
+        variant: "tertiary",
+        onClick: handleBack,
+        label: "Vorige"
+      }
+    },
     submit: {
       type: "ShowHide",
       props: {
@@ -166,11 +210,16 @@ export const nextVisit = () => {
   }
 
   return new FormPositioner(fields)
-    .setVertical("mobileS")
+    .setGrid("mobileS", "1fr 1fr", [
+      ["nextVisit", "nextVisit"],
+      ["choiceNo", "choiceNo"],
+      ["choiceYes", "choiceYes"],
+      ["back", "submit"]
+    ])
     .getScaffoldProps()
 }
 
-export const accessGranted = () => {
+export const accessGranted = (handleBack: HandleBack) => {
   const fields: Fields = {
     notes: {
       type: "TextAreaField",
@@ -189,11 +238,30 @@ export const accessGranted = () => {
           no: "No"
         }
       }
+    },
+    back: {
+      type: "Button",
+      props: {
+        variant: "tertiary",
+        onClick: handleBack,
+        label: "Vorige"
+      }
+    },
+    submit: {
+      type: "SubmitButton",
+      props: {
+        align: "right",
+        label: "Opslaan"
+      }
     }
   }
 
   return new FormPositioner(fields)
-    .setVertical("mobileS")
+    .setGrid("mobileS", "1fr 1fr", [
+      ["notes", "notes"],
+      ["fraud", "fraud"],
+      ["back", "submit"]
+    ])
     .getScaffoldProps()
 }
 
