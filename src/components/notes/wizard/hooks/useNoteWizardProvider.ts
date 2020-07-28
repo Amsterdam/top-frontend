@@ -35,8 +35,6 @@ const reducer = produce((draft: State, action: Action) => {
 export const useNoteWizardProvider = () => {
   const [state, dispatch] = useReducer(reducer, {} as State)
 
-  console.log(state)
-
   const setValues = useCallback((caseId: CaseId, formValues: FormValues) =>
       dispatch({ type: "SET_VALUES", caseId, formValues }),
     [ dispatch ]

@@ -8,9 +8,9 @@ export type FormValues = {
 }
 export type Step = "stepOne" | "notableThings" | "suggestion" | "nextVisit" | "accessGranted"
 
-type HandleBack = (e: React.MouseEvent) => void
+export type OnBackButtonClick = (e: React.MouseEvent) => void
 
-export const stepOne = (handleBack: HandleBack) => {
+export const stepOne = () => {
   const fields: Fields = {
     time: {
       type: "TextField",
@@ -48,12 +48,11 @@ export const stepOne = (handleBack: HandleBack) => {
     .getScaffoldProps()
 }
 
-export const notableThings = (handleBack: HandleBack, situation: string) => {
+export const notableThings = (handleBack: OnBackButtonClick, situation: string) => {
   const fields: Fields = ({
     notableThings: {
       type: "CheckboxFields",
       props: {
-        isRequired: true,
         name: "notableThings",
         label: "Opvallende zaken",
         hint: `${ situation }. Zijn er zaken die verder opvielen?`,
@@ -91,7 +90,7 @@ export const notableThings = (handleBack: HandleBack, situation: string) => {
     .getScaffoldProps()
 }
 
-export const suggestion = (handleBack: HandleBack, situation: string) => {
+export const suggestion = (handleBack: OnBackButtonClick, situation: string) => {
   const fields: Fields = ({
     suggestion: {
       type: "RadioFields",
@@ -100,8 +99,6 @@ export const suggestion = (handleBack: HandleBack, situation: string) => {
         name: "suggestion",
         label: "Suggestie nieuw bezoek",
         hint: `${ situation }. Heb je een suggestie wanneer dit adres het beste opnieuw bezocht kan worden?`,
-        // TODO columnCount for radioFields
-        // columnCount: 2,
         options: {
           weekend: "Weekend",
           daytime: "Overdag",
@@ -145,11 +142,12 @@ export const suggestion = (handleBack: HandleBack, situation: string) => {
 }
 
 
-export const nextVisit = (handleBack: HandleBack) => {
+export const nextVisit = (handleBack: OnBackButtonClick) => {
   const fields: Fields = {
     nextVisit: {
       type: "RadioFields",
       props: {
+        isRequired: true,
         name: "nextVisit",
         label: "Kan het volgende onderzoek gewoon plaatsvinden?",
         options: {
@@ -195,16 +193,10 @@ export const nextVisit = (handleBack: HandleBack) => {
       }
     },
     submit: {
-      type: "ShowHide",
+      type: "SubmitButton",
       props: {
-        shouldShow: ({ values: { nextVisit } }) => nextVisit !== undefined,
-        field: {
-          type: "SubmitButton",
-          props: {
-            label: "Bewaar",
-            align: "right"
-          }
-        }
+        label: "Bewaar",
+        align: "right"
       }
     }
   }
@@ -219,7 +211,7 @@ export const nextVisit = (handleBack: HandleBack) => {
     .getScaffoldProps()
 }
 
-export const accessGranted = (handleBack: HandleBack) => {
+export const accessGranted = (handleBack: OnBackButtonClick) => {
   const fields: Fields = {
     notes: {
       type: "TextAreaField",
@@ -234,8 +226,8 @@ export const accessGranted = (handleBack: HandleBack) => {
         name: "fraud",
         label: "Heb je n.a.v. het bezoek het vermoeden van woonfraude?",
         options: {
-          yes: "Yes",
-          no: "No"
+          yes: "Ja",
+          no: "Nee"
         }
       }
     },

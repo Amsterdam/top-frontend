@@ -1,12 +1,15 @@
 import React, { useEffect } from "react"
 import { useFormState } from "react-final-form"
-import { useNoteWizard } from "./hooks/useNoteWizard"
-import useIsMounted from "../../../hooks/useIsMounted"
+import { useNoteWizard } from "../hooks/useNoteWizard"
+import useIsMounted from "../../../../hooks/useIsMounted"
 
 type Props = {
   caseID: CaseId
 }
 
+/**
+ * Saves form values to Context onUnmount
+ */
 const NoteWizardManager: React.FC<Props> = ({ caseID }) => {
   const { values } = useFormState()
   const { setValues } = useNoteWizard(caseID)

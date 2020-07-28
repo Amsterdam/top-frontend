@@ -1,30 +1,38 @@
 import React, { useCallback } from "react"
-import { DebugFormState, ScaffoldForm } from "amsterdam-react-final-form"
+import { ScaffoldForm } from "amsterdam-react-final-form"
 import { useParams } from "@reach/router"
 
-import Scaffold from "../../form/Scaffold"
-
-import * as formDefinitions from "./formDefinitions/noteWizardFormDefinitions"
 import { useNoteWizard } from "./hooks/useNoteWizard"
-import NoteWizardManager from "./NoteWizardManager"
+import NoteWizardManager from "./components/NoteWizardManager"
+import NoteWizardFormScaffoldFields from "./components/NoteWizardScaffoldFields"
+import NodeWizardSubtitle from "./components/NoteWizardSubtitle"
+
+const getCurrentTime = (): string => {
+  const date = new Date()
+  const hours = date.getHours() < 10 ? `0${ date.getHours() }` : date.getHours()
+  const minutes = date.getMinutes() < 10 ? `0${ date.getMinutes() }` : date.getMinutes()
+  return `${ hours }:${ minutes }`
+}
 
 const NoteWizard: React.FC = () => {
   const { itineraryItemId } = useParams()
-  const { pushStep, popStep, getCurrentStep, getValues } = useNoteWizard(itineraryItemId)
+  const { pushStep, popStep, getCurrentStep, getValues, setValues } = useNoteWizard(itineraryItemId)
 
   const step = getCurrentStep() ?? "stepOne"
-  const initialValues = getValues() ?? {}
+  const initialValues = getValues() ?? { time: getCurrentTime() }
 
-  const handleBack = useCallback((e: React.MouseEvent) => {
+  const handleBackButtonClick = useCallback((e: React.MouseEvent) => {
     e.preventDefault()
     popStep()
   }, [ popStep ])
 
-  const handleSubmit = useCallback(({ situation }) => {
+  const handleSubmit = useCallback((values) => {
+    setValues(values)
+
     switch(step) {
       case "stepOne":
         pushStep(
-          ["nobodyPresent", "noCooperation"].includes(situation)
+          ["nobodyPresent", "noCooperation"].includes(values.situation)
             ? "notableThings"
             : "accessGranted"
         )
@@ -36,24 +44,18 @@ const NoteWizard: React.FC = () => {
         pushStep("nextVisit")
         break
       case "nextVisit":
-        alert("DONE")
-        break
       case "accessGranted":
         alert("DONE")
-        break
+      break
     }
 
     return Promise.resolve(true)
-  }, [pushStep, step])
-
-  // @ts-ignore
-  const friendlySituation = "" === "nobodyPresent"
-    ? "Er was niemand aanwezig"
-    : "Er werd geen toegang verleend"
+  }, [pushStep, setValues, step])
 
   return (
-    <ScaffoldForm onSubmit={handleSubmit} initialValues={initialValues}>
-      <Scaffold {...formDefinitions[step](handleBack, friendlySituation)} />
+    <ScaffoldForm onSubmit={handleSubmit} initialValues={initialValues} keepDirtyOnReinitialize={true}>
+      <NodeWizardSubtitle caseID={ itineraryItemId } />
+      <NoteWizardFormScaffoldFields step={step} onBackButtonClicked={handleBackButtonClick} />
       <NoteWizardManager caseID={ itineraryItemId } />
     </ScaffoldForm>
   )
