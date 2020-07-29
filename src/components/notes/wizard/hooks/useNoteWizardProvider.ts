@@ -1,22 +1,22 @@
 import { useCallback, useReducer } from "react"
 import produce from "immer"
 
-import { FormValues, Step } from "../formDefinitions/noteWizardFormDefinitions"
+import { FormValues, WizardStep } from "../types"
 
 export type WizardState = {
-  steps: Step[]
+  steps: WizardStep[]
   formValues: FormValues
 }
 
 type State = Record<CaseId, WizardState>
 type Action =
   | { type: "POP_STEP", caseId: CaseId }
-  | { type: "PUSH_STEP", caseId: CaseId, step: Step }
+  | { type: "PUSH_STEP", caseId: CaseId, step: WizardStep }
   | { type: "SET_VALUES", caseId: CaseId, formValues: FormValues }
 
 const reducer = produce((draft: State, action: Action) => {
   if (draft[action.caseId] === undefined) {
-    draft[action.caseId] = { steps: [], formValues: {} }
+    draft[action.caseId] = { steps: [], formValues: { start_time: "" } }
   }
 
   switch(action.type) {
@@ -45,7 +45,7 @@ export const useNoteWizardProvider = () => {
     [ state ]
   )
 
-  const pushStep = useCallback((caseId: CaseId, step: Step) =>
+  const pushStep = useCallback((caseId: CaseId, step: WizardStep) =>
     dispatch({ type: "PUSH_STEP", caseId, step }),
     [ dispatch ]
   )
@@ -55,7 +55,7 @@ export const useNoteWizardProvider = () => {
     [ dispatch ]
   )
 
-  const getCurrentStep = useCallback((caseId: CaseId): Step|undefined =>
+  const getCurrentStep = useCallback((caseId: CaseId): WizardStep|undefined =>
     state[caseId]?.steps[ state[caseId].steps.length - 1 ],
     [ state ]
   )

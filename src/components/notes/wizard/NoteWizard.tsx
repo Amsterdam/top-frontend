@@ -6,20 +6,14 @@ import { useNoteWizard } from "./hooks/useNoteWizard"
 import NoteWizardManager from "./components/NoteWizardManager"
 import NoteWizardFormScaffoldFields from "./components/NoteWizardScaffoldFields"
 import NodeWizardSubtitle from "./components/NoteWizardSubtitle"
-
-const getCurrentTime = (): string => {
-  const date = new Date()
-  const hours = date.getHours() < 10 ? `0${ date.getHours() }` : date.getHours()
-  const minutes = date.getMinutes() < 10 ? `0${ date.getMinutes() }` : date.getMinutes()
-  return `${ hours }:${ minutes }`
-}
+import { getCurrentTime } from "./utils/getCurrentTime"
 
 const NoteWizard: React.FC = () => {
   const { itineraryItemId } = useParams()
   const { pushStep, popStep, getCurrentStep, getValues, setValues } = useNoteWizard(itineraryItemId)
 
-  const step = getCurrentStep() ?? "stepOne"
-  const initialValues = getValues() ?? { time: getCurrentTime() }
+  const wizardStep = getCurrentStep() ?? "stepOne"
+  const initialValues = getValues() ?? { start_time: getCurrentTime() }
 
   const handleBackButtonClick = useCallback((e: React.MouseEvent) => {
     e.preventDefault()
@@ -29,12 +23,12 @@ const NoteWizard: React.FC = () => {
   const handleSubmit = useCallback((values) => {
     setValues(values)
 
-    switch(step) {
+    switch(wizardStep) {
       case "stepOne":
         pushStep(
-          ["nobodyPresent", "noCooperation"].includes(values.situation)
-            ? "notableThings"
-            : "accessGranted"
+          values.situation === "accessGranted"
+            ? "accessGranted"
+            : "notableThings"
         )
         break
       case "notableThings":
@@ -50,12 +44,12 @@ const NoteWizard: React.FC = () => {
     }
 
     return Promise.resolve(true)
-  }, [pushStep, setValues, step])
+  }, [pushStep, setValues, wizardStep])
 
   return (
     <ScaffoldForm onSubmit={handleSubmit} initialValues={initialValues} keepDirtyOnReinitialize={true}>
       <NodeWizardSubtitle caseID={ itineraryItemId } />
-      <NoteWizardFormScaffoldFields step={step} onBackButtonClicked={handleBackButtonClick} />
+      <NoteWizardFormScaffoldFields step={wizardStep} onBackButtonClicked={handleBackButtonClick} />
       <NoteWizardManager caseID={ itineraryItemId } />
     </ScaffoldForm>
   )

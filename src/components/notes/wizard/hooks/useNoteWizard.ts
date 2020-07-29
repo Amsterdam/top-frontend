@@ -1,6 +1,6 @@
 import { useCallback, useContext } from "react"
 import { NoteWizardContext } from "../NoteWizardProvider"
-import { FormValues, Step } from "../formDefinitions/noteWizardFormDefinitions"
+import { FormValues, WizardStep } from "../types"
 
 export const useNoteWizard = (caseID: CaseId) => {
   const {
@@ -13,7 +13,7 @@ export const useNoteWizard = (caseID: CaseId) => {
 
   const getCurrentStep = useCallback(() => getCurrentStepFromContext(caseID), [ caseID, getCurrentStepFromContext ])
   const popStep = useCallback(() => popStepFromContext(caseID), [ caseID, popStepFromContext ])
-  const pushStep = useCallback((step: Step) => pushStepToContext(caseID, step), [ caseID, pushStepToContext ])
+  const pushStep = useCallback((step: WizardStep) => pushStepToContext(caseID, step), [ caseID, pushStepToContext ])
   const setValues = useCallback((values: FormValues) => setValuesInContext(caseID, values), [ caseID, setValuesInContext ])
   const getValues = useCallback(() => getValuesFromContext(caseID), [ caseID, getValuesFromContext ])
 

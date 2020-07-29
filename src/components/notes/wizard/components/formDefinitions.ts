@@ -1,21 +1,14 @@
-import React from "react"
 import { FormPositioner } from "amsterdam-scaffold-form/package"
 
 import { Fields } from "../../../form/Scaffold"
-
-export type FormValues = {
-  situation?: string
-}
-export type Step = "stepOne" | "notableThings" | "suggestion" | "nextVisit" | "accessGranted"
-
-export type OnBackButtonClick = (e: React.MouseEvent) => void
+import { OnBackButtonClick } from "../types"
 
 export const stepOne = () => {
   const fields: Fields = {
     time: {
       type: "TextField",
       props: {
-        name: "time",
+        name: "start_time",
         label: "Starttijd onderzoek",
         type: "time",
         isRequired: true
@@ -163,6 +156,7 @@ export const nextVisit = (handleBack: OnBackButtonClick) => {
         field: {
           type: "TextAreaField",
           props: {
+            isRequired: true,
             name: "choiceNo",
             label: "Volgende stap",
             hint: "Wat is er nog nodig voordat de volgende stap genomen kan worden?"

@@ -5,6 +5,7 @@ import { themeColor, themeSpacing } from "@datapunt/asc-ui"
 
 import useGlobalState from "../../../../hooks/useGlobalState"
 import displayAddress from "../../../../lib/displayAddress"
+import { FormValues } from "../types"
 
 type Props = {
   caseID: CaseId
@@ -32,7 +33,7 @@ const Time = styled.div`
 
 const NodeWizardSubtitle: React.FC<Props> = ({ caseID }) => {
   const { itineraries: { itineraries } } = useGlobalState()
-  const { values: { time } } = useFormState()
+  const { values: { start_time } } = useFormState<FormValues>()
 
   const item = itineraries
     .reduce((acc, item) => [...acc, ...item.items], [] as ItineraryItems)
@@ -48,7 +49,7 @@ const NodeWizardSubtitle: React.FC<Props> = ({ caseID }) => {
   return (
     <Wrap>
       <Title>{ address ?? "..." }</Title>
-      <Time>{ time }</Time>
+      <Time>{ start_time }</Time>
     </Wrap>)
 }
 
