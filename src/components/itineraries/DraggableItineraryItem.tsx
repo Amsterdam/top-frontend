@@ -6,9 +6,8 @@ import IconButton from "../global/IconButton"
 import ItineraryItem from "./ItineraryItem"
 import useGlobalActions from "../../hooks/useGlobalActions"
 import confirm from "../../lib/utils/confirm"
-import NoteIcon from "./NoteIcon"
-import SpinnerCheckbox from "./SpinnerCheckbox"
 import authUser from "../../lib/authUser"
+import { Button } from "@datapunt/asc-ui"
 
 type Props = {
   itineraryItem: ItineraryItem
@@ -32,10 +31,6 @@ const ButtonWrap = styled.div`
   button:first-child {
     margin-bottom: 15px;
   }
-`
-
-const CheckboxWrap = styled.div`
-  margin: 15px 15px 15px 0;
 `
 
 const DraggableItineraryItem: FC<Props> = ({ itineraryItem, index }) => {
@@ -70,8 +65,6 @@ const DraggableItineraryItem: FC<Props> = ({ itineraryItem, index }) => {
     }
   )
 
-  const onCheck = () => setChecked(id, !checked)
-
   // @TODO: Add type for draggableStyle
   const getItemStyle = (isDragging: boolean, draggableStyle: any) => ({
     userSelect: "none",
@@ -95,12 +88,9 @@ const DraggableItineraryItem: FC<Props> = ({ itineraryItem, index }) => {
           style={ getItemStyle(snapshot.isDragging, provided.draggableProps.style) }
         >
           <Inner>
-            <CheckboxWrap>
-              <SpinnerCheckbox checked={checked} onChange={onCheck}/>
-            </CheckboxWrap>
             <ItineraryItem caseItem={ caseItem } fraudPrediction={ fraudPrediction } notes={ notes } />
             <ButtonWrap>
-              <IconButton iconNode={ <NoteIcon /> } onClick={ () => navigateTo(notePath) } />
+              <Button variant="secondary" onClick={ () => navigateTo(notePath) }>Bezoek</Button>
               <IconButton icon="TrashBin" onClick={ onClick } />
             </ButtonWrap>
           </Inner>
