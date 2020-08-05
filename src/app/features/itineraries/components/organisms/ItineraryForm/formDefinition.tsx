@@ -2,7 +2,7 @@ import { isRequired } from "amsterdam-react-final-form"
 import { FormPositioner } from "amsterdam-scaffold-form/package"
 
 import { Fields } from "app/features/shared/components/form/Scaffold"
-import {getDayPartOptions} from "./getDayPartOptions";
+import { getDayPartOptions } from "./getDayPartOptions"
 
 export const generateItineraryFormDefinition = (
   users: Components.Schemas.User[],

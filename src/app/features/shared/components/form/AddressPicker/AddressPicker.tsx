@@ -6,9 +6,9 @@ import { useField } from "react-final-form"
 
 import Box from "app/features/shared/components/atoms/Box/Box"
 
-import {useStartAddressModal} from "./hooks/useStartAddressModal"
-import StartAddress from "./components/StartAddress/StartAddress";
-import AddStartAddressModal from "./components/AddStartAddressModal/AddStartAddressModal";
+import { useStartAddressModal } from "./hooks/useStartAddressModal"
+import StartAddress from "./components/StartAddress/StartAddress"
+import AddStartAddressModal from "./components/AddStartAddressModal/AddStartAddressModal"
 
 export type AddressPickerProps = React.ComponentProps<typeof ComposedField> & {
   name: string

@@ -1,21 +1,21 @@
-import React, {useMemo} from "react"
+import React, { useMemo } from "react"
 import { RouteComponentProps } from "@reach/router"
 
-import {useSuggestions} from "app/state/rest"
+import { useSuggestions } from "app/state/rest"
 
 import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout"
-import ItineraryItemCardList from "app/features/itineraries/components/organisms/ItineraryItemCardList/ItineraryItemCardList";
-import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner";
+import ItineraryItemCardList from "app/features/itineraries/components/organisms/ItineraryItemCardList/ItineraryItemCardList"
+import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner"
 
 import { casesToCardCaseProps } from "app/features/itineraries/utils/mapCaseToCardProps"
 
-import {useItinerary} from "app/state/rest/custom/useItinerary";
+import { useItinerary } from "app/state/rest/custom/useItinerary"
 
 type Props = {
   itineraryId: string
 }
 
-const SuggestionsPage:React.FC<RouteComponentProps<Props>> = ({ itineraryId }) => {
+const SuggestionsPage: React.FC<RouteComponentProps<Props>> = ({ itineraryId }) => {
   const { data: itinerary } = useItinerary(parseInt(itineraryId!))
   const { data, isBusy } = useSuggestions(parseInt(itineraryId!))
 
@@ -32,7 +32,6 @@ const SuggestionsPage:React.FC<RouteComponentProps<Props>> = ({ itineraryId }) =
         : null
     }
   </DefaultLayout>
-
 }
 
 export default SuggestionsPage

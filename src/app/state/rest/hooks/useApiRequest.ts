@@ -18,10 +18,10 @@ type MutateOptions = {
 
 type Callback = () => void
 
-const isGetOptions = (options:any): options is GetOptions =>
+const isGetOptions = (options: any): options is GetOptions =>
   options.method === "get"
 
-const isMutateOptions = (options:any): options is MutateOptions =>
+const isMutateOptions = (options: any): options is MutateOptions =>
   ["post", "put", "patch", "delete"].includes(options.method)
 
 type Config = {
@@ -106,7 +106,7 @@ const useApiRequest = <Schema, Payload = Partial<Schema>>({ url, groupName, hand
     queueRequest({ method: "delete", ...options }), [ queueRequest ])
 
   const updateCache = useCallback(
-    (updater: (item:Schema) => void) => updateCacheItem(url, updater),
+    (updater: (item: Schema) => void) => updateCacheItem(url, updater),
     [ updateCacheItem, url ]
   )
 

@@ -1,19 +1,18 @@
-import React, {useMemo} from "react"
+import React, { useMemo } from "react"
 import { useParams } from "@reach/router"
-import {useOpenIssues} from "app/state/rest"
+import { useOpenIssues } from "app/state/rest"
 
-import {useItinerary} from "app/state/rest/custom/useItinerary"
+import { useItinerary } from "app/state/rest/custom/useItinerary"
 
 import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout"
 import ItineraryItemCardList from "app/features/itineraries/components/organisms/ItineraryItemCardList/ItineraryItemCardList"
-import {casesToCardCaseProps} from "app/features/itineraries/utils/mapCaseToCardProps"
+import { casesToCardCaseProps } from "app/features/itineraries/utils/mapCaseToCardProps"
 
 import formatDate from "app/features/shared/utils/formatDate"
 import currentDate from "app/features/shared/utils/currentDate"
 import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner"
 
-const OpenIssuesPage:React.FC = () => {
-
+const OpenIssuesPage: React.FC = () => {
   const { itineraryId } = useParams()
   const { data: itinerary, isBusy } = useItinerary(itineraryId)
   const { data } = useOpenIssues()

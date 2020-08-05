@@ -1,13 +1,13 @@
-import React, {useCallback, useContext} from "react"
+import React, { useCallback, useContext } from "react"
 import styled from "styled-components"
 
 import DefaultModal from "app/features/shared/components/organisms/Modal/DefaultModal"
 
-import SearchForm from "app/features/shared/components/organisms/SearchForm/SearchForm";
+import SearchForm from "app/features/shared/components/organisms/SearchForm/SearchForm
 
 import { useStartAddressModal } from "../../hooks/useStartAddressModal"
-import StartAddressSearchResults from "../StartAddressSearchResults/StartAddressSearchResults";
-import {SearchFormContext} from "../../../../organisms/SearchForm/SearchFormProvider";
+import StartAddressSearchResults from "../StartAddressSearchResults/StartAddressSearchResults"
+import { SearchFormContext } from "../../../../organisms/SearchForm/SearchFormProvider"
 
 const Div = styled.div`
   padding-bottom: 15px;
@@ -15,7 +15,7 @@ const Div = styled.div`
 
 type Props = {
   itineraryId: string
-  onAddStartAddress: (caseId:string)=>void
+  onAddStartAddress: (caseId: string) => void
 }
 
 const AddStartAddressModal: React.FC<Props> = ({ onAddStartAddress, itineraryId }) => {

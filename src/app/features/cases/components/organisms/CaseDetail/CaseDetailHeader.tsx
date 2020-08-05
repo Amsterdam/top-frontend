@@ -5,10 +5,10 @@ import { Link } from "@reach/router"
 import InvalidDataSpan from "app/features/cases/components/atoms/InvalidDataSpan/InvalidDataSpan"
 import Label from "app/features/cases/components/atoms/Label/Label"
 import Footer from "app/features/cases/components/atoms/Footer/Footer"
-import {FraudPrediction} from "app/features/types"
+import { FraudPrediction } from "app/features/types"
 
-import StadiumBadge from "app/features/shared/components/molecules/StadiumBadge/StadiumBadge";
-import FraudProbability from "app/features/shared/components/atoms/FraudProbability/FraudProbability";
+import StadiumBadge from "app/features/shared/components/molecules/StadiumBadge/StadiumBadge"
+import FraudProbability from "app/features/shared/components/atoms/FraudProbability/FraudProbability"
 import ScrollToAnchor from "app/features/shared/components/molecules/ScrollToAnchor/ScrollToAnchor"
 
 import FraudPredictionDetailsModal from "../FraudPrediction/FraudPredictionDetailsModal"

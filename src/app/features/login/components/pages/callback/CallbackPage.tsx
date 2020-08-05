@@ -6,7 +6,7 @@ import slashSandwich from "slash-sandwich"
 
 import to from "app/features/shared/routing/to"
 import { setUser } from "app/state/auth/tokenStore"
-import CenteredSpinner from "../../../../shared/components/atoms/CenteredSpinner/CenteredSpinner";
+import CenteredSpinner from "../../../../shared/components/atoms/CenteredSpinner/CenteredSpinner"
 
 const OIDCAuthUrl = slashSandwich([
   process.env.REACT_APP_GATEWAY,
@@ -25,7 +25,7 @@ const CallbackPage: React.FC<RouteComponentProps> = () => {
       .then(response => {
         setUser(
           response.data.user.id,
-          response.data.access,
+          response.data.access
         )
         return navigate(to("/"))
       })

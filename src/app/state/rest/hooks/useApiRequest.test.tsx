@@ -19,7 +19,7 @@ describe("useApiRequest", () => {
       .get("/pet")
       .reply(200, { name: "Fifi", type: "dog" })
 
-    const { result, waitForNextUpdate } = renderHook(usePet, { wrapper: ApiProvider  })
+    const { result, waitForNextUpdate } = renderHook(usePet, { wrapper: ApiProvider })
 
     // Busy... no results yet.
     expect(result.current.isBusy).toEqual(true)
@@ -50,7 +50,7 @@ describe("useApiRequest", () => {
       second: usePet()
     })
 
-    const { result, waitForNextUpdate } = renderHook(useTwoHooks, { wrapper: ApiProvider  })
+    const { result, waitForNextUpdate } = renderHook(useTwoHooks, { wrapper: ApiProvider })
 
     // Busy...
     expect(result.current.first.isBusy).toEqual(true)
@@ -100,7 +100,7 @@ describe("useApiRequest", () => {
     prepareScope(scope)
 
     const onSuccess = jest.fn()
-    const { result, waitForNextUpdate } = renderHook(usePet, { wrapper: ApiProvider  })
+    const { result, waitForNextUpdate } = renderHook(usePet, { wrapper: ApiProvider })
     await act(() => waitForNextUpdate())
 
     // On mount, "Fifi" should be fetched
@@ -129,7 +129,7 @@ describe("useApiRequest", () => {
       .get("/pet")
       .reply(500, { detail: "S.O.S." })
 
-    const { waitForNextUpdate } = renderHook(usePet, { wrapper: ApiProvider  })
+    const { waitForNextUpdate } = renderHook(usePet, { wrapper: ApiProvider })
     await act(() => waitForNextUpdate())
 
     expect(handleError).toHaveBeenCalledWith(expect.objectContaining({

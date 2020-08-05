@@ -1,9 +1,9 @@
 import React from "react"
 import { Close, Search } from "@datapunt/asc-assets"
-import {combineValidators, ScaffoldAvailableFields, isMatchingRegex, isRequired} from "amsterdam-react-final-form"
-import {FormPositioner, FormPositionerFields} from "amsterdam-scaffold-form/package"
+import { combineValidators, ScaffoldAvailableFields, isMatchingRegex, isRequired } from "amsterdam-react-final-form"
+import { FormPositioner, FormPositionerFields } from "amsterdam-scaffold-form/package"
 
-export const definition:FormPositionerFields<ScaffoldAvailableFields> = {
+export const definition: FormPositionerFields<ScaffoldAvailableFields> = {
   postalCode: {
     type: "TextField",
     props: {
@@ -42,14 +42,14 @@ export const definition:FormPositionerFields<ScaffoldAvailableFields> = {
   reset: {
     type: "ResetButton",
     props: {
-      alignedHorizontally: {tabletM: true},
+      alignedHorizontally: { tabletM: true },
       icon: <Close / >
     }
   },
   submit: {
     type: "SubmitButton",
     props: {
-      alignedHorizontally: {tabletM: true},
+      alignedHorizontally: { tabletM: true },
       icon: <Search / >,
       tabIndex: 4,
       align: "right"

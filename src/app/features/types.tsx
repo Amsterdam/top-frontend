@@ -1,4 +1,4 @@
-import {ReactNode} from "react"
+import { ReactNode } from "react"
 
 export type BusinessRules = Record<string, number>
 export type ShapValues = Record<string, number>

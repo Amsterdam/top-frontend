@@ -1,8 +1,8 @@
-import React, {FC, useContext} from "react"
+import React, { FC, useContext } from "react"
 import styled from "styled-components"
 
 import EyeButton from "../../atoms/EyeButton/EyeButton"
-import {AnonymousContext} from "../../../../../state/anonymous/AnonymousProvider";
+import { AnonymousContext } from "../../../../../state/anonymous/AnonymousProvider"
 
 const Div = styled.div`
   position: fixed;

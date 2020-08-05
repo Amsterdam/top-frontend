@@ -1,23 +1,23 @@
 import React from "react"
-import {Header, Button, themeColor} from "@datapunt/asc-ui"
+import { Header, Button, themeColor } from "@datapunt/asc-ui"
 import { Logout } from "@datapunt/asc-assets"
 import { Link } from "@reach/router"
 
 import styled from "styled-components"
 
 import to from "app/features/shared/routing/to"
-import Navigation from "../../organisms/Navigation/Navigation";
-import Spacing from "../../atoms/Spacing/Spacing";
+import Navigation from "../../organisms/Navigation/Navigation"
+import Spacing from "../../atoms/Spacing/Spacing"
 
 const StyledLink = styled(Link)`
-  color ${themeColor("tint", "level6")};
+  color ${ themeColor("tint", "level6") };
   text-decoration: none;
   margin-right: 8px
 `
 
 const HeaderWrap = styled.div`
   position: fixed;
-  background-color: ${themeColor("tint", "white")};
+  background-color: ${ themeColor("tint", "white") };
   width:100%;
   z-index:500;
 `
@@ -26,7 +26,7 @@ type Props = {
 
 }
 
-const DefaultLayout:React.FC<Props> = ({ children } ) => (<div>
+const DefaultLayout: React.FC<Props> = ({ children } ) => (<div>
   <HeaderWrap>
     <Header
       title="Toezicht op pad"

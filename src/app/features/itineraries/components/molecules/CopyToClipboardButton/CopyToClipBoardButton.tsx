@@ -1,4 +1,4 @@
-import React, {FC, useRef, MouseEvent, useCallback} from "react"
+import React, { FC, useRef, MouseEvent, useCallback } from "react"
 import { DocumentText } from "@datapunt/asc-assets"
 import styled from "styled-components"
 
@@ -14,7 +14,7 @@ const TextArea = styled.textarea`
   left: -9999px;
 `
 
-const CopyToClipboardButton: FC<Props> = ({ text, onClick}) => {
+const CopyToClipboardButton: FC<Props> = ({ text, onClick }) => {
   const ref = useRef<HTMLTextAreaElement>(null)
 
   const handleOnClick = useCallback((event: MouseEvent) => {

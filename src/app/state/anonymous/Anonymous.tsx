@@ -1,5 +1,5 @@
-import React, {FC, useContext} from "react"
-import {AnonymousContext} from "./AnonymousProvider"
+import React, { FC, useContext } from "react"
+import { AnonymousContext } from "./AnonymousProvider"
 
 // @TODO use styled-components createGlobalStyle here
 const Anonymous: FC = () => {

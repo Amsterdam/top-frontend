@@ -2,7 +2,7 @@ import React, { useCallback } from "react"
 import { navigate } from "@reach/router"
 
 import DefaultModal from "app/features/shared/components/organisms/Modal/DefaultModal"
-import to from "app/features/shared/routing/to";
+import to from "app/features/shared/routing/to"
 
 import NoteWizard from "./NoteWizard"
 

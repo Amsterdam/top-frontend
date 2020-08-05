@@ -1,16 +1,16 @@
 import React, { FC, useCallback } from "react"
 import { navigate } from "@reach/router"
-import {ScaffoldForm} from "amsterdam-react-final-form"
+import { ScaffoldForm } from "amsterdam-react-final-form"
 
-import {useItineraries, useSettings, useUsers} from "app/state/rest"
-import {useLoggedInUser} from "app/state/rest/custom/useLoggedInUser"
+import { useItineraries, useSettings, useUsers } from "app/state/rest"
+import { useLoggedInUser } from "app/state/rest/custom/useLoggedInUser"
 
 import Scaffold from "app/features/shared/components/form/Scaffold"
-import to from "app/features/shared/routing/to";
+import to from "app/features/shared/routing/to"
 
-import {getDayPartOptions} from "./getDayPartOptions";
-import {generateItineraryFormDefinition} from "./formDefinition";
-import {mapPostValues} from "./mapPostValues";
+import { getDayPartOptions } from "./getDayPartOptions"
+import { generateItineraryFormDefinition } from "./formDefinition"
+import { mapPostValues } from "./mapPostValues"
 
 const ItineraryForm: FC = () => {
   const { data: users } = useUsers()

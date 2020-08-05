@@ -1,9 +1,9 @@
 import React from "react"
 import styled from "styled-components"
 import { useFormState } from "react-final-form"
-import {Spinner, themeColor, themeSpacing} from "@datapunt/asc-ui"
+import { Spinner, themeColor, themeSpacing } from "@datapunt/asc-ui"
 
-import {useCase} from "app/state/rest"
+import { useCase } from "app/state/rest"
 
 import displayAddress from "app/features/shared/utils/displayAddress"
 

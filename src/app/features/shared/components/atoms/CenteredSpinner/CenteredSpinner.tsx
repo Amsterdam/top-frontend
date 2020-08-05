@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import {Spinner} from "@datapunt/asc-ui";
+import { Spinner } from "@datapunt/asc-ui"
 
 export default styled(Spinner)`
   position: absolute;

@@ -1,7 +1,7 @@
 import React from "react"
 import { RouteComponentProps } from "@reach/router"
 
-import {useCase} from "app/state/rest";
+import { useCase } from "app/state/rest"
 
 import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout"
 import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner"
@@ -14,7 +14,7 @@ type Props = {
   id: string
 }
 
-const CaseDetailPage:React.FC<RouteComponentProps<Props>> = ({ id, itineraryId }) => {
+const CaseDetailPage: React.FC<RouteComponentProps<Props>> = ({ id, itineraryId }) => {
   const { data, isBusy } = useCase(id!)
 
   return <DefaultLayout>

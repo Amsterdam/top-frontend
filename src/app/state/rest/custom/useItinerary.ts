@@ -1,8 +1,8 @@
-import {useItineraries} from "../index";
-import {useMemo} from "react";
+import { useItineraries } from "../index"
+import { useMemo } from "react"
 
 // There is no single itinerary endpoint, so we create a convenience hook here:
-export const  useItinerary = (id: number | string) => {
+export const useItinerary = (id: number | string) => {
   const response = useItineraries()
   return useMemo(() => ({
     ...response,

@@ -5,8 +5,8 @@ import { themeColor } from "@datapunt/asc-ui"
 import { Search } from "@datapunt/asc-assets"
 
 import to, { applyRouteParams } from "app/features/shared/routing/to"
-import ItineraryNavigationButton from "../../molecules/ItineraryNavigationButton/ItineraryNavigationButton";
-import OpenIssuesNavigationButton from "../../molecules/OpenIssuesNavigationButton/OpenIssuesNavigationButton";
+import ItineraryNavigationButton from "../../molecules/ItineraryNavigationButton/ItineraryNavigationButton"
+import OpenIssuesNavigationButton from "../../molecules/OpenIssuesNavigationButton/OpenIssuesNavigationButton"
 
 const NavWrap = styled.div`
   position: fixed;

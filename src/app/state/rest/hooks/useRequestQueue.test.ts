@@ -29,27 +29,27 @@ describe("useRequestQueue", () => {
       result.current.pushRequestInQueue("foo2", "get", execDeferred2)
     })
 
-    expect(execDeferred1).toHaveBeenCalled()                                    // <- Working on first request
-    expect(execDeferred2).not.toHaveBeenCalled()                                // <- NOT working on second request
+    expect(execDeferred1).toHaveBeenCalled() // <- Working on first request
+    expect(execDeferred2).not.toHaveBeenCalled() // <- NOT working on second request
 
-    expect(result.current.isRequestPendingInQueue("foo1", "GET")).toEqual(true)        // <- Both are still pending.
+    expect(result.current.isRequestPendingInQueue("foo1", "GET")).toEqual(true) // <- Both are still pending.
     expect(result.current.isRequestPendingInQueue("foo2", "GET")).toEqual(true)
 
     await act(() => {
-      deferred1.resolve()                                                       // <- Mark first request as done
+      deferred1.resolve() // <- Mark first request as done
       return waitForNextUpdate()
     })
 
-    expect(execDeferred2).toHaveBeenCalled()                                    // <- Also working on second request
-    expect(result.current.isRequestPendingInQueue("foo1", "GET")).toEqual(false)       // <- First request is not pending anymore
-    expect(result.current.isRequestPendingInQueue("foo2", "GET")).toEqual(true)        // <- Second request is.
+    expect(execDeferred2).toHaveBeenCalled() // <- Also working on second request
+    expect(result.current.isRequestPendingInQueue("foo1", "GET")).toEqual(false) // <- First request is not pending anymore
+    expect(result.current.isRequestPendingInQueue("foo2", "GET")).toEqual(true) // <- Second request is.
 
     await act(() => {
-      deferred2.resolve()                                                       // <- Mark second request as done
+      deferred2.resolve() // <- Mark second request as done
       return waitForNextUpdate()
     })
 
-    expect(result.current.isRequestPendingInQueue("foo1", "GET")).toEqual(false)       // <- Both are NOT pending anymore
+    expect(result.current.isRequestPendingInQueue("foo1", "GET")).toEqual(false) // <- Both are NOT pending anymore
     expect(result.current.isRequestPendingInQueue("foo2", "GET")).toEqual(false)
   })
 
@@ -66,10 +66,10 @@ describe("useRequestQueue", () => {
       result.current.pushRequestInQueue("duplicate", "GET", execDeferred1)
       result.current.pushRequestInQueue("duplicate", "GET", execDeferred2)
 
-      deferred1.resolve()                                                       // <- Mark first request as done
+      deferred1.resolve() // <- Mark first request as done
       return waitForNextUpdate()
     })
 
-    expect(execDeferred2).not.toHaveBeenCalled()                                // <- NOT working on second request
+    expect(execDeferred2).not.toHaveBeenCalled() // <- NOT working on second request
   })
 })

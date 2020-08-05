@@ -1,6 +1,6 @@
 import displayAddress from "app/features/shared/utils/displayAddress"
 
-import {BWVData} from "app/features/types"
+import { BWVData } from "app/features/types"
 
 const itineraryToClipboardText = (itinerary: BWVData) => {
   const {

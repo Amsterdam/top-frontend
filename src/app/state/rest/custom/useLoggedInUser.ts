@@ -1,6 +1,6 @@
-import {useUsers} from "../index";
-import {getUserId} from "../../auth/tokenStore";
-import {useMemo} from "react";
+import { useUsers } from "../index"
+import { getUserId } from "../../auth/tokenStore"
+import { useMemo } from "react"
 
 export const useLoggedInUser = () => {
   const { data } = useUsers()

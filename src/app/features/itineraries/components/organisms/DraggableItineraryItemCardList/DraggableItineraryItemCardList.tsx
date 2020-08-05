@@ -1,25 +1,25 @@
-import React, {useCallback, useMemo, useState} from "react"
-import {DragDropContext, Droppable, Draggable, DraggingStyle, NotDraggingStyle, DragStart, DropResult} from "react-beautiful-dnd";
+import React, { useCallback, useMemo, useState } from "react"
+import { DragDropContext, Droppable, Draggable, DraggingStyle, NotDraggingStyle, DragStart, DropResult } from "react-beautiful-dnd"
 
 import ItineraryItemCard from "app/features/shared/components/molecules/ItineraryItemCard/ItineraryItemCard"
-import {useItineraries, useItineraryItem} from "app/state/rest"
-import calculateNewPosition from "./calculateNewPosition";
+import { useItineraries, useItineraryItem } from "app/state/rest"
+import calculateNewPosition from "./calculateNewPosition"
 
 type Props = {
   itineraryId: string
   items: Array<React.ComponentProps<typeof ItineraryItemCard> & { id: string, itemId: string, position: number }>
 }
 
-const getItemStyle = (isDragging:boolean, draggableStyle?:DraggingStyle|NotDraggingStyle) => ({
+const getItemStyle = (isDragging: boolean, draggableStyle?: DraggingStyle|NotDraggingStyle) => ({
   userSelect: "none",
   background: isDragging ? "white" : "none",
   boxShadow: isDragging ? "0 2px 20px black" : "none",
   padding: isDragging ? "0 20px" : 0,
   outline: 0,
   ...draggableStyle
-});
+})
 
-const DraggableItineraryItemCardList:React.FC<Props> = ({ itineraryId, items }) => {
+const DraggableItineraryItemCardList: React.FC<Props> = ({ itineraryId, items }) => {
   const [ draggableId, setIsDragging ] = useState<string>()
 
   const { updateCache } = useItineraries({ lazy: true })
@@ -33,7 +33,6 @@ const DraggableItineraryItemCardList:React.FC<Props> = ({ itineraryId, items }) 
 
   const handleDragEnd = useCallback(async ({ destination, source }: DropResult) => {
     if (destination?.index !== undefined && source.index !== undefined) {
-
       const position = calculateNewPosition(
         sortedItems,
         source.index,

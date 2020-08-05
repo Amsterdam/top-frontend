@@ -1,10 +1,10 @@
 import React from "react"
-import {Button} from "@datapunt/asc-ui";
-import { Document, TrashBin } from "@datapunt/asc-assets";
+import { Button } from "@datapunt/asc-ui"
+import { Document, TrashBin } from "@datapunt/asc-assets"
 
 import ItineraryItemCard from "./ItineraryItemCard"
-import Badge from "../../atoms/Badge/Badge";
-import Spacing from "../../atoms/Spacing/Spacing";
+import Badge from "../../atoms/Badge/Badge"
+import Spacing from "../../atoms/Spacing/Spacing"
 
 export default {
   title: "Shared/Molecules/ItineraryItemCard"

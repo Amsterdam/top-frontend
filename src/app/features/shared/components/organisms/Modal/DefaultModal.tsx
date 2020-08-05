@@ -1,12 +1,12 @@
 import React, { useEffect } from "react"
-import { Close } from "@datapunt/asc-assets";
+import { Close } from "@datapunt/asc-assets"
 
 import { FixedWrap } from "./components/FixedWrap"
 import { Body } from "./components/Body"
 import { Footer } from "./components/Footer"
 import { TopBar } from "./components/TopBar"
 import Portal from "./Portal"
-import {Button} from "@datapunt/asc-ui";
+import { Button } from "@datapunt/asc-ui"
 
 type Props = {
   title?: string

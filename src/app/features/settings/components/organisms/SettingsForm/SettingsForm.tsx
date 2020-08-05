@@ -1,16 +1,16 @@
-import React, {FC, useCallback, useMemo, useState} from "react"
-import {ScaffoldForm} from "amsterdam-react-final-form"
+import React, { FC, useCallback, useMemo, useState } from "react"
+import { ScaffoldForm } from "amsterdam-react-final-form"
 import styled from "styled-components"
 
-import {useProjectConstants, useSettings, useStadiaConstants} from "app/state/rest"
+import { useProjectConstants, useSettings, useStadiaConstants } from "app/state/rest"
 
 import Scaffold from "app/features/shared/components/form/Scaffold"
-import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout";
+import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout"
 
 import { createDefinition } from "./settingsFormDefinition"
 import FixedSubmitButton from "./components/FixedSubmitButton"
 import JSONDisplay from "./components/JSONDisplay"
-import CenteredSpinner from "../../../../shared/components/atoms/CenteredSpinner/CenteredSpinner";
+import CenteredSpinner from "../../../../shared/components/atoms/CenteredSpinner/CenteredSpinner"
 
 const Wrap = styled.div`
   margin: 0 8px 100px 8px
@@ -32,7 +32,7 @@ const SettingsForm: FC = () => {
     [ projects, stadia ]
   )
 
-  const handleSubmit =  useCallback(async (settings:Components.Schemas.PlannerSettings) => {
+  const handleSubmit = useCallback(async (settings: Components.Schemas.PlannerSettings) => {
     const values = filterEmptyPostalCodes(settings)
     setErrorMessage("")
 

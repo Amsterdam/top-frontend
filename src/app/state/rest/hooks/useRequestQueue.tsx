@@ -42,7 +42,7 @@ export const useRequestQueue = () => {
   const isRequestPendingInQueue = useCallback((url, method) => isPending(state, url, method), [ state ])
 
   const pushRequestInQueue = useCallback(
-    (url: string, method: string, promise: QueuedPromise) => { dispatch({ type: "PUSH", item: { url, method, promise  } }) },
+    (url: string, method: string, promise: QueuedPromise) => { dispatch({ type: "PUSH", item: { url, method, promise } }) },
     [ dispatch ]
   )
 

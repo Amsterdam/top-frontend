@@ -1,35 +1,35 @@
-import React, {useCallback, useMemo, useState} from "react"
-import {themeColor, themeSpacing} from "@datapunt/asc-ui"
-import {RouteComponentProps, navigate} from "@reach/router"
-import {Card, ChevronDown, Enlarge, TrashBin} from "@datapunt/asc-assets"
+import React, { useCallback, useMemo, useState } from "react"
+import { themeColor, themeSpacing } from "@datapunt/asc-ui"
+import { RouteComponentProps, navigate } from "@reach/router"
+import { Card, ChevronDown, Enlarge, TrashBin } from "@datapunt/asc-assets"
 import styled from "styled-components"
 
-import {useDeleteItinerary} from "app/state/rest"
-import {useItinerary} from "app/state/rest/custom/useItinerary"
+import { useDeleteItinerary } from "app/state/rest"
+import { useItinerary } from "app/state/rest/custom/useItinerary"
 
-import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner";
+import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner"
 import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout"
 import DraggableItineraryItemCardList
   from "app/features/itineraries/components/organisms/DraggableItineraryItemCardList/DraggableItineraryItemCardList"
 import formatDate from "app/features/shared/utils/formatDate"
 import ResponsiveText from "app/features/shared/components/molecules/ResponsiveText/ResponsiveText"
-import StyledButton from "app/features/shared/components/atoms/StyledButton/StyledButton";
+import StyledButton from "app/features/shared/components/atoms/StyledButton/StyledButton"
 import to from "app/features/shared/routing/to"
 
-import ButtonMenu from "app/features/itineraries/components/molecules/ButtonMenu/ButtonMenu";
+import ButtonMenu from "app/features/itineraries/components/molecules/ButtonMenu/ButtonMenu"
 import CopyToClipboardButton
-  from "app/features/itineraries/components/molecules/CopyToClipboardButton/CopyToClipBoardButton";
-import MapsButton from "app/features/itineraries/components/molecules/MapsButton/MapsButton";
-import TeamMemberForm from "app/features/itineraries/components/organisms/TeamMemberForm/TeamMemberForm";
+  from "app/features/itineraries/components/molecules/CopyToClipboardButton/CopyToClipBoardButton"
+import MapsButton from "app/features/itineraries/components/molecules/MapsButton/MapsButton"
+import TeamMemberForm from "app/features/itineraries/components/organisms/TeamMemberForm/TeamMemberForm"
 
-import itineraryToClipboardText from "./itineraryToClipBoardText";
-import {mapItineraryItem} from "./mapItineraryItem";
-import {ItineraryItem} from "../../../../types";
+import itineraryToClipboardText from "./itineraryToClipBoardText"
+import { mapItineraryItem } from "./mapItineraryItem"
+import { ItineraryItem } from "../../../../types"
 
 const TeamMemberWrap = styled.div`
-  padding: ${themeSpacing(6)} 0;
-  border-top: 1px solid ${themeColor("tint", "level3")};
-  border-bottom: 1px solid ${themeColor("tint", "level3")};
+  padding: ${ themeSpacing(6) } 0;
+  border-top: 1px solid ${ themeColor("tint", "level3") };
+  border-bottom: 1px solid ${ themeColor("tint", "level3") };
 `
 
 const H2 = styled.h2`
@@ -38,7 +38,7 @@ const H2 = styled.h2`
 
 type ColumnWrapProps = { border: boolean }
 const ColumnWrap = styled.div<ColumnWrapProps>`
-  padding: ${themeSpacing(2)} 0;  
+  padding: ${ themeSpacing(2) } 0;  
   display: flex;
 `
 
@@ -57,9 +57,9 @@ type Props = {
   itineraryId: string
 }
 
-const ItineraryPage:React.FC<RouteComponentProps<Props>> = ({ itineraryId }) => {
+const ItineraryPage: React.FC<RouteComponentProps<Props>> = ({ itineraryId }) => {
   const { data, isBusy } = useItinerary(parseInt(itineraryId!))
-  const { execDelete } = useDeleteItinerary(itineraryId!, { lazy: true })  // <- NOTE: we need a extra hook here, because /itenaries/:id/ only allows a DELETE, no other methods
+  const { execDelete } = useDeleteItinerary(itineraryId!, { lazy: true }) // <- NOTE: we need a extra hook here, because /itenaries/:id/ only allows a DELETE, no other methods
 
   const [showDialog, setShowDialog] = useState(false)
   const [isEditing, setIsEditing] = useState(false)

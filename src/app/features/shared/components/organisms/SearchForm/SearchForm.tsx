@@ -1,7 +1,7 @@
-import React, {FC, useCallback, useContext } from "react"
-import {Scaffold, ScaffoldForm} from "amsterdam-react-final-form"
-import {scaffoldProps} from "./formDefinition";
-import {SearchFormContext} from "./SearchFormProvider";
+import React, { FC, useCallback, useContext } from "react"
+import { Scaffold, ScaffoldForm } from "amsterdam-react-final-form"
+import { scaffoldProps } from "./formDefinition"
+import { SearchFormContext } from "./SearchFormProvider"
 
 export type FormValues = {
   postalCode: string
@@ -13,7 +13,7 @@ export type FormValues = {
 const SearchForm: FC = () => {
   const { values, setValues } = useContext(SearchFormContext)
 
-  const handleSubmit = useCallback((values:FormValues) => {
+  const handleSubmit = useCallback((values: FormValues) => {
     setValues(values)
     return Promise.resolve(true)
   }, [ setValues ])

@@ -7,7 +7,7 @@ type Props = {
 
 }
 
-const CreateItineraryPage:React.FC<Props> = () => (
+const CreateItineraryPage: React.FC<Props> = () => (
   <DefaultLayout>
     <ItineraryForm />
   </DefaultLayout>

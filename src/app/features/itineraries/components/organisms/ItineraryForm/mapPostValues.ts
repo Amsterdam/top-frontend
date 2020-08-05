@@ -1,9 +1,9 @@
-import currentDate from "app/features/shared/utils/currentDate";
-import {wrapInNameObject, wrapInNameObjects} from "app/features/shared/utils/wrapInNameObjects"
+import currentDate from "app/features/shared/utils/currentDate"
+import { wrapInNameObject, wrapInNameObjects } from "app/features/shared/utils/wrapInNameObjects"
 
-export const mapPostValues = ({ team_members, postalCodeRange, startAddress, openingsDate, numAddresses, projects, dayPart: { settingsList } }:any) => ({
+export const mapPostValues = ({ team_members, postalCodeRange, startAddress, openingsDate, numAddresses, projects, dayPart: { settingsList } }: any) => ({
     created_at: currentDate(),
-    team_members: team_members.map(({ id }:{ id:string }) => ({ user: { id } })),
+    team_members: team_members.map(({ id }: { id: string }) => ({ user: { id } })),
     postal_code_settings: postalCodeRange,
     settings: {
       start_case: {

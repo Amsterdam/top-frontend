@@ -1,7 +1,7 @@
 import useApiRequest from "./hooks/useApiRequest"
 import { getHeaders, makeGatewayUrl, useErrorHandler } from "./hooks/utils/utils"
 import currentDate from "../../features/shared/utils/currentDate"
-import {Case, ItineraryItem} from "../../features/types"
+import { Case, ItineraryItem } from "../../features/types"
 
 export type ApiGroup =
   | "itineraries"
@@ -17,7 +17,7 @@ type Options = {
  * Please configure your endpoints here:
  */
 
-export const useItineraries = (options?:Options) => {
+export const useItineraries = (options?: Options) => {
   const handleError = useErrorHandler()
   return useApiRequest<{ itineraries: Components.Schemas.Itinerary[] }>({
     lazy: options?.lazy,
@@ -28,9 +28,9 @@ export const useItineraries = (options?:Options) => {
   })
 }
 
-export const useItineraryItems = (options?:Options) => {
+export const useItineraryItems = (options?: Options) => {
   const handleError = useErrorHandler()
-  return useApiRequest<{ itineraries: ItineraryItem[] }, { case_id: string, itinerary:number }>({
+  return useApiRequest<{ itineraries: ItineraryItem[] }, { case_id: string, itinerary: number }>({
     lazy: options?.lazy,
     url: makeGatewayUrl(["itinerary-items"]),
     groupName: "itineraries",
@@ -39,7 +39,7 @@ export const useItineraryItems = (options?:Options) => {
   })
 }
 
-export const useItineraryItem = (id: number|string, options?:Options) => {
+export const useItineraryItem = (id: number|string, options?: Options) => {
   const handleError = useErrorHandler()
   return useApiRequest<{ itineraries: ItineraryItem }, Partial<Components.Schemas.ItineraryItem>>({
     lazy: options?.lazy,
@@ -50,7 +50,7 @@ export const useItineraryItem = (id: number|string, options?:Options) => {
   })
 }
 
-export const useOpenIssues = (options?:Options) => {
+export const useOpenIssues = (options?: Options) => {
   const handleError = useErrorHandler()
   return useApiRequest<{ cases: Case[] }>({
     lazy: options?.lazy,
@@ -61,7 +61,7 @@ export const useOpenIssues = (options?:Options) => {
   })
 }
 
-export const useCase = (id: number|string, options?:Options) => {
+export const useCase = (id: number|string, options?: Options) => {
   const handleError = useErrorHandler()
   return useApiRequest<Case>({
     lazy: options?.lazy,
@@ -72,7 +72,7 @@ export const useCase = (id: number|string, options?:Options) => {
   })
 }
 
-export const useSearch = (postalCode:string, streetNumber:number, suffix?:string, options?:Options) => {
+export const useSearch = (postalCode: string, streetNumber: number, suffix?: string, options?: Options) => {
   const handleError = useErrorHandler()
   return useApiRequest<{ cases: Case[] }>({
     lazy: options?.lazy,
@@ -83,7 +83,7 @@ export const useSearch = (postalCode:string, streetNumber:number, suffix?:string
   })
 }
 
-export const useSuggestions = (itineraryId:number, options?:Options) => {
+export const useSuggestions = (itineraryId: number, options?: Options) => {
   const handleError = useErrorHandler()
   return useApiRequest<{ cases: Case[] }>({
     lazy: options?.lazy,
@@ -94,7 +94,7 @@ export const useSuggestions = (itineraryId:number, options?:Options) => {
   })
 }
 
-export const useUsers = (options?:Options) => {
+export const useUsers = (options?: Options) => {
   const handleError = useErrorHandler()
   return useApiRequest<{ results: Components.Schemas.User[] }>({
     lazy: options?.lazy,
@@ -105,7 +105,7 @@ export const useUsers = (options?:Options) => {
   })
 }
 
-export const useTeam = (itineraryId:number, options?:Options) => {
+export const useTeam = (itineraryId: number, options?: Options) => {
   const handleError = useErrorHandler()
   return useApiRequest<
     { results: Components.Schemas.User[] },
@@ -119,16 +119,14 @@ export const useTeam = (itineraryId:number, options?:Options) => {
   })
 }
 
-export const useSettings = (options?:Options) => {
-  return useApiRequest<Components.Schemas.PlannerSettings>({
+export const useSettings = (options?: Options) => useApiRequest<Components.Schemas.PlannerSettings>({
     lazy: options?.lazy,
     url: makeGatewayUrl(["settings", "planner"]),
     groupName: "settings",
     getHeaders
   })
-}
 
-export const useProjectConstants = (options?:Options) => {
+export const useProjectConstants = (options?: Options) => {
   const handleError = useErrorHandler()
   return useApiRequest<{constants: string[]}>({
     lazy: options?.lazy,
@@ -139,7 +137,7 @@ export const useProjectConstants = (options?:Options) => {
   })
 }
 
-export const useStadiaConstants = (options?:Options) => {
+export const useStadiaConstants = (options?: Options) => {
   const handleError = useErrorHandler()
   return useApiRequest<{constants: string[]}>({
     url: makeGatewayUrl(["constants", "stadia"]),
@@ -149,7 +147,7 @@ export const useStadiaConstants = (options?:Options) => {
   })
 }
 
-export const useDeleteItinerary = (id:string|number, options?:Options) => {
+export const useDeleteItinerary = (id: string|number, options?: Options) => {
   const handleError = useErrorHandler()
   return useApiRequest<{constants: string[]}>({
     lazy: options?.lazy,

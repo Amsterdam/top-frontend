@@ -4,10 +4,10 @@ type Props = {
   fraudProbability?: number
 }
 
-const FraudProbability:React.FC<Props> = ({ fraudProbability }) => (<>
+const FraudProbability: React.FC<Props> = ({ fraudProbability }) => (<>
   {
     fraudProbability
-      ? `🤖 ${Math.round(fraudProbability * 100)}%`
+      ? `🤖 ${ Math.round(fraudProbability * 100) }%`
       : "🤖 % onbekend"
   }
 </>)
