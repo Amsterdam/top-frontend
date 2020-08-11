@@ -12,11 +12,7 @@ type Props = {
 }
 
 const OpenIssuesNavigationButton: React.FC<Props> = ({ itineraryId }) => {
-  const { data, isBusy } = useOpenIssues()
-
-  if (isBusy) {
-    return null
-  }
+  const { data } = useOpenIssues()
 
   const numOpenIssues = data?.cases?.length
     ? `(${ data.cases.length })`

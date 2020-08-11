@@ -8,6 +8,8 @@ import * as serviceWorker from "./serviceWorker"
 import initSentry from "./sentry/init"
 initSentry()
 
+console.log("After cleanup")
+
 ReactDOM.render(
   <React.StrictMode>
     <App />

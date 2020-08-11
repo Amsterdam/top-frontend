@@ -8,6 +8,7 @@ export type ApiGroup =
   | "users"
   | "settings"
   | "constants"
+  | "case"
 
 type Options = {
   lazy?: boolean
@@ -50,6 +51,18 @@ export const useItineraryItem = (id: number|string, options?: Options) => {
   })
 }
 
+export const useItineraryItemNote = (id?:number|string, options?: Options) => {
+  const handleError = useErrorHandler()
+  return useApiRequest<Components.Schemas.NoteCrud>({
+    lazy: options?.lazy,
+    url: makeGatewayUrl(["notes", id]),
+    groupName: "itineraries",
+    handleError,
+    getHeaders
+  })
+}
+
+
 export const useOpenIssues = (options?: Options) => {
   const handleError = useErrorHandler()
   return useApiRequest<{ cases: Case[] }>({
@@ -66,7 +79,7 @@ export const useCase = (id: number|string, options?: Options) => {
   return useApiRequest<Case>({
     lazy: options?.lazy,
     url: makeGatewayUrl(["cases", id]),
-    groupName: "itineraries",
+    groupName: "case",
     handleError,
     getHeaders
   })

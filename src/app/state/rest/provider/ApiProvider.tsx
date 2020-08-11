@@ -9,6 +9,7 @@ import { ApiGroup } from "../index"
 type GroupedContext = Record<ApiGroup, ApiCache & RequestQueue>
 export const ApiContext = React.createContext<GroupedContext>({
   itineraries: noopContext,
+  case: noopContext,
   users: noopContext,
   settings: noopContext,
   constants: noopContext
@@ -17,6 +18,10 @@ export const ApiContext = React.createContext<GroupedContext>({
 const ApiProvider: React.FC = ({ children }) => {
   const value: GroupedContext = {
     itineraries: {
+      ...useApiCache(),
+      ...useRequestQueue()
+    },
+    case: {
       ...useApiCache(),
       ...useRequestQueue()
     },

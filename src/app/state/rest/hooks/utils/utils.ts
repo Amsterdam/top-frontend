@@ -21,7 +21,7 @@ export const getHeaders = () => {
 /**
  * Utility function to create a gateway URL.
  */
-export const makeGatewayUrl = (paths: Array<number|string>, queryStringParams?: Record<string, number|string|undefined>) => {
+export const makeGatewayUrl = (paths: Array<number|string|undefined>, queryStringParams?: Record<string, number|string|undefined>) => {
   const path = slashSandwich([process.env.REACT_APP_GATEWAY, ...paths])
 
   const queryString = queryStringParams

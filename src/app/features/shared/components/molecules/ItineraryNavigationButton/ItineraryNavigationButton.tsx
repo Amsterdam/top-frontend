@@ -1,9 +1,14 @@
 import React from "react"
 import { Link } from "@reach/router"
-import { Spinner } from "@datapunt/asc-ui"
+
 
 import { useItineraries } from "app/state/rest"
 import to from "app/features/shared/routing/to"
+import styled from "styled-components";
+
+const Wrapper = styled.div`
+  width: 160px;
+`
 
 const ItineraryNavigationButton: React.FC = () => {
   const { data } = useItineraries()
@@ -12,17 +17,17 @@ const ItineraryNavigationButton: React.FC = () => {
   const numItems = data?.itineraries.map(_ => _.items).flat(1).length
 
   if (numItineraries > 1) {
-    return <Link to={to("/", { id: data.itineraries[0].id.toString() })}>
+    return <Wrapper><Link to={to("/")}>
       Mijn looplijsten ({ numItems })
-    </Link>
+    </Link></Wrapper>
   } else if (numItineraries === 1) {
-    return <Link to={to("/lijst/:itineraryId/", { itineraryId: data.itineraries[0].id.toString() })}>
+    return <Wrapper><Link to={to("/lijst/:itineraryId/", { itineraryId: data.itineraries[0].id.toString() })}>
       Mijn looplijst ({ numItems })
-    </Link>
+    </Link></Wrapper>
   } else if(numItineraries === 0) {
-    return <Link to={to("/lijst/nieuw/")}>Nieuwe looplijst</Link>
+    return <Wrapper><Link to={to("/lijst/nieuw/")}>Nieuwe looplijst</Link></Wrapper>
   } else {
-    return <Spinner />
+    return <Wrapper><Link to={to("/")}>Mijn looplijst</Link></Wrapper>
   }
 }
 

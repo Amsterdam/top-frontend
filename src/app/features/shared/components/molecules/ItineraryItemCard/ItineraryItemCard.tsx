@@ -12,6 +12,7 @@ type Props = {
   fraudProbability?: string|JSX.Element
   badge?: JSX.Element
   buttons?: JSX.Element
+  notes?: JSX.Element
 }
 
 type WrapProps = Pick<Props, "backgroundColor">
@@ -54,7 +55,7 @@ const FraudProbability = styled.p`
   color: ${ themeColor("tint", "level4") };
 `
 
-const ItineraryItemCard: React.FC<Props> = ({ href, address, postalCode, reason, buttons, badge, fraudProbability, backgroundColor }) => {
+const ItineraryItemCard: React.FC<Props> = ({ href, address, postalCode, reason, buttons, badge, fraudProbability, backgroundColor, notes }) => {
   const handleClick = useCallback(() => {
     if (href) {
       return navigate(href)
@@ -68,6 +69,7 @@ const ItineraryItemCard: React.FC<Props> = ({ href, address, postalCode, reason,
         { fraudProbability && <FraudProbability>{ fraudProbability }</FraudProbability> }
         { reason && <Reason>{ reason }</Reason> }
         { badge }
+        { notes }
       </Left>
       <Right>
         { buttons }
