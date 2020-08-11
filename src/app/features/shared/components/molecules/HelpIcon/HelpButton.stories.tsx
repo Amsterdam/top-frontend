@@ -1,7 +1,7 @@
 import React from "react"
 
 import HelpButton from "./HelpButton"
-import styled from "styled-components";
+import styled from "styled-components"
 
 export default {
   title: "Shared / Molecules / HelpButton"

@@ -4,7 +4,7 @@ import { Link } from "@reach/router"
 
 import { useItineraries } from "app/state/rest"
 import to from "app/features/shared/routing/to"
-import styled from "styled-components";
+import styled from "styled-components"
 
 const Wrapper = styled.div`
   width: 160px;

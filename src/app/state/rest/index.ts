@@ -51,7 +51,7 @@ export const useItineraryItem = (id: number|string, options?: Options) => {
   })
 }
 
-export const useItineraryItemNote = (id?:number|string, options?: Options) => {
+export const useItineraryItemNote = (id?: number|string, options?: Options) => {
   const handleError = useErrorHandler()
   return useApiRequest<Components.Schemas.NoteCrud>({
     lazy: options?.lazy,
@@ -183,7 +183,7 @@ export const useVisits = (options?: Options) => {
   })
 }
 
-export const useVisit = (id:string|number, options?: Options) => {
+export const useVisit = (id: string|number, options?: Options) => {
   const handleError = useErrorHandler()
   // TODO type return type
   return useApiRequest<any>({

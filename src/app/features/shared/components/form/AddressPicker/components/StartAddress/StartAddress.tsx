@@ -9,13 +9,13 @@ import StadiumBadge from "app/features/shared/components/molecules/StadiumBadge/
 
 import ItineraryItemCard from "app/features/shared/components/molecules/ItineraryItemCard/ItineraryItemCard"
 import FraudProbability from "app/features/shared/components/atoms/FraudProbability/FraudProbability"
-import {useCaseModal} from "../../hooks/useCaseModal";
+import { useCaseModal } from "../../hooks/useCaseModal"
 
 type Props = {
   caseId: string
 }
 
-const normalize = (object: any, href:string): React.ComponentProps<typeof ItineraryItemCard> => ({
+const normalize = (object: any, href: string): React.ComponentProps<typeof ItineraryItemCard> => ({
   href,
   address: displayAddress(object?.import_adres?.sttnaam, object?.import_adres?.hsnr, object?.import_adres?.hsltr, object?.import_adres?.toev),
   postalCode: object?.import_adres?.postcode,

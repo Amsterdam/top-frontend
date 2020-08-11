@@ -1,13 +1,13 @@
-import React, {FC, useCallback} from "react"
+import React, { FC, useCallback } from "react"
 import { ScaffoldForm } from "amsterdam-react-final-form"
 import styled from "styled-components"
 import { navigate } from "@reach/router"
 
-import {useItineraryItemNote} from "app/state/rest"
+import { useItineraryItemNote } from "app/state/rest"
 import Scaffold from "app/features/shared/components/form/Scaffold"
 import to from "app/features/shared/routing/to"
 
-import {getCurrentTime} from "../NoteWizard/utils/getCurrentTime"
+import { getCurrentTime } from "../NoteWizard/utils/getCurrentTime"
 import { generateNotesFormDefinition } from "./formDefinition"
 
 type Props = {

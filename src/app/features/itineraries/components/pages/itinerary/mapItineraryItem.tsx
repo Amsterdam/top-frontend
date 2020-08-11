@@ -12,20 +12,18 @@ import DeleteItineraryItemButton from "app/features/itineraries/components/molec
 import StyledButton from "app/features/shared/components/atoms/StyledButton/StyledButton"
 
 import { ItineraryItem } from "app/features/types"
-import Notes from "../../molecules/Notes/Notes";
+import Notes from "../../molecules/Notes/Notes"
 
-const handleClick = (itineraryItemId: number, itineraryId: string, noteId?:number) => {
-  return navigate(
+const handleClick = (itineraryItemId: number, itineraryId: string, noteId?: number) => navigate(
     noteId === undefined
       ? to("/lijst/:itineraryId/notities/:itineraryItemId/nieuw", { itineraryItemId: itineraryItemId.toString(), itineraryId })
       : to("/lijst/:itineraryId/notities/:itineraryItemId/:noteId", { itineraryItemId: itineraryItemId.toString(), itineraryId, noteId: noteId.toString() })
   )
-}
 
-export const mapItineraryItem = (itineraryId: string, userId?:string) => ({ id, position, notes, case: { case_id, fraud_prediction, bwv_data: { street_name, street_number, suffix_letter, suffix, postal_code, case_reason, stadium } } }: ItineraryItem) => {
+export const mapItineraryItem = (itineraryId: string, userId?: string) => ({ id, position, notes, case: { case_id, fraud_prediction, bwv_data: { street_name, street_number, suffix_letter, suffix, postal_code, case_reason, stadium } } }: ItineraryItem) => {
   const note = notes.find(_ => _.author.id === userId)
   return ({
-    href: to(`/lijst/:itineraryId/cases/:id`, { itineraryId, id: case_id ?? "" }),
+    href: to("/lijst/:itineraryId/cases/:id", { itineraryId, id: case_id ?? "" }),
     position,
     id: case_id!,
     itemId: id.toString(),
@@ -36,7 +34,7 @@ export const mapItineraryItem = (itineraryId: string, userId?:string) => ({ id, 
     fraudProbability: <FraudProbability fraudProbability={fraud_prediction?.fraud_probability} />,
     buttons: <>
       <Spacing pb={2}>
-          <StyledButton onClick={() => handleClick(id, itineraryId, note?.id)}  variant="blank" icon={<Document />} />
+          <StyledButton onClick={() => handleClick(id, itineraryId, note?.id)} variant="blank" icon={<Document />} />
       </Spacing>
       <Spacing pb={2}>
         <DeleteItineraryItemButton id={id}/>

@@ -7,7 +7,7 @@ import styled from "styled-components"
 import { ItineraryItem } from "app/features/types"
 import { useDeleteItinerary } from "app/state/rest"
 import { useItinerary } from "app/state/rest/custom/useItinerary"
-import {useLoggedInUser} from "app/state/rest/custom/useLoggedInUser"
+import { useLoggedInUser } from "app/state/rest/custom/useLoggedInUser"
 
 import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner"
 import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout"

@@ -1,9 +1,9 @@
-import React, {useCallback, useMemo, useState} from "react"
+import React, { useCallback, useMemo, useState } from "react"
 import { useField } from "react-final-form"
 import { Dimensions, Responsive, UnboundSelectField, ComposedField, isRequired, UnboundTextField } from "amsterdam-react-final-form"
-import {getCurrentTime} from "app/features/visits/components/organisms/NoteWizard/utils/getCurrentTime"
-import styled from "styled-components";
-import {themeSpacing} from "@datapunt/asc-ui";
+import { getCurrentTime } from "app/features/visits/components/organisms/NoteWizard/utils/getCurrentTime"
+import styled from "styled-components"
+import { themeSpacing } from "@datapunt/asc-ui"
 
 export type CurrentTimeProps = {
   position?: Responsive<Dimensions>
@@ -13,25 +13,25 @@ export type CurrentTimeProps = {
 }
 
 const Wrap = styled.div`
-  margin: 0 ${themeSpacing(-2)};
+  margin: 0 ${ themeSpacing(-2) };
 `
 
-const CurrentTime:React.FC<CurrentTimeProps> = ({ position, name, label, initialValue }) => {
+const CurrentTime: React.FC<CurrentTimeProps> = ({ position, name, label, initialValue }) => {
   const [ choice, setChoice ] = useState<string|undefined>()
   const { input } = useField(name, { initialValue: initialValue, validate: isRequired() })
 
-  const handleChoice = useCallback((e:React.FormEvent<HTMLSelectElement>) => {
+  const handleChoice = useCallback((e: React.FormEvent<HTMLSelectElement>) => {
     const choice = e.currentTarget.value
     setChoice(choice)
     input.onChange({ target: { value: choice === "now" ? getCurrentTime() : undefined } })
-  }, [ setChoice, input, ])
+  }, [ setChoice, input ])
 
-  const handleTextFieldChange = useCallback((e:React.FormEvent<HTMLInputElement>) => {
+  const handleTextFieldChange = useCallback((e: React.FormEvent<HTMLInputElement>) => {
     input.onChange({ target: { value: e.currentTarget.value } })
   }, [ input ])
 
   const options = useMemo(() => ({
-    "now": `Nu (${getCurrentTime()})`,
+    "now": `Nu (${ getCurrentTime() })`,
     "other": "Anders..."
   }), [])
 

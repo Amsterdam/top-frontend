@@ -9,7 +9,7 @@ import Box from "app/features/shared/components/atoms/Box/Box"
 import { useStartAddressModal } from "./hooks/useStartAddressModal"
 import StartAddress from "./components/StartAddress/StartAddress"
 import AddStartAddressModal from "./components/AddStartAddressModal/AddStartAddressModal"
-import CaseModal from "./components/CaseModal/CaseModal";
+import CaseModal from "./components/CaseModal/CaseModal"
 
 export type AddressPickerProps = React.ComponentProps<typeof ComposedField> & {
   name: string

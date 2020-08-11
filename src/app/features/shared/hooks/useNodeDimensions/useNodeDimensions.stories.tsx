@@ -17,7 +17,7 @@ const Card = styled.div`
   background-color: ${ themeColor("tint", "level3") }
 `
 
-export const Example: React.FC  = () => {
+export const Example: React.FC = () => {
   const { ref, node } = useNodeByReference<HTMLDivElement>()
   const dimensions = useNodeDimensions(node)
 

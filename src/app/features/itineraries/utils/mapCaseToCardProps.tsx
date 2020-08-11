@@ -8,7 +8,7 @@ import DeleteItineraryItemButton from "../components/molecules/DeleteItineraryIt
 import AddItineraryItemButton from "../components/molecules/AddItineraryItemButton/AddItineraryItemButton"
 import FraudProbability from "app//features/shared/components/atoms/FraudProbability/FraudProbability"
 import { Case, ItineraryItem } from "../../types"
-import to from "../../shared/routing/to";
+import to from "../../shared/routing/to"
 
 export const casesToCardCaseProps = (cases: Case[], itinerary?: Components.Schemas.Itinerary, addDistance: boolean = false) => {
   if (!itinerary || !cases) {
@@ -24,7 +24,7 @@ const getCaseIdMap = (items: ItineraryItem[]) =>
 )
 
 const mapCaseToCardProps = (itineraryId: number, itineraryItemIds: Record<string, number>, addDistance: boolean = false) => ({ case_id, street_name, street_number, suffix_letter, suffix, postal_code, case_reason, stadium, fraud_prediction, distance }: any): React.ComponentProps<typeof ItineraryItemCard> => ({
-  href: to(`/lijst/:itineraryId/cases/:id`, { itineraryId: itineraryId?.toString(), id: case_id }),
+  href: to("/lijst/:itineraryId/cases/:id", { itineraryId: itineraryId?.toString(), id: case_id }),
   backgroundColor: "level2",
   address: displayAddress(street_name, street_number, suffix_letter, suffix),
   postalCode: postal_code,

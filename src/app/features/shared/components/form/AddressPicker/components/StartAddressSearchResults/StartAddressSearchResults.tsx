@@ -11,7 +11,7 @@ import ItineraryItemCard from "app/features/shared/components/molecules/Itinerar
 import ItineraryItemCardList from "app/features/itineraries/components/organisms/ItineraryItemCardList/ItineraryItemCardList"
 import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner"
 import FraudProbability from "../../../../atoms/FraudProbability/FraudProbability"
-import {useCaseModal} from "../../hooks/useCaseModal";
+import { useCaseModal } from "../../hooks/useCaseModal"
 
 type HandleAddCallback = (caseId: string) => void
 
@@ -22,7 +22,7 @@ type Props = {
   suffix?: string
 }
 
-const mapResults = (handleAdd: HandleAddCallback, getUrl: (string:string) => string) => ({ case_id, street_name, street_number, suffix_letter, suffix, postal_code, case_reason, stadium, fraud_prediction }: any): React.ComponentProps<typeof ItineraryItemCard> => ({
+const mapResults = (handleAdd: HandleAddCallback, getUrl: (string: string) => string) => ({ case_id, street_name, street_number, suffix_letter, suffix, postal_code, case_reason, stadium, fraud_prediction }: any): React.ComponentProps<typeof ItineraryItemCard> => ({
   href: getUrl(case_id),
   backgroundColor: "level2",
   address: displayAddress(street_name, street_number, suffix_letter, suffix),

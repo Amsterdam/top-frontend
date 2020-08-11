@@ -1,14 +1,14 @@
-import React, {useCallback} from "react"
-import {Button, themeColor, themeSpacing} from "@datapunt/asc-ui"
+import React, { useCallback } from "react"
+import { Button, themeColor, themeSpacing } from "@datapunt/asc-ui"
 
-import {useToggle} from "app/features/shared/hooks/useToggle/useToggle"
+import { useToggle } from "app/features/shared/hooks/useToggle/useToggle"
 import useNodeDimensions from "app/features/shared/hooks/useNodeDimensions/useNodeDimensions"
 import useNodeByReference from "app/features/shared/hooks/useNodeByReference/useNodeByReference"
 import styled from "styled-components"
 
 
-const GUTTER = 8;
-const HELP_TEXT_WIDTH = 320;
+const GUTTER = 8
+const HELP_TEXT_WIDTH = 320
 
 const Wrap = styled.div`
   position: relative;
@@ -35,24 +35,24 @@ type HelpTextProps = {
   leftOffset?: number
 }
 const HelpText = styled.div<HelpTextProps>`
-  padding: ${themeSpacing(3)};
+  padding: ${ themeSpacing(3) };
   position: absolute;
-  border: 1px solid ${themeColor("tint", "level2")};
-  background-color: ${themeColor("tint", "level1")};
+  border: 1px solid ${ themeColor("tint", "level2") };
+  background-color: ${ themeColor("tint", "level1") };
   z-index: 500;
   
-  width: ${HELP_TEXT_WIDTH}px;
-  left: ${ props => props?.leftOffset !== undefined ? -HELP_TEXT_WIDTH + props.leftOffset : -HELP_TEXT_WIDTH}px;  
-  ${ props => props.top !== undefined && `top: ${props.top + GUTTER}px;` }    
+  width: ${ HELP_TEXT_WIDTH }px;
+  left: ${ props => props?.leftOffset !== undefined ? -HELP_TEXT_WIDTH + props.leftOffset : -HELP_TEXT_WIDTH }px;  
+  ${ props => props.top !== undefined && `top: ${ props.top + GUTTER }px;` }    
 `
 
-const HelpButton:React.FC = ({ children }) => {
+const HelpButton: React.FC = ({ children }) => {
   const [ isOpen, toggleOpen ] = useToggle(false)
 
   const { ref: buttonRef, node: buttonNode } = useNodeByReference<HTMLDivElement>()
   const buttonDimensions = useNodeDimensions(buttonNode)
 
-  const handleClick = useCallback((e:React.MouseEvent) => {
+  const handleClick = useCallback((e: React.MouseEvent) => {
     e.preventDefault()
     toggleOpen()
   }, [ toggleOpen ])

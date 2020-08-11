@@ -1,13 +1,13 @@
 import React, { FC, useMemo } from "react"
 import { RouteComponentProps } from "@reach/router"
 
-import {useLoggedInUser} from "app/state/rest/custom/useLoggedInUser";
-import {useItinerary} from "app/state/rest/custom/useItinerary"
+import { useLoggedInUser } from "app/state/rest/custom/useLoggedInUser"
+import { useItinerary } from "app/state/rest/custom/useItinerary"
 
 import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout"
 
 import NoteForm from "../organisms/NoteForm/NoteForm"
-import Note from "../Molecules/Note/Note";
+import Note from "../Molecules/Note/Note"
 
 type Props = RouteComponentProps & {
   noteId?: string

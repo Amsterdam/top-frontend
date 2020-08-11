@@ -2,7 +2,7 @@ import React, { FC } from "react"
 import styled from "styled-components"
 import { themeColor } from "@datapunt/asc-ui"
 
-import {useLoggedInUser} from "app/state/rest/custom/useLoggedInUser"
+import { useLoggedInUser } from "app/state/rest/custom/useLoggedInUser"
 
 type Props = {
   notes: Components.Schemas.Note[]

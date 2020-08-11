@@ -6,7 +6,7 @@ import { Spinner, themeColor, themeSpacing } from "@datapunt/asc-ui"
 import displayAddress from "app/features/shared/utils/displayAddress"
 
 import { FormValues } from "../types"
-import {ItineraryItem} from "app/features/types"
+import { ItineraryItem } from "app/features/types"
 
 type Props = {
   itineraryItem?: ItineraryItem
@@ -39,7 +39,7 @@ const NodeWizardSubtitle: React.FC<Props> = ({ itineraryItem }) => {
     itineraryItem?.case.bwv_data.street_name || "",
     itineraryItem?.case.bwv_data.street_number || "",
     itineraryItem?.case.bwv_data.suffix,
-    itineraryItem?.case.bwv_data.suffix_letter,
+    itineraryItem?.case.bwv_data.suffix_letter
   )
 
   return (
