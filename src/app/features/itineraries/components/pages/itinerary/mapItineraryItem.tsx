@@ -19,9 +19,9 @@ import Notes from "../../molecules/Notes/Notes"
 //       : to("/lijst/:itineraryId/notities/:itineraryItemId/:noteId", { itineraryItemId: itineraryItemId.toString(), itineraryId, noteId: noteId.toString() })
 //   )
 
-export const mapItineraryItem = (itineraryId: string, userId?: string) => ({ id, position, notes, case: { case_id, fraud_prediction, bwv_data: { street_name, street_number, suffix_letter, suffix, postal_code, case_reason, stadium } } }: ItineraryItem) => {
+export const mapItineraryItem = (itineraryId: string, userId?: string) => ({ id, position, notes, case: { case_id, fraud_prediction, bwv_data: { street_name, street_number, suffix_letter, suffix, postal_code, case_reason, stadium } } }: ItineraryItem) => 
   //const note = notes.find(_ => _.author.id === userId)
-  return ({
+   ({
     href: to("/lijst/:itineraryId/cases/:id", { itineraryId, id: case_id ?? "" }),
     position,
     id: case_id!,
@@ -43,4 +43,4 @@ export const mapItineraryItem = (itineraryId: string, userId?: string) => ({ id,
       ? <Notes notes={notes} />
       : undefined
   })
-}
+
