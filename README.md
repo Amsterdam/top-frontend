@@ -4,9 +4,8 @@
 
 - `npm run lint`
 - `npm run test`
-- `npm run test:ci`
-- `npm run build`
 - `npm run start`
+- `npm run build`
 
 ## development
 
@@ -17,7 +16,7 @@ Run:
 - `npm run swagger:generate-schema:acc` to fetch the latest API-schemas
 
 Connect to acceptance backend
-- `npm run start:acc`
+- `npm run start`
 - open `http://localhost:3001/` in browser
 
 ## deployment
