@@ -1,6 +1,7 @@
 import React from "react"
 import { navigate } from "@reach/router"
 import { Button } from "@datapunt/asc-ui"
+import styled from "styled-components"
 
 import FraudProbability from "app/features/shared/components/atoms/FraudProbability/FraudProbability"
 import StadiumBadge from "app/features/shared/components/molecules/StadiumBadge/StadiumBadge"
@@ -9,6 +10,8 @@ import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
 import to from "app/features/shared/routing/to"
 
 import DeleteItineraryItemButton from "app/features/itineraries/components/molecules/DeleteItineraryItemButton/DeleteItineraryItemButton"
+import CheckmarkIcon from "app/features/itineraries/components/atoms/CheckmarkIcon/CheckmarkIcon"
+import ClockIcon from "app/features/itineraries/components/atoms/ClockIcon/ClockIcon"
 
 import { ItineraryItem } from "app/features/types"
 import Notes from "../../molecules/Notes/Notes"
@@ -19,7 +22,14 @@ import Notes from "../../molecules/Notes/Notes"
 //       : to("/lijst/:itineraryId/notities/:itineraryItemId/:noteId", { itineraryItemId: itineraryItemId.toString(), itineraryId, noteId: noteId.toString() })
 //   )
 
-export const mapItineraryItem = (itineraryId: string, userId?: string) => ({ id, position, notes, case: { case_id, fraud_prediction, bwv_data: { street_name, street_number, suffix_letter, suffix, postal_code, case_reason, stadium } } }: ItineraryItem) => 
+const TextWithIcon = styled.div`
+  display: flex;
+  span {
+    margin-right: 16px;
+  }
+`
+
+export const mapItineraryItem = (itineraryId: string, userId?: string) => ({ id, position, notes, visits, case: { case_id, fraud_prediction, bwv_data: { street_name, street_number, suffix_letter, suffix, postal_code, case_reason, stadium } } }: ItineraryItem) =>
   //const note = notes.find(_ => _.author.id === userId)
    ({
     href: to("/lijst/:itineraryId/cases/:id", { itineraryId, id: case_id ?? "" }),
@@ -31,16 +41,30 @@ export const mapItineraryItem = (itineraryId: string, userId?: string) => ({ id,
     reason: case_reason,
     badge: <StadiumBadge stadium={stadium} />,
     fraudProbability: <FraudProbability fraudProbability={fraud_prediction?.fraud_probability} />,
-    buttons: <>
-      <Spacing pb={2}>
-        <Button variant="secondary" onClick={() => navigate(to("/visit/:itineraryId/:caseId", { caseId: case_id, itineraryId: itineraryId }))}>Bezoek</Button>
-      </Spacing>
-      <Spacing pb={2}>
-        <DeleteItineraryItemButton id={id}/>
-      </Spacing>
-    </>,
+    buttons:
+      //visits?.length ?
+      true ?
+      <>
+        <Spacing pb={2}>
+          <TextWithIcon><CheckmarkIcon />Gelopen</TextWithIcon>
+        </Spacing>
+        <Spacing pb={2}>
+          <TextWithIcon><ClockIcon />{ visits?.[0]?.date_time ?? "00:00" }</TextWithIcon>
+        </Spacing>
+        <Spacing pb={2}>
+          <Button variant="secondary" onClick={() => navigate(to("/visit/:itineraryId/:caseId/:id", { caseId: case_id, itineraryId: itineraryId, id: visits?.[0]?.id }))}>Wijzig bezoek</Button>
+        </Spacing>
+      </>
+      :
+      <>
+        <Spacing pb={2}>
+          <Button variant="secondary" onClick={() => navigate(to("/visit/:itineraryId/:caseId", { caseId: case_id, itineraryId: itineraryId }))}>Bezoek</Button>
+        </Spacing>
+        <Spacing pb={2}>
+          <DeleteItineraryItemButton id={id}/>
+        </Spacing>
+      </>,
     notes: notes.length > 0
       ? <Notes notes={notes} />
       : undefined
   })
-

@@ -139,6 +139,8 @@ export type ItineraryItem = Omit<Components.Schemas.ItineraryItem, "case"> & {
   case: Omit<Components.Schemas.ItineraryItem["case"], "bwv_data"> & {
     bwv_data: BWVData
   }
+} & {
+  visits: { id: string, date_time: string }[]
 }
 
 type Value = string | ReactNode
