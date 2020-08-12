@@ -52,7 +52,7 @@ export const notableThings = (handleBack: OnBackButtonClick, situation: string) 
         hint: `${ situation }. Zijn er zaken die verder opvielen?`,
         options: {
           malfunctioning_doorbell: "Bel functioneert niet",
-          video_call: "Contact via videobel",
+          video_call: "Contact via intercom",
           hotel_furnished: "Hotelmatig ingericht",
           vacant: "Leegstand",
           likely_inhabited: "Vermoedelijk bewoond"
@@ -92,7 +92,7 @@ export const suggestion = (handleBack: OnBackButtonClick, situation: string) => 
         isRequired: true,
         name: "suggest_next_visit",
         label: "Suggestie nieuw bezoek",
-        hint: `${ situation }. Heb je een suggestie wanneer dit adres het beste opnieuw bezocht kan worden?`,
+        hint: `${ situation }. Wanneer kan dit adres het beste opnieuw bezocht worden?`,
         options: {
           weekend: "Weekend",
           daytime: "Overdag",
@@ -143,7 +143,7 @@ export const nextVisit = (handleBack: OnBackButtonClick) => {
       props: {
         isRequired: true,
         name: "next_visit",
-        label: "Kan het volgende onderzoek gewoon plaatsvinden?",
+        label: "Kan het adres direct worden uitgezet?",
         extraLabel: <HelpButton>
           <strong>Stop or go?</strong>
           <p>
