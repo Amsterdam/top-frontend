@@ -83,6 +83,6 @@
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
     "nock": "^13.0.3",
-    "storybook": "^5.3.19"
+    "storybook": "^6.0.10"
   }
 }
