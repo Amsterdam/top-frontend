@@ -7,7 +7,7 @@ import { useItinerary } from "app/state/rest/custom/useItinerary"
 import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout"
 
 import NoteForm from "../organisms/NoteForm/NoteForm"
-import Note from "../Molecules/Note/Note"
+import Note from "../molecules/Note/Note"
 
 type Props = RouteComponentProps & {
   noteId?: string
