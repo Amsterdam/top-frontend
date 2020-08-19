@@ -10,9 +10,10 @@ export type WizardState = {
 
 type State = Record<string, WizardState>
 type Action =
+  | { type: "SET_VALUES", caseId: string, formValues: FormValues }
   | { type: "POP_STEP", caseId: string }
   | { type: "PUSH_STEP", caseId: string, step: WizardStep }
-  | { type: "SET_VALUES", caseId: string, formValues: FormValues }
+  | { type: "CLEAR_STEPS", caseId: string }
 
 const reducer = produce((draft: State, action: Action) => {
   if (draft[action.caseId] === undefined) {
@@ -29,6 +30,9 @@ const reducer = produce((draft: State, action: Action) => {
     case "POP_STEP":
       draft[action.caseId].steps.pop()
       break
+    case "CLEAR_STEPS":
+      draft[action.caseId].steps = []
+      break
   }
 })
 
@@ -41,7 +45,7 @@ export const useNoteWizardProvider = () => {
   )
 
   const getValues = useCallback((caseId: string): FormValues|undefined =>
-      state[caseId]?.formValues,
+      state[caseId]?.formValues as FormValues,
     [ state ]
   )
 
@@ -52,6 +56,11 @@ export const useNoteWizardProvider = () => {
 
   const popStep = useCallback((caseId: string) =>
     dispatch({ type: "POP_STEP", caseId }),
+    [ dispatch ]
+  )
+
+  const clearSteps = useCallback((caseId: string) =>
+    dispatch({ type: "CLEAR_STEPS", caseId }),
     [ dispatch ]
   )
 
@@ -66,6 +75,7 @@ export const useNoteWizardProvider = () => {
     getValues,
     pushStep,
     popStep,
+    clearSteps,
     getCurrentStep
   }
 }

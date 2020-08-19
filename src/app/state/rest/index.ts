@@ -173,8 +173,7 @@ export const useDeleteItinerary = (id: string|number, options?: Options) => {
 
 export const useVisits = (options?: Options) => {
   const handleError = useErrorHandler()
-  // TODO type return type
-  return useApiRequest<any>({
+  return useApiRequest<Components.Schemas.Visit[]>({
     lazy: options?.lazy,
     url: makeGatewayUrl(["visits"]),
     groupName: "itineraries",
@@ -185,8 +184,7 @@ export const useVisits = (options?: Options) => {
 
 export const useVisit = (id: string|number, options?: Options) => {
   const handleError = useErrorHandler()
-  // TODO type return type
-  return useApiRequest<any>({
+  return useApiRequest<Components.Schemas.Visit>({
     lazy: options?.lazy,
     url: makeGatewayUrl(["visits", id]),
     groupName: "itineraries",
@@ -194,5 +192,3 @@ export const useVisit = (id: string|number, options?: Options) => {
     getHeaders
   })
 }
-
-

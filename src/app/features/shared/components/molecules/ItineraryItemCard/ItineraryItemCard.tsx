@@ -17,7 +17,7 @@ type Props = {
 
 type WrapProps = Pick<Props, "backgroundColor">
 const Wrap = styled.div<WrapProps>`
-  background-color: ${ props => themeColor("tint", props.backgroundColor ?? "level1" ) };   
+  background-color: ${ props => themeColor("tint", props.backgroundColor ?? "level1" ) };
   padding: ${ themeSpacing(3) } ${ themeSpacing(1) };
   display: flex;
   flex:1;
@@ -31,9 +31,12 @@ const Left = styled.div`
 `
 
 const Right = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 `
 
-const Address = styled.h1`   
+const Address = styled.h1`
   font-size: 18px;
   margin: ${ themeSpacing(1) } 0;
 `
@@ -44,7 +47,7 @@ const PostalCode = styled.p`
   margin: ${ themeSpacing(1) } 0;
 `
 
-const Reason = styled.p`  
+const Reason = styled.p`
   margin: ${ themeSpacing(2) } 0;
 `
 

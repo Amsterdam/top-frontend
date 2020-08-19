@@ -19,7 +19,7 @@ export const stepOne = () => {
       type: "RadioFields",
       props: {
         isRequired: true,
-        name: "status",
+        name: "situation",
         label: "Welke situatie is van toepassing?",
         options: {
           nobody_present: "Niemand aanwezig",
@@ -52,7 +52,7 @@ export const notableThings = (handleBack: OnBackButtonClick, situation: string) 
         hint: `${ situation }. Zijn er zaken die verder opvielen?`,
         options: {
           malfunctioning_doorbell: "Bel functioneert niet",
-          video_call: "Contact via videobel",
+          intercom: "Contact via intercom",
           hotel_furnished: "Hotelmatig ingericht",
           vacant: "Leegstand",
           likely_inhabited: "Vermoedelijk bewoond"
@@ -92,21 +92,21 @@ export const suggestion = (handleBack: OnBackButtonClick, situation: string) => 
         isRequired: true,
         name: "suggest_next_visit",
         label: "Suggestie nieuw bezoek",
-        hint: `${ situation }. Heb je een suggestie wanneer dit adres het beste opnieuw bezocht kan worden?`,
+        hint: `${ situation }. Wanneer kan dit adres het beste opnieuw bezocht worden?`,
         options: {
           weekend: "Weekend",
           daytime: "Overdag",
-          nighttime: "'s Avonds",
+          evening: "'s Avonds",
           unknown: "Onbekend"
         }
       }
     },
-    suggest_description: {
+    suggest_next_visit_description: {
       type: "TextAreaField",
       props: {
         label: "Eventuele toelichting",
         hint: "Bijv. Buurvrouw (6F) gaf aan in het weekend vaak bezoekers te zien",
-        name: "suggest_description"
+        name: "suggest_next_visit_description"
       }
     },
     back: {
@@ -129,7 +129,7 @@ export const suggestion = (handleBack: OnBackButtonClick, situation: string) => 
   return new FormPositioner(fields)
     .setGrid("mobileS", "1fr 1fr", [
       ["suggest_next_visit", "suggest_next_visit"],
-      ["suggest_description", "suggest_description"],
+      ["suggest_next_visit_description", "suggest_next_visit_description"],
       ["back", "submit"]
     ])
     .getScaffoldProps()
@@ -142,8 +142,8 @@ export const nextVisit = (handleBack: OnBackButtonClick) => {
       type: "RadioFields",
       props: {
         isRequired: true,
-        name: "next_visit",
-        label: "Kan het volgende onderzoek gewoon plaatsvinden?",
+        name: "can_next_visit_go_ahead",
+        label: "Kan het adres direct worden uitgezet?",
         extraLabel: <HelpButton>
           <strong>Stop or go?</strong>
           <p>
@@ -163,12 +163,11 @@ export const nextVisit = (handleBack: OnBackButtonClick) => {
     next_visit_no_description: {
       type: "ShowHide",
       props: {
-        shouldShow: ({ values: { nextVisit } }) => nextVisit === "no",
+        shouldShow: ({ values: { can_next_visit_go_ahead } }) => can_next_visit_go_ahead === "no",
         field: {
           type: "TextAreaField",
           props: {
-            isRequired: true,
-            name: "next_visit_no_description",
+            name: "can_next_visit_go_ahead_description",
             label: "Volgende stap",
             hint: "Wat is er nog nodig voordat de volgende stap genomen kan worden?"
           }
@@ -178,11 +177,11 @@ export const nextVisit = (handleBack: OnBackButtonClick) => {
     next_visit_yes_description: {
       type: "ShowHide",
       props: {
-        shouldShow: ({ values: { nextVisit } }) => nextVisit === "yes",
+        shouldShow: ({ values: { can_next_visit_go_ahead } }) => can_next_visit_go_ahead === "yes",
         field: {
           type: "TextAreaField",
           props: {
-            name: "next_visit_yes_description",
+            name: "can_next_visit_go_ahead_description",
             label: "Aanvullende informatie",
             hint: "Heb je nog aanvullende informatie voor de volgende stap?"
           }
@@ -222,7 +221,7 @@ export const accessGranted = (handleBack: OnBackButtonClick) => {
       type: "TextAreaField",
       props: {
         label: "Maak hier je notities om later te verwerken",
-        name: "notes"
+        name: "personal_notes"
       }
     },
     back: {
@@ -249,4 +248,3 @@ export const accessGranted = (handleBack: OnBackButtonClick) => {
     ])
     .getScaffoldProps()
 }
-
