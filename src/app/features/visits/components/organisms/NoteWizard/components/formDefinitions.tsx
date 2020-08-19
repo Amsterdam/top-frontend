@@ -19,7 +19,7 @@ export const stepOne = () => {
       type: "RadioFields",
       props: {
         isRequired: true,
-        name: "status",
+        name: "situation",
         label: "Welke situatie is van toepassing?",
         options: {
           nobody_present: "Niemand aanwezig",
@@ -52,7 +52,7 @@ export const notableThings = (handleBack: OnBackButtonClick, situation: string) 
         hint: `${ situation }. Zijn er zaken die verder opvielen?`,
         options: {
           malfunctioning_doorbell: "Bel functioneert niet",
-          video_call: "Contact via intercom",
+          intercom: "Contact via intercom",
           hotel_furnished: "Hotelmatig ingericht",
           vacant: "Leegstand",
           likely_inhabited: "Vermoedelijk bewoond"
@@ -96,7 +96,7 @@ export const suggestion = (handleBack: OnBackButtonClick, situation: string) => 
         options: {
           weekend: "Weekend",
           daytime: "Overdag",
-          nighttime: "'s Avonds",
+          evening: "'s Avonds",
           unknown: "Onbekend"
         }
       }
@@ -142,7 +142,7 @@ export const nextVisit = (handleBack: OnBackButtonClick) => {
       type: "RadioFields",
       props: {
         isRequired: true,
-        name: "next_visit",
+        name: "can_next_visit_go_ahead",
         label: "Kan het adres direct worden uitgezet?",
         extraLabel: <HelpButton>
           <strong>Stop or go?</strong>
@@ -168,7 +168,7 @@ export const nextVisit = (handleBack: OnBackButtonClick) => {
           type: "TextAreaField",
           props: {
             isRequired: true,
-            name: "next_visit_no_description",
+            name: "can_next_visit_go_ahead_description",
             label: "Volgende stap",
             hint: "Wat is er nog nodig voordat de volgende stap genomen kan worden?"
           }
@@ -182,7 +182,7 @@ export const nextVisit = (handleBack: OnBackButtonClick) => {
         field: {
           type: "TextAreaField",
           props: {
-            name: "next_visit_yes_description",
+            name: "can_next_visit_go_ahead_description",
             label: "Aanvullende informatie",
             hint: "Heb je nog aanvullende informatie voor de volgende stap?"
           }
@@ -249,4 +249,3 @@ export const accessGranted = (handleBack: OnBackButtonClick) => {
     ])
     .getScaffoldProps()
 }
-

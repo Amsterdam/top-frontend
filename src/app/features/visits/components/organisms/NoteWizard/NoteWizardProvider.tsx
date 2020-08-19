@@ -2,12 +2,13 @@ import React, { createContext } from "react"
 import { useNoteWizardProvider } from "./hooks/useNoteWizardProvider"
 
 const noop = () => undefined
-export const NoteWizardContext = createContext<ReturnType<typeof useNoteWizardProvider> >({
+export const NoteWizardContext = createContext<ReturnType<typeof useNoteWizardProvider>>({
   state: {},
   setValues: noop,
   getValues: noop,
   pushStep: noop,
   popStep: noop,
+  clearSteps: noop,
   getCurrentStep: noop
 })
 

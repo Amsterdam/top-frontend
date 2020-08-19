@@ -1,23 +1,15 @@
 import React from "react"
 import * as wizardSteps from "./components/formDefinitions"
 
-export type NoAccessGrantedValues = {
-  situation: "nobodyPresent" | "noCooperation"
+export type FormValues = {
+  situation?: "nobody_present" | "no_cooperation" | "access_granted"
   start_time: string
-  notableThings: readonly string[]
-  suggestion: string
-  explanation: string
-  nextVisit: string
-  choiceNo: string
-  choiceYes: string
+  observations?: string[] | null
+  suggest_next_visit?: "weekend" | "daytime" | "evening" | "unknown"
+  suggest_description?: string | null
+  can_next_visit_go_ahead?: "yes" | "no"
+  can_next_visit_go_ahead_description?: string | null
 }
-
-export type AccessGrantedValues = {
-  situation: "accessGranted"
-  start_time: string
-}
-
-export type FormValues = NoAccessGrantedValues | AccessGrantedValues | { start_time: string }
 
 export type WizardStep = keyof typeof wizardSteps
 

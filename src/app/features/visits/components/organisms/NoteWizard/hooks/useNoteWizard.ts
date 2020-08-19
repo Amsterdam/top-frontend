@@ -7,6 +7,7 @@ export const useNoteWizard = (caseID: string) => {
     getCurrentStep: getCurrentStepFromContext,
     pushStep: pushStepToContext,
     popStep: popStepFromContext,
+    clearSteps: clearStepsInContext,
     setValues: setValuesInContext,
     getValues: getValuesFromContext
   } = useContext(NoteWizardContext)
@@ -14,6 +15,7 @@ export const useNoteWizard = (caseID: string) => {
   const getCurrentStep = useCallback(() => getCurrentStepFromContext(caseID), [ caseID, getCurrentStepFromContext ])
   const popStep = useCallback(() => popStepFromContext(caseID), [ caseID, popStepFromContext ])
   const pushStep = useCallback((step: WizardStep) => pushStepToContext(caseID, step), [ caseID, pushStepToContext ])
+  const clearSteps = useCallback(() => clearStepsInContext(caseID), [ caseID, clearStepsInContext ])
   const setValues = useCallback((values: FormValues) => setValuesInContext(caseID, values), [ caseID, setValuesInContext ])
   const getValues = useCallback(() => getValuesFromContext(caseID), [ caseID, getValuesFromContext ])
 
@@ -21,6 +23,7 @@ export const useNoteWizard = (caseID: string) => {
     getCurrentStep,
     popStep,
     pushStep,
+    clearSteps,
     setValues,
     getValues
   }

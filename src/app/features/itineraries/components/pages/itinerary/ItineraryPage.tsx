@@ -7,7 +7,6 @@ import styled from "styled-components"
 import { ItineraryItem } from "app/features/types"
 import { useDeleteItinerary } from "app/state/rest"
 import { useItinerary } from "app/state/rest/custom/useItinerary"
-import { useLoggedInUser } from "app/state/rest/custom/useLoggedInUser"
 
 import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner"
 import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout"
@@ -39,7 +38,7 @@ const H2 = styled.h2`
 
 type ColumnWrapProps = { border: boolean }
 const ColumnWrap = styled.div<ColumnWrapProps>`
-  padding: ${ themeSpacing(2) } 0;  
+  padding: ${ themeSpacing(2) } 0;
   display: flex;
 `
 
@@ -60,7 +59,6 @@ type Props = {
 
 const ItineraryPage: React.FC<RouteComponentProps<Props>> = ({ itineraryId }) => {
   const { data, isBusy } = useItinerary(parseInt(itineraryId!))
-  const loggedInUser = useLoggedInUser()
   const { execDelete } = useDeleteItinerary(itineraryId!, { lazy: true }) // <- NOTE: we need a extra hook here, because /itenaries/:id/ only allows a DELETE, no other methods
 
   const [showDialog, setShowDialog] = useState(false)
@@ -83,7 +81,7 @@ const ItineraryPage: React.FC<RouteComponentProps<Props>> = ({ itineraryId }) =>
   }, [ execDelete ])
 
   const items = data?.items as unknown as ItineraryItem[]
-  const cardListItems = useMemo(() => items?.map(mapItineraryItem(itineraryId!, loggedInUser?.id)) ?? [], [items, itineraryId, loggedInUser])
+  const cardListItems = useMemo(() => items?.map(mapItineraryItem(itineraryId!)) ?? [], [items, itineraryId])
   const teamMemberUsers = useMemo(() => data?.team_members.map(member => member.user) ?? [], [ data ])
   const teamMemberNames = useMemo(() => teamMemberUsers?.map(user => user.full_name).join(", "), [ teamMemberUsers ])
   const cases = useMemo(() => items?.map(item => item.case.bwv_data) ?? [], [ items ])

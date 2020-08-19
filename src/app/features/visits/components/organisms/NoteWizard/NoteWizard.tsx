@@ -1,28 +1,37 @@
 import React, { useCallback } from "react"
 import { ScaffoldForm } from "amsterdam-react-final-form"
-import { useParams } from "@reach/router"
+import { useParams, navigate } from "@reach/router"
+import to from "app/features/shared/routing/to"
 
 import { useNoteWizard } from "./hooks/useNoteWizard"
 import NoteWizardManager from "./components/NoteWizardManager"
 import NoteWizardFormScaffoldFields from "./components/NoteWizardScaffoldFields"
 import NodeWizardSubtitle from "./components/NoteWizardSubtitle"
+import { ItineraryItem } from "app/features/types"
 import { useLoggedInUser } from "app/state/rest/custom/useLoggedInUser"
 import { useItinerary } from "app/state/rest/custom/useItinerary"
-import { ItineraryItem } from "app/features/types"
+import useOptionalVisit from "app/state/rest/custom/useOptionalVisit"
+import { mapPostValues, mapInitialValues } from "./utils/mapValues"
 
 const NoteWizard: React.FC = () => {
-  // @TODO Once we are ready to post, uncomment the following line:
-  // const { execPost } = useVisits({lazy: true})
 
-  const { caseId, itineraryId } = useParams()
+  const { caseId, itineraryId, id } = useParams()
   const { data: itinerary } = useItinerary(itineraryId)
-  const { pushStep, popStep, getCurrentStep, getValues, setValues } = useNoteWizard(caseId)
+  const { pushStep, popStep, getCurrentStep, clearSteps, getValues, setValues } = useNoteWizard(caseId)
   const user = useLoggedInUser()
+  const visit = useOptionalVisit(id)
+  const { data, execPost, execPut } = visit
+  const isUpdate = data !== undefined
 
   const itineraryItem = itinerary?.items.find(item => item.case.case_id === caseId) as unknown as ItineraryItem
 
+  const getInitialValues = useCallback(() => {
+    if (isUpdate) return mapInitialValues(user?.id !== undefined ? { ...data, author: user?.id } : data)
+    return getValues() ?? { itinerary_item: itineraryItem?.id, author: user?.id }
+  }, [getValues, data, itineraryItem, user, isUpdate])
+
   const wizardStep = getCurrentStep() ?? "stepOne"
-  const initialValues = getValues() ?? { itinerary_item: itineraryItem?.id, author: user?.id }
+  const initialValues = getInitialValues()
 
   const handleBackButtonClick = useCallback((e: React.MouseEvent) => {
     e.preventDefault()
@@ -35,7 +44,7 @@ const NoteWizard: React.FC = () => {
     switch(wizardStep) {
       case "stepOne":
         pushStep(
-          values.situation === "accessGranted"
+          values.situation === "access_granted"
             ? "accessGranted"
             : "notableThings"
         )
@@ -47,17 +56,19 @@ const NoteWizard: React.FC = () => {
         pushStep("nextVisit")
         break
       case "nextVisit":
-      case "accessGranted":
-
-        // @TODO we still need to post here!
-        // return execPost(values)
-
-        alert("DONE")
-      break
+      case "accessGranted": {
+        const method = isUpdate ? execPut : execPost
+        const onSuccess = () => {
+          clearSteps()
+          navigate(to("/lijst/:itineraryId/", { itineraryId }))
+        }
+        method(mapPostValues(values), { onSuccess })
+        break
+      }
     }
 
     return Promise.resolve(true)
-  }, [pushStep, setValues, wizardStep])
+  }, [pushStep, clearSteps, setValues, wizardStep, itineraryId, isUpdate, execPut, execPost])
 
   return (
     <ScaffoldForm onSubmit={handleSubmit} initialValues={initialValues} keepDirtyOnReinitialize={true}>

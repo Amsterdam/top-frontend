@@ -16,11 +16,7 @@ import ClockIcon from "app/features/itineraries/components/atoms/ClockIcon/Clock
 import { ItineraryItem } from "app/features/types"
 import Notes from "../../molecules/Notes/Notes"
 
-// const handleClick = (itineraryItemId: number, itineraryId: string, noteId?: number) => navigate(
-//     noteId === undefined
-//       ? to("/lijst/:itineraryId/notities/:itineraryItemId/nieuw", { itineraryItemId: itineraryItemId.toString(), itineraryId })
-//       : to("/lijst/:itineraryId/notities/:itineraryItemId/:noteId", { itineraryItemId: itineraryItemId.toString(), itineraryId, noteId: noteId.toString() })
-//   )
+import { mapDateToTime } from "app/features/visits/components/organisms/NoteWizard/utils/mapDateToTime"
 
 const TextWithIcon = styled.div`
   display: flex;
@@ -29,9 +25,8 @@ const TextWithIcon = styled.div`
   }
 `
 
-export const mapItineraryItem = (itineraryId: string, userId?: string) => ({ id, position, notes, visits, case: { case_id, fraud_prediction, bwv_data: { street_name, street_number, suffix_letter, suffix, postal_code, case_reason, stadium } } }: ItineraryItem) =>
-  //const note = notes.find(_ => _.author.id === userId)
-   ({
+export const mapItineraryItem = (itineraryId: string) => ({ id, position, notes, visits, case: { case_id, fraud_prediction, bwv_data: { street_name, street_number, suffix_letter, suffix, postal_code, case_reason, stadium } } }: ItineraryItem) =>
+  ({
     href: to("/lijst/:itineraryId/cases/:id", { itineraryId, id: case_id ?? "" }),
     position,
     id: case_id!,
@@ -42,17 +37,16 @@ export const mapItineraryItem = (itineraryId: string, userId?: string) => ({ id,
     badge: <StadiumBadge stadium={stadium} />,
     fraudProbability: <FraudProbability fraudProbability={fraud_prediction?.fraud_probability} />,
     buttons:
-      //visits?.length ?
-      true ?
+      visits.length ?
       <>
         <Spacing pb={2}>
           <TextWithIcon><CheckmarkIcon />Gelopen</TextWithIcon>
         </Spacing>
         <Spacing pb={2}>
-          <TextWithIcon><ClockIcon />{ visits?.[0]?.date_time ?? "00:00" }</TextWithIcon>
+          <TextWithIcon><ClockIcon />{ visits[0] ? mapDateToTime(visits[0].start_time) : "--:--" }</TextWithIcon>
         </Spacing>
         <Spacing pb={2}>
-          <Button variant="secondary" onClick={() => navigate(to("/visit/:itineraryId/:caseId/:id", { caseId: case_id, itineraryId: itineraryId, id: visits?.[0]?.id }))}>Wijzig bezoek</Button>
+          <Button variant="secondary" onClick={() => navigate(to("/visit/:itineraryId/:caseId/:id", { caseId: case_id, itineraryId: itineraryId, id: visits[0]?.id }))}>Wijzig bezoek</Button>
         </Spacing>
       </>
       :
