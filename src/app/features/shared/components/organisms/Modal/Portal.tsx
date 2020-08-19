@@ -11,7 +11,6 @@ const Portal: React.FC = ({ children }) => {
     document.getElementById(modalRoot)?.appendChild(element)
 
     return () => {
-      console.log("UNMOUNT")
       // onUnmount: remove `el` from modal-root.
       document.getElementById(modalRoot)?.removeChild(element)
     }
