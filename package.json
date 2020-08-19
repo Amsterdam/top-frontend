@@ -7,7 +7,7 @@
     "@datapunt/asc-ui": "^0.23.0-alpha.0",
     "@sentry/browser": "^5.20.1",
     "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
+    "@testing-library/react": "^10.4.8",
     "@testing-library/user-event": "^7.1.2",
     "@types/jest": "^24.0.0",
     "@types/lodash.pick": "^4.4.6",
