@@ -16,6 +16,11 @@ const Wrap = styled.div`
   margin: 0 ${ themeSpacing(-2) };
 `
 
+// TODO: Styling for iOS Safari. Should be moved to amsterdam-react-final-form
+const StyledUnboundTextField = styled(UnboundTextField)`
+  min-height: 40px
+`
+
 const CurrentTime: React.FC<CurrentTimeProps> = ({ position, name, label, initialValue }) => {
   const [ choice, setChoice ] = useState<string|undefined>()
   const { input } = useField(name, { initialValue: initialValue, validate: isRequired() })
@@ -45,7 +50,7 @@ const CurrentTime: React.FC<CurrentTimeProps> = ({ position, name, label, initia
     <ComposedField position={position} label={label}>
       <Wrap>
         <UnboundSelectField onChange={handleChoice} withEmptyOption={true} options={options} value={selectValue} />
-        { (choice === "other" || (input.value && input.value !== getCurrentTime())) && <UnboundTextField type="time" onChange={handleTextFieldChange} value={input.value} /> }
+        { (choice === "other" || (input.value && input.value !== getCurrentTime())) && <StyledUnboundTextField type="time" onChange={handleTextFieldChange} value={input.value} /> }
       </Wrap>
     </ComposedField>
   )
