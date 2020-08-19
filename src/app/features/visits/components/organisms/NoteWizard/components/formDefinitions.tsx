@@ -101,12 +101,12 @@ export const suggestion = (handleBack: OnBackButtonClick, situation: string) => 
         }
       }
     },
-    suggest_description: {
+    suggest_next_visit_description: {
       type: "TextAreaField",
       props: {
         label: "Eventuele toelichting",
         hint: "Bijv. Buurvrouw (6F) gaf aan in het weekend vaak bezoekers te zien",
-        name: "suggest_description"
+        name: "suggest_next_visit_description"
       }
     },
     back: {
@@ -129,7 +129,7 @@ export const suggestion = (handleBack: OnBackButtonClick, situation: string) => 
   return new FormPositioner(fields)
     .setGrid("mobileS", "1fr 1fr", [
       ["suggest_next_visit", "suggest_next_visit"],
-      ["suggest_description", "suggest_description"],
+      ["suggest_next_visit_description", "suggest_next_visit_description"],
       ["back", "submit"]
     ])
     .getScaffoldProps()
@@ -163,11 +163,10 @@ export const nextVisit = (handleBack: OnBackButtonClick) => {
     next_visit_no_description: {
       type: "ShowHide",
       props: {
-        shouldShow: ({ values: { nextVisit } }) => nextVisit === "no",
+        shouldShow: ({ values: { can_next_visit_go_ahead } }) => can_next_visit_go_ahead === "no",
         field: {
           type: "TextAreaField",
           props: {
-            isRequired: true,
             name: "can_next_visit_go_ahead_description",
             label: "Volgende stap",
             hint: "Wat is er nog nodig voordat de volgende stap genomen kan worden?"
@@ -178,7 +177,7 @@ export const nextVisit = (handleBack: OnBackButtonClick) => {
     next_visit_yes_description: {
       type: "ShowHide",
       props: {
-        shouldShow: ({ values: { nextVisit } }) => nextVisit === "yes",
+        shouldShow: ({ values: { can_next_visit_go_ahead } }) => can_next_visit_go_ahead === "yes",
         field: {
           type: "TextAreaField",
           props: {
@@ -222,7 +221,7 @@ export const accessGranted = (handleBack: OnBackButtonClick) => {
       type: "TextAreaField",
       props: {
         label: "Maak hier je notities om later te verwerken",
-        name: "notes"
+        name: "personal_notes"
       }
     },
     back: {
