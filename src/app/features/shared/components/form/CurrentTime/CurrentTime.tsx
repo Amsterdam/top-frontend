@@ -50,7 +50,7 @@ const CurrentTime: React.FC<CurrentTimeProps> = ({ position, name, label, initia
     <ComposedField position={position} label={label}>
       <Wrap>
         <UnboundSelectField onChange={handleChoice} withEmptyOption={true} options={options} value={selectValue} />
-        { (choice === "other" || (input.value && input.value !== getCurrentTime())) && <StyledUnboundTextField type="time" onChange={handleTextFieldChange} value={input.value} /> }
+        { (choice === "other" || (input.value && input.value !== getCurrentTime())) && <StyledUnboundTextField type="time" onChange={handleTextFieldChange} value={input.value} autoFocus={ true } /> }
       </Wrap>
     </ComposedField>
   )
