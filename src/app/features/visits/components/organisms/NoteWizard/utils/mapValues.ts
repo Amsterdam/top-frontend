@@ -1,7 +1,6 @@
 import { FormValues } from "../types"
 import { mapDateToTime, mapTimeToDate }from "./mapDateToTime"
 import { mapYesNoToBoolean, mapBooleanToYesNo }  from "./mapYesNoToBoolean"
-import pick from "lodash.pick"
 
 export const mapPostValues = (values: any) : Partial<Components.Schemas.Visit> => {
   const start_time = mapTimeToDate(values.start_time)
@@ -14,13 +13,6 @@ export const mapPostValues = (values: any) : Partial<Components.Schemas.Visit> =
     start_time,
     can_next_visit_go_ahead
   }
-  const fields = [
-    "id",
-    "start_time",
-    "author",
-    "itinerary_item",
-    "situation"
-  ]
   const fieldsNoAccess = [
     "observations",
     "suggest_next_visit",
@@ -31,9 +23,14 @@ export const mapPostValues = (values: any) : Partial<Components.Schemas.Visit> =
   const fieldsAccess = [
     "personal_notes"
   ]
+  const nullFields = (fields: string[]) => fields.reduce(
+    (acc: Record<string, null>, field: string) => {
+      acc[field] = null
+      return acc
+    }, {})
   return postValues.situation === "access_granted" ?
-    pick(postValues, [...fields, ...fieldsAccess]) :
-    pick(postValues, [...fields, ...fieldsNoAccess])
+    { ...postValues, ...nullFields(fieldsNoAccess) } :
+    { ...postValues, ...nullFields(fieldsAccess) }
 }
 
 export const mapInitialValues = (values: Components.Schemas.Visit) : FormValues => {
