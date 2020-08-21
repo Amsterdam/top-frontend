@@ -169,7 +169,7 @@ export const nextVisit = (handleBack: OnBackButtonClick) => {
           props: {
             name: "can_next_visit_go_ahead_description",
             label: "Volgende stap",
-            hint: "Wat is er nog nodig voordat de volgende stap genomen kan worden?"
+            hint: "Waarom niet?"
           }
         }
       }
@@ -183,7 +183,7 @@ export const nextVisit = (handleBack: OnBackButtonClick) => {
           props: {
             name: "can_next_visit_go_ahead_description",
             label: "Aanvullende informatie",
-            hint: "Heb je nog aanvullende informatie voor de volgende stap?"
+            hint: "Zijn er nog benoemenswaardigheden? (niet verplicht)"
           }
         }
       }
@@ -221,7 +221,10 @@ export const accessGranted = (handleBack: OnBackButtonClick) => {
       type: "TextAreaField",
       props: {
         label: "Maak hier je notities om later te verwerken",
-        name: "personal_notes"
+        name: "personal_notes",
+        extraLabel: <HelpButton>
+          <p>Eigen notities ten behoeve van rapportage en debrief. Alleen zichtbaar voor je team.</p>
+        </HelpButton>
       }
     },
     back: {
