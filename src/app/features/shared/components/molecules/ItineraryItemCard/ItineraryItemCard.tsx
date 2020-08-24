@@ -13,6 +13,7 @@ type Props = {
   badge?: JSX.Element
   buttons?: JSX.Element
   notes?: JSX.Element
+  isVisited?: boolean
 }
 
 type WrapProps = Pick<Props, "backgroundColor">
@@ -25,9 +26,11 @@ const Wrap = styled.div<WrapProps>`
   border-bottom: 1px solid ${ themeColor("tint", "level3") };
 `
 
-const Left = styled.div`
+type LeftProps = { opacity?: number }
+const Left = styled.div<LeftProps>`
   cursor: pointer;
   flex: 1;
+  opacity: ${ props => props.opacity ?? 1 };
 `
 
 const Right = styled.div`
@@ -58,7 +61,7 @@ const FraudProbability = styled.p`
   color: ${ themeColor("tint", "level4") };
 `
 
-const ItineraryItemCard: React.FC<Props> = ({ href, address, postalCode, reason, buttons, badge, fraudProbability, backgroundColor, notes }) => {
+const ItineraryItemCard: React.FC<Props> = ({ href, address, postalCode, isVisited, reason, buttons, badge, fraudProbability, backgroundColor, notes }) => {
   const handleClick = useCallback(() => {
     if (href) {
       return navigate(href)
@@ -66,7 +69,7 @@ const ItineraryItemCard: React.FC<Props> = ({ href, address, postalCode, reason,
   }, [href])
   return (
     <Wrap backgroundColor={backgroundColor}>
-      <Left onClick={handleClick}>
+      <Left onClick={handleClick} opacity={ isVisited ? 0.4 : 1 }>
         <Address>{ address }</Address>
         <PostalCode>{ postalCode }</PostalCode>
         { fraudProbability && <FraudProbability>{ fraudProbability }</FraudProbability> }
