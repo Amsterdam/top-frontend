@@ -147,7 +147,7 @@ export const nextVisit = (handleBack: OnBackButtonClick) => {
         extraLabel: <HelpButton>
           <strong>Tegenhouden of doorlaten?</strong>
           <p>
-            Doorlaten (ja): adres komt zonder tussenkomst direct in looplijst.
+            Doorlaten (ja): adres komt zonder tussenkomst weer in een looplijst terecht.
           </p>
           <p>
             Tegenhouden (nee): het adres kan niet direct worden uitgezet. <em>Voorbeeld: machtiging vereist.</em>
