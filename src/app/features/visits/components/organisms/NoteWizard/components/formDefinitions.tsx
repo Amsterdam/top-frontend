@@ -49,7 +49,7 @@ export const notableThings = (handleBack: OnBackButtonClick, situation: string) 
       props: {
         name: "observations",
         label: "Opvallende zaken",
-        hint: `${ situation }. Zijn er zaken die verder opvielen?`,
+        hint: `${ situation }. Zijn er zaken die verder opvielen? (niet verplicht)`,
         options: {
           malfunctioning_doorbell: "Bel functioneert niet",
           intercom: "Contact via intercom",
@@ -92,11 +92,11 @@ export const suggestion = (handleBack: OnBackButtonClick, situation: string) => 
         isRequired: true,
         name: "suggest_next_visit",
         label: "Suggestie nieuw bezoek",
-        hint: `${ situation }. Wanneer kan dit adres het beste opnieuw bezocht worden?`,
+        hint: "Wanneer kan dit adres het beste opnieuw bezocht worden?",
         options: {
           daytime: "Overdag",
-          evening: "'s Avonds",
           weekend: "Weekend",
+          evening: "'s Avonds",
           unknown: "Onbekend"
         }
       }
@@ -104,7 +104,7 @@ export const suggestion = (handleBack: OnBackButtonClick, situation: string) => 
     suggest_next_visit_description: {
       type: "TextAreaField",
       props: {
-        label: "Eventuele toelichting",
+        label: "Toelichting (niet verplicht)",
         hint: "Bijv. Buurvrouw (6F) gaf aan in het weekend vaak bezoekers te zien",
         name: "suggest_next_visit_description"
       }
@@ -145,13 +145,12 @@ export const nextVisit = (handleBack: OnBackButtonClick) => {
         name: "can_next_visit_go_ahead",
         label: "Kan het adres direct worden uitgezet?",
         extraLabel: <HelpButton>
-          <strong>Stop or go?</strong>
+          <strong>Tegenhouden of doorlaten?</strong>
           <p>
-            <em>Nee</em>: de zaak dient eerst bekeken te worden of actie is vereist voordat het adres opnieuw bezocht wordt. Bijv: machtiging of leegstand.
-            Verplicht: toelichting waarom adres niet automatisch in voorraad kan komen.</p>
+            Doorlaten (ja): adres komt zonder tussenkomst direct in looplijst.
+          </p>
           <p>
-            <em>Ja</em>: het adres kan zonder tussenkomst van een collega direct weer in de looplijstvoorraad opgenomen worden.<br />
-            <em>Optioneel: geven relevante tips voor volgend bezoek.</em>
+            Tegenhouden (nee): het adres kan niet direct worden uitgezet. <em>Voorbeeld: machtiging vereist.</em>
           </p>
         </HelpButton>,
         options: {
@@ -168,8 +167,7 @@ export const nextVisit = (handleBack: OnBackButtonClick) => {
           type: "TextAreaField",
           props: {
             name: "can_next_visit_go_ahead_description",
-            label: "Volgende stap",
-            hint: "Waarom niet?"
+            label: "Waaom niet?"
           }
         }
       }

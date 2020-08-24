@@ -14,9 +14,9 @@ type Props = {
 const NoteWizardFormScaffoldFields: React.FC<Props> = ({ step, onBackButtonClicked }) => {
   const { values } = useFormState()
 
-  const friendlySituation = values.situation === "nobodyPresent"
+  const friendlySituation = values.situation === "nobody_present"
     ? "Er was niemand aanwezig"
-    : "Er werd geen toegang verleend"
+    : "Je kreeg geen medewerking"
 
   return <Scaffold {...formDefinitions[step](onBackButtonClicked, friendlySituation)} />
 }
