@@ -29,6 +29,7 @@ export const mapItineraryItem = (itineraryId: string) => ({
     reason: case_reason,
     badge: <StadiumBadge stadium={stadium} />,
     fraudProbability: <FraudProbability fraudProbability={fraud_prediction?.fraud_probability} />,
+    isVisited: visits.length > 0,
     buttons: <Buttons itineraryId={ itineraryId } itineraryItemId={ id } caseId={ case_id } visits={ visits } />,
     notes: notes.length > 0
       ? <Notes notes={notes} />
