@@ -94,9 +94,9 @@ export const suggestion = (handleBack: OnBackButtonClick, situation: string) => 
         label: "Suggestie nieuw bezoek",
         hint: `${ situation }. Wanneer kan dit adres het beste opnieuw bezocht worden?`,
         options: {
-          weekend: "Weekend",
           daytime: "Overdag",
           evening: "'s Avonds",
+          weekend: "Weekend",
           unknown: "Onbekend"
         }
       }
@@ -155,8 +155,8 @@ export const nextVisit = (handleBack: OnBackButtonClick) => {
           </p>
         </HelpButton>,
         options: {
-          no: "Nee",
-          yes: "Ja"
+          yes: "Ja",
+          no: "Nee"
         }
       }
     },
@@ -183,7 +183,7 @@ export const nextVisit = (handleBack: OnBackButtonClick) => {
           props: {
             name: "can_next_visit_go_ahead_description",
             label: "Aanvullende informatie",
-            hint: "Zijn er nog benoemenswaardigheden? (niet verplicht)"
+            hint: "Zijn er nog noemenswaardigheden? (niet verplicht)"
           }
         }
       }
