@@ -17,17 +17,17 @@ const Wrap = styled.div`
 
   margin: 0 -${ themeSpacing(4) } ${ themeSpacing(4) } -${ themeSpacing(4) };
   padding: ${ themeSpacing(0) } ${ themeSpacing(4) } ${ themeSpacing(3) } ${ themeSpacing(4) };
-  
-  border-bottom: 1px solid ${ themeColor("tint", "level5") }
+
+  border-bottom: 1px solid ${ themeColor("tint", "level3") }
 `
 
 const Title = styled.div`
-  font-weight: bold;
+  font-weight: 600;
   flex 1;
 `
 
 const Time = styled.div`
-  font-weight: bold;
+  font-weight: 600;
   flex 1;
   text-align: right;
 `
