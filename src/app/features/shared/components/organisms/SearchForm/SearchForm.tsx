@@ -1,6 +1,6 @@
-import React, { FC, useCallback, useContext } from "react"
+import React, {FC, useCallback, useContext, useMemo} from "react"
 import { Scaffold, ScaffoldForm } from "amsterdam-react-final-form"
-import { scaffoldProps } from "./formDefinition"
+import { createDefinition } from "./formDefinition"
 import { SearchFormContext } from "./SearchFormProvider"
 
 export type FormValues = {
@@ -18,12 +18,13 @@ const SearchForm: FC = () => {
     return Promise.resolve(true)
   }, [ setValues ])
 
-  const handleReset = useCallback(() => {
+  const scaffoldProps = useMemo(() => createDefinition(() =>
     // @ts-ignore
-    setValues({})
-  }, [ setValues ])
+    setValues({})),
+    [setValues]
+  )
 
-  return (<ScaffoldForm onSubmit={handleSubmit} onReset={handleReset} initialValues={values} keepDirtyOnReinitialize={true}>
+  return (<ScaffoldForm onSubmit={handleSubmit} initialValues={values}>
     <Scaffold {...scaffoldProps} />
   </ScaffoldForm>
   )
