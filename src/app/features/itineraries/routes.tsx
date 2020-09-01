@@ -10,6 +10,8 @@ export default {
   "/lijst/:itineraryId/": ItineraryPage,
   "/lijst/nieuw/": CreateItineraryPage,
   "/lijst/:itineraryId/issuemeldingen/": OpenIssuesPage,
+  "/issuemeldingen/": OpenIssuesPage,
   "/lijst/:itineraryId/zoeken/": SearchPage,
+  "/zoeken/": SearchPage,
   "/lijst/:itineraryId/suggesties/": SuggestionsPage
 }

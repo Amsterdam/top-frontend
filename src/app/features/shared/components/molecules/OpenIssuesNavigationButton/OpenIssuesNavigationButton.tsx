@@ -8,7 +8,7 @@ import to from "app/features/shared/routing/to"
 import ResponsiveText from "../ResponsiveText/ResponsiveText"
 
 type Props = {
-  itineraryId: string
+  itineraryId?: string
 }
 
 const OpenIssuesNavigationButton: React.FC<Props> = ({ itineraryId }) => {
@@ -18,7 +18,11 @@ const OpenIssuesNavigationButton: React.FC<Props> = ({ itineraryId }) => {
     ? `(${ data.cases.length })`
     : ""
 
-  return <Link to={to("/lijst/:itineraryId/issuemeldingen/", { itineraryId })}>
+  const href = itineraryId
+    ? to("/lijst/:itineraryId/issuemeldingen/", { itineraryId })
+    : to("/issuemeldingen/")
+
+  return <Link to={ href }>
     <ResponsiveText text={[`Issues ${ numOpenIssues }`, `Open issuemeldingen ${ numOpenIssues }`]}/>
   </Link>
 }

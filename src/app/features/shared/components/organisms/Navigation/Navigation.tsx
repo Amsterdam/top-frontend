@@ -1,12 +1,12 @@
 import React, { FC } from "react"
 import styled from "styled-components"
-import { Link, useLocation, useParams } from "@reach/router"
+import { useLocation, useParams } from "@reach/router"
 import { themeColor } from "@datapunt/asc-ui"
-import { Search } from "@datapunt/asc-assets"
 
-import to, { applyRouteParams } from "app/features/shared/routing/to"
+import { applyRouteParams } from "app/features/shared/routing/to"
 import ItineraryNavigationButton from "../../molecules/ItineraryNavigationButton/ItineraryNavigationButton"
 import OpenIssuesNavigationButton from "../../molecules/OpenIssuesNavigationButton/OpenIssuesNavigationButton"
+import SearchNavigationButton from "../../molecules/SearchNavigationButton/SearchNavigationButton"
 
 const NavWrap = styled.div`
   position: fixed;
@@ -67,18 +67,12 @@ const Navigation: FC = () => {
             <Li isActive={ pathname === "/" || pathname === ("/lijst") || pathname === applyRouteParams("/lijst/:itineraryId/", { itineraryId }) }>
               <ItineraryNavigationButton />
             </Li>
-            { itineraryId && (
-              <>
-                <Li isActive={ pathname === applyRouteParams("/lijst/:itineraryId/issuemeldingen/", { itineraryId }) }>
-                  <OpenIssuesNavigationButton itineraryId={itineraryId} />
-                </Li>
-                <SpacedLi isActive={ pathname === applyRouteParams("/lijst/:itineraryId/zoeken/", { itineraryId }) }>
-                  <Link to={to("/lijst/:itineraryId/zoeken/", { itineraryId })}>
-                    <Search width={ 24 } height={ 24 } />
-                  </Link>
-                </SpacedLi>
-              </>
-            ) }
+            <Li isActive={ pathname.includes("issuemeldingen") }>
+              <OpenIssuesNavigationButton itineraryId={itineraryId} />
+            </Li>
+            <SpacedLi isActive={ pathname.includes("zoeken") } >
+              <SearchNavigationButton itineraryId={itineraryId} />
+            </SpacedLi>
           </Ul>
         </Nav>
       </NavWrap>

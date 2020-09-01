@@ -20,7 +20,7 @@ export const mapItineraryItem = (itineraryId: string) => ({
     bwv_data: { street_name, street_number, suffix_letter, suffix, postal_code, case_reason, stadium } }
   }: ItineraryItem) =>
   ({
-    href: to("/lijst/:itineraryId/cases/:id", { itineraryId, id: case_id ?? "" }),
+    href: to("/cases/:id", { id: case_id ?? "" }),
     position,
     id: case_id!,
     itemId: id.toString(),

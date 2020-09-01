@@ -10,16 +10,15 @@ import CaseDetail from "app/features/cases/components/organisms/CaseDetail/CaseD
 import AnonymousToggle from "app/features/cases/components/molecules/AnonymousToggle/AnonymousToggle"
 
 type Props = {
-  itineraryId: string
   id: string
 }
 
-const CaseDetailPage: React.FC<RouteComponentProps<Props>> = ({ id, itineraryId }) => {
+const CaseDetailPage: React.FC<RouteComponentProps<Props>> = ({ id }) => {
   const { data, isBusy } = useCase(id!)
 
   return <DefaultLayout>
     { isBusy && <CenteredSpinner size={60} /> }
-    { data && id && <CaseDetail itineraryId={itineraryId!} caseId={id} caseItem={data} /> }
+    { data && id && <CaseDetail caseId={id} caseItem={data} /> }
     <AnonymousToggle />
   </DefaultLayout>
 }
