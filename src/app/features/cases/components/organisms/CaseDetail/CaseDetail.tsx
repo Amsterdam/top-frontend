@@ -21,7 +21,6 @@ import CaseDetailHeader from "./CaseDetailHeader"
 import CaseDetailSection from "./CaseDetailSection"
 
 type Props = {
-  itineraryId?: string
   caseId: string
   caseItem: Case
 }
@@ -35,7 +34,7 @@ const P = styled.p`
   margin: 0;
 `
 
-const CaseDetail: FC<Props> = ({ itineraryId, caseId, caseItem }) => {
+const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
   // Header
   const address = displayAddress(caseItem.import_adres.sttnaam, caseItem.import_adres.hsnr, caseItem.import_adres.hsltr || undefined, caseItem.import_adres.toev || undefined)
   const postalCode = caseItem.import_adres.postcode
@@ -53,7 +52,7 @@ const CaseDetail: FC<Props> = ({ itineraryId, caseId, caseItem }) => {
     .reduce((acc: any, relatedCase: RelatedCase, index, arr) => {
       const { case_id, case_number, case_reason } = relatedCase
 
-      acc.push(["Zaaknummer", <Link to={ to("/lijst/:itineraryId/cases/:id", { itineraryId: itineraryId ?? "", id: case_id }) }>{ `${ case_number } van ${ caseCount }` }</Link>])
+      acc.push(["Zaaknummer", <Link to={ to("/cases/:id", { id: case_id }) }>{ `${ case_number } van ${ caseCount }` }</Link>])
       acc.push(["Openingsreden", case_reason])
 
       if (index < arr.length - 1) acc.push(<Hr />)

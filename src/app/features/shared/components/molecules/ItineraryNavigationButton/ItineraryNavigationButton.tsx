@@ -7,7 +7,7 @@ import to from "app/features/shared/routing/to"
 import styled from "styled-components"
 
 const Wrapper = styled.div`
-  width: 160px;
+  min-width: 160px;
 `
 
 const ItineraryNavigationButton: React.FC = () => {
