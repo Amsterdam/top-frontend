@@ -5,12 +5,14 @@ import StyledButton from "app/features/shared/components/atoms/StyledButton/Styl
 import { useItineraryItem } from "app/state/rest"
 
 type Props = {
+  onDeleteButtonClicked: () => void
   id: number
 }
 
-const DeleteItineraryItemButton: React.FC<Props> = ({ id }) => {
+const DeleteItineraryItemButton: React.FC<Props> = ({ id, onDeleteButtonClicked }) => {
   const { execDelete } = useItineraryItem(id, { lazy: true })
-  const handleClick = useCallback(() => { if(window.confirm("Weet je zeker dat je dit adres (en eventuele notities) uit je lijst wilt verwijderen?")) { return execDelete() } } , [ execDelete ])
+  const handleClick = useCallback(() => {
+    if(window.confirm("Weet je zeker dat je dit adres (en eventuele notities) uit je lijst wilt verwijderen?")) { onDeleteButtonClicked(); return execDelete(); } } , [ execDelete, onDeleteButtonClicked ])
   return <StyledButton variant="blank" onClick={handleClick} icon={<TrashBin />} />
 }
 

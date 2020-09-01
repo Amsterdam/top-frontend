@@ -22,7 +22,7 @@ type Action =
 const reducer = (state: State, action: Action) => {
   switch(action.type) {
     case "UPDATE_ITEM":
-      const value = produce(state[action.key], action.updater)
+      const value = produce(state[action.key].value, action.updater)
       return {
         ...state,
         [action.key]: { valid: true, value }
@@ -37,8 +37,8 @@ const reducer = (state: State, action: Action) => {
         .entries(state)
         .reduce((acc, [key, val]) => ({
           ...acc,
-          [key]: { valid: false, value: val.value
-        }}), {})
+          [key]: { valid: false, value: val.value }
+        }), {})
   }
 }
 

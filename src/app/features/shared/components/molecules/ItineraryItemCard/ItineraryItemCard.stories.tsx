@@ -24,7 +24,7 @@ export const ExampleWithButtons = () =>
     postalCode="1012PT"
     reason="Hotline"
     badge={<Badge>Onderzoek buitendienst</Badge>}
-    buttons={<>
+    buttons={() => <>
       <Spacing pb={2}>
         <Button icon={<Document />} variant="tertiary" />
       </Spacing>

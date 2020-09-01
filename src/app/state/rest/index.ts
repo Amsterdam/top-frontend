@@ -10,7 +10,7 @@ export type ApiGroup =
   | "constants"
   | "case"
 
-type Options = {
+export type Options = {
   keepUsingInvalidCache?: boolean
   lazy?: boolean
 }

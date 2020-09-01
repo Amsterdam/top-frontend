@@ -30,7 +30,7 @@ const mapResults = (handleAdd: HandleAddCallback, getUrl: (string: string) => st
   reason: case_reason,
   badge: <StadiumBadge stadium={stadium} />,
   fraudProbability: <FraudProbability fraudProbability={fraud_prediction?.fraud_probability} />,
-  buttons: <StyledButton icon={<Enlarge />} onClick={() => handleAdd(case_id)} />
+  buttons: () => <StyledButton icon={<Enlarge />} onClick={() => handleAdd(case_id)} />
 })
 
 const StartAddressSearchResults: React.FC<Props> = ({ postalCode, streetNumber, suffix, handleAddButtonClick }) => {

@@ -17,6 +17,7 @@ type Props = {
   itineraryItemId: number
   caseId?: string | null
   visits: Components.Schemas.VisitRelated[]
+  onDeleteButtonClicked: () => void
 }
 
 const TextWithIcon = styled.div`
@@ -26,7 +27,7 @@ const TextWithIcon = styled.div`
   }
 `
 
-const Buttons: React.FC<Props> = ({ itineraryId, itineraryItemId, caseId, visits }) => {
+const Buttons: React.FC<Props> = ({ itineraryId, itineraryItemId, caseId, visits, onDeleteButtonClicked }) => {
   return visits[0] !== undefined ?
     <>
       <Spacing pb={2}>
@@ -48,7 +49,7 @@ const Buttons: React.FC<Props> = ({ itineraryId, itineraryItemId, caseId, visits
         <Button variant="secondary" onClick={() => navigate(to("/visit/:itineraryId/:caseId", { caseId, itineraryId }))}>Bezoek</Button>
       </Spacing>
       <Spacing pb={2}>
-        <DeleteItineraryItemButton id={itineraryItemId}/>
+        <DeleteItineraryItemButton onDeleteButtonClicked={onDeleteButtonClicked} id={itineraryItemId}/>
       </Spacing>
     </>
 }

@@ -20,7 +20,7 @@ const ListItinerariesPage: React.FC = () => {
   }, [data])
 
   return <DefaultLayout>
-    { data?.itineraries.length && (
+    { data && data.itineraries.length > 0 && (
       <>
         <h1>Mijn looplijsten</h1>
         <ul>

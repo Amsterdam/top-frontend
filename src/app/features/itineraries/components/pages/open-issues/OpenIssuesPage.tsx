@@ -20,23 +20,24 @@ const OpenIssuesPage: React.FC = () => {
   const cardListItems = useMemo(() => casesToCardCaseProps(data?.cases, itinerary), [itinerary, data])
   const date = formatDate(currentDate(), true, false)
 
-  const hasCases = data?.cases.length
-  const noResults = data && data.cases.length === 0
+  const hasCases = data && data.cases.length > 0
 
   return (
     <DefaultLayout>
       { isBusy && <CenteredSpinner size={60} /> }
-      { hasCases &&
+      { hasCases
+        ?
         <>
           <h1>Open issuemeldingen { date }</h1>
           <p>Deze issuemeldingen zijn vandaag nog beschikbaar, voeg ze toe aan je lijst.</p>
           <ItineraryItemCardList items={cardListItems}/>
         </>
+        :
+        <>
+          <h1>Open issuemeldingen { date }</h1>
+          <p>Geen issuemeldingen beschikbaar</p>
+        </>
       }
-      { noResults && <>
-        <h1>Open issuemeldingen { date }</h1>
-        <p>Geen issuemeldingen beschikbaar</p>
-      </> }
     </DefaultLayout>
   )
 }

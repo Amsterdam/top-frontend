@@ -1,4 +1,4 @@
-import React, { useCallback } from "react"
+import React, { useCallback, useState } from "react"
 import { navigate } from "@reach/router"
 import { themeColor, themeSpacing } from "@datapunt/asc-ui"
 import styled from "styled-components"
@@ -11,7 +11,7 @@ type Props = {
   reason?: string|JSX.Element
   fraudProbability?: string|JSX.Element
   badge?: JSX.Element
-  buttons?: JSX.Element
+  buttons?: (onDeleteButtonClick:()=>void) => JSX.Element
   notes?: JSX.Element
   isVisited?: boolean
 }
@@ -62,6 +62,9 @@ const FraudProbability = styled.p`
 `
 
 const ItineraryItemCard: React.FC<Props> = ({ href, address, postalCode, isVisited, reason, buttons, badge, fraudProbability, backgroundColor, notes }) => {
+  const [ isBeingDeleted, setIsBeingDeleted ] = useState(false)
+  const setBeingDeleted = useCallback(() => setIsBeingDeleted(true), [ setIsBeingDeleted ])
+
   const handleClick = useCallback(() => {
     if (href) {
       return navigate(href)
@@ -69,7 +72,7 @@ const ItineraryItemCard: React.FC<Props> = ({ href, address, postalCode, isVisit
   }, [href])
   return (
     <Wrap backgroundColor={backgroundColor}>
-      <Left onClick={handleClick} opacity={ isVisited ? 0.4 : 1 }>
+      <Left onClick={handleClick} opacity={ isVisited || isBeingDeleted ? 0.4 : 1 }>
         <Address>{ address }</Address>
         <PostalCode>{ postalCode }</PostalCode>
         { fraudProbability && <FraudProbability>{ fraudProbability }</FraudProbability> }
@@ -78,7 +81,7 @@ const ItineraryItemCard: React.FC<Props> = ({ href, address, postalCode, isVisit
         { notes }
       </Left>
       <Right>
-        { buttons }
+        { buttons && buttons(setBeingDeleted) }
       </Right>
     </Wrap>
   )
