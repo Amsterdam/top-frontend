@@ -27,7 +27,7 @@ const TextWithIcon = styled.div`
   }
 `
 
-const Buttons: React.FC<Props> = ({ itineraryId, itineraryItemId, caseId, visits, onDeleteButtonClicked }) => {
+const ItineraryItemCardButtons: React.FC<Props> = ({ itineraryId, itineraryItemId, caseId, visits, onDeleteButtonClicked }) => {
   return visits[0] !== undefined ?
     <>
       <Spacing pb={2}>
@@ -53,4 +53,4 @@ const Buttons: React.FC<Props> = ({ itineraryId, itineraryItemId, caseId, visits
       </Spacing>
     </>
 }
-export default Buttons
+export default ItineraryItemCardButtons

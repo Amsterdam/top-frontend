@@ -6,7 +6,7 @@ import displayAddress from "app/features/shared/utils/displayAddress"
 import to from "app/features/shared/routing/to"
 
 import { ItineraryItem } from "app/features/types"
-import Buttons from "../../molecules/Buttons/Buttons"
+import ItineraryItemCardButtons from "../../molecules/ItineraryItemCardButtons/ItineraryItemCardButtons"
 import Notes from "../../molecules/Notes/Notes"
 
 export const mapItineraryItem = (itineraryId: string) => ({
@@ -30,7 +30,7 @@ export const mapItineraryItem = (itineraryId: string) => ({
     badge: <StadiumBadge stadium={stadium} />,
     fraudProbability: <FraudProbability fraudProbability={fraud_prediction?.fraud_probability} />,
     isVisited: visits.length > 0,
-    buttons: (onDeleteButtonClicked:() => void) => <Buttons onDeleteButtonClicked={onDeleteButtonClicked} itineraryId={ itineraryId } itineraryItemId={ id } caseId={ case_id } visits={ visits } />,
+    buttons: (onDeleteButtonClicked:() => void) => <ItineraryItemCardButtons onDeleteButtonClicked={onDeleteButtonClicked} itineraryId={ itineraryId } itineraryItemId={ id } caseId={ case_id } visits={ visits } />,
     notes: notes.length > 0
       ? <Notes notes={notes} />
       : undefined
