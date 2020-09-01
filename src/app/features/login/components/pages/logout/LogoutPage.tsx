@@ -9,16 +9,11 @@ const LogoutPage: React.FC = () => {
     (async () => {
       clearToken()
 
-      // TODO enable when GRIP is enabled for zaken.
-      // try {
-      //   await axios.request({
-      //     method: "get",
-      //     url: process.env.REACT_APP_AUTH_LOGOUT_URL,
-      //     headers: { mode: "no-cors", credentials: "include" }
-      //   })
-      // } finally {
+      try {
+        await fetch(process.env.REACT_APP_AUTH_LOGOUT_URL!, { mode: "no-cors", credentials: "include" })
+      } finally {
         await navigate(to("/login"))
-      // }
+      }
     })()
   }, [])
 
