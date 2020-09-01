@@ -11,9 +11,9 @@ const Wrapper = styled.div`
 `
 
 const ItineraryNavigationButton: React.FC = () => {
-  const { data } = useItineraries()
+  const { data } = useItineraries({ keepUsingInvalidCache: true })
 
-  const numItineraries = data?.itineraries?.length
+  const numItineraries = data?.itineraries?.length ?? 0
   const numItems = data?.itineraries.map(_ => _.items).flat(1).length
 
   if (numItineraries > 1) {
@@ -21,7 +21,7 @@ const ItineraryNavigationButton: React.FC = () => {
       Mijn looplijsten ({ numItems })
     </Link></Wrapper>
   } else if (numItineraries === 1) {
-    return <Wrapper><Link to={to("/lijst/:itineraryId/", { itineraryId: data.itineraries[0].id.toString() })}>
+    return <Wrapper><Link to={to("/lijst/:itineraryId/", { itineraryId: data?.itineraries[0].id.toString() })}>
       Mijn looplijst ({ numItems })
     </Link></Wrapper>
   } else if(numItineraries === 0) {

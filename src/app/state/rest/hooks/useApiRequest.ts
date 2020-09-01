@@ -25,6 +25,7 @@ const isMutateOptions = (options: any): options is MutateOptions =>
   ["post", "put", "patch", "delete"].includes(options.method)
 
 type Config = {
+  keepUsingInvalidCache?: boolean
   lazy?: boolean
   url: string
   groupName: ApiGroup
@@ -32,7 +33,7 @@ type Config = {
   getHeaders?: () => Record<string, string>
 }
 
-const useApiRequest = <Schema, Payload = Partial<Schema>>({ url, groupName, handleError, getHeaders, lazy }: Config) => {
+const useApiRequest = <Schema, Payload = Partial<Schema>>({ url, groupName, handleError, getHeaders, lazy, keepUsingInvalidCache }: Config) => {
   const {
     getCacheItem,
     setCacheItem,
@@ -111,10 +112,17 @@ const useApiRequest = <Schema, Payload = Partial<Schema>>({ url, groupName, hand
   )
 
   // reFetch whenever our cache is invalidated
-  const data = getCacheItem(url) as Schema
+  const cacheItem = getCacheItem(url)
+
+  const data = cacheItem && (cacheItem.valid || keepUsingInvalidCache)
+    ? cacheItem.value as Schema
+    : undefined
+
   useEffect(() => {
-    if (!data && !lazy) { execGet() }
-  }, [ execGet, data, lazy ])
+    if ((!cacheItem || !cacheItem.valid) && !lazy) {
+      execGet()
+    }
+  }, [ execGet, cacheItem, lazy ])
 
   return {
     data,

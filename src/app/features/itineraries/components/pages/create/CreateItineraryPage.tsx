@@ -14,13 +14,13 @@ const CreateItineraryPage: React.FC<RouteComponentProps> = () => {
   const { data, isBusy } = useItineraries()
   const { hasParameter } = useQueryString()
 
-  const shouldRedirect = data?.itineraries?.length > 0 && !hasParameter("force")
+  const shouldRedirect = data && data?.itineraries?.length > 0 && !hasParameter("force")
 
   useEffect(() => {
     if (shouldRedirect) {
       navigate(to("/lijst/:itineraryId/", { itineraryId: data?.itineraries[0].id.toString() }))
     }
-  }, [shouldRedirect])
+  }, [shouldRedirect, data])
 
   return <DefaultLayout>
     { isBusy

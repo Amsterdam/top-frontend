@@ -23,7 +23,7 @@ const TeamMemberForm: React.FC<Props> = ({ toggleForm, itineraryId, initialUsers
   const { execPut } = useTeam(itineraryId, { lazy: true })
 
 
-  const fields = useMemo(() => generateFormDefinition(data?.results, toggleForm), [data, toggleForm])
+  const fields = useMemo(() => generateFormDefinition(data?.results ?? [], toggleForm), [data, toggleForm])
 
   const handleSubmit = useCallback(async (values: FormValues) => {
     await execPut({ team_members: values.team_members.map(user => ({ user })) })

@@ -20,7 +20,7 @@ const OpenIssuesPage: React.FC = () => {
   const cardListItems = useMemo(() => casesToCardCaseProps(data?.cases, itinerary), [itinerary, data])
   const date = formatDate(currentDate(), true, false)
 
-  const hasCases = data?.cases.length > 0
+  const hasCases = data?.cases.length
   const noResults = data && data.cases.length === 0
 
   return (
