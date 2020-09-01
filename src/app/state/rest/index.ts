@@ -10,7 +10,8 @@ export type ApiGroup =
   | "constants"
   | "case"
 
-type Options = {
+export type Options = {
+  keepUsingInvalidCache?: boolean
   lazy?: boolean
 }
 
@@ -21,7 +22,7 @@ type Options = {
 export const useItineraries = (options?: Options) => {
   const handleError = useErrorHandler()
   return useApiRequest<{ itineraries: Components.Schemas.Itinerary[] }>({
-    lazy: options?.lazy,
+    ...options,
     url: makeGatewayUrl(["itineraries"], { created_at: currentDate() }),
     groupName: "itineraries",
     handleError,
@@ -32,7 +33,7 @@ export const useItineraries = (options?: Options) => {
 export const useItineraryItems = (options?: Options) => {
   const handleError = useErrorHandler()
   return useApiRequest<{ itineraries: ItineraryItem[] }, { case_id: string, itinerary: number }>({
-    lazy: options?.lazy,
+    ...options,
     url: makeGatewayUrl(["itinerary-items"]),
     groupName: "itineraries",
     handleError,
@@ -43,7 +44,7 @@ export const useItineraryItems = (options?: Options) => {
 export const useItineraryItem = (id: number|string, options?: Options) => {
   const handleError = useErrorHandler()
   return useApiRequest<{ itineraries: ItineraryItem }, Partial<Components.Schemas.ItineraryItem>>({
-    lazy: options?.lazy,
+    ...options,
     url: makeGatewayUrl(["itinerary-items", id]),
     groupName: "itineraries",
     handleError,
@@ -54,7 +55,7 @@ export const useItineraryItem = (id: number|string, options?: Options) => {
 export const useItineraryItemNote = (id?: number|string, options?: Options) => {
   const handleError = useErrorHandler()
   return useApiRequest<Components.Schemas.NoteCrud>({
-    lazy: options?.lazy,
+    ...options,
     url: makeGatewayUrl(["notes", id]),
     groupName: "itineraries",
     handleError,
@@ -66,7 +67,7 @@ export const useItineraryItemNote = (id?: number|string, options?: Options) => {
 export const useOpenIssues = (options?: Options) => {
   const handleError = useErrorHandler()
   return useApiRequest<{ cases: Case[] }>({
-    lazy: options?.lazy,
+    ...options,
     url: makeGatewayUrl(["cases", "unplanned"], { date: currentDate(), stadium: "Issuemelding" }),
     groupName: "itineraries",
     handleError,
@@ -77,7 +78,7 @@ export const useOpenIssues = (options?: Options) => {
 export const useCase = (id: number|string, options?: Options) => {
   const handleError = useErrorHandler()
   return useApiRequest<Case>({
-    lazy: options?.lazy,
+    ...options,
     url: makeGatewayUrl(["cases", id]),
     groupName: "case",
     handleError,
@@ -88,7 +89,7 @@ export const useCase = (id: number|string, options?: Options) => {
 export const useSearch = (postalCode: string, streetNumber: number, suffix?: string, options?: Options) => {
   const handleError = useErrorHandler()
   return useApiRequest<{ cases: Case[] }>({
-    lazy: options?.lazy,
+    ...options,
     url: makeGatewayUrl(["search"], { postalCode, streetNumber, suffix }),
     groupName: "itineraries",
     handleError,
@@ -99,7 +100,7 @@ export const useSearch = (postalCode: string, streetNumber: number, suffix?: str
 export const useSuggestions = (itineraryId: number, options?: Options) => {
   const handleError = useErrorHandler()
   return useApiRequest<{ cases: Case[] }>({
-    lazy: options?.lazy,
+    ...options,
     url: makeGatewayUrl(["itineraries", itineraryId, "suggestions"]),
     groupName: "itineraries",
     handleError,
@@ -110,7 +111,7 @@ export const useSuggestions = (itineraryId: number, options?: Options) => {
 export const useUsers = (options?: Options) => {
   const handleError = useErrorHandler()
   return useApiRequest<{ results: Components.Schemas.User[] }>({
-    lazy: options?.lazy,
+    ...options,
     url: makeGatewayUrl(["users"]),
     groupName: "users",
     handleError,
@@ -124,7 +125,7 @@ export const useTeam = (itineraryId: number, options?: Options) => {
     { results: Components.Schemas.User[] },
     { team_members: { user: Components.Schemas.User }[] }
   >({
-    lazy: options?.lazy,
+    ...options,
     url: makeGatewayUrl(["itineraries", itineraryId, "team"]),
     groupName: "itineraries",
     handleError,
@@ -133,7 +134,7 @@ export const useTeam = (itineraryId: number, options?: Options) => {
 }
 
 export const useSettings = (options?: Options) => useApiRequest<Components.Schemas.PlannerSettings>({
-    lazy: options?.lazy,
+    ...options,
     url: makeGatewayUrl(["settings", "planner"]),
     groupName: "settings",
     getHeaders
@@ -142,7 +143,7 @@ export const useSettings = (options?: Options) => useApiRequest<Components.Schem
 export const useProjectConstants = (options?: Options) => {
   const handleError = useErrorHandler()
   return useApiRequest<{constants: string[]}>({
-    lazy: options?.lazy,
+    ...options,
     url: makeGatewayUrl(["constants", "projects"]),
     groupName: "constants",
     handleError,
@@ -153,6 +154,7 @@ export const useProjectConstants = (options?: Options) => {
 export const useStadiaConstants = (options?: Options) => {
   const handleError = useErrorHandler()
   return useApiRequest<{constants: string[]}>({
+    ...options,
     url: makeGatewayUrl(["constants", "stadia"]),
     groupName: "constants",
     handleError,
@@ -163,7 +165,7 @@ export const useStadiaConstants = (options?: Options) => {
 export const useDeleteItinerary = (id: string|number, options?: Options) => {
   const handleError = useErrorHandler()
   return useApiRequest<{constants: string[]}>({
-    lazy: options?.lazy,
+    ...options,
     url: makeGatewayUrl(["itineraries", id]),
     groupName: "itineraries",
     handleError,
@@ -174,7 +176,7 @@ export const useDeleteItinerary = (id: string|number, options?: Options) => {
 export const useVisits = (options?: Options) => {
   const handleError = useErrorHandler()
   return useApiRequest<Components.Schemas.Visit[]>({
-    lazy: options?.lazy,
+    ...options,
     url: makeGatewayUrl(["visits"]),
     groupName: "itineraries",
     handleError,
@@ -185,7 +187,7 @@ export const useVisits = (options?: Options) => {
 export const useVisit = (id: string|number, options?: Options) => {
   const handleError = useErrorHandler()
   return useApiRequest<Components.Schemas.Visit>({
-    lazy: options?.lazy,
+    ...options,
     url: makeGatewayUrl(["visits", id]),
     groupName: "itineraries",
     handleError,

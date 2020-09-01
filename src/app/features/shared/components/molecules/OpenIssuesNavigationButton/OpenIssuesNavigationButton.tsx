@@ -12,7 +12,7 @@ type Props = {
 }
 
 const OpenIssuesNavigationButton: React.FC<Props> = ({ itineraryId }) => {
-  const { data } = useOpenIssues()
+  const { data } = useOpenIssues({ keepUsingInvalidCache: true })
 
   const numOpenIssues = data?.cases?.length
     ? `(${ data.cases.length })`

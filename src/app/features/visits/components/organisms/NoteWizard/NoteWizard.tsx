@@ -26,7 +26,7 @@ const NoteWizard: React.FC = () => {
   const itineraryItem = itinerary?.items.find(item => item.case.case_id === caseId) as unknown as ItineraryItem
 
   const getInitialValues = useCallback(() => {
-    if (isUpdate) return mapInitialValues(user?.id !== undefined ? { ...data, author: user?.id } : data)
+    if (isUpdate && data) return mapInitialValues(user?.id !== undefined ? { ...data, author: user?.id } : data)
     return getValues() ?? { itinerary_item: itineraryItem?.id, author: user?.id }
   }, [getValues, data, itineraryItem, user, isUpdate])
 
