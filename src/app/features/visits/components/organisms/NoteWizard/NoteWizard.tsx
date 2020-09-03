@@ -11,6 +11,7 @@ import {useItinerary} from "app/state/rest/custom/useItinerary"
 
 import to from "app/features/shared/routing/to"
 import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner"
+import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
 
 import { useNoteWizard } from "./hooks/useNoteWizard"
 import NoteWizardManager from "./components/NoteWizardManager"
@@ -91,13 +92,15 @@ const NoteWizard: React.FC<Props> = ({ itineraryId, caseId, onSubmit, valuesFrom
       ? (
         <ScaffoldForm onSubmit={handleSubmit} initialValues={getUnsubmittedValues() ?? valuesFromApi} keepDirtyOnReinitialize={true}>
           <NodeWizardSubtitle itineraryItem={itineraryItem} />
-          { valuesFromApi && visitId &&
-            <ButtonWrap>
-              <DeleteVisitButton caseId={caseId} itineraryId={itineraryId} visitId={visitId} />
-            </ButtonWrap>
-          }
-          <NoteWizardFormScaffoldFields step={wizardStep} onBackButtonClicked={handleBackButtonClick} />
-          <NoteWizardManager caseID={ caseId } />
+            { valuesFromApi && visitId &&
+              <ButtonWrap>
+                <DeleteVisitButton caseId={caseId} itineraryId={itineraryId} visitId={visitId} />
+              </ButtonWrap>
+            }
+          <Spacing pt={2}>
+            <NoteWizardFormScaffoldFields step={wizardStep} onBackButtonClicked={handleBackButtonClick} />
+            <NoteWizardManager caseID={ caseId } />
+          </Spacing>
         </ScaffoldForm>
       )
      : <CenteredSpinner size={60} />

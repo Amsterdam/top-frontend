@@ -16,7 +16,7 @@ const EditVisitPage: React.FC = () => {
   const valuesFromApi = useMemo(() => data ? mapInitialValues(data) : undefined, [data])
 
   return (
-    <NoteWizardModal>
+    <NoteWizardModal itineraryId={itineraryId}>
       { isBusy
           ? <CenteredSpinner size={60} />
           : <NoteWizard

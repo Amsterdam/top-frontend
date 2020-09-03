@@ -10,7 +10,7 @@ const CreateVisitPage: React.FC = () => {
   const { itineraryId, caseId } = useParams()
   const { execPost } = useVisits({ lazy: true })
 
-  return (<NoteWizardModal>
+  return (<NoteWizardModal itineraryId={itineraryId}>
     <NoteWizard
       onSubmit={execPost}
       itineraryId={itineraryId}
