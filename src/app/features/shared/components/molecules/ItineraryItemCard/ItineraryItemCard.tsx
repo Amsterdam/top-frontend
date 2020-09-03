@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from "react"
+import React, { useCallback, useState } from "react"
 import { navigate } from "@reach/router"
 import { themeColor, themeSpacing } from "@datapunt/asc-ui"
 import styled from "styled-components"
@@ -70,7 +70,6 @@ const ItineraryItemCard: React.FC<Props> = ({ href, address, postalCode, isVisit
       return navigate(href)
     }
   }, [href])
-
   return (
     <Wrap backgroundColor={backgroundColor}>
       <Left onClick={handleClick} opacity={ isVisited || isBeingDeleted ? 0.4 : 1 }>

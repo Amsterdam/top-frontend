@@ -41,15 +41,10 @@ const ButtonWrap = styled.div`
 
 const NoteWizard: React.FC<Props> = ({ itineraryId, caseId, onSubmit, valuesFromApi, visitId }) => {
   const { data: itinerary } = useItinerary(itineraryId)
+  const { pushStep, popStep, getCurrentStep, clearSteps, setValues, getValues: getUnsubmittedValues } = useNoteWizard(caseId)
   const user = useLoggedInUser()
 
-  const itineraryItem = useMemo(() => itinerary
-    ?.items
-    ?.find(_ => _.case.case_id === caseId),
-    [ itinerary, caseId ]
-  ) as ItineraryItem
-
-  const { pushStep, popStep, getCurrentStep, clearSteps, setValues, getValues: getUnsubmittedValues } = useNoteWizard(caseId)
+  const itineraryItem = itinerary?.items.find(item => item.case.case_id === caseId) as ItineraryItem
   const wizardStep = getCurrentStep() ?? "stepOne"
 
   const handleBackButtonClick = useCallback((e: React.MouseEvent) => {
