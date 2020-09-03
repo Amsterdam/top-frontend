@@ -23,6 +23,7 @@ const EditVisitPage: React.FC = () => {
               onSubmit={execPut}
               itineraryId={itineraryId}
               caseId={caseId}
+              visitId={id}
               valuesFromApi={valuesFromApi} />
       }
     </NoteWizardModal>

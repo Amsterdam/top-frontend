@@ -15,7 +15,7 @@ type Props = {
 const Wrap = styled.div`
   display: flex;
 
-  margin: 0 -${ themeSpacing(4) } ${ themeSpacing(4) } -${ themeSpacing(4) };
+  margin: 0 -${ themeSpacing(4) } 0 -${ themeSpacing(4) };
   padding: ${ themeSpacing(0) } ${ themeSpacing(4) } ${ themeSpacing(3) } ${ themeSpacing(4) };
 
   border-bottom: 1px solid ${ themeColor("tint", "level3") }

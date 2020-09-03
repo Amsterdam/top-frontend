@@ -1,8 +1,13 @@
 import React, {useCallback, useMemo} from "react"
 import { navigate } from "@reach/router"
+import { themeSpacing, themeColor } from "@datapunt/asc-ui"
 import {ScaffoldForm} from "amsterdam-react-final-form"
+import styled from "styled-components"
+
+import {ItineraryItem} from "app/features/types"
 
 import {useLoggedInUser} from "app/state/rest/custom/useLoggedInUser"
+import {useItinerary} from "app/state/rest/custom/useItinerary"
 
 import to from "app/features/shared/routing/to"
 import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner"
@@ -12,19 +17,28 @@ import NoteWizardManager from "./components/NoteWizardManager"
 import NoteWizardFormScaffoldFields from "./components/NoteWizardScaffoldFields"
 import NodeWizardSubtitle from "./components/NoteWizardSubtitle"
 
-import {useItinerary} from "app/state/rest/custom/useItinerary"
-import {ItineraryItem} from "app/features/types"
+import DeleteVisitButton from "app/features/visits/components/molecules/DeleteVisitButton/DeleteVisitButton"
+
 import {mapPostValues} from "./utils/mapValues";
 import {FormValues} from "./types";
 
 type Props = {
   valuesFromApi?: FormValues
   onSubmit: (values:Components.Schemas.Visit) => Promise<any>
+  visitId?: string
   caseId: string
   itineraryId: string
 }
 
-const NoteWizard: React.FC<Props> = ({ itineraryId, caseId, onSubmit, valuesFromApi }) => {
+const ButtonWrap = styled.div`  
+  margin: 0 -${ themeSpacing(4) } 0 -${ themeSpacing(4) };
+  padding: ${ themeSpacing(3) } ${ themeSpacing(4) } ${ themeSpacing(3) } ${ themeSpacing(4) };
+  border-bottom: 1px solid ${ themeColor("tint", "level3") };
+  background-color: ${ themeColor("tint", "level2") };
+  text-align: right;
+`
+
+const NoteWizard: React.FC<Props> = ({ itineraryId, caseId, onSubmit, valuesFromApi, visitId }) => {
   const { data: itinerary } = useItinerary(itineraryId)
   const user = useLoggedInUser()
 
@@ -36,11 +50,6 @@ const NoteWizard: React.FC<Props> = ({ itineraryId, caseId, onSubmit, valuesFrom
 
   const { pushStep, popStep, getCurrentStep, clearSteps, setValues, getValues: getUnsubmittedValues } = useNoteWizard(caseId)
   const wizardStep = getCurrentStep() ?? "stepOne"
-
-  const initialValues = useMemo(
-    () => (getUnsubmittedValues() ?? valuesFromApi ?? { itinerary_item: itineraryItem?.id, author: user?.id  }),
-    [ getUnsubmittedValues, valuesFromApi, user, itineraryItem ]
-  )
 
   const handleBackButtonClick = useCallback((e: React.MouseEvent) => {
     e.preventDefault()
@@ -66,7 +75,7 @@ const NoteWizard: React.FC<Props> = ({ itineraryId, caseId, onSubmit, valuesFrom
         break
       case "nextVisit":
       case "accessGranted": {
-        return onSubmit(mapPostValues(values))
+        return onSubmit(mapPostValues(values, itineraryItem.id, user!.id))
           .then(() => {
             clearSteps()
             return navigate(to("/lijst/:itineraryId/", { itineraryId }))
@@ -75,13 +84,18 @@ const NoteWizard: React.FC<Props> = ({ itineraryId, caseId, onSubmit, valuesFrom
     }
 
     return Promise.resolve(true)
-  }, [pushStep, clearSteps, setValues, wizardStep, onSubmit, itineraryId])
+  }, [pushStep, clearSteps, setValues, wizardStep, onSubmit, itineraryId, itineraryItem, user])
 
   return (
     itineraryItem && user
       ? (
-        <ScaffoldForm onSubmit={handleSubmit} initialValues={initialValues} keepDirtyOnReinitialize={true}>
+        <ScaffoldForm onSubmit={handleSubmit} initialValues={getUnsubmittedValues() ?? valuesFromApi} keepDirtyOnReinitialize={true}>
           <NodeWizardSubtitle itineraryItem={itineraryItem} />
+          { valuesFromApi && visitId &&
+            <ButtonWrap>
+              <DeleteVisitButton caseId={caseId} itineraryId={itineraryId} visitId={visitId} />
+            </ButtonWrap>
+          }
           <NoteWizardFormScaffoldFields step={wizardStep} onBackButtonClicked={handleBackButtonClick} />
           <NoteWizardManager caseID={ caseId } />
         </ScaffoldForm>
