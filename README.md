@@ -10,16 +10,19 @@
 ## development
 
 Run:
+
 - `git clone https://github.com/Amsterdam/fixxx-looplijsten-frontend.git`
 - `cd fixxx-looplijsten-frontend`
 - `npm install`
 - `npm run swagger:generate-schema:acc` to fetch the latest API-schemas
 
 Connect to acceptance backend
+
 - `npm run start`
 - open `http://localhost:3001/` in browser
 
 ## deployment
+
 - `master` branch is automatically deployed to [acceptance](https://acc.top.amsterdam.nl)
 - tag any branch, but preferably master, with a tag like `v1.0.0` to deploy that specific commit to [production](https://top.amsterdam.nl)
 
@@ -38,6 +41,9 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
+
+If you also want to run [fixxx-looplijsten-backend](https://github.com/Amsterdam/fixxx-looplijsten-backend) locally <br/>
+and you want this frontend to talk to you local backend run `yarn run start:local`
 
 ### `yarn test`
 
