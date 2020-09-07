@@ -1,6 +1,8 @@
 import React, { useCallback } from "react"
 import { Button, themeColor, themeSpacing } from "@datapunt/asc-ui"
 
+import InfoIcon from "app/features/shared/components/atoms/InfoIcon/InfoIcon"
+
 import { useToggle } from "app/features/shared/hooks/useToggle/useToggle"
 import useNodeDimensions from "app/features/shared/hooks/useNodeDimensions/useNodeDimensions"
 import useNodeByReference from "app/features/shared/hooks/useNodeByReference/useNodeByReference"
@@ -48,8 +50,7 @@ const HelpText = styled.div<HelpTextProps>`
 `
 
 const StyledButton = styled(Button)`
-  padding: 12px;
-  border: 2px solid ${ themeColor("tint", "level7") };
+  padding: 10px;
   border-radius: 50%;
 `
 
@@ -67,7 +68,7 @@ const HelpButton: React.FC = ({ children }) => {
   return (
     <Wrap>
       <ButtonWrap ref={buttonRef}>
-        <StyledButton size={18} variant="blank" onClick={handleClick}>?</StyledButton>
+        <StyledButton size={18} variant="blank" onClick={handleClick}><InfoIcon /></StyledButton>
       </ButtonWrap>
       { isOpen && (
         <>
