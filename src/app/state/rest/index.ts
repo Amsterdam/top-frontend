@@ -175,7 +175,7 @@ export const useDeleteItinerary = (id: string|number, options?: Options) => {
 
 export const useVisits = (options?: Options) => {
   const handleError = useErrorHandler()
-  return useApiRequest<Components.Schemas.Visit[]>({
+  return useApiRequest<Components.Schemas.Visit[], Components.Schemas.Visit>({
     ...options,
     url: makeGatewayUrl(["visits"]),
     groupName: "itineraries",

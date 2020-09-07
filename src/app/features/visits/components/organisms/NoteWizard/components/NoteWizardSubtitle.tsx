@@ -15,7 +15,7 @@ type Props = {
 const Wrap = styled.div`
   display: flex;
 
-  margin: 0 -${ themeSpacing(4) } ${ themeSpacing(4) } -${ themeSpacing(4) };
+  margin: 0 -${ themeSpacing(4) } 0 -${ themeSpacing(4) };
   padding: ${ themeSpacing(0) } ${ themeSpacing(4) } ${ themeSpacing(3) } ${ themeSpacing(4) };
 
   border-bottom: 1px solid ${ themeColor("tint", "level3") }
@@ -35,7 +35,7 @@ const Time = styled.div`
 const NodeWizardSubtitle: React.FC<Props> = ({ itineraryItem }) => {
   const { values: { start_time } } = useFormState<FormValues>()
 
-  const address = displayAddress(
+  const address = itineraryItem && displayAddress(
     itineraryItem?.case.bwv_data.street_name || "",
     itineraryItem?.case.bwv_data.street_number || "",
     itineraryItem?.case.bwv_data.suffix,

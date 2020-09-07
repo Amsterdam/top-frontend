@@ -5,7 +5,7 @@ import { FormValues, WizardStep } from "../types"
 
 export type WizardState = {
   steps: WizardStep[]
-  formValues: FormValues
+  formValues?: FormValues
 }
 
 type State = Record<string, WizardState>
@@ -31,6 +31,7 @@ const reducer = produce((draft: State, action: Action) => {
       draft[action.caseId].steps.pop()
       break
     case "CLEAR_STEPS":
+      draft[action.caseId].formValues = undefined
       draft[action.caseId].steps = []
       break
   }

@@ -13,16 +13,19 @@ const fieldsAccess = {
   personal_notes: null
 }
 
-export const mapPostValues = (values: any) : Components.Schemas.Visit => {
+export const mapPostValues = (values: any, itinerary_item: number, author: string) : Components.Schemas.Visit => {
   const start_time = mapTimeToDate(values.start_time)
   const can_next_visit_go_ahead =
     values.can_next_visit_go_ahead !== undefined ?
     mapYesNoToBoolean(values.can_next_visit_go_ahead) :
     null
+
   const postValues = {
     ...values,
     start_time,
-    can_next_visit_go_ahead
+    can_next_visit_go_ahead,
+    itinerary_item,
+    author
   }
   return postValues.situation === "access_granted" ?
     { ...postValues, ...fieldsNoAccess } :

@@ -1,6 +1,7 @@
-import WizardPage from "./components/pages/WizardPage"
+import CreateVisitPage from "./components/pages/CreateVisitPage/CreateVisitPage"
+import EditVisitPage from "./components/pages/EditVisitPage/EditVisitPage";
 
 export default {
-  "/visit/:itineraryId/:caseId": WizardPage,
-  "/visit/:itineraryId/:caseId/:id": WizardPage
+  "/visit/:itineraryId/:caseId": CreateVisitPage,
+  "/visit/:itineraryId/:caseId/:id": EditVisitPage
 }
