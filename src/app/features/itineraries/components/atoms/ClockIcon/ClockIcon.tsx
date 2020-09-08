@@ -1,16 +1,6 @@
 import React, { FC } from "react"
 import { Icon } from "@datapunt/asc-ui"
-import styled from "styled-components"
+import { Clock } from "@datapunt/asc-assets"
 
-const StyledIcon = styled(Icon)`
-  background-size: contain;
-`
-
-const ClockIcon: FC = () => (
-  <StyledIcon
-    inline
-    size={ 20 }
-    iconUrl={ `${ process.env.PUBLIC_URL }/icons/Clock.svg` }
-  />
-)
+const ClockIcon: FC = () => (<Icon><Clock /></Icon>)
 export default ClockIcon

@@ -1,16 +1,6 @@
 import React, { FC } from "react"
 import { Icon } from "@datapunt/asc-ui"
-import styled from "styled-components"
+import { DocumentEdit } from "@datapunt/asc-assets"
 
-const StyledIcon = styled(Icon)`
-  background-size: contain;
-`
-
-const EditDocumentIcon: FC = () => (
-  <StyledIcon
-    inline
-    size={ 20 }
-    iconUrl={ `${ process.env.PUBLIC_URL }/icons/EditDocument.svg` }
-  />
-)
+const EditDocumentIcon: FC = () => (<Icon><DocumentEdit /></Icon>)
 export default EditDocumentIcon
