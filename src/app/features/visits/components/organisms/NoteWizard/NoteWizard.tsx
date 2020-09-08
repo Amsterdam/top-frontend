@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo} from "react"
+import React, {useCallback} from "react"
 import { navigate } from "@reach/router"
 import { themeSpacing, themeColor } from "@datapunt/asc-ui"
 import {ScaffoldForm} from "amsterdam-react-final-form"
@@ -31,7 +31,7 @@ type Props = {
   itineraryId: string
 }
 
-const ButtonWrap = styled.div`  
+const ButtonWrap = styled.div`
   margin: 0 -${ themeSpacing(4) } 0 -${ themeSpacing(4) };
   padding: ${ themeSpacing(3) } ${ themeSpacing(4) } ${ themeSpacing(3) } ${ themeSpacing(4) };
   border-bottom: 1px solid ${ themeColor("tint", "level3") };
