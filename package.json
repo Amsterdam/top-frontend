@@ -26,6 +26,7 @@
     "react-beautiful-dnd": "^13.0.0",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
+    "resize-observer-polyfill": "^1.5.1",
     "slash-sandwich": "^1.0.12",
     "smoothscroll-polyfill": "^0.4.4",
     "styled-components": "^5.1.1",
