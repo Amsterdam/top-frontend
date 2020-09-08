@@ -1,12 +1,6 @@
 import React, { FC } from "react"
 import { Icon } from "@datapunt/asc-ui"
+import { Info } from "@datapunt/asc-assets"
 
-// TODO: Use Info icon from @datapunt/asc-assets
-const InfoIcon: FC = () => (
-  <Icon
-    inline
-    size={ 20 }
-    iconUrl={ `${ process.env.PUBLIC_URL }/icons/Info.svg` }
-  />
-)
+const InfoIcon: FC = () => <Icon><Info /></Icon>
 export default InfoIcon
