@@ -74,19 +74,19 @@ describe("useApiRequest", () => {
   test.each([
     [ "POST",
       (scope: nock.Scope) => scope.post("/pet").reply(200),
-      (hook: any, onSuccess: () => void) => hook.execPost({ name: "popo" }, onSuccess)
+      (hook: any) => hook.execPost({ name: "popo" })
     ],
     [ "PUT",
       (scope: nock.Scope) => scope.put("/pet").reply(200),
-      (hook: any, onSuccess: () => void) => hook.execPut({ name: "popo" }, onSuccess)
+      (hook: any) => hook.execPut({ name: "popo" })
     ],
     [ "PATCH",
       (scope: nock.Scope) => scope.patch("/pet").reply(200),
-      (hook: any, onSuccess: () => void) => hook.execPatch({ name: "popo" }, onSuccess)
+      (hook: any) => hook.execPatch({ name: "popo" })
     ],
     [ "DELETE",
       (scope: nock.Scope) => scope.delete("/pet").reply(200),
-      (hook: any, onSuccess: () => void) => hook.execDelete(onSuccess)
+      (hook: any) => hook.execDelete()
     ]
   ])("should re-execute a GET after a %s", async (method, prepareScope, exec) => {
     const usePet = () => useApiRequest<Pet>({ url: "http://localhost/pet", groupName: "itineraries" })
@@ -107,7 +107,7 @@ describe("useApiRequest", () => {
     expect(result.current.data).toEqual({ name: "Fifi", type: "dog" })
 
     await act(async () => {
-      await exec(result.current, onSuccess)
+      await exec(result.current).then(onSuccess)
       return waitForNextUpdate()
     })
 
@@ -118,6 +118,7 @@ describe("useApiRequest", () => {
     await act(() => waitForNextUpdate())
     expect(result.current.data).toEqual({ name: "Popo", type: "dog" })
 
+    expect(onSuccess).toHaveBeenCalled()
     expect(scope.isDone()).toEqual(true) // <- all scoped endpoints are called
   })
 
