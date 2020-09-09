@@ -15,7 +15,7 @@ export const ApiContext = React.createContext<GroupedContext>({
   constants: noopContext,
   permits: noopContext,
   teamSettings: noopContext,
-  teamSettingsList: noopContext
+  teamSettingsList: noopContext,
 })
 
 const ApiProvider: React.FC = ({ children }) => {
