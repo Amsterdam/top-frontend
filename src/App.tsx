@@ -9,29 +9,32 @@ import AnonymousProvider from "./app/state/anonymous/AnonymousProvider"
 import Anonymous from "./app/state/anonymous/Anonymous"
 import NoteWizardProvider from "./app/features/visits/components/organisms/NoteWizard/NoteWizardProvider"
 import SearchFormProvider from "./app/features/shared/components/organisms/SearchForm/SearchFormProvider"
+import ErrorProvider from "./app/state/error/ErrorProvider"
 
 function App() {
   return (
     <ThemeProvider>
       <GlobalStyle />
-      <ApiProvider>
-        <LocationProvider>
-          <AnonymousProvider>
-            <NoteWizardProvider>
-              <SearchFormProvider>
-                <Anonymous />
-                <AuthSession />
-                <Router />
-                {/*
-                  Modals are teleported to this div using React' portals
-                  @see https://reactjs.org/docs/portals.html
-                */}
-                <div id='modal-root' />
-              </SearchFormProvider>
-            </NoteWizardProvider>
-          </AnonymousProvider>
-        </LocationProvider>
-      </ApiProvider>
+      <ErrorProvider>
+        <ApiProvider>
+          <LocationProvider>
+            <AnonymousProvider>
+              <NoteWizardProvider>
+                <SearchFormProvider>
+                  <Anonymous />
+                  <AuthSession />
+                  <Router />
+                  {/*
+                    Modals are teleported to this div using React' portals
+                    @see https://reactjs.org/docs/portals.html
+                  */}
+                  <div id='modal-root' />
+                </SearchFormProvider>
+              </NoteWizardProvider>
+            </AnonymousProvider>
+          </LocationProvider>
+        </ApiProvider>
+      </ErrorProvider>
     </ThemeProvider>
   )
 }
