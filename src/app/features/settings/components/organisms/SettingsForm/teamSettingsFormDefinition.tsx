@@ -77,6 +77,15 @@ export const createDefinition = (projects: string[], stadia: string[]) => {
   const postalCodeMin = 1000
   const postalCodeMax = 1109
   const definition: FormPositionerFields<Field> = {
+    name: {
+        type: "TextField",
+        props: {
+          label: "Naam van de instelling",
+          name: "name",
+          type: "text",
+          validate: isRequired()
+        }
+      },
     opening_date: {
       type: "TextField",
       props: {
@@ -159,6 +168,7 @@ export const createDefinition = (projects: string[], stadia: string[]) => {
     // 3 columns:
     .setGrid("laptop", "1fr 1fr 1fr", [
       /* eslint-disable no-multi-spaces */
+      [ "name"                                                        ],
       [ "opening_date"                                                ],
       [ "postal_codes",       "postal_codes",     "postal_codes"      ],
       [ "projects",           "projects",         "projects"          ],
@@ -172,6 +182,7 @@ export const createDefinition = (projects: string[], stadia: string[]) => {
     // 5 columns
     .setGrid("laptopL", "1fr 1fr 1fr 1fr 1fr", [
       /* eslint-disable no-multi-spaces */
+      [ "name"                                                                                                ],
       [ "opening_date"                                                                                        ],
       [ "postal_codes",       "postal_codes",     "postal_codes"                                              ],
       [ "projects",           "projects",         "projects",           "projects",         "projects"        ],

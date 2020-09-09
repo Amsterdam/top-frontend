@@ -1,5 +1,6 @@
 import React, { useEffect } from "react"
 import { RouteComponentProps } from "@reach/router"
+import styled from "styled-components"
 
 import { useTeamSettings } from "app/state/rest"
 
