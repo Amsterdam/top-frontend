@@ -136,6 +136,7 @@ declare namespace Components {
             text?: string
             itinerary_item?: number
             readonly author?: {
+<<<<<<< HEAD
                 id: string // uuid
                 email: string // email
                 username: string
@@ -195,6 +196,67 @@ declare namespace Components {
         export type PostalCodeSettings = {
             range_start: number
             range_end: number
+=======
+                id: string; // uuid
+                email: string; // email
+                username: string;
+                first_name: string;
+                last_name: string;
+                full_name: string;
+            };
+        }
+        export interface PatchedVisit {
+            readonly id?: number;
+            situation?: "nobody_present" | "no_cooperation" | "access_granted";
+            observations?: string[] | null;
+            start_time?: string; // date-time
+            description?: string | null;
+            can_next_visit_go_ahead?: boolean | null;
+            can_next_visit_go_ahead_description?: string | null;
+            suggest_next_visit?: "weekend" | "daytime" | "evening" | "unknown";
+            suggest_next_visit_description?: string | null;
+            personal_notes?: string | null;
+            itinerary_item?: number;
+            author?: string; // uuid
+        }
+        export interface PlannerDaySettings {
+            day?: PlannerListSettings;
+            evening?: PlannerListSettings;
+        }
+        export interface PlannerListSettings {
+            length_of_list?: number;
+            primary_stadium?: PrimaryStadiumEnum;
+            secondary_stadia?: ("Onderzoek buitendienst" | "2de Controle" | "3de Controle" | "Hercontrole" | "2de hercontrole" | "3de hercontrole" | "Avondronde" | "Onderzoek advertentie" | "Weekend buitendienstonderzoek" | "Issuemelding")[];
+            exclude_stadia?: ("Onderzoek buitendienst" | "2de Controle" | "3de Controle" | "Hercontrole" | "2de hercontrole" | "3de hercontrole" | "Avondronde" | "Onderzoek advertentie" | "Weekend buitendienstonderzoek" | "Issuemelding")[];
+        }
+        export interface PlannerPostalCodeSettings {
+            range_start: number;
+            range_end: number;
+        }
+        export interface PlannerSettings {
+            opening_date: string; // date
+            projects: ("Bed en breakfast 2019" | "Burgwallenproject Oudezijde" | "Corpo-rico" | "Digital toezicht Safari" | "Digital toezicht Zebra" | "Haarlemmerbuurt" | "Hotline" | "Mystery Guest" | "Project Andes" | "Project Jordaan" | "Project Lobith" | "Project Sahara" | "Safari" | "Safari 2015" | "Sahara Adams Suites" | "Sahara hele woning" | "Sahara meer dan 4" | "Sahara Recensies" | "Sahara veel adv" | "Social Media 2019" | "Woonschip (woonboot)" | "Zebra")[];
+            postal_codes?: PlannerPostalCodeSettings[];
+            days: PlannerWeekSettings;
+        }
+        export interface TeamSettings {
+            readonly id?: number;
+            name: string;
+            settings: PlannerSettings;
+        }
+        export interface PlannerWeekSettings {
+            monday: PlannerDaySettings;
+            tuesday: PlannerDaySettings;
+            wednesday: PlannerDaySettings;
+            thursday: PlannerDaySettings;
+            friday: PlannerDaySettings;
+            saturday: PlannerDaySettings;
+            sunday: PlannerDaySettings;
+        }
+        export interface PostalCodeSettings {
+            range_start: number;
+            range_end: number;
+>>>>>>> feat: team settings
         }
         export type PrimaryStadiumEnum = "Onderzoek buitendienst" | "2de Controle" | "3de Controle" | "Hercontrole" | "2de hercontrole" | "3de hercontrole" | "Avondronde" | "Onderzoek advertentie" | "Weekend buitendienstonderzoek" | "Issuemelding";
         export type Project = {
