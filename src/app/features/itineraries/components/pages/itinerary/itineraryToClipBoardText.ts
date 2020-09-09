@@ -12,7 +12,7 @@ const itineraryToClipboardText = (itinerary: BWVData) => {
     stadium,
     case_reason: caseReason
   } = itinerary
-  const address = displayAddress(streetName, streetNumber, suffixLetter || undefined, suffix || undefined)
+  const address = displayAddress(streetName, streetNumber, suffixLetter, suffix)
   return `${ address } ${ postalCode } ${ stadium } ${ caseReason }`
 }
 
