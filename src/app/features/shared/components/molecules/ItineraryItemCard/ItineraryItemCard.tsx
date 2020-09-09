@@ -11,7 +11,7 @@ type Props = {
   reason?: string|JSX.Element
   fraudProbability?: string|JSX.Element
   badge?: JSX.Element
-  buttons?: (onDeleteButtonClick:()=>void) => JSX.Element
+  buttons?: (onDeleteButtonClick: () => void) => JSX.Element
   notes?: JSX.Element
   isVisited?: boolean
 }

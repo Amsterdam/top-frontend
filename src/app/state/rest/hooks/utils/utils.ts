@@ -4,8 +4,8 @@ import { AxiosError } from "axios"
 import qs from "qs"
 import slashSandwich from "slash-sandwich"
 
-import {clearToken, getToken} from "app/state/auth/tokenStore"
-import to from "app/features/shared/routing/to";
+import { clearToken, getToken } from "app/state/auth/tokenStore"
+import to from "app/features/shared/routing/to"
 
 const isAxiosError = (error: any): error is AxiosError => error.isAxiosError
 

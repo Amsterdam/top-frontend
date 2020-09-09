@@ -1,7 +1,7 @@
 import React from "react"
 import { useParams } from "@reach/router"
 
-import {useVisits} from "app/state/rest"
+import { useVisits } from "app/state/rest"
 
 import NoteWizardModal from "../../organisms/NoteWizard/NoteWizardModal"
 import NoteWizard from "../../organisms/NoteWizard/NoteWizard"

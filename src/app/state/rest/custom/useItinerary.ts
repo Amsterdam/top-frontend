@@ -1,4 +1,4 @@
-import {Options, useItineraries} from "../index"
+import { Options, useItineraries } from "../index"
 import { useMemo } from "react"
 
 // There is no single itinerary endpoint, so we create a convenience hook here:

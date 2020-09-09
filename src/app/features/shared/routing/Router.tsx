@@ -3,7 +3,7 @@ import { Router as ReachRouter } from "@reach/router"
 
 import routes from "app/config/routes"
 import ProtectedRoute from "./components/ProtectedRoute"
-import NotFoundPage from "../components/pages/NotFoundPage";
+import NotFoundPage from "../components/pages/NotFoundPage"
 
 const allowList = /^\/login|^\/authentication/
 

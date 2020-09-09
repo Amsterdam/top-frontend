@@ -8,7 +8,7 @@ type Props = {
   itineraryId?: string
 }
 
-const SearchNavigationButton:React.FC<Props> = ({ itineraryId }) => {
+const SearchNavigationButton: React.FC<Props> = ({ itineraryId }) => {
   const href = itineraryId
     ? to("/lijst/:itineraryId/zoeken/", { itineraryId })
     : to("/zoeken/")

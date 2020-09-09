@@ -1,6 +1,6 @@
 import { FormValues } from "../types"
 import { mapDateToTime, mapTimeToDate }from "./mapDateToTime"
-import { mapYesNoToBoolean, mapBooleanToYesNo }  from "./mapYesNoToBoolean"
+import { mapYesNoToBoolean, mapBooleanToYesNo } from "./mapYesNoToBoolean"
 
 const fieldsNoAccess = {
   observations: null,
@@ -13,7 +13,7 @@ const fieldsAccess = {
   personal_notes: null
 }
 
-export const mapPostValues = (values: any, itinerary_item: number, author: string) : Components.Schemas.Visit => {
+export const mapPostValues = (values: any, itinerary_item: number, author: string): Components.Schemas.Visit => {
   const start_time = mapTimeToDate(values.start_time)
   const can_next_visit_go_ahead =
     values.can_next_visit_go_ahead !== undefined ?
@@ -32,7 +32,7 @@ export const mapPostValues = (values: any, itinerary_item: number, author: strin
     { ...postValues, ...fieldsAccess }
 }
 
-export const mapInitialValues = (values: Components.Schemas.Visit) : FormValues => {
+export const mapInitialValues = (values: Components.Schemas.Visit): FormValues => {
   const start_time = mapDateToTime(values.start_time)
   const can_next_visit_go_ahead = mapBooleanToYesNo(values.can_next_visit_go_ahead)
   return { ...values, start_time, can_next_visit_go_ahead }
