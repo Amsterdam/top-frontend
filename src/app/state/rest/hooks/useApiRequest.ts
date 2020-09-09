@@ -6,17 +6,13 @@ import { ApiGroup } from "../index"
 
 type GetOptions = {
   method: "get"
-  onSuccess?: Callback
 }
 
 type MutateOptions = {
   method: "post" | "put" | "patch" | "delete"
   skipCacheClear?: boolean
   useResponseAsCache?: boolean
-  onSuccess?: Callback
 }
-
-type Callback = () => void
 
 const isGetOptions = (options: any): options is GetOptions =>
   options.method === "get"
@@ -61,10 +57,6 @@ const useApiRequest = <Schema, Payload = Partial<Schema>>({ url, groupName, hand
 
       if (isGetOptions(options) || (isMutateOptions(options) && options.useResponseAsCache)) {
         setCacheItem(url, response.data)
-      }
-
-      if (options?.onSuccess) {
-        options.onSuccess()
       }
 
       return response
