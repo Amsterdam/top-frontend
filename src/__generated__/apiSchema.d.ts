@@ -1,23 +1,23 @@
 declare namespace Components {
     namespace Schemas {
-        export type Case = {
-            readonly id: number
-            case_id?: string | null
-            readonly bwv_data: any
+        export interface Case {
+            readonly id: number;
+            case_id?: string | null;
+            readonly bwv_data: any;
             readonly fraud_prediction: {
-                fraud_probability: number // float
-                fraud_prediction: boolean
+                fraud_probability: number; // float
+                fraud_prediction: boolean;
                 business_rules: {
-                    [name: string]: any
-                }
+                    [name: string]: any;
+                };
                 shap_values: {
-                    [name: string]: any
-                }
-                readonly sync_date: string // date-time
-            }
+                    [name: string]: any;
+                };
+                readonly sync_date: string; // date-time
+            };
         }
-        export type CaseSimple = {
-            case_id?: string | null
+        export interface CaseSimple {
+            case_id?: string | null;
         }
         export type DecosPermit = {
             permit_granted?: boolean
@@ -31,12 +31,12 @@ declare namespace Components {
             fraud_probability: number // float
             fraud_prediction: boolean
             business_rules: {
-                [name: string]: any
-            }
+                [name: string]: any;
+            };
             shap_values: {
-                [name: string]: any
-            }
-            readonly sync_date: string // date-time
+                [name: string]: any;
+            };
+            readonly sync_date: string; // date-time
         }
         export type HasBAndBPermitEnum = "True" | "False" | "UNKNOWN";
         export type HasVacationRentalPermitEnum = "True" | "False" | "UNKNOWN";
@@ -57,10 +57,10 @@ declare namespace Components {
             }
             readonly postal_code_settings: PostalCodeSettings[]
         }
-        export type ItineraryItem = {
-            readonly id: number
-            position: number // float
-            readonly notes: Note[]
+        export interface ItineraryItem {
+            readonly id: number;
+            position: number; // float
+            readonly notes: Note[];
             readonly case: {
                 readonly id: number
                 case_id?: string | null
@@ -107,10 +107,10 @@ declare namespace Components {
                 team_settings: TeamSettingsId[]
             }
         }
-        export type NoteCrud = {
-            readonly id: number
-            text: string
-            itinerary_item: number
+        export interface NoteCrud {
+            readonly id: number;
+            text: string;
+            itinerary_item: number;
             readonly author: {
                 id: string // uuid
                 email: string // email
@@ -268,11 +268,11 @@ declare namespace Paths {
         namespace Parameters {
             export type Id = string;
         }
-        export type PathParameters = {
-            id: Parameters.Id
+        export interface PathParameters {
+            id: Parameters.Id;
         }
         namespace Responses {
-            export type $200 = {
+            export interface $200 {
             }
         }
     }
@@ -281,12 +281,12 @@ declare namespace Paths {
             export type Date = string; // date
             export type Stadium = string;
         }
-        export type QueryParameters = {
-            date?: Parameters.Date /* date */
-            stadium?: Parameters.Stadium
+        export interface QueryParameters {
+            date?: Parameters.Date /* date */;
+            stadium?: Parameters.Stadium;
         }
         namespace Responses {
-            export type $200 = {
+            export interface $200 {
             }
         }
     }
@@ -294,8 +294,8 @@ declare namespace Paths {
         namespace Parameters {
             export type Id = string;
         }
-        export type PathParameters = {
-            id: Parameters.Id
+        export interface PathParameters {
+            id: Parameters.Id;
         }
         namespace Responses {
             export type $200 = Components.Schemas.Visit[];
@@ -303,25 +303,25 @@ declare namespace Paths {
     }
     namespace ConstantsProjectsRetrieve {
         namespace Responses {
-            export type $200 = {
+            export interface $200 {
             }
         }
     }
     namespace ConstantsStadiaRetrieve {
         namespace Responses {
-            export type $200 = {
+            export interface $200 {
             }
         }
     }
     namespace FraudPredictionScoringCreate {
         namespace Responses {
-            export type $200 = {
+            export interface $200 {
             }
         }
     }
     namespace IsAuthenticatedRetrieve {
         namespace Responses {
-            export type $200 = {
+            export interface $200 {
             }
         }
     }
@@ -336,14 +336,14 @@ declare namespace Paths {
             export type CreatedAt = string;
             export type Id = number;
         }
-        export type PathParameters = {
-            id: Parameters.Id
+        export interface PathParameters {
+            id: Parameters.Id;
         }
-        export type QueryParameters = {
-            created_at?: Parameters.CreatedAt
+        export interface QueryParameters {
+            created_at?: Parameters.CreatedAt;
         }
         namespace Responses {
-            export type $204 = {
+            export interface $204 {
             }
         }
     }
@@ -352,20 +352,20 @@ declare namespace Paths {
             export type CreatedAt = string;
             export type Page = number;
         }
-        export type QueryParameters = {
-            created_at?: Parameters.CreatedAt
-            page?: Parameters.Page
+        export interface QueryParameters {
+            created_at?: Parameters.CreatedAt;
+            page?: Parameters.Page;
         }
         namespace Responses {
-            export type $200 = {
+            export interface $200 {
                 /**
                  * example:
                  * 123
                  */
-                count?: number
-                next?: string | null
-                previous?: string | null
-                results?: Components.Schemas.Itinerary[]
+                count?: number;
+                next?: string | null;
+                previous?: string | null;
+                results?: Components.Schemas.Itinerary[];
             }
         }
     }
@@ -373,8 +373,8 @@ declare namespace Paths {
         namespace Parameters {
             export type Id = number;
         }
-        export type PathParameters = {
-            id: Parameters.Id
+        export interface PathParameters {
+            id: Parameters.Id;
         }
         namespace Responses {
             export type $200 = Components.Schemas.Itinerary;
@@ -384,8 +384,8 @@ declare namespace Paths {
         namespace Parameters {
             export type Id = number;
         }
-        export type PathParameters = {
-            id: Parameters.Id
+        export interface PathParameters {
+            id: Parameters.Id;
         }
         namespace Responses {
             export type $200 = Components.Schemas.Itinerary;
@@ -395,8 +395,8 @@ declare namespace Paths {
         namespace Parameters {
             export type Id = number;
         }
-        export type PathParameters = {
-            id: Parameters.Id
+        export interface PathParameters {
+            id: Parameters.Id;
         }
         export type RequestBody = Components.Schemas.Itinerary;
         namespace Responses {
@@ -405,7 +405,7 @@ declare namespace Paths {
     }
     namespace ItineraryItemsCreate {
         namespace Responses {
-            export type $200 = {
+            export interface $200 {
             }
         }
     }
@@ -413,11 +413,11 @@ declare namespace Paths {
         namespace Parameters {
             export type Id = number;
         }
-        export type PathParameters = {
-            id: Parameters.Id
+        export interface PathParameters {
+            id: Parameters.Id;
         }
         namespace Responses {
-            export type $204 = {
+            export interface $204 {
             }
         }
     }
@@ -425,11 +425,11 @@ declare namespace Paths {
         namespace Parameters {
             export type Id = number;
         }
-        export type PathParameters = {
-            id: Parameters.Id
+        export interface PathParameters {
+            id: Parameters.Id;
         }
         namespace Responses {
-            export type $200 = {
+            export interface $200 {
             }
         }
     }
@@ -437,11 +437,11 @@ declare namespace Paths {
         namespace Parameters {
             export type Id = number;
         }
-        export type PathParameters = {
-            id: Parameters.Id
+        export interface PathParameters {
+            id: Parameters.Id;
         }
         namespace Responses {
-            export type $200 = {
+            export interface $200 {
             }
         }
     }
@@ -455,11 +455,11 @@ declare namespace Paths {
         namespace Parameters {
             export type Id = number;
         }
-        export type PathParameters = {
-            id: Parameters.Id
+        export interface PathParameters {
+            id: Parameters.Id;
         }
         namespace Responses {
-            export type $204 = {
+            export interface $204 {
             }
         }
     }
@@ -467,8 +467,8 @@ declare namespace Paths {
         namespace Parameters {
             export type Id = number;
         }
-        export type PathParameters = {
-            id: Parameters.Id
+        export interface PathParameters {
+            id: Parameters.Id;
         }
         export type RequestBody = Components.Schemas.PatchedNoteCrud;
         namespace Responses {
@@ -479,8 +479,8 @@ declare namespace Paths {
         namespace Parameters {
             export type Id = number;
         }
-        export type PathParameters = {
-            id: Parameters.Id
+        export interface PathParameters {
+            id: Parameters.Id;
         }
         namespace Responses {
             export type $200 = Components.Schemas.NoteCrud;
@@ -490,8 +490,8 @@ declare namespace Paths {
         namespace Parameters {
             export type Id = number;
         }
-        export type PathParameters = {
-            id: Parameters.Id
+        export interface PathParameters {
+            id: Parameters.Id;
         }
         export type RequestBody = Components.Schemas.NoteCrud;
         namespace Responses {
@@ -530,12 +530,12 @@ declare namespace Paths {
         namespace Parameters {
             export type Format = "json" | "yaml";
         }
-        export type QueryParameters = {
-            format?: Parameters.Format
+        export interface QueryParameters {
+            format?: Parameters.Format;
         }
         namespace Responses {
-            export type $200 = {
-                [name: string]: any
+            export interface $200 {
+                [name: string]: any;
             }
         }
     }
@@ -546,22 +546,22 @@ declare namespace Paths {
             export type StreetNumber = string;
             export type Suffix = string;
         }
-        export type QueryParameters = {
-            page?: Parameters.Page
-            postalCode?: Parameters.PostalCode
-            streetNumber?: Parameters.StreetNumber
-            suffix?: Parameters.Suffix
+        export interface QueryParameters {
+            page?: Parameters.Page;
+            postalCode?: Parameters.PostalCode;
+            streetNumber?: Parameters.StreetNumber;
+            suffix?: Parameters.Suffix;
         }
         namespace Responses {
-            export type $200 = {
+            export interface $200 {
                 /**
                  * example:
                  * 123
                  */
-                count?: number
-                next?: string | null
-                previous?: string | null
-                results?: Components.Schemas.Case[]
+                count?: number;
+                next?: string | null;
+                previous?: string | null;
+                results?: Components.Schemas.Case[];
             }
         }
     }
@@ -575,19 +575,37 @@ declare namespace Paths {
         namespace Parameters {
             export type Page = number;
         }
-        export type QueryParameters = {
-            page?: Parameters.Page
+        export interface QueryParameters {
+            page?: Parameters.Page;
         }
         namespace Responses {
-            export type $200 = {
+            export interface $200 {
                 /**
                  * example:
                  * 123
                  */
-                count?: number
-                next?: string | null
-                previous?: string | null
-                results?: Components.Schemas.PlannerSettings[]
+                count?: number;
+                next?: string | null;
+                previous?: string | null;
+                results?: Components.Schemas.PlannerSettings[];
+            }
+        }
+    }
+    namespace SettingsTeamCreate {
+        export type RequestBody = Components.Schemas.TeamSettingsModel;
+        namespace Responses {
+            export type $200 = Components.Schemas.TeamSettingsModel;
+        }
+    }
+    namespace SettingsTeamDestroy {
+        namespace Parameters {
+            export type Id = number;
+        }
+        export interface PathParameters {
+            id: Parameters.Id;
+        }
+        namespace Responses {
+            export interface $204 {
             }
         }
     }
@@ -668,19 +686,19 @@ declare namespace Paths {
         namespace Parameters {
             export type Page = number;
         }
-        export type QueryParameters = {
-            page?: Parameters.Page
+        export interface QueryParameters {
+            page?: Parameters.Page;
         }
         namespace Responses {
-            export type $200 = {
+            export interface $200 {
                 /**
                  * example:
                  * 123
                  */
-                count?: number
-                next?: string | null
-                previous?: string | null
-                results?: Components.Schemas.User[]
+                count?: number;
+                next?: string | null;
+                previous?: string | null;
+                results?: Components.Schemas.User[];
             }
         }
     }
@@ -694,11 +712,11 @@ declare namespace Paths {
         namespace Parameters {
             export type Id = number;
         }
-        export type PathParameters = {
-            id: Parameters.Id
+        export interface PathParameters {
+            id: Parameters.Id;
         }
         namespace Responses {
-            export type $204 = {
+            export interface $204 {
             }
         }
     }
@@ -706,19 +724,19 @@ declare namespace Paths {
         namespace Parameters {
             export type Page = number;
         }
-        export type QueryParameters = {
-            page?: Parameters.Page
+        export interface QueryParameters {
+            page?: Parameters.Page;
         }
         namespace Responses {
-            export type $200 = {
+            export interface $200 {
                 /**
                  * example:
                  * 123
                  */
-                count?: number
-                next?: string | null
-                previous?: string | null
-                results?: Components.Schemas.Visit[]
+                count?: number;
+                next?: string | null;
+                previous?: string | null;
+                results?: Components.Schemas.Visit[];
             }
         }
     }
@@ -726,8 +744,8 @@ declare namespace Paths {
         namespace Parameters {
             export type Id = number;
         }
-        export type PathParameters = {
-            id: Parameters.Id
+        export interface PathParameters {
+            id: Parameters.Id;
         }
         export type RequestBody = Components.Schemas.PatchedVisit;
         namespace Responses {
@@ -738,8 +756,8 @@ declare namespace Paths {
         namespace Parameters {
             export type Id = number;
         }
-        export type PathParameters = {
-            id: Parameters.Id
+        export interface PathParameters {
+            id: Parameters.Id;
         }
         namespace Responses {
             export type $200 = Components.Schemas.Visit;
@@ -749,8 +767,8 @@ declare namespace Paths {
         namespace Parameters {
             export type Id = number;
         }
-        export type PathParameters = {
-            id: Parameters.Id
+        export interface PathParameters {
+            id: Parameters.Id;
         }
         export type RequestBody = Components.Schemas.Visit;
         namespace Responses {
