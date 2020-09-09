@@ -86,7 +86,7 @@ const ItineraryPage: React.FC<RouteComponentProps<Props>> = ({ itineraryId }) =>
 
   const teamMemberUsers = useMemo(() => data?.team_members.map(member => member.user) ?? [], [ data ])
   const teamMemberNames = useMemo(() => teamMemberUsers?.map(user => user.full_name).join(", "), [ teamMemberUsers ])
-  const cases = useMemo(() => items?.map(item => item.case.bwv_data) ?? [], [ items ])
+  const cases = useMemo(() => items?.filter(item => item.visits.length === 0).map(item => item.case.bwv_data) ?? [], [ items ])
 
   const clipboardText = cases.map(itineraryToClipboardText).join("\n")
   const onClickClipboard = () => setShowDialog(false)
