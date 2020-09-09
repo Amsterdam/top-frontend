@@ -7,6 +7,8 @@ export type ApiGroup =
   | "itineraries"
   | "users"
   | "settings"
+  | "teamSettings"
+  | "teamSettingsList"
   | "constants"
   | "case"
   | "permits"
@@ -138,6 +140,20 @@ export const useSettings = (options?: Options) => useApiRequest<Components.Schem
     ...options,
     url: makeGatewayUrl(["settings", "planner"]),
     groupName: "settings",
+    getHeaders
+  })
+
+export const useTeamSettingsList = (options?: Options) => useApiRequest<Components.Schemas.TeamSettings[]>({
+    ...options,
+    url: makeGatewayUrl(["settings", "team"]),
+    groupName: "teamSettingsList",
+    getHeaders
+  })
+
+export const useTeamSettings = (teamSettingsId: number, options?: Options) => useApiRequest<Components.Schemas.TeamSettings>({
+    ...options,
+    url: makeGatewayUrl(["settings", "team", teamSettingsId]),
+    groupName: "teamSettings",
     getHeaders
   })
 
