@@ -281,6 +281,11 @@ declare namespace Components {
             postal_codes?: PlannerPostalCodeSettings[];
             days: PlannerWeekSettings;
         }
+        export interface TeamSettings {
+            readonly id?: number;
+            name: string;
+            settings: PlannerSettings;
+        }
         export interface PlannerWeekSettings {
             monday: PlannerDaySettings;
             tuesday: PlannerDaySettings;
