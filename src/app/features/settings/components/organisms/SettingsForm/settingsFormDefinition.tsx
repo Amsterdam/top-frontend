@@ -1,6 +1,8 @@
 import { combineValidators, isNotIntersectingWith, isRequired, ScaffoldAvailableFields } from "amsterdam-react-final-form"
 import { FormPositioner, FormPositionerFields } from "amsterdam-scaffold-form/package"
 
+import config from "app/config/config"
+
 import { Field } from "app/features/shared/components/form/ScaffoldField"
 import postalCodeSiblingValidator from "./validators/postalCodeSiblingValidator"
 
@@ -73,9 +75,8 @@ const createDayPartDefinition = (label: string, day: Day, dayPart: DayPart, stad
  * Creates form definition for planningSettings
  */
 export const createDefinition = (projects: string[], stadia: string[]) => {
-  // @TODO: Move to config
-  const postalCodeMin = 1000
-  const postalCodeMax = 1109
+  const postalCodeMin = config.settingsPage.postalCodeMin
+  const postalCodeMax = config.settingsPage.postalCodeMax
   const definition: FormPositionerFields<Field> = {
     opening_date: {
       type: "TextField",

@@ -1,9 +1,9 @@
 import React, { FC } from "react"
 import styled from "styled-components"
+import { themeColor } from "@datapunt/asc-ui"
 
-// @TODO: Use ASC
 const Span = styled.span`
-  color: red;
+  color: ${ themeColor("support", "invalid") };
 `
 
 const InvalidDataSpan: FC = () => <Span>-</Span>
