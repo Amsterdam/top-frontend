@@ -3,10 +3,10 @@ import { navigate } from "@reach/router"
 import { TrashBin } from "@datapunt/asc-assets"
 
 import StyledButton from "app/features/shared/components/atoms/StyledButton/StyledButton"
-import {useVisit} from "app/state/rest"
+import { useVisit } from "app/state/rest"
 
 import to from "app/features/shared/routing/to"
-import {useNoteWizard} from "../../organisms/NoteWizard/hooks/useNoteWizard";
+import { useNoteWizard } from "../../organisms/NoteWizard/hooks/useNoteWizard"
 
 type Props = {
   caseId: string

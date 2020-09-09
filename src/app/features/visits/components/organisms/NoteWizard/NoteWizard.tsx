@@ -1,13 +1,13 @@
-import React, {useCallback} from "react"
+import React, { useCallback } from "react"
 import { navigate } from "@reach/router"
 import { themeSpacing, themeColor } from "@datapunt/asc-ui"
-import {ScaffoldForm} from "amsterdam-react-final-form"
+import { ScaffoldForm } from "amsterdam-react-final-form"
 import styled from "styled-components"
 
-import {ItineraryItem} from "app/features/types"
+import { ItineraryItem } from "app/features/types"
 
-import {useLoggedInUser} from "app/state/rest/custom/useLoggedInUser"
-import {useItinerary} from "app/state/rest/custom/useItinerary"
+import { useLoggedInUser } from "app/state/rest/custom/useLoggedInUser"
+import { useItinerary } from "app/state/rest/custom/useItinerary"
 
 import to from "app/features/shared/routing/to"
 import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner"
@@ -20,12 +20,12 @@ import NodeWizardSubtitle from "./components/NoteWizardSubtitle"
 
 import DeleteVisitButton from "app/features/visits/components/molecules/DeleteVisitButton/DeleteVisitButton"
 
-import {mapPostValues} from "./utils/mapValues";
-import {FormValues} from "./types";
+import { mapPostValues } from "./utils/mapValues"
+import { FormValues } from "./types"
 
 type Props = {
   valuesFromApi?: FormValues
-  onSubmit: (values:Components.Schemas.Visit) => Promise<any>
+  onSubmit: (values: Components.Schemas.Visit) => Promise<any>
   visitId?: string
   caseId: string
   itineraryId: string

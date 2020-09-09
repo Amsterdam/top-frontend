@@ -31,7 +31,7 @@ const mapCaseToCardProps = (itineraryId: number | undefined, itineraryItemIds: R
   reason: case_reason,
   badge: <StadiumBadge stadium={stadium} />,
   fraudProbability: <FraudProbability fraudProbability={fraud_prediction?.fraud_probability} />,
-  buttons: (onDeleteButtonClick: ()=>void) => <>
+  buttons: (onDeleteButtonClick: () => void) => <>
     { addDistance && distance && <p>{ Math.round(distance) }m</p> }
     { itineraryItemIds[case_id]
       ? <DeleteItineraryItemButton onDeleteButtonClicked={onDeleteButtonClick} id={itineraryItemIds[case_id]!} />

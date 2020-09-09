@@ -1,10 +1,10 @@
-import React, {useEffect} from "react"
+import React, { useEffect } from "react"
 import { RouteComponentProps, navigate } from "@reach/router"
 
-import {useItineraries} from "app/state/rest"
+import { useItineraries } from "app/state/rest"
 
 import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout"
-import {useQueryString} from "app/features/shared/hooks/queryString/useQueryString"
+import { useQueryString } from "app/features/shared/hooks/queryString/useQueryString"
 import to from "app/features/shared/routing/to"
 import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner"
 
