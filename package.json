@@ -37,7 +37,7 @@
     "start:local": "env-cmd -f .env.development_local react-scripts start",
     "build": "react-scripts build",
     "build:acc": "env-cmd -f .env.acceptance react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --watchAll=false",
     "test:ci": "CI=true npm run test",
     "lint": "eslint --cache --ext .ts,.tsx src",
     "lint:fix": "npm run lint -- --fix",
@@ -84,7 +84,20 @@
     "dtsgenerator": "^3.3.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.4",
+    "husky": "^4.3.0",
+    "lint-staged": "^10.3.0",
     "nock": "^13.0.3",
     "storybook": "^6.0.21"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "npm test"
+    }
+  },
+  "lint-staged": {
+    "**/*.ts?(x)": [
+      "npm run lint:fix"
+    ]
   }
 }
