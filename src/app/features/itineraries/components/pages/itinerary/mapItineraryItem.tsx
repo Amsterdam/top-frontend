@@ -30,7 +30,7 @@ export const mapItineraryItem = (itineraryId: string) => ({
     fraudProbability: <FraudProbability fraudProbability={fraud_prediction?.fraud_probability} />,
     isVisited: visits.length > 0,
     buttons: (onDeleteButtonClicked: () => void) => <ItineraryItemCardButtons onDeleteButtonClicked={onDeleteButtonClicked} itineraryId={ itineraryId } itineraryItemId={ id } caseId={ case_id } visits={ visits } />,
-    notes: visits[0].personal_notes 
+    notes: visits[0]?.personal_notes 
       ? <Notes note={ visits[0].personal_notes } />
       : undefined
   })
