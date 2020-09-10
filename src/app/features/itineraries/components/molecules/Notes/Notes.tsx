@@ -19,11 +19,9 @@ const maxLength = 48
 const capNote = (text: string) =>
   text.length > maxLength ? `${ text.substring(0, maxLength).trim() }…` : text
 
-const Notes: FC<Props> = ({ note }) => {
-  return (
+const Notes: FC<Props> = ({ note }) => (
     <Div>
       <P>{ capNote(note) }</P>
     </Div>
   )
-}
 export default Notes
