@@ -1,8 +1,6 @@
 import styled from "styled-components"
 
-export const FixedWrap = styled.div`  
-  // @TODO refactor our use of z-index. This gets out of hand quickly.
-  
+export const FixedWrap = styled.div`    
   z-index: 99999; // HeaderWrap has z-index of 9999, we have top that. 
     
   position: fixed;
