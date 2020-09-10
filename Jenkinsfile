@@ -50,6 +50,7 @@ pipeline {
           def image = docker.build("${DOCKER_IMAGE_URL}:${env.COMMIT_HASH}",
             "--no-cache " +
             "--shm-size 1G " +
+            "--build-arg COMMIT_HASH=${env.COMMIT_HASH} " +
             " .")
           image.push()
           tag_image_as("latest")
