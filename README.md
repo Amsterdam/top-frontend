@@ -19,7 +19,7 @@ Run:
 Connect to acceptance backend
 
 - `npm run start`
-- open `http://localhost:3001/` in browser
+- open http://localhost:3001/ in browser
 
 ## deployment
 
