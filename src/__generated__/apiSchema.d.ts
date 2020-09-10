@@ -56,7 +56,7 @@ declare namespace Components {
                 readonly bwv_data: any
                 readonly fraud_prediction: any
             }
-            readonly visits: /* Serializer for Visit many-to-one relation but with start_time added */ VisitRelated[]
+            readonly visits: Visit[]
             checked?: boolean
         }
         export type ItinerarySettings = {
@@ -105,6 +105,9 @@ declare namespace Components {
                 last_name: string
                 full_name: string
             }
+        }
+        export type OIDCAuthenticate = {
+            code: string
         }
         export type PatchedNoteCrud = {
             readonly id?: number
@@ -204,13 +207,6 @@ declare namespace Components {
             personal_notes?: string | null
             itinerary_item: number
             author: string // uuid
-        }
-        /**
-         * Serializer for Visit many-to-one relation but with start_time added
-         */
-        export type VisitRelated = {
-            readonly id: number
-            start_time: string // date-time
         }
     }
 }
@@ -450,6 +446,18 @@ declare namespace Paths {
         }
     }
     namespace OidcAuthenticateCreate {
+        export type RequestBody = Components.Schemas.OIDCAuthenticate;
+        namespace Responses {
+            export type $200 = Components.Schemas.OIDCAuthenticate;
+        }
+    }
+    namespace PermitsGetPermitCheckmarksRetrieve {
+        namespace Parameters {
+            export type BagId = string;
+        }
+        export type QueryParameters = {
+            bag_id: Parameters.BagId
+        }
         namespace Responses {
             export type $200 = {
             }
