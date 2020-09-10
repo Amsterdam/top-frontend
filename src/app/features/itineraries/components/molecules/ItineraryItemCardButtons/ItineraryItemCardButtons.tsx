@@ -16,7 +16,7 @@ type Props = {
   itineraryId: string
   itineraryItemId: number
   caseId?: string | null
-  visits: Components.Schemas.VisitRelated[]
+  visits: Components.Schemas.Visit[]
   onDeleteButtonClicked: () => void
 }
 
