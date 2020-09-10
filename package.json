@@ -86,7 +86,7 @@
     "enzyme-adapter-react-16": "^1.15.4",
     "husky": "^4.3.0",
     "lint-staged": "^10.3.0",
-    "nock": "^13.0.3",
+    "nock": "^13.0.4",
     "storybook": "^6.0.21"
   },
   "husky": {
