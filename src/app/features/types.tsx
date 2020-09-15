@@ -29,6 +29,7 @@ export type BagDataError = {
 }
 
 export type BrkData = {
+  bag_id: string | null
   owners: { _display: string }[]
 }
 
