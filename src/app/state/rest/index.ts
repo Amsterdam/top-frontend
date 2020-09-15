@@ -9,6 +9,7 @@ export type ApiGroup =
   | "settings"
   | "constants"
   | "case"
+  | "permits"
 
 export type Options = {
   keepUsingInvalidCache?: boolean
@@ -190,6 +191,17 @@ export const useVisit = (id: string|number, options?: Options) => {
     ...options,
     url: makeGatewayUrl(["visits", id]),
     groupName: "itineraries",
+    handleError,
+    getHeaders
+  })
+}
+
+export const usePermitCheckmarks = (bagId: string, options?: Options) => {
+  const handleError = useErrorHandler()
+  return useApiRequest<{ has_b_and_b_permit: boolean, has_vacation_rental_permit: boolean }>({
+    ...options,
+    url: makeGatewayUrl(["permits", "get_permit_checkmarks"], { bag_id: bagId }),
+    groupName: "permits",
     handleError,
     getHeaders
   })

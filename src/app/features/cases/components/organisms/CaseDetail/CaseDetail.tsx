@@ -2,6 +2,8 @@ import React, { FC } from "react"
 import { Link } from "@reach/router"
 import styled from "styled-components"
 
+import { usePermitCheckmarks } from "app/state/rest"
+
 import to from "app/features/shared/routing/to"
 import formatDate from "app/features/shared/utils/formatDate"
 import replaceNewLines from "app/features/shared/utils/replaceNewLines"
@@ -35,6 +37,9 @@ const P = styled.p`
 `
 
 const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
+  const bagId = (caseItem.brk_data as BrkData).bag_id ?? ""
+  const { data: permitData } = usePermitCheckmarks(bagId, { lazy: !bagId })
+
   // Header
   const address = displayAddress(caseItem.import_adres.sttnaam, caseItem.import_adres.hsnr, caseItem.import_adres.hsltr || undefined, caseItem.import_adres.toev || undefined)
   const postalCode = caseItem.import_adres.postcode
@@ -322,6 +327,16 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
       <CaseDetailSection
         title="Stadia"
         data= { stadia } />
+
+      { permitData && (
+        <CaseDetailSection
+          title="Vergunningen"
+          data={[
+            ["Bed & Breakfast", permitData?.has_b_and_b_permit ? "Ja" : "Nee"],
+            ["Vakantieverhuur", permitData?.has_vacation_rental_permit ? "Ja" : "Nee"]
+          ]}
+        />
+      ) }
     </article>
   )
 }
