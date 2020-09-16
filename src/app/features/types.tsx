@@ -45,7 +45,7 @@ type ImportAdres = {
   postcode: string
 }
 
-type BWVHotlineBevinding = {
+export type BWVHotlineBevinding = {
   toez_hdr1_code: string
   toez_hdr2_code: string
   toez_hdr1_naam: string

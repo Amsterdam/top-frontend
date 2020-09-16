@@ -17,6 +17,8 @@ import StadiumBadge from "app/features/shared/components/molecules/StadiumBadge/
 import Hr from "app/features/cases/components/atoms/Hr/Hr"
 import Span from "app/features/cases/components/atoms/Span/Span"
 import MailtoAnchor from "app/features/cases/components/molecules/MailtoAnchor/MailtoAnchor"
+import CaseLogBook from "app/features/cases/components/organisms/CaseLogbook/CaseLogBook"
+
 import { BagData, BagDataError, Case, RelatedCase, BrkData, BrkDataError, KeyValueDetail } from "app/features/types"
 
 import CaseDetailHeader from "./CaseDetailHeader"
@@ -197,37 +199,6 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
   }, [])
   const showBewoners = personCount > 0
 
-  // Logboek
-  const bevindingen = caseItem.bwv_hotline_bevinding.map(item => {
-    const {
-      toez_hdr1_naam,
-      toez_hdr2_naam,
-      bevinding_datum,
-      bevinding_tijd,
-      hit,
-      opmerking,
-      volgnr_bevinding
-    } = item
-    return ({
-      name: [toez_hdr1_naam, toez_hdr2_naam].filter(i => i != null).join(", "),
-      date: formatDate(bevinding_datum, true)!,
-      time: bevinding_tijd,
-      hit: hit === "J",
-      text: replaceNewLines((opmerking || "").trim(), "<br /><br />"),
-      num: parseInt(volgnr_bevinding, 10)
-    })
-  }).sort((a, b) => a.num - b.num).reverse()
-
-  const logboek = bevindingen.reduce((acc: any, item, index) => {
-    acc.push(["Toezichthouder", <strong className="anonymous">{ item.name }</strong>])
-    acc.push(["Tijd", `${ item.time } uur`])
-    acc.push(["Datum", item.date])
-    acc.push(["Hit", item.hit])
-    acc.push(<Purified className="anonymous" text={ item.text } />)
-    if (index < bevindingen.length - 1) acc.push(<Hr />)
-    return acc
-  }, [])
-
   // Statements
   const statements = caseItem.statements.map(
     ({ user, date, statement }) =>
@@ -315,9 +286,9 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
           }
         />
       }
-      <CaseDetailSection
-        title="Logboek"
-        data={ logboek.length ? logboek : ["-"] } />
+      <CaseLogBook
+        caseId={caseId}
+      />
       {
       showStatements &&
       <CaseDetailSection
