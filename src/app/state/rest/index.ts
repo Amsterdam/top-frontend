@@ -196,6 +196,17 @@ export const useVisit = (id: string|number, options?: Options) => {
   })
 }
 
+export const useCaseVisits = (caseId: string|number, options?: Options) => {
+  const handleError = useErrorHandler()
+  return useApiRequest<Components.Schemas.Visit[]>({
+    ...options,
+    url: makeGatewayUrl(["cases", caseId, "visits"]),
+    groupName: "itineraries",
+    handleError,
+    getHeaders
+  })
+}
+
 export const usePermitCheckmarks = (bagId: string, options?: Options) => {
   const handleError = useErrorHandler()
   return useApiRequest<{ has_b_and_b_permit: boolean, has_vacation_rental_permit: boolean }>({
