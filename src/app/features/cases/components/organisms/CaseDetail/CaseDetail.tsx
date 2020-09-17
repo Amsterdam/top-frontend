@@ -75,7 +75,6 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
     rental => isBetweenDates(new Date(rental.check_in), new Date(rental.check_out), new Date())
   ).length > 0 : "-"
   const vakantieverhuurShortstay = caseItem.vakantie_verhuur.shortstay === "J" ? true : false
-  const vakantieverhuurBnB = caseItem.vakantie_verhuur.is_bnb_declared === "J" ? true : false
   const showVakantieverhuur = vakantieverhuurNotified
 
   // Woning
@@ -256,7 +255,6 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
             ["Vandaag verhuurd", vakantieverhuurToday],
             [`Nachten verhuurd ${ new Date().getFullYear() }`, vakantieverhuurDays > 0 ? <ScrollToAnchor anchor="vakantieverhuur" text={ `${ vakantieverhuurDays } nachten` } /> : "-"],
             ["Shortstay", vakantieverhuurShortstay],
-            ["B&B aangemeld", vakantieverhuurBnB],
             permitData && ["B&B vergunning", permitData?.has_b_and_b_permit ? "Ja" : "Nee"]
           ].filter(_ => !!_)
         }
