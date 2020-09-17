@@ -97,16 +97,23 @@ export const suggestion = (handleBack: OnBackButtonClick, situation: string) => 
           daytime: "Overdag",
           weekend: "Weekend",
           evening: "'s Avonds",
-          unknown: "Onbekend"
+          unknown: "Niet meer uitzetten"
         }
       }
     },
     suggest_next_visit_description: {
-      type: "TextAreaField",
+      type: "ShowHide",
       props: {
-        label: "Toelichting (niet verplicht)",
-        hint: "Bijv. Buurvrouw (6F) gaf aan in het weekend vaak bezoekers te zien",
-        name: "suggest_next_visit_description"
+          shouldShow: ({ values: { suggest_next_visit } }) => suggest_next_visit && suggest_next_visit !== "daytime",
+          field: {
+            type: "TextAreaField",
+            props: {
+              isRequired: true,
+              label: "Toelichting",
+              hint: "Bijv. Buurvrouw (6F) gaf aan in het weekend vaak bezoekers te zien",
+              name: "suggest_next_visit_description"
+            }
+          }
       }
     },
     back: {
@@ -154,8 +161,8 @@ export const nextVisit = (handleBack: OnBackButtonClick) => {
           </p>
         </HelpButton>,
         options: {
-          yes: "Ja",
-          no: "Nee"
+          yes: "Ja, doorlaten",
+          no: "Nee, tegenhouden"
         }
       }
     },
@@ -197,7 +204,7 @@ export const nextVisit = (handleBack: OnBackButtonClick) => {
     submit: {
       type: "SubmitButton",
       props: {
-        label: "Bewaar",
+        label: "Opslaan",
         align: "right"
       }
     }
@@ -225,6 +232,16 @@ export const accessGranted = (handleBack: OnBackButtonClick) => {
         </HelpButton>
       }
     },
+    description: {
+      type: "TextAreaField",
+      props: {
+        label: "Korte samenvatting voor logboek",
+        name: "description",
+        extraLabel: <HelpButton>
+          <p>Deze korte toelichting van je bezoek is voor iedereen zichtbaar in het logboek van de TOP-app</p>
+        </HelpButton>
+      }
+    },
     back: {
       type: "Button",
       props: {
@@ -245,6 +262,7 @@ export const accessGranted = (handleBack: OnBackButtonClick) => {
   return new FormPositioner(fields)
     .setGrid("mobileS", "1fr 1fr", [
       ["notes", "notes"],
+      ["description", "description"],
       ["back", "submit"]
     ])
     .getScaffoldProps()

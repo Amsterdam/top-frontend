@@ -10,11 +10,13 @@ const fieldsNoAccess = {
   can_next_visit_go_ahead_description: null
 }
 const fieldsAccess = {
-  personal_notes: null
+  personal_notes: null,
+  description: null
 }
 
 export const mapPostValues = (values: any, itinerary_item: number, author: string): Components.Schemas.Visit => {
   const start_time = mapTimeToDate(values.start_time)
+
   const can_next_visit_go_ahead =
     values.can_next_visit_go_ahead !== undefined ?
     mapYesNoToBoolean(values.can_next_visit_go_ahead) :
@@ -27,6 +29,11 @@ export const mapPostValues = (values: any, itinerary_item: number, author: strin
     itinerary_item,
     author
   }
+
+  if (postValues.suggest_next_visit === "unknown") {
+    postValues.can_next_visit_go_ahead = false
+  }
+
   return postValues.situation === "access_granted" ?
     { ...postValues, ...fieldsNoAccess } :
     { ...postValues, ...fieldsAccess }

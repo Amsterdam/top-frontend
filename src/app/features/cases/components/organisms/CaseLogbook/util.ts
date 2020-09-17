@@ -1,4 +1,4 @@
-export const isNullish = (a: any): a is undefined|null => a === undefined || a === null
+export const isNullish = (a: any): a is undefined|null => a === undefined || a === null || a === ""
 
 const translationMap: Record<string, string> = {
   nobody_present: "Niemand aanwezig",

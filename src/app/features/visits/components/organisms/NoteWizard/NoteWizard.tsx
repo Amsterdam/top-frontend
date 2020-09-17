@@ -55,6 +55,12 @@ const NoteWizard: React.FC<Props> = ({ itineraryId, caseId, onSubmit, valuesFrom
   const handleSubmit = useCallback((values) => {
     setValues(values)
 
+    const submit = () => onSubmit(mapPostValues(values, itineraryItem.id, user!.id))
+      .then(() => {
+        clearSteps()
+        return navigate(to("/lijst/:itineraryId/", { itineraryId }))
+      })
+
     switch(wizardStep) {
       case "stepOne":
         pushStep(
@@ -67,16 +73,15 @@ const NoteWizard: React.FC<Props> = ({ itineraryId, caseId, onSubmit, valuesFrom
         pushStep("suggestion")
         break
       case "suggestion":
-        pushStep("nextVisit")
+        if (values.suggest_next_visit !== "unknown") {
+          pushStep("nextVisit")
+        } else {
+          return submit()
+        }
         break
       case "nextVisit":
-      case "accessGranted": {
-        return onSubmit(mapPostValues(values, itineraryItem.id, user!.id))
-          .then(() => {
-            clearSteps()
-            return navigate(to("/lijst/:itineraryId/", { itineraryId }))
-          })
-      }
+      case "accessGranted":
+        return submit()
     }
 
     return Promise.resolve(true)
