@@ -252,11 +252,14 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
       <CaseDetailSection
         title="Vakantieverhuur"
         data={[
-          ["Vandaag verhuurd", vakantieverhuurToday],
-          [`Nachten verhuurd ${ new Date().getFullYear() }`, vakantieverhuurDays > 0 ? <ScrollToAnchor anchor="vakantieverhuur" text={ `${ vakantieverhuurDays } nachten` } /> : "-"],
-          ["Shortstay", vakantieverhuurShortstay],
-          ["B&B aangemeld", vakantieverhuurBnB]
-        ]}
+            permitData && ["Vakantieverhuur vergunning", permitData?.has_vacation_rental_permit ? "Ja" : "Nee"],
+            ["Vandaag verhuurd", vakantieverhuurToday],
+            [`Nachten verhuurd ${ new Date().getFullYear() }`, vakantieverhuurDays > 0 ? <ScrollToAnchor anchor="vakantieverhuur" text={ `${ vakantieverhuurDays } nachten` } /> : "-"],
+            ["Shortstay", vakantieverhuurShortstay],
+            ["B&B aangemeld", vakantieverhuurBnB],
+            permitData && ["B&B vergunning", permitData?.has_b_and_b_permit ? "Ja" : "Nee"]
+          ].filter(_ => !!_)
+        }
         />
       <CaseDetailSection
         title={ woningTitle }
@@ -298,16 +301,6 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
       <CaseDetailSection
         title="Stadia"
         data= { stadia } />
-
-      { permitData && (
-        <CaseDetailSection
-          title="Vergunningen"
-          data={[
-            ["Bed & Breakfast", permitData?.has_b_and_b_permit ? "Ja" : "Nee"],
-            ["Vakantieverhuur", permitData?.has_vacation_rental_permit ? "Ja" : "Nee"]
-          ]}
-        />
-      ) }
     </article>
   )
 }
