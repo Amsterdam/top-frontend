@@ -20,6 +20,7 @@ type Props = {
 }
 
 type LogBookItem = {
+  source?: string
   name: string
   date: string
   time: string
@@ -44,6 +45,7 @@ const mapBWVToLogBookItem = ({
   hit,
   opmerking
 }: BWVHotlineBevinding): LogBookItem => ({
+  source: "BWV",
   name: [toez_hdr1_naam, toez_hdr2_naam].filter(i => i != null).join(", "),
   date: formatDate(bevinding_datum, true)!,
   time: bevinding_tijd,
@@ -73,6 +75,7 @@ const mapVisitToLogbookItem = (users: Components.Schemas.User[]) => ({
 
 // Maps a LogBookItem to a KeyValueDetail[] (accepted by CaseDetailSection `data`)
 const mapLogBookItemToDetailComponents = ({
+  source,
   name,
   time,
   date,
@@ -87,6 +90,7 @@ const mapLogBookItemToDetailComponents = ({
   description
 }: LogBookItem, index: number, allItems: LogBookItem[]): KeyValueDetail[] => [
   /* eslint-disable no-multi-spaces */
+  !isNullish(source)                                && ["Bron", source],
   ["Toezichthouder(s)", <strong className="anonymous">{ name }</strong>],
   ["Starttijd", `${ time } uur`],
   ["Datum", date],
@@ -95,10 +99,10 @@ const mapLogBookItemToDetailComponents = ({
   !isNullish(observations)                          && ["Kenmerken", <List items={observations.map(translate)} />],
   !isNullish(suggest_next_visit)                    && ["Volgend bezoek", translate(suggest_next_visit)],
   !isNullish(suggest_next_visit_description)        && <Purified className="anonymous" text={ suggest_next_visit_description } />,
-  !isNullish(can_next_visit_go_ahead)               && ["Vervolg actie", can_next_visit_go_ahead],
+  !isNullish(can_next_visit_go_ahead)               && ["Vervolg actie", can_next_visit_go_ahead ? "Ja, doorlaten" : "Nee, tegenhouden ⚠️"],
   !isNullish(can_next_visit_go_ahead_description)   && <Purified className="anonymous" text={ can_next_visit_go_ahead_description } />,
   !isNullish(text)                                  && <Purified className="anonymous" text={ text } />,
-  !isNullish(description)                           && <Purified className="anonymous" text={ description } />,
+  !isNullish(description)                           && ["Toelichting", <Purified className="anonymous" text={ description } />],
   index < allItems.length - 1                       && <Hr />
   /* eslint-enable */
 ].filter(_ => !!_)
@@ -120,7 +124,7 @@ const CaseLogBook: React.FC<Props> = ({ caseId }) => {
     const logBookItems: LogBookItem[] = [
       ...caseData?.bwv_hotline_bevinding.map(mapBWVToLogBookItem),
       ...caseVisitsData.map(mapVisitToLogbookItem(users.results))
-    ].sort((a,b) => a.sort > b.sort ? 1 : -1)
+    ].sort((a,b) => a.sort > b.sort ? -1 : 1)
 
     // Map to CaseDetail-data components:
     return logBookItems

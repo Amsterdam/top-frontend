@@ -154,8 +154,8 @@ export const nextVisit = (handleBack: OnBackButtonClick) => {
           </p>
         </HelpButton>,
         options: {
-          yes: "Ja",
-          no: "Nee"
+          yes: "Ja, doorlaten",
+          no: "Nee, tegenhouden"
         }
       }
     },
@@ -225,6 +225,16 @@ export const accessGranted = (handleBack: OnBackButtonClick) => {
         </HelpButton>
       }
     },
+    description: {
+      type: "TextAreaField",
+      props: {
+        label: "Korte samenvatting voor logboek",
+        name: "description",
+        extraLabel: <HelpButton>
+          <p>Deze korte toelichting van je bezoek is voor iedereen zichtbaar in het logboek van de TOP-app</p>
+        </HelpButton>
+      }
+    },
     back: {
       type: "Button",
       props: {
@@ -245,6 +255,7 @@ export const accessGranted = (handleBack: OnBackButtonClick) => {
   return new FormPositioner(fields)
     .setGrid("mobileS", "1fr 1fr", [
       ["notes", "notes"],
+      ["description", "description"],
       ["back", "submit"]
     ])
     .getScaffoldProps()
