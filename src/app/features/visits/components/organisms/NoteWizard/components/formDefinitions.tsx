@@ -173,6 +173,7 @@ export const nextVisit = (handleBack: OnBackButtonClick) => {
         field: {
           type: "TextAreaField",
           props: {
+            isRequired: true,
             name: "can_next_visit_go_ahead_description",
             label: "Waarom niet?"
           }
