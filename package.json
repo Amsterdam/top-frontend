@@ -23,7 +23,7 @@
     "@types/smoothscroll-polyfill": "^0.3.1",
     "@types/styled-components": "^5.1.3",
     "amsterdam-react-final-form": "^0.1.99",
-    "amsterdam-scaffold-form": "^0.1.27",
+    "amsterdam-scaffold-form": "^0.1.29",
     "axios": "^0.20.0",
     "dompurify": "^2.0.17",
     "env-cmd": "^10.1.0",
