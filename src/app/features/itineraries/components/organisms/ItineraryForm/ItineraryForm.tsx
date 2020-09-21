@@ -2,7 +2,7 @@ import React, { FC, useCallback } from "react"
 import { navigate } from "@reach/router"
 import { ScaffoldForm } from "amsterdam-react-final-form"
 
-import { useItineraries, useSettings, useUsers } from "app/state/rest"
+import { useItineraries, useSettings, useTeamSettingsList, useUsers } from "app/state/rest"
 import { useLoggedInUser } from "app/state/rest/custom/useLoggedInUser"
 
 import Scaffold from "app/features/shared/components/form/Scaffold"
@@ -14,7 +14,8 @@ import { mapPostValues } from "./mapPostValues"
 
 const ItineraryForm: FC = () => {
   const { data: users } = useUsers()
-  const { data: settings } = useSettings()
+  let { data: settings } = useSettings()
+  let { data: teamSettings } = useTeamSettingsList()
   const { execPost } = useItineraries({ lazy: true })
   const loggedInUser = useLoggedInUser()
 
@@ -23,12 +24,21 @@ const ItineraryForm: FC = () => {
       await execPost(mapPostValues(values))
       await navigate(to("/"))
   }, [execPost])
-
-  if (!users || !settings) {
+    
+  if (!users || !settings || !teamSettings || teamSettings.length <= 0) {
     return null
   }
+  // @ts-ignore
+  if (loggedInUser?.team_settings.length > 0 && teamSettings.length > 0){
+    teamSettings = teamSettings.filter((cur) => 
+    cur.id === loggedInUser?.team_settings[0].id
+    )
+  }
+  const team_settings = teamSettings[0]
 
-  const dayPartOptions = getDayPartOptions(settings)
+
+
+  const dayPartOptions = getDayPartOptions(team_settings.settings)
   const fields = generateItineraryFormDefinition(users.results, dayPartOptions)
 
   return (
@@ -36,9 +46,10 @@ const ItineraryForm: FC = () => {
       keepDirtyOnReinitialize={true}
       onSubmit={handleSubmit}
       initialValues={{
-        openingsDate: settings?.opening_date,
-        projects: settings?.projects,
-        postalCodeRange: settings?.postal_codes,
+        team_settings,
+        openingsDate: team_settings.settings?.opening_date,
+        projects: team_settings.settings?.projects,
+        postalCodeRange: team_settings.settings?.postal_codes,
         numAddresses: 8,
         dayPart: dayPartOptions[0],
         team_members: [ loggedInUser ]

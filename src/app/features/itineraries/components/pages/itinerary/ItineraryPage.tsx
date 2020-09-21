@@ -97,7 +97,7 @@ const ItineraryPage: React.FC<RouteComponentProps<Props>> = ({ itineraryId }) =>
       { data && <>
         <ColumnWrap border={false}>
           <Left>
-            <H2>Lijst { formatDate(data.created_at, true) }</H2>
+      <H2>Lijst { formatDate(data.created_at, true) } {data.settings.team_settings.name}</H2>
           </Left>
           <Right>
             <StyledButton variant="blank" iconRight={ <ChevronDown /> } onClick={ onClickOptions }>Opties</StyledButton>

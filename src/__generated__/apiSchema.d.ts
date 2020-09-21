@@ -46,6 +46,7 @@ declare namespace Components {
             readonly items: ItineraryItem[]
             readonly settings: {
                 opening_date: string; // date
+                team_settings: TeamSettingsModel;
                 target_length?: number;
                 projects: Project[];
                 primary_stadium: Stadium;
@@ -86,6 +87,7 @@ declare namespace Components {
                 readonly first_name: string;
                 readonly last_name: string;
                 full_name: string;
+                readonly team_settings: TeamSettingsId[];
             };
         }
         export type Name2d6Enum = "Bed en breakfast 2019" | "Burgwallenproject Oudezijde" | "Corpo-rico" | "Digital toezicht Safari" | "Digital toezicht Zebra" | "Haarlemmerbuurt" | "Hotline" | "Mystery Guest" | "Project Andes" | "Project Jordaan" | "Project Lobith" | "Project Sahara" | "Safari" | "Safari 2015" | "Sahara Adams Suites" | "Sahara hele woning" | "Sahara meer dan 4" | "Sahara Recensies" | "Sahara veel adv" | "Social Media 2019" | "Woonschip (woonboot)" | "Zebra";
@@ -100,6 +102,7 @@ declare namespace Components {
                 first_name: string;
                 last_name: string;
                 full_name: string;
+                team_settings: TeamSettingsId[];
             };
         }
         export interface NoteCrud {
@@ -113,6 +116,7 @@ declare namespace Components {
                 first_name: string;
                 last_name: string;
                 full_name: string;
+                team_settings: TeamSettingsId[];
             };
         }
 <<<<<<< HEAD
@@ -211,41 +215,16 @@ declare namespace Components {
                 first_name: string;
                 last_name: string;
                 full_name: string;
+                team_settings: TeamSettingsId[];
             };
-        }
-        export interface PatchedPlannerDaySettings {
-            day?: PatchedPlannerListSettings;
-            evening?: PatchedPlannerListSettings;
-        }
-        export interface PatchedPlannerListSettings {
-            length_of_list?: number;
-            primary_stadium?: PrimaryStadiumEnum;
-            secondary_stadia?: ("Onderzoek buitendienst" | "2de Controle" | "3de Controle" | "Hercontrole" | "2de hercontrole" | "3de hercontrole" | "Avondronde" | "Onderzoek advertentie" | "Weekend buitendienstonderzoek" | "Issuemelding")[];
-            exclude_stadia?: ("Onderzoek buitendienst" | "2de Controle" | "3de Controle" | "Hercontrole" | "2de hercontrole" | "3de hercontrole" | "Avondronde" | "Onderzoek advertentie" | "Weekend buitendienstonderzoek" | "Issuemelding")[];
-        }
-        export interface PatchedPlannerPostalCodeSettings {
-            range_start?: number;
-            range_end?: number;
-        }
-        export interface PatchedPlannerSettings {
-            opening_date?: string; // date
-            projects?: ("Bed en breakfast 2019" | "Burgwallenproject Oudezijde" | "Corpo-rico" | "Digital toezicht Safari" | "Digital toezicht Zebra" | "Haarlemmerbuurt" | "Hotline" | "Mystery Guest" | "Project Andes" | "Project Jordaan" | "Project Lobith" | "Project Sahara" | "Safari" | "Safari 2015" | "Sahara Adams Suites" | "Sahara hele woning" | "Sahara meer dan 4" | "Sahara Recensies" | "Sahara veel adv" | "Social Media 2019" | "Woonschip (woonboot)" | "Zebra")[];
-            postal_codes?: PatchedPlannerPostalCodeSettings[];
-            days?: PatchedPlannerWeekSettings;
-        }
-        export interface PatchedPlannerWeekSettings {
-            monday?: PatchedPlannerDaySettings;
-            tuesday?: PatchedPlannerDaySettings;
-            wednesday?: PatchedPlannerDaySettings;
-            thursday?: PatchedPlannerDaySettings;
-            friday?: PatchedPlannerDaySettings;
-            saturday?: PatchedPlannerDaySettings;
-            sunday?: PatchedPlannerDaySettings;
         }
         export interface PatchedTeamSettingsModel {
             readonly id?: number;
             name?: string;
-            settings?: PatchedPlannerSettings;
+            team_type?: string;
+            settings?: {
+                [name: string]: any;
+            };
         }
         export interface PatchedVisit {
             readonly id?: number;
@@ -268,8 +247,8 @@ declare namespace Components {
         export interface PlannerListSettings {
             length_of_list?: number;
             primary_stadium?: PrimaryStadiumEnum;
-            secondary_stadia?: ("Onderzoek buitendienst" | "2de Controle" | "3de Controle" | "Hercontrole" | "2de hercontrole" | "3de hercontrole" | "Avondronde" | "Onderzoek advertentie" | "Weekend buitendienstonderzoek" | "Issuemelding")[];
-            exclude_stadia?: ("Onderzoek buitendienst" | "2de Controle" | "3de Controle" | "Hercontrole" | "2de hercontrole" | "3de hercontrole" | "Avondronde" | "Onderzoek advertentie" | "Weekend buitendienstonderzoek" | "Issuemelding")[];
+            secondary_stadia?: ("Onderzoek buitendienst" | "2de Controle" | "3de Controle" | "Hercontrole" | "2de hercontrole" | "3de hercontrole" | "Avondronde" | "Onderzoek advertentie" | "Weekend buitendienstonderzoek" | "Issuemelding" | "ZL Corporatie" | "Crimineel gebruik woning")[];
+            exclude_stadia?: ("Onderzoek buitendienst" | "2de Controle" | "3de Controle" | "Hercontrole" | "2de hercontrole" | "3de hercontrole" | "Avondronde" | "Onderzoek advertentie" | "Weekend buitendienstonderzoek" | "Issuemelding" | "ZL Corporatie" | "Crimineel gebruik woning")[];
         }
         export interface PlannerPostalCodeSettings {
             range_start: number;
@@ -277,14 +256,9 @@ declare namespace Components {
         }
         export interface PlannerSettings {
             opening_date: string; // date
-            projects: ("Bed en breakfast 2019" | "Burgwallenproject Oudezijde" | "Corpo-rico" | "Digital toezicht Safari" | "Digital toezicht Zebra" | "Haarlemmerbuurt" | "Hotline" | "Mystery Guest" | "Project Andes" | "Project Jordaan" | "Project Lobith" | "Project Sahara" | "Safari" | "Safari 2015" | "Sahara Adams Suites" | "Sahara hele woning" | "Sahara meer dan 4" | "Sahara Recensies" | "Sahara veel adv" | "Social Media 2019" | "Woonschip (woonboot)" | "Zebra")[];
+            projects: ("Bed en breakfast 2019" | "Burgwallenproject Oudezijde" | "Corpo-rico" | "Digital toezicht Safari" | "Digital toezicht Zebra" | "Haarlemmerbuurt" | "Hotline" | "Mystery Guest" | "Project Andes" | "Project Jordaan" | "Project Lobith" | "Project Sahara" | "Safari" | "Safari 2015" | "Sahara Adams Suites" | "Sahara hele woning" | "Sahara meer dan 4" | "Sahara Recensies" | "Sahara veel adv" | "Social Media 2019" | "Woonschip (woonboot)" | "Zebra" | "ZKL Doorverhuur" | "Combi BI Doorpak" | "Combi BI Melding" | "Combi Doorpak" | "Combi Overbewoning" | "Combi Samenwoners" | "Combi_ZKL_Doorpak" | "Combi_ZKL_Melding")[];
             postal_codes?: PlannerPostalCodeSettings[];
             days: PlannerWeekSettings;
-        }
-        export interface TeamSettings {
-            readonly id?: number;
-            name: string;
-            settings: PlannerSettings;
         }
         export interface PlannerWeekSettings {
             monday: PlannerDaySettings;
@@ -299,6 +273,7 @@ declare namespace Components {
             range_start: number;
             range_end: number;
         }
+<<<<<<< HEAD
         export type PrimaryStadiumEnum = "Onderzoek buitendienst" | "2de Controle" | "3de Controle" | "Hercontrole" | "2de hercontrole" | "3de hercontrole" | "Avondronde" | "Onderzoek advertentie" | "Weekend buitendienstonderzoek" | "Issuemelding";
 <<<<<<< HEAD
         export type Project = {
@@ -308,18 +283,32 @@ declare namespace Components {
         export type Stadium = {
             name: Name95fEnum
 =======
+=======
+        export type PrimaryStadiumEnum = "Onderzoek buitendienst" | "2de Controle" | "3de Controle" | "Hercontrole" | "2de hercontrole" | "3de hercontrole" | "Avondronde" | "Onderzoek advertentie" | "Weekend buitendienstonderzoek" | "Issuemelding" | "ZL Corporatie" | "Crimineel gebruik woning";
+>>>>>>> feat: team settings used for 'genereer looplijst'
         export interface Project {
-            name: Name352Enum;
+            name: NameA4dEnum;
         }
         export type SituationEnum = "nobody_present" | "no_cooperation" | "access_granted";
         export interface Stadium {
+<<<<<<< HEAD
             name: NameF0aEnum;
 >>>>>>> feat: team settings update
+=======
+            name: Name093Enum;
+>>>>>>> feat: team settings used for 'genereer looplijst'
         }
         export type SuggestNextVisitEnum = "weekend" | "daytime" | "evening" | "unknown";
+        export interface TeamSettingsId {
+            readonly id: number;
+            team_type?: string;
+        }
         export interface TeamSettingsModel {
             readonly id: number;
             name: string;
+            projects: string[],
+            stadia: string[],
+            team_type?: string;
             settings: PlannerSettings;
         }
         export interface User {
@@ -329,6 +318,7 @@ declare namespace Components {
             first_name: string;
             last_name: string;
             full_name: string;
+            team_settings: TeamSettingsId[];
         }
         export interface UserId {
             id: string; // uuid

@@ -27,14 +27,12 @@ type Props = {
 
 const TeamSettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId }) => {
   const { data: settings, execPut, isBusy: isBusySettings } = useTeamSettings(teamSettingsId!)
-  const { data: projects, isBusy: isBusyProjects } = useProjectConstants()
-  const { data: stadia, isBusy: isBusyStadia } = useStadiaConstants()
-
+  console.log(settings)
   const [ errorMessage, setErrorMessage ] = useState("")
 
   const definition = useMemo(
-    () => createDefinition(projects?.constants ?? [], stadia?.constants ?? []),
-    [ projects, stadia ]
+    () => createDefinition(settings?.projects ?? [], settings?.stadia ?? []),
+    [ settings?.settings ]
   )
 
   const handleSubmit = useCallback(async (settings: any) => {
@@ -42,14 +40,17 @@ const TeamSettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId }) =>
     setErrorMessage("")
 
     try {
-      await execPut({settings: values, name: settings.name}, { skipCacheClear: true, useResponseAsCache: true })
+      await execPut({
+        settings: values, 
+        name: settings.name
+      }, { skipCacheClear: true, useResponseAsCache: true })
     } catch(error) {
       setErrorMessage(error.response.data.message)
       return error
     }
   }, [ execPut, setErrorMessage ])
 
-  if (!settings || isBusySettings || isBusyProjects || isBusyStadia) { return <CenteredSpinner size={60} /> }
+  if (!settings || isBusySettings) { return <CenteredSpinner size={60} /> }
 
   return <DefaultLayout>
     <Wrap>
@@ -60,6 +61,8 @@ const TeamSettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId }) =>
       <ScaffoldForm onSubmit={handleSubmit} initialValues={{
           name: settings.name,
           settings: settings.settings,
+          projects: settings.settings.projects,
+          stadia: settings.stadia,
       }}>
         <Scaffold {...definition} />
         <FixedSubmitButton errorMessage={errorMessage} />
