@@ -30,6 +30,15 @@ const ItineraryForm: FC<Props> = ({ teamSettings }) => {
   if (!users) {
     return null
   }
+  // @ts-ignore
+  if (loggedInUser?.team_settings.length > 0 && teamSettings.length > 0){
+    teamSettings = teamSettings.filter((cur) => 
+    cur.id === loggedInUser?.team_settings[0].id
+    )
+  }
+  const team_settings = teamSettings[0]
+
+
 
   const dayPartOptions = getDayPartOptions(teamSettings.settings as Components.Schemas.PlannerSettings)
   const fields = generateItineraryFormDefinition(users.results, dayPartOptions)
