@@ -84,7 +84,7 @@ export const notableThings = (handleBack: OnBackButtonClick, situation: string) 
     .getScaffoldProps()
 }
 
-export const suggestion = (handleBack: OnBackButtonClick, situation: string) => {
+export const suggestion = (handleBack: OnBackButtonClick) => {
   const fields: Fields = ({
     suggest_next_visit: {
       type: "RadioFields",
@@ -109,8 +109,7 @@ export const suggestion = (handleBack: OnBackButtonClick, situation: string) => 
             type: "TextAreaField",
             props: {
               isRequired: true,
-              label: "Toelichting",
-              hint: "Bijv. Buurvrouw (6F) gaf aan in het weekend vaak bezoekers te zien",
+              label: "Geef toelichting",
               name: "suggest_next_visit_description"
             }
           }
