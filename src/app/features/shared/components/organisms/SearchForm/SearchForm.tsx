@@ -9,7 +9,6 @@ export type FormValues = {
   suffix?: string
 }
 
-
 const SearchForm: FC = () => {
   const { values, setValues } = useContext(SearchFormContext)
 
@@ -19,14 +18,16 @@ const SearchForm: FC = () => {
   }, [ setValues ])
 
   const scaffoldProps = useMemo(() => createDefinition(() =>
-    // @ts-ignore
-    setValues({})),
-    [setValues]
+      // @ts-ignore
+      setValues({})
+    ),
+    [ setValues ]
   )
 
-  return (<ScaffoldForm onSubmit={handleSubmit} initialValues={values}>
-    <Scaffold {...scaffoldProps} />
-  </ScaffoldForm>
+  return (
+    <ScaffoldForm onSubmit={handleSubmit} initialValues={values}>
+      <Scaffold {...scaffoldProps} />
+    </ScaffoldForm>
   )
 }
 
