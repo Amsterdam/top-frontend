@@ -24,8 +24,6 @@ import { BagData, BagDataError, Case, RelatedCase, BrkData, BrkDataError, KeyVal
 import CaseDetailHeader from "./CaseDetailHeader"
 import CaseDetailSection from "./CaseDetailSection"
 
-import displayBoolean from "app/features/shared/utils/displayBoolean"
-
 type Props = {
   caseId: string
   caseItem: Case
