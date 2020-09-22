@@ -24,6 +24,8 @@ import { BagData, BagDataError, Case, RelatedCase, BrkData, BrkDataError, KeyVal
 import CaseDetailHeader from "./CaseDetailHeader"
 import CaseDetailSection from "./CaseDetailSection"
 
+import displayBoolean from "app/features/shared/utils/displayBoolean"
+
 type Props = {
   caseId: string
   caseItem: Case
@@ -251,11 +253,11 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
       <CaseDetailSection
         title="Vakantieverhuur"
         data={[
-            permitData && ["Vakantieverhuur vergunning", permitData?.has_vacation_rental_permit ? "Ja" : "Nee"],
+            permitData && ["Vakantieverhuur vergunning", permitData.has_vacation_rental_permit === "UNKNOWN" ? "Onbekend" : displayBoolean(permitData.has_vacation_rental_permit)],
             ["Vandaag verhuurd", vakantieverhuurToday],
             [`Nachten verhuurd ${ new Date().getFullYear() }`, vakantieverhuurDays > 0 ? <ScrollToAnchor anchor="vakantieverhuur" text={ `${ vakantieverhuurDays } nachten` } /> : "-"],
             ["Shortstay", vakantieverhuurShortstay],
-            permitData && ["B&B vergunning", permitData?.has_b_and_b_permit ? "Ja" : "Nee"]
+            permitData && ["B&B vergunning", permitData.has_b_and_b_permit === "UNKNOWN" ? "Onbekend" : displayBoolean(permitData.has_b_and_b_permit)]
           ].filter(_ => !!_)
         }
         />
