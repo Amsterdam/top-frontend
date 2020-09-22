@@ -1,7 +1,7 @@
 import useApiRequest from "./hooks/useApiRequest"
 import { getHeaders, makeGatewayUrl, useErrorHandler } from "./hooks/utils/utils"
 import currentDate from "../../features/shared/utils/currentDate"
-import { Case, ItineraryItem } from "../../features/types"
+import { Case, ItineraryItem, Itinerary } from "../../features/types"
 
 export type ApiGroup =
   | "itineraries"
@@ -22,7 +22,7 @@ export type Options = {
 
 export const useItineraries = (options?: Options) => {
   const handleError = useErrorHandler()
-  return useApiRequest<{ itineraries: Components.Schemas.Itinerary[] }>({
+  return useApiRequest<{ itineraries: Itinerary[] }>({
     ...options,
     url: makeGatewayUrl(["itineraries"], { created_at: currentDate() }),
     groupName: "itineraries",
@@ -44,7 +44,7 @@ export const useItineraryItems = (options?: Options) => {
 
 export const useItineraryItem = (id: number|string, options?: Options) => {
   const handleError = useErrorHandler()
-  return useApiRequest<{ itineraries: ItineraryItem }, Partial<Components.Schemas.ItineraryItem>>({
+  return useApiRequest<{ itineraries: ItineraryItem }, Partial<ItineraryItem>>({
     ...options,
     url: makeGatewayUrl(["itinerary-items", id]),
     groupName: "itineraries",

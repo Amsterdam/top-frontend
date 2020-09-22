@@ -7,10 +7,10 @@ import displayAddress from "app/features/shared/utils/displayAddress"
 import DeleteItineraryItemButton from "../components/molecules/DeleteItineraryItemButton/DeleteItineraryItemButton"
 import AddItineraryItemButton from "../components/molecules/AddItineraryItemButton/AddItineraryItemButton"
 import FraudProbability from "app//features/shared/components/atoms/FraudProbability/FraudProbability"
-import { Case, ItineraryItem } from "../../types"
+import { Case, ItineraryItem, Itinerary } from "../../types"
 import to from "../../shared/routing/to"
 
-export const casesToCardCaseProps = (cases?: Case[], itinerary?: Components.Schemas.Itinerary, addDistance: boolean = false) => {
+export const casesToCardCaseProps = (cases?: Case[], itinerary?: Itinerary, addDistance: boolean = false) => {
   if (!cases) {
     return []
   }
