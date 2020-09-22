@@ -3,7 +3,7 @@ import { RouteComponentProps, Link } from "@reach/router"
 import { ScaffoldForm } from "amsterdam-react-final-form"
 import styled from "styled-components"
 import to from "app/features/shared/routing/to"
-import { useProjectConstants, useTeamSettings, useStadiaConstants } from "app/state/rest"
+import { useTeamSettings } from "app/state/rest"
 
 import Scaffold from "app/features/shared/components/form/Scaffold"
 import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout"
@@ -26,13 +26,12 @@ type Props = {
 }
 
 const TeamSettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId }) => {
-  const { data: settings, execPut, isBusy: isBusySettings } = useTeamSettings(teamSettingsId!)
-  console.log(settings)
+  const { data: teamSettings, execPut, isBusy: isBusySettings } = useTeamSettings(teamSettingsId!)
   const [ errorMessage, setErrorMessage ] = useState("")
 
   const definition = useMemo(
-    () => createDefinition(settings?.projects ?? [], settings?.stadia ?? []),
-    [ settings?.settings ]
+    () => createDefinition(teamSettings?.projects ?? [], teamSettings?.stadia ?? []),
+    [ teamSettings ]
   )
 
   const handleSubmit = useCallback(async (settings: any) => {
@@ -50,19 +49,19 @@ const TeamSettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId }) =>
     }
   }, [ execPut, setErrorMessage ])
 
-  if (!settings || isBusySettings) { return <CenteredSpinner size={60} /> }
+  if (!teamSettings || isBusySettings) { return <CenteredSpinner size={60} /> }
 
   return <DefaultLayout>
     <Wrap>
-      <h2>Settings details: {settings.name}</h2>
+      <h2>Settings details: {teamSettings.name}</h2>
       <Link to={to("/team-settings")}>
         Alle instellingen
       </Link>
       <ScaffoldForm onSubmit={handleSubmit} initialValues={{
-          name: settings.name,
-          settings: settings.settings,
-          projects: settings.settings.projects,
-          stadia: settings.stadia,
+          name: teamSettings.name,
+          settings: teamSettings.settings,
+          projects: teamSettings.settings.projects,
+          stadia: teamSettings.stadia,
       }}>
         <Scaffold {...definition} />
         <FixedSubmitButton errorMessage={errorMessage} />
