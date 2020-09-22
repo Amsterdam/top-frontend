@@ -17,7 +17,7 @@ export const createDefinition = (onResetButtonClick: () => void) => {
     streetNumber: {
       type: "NumberField",
       props: {
-        label: "Huisnr.",
+        label: "Huisnummer",
         name: "streetNumber",
         min: "1",
         step: "1",
@@ -31,7 +31,7 @@ export const createDefinition = (onResetButtonClick: () => void) => {
     suffix: {
       type: "TextField",
       props: {
-        label: "Hslt. / etage",
+        label: "Huisletter / Etage",
         name: "suffix",
         tabIndex: 3
       }
