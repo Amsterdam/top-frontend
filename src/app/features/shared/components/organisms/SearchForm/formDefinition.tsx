@@ -5,16 +5,12 @@ import { FormPositioner, FormPositionerFields } from "amsterdam-scaffold-form/pa
 
 export const createDefinition = (onResetButtonClick: () => void) => {
   const definition: FormPositionerFields<ScaffoldAvailableFields> = {
-    postalCode: {
+    streetName: {
       type: "TextField",
       props: {
-        label: "Postcode",
-        name: "postalCode",
+        label: "Straatnaam",
+        name: "streetName",
         autoFocus: true,
-        validate: combineValidators(
-          isRequired(),
-          isMatchingRegex(/\s*[1-9][0-9]{3}\s?[a-zA-Z]{2}\s*/, "Geldige postcodes zijn: 1234AA of 1234 aa")
-        ),
         tabIndex: 1
       }
     },
@@ -40,6 +36,17 @@ export const createDefinition = (onResetButtonClick: () => void) => {
         tabIndex: 3
       }
     },
+    postalCode: {
+      type: "TextField",
+      props: {
+        label: "Postcode",
+        name: "postalCode",
+        validate: combineValidators(
+          isMatchingRegex(/\s*[1-9][0-9]{3}\s?[a-zA-Z]{2}\s*/, "Geldige postcodes zijn: 1234AA of 1234 aa")
+        ),
+        tabIndex: 4
+      }
+    },
     reset: {
       type: "ResetButton",
       props: {
@@ -53,7 +60,7 @@ export const createDefinition = (onResetButtonClick: () => void) => {
       props: {
         alignedHorizontally: { tabletM: true },
         icon: <Search />,
-        tabIndex: 4,
+        tabIndex: 5,
         align: "right"
       }
     }
@@ -64,11 +71,12 @@ export const createDefinition = (onResetButtonClick: () => void) => {
     // From mobile and bigger we align using a custom grid:
     .setGrid("mobileS", "1fr 1fr", [
       // Grid:
-      [ "postalCode", "postalCode" ],
+      [ "streetName", "streetName" ],
       [ "streetNumber", "suffix" ],
+      [ "postalCode" ],
       [ "reset", "submit" ]
     ])
-    // From tablet and bigger we align horizontal:
+    // From tablet and bigger we align horizontally:
     .setHorizontal("tabletM", "3fr 1fr 1fr auto auto")
     .getScaffoldProps()
 }
