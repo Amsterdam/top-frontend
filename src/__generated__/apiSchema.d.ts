@@ -3,7 +3,7 @@ declare namespace Components {
         export type Case = {
             readonly id: number
             case_id?: string | null
-            readonly bwv_data: any
+            readonly bwv_data: string
             readonly fraud_prediction: {
                 fraud_probability: number // float
                 fraud_prediction: boolean
@@ -19,6 +19,13 @@ declare namespace Components {
         export type CaseSimple = {
             case_id?: string | null
         }
+        export type DecosPermit = {
+            permit_granted?: boolean
+            permit_type?: "BED_AND_BREAKFAST" | "VAKANTIEVERHUUR" | "PERMIT_UNKNOWN"
+            processed: string | null
+            date_from: string | null // date
+            date_to?: string | null // date
+        }
         export type FraudPrediction = {
             fraud_probability: number // float
             fraud_prediction: boolean
@@ -30,6 +37,8 @@ declare namespace Components {
             }
             readonly sync_date: string // date-time
         }
+        export type HasBAndBPermitEnum = "True" | "False" | "UNKNOWN";
+        export type HasVacationRentalPermitEnum = "True" | "False" | "UNKNOWN";
         export type Itinerary = {
             readonly id: number
             readonly created_at: string // date
@@ -53,7 +62,7 @@ declare namespace Components {
             readonly case: {
                 readonly id: number
                 case_id?: string | null
-                readonly bwv_data: any
+                readonly bwv_data: string
                 readonly fraud_prediction: any
             }
             readonly visits: Visit[]
@@ -79,8 +88,8 @@ declare namespace Components {
                 full_name: string
             }
         }
-        export type Name352Enum = "Bed en breakfast 2019" | "Burgwallenproject Oudezijde" | "Corpo-rico" | "Digital toezicht Safari" | "Digital toezicht Zebra" | "Haarlemmerbuurt" | "Hotline" | "Mystery Guest" | "Project Andes" | "Project Jordaan" | "Project Lobith" | "Project Sahara" | "Safari" | "Safari 2015" | "Sahara Adams Suites" | "Sahara hele woning" | "Sahara meer dan 4" | "Sahara Recensies" | "Sahara veel adv" | "Social Media 2019" | "Woonschip (woonboot)" | "Zebra";
-        export type NameF0aEnum = "Onderzoek buitendienst" | "2de Controle" | "3de Controle" | "Hercontrole" | "2de hercontrole" | "3de hercontrole" | "Avondronde" | "Onderzoek advertentie" | "Weekend buitendienstonderzoek" | "Issuemelding";
+        export type Name2d6Enum = "Bed en breakfast 2019" | "Burgwallenproject Oudezijde" | "Corpo-rico" | "Digital toezicht Safari" | "Digital toezicht Zebra" | "Haarlemmerbuurt" | "Hotline" | "Mystery Guest" | "Project Andes" | "Project Jordaan" | "Project Lobith" | "Project Sahara" | "Safari" | "Safari 2015" | "Sahara Adams Suites" | "Sahara hele woning" | "Sahara meer dan 4" | "Sahara Recensies" | "Sahara veel adv" | "Social Media 2019" | "Woonschip (woonboot)" | "Zebra";
+        export type Name95fEnum = "Onderzoek buitendienst" | "2de Controle" | "3de Controle" | "Hercontrole" | "2de hercontrole" | "3de hercontrole" | "Avondronde" | "Onderzoek advertentie" | "Weekend buitendienstonderzoek" | "Issuemelding";
         export type Note = {
             readonly id: number
             text: string
@@ -109,6 +118,19 @@ declare namespace Components {
         export type OIDCAuthenticate = {
             code: string
         }
+        export type PatchedItineraryItem = {
+            readonly id?: number
+            position?: number // float
+            readonly notes?: Note[]
+            readonly case?: {
+                readonly id: number
+                case_id?: string | null
+                readonly bwv_data: string
+                readonly fraud_prediction: any
+            }
+            readonly visits?: Visit[]
+            checked?: boolean
+        }
         export type PatchedNoteCrud = {
             readonly id?: number
             text?: string
@@ -136,6 +158,11 @@ declare namespace Components {
             itinerary_item?: number
             author?: string // uuid
         }
+        export type PermitCheckmark = {
+            has_b_and_b_permit: HasBAndBPermitEnum
+            has_vacation_rental_permit: HasVacationRentalPermitEnum
+        }
+        export type PermitTypeEnum = "BED_AND_BREAKFAST" | "VAKANTIEVERHUUR" | "PERMIT_UNKNOWN";
         export type PlannerDaySettings = {
             day?: PlannerListSettings
             evening?: PlannerListSettings
@@ -171,11 +198,11 @@ declare namespace Components {
         }
         export type PrimaryStadiumEnum = "Onderzoek buitendienst" | "2de Controle" | "3de Controle" | "Hercontrole" | "2de hercontrole" | "3de hercontrole" | "Avondronde" | "Onderzoek advertentie" | "Weekend buitendienstonderzoek" | "Issuemelding";
         export type Project = {
-            name: Name352Enum
+            name: Name2d6Enum
         }
         export type SituationEnum = "nobody_present" | "no_cooperation" | "access_granted";
         export type Stadium = {
-            name: NameF0aEnum
+            name: Name95fEnum
         }
         export type SuggestNextVisitEnum = "weekend" | "daytime" | "evening" | "unknown";
         export type User = {
@@ -280,14 +307,10 @@ declare namespace Paths {
     }
     namespace ItinerariesDestroy {
         namespace Parameters {
-            export type CreatedAt = string;
             export type Id = number;
         }
         export type PathParameters = {
             id: Parameters.Id
-        }
-        export type QueryParameters = {
-            created_at?: Parameters.CreatedAt
         }
         namespace Responses {
             export type $204 = {
@@ -351,9 +374,9 @@ declare namespace Paths {
         }
     }
     namespace ItineraryItemsCreate {
+        export type RequestBody = Components.Schemas.ItineraryItem;
         namespace Responses {
-            export type $200 = {
-            }
+            export type $200 = Components.Schemas.ItineraryItem;
         }
     }
     namespace ItineraryItemsDestroy {
@@ -375,9 +398,9 @@ declare namespace Paths {
         export type PathParameters = {
             id: Parameters.Id
         }
+        export type RequestBody = Components.Schemas.PatchedItineraryItem;
         namespace Responses {
-            export type $200 = {
-            }
+            export type $200 = Components.Schemas.ItineraryItem;
         }
     }
     namespace ItineraryItemsUpdate {
@@ -387,9 +410,9 @@ declare namespace Paths {
         export type PathParameters = {
             id: Parameters.Id
         }
+        export type RequestBody = Components.Schemas.ItineraryItem;
         namespace Responses {
-            export type $200 = {
-            }
+            export type $200 = Components.Schemas.ItineraryItem;
         }
     }
     namespace NotesCreate {
@@ -451,7 +474,7 @@ declare namespace Paths {
             export type $200 = Components.Schemas.OIDCAuthenticate;
         }
     }
-    namespace PermitsGetPermitCheckmarksRetrieve {
+    namespace PermitsCheckmarksRetrieve {
         namespace Parameters {
             export type BagId = string;
         }
@@ -459,8 +482,18 @@ declare namespace Paths {
             bag_id: Parameters.BagId
         }
         namespace Responses {
-            export type $200 = {
-            }
+            export type $200 = Components.Schemas.PermitCheckmark;
+        }
+    }
+    namespace PermitsDetailsList {
+        namespace Parameters {
+            export type BagId = string;
+        }
+        export type QueryParameters = {
+            bag_id: Parameters.BagId
+        }
+        namespace Responses {
+            export type $200 = Components.Schemas.DecosPermit[];
         }
     }
     namespace SchemaRetrieve {
