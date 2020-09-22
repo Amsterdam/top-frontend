@@ -15,7 +15,7 @@ import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
 
 import { useNoteWizard } from "./hooks/useNoteWizard"
 import NoteWizardManager from "./components/NoteWizardManager"
-import NoteWizardFormScaffoldFields from "./components/NoteWizardScaffoldFields"
+import NoteWizardFormScaffoldFields from "./components/NoteWizardFormScaffoldFields"
 import NodeWizardSubtitle from "./components/NoteWizardSubtitle"
 
 import DeleteVisitButton from "app/features/visits/components/molecules/DeleteVisitButton/DeleteVisitButton"
