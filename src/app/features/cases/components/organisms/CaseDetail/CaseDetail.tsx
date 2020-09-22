@@ -257,7 +257,8 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
             ["Vandaag verhuurd", vakantieverhuurToday],
             [`Nachten verhuurd ${ new Date().getFullYear() }`, vakantieverhuurDays > 0 ? <ScrollToAnchor anchor="vakantieverhuur" text={ `${ vakantieverhuurDays } nachten` } /> : "-"],
             ["Shortstay", vakantieverhuurShortstay],
-            permitData && ["B&B vergunning", permitData.has_b_and_b_permit === "UNKNOWN" ? "Onbekend" : displayBoolean(permitData.has_b_and_b_permit)]
+            permitData && ["B&B vergunning", permitData.has_b_and_b_permit === "UNKNOWN" ? "Onbekend" : displayBoolean(permitData.has_b_and_b_permit)],
+            <p>Voor alle vergunningen zie Decos</p>
           ].filter(_ => !!_)
         }
         />
