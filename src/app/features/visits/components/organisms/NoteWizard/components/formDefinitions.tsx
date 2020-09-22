@@ -228,6 +228,7 @@ export const accessGranted = (handleBack: OnBackButtonClick) => {
       props: {
         label: "Maak hier je notities om later te verwerken",
         name: "personal_notes",
+        rows: 12,
         extraLabel: <HelpButton>
           <p>Eigen notities ten behoeve van rapportage en debrief. Alleen zichtbaar voor je team.</p>
         </HelpButton>
