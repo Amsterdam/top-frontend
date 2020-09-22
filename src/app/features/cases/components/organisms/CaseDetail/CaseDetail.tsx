@@ -253,11 +253,11 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
       <CaseDetailSection
         title="Vakantieverhuur"
         data={[
-            permitData && ["Vakantieverhuur vergunning", permitData.has_vacation_rental_permit === "UNKNOWN" ? "Onbekend" : displayBoolean(permitData.has_vacation_rental_permit)],
+            permitData && ["Vakantieverhuur vergunning", permitData.has_vacation_rental_permit === "UNKNOWN" ? "Onbekend" : permitData.has_vacation_rental_permit === "True" ? "Ja" : "Nee"],
             ["Vandaag verhuurd", vakantieverhuurToday],
             [`Nachten verhuurd ${ new Date().getFullYear() }`, vakantieverhuurDays > 0 ? <ScrollToAnchor anchor="vakantieverhuur" text={ `${ vakantieverhuurDays } nachten` } /> : "-"],
             ["Shortstay", vakantieverhuurShortstay],
-            permitData && ["B&B vergunning", permitData.has_b_and_b_permit === "UNKNOWN" ? "Onbekend" : displayBoolean(permitData.has_b_and_b_permit)],
+            permitData && ["B&B vergunning", permitData.has_b_and_b_permit === "UNKNOWN" ? "Onbekend" : permitData.has_b_and_b_permit === "True" ? "Ja" : "Nee"],
             <p>Voor alle vergunningen zie Decos</p>
           ].filter(_ => !!_)
         }
