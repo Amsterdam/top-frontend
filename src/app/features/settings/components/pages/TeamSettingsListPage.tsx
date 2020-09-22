@@ -1,5 +1,5 @@
-import React, { useEffect } from "react"
-import { navigate, Link } from "@reach/router"
+import React from "react"
+import { Link } from "@reach/router"
 
 import { useTeamSettingsList } from "app/state/rest"
 
