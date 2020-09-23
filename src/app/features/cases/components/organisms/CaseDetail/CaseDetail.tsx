@@ -256,7 +256,7 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
           />
       }
       {
-      <HiddenCaseDetailSection
+      <CaseDetailSection
         title="Vakantieverhuur"
         data={
           [
@@ -270,7 +270,11 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
         }
         />
       }
-      <CaseDetailSection
+      { /* This is a disply of older permit data
+           TODO: Remove eventually
+        */
+      }
+      <HiddenCaseDetailSection
         title="Vakantieverhuur"
         data={ [
           ["Vandaag verhuurd", vakantieverhuurToday],
