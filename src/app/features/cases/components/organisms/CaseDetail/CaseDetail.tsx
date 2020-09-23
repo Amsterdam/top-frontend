@@ -42,11 +42,14 @@ const HiddenCaseDetailSection = styled(CaseDetailSection)`
   display: none;
 `
 
+const displayFromToDate = (o: { date_from: string | null, date_to?: string | null }) => `${ o.date_from ?? "-" } tot ${ o.date_to ?? "-" }`
+
 const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
   const bagId = (caseItem.brk_data as BrkData).bag_id ?? ""
   const { data: permitData } = usePermitCheckmarks(bagId, { lazy: !bagId })
   const { data: permitDetails } = usePermitDetails(bagId, { lazy: !bagId })
-  console.log(permitDetails)
+  const permitDetailVakantieVerhuur = permitDetails?.find(detail => detail.permit_type === "VAKANTIEVERHUUR")
+  const permitDetailBedAndBreakfast = permitDetails?.find(detail => detail.permit_type === "BED_AND_BREAKFAST")
 
   // Header
   const address = displayAddress(caseItem.import_adres.sttnaam, caseItem.import_adres.hsnr, caseItem.import_adres.hsltr || undefined, caseItem.import_adres.toev || undefined)
@@ -260,11 +263,11 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
         title="Vakantieverhuur"
         data={
           [
-            permitData && ["Vakantieverhuur vergunning", permitData.has_vacation_rental_permit === "UNKNOWN" ? "Onbekend" : permitData.has_vacation_rental_permit === "True" ? "Ja" : "Nee"],
+            permitDetails && ["Vakantieverhuur vergunning", permitDetailVakantieVerhuur ? `Ja (${ displayFromToDate(permitDetailVakantieVerhuur) })` : "Nee"],
             ["Vandaag verhuurd", vakantieverhuurToday],
             [`Nachten verhuurd ${ new Date().getFullYear() }`, vakantieverhuurDays > 0 ? <ScrollToAnchor anchor="vakantieverhuur" text={ `${ vakantieverhuurDays } nachten` } /> : "-"],
             ["Shortstay", vakantieverhuurShortstay],
-            permitData && ["B&B vergunning", permitData.has_b_and_b_permit === "UNKNOWN" ? "Onbekend" : permitData.has_b_and_b_permit === "True" ? "Ja" : "Nee"],
+            permitData && ["B&B vergunning", permitDetailBedAndBreakfast ? `Ja (${ displayFromToDate(permitDetailBedAndBreakfast) })` : "Nee"],
             <p>Voor alle vergunningen zie Decos</p>
           ].filter(_ => !!_)
         }

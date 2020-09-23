@@ -220,7 +220,7 @@ export const usePermitCheckmarks = (bagId: string, options?: Options) => {
 
 export const usePermitDetails = (bagId: string, options?: Options) => {
   const handleError = useErrorHandler()
-  return useApiRequest<Components.Schemas.DecosPermit>({
+  return useApiRequest<Components.Schemas.DecosPermit[]>({
     ...options,
     url: makeGatewayUrl(["permits", "details"], { bag_id: bagId }),
     groupName: "permits",
