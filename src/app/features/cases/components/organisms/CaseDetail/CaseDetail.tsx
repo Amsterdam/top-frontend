@@ -1,6 +1,7 @@
 import React, { FC } from "react"
 import { Link } from "@reach/router"
 import styled from "styled-components"
+import { Hidden } from "@datapunt/asc-ui"
 
 import { usePermitCheckmarks, usePermitDetails } from "app/state/rest"
 
@@ -36,10 +37,6 @@ const HrSpaced = styled(Hr)`
 const P = styled.p`
   display: inline-block;
   margin: 0;
-`
-
-const HiddenCaseDetailSection = styled(CaseDetailSection)`
-  display: none;
 `
 
 const displayFromToDate = (o: { date_from: string | null, date_to?: string | null }) => `${ o.date_from ?? "-" } tot ${ o.date_to ?? "-" }`
@@ -273,11 +270,12 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
         }
         />
       }
-      { /* This is a disply of older permit data
+      { /* This is a display of older permit data
            TODO: Remove eventually
         */
       }
-      <HiddenCaseDetailSection
+      <Hidden>
+      <CaseDetailSection
         title="Vakantieverhuur"
         data={ [
           ["Vandaag verhuurd", vakantieverhuurToday],
@@ -286,6 +284,7 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
           ["B&B aangemeld", vakantieverhuurBnB]
         ] }
         />
+      </Hidden>
       <CaseDetailSection
         title={ woningTitle }
         data={ woningData }
