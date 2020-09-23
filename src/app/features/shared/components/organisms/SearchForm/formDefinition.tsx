@@ -31,7 +31,7 @@ export const createDefinition = (onResetButtonClick: () => void) => {
     suffix: {
       type: "TextField",
       props: {
-        label: "Huisletter / Etage",
+        label: "Toevoeging",
         name: "suffix",
         tabIndex: 3
       }
@@ -69,12 +69,11 @@ export const createDefinition = (onResetButtonClick: () => void) => {
   // Align these fields in a grid using FormPositioner:
   return new FormPositioner(definition)
     // From mobile and bigger we align using a custom grid:
-    .setGrid("mobileS", "1fr 1fr", [
+    .setGrid("mobileS", "1fr 1fr 1fr", [
       // Grid:
-      [ "streetName", "streetName" ],
-      [ "streetNumber", "suffix" ],
-      [ "postalCode" ],
-      [ "reset", "submit" ]
+      [ "streetName", "streetName", "streetName" ],
+      [ "postalCode", "streetNumber", "suffix" ],
+      [ "reset", "submit", "submit" ]
     ])
     // From tablet and bigger we align horizontally:
     .setHorizontal("tabletM", "3fr 1fr 1fr auto auto")
