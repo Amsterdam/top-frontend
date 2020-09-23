@@ -207,12 +207,22 @@ export const useCaseVisits = (caseId: string|number, options?: Options) => {
   })
 }
 
-type UnknownBoolean = "UNKNOWN" | boolean
 export const usePermitCheckmarks = (bagId: string, options?: Options) => {
   const handleError = useErrorHandler()
-  return useApiRequest<{ has_b_and_b_permit: UnknownBoolean, has_vacation_rental_permit: UnknownBoolean }>({
+  return useApiRequest<Components.Schemas.PermitCheckmark>({
     ...options,
     url: makeGatewayUrl(["permits", "checkmarks"], { bag_id: bagId }),
+    groupName: "permits",
+    handleError,
+    getHeaders
+  })
+}
+
+export const usePermitDetails = (bagId: string, options?: Options) => {
+  const handleError = useErrorHandler()
+  return useApiRequest<Components.Schemas.DecosPermit>({
+    ...options,
+    url: makeGatewayUrl(["permits", "details"], { bag_id: bagId }),
     groupName: "permits",
     handleError,
     getHeaders

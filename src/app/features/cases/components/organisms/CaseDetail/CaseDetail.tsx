@@ -2,7 +2,7 @@ import React, { FC } from "react"
 import { Link } from "@reach/router"
 import styled from "styled-components"
 
-import { usePermitCheckmarks } from "app/state/rest"
+import { usePermitCheckmarks, usePermitDetails } from "app/state/rest"
 
 import to from "app/features/shared/routing/to"
 import formatDate from "app/features/shared/utils/formatDate"
@@ -24,8 +24,6 @@ import { BagData, BagDataError, Case, RelatedCase, BrkData, BrkDataError, KeyVal
 import CaseDetailHeader from "./CaseDetailHeader"
 import CaseDetailSection from "./CaseDetailSection"
 
-import displayBoolean from "app/features/shared/utils/displayBoolean"
-
 type Props = {
   caseId: string
   caseItem: Case
@@ -40,9 +38,15 @@ const P = styled.p`
   margin: 0;
 `
 
+const HiddenCaseDetailSection = styled(CaseDetailSection)`
+  display: none;
+`
+
 const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
   const bagId = (caseItem.brk_data as BrkData).bag_id ?? ""
   const { data: permitData } = usePermitCheckmarks(bagId, { lazy: !bagId })
+  const { data: permitDetails } = usePermitDetails(bagId, { lazy: !bagId })
+  console.log(permitDetails)
 
   // Header
   const address = displayAddress(caseItem.import_adres.sttnaam, caseItem.import_adres.hsnr, caseItem.import_adres.hsltr || undefined, caseItem.import_adres.toev || undefined)
@@ -77,6 +81,7 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
     rental => isBetweenDates(new Date(rental.check_in), new Date(rental.check_out), new Date())
   ).length > 0 : "-"
   const vakantieverhuurShortstay = caseItem.vakantie_verhuur.shortstay === "J" ? true : false
+  const vakantieverhuurBnB = caseItem.vakantie_verhuur.is_bnb_declared === "J" ? true : false
   const showVakantieverhuur = vakantieverhuurNotified
 
   // Woning
@@ -250,17 +255,29 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
           data={ relatedCases }
           />
       }
-      <CaseDetailSection
+      {
+      <HiddenCaseDetailSection
         title="Vakantieverhuur"
-        data={[
-            permitData && ["Vakantieverhuur vergunning", permitData.has_vacation_rental_permit === "UNKNOWN" ? "Onbekend" : displayBoolean(permitData.has_vacation_rental_permit)],
+        data={
+          [
+            permitData && ["Vakantieverhuur vergunning", permitData.has_vacation_rental_permit === "UNKNOWN" ? "Onbekend" : permitData.has_vacation_rental_permit === "True" ? "Ja" : "Nee"],
             ["Vandaag verhuurd", vakantieverhuurToday],
             [`Nachten verhuurd ${ new Date().getFullYear() }`, vakantieverhuurDays > 0 ? <ScrollToAnchor anchor="vakantieverhuur" text={ `${ vakantieverhuurDays } nachten` } /> : "-"],
             ["Shortstay", vakantieverhuurShortstay],
-            permitData && ["B&B vergunning", permitData.has_b_and_b_permit === "UNKNOWN" ? "Onbekend" : displayBoolean(permitData.has_b_and_b_permit)],
+            permitData && ["B&B vergunning", permitData.has_b_and_b_permit === "UNKNOWN" ? "Onbekend" : permitData.has_b_and_b_permit === "True" ? "Ja" : "Nee"],
             <p>Voor alle vergunningen zie Decos</p>
           ].filter(_ => !!_)
         }
+        />
+      }
+      <CaseDetailSection
+        title="Vakantieverhuur"
+        data={ [
+          ["Vandaag verhuurd", vakantieverhuurToday],
+          [`Nachten verhuurd ${ new Date().getFullYear() }`, vakantieverhuurDays > 0 ? <ScrollToAnchor anchor="vakantieverhuur" text={ `${ vakantieverhuurDays } nachten` } /> : "-"],
+          ["Shortstay", vakantieverhuurShortstay],
+          ["B&B aangemeld", vakantieverhuurBnB]
+        ] }
         />
       <CaseDetailSection
         title={ woningTitle }
