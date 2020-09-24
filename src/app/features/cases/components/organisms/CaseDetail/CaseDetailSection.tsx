@@ -21,15 +21,13 @@ const Section = styled.section`
   margin-bottom: 15px;
   padding: 12px;
 `
+const Div = styled.div`
+  display: flex;
+`
 const P = styled.p`
   margin: 0 0 8px;
 `
-const Span = styled.span`
-  vertical-align: top;
-`
-const StyleInvalidDataSpan = styled(InvalidDataSpan)`
-  vertical-align: top;
-`
+
 
 const CaseDetailSection: FC<Props> = ({ id, title, data, footer }) => {
   const hasTitle = title !== undefined
@@ -53,13 +51,13 @@ const CaseDetailSection: FC<Props> = ({ id, title, data, footer }) => {
           return (
             <div key={ String(key) + index }>
               { hasLabel &&
-                <>
+                <Div>
                   <Label>{ key }</Label>
                   { isUndefined ?
-                    <StyleInvalidDataSpan /> :
-                    <Span>{ value }</Span>
+                    <InvalidDataSpan /> :
+                    <span>{ value }</span>
                   }
-                </>
+                </Div>
               }
               { !hasLabel &&
                 <>
