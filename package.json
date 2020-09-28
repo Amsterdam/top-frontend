@@ -89,7 +89,7 @@
     "husky": "^4.3.0",
     "lint-staged": "^10.4.0",
     "nock": "^13.0.4",
-    "storybook": "^6.0.21"
+    "storybook": "^6.0.22"
   },
   "husky": {
     "hooks": {
