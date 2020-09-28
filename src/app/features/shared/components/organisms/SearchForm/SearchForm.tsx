@@ -5,6 +5,7 @@ import { SearchFormContext } from "./SearchFormProvider"
 
 export type FormValues = {
   postalCode: string
+  streetName: string
   streetNumber: number
   suffix?: string
 }

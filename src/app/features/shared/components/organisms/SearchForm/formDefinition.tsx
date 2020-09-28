@@ -2,6 +2,7 @@ import React from "react"
 import { Close, Search } from "@datapunt/asc-assets"
 import { combineValidators, isMatchingRegex, isRequired, ScaffoldAvailableFields } from "amsterdam-react-final-form"
 import { FormPositioner, FormPositionerFields } from "amsterdam-scaffold-form/package"
+import isRequiredWhenEmpty from "./validators/isRequiredWhenEmpty"
 
 export const createDefinition = (onResetButtonClick: () => void) => {
   const definition: FormPositionerFields<ScaffoldAvailableFields> = {
@@ -10,6 +11,7 @@ export const createDefinition = (onResetButtonClick: () => void) => {
       props: {
         label: "Straatnaam",
         name: "streetName",
+        validate: isRequiredWhenEmpty("postalCode", "Dit veld is verplicht"),
         autoFocus: true,
         tabIndex: 1
       }
@@ -42,6 +44,7 @@ export const createDefinition = (onResetButtonClick: () => void) => {
         label: "Postcode",
         name: "postalCode",
         validate: combineValidators(
+          isRequiredWhenEmpty("streetName", "Dit veld is verplicht"),
           isMatchingRegex(/\s*[1-9][0-9]{3}\s?[a-zA-Z]{2}\s*/, "Geldige postcodes zijn: 1234AA of 1234 aa")
         ),
         tabIndex: 4
