@@ -34,14 +34,50 @@ const TeamSettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId }) =>
     [ teamSettings ]
   )
 
-  const handleSubmit = useCallback(async (settings: any) => {
-    const values = filterEmptyPostalCodes(settings.settings)
+  const handleSubmit = useCallback(async (teamSettings: any) => {
+    const values = filterEmptyPostalCodes(teamSettings.settings)
     setErrorMessage("")
+    // @ts-ignore
+    const f_projects = (acc, cur, i, a) => {
+      if (teamSettings?.projects.includes(cur)){
+        acc.push(cur)
+      }
+      return acc
+    }
+    values.projects = values.projects.reduce(f_projects, [])
+    // @ts-ignore
+    Object.keys(values.days).map(day => {
+      Object.keys(values.days[day]).map(part => {
+        // @ts-ignore
+        const f_stadia = (acc, cur, i, a) => {
+          if (teamSettings.stadia.includes(cur)){
+            acc.push(cur)
+          }
+          return acc
+        }
+        const stadia_sets = [
+          'secondary_stadia',
+          'exclude_stadia',
+        ]
+        if (!teamSettings.stadia.includes(values.days[day][part]["primary_stadium"])){
+          delete values.days[day][part]
+        } else {
+          stadia_sets.map(stadia_set => {
+            if (values.days[day][part][stadia_set]){
+              values.days[day][part][stadia_set] = values.days[day][part][stadia_set].reduce(f_stadia, [])
+            }
+            return stadia_set
+          })
+        }
+        return part
+      })
+      return day
+    })
 
     try {
       await execPut({
         settings: values, 
-        name: settings.name
+        name: teamSettings.name
       }, { skipCacheClear: true, useResponseAsCache: true })
     } catch(error) {
       setErrorMessage(error.response.data.message)
@@ -60,7 +96,7 @@ const TeamSettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId }) =>
       <ScaffoldForm onSubmit={handleSubmit} initialValues={{
           name: teamSettings.name,
           settings: teamSettings.settings,
-          projects: teamSettings.settings.projects,
+          projects: teamSettings.projects,
           stadia: teamSettings.stadia,
       }}>
         <Scaffold {...definition} />

@@ -2,6 +2,7 @@ import React, { FC } from "react"
 import styled from "styled-components"
 import { useLocation, useParams } from "@reach/router"
 import { themeColor } from "@datapunt/asc-ui"
+import { useItinerary } from "app/state/rest/custom/useItinerary"
 
 import { applyRouteParams } from "app/features/shared/routing/to"
 import ItineraryNavigationButton from "../../molecules/ItineraryNavigationButton/ItineraryNavigationButton"
@@ -57,6 +58,7 @@ const FocusSpacer = styled.div`
 
 const Navigation: FC = () => {
   const { itineraryId } = useParams() ?? {}
+  const { data: itinerary, isBusy } = useItinerary(itineraryId)
   const { pathname } = useLocation()
 
   return (
@@ -67,9 +69,10 @@ const Navigation: FC = () => {
             <Li isActive={ pathname === "/" || pathname === ("/lijst") || pathname === applyRouteParams("/lijst/:itineraryId/", { itineraryId }) }>
               <ItineraryNavigationButton />
             </Li>
-            <Li isActive={ pathname.includes("issuemeldingen") }>
+            { itinerary && itinerary?.settings.team_settings.team_type.show_issuemelding && <Li isActive={ pathname.includes("issuemeldingen") }>
               <OpenIssuesNavigationButton itineraryId={itineraryId} />
             </Li>
+            }
             <SpacedLi isActive={ pathname.includes("zoeken") } >
               <SearchNavigationButton itineraryId={itineraryId} />
             </SpacedLi>

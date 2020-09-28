@@ -88,6 +88,8 @@ declare namespace Components {
                 readonly last_name: string;
                 full_name: string;
                 readonly team_settings: TeamSettingsId[];
+                readonly current_team_settings_id: number;
+                
             };
         }
         export type Name2d6Enum = "Bed en breakfast 2019" | "Burgwallenproject Oudezijde" | "Corpo-rico" | "Digital toezicht Safari" | "Digital toezicht Zebra" | "Haarlemmerbuurt" | "Hotline" | "Mystery Guest" | "Project Andes" | "Project Jordaan" | "Project Lobith" | "Project Sahara" | "Safari" | "Safari 2015" | "Sahara Adams Suites" | "Sahara hele woning" | "Sahara meer dan 4" | "Sahara Recensies" | "Sahara veel adv" | "Social Media 2019" | "Woonschip (woonboot)" | "Zebra";
@@ -308,7 +310,7 @@ declare namespace Components {
             name: string;
             projects: string[],
             stadia: string[],
-            team_type?: string;
+            team_type?: any;
             settings: PlannerSettings;
         }
         export interface User {
@@ -319,6 +321,7 @@ declare namespace Components {
             last_name: string;
             full_name: string;
             team_settings: TeamSettingsId[];
+            current_team_settings_id: number;
         }
         export interface UserId {
             id: string; // uuid

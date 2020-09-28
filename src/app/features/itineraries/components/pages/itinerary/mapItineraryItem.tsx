@@ -9,7 +9,7 @@ import { ItineraryItem } from "app/features/types"
 import ItineraryItemCardButtons from "../../molecules/ItineraryItemCardButtons/ItineraryItemCardButtons"
 import Notes from "../../molecules/Notes/Notes"
 
-export const mapItineraryItem = (itineraryId: string) => ({
+export const mapItineraryItem = (itineraryId: string, teamSettings: Components.Schemas.TeamSettingsModel) => ({
   id,
   position,
   visits,
@@ -30,6 +30,7 @@ export const mapItineraryItem = (itineraryId: string) => ({
     fraudProbability: <FraudProbability fraudProbability={fraud_prediction?.fraud_probability} />,
     isVisited: visits.length > 0,
     buttons: (onDeleteButtonClicked: () => void) => <ItineraryItemCardButtons onDeleteButtonClicked={onDeleteButtonClicked} itineraryId={ itineraryId } itineraryItemId={ id } caseId={ case_id } visits={ visits } />,
+    teamSettings,
     notes: visits[0]?.personal_notes 
       ? <Notes note={ visits[0].personal_notes } />
       : undefined
