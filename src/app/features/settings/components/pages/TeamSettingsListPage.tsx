@@ -9,7 +9,7 @@ import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/
 
 const TeamSettingsListPage: React.FC = () => {
   const { data } = useTeamSettingsList();
-  console.log(data?.length);
+
   return <DefaultLayout>
     { data && data.length > 0 && (
       <>

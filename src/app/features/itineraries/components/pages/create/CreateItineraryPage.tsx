@@ -2,6 +2,7 @@ import React, { useEffect } from "react"
 import { RouteComponentProps, navigate } from "@reach/router"
 
 import { useItineraries, useTeamSettingsList } from "app/state/rest"
+import { useTeamSettings } from "app/state/rest/custom/useTeamSettings"
 
 import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout"
 import { useQueryString } from "app/features/shared/hooks/queryString/useQueryString"
@@ -11,9 +12,14 @@ import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinne
 import ItineraryForm from "app/features/itineraries/components/organisms/ItineraryForm/ItineraryForm"
 import { useLoggedInUser } from "app/state/rest/custom/useLoggedInUser"
 
-const CreateItineraryPage: React.FC<RouteComponentProps> = () => {
+type Props = {
+  teamSettingsId: number
+}
+
+const CreateItineraryPage: React.FC<RouteComponentProps<Props>> = ({teamSettingsId}) => {
   const { data, isBusy } = useItineraries()
   const { hasParameter } = useQueryString()
+  let teamSettings = useTeamSettings(teamSettingsId!)
   let { data: teamSettingsList } = useTeamSettingsList()
   const loggedInUser = useLoggedInUser()
   const shouldRedirect = data && data?.itineraries?.length > 0 && !hasParameter("force")
@@ -29,17 +35,22 @@ const CreateItineraryPage: React.FC<RouteComponentProps> = () => {
   }
   
   // @ts-ignore
-  if (loggedInUser?.team_settings.length > 0 && teamSettingsList.length > 0){
+  if (!teamSettings && loggedInUser?.team_settings.length > 0 && teamSettingsList.length > 0){
     teamSettingsList = teamSettingsList.filter((cur) => 
     cur.id === loggedInUser?.team_settings[0].id
     )
+    teamSettings = teamSettingsList[0]
+  }
+
+  if (!teamSettings){
+    return null;
   }
 
   return <DefaultLayout>
-    <h1>{teamSettingsList[0].name}</h1>
+    <h1>{teamSettings.name}</h1>
     { isBusy
       ? <CenteredSpinner size={60} />
-      : !shouldRedirect ? <ItineraryForm teamSettings={teamSettingsList[0]} /> : null
+      : !shouldRedirect ? <ItineraryForm teamSettings={teamSettings} /> : null
     }
   </DefaultLayout>
 }
