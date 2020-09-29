@@ -89,12 +89,12 @@ const TeamSettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId }) =>
 
   return <DefaultLayout>
     <Wrap>
-      <h2>Settings details: {teamSettings.name}</h2>
       <Link to={to("/team-settings")}>
         Alle instellingen
-      </Link>
+      </Link><br></br><br></br><br></br>
+      <span>Wijzig instellingen voor:</span>
+      <h2>{teamSettings.name}</h2>
       <ScaffoldForm onSubmit={handleSubmit} initialValues={{
-          name: teamSettings.name,
           settings: teamSettings.settings,
           projects: teamSettings.projects,
           stadia: teamSettings.stadia,
