@@ -58,7 +58,7 @@ const FocusSpacer = styled.div`
 
 const Navigation: FC = () => {
   const { itineraryId } = useParams() ?? {}
-  const { data: itinerary, isBusy } = useItinerary(itineraryId)
+  const { data: itinerary } = useItinerary(itineraryId)
   const { pathname } = useLocation()
 
   return (
