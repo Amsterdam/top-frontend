@@ -30,16 +30,17 @@ const TeamSettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId }) =>
   const [ errorMessage, setErrorMessage ] = useState("")
 
   const definition = useMemo(
-    () => createDefinition(teamSettings?.projects ?? [], teamSettings?.stadia ?? []),
+    () => createDefinition(teamSettings?.team_type.project_choices ?? [], teamSettings?.team_type.stadia_choices ?? []),
     [ teamSettings ]
   )
 
   const handleSubmit = useCallback(async (teamSettings: any) => {
     const values = filterEmptyPostalCodes(teamSettings.settings)
     setErrorMessage("")
+    console.log(teamSettings)
     // @ts-ignore
     const f_projects = (acc, cur, i, a) => {
-      if (teamSettings?.projects.includes(cur)){
+      if (teamSettings?.team_type.project_choices.includes(cur)){
         acc.push(cur)
       }
       return acc
@@ -50,14 +51,14 @@ const TeamSettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId }) =>
       Object.keys(values.days[day]).map(part => {
         // @ts-ignore
         const f_stadia = (acc, cur, i, a) => {
-          if (teamSettings.stadia.includes(cur)){
+          if (teamSettings?.team_type.stadia_choices.includes(cur)){
             acc.push(cur)
           }
           return acc
         }
         const stadia_sets = [
-          'secondary_stadia',
-          'exclude_stadia',
+          "secondary_stadia",
+          "exclude_stadia"
         ]
         if (!teamSettings.stadia.includes(values.days[day][part]["primary_stadium"])){
           delete values.days[day][part]
@@ -94,11 +95,7 @@ const TeamSettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId }) =>
       </Link><br></br><br></br><br></br>
       <span>Wijzig instellingen voor:</span>
       <h2>{teamSettings.name}</h2>
-      <ScaffoldForm onSubmit={handleSubmit} initialValues={{
-          settings: teamSettings.settings,
-          projects: teamSettings.projects,
-          stadia: teamSettings.stadia,
-      }}>
+      <ScaffoldForm onSubmit={handleSubmit} initialValues={teamSettings}>
         <Scaffold {...definition} />
         <FixedSubmitButton errorMessage={errorMessage} />
         <JSONDisplay />

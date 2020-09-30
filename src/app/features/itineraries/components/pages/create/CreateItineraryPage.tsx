@@ -16,7 +16,7 @@ type Props = {
   teamSettingsId: number
 }
 
-const CreateItineraryPage: React.FC<RouteComponentProps<Props>> = ({teamSettingsId}) => {
+const CreateItineraryPage: React.FC<RouteComponentProps<Props>> = ({ teamSettingsId }) => {
   const { data, isBusy } = useItineraries()
   const { hasParameter } = useQueryString()
   let teamSettings = useTeamSettings(teamSettingsId!)
@@ -43,7 +43,7 @@ const CreateItineraryPage: React.FC<RouteComponentProps<Props>> = ({teamSettings
   }
 
   if (!teamSettings){
-    return null;
+    return null
   }
 
   return <DefaultLayout>

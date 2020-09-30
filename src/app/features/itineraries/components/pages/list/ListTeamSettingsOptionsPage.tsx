@@ -9,7 +9,7 @@ import to from "app/features/shared/routing/to"
 import { useLoggedInUser } from "app/state/rest/custom/useLoggedInUser"
 
 const ListTeamSettingsOptionsPage: React.FC<RouteComponentProps> = () => {
-  const { data } = useTeamSettingsList();
+  const { data } = useTeamSettingsList()
   const loggedInUser = useLoggedInUser()
   const shouldRedirect = loggedInUser?.team_settings && loggedInUser?.team_settings.length > 0
   

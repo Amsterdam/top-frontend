@@ -6,8 +6,6 @@ type Props = {
     teamSettingsId: number
 }
 
-const TeamSettingsPage: React.FC<RouteComponentProps<Props>> = ({ teamSettingsId }) => {
-  return <TeamSettingsForm teamSettingsId={teamSettingsId} />
-}
+const TeamSettingsPage: React.FC<RouteComponentProps<Props>> = ({ teamSettingsId }) => <TeamSettingsForm teamSettingsId={teamSettingsId} />
 
 export default TeamSettingsPage

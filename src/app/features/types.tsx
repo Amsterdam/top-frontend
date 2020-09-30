@@ -133,8 +133,8 @@ export type Case = {
   vakantie_verhuur: VakantieVerhuur
   related_cases: RelatedCase[]
   statements: Statement[]
-  fraud_prediction: FraudPrediction | undefined,
-  team_settings: Components.Schemas.TeamSettingsModel
+  fraud_prediction: FraudPrediction | undefined
+  team_settings: Components.Schemas.TeamSettings
 }
 
 export type ItineraryItem = Omit<Components.Schemas.ItineraryItem, "case"> & {

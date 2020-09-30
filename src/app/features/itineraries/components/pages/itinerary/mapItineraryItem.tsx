@@ -9,7 +9,7 @@ import { ItineraryItem } from "app/features/types"
 import ItineraryItemCardButtons from "../../molecules/ItineraryItemCardButtons/ItineraryItemCardButtons"
 import Notes from "../../molecules/Notes/Notes"
 
-export const mapItineraryItem = (itineraryId: string, teamSettings: Components.Schemas.TeamSettingsModel) => ({
+export const mapItineraryItem = (itineraryId: string, teamSettings: Components.Schemas.TeamSettings) => ({
   id,
   position,
   visits,
