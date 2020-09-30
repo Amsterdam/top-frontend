@@ -13,10 +13,10 @@ import { generateItineraryFormDefinition } from "./formDefinition"
 import { mapPostValues } from "./mapPostValues"
 
 type Props = {
-  teamSettings: Components.Schemas.TeamSettingsModel,
+  teamSettings: Components.Schemas.TeamSettings
 }
 
-const ItineraryForm: FC<Props> = ({teamSettings}) => {
+const ItineraryForm: FC<Props> = ({ teamSettings }) => {
   const { data: users } = useUsers()
   const { execPost } = useItineraries({ lazy: true })
   const loggedInUser = useLoggedInUser()
@@ -31,7 +31,7 @@ const ItineraryForm: FC<Props> = ({teamSettings}) => {
     return null
   }
 
-  const dayPartOptions = getDayPartOptions(teamSettings.settings)
+  const dayPartOptions = getDayPartOptions(teamSettings.settings as Components.Schemas.PlannerSettings)
   const fields = generateItineraryFormDefinition(users.results, dayPartOptions)
 
   return (

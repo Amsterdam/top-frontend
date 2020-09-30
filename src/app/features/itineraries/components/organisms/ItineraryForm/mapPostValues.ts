@@ -15,6 +15,6 @@ export const mapPostValues = ({ teamSettings, team_members, postalCodeRange, sta
       primary_stadium:  wrapInNameObject(settingsList?.primary_stadium),
       secondary_stadia: wrapInNameObjects(settingsList?.secondary_stadia),
       exclude_stadia: wrapInNameObjects(settingsList?.exclude_stadia),
-      team_settings: teamSettings,
+      team_settings: teamSettings
     }
 })

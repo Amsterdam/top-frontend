@@ -14,7 +14,7 @@ type Props = {
   buttons?: (onDeleteButtonClick: () => void) => JSX.Element
   notes?: JSX.Element
   isVisited?: boolean
-  teamSettings?: Components.Schemas.TeamSettingsModel
+  teamSettings?: Components.Schemas.TeamSettings
 }
 
 type WrapProps = Pick<Props, "backgroundColor">

@@ -145,14 +145,14 @@ export const useSettings = (options?: Options) => useApiRequest<Components.Schem
 
 export const useTeamSettingsList = (options?: Options) => useApiRequest<Components.Schemas.TeamSettings[]>({
     ...options,
-    url: makeGatewayUrl(["settings", "team"]),
+    url: makeGatewayUrl(["team-settings"]),
     groupName: "teamSettingsList",
     getHeaders
   })
 
 export const useTeamSettings = (teamSettingsId: number, options?: Options) => useApiRequest<Components.Schemas.TeamSettings>({
     ...options,
-    url: makeGatewayUrl(["settings", "team", teamSettingsId]),
+    url: makeGatewayUrl(["team-settings", teamSettingsId]),
     groupName: "teamSettings",
     getHeaders
   })

@@ -5,5 +5,5 @@ import TeamSettingsPage from "./components/pages/TeamSettingsPage"
 export default {
   "/settings": SettingsPage,
   "/team-settings": TeamSettingsListPage,
-  "/team-settings/:teamSettingsId": TeamSettingsPage,
+  "/team-settings/:teamSettingsId": TeamSettingsPage
 }
