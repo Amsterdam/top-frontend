@@ -16,6 +16,18 @@ export const createDefinition = (onResetButtonClick: () => void) => {
         tabIndex: 1
       }
     },
+    postalCode: {
+      type: "TextField",
+      props: {
+        label: "Postcode",
+        name: "postalCode",
+        validate: combineValidators(
+          isRequiredWhenEmpty("streetName", "Dit veld is verplicht"),
+          isMatchingRegex(/\s*[1-9][0-9]{3}\s?[a-zA-Z]{2}\s*/, "Geldige postcodes zijn: 1234AA of 1234 aa")
+        ),
+        tabIndex: 2
+      }
+    },
     streetNumber: {
       type: "NumberField",
       props: {
@@ -27,7 +39,7 @@ export const createDefinition = (onResetButtonClick: () => void) => {
         title: "Alleen cijfers zijn geldig",
         hideNumberSpinner: true,
         validate: isRequired(),
-        tabIndex: 2
+        tabIndex: 3
       }
     },
     suffix: {
@@ -35,18 +47,6 @@ export const createDefinition = (onResetButtonClick: () => void) => {
       props: {
         label: "Toevoeging",
         name: "suffix",
-        tabIndex: 3
-      }
-    },
-    postalCode: {
-      type: "TextField",
-      props: {
-        label: "Postcode",
-        name: "postalCode",
-        validate: combineValidators(
-          isRequiredWhenEmpty("streetName", "Dit veld is verplicht"),
-          isMatchingRegex(/\s*[1-9][0-9]{3}\s?[a-zA-Z]{2}\s*/, "Geldige postcodes zijn: 1234AA of 1234 aa")
-        ),
         tabIndex: 4
       }
     },
