@@ -34,7 +34,7 @@ const mapResults = (handleAdd: HandleAddCallback, getUrl: (string: string) => st
   buttons: () => <StyledButton icon={<Enlarge />} onClick={() => handleAdd(case_id)} />
 })
 
-const StartAddressSearchResults: React.FC<Props> = ({ handleAddButtonClick, postalCode, streetName, streetNumber, suffix}) => {
+const StartAddressSearchResults: React.FC<Props> = ({ handleAddButtonClick, postalCode, streetName, streetNumber, suffix }) => {
   const { data, isBusy } = useSearch(streetNumber, postalCode, streetName, suffix)
   const { getUrl } = useCaseModal()
 
