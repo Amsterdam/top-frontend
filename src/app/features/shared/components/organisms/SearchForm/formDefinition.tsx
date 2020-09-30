@@ -79,6 +79,6 @@ export const createDefinition = (onResetButtonClick: () => void) => {
       [ "reset", "submit", "submit" ]
     ])
     // From tablet and bigger we align horizontally:
-    .setHorizontal("tabletM", "3fr 1fr 1fr auto auto")
+    .setHorizontal("tabletM", "2fr 1fr 1fr 1fr auto auto")
     .getScaffoldProps()
 }
