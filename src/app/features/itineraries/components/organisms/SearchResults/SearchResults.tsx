@@ -16,7 +16,8 @@ type Props = {
 const SearchResults: React.FC<Props> = ({ postalCode, streetNumber, suffix }) => {
   const { itineraryId } = useParams()
   const { data: itinerary } = useItinerary(itineraryId!)
-  const { data, isBusy } = useSearch(postalCode, streetNumber, suffix)
+  const postalCodeTrimmed = postalCode.replace(/\s+/g, "")
+  const { data, isBusy } = useSearch(postalCodeTrimmed, streetNumber, suffix)
 
   const items = useMemo(() => casesToCardCaseProps(data?.cases, itinerary), [itinerary, data])
 
