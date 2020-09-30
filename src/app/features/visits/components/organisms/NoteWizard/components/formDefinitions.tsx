@@ -42,7 +42,7 @@ export const stepOne = () => {
     .getScaffoldProps()
 }
 
-export const notableThings = (handleBack: OnBackButtonClick, situation: string) => {
+export const notableThings = (handleBack: OnBackButtonClick, situation: string, observationChoices: {}) => {
   const fields: Fields = ({
     observations: {
       type: "CheckboxFields",
@@ -50,7 +50,7 @@ export const notableThings = (handleBack: OnBackButtonClick, situation: string) 
         name: "observations",
         label: "Opvallende zaken",
         hint: `${ situation }. Zijn er zaken die verder opvielen? (niet verplicht)`,
-        options: {
+        options: observationChoices || {
           malfunctioning_doorbell: "Bel functioneert niet",
           intercom: "Contact via intercom",
           hotel_furnished: "Hotelmatig ingericht",

@@ -98,7 +98,7 @@ const NoteWizard: React.FC<Props> = ({ itineraryId, caseId, onSubmit, valuesFrom
               </ButtonWrap>
             }
           <Spacing pt={2}>
-            <NoteWizardFormScaffoldFields step={wizardStep} onBackButtonClicked={handleBackButtonClick} />
+            <NoteWizardFormScaffoldFields step={wizardStep} onBackButtonClicked={handleBackButtonClick} observationChoices={itinerary?.settings.team_settings?.observation_choices} />
             <NoteWizardManager caseID={ caseId } />
           </Spacing>
         </ScaffoldForm>

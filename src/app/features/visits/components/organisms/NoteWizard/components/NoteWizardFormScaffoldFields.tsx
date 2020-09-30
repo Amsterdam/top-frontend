@@ -8,17 +8,17 @@ import { OnBackButtonClick, WizardStep } from "../types"
 
 type Props = {
   step: WizardStep
-  onBackButtonClicked: OnBackButtonClick
+  onBackButtonClicked: OnBackButtonClick,
+  observationChoices?: any,
 }
 
-const NoteWizardFormScaffoldFields: React.FC<Props> = ({ step, onBackButtonClicked }) => {
+const NoteWizardFormScaffoldFields: React.FC<Props> = ({ step, onBackButtonClicked, observationChoices }) => {
   const { values } = useFormState()
-
   const friendlySituation = values.situation === "nobody_present"
     ? "Er was niemand aanwezig"
     : "Je kreeg geen medewerking"
 
-  return <Scaffold {...formDefinitions[step](onBackButtonClicked, friendlySituation)} />
+  return <Scaffold {...formDefinitions[step](onBackButtonClicked, friendlySituation, observationChoices)} />
 }
 
 export default NoteWizardFormScaffoldFields
