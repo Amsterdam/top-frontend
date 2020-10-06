@@ -7,6 +7,7 @@ import { useLoggedInUser } from "app/state/rest/custom/useLoggedInUser"
 import { ChevronRight } from "@datapunt/asc-assets"
 import { Button } from "@datapunt/asc-ui"
 
+import Greeting from "app/features/shared/components/atoms/Greeting/Greeting";
 import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
 import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout"
 import to from "app/features/shared/routing/to"
@@ -29,7 +30,7 @@ const TeamSettingsListPage: React.FC = () => {
       <>
         <Spacing pb={ 6 }>
           <p>
-            Goedendag{ " " }
+            <Greeting />{ " " }
             <strong>{ loggedInUser?.first_name }</strong>,
             voor welk team wil je het genereren van de looplijsten configureren?
           </p>
