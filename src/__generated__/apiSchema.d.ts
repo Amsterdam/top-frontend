@@ -233,6 +233,7 @@ declare namespace Components {
             suggest_next_visit_description?: string | null
             personal_notes?: string | null
             itinerary_item: number
+            case_id: number
             author: string // uuid
         }
     }
