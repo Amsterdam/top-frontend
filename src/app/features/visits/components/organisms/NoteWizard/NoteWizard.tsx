@@ -88,7 +88,7 @@ const NoteWizard: React.FC<Props> = ({ itineraryId, caseId, onSubmit, valuesFrom
   }, [pushStep, clearSteps, setValues, wizardStep, onSubmit, itineraryId, itineraryItem, user])
 
   return (
-    itineraryItem && user
+    itinerary && itineraryItem && user
       ? (
         <ScaffoldForm onSubmit={handleSubmit} initialValues={getUnsubmittedValues() ?? valuesFromApi} keepDirtyOnReinitialize={true}>
           <NodeWizardSubtitle itineraryItem={itineraryItem} />
@@ -98,7 +98,7 @@ const NoteWizard: React.FC<Props> = ({ itineraryId, caseId, onSubmit, valuesFrom
               </ButtonWrap>
             }
           <Spacing pt={2}>
-            <NoteWizardFormScaffoldFields step={wizardStep} onBackButtonClicked={handleBackButtonClick} observationChoices={itinerary?.settings.team_settings?.observation_choices} />
+            <NoteWizardFormScaffoldFields step={wizardStep} onBackButtonClicked={handleBackButtonClick} teamSettings={itinerary.settings.team_settings} />
             <NoteWizardManager caseID={ caseId } />
           </Spacing>
         </ScaffoldForm>

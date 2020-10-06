@@ -6,7 +6,7 @@ import HelpButton from "app/features/shared/components/molecules/HelpIcon/HelpBu
 
 import { OnBackButtonClick } from "../types"
 
-export const stepOne = () => {
+export const stepOne = (handleBack: OnBackButtonClick, situation: string, observationChoices: {}, suggestNextVisitChoices: {}, situationChoices: {}) => {
   const fields: Fields = {
     time: {
       type: "CurrentTime",
@@ -21,7 +21,7 @@ export const stepOne = () => {
         isRequired: true,
         name: "situation",
         label: "Welke situatie is van toepassing?",
-        options: {
+        options: situationChoices || {
           nobody_present: "Niemand aanwezig",
           no_cooperation: "Geen medewerking",
           access_granted: "Toegang verleend"
@@ -42,7 +42,7 @@ export const stepOne = () => {
     .getScaffoldProps()
 }
 
-export const notableThings = (handleBack: OnBackButtonClick, situation: string, observationChoices: {}) => {
+export const notableThings = (handleBack: OnBackButtonClick, situation: string, observationChoices: {}, suggestNextVisitChoices: {}, situationChoices: {}) => {
   const fields: Fields = ({
     observations: {
       type: "CheckboxFields",
@@ -84,7 +84,7 @@ export const notableThings = (handleBack: OnBackButtonClick, situation: string, 
     .getScaffoldProps()
 }
 
-export const suggestion = (handleBack: OnBackButtonClick) => {
+export const suggestion = (handleBack: OnBackButtonClick, situation: string, observationChoices: {}, suggestNextVisitChoices: {}) => {
   const fields: Fields = ({
     suggest_next_visit: {
       type: "RadioFields",
@@ -93,7 +93,7 @@ export const suggestion = (handleBack: OnBackButtonClick) => {
         name: "suggest_next_visit",
         label: "Suggestie nieuw bezoek",
         hint: "Wanneer kan dit adres het beste opnieuw bezocht worden?",
-        options: {
+        options: suggestNextVisitChoices || {
           daytime: "Overdag",
           weekend: "Weekend",
           evening: "'s Avonds",
