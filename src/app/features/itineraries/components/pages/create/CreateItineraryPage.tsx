@@ -1,13 +1,13 @@
 import React, { useEffect } from "react"
 import { navigate, RouteComponentProps } from "@reach/router"
 
-import { Heading } from "@datapunt/asc-ui";
+import { Heading } from "@datapunt/asc-ui"
 
 import { useItineraries, useTeamSettingsList } from "app/state/rest"
 import { useLoggedInUser } from "app/state/rest/custom/useLoggedInUser"
 import { useTeamSettings } from "app/state/rest/custom/useTeamSettings"
 
-import Spacing from "app/features/shared/components/atoms/Spacing/Spacing";
+import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
 import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner"
 import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout"
 import { useQueryString } from "app/features/shared/hooks/queryString/useQueryString"

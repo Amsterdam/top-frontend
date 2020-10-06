@@ -7,8 +7,8 @@ import { ChevronLeft } from "@datapunt/asc-assets"
 
 import { Fields } from "app/features/shared/components/form/Scaffold"
 import { getDayPartOptions } from "./getDayPartOptions"
-import { navigate } from "@reach/router";
-import to from "../../../../shared/routing/to";
+import { navigate } from "@reach/router"
+import to from "../../../../shared/routing/to"
 
 export const generateItineraryFormDefinition = (
   users: Components.Schemas.User[],
