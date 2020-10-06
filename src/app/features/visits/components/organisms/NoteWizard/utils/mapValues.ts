@@ -29,6 +29,11 @@ export const mapPostValues = (values: any, itinerary_item: number, case_id: numb
     case_id,
     author
   }
+
+  if (postValues.suggest_next_visit === "unknown") {
+    postValues.can_next_visit_go_ahead = false
+  }
+  
   return postValues.situation === "access_granted" ?
     { ...postValues, ...fieldsNoAccess } :
     { ...postValues, ...fieldsAccess }
