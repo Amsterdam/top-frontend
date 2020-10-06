@@ -1,7 +1,7 @@
 import currentDate from "app/features/shared/utils/currentDate"
 import { wrapInNameObject, wrapInNameObjects } from "app/features/shared/utils/wrapInNameObjects"
 
-export const mapPostValues = ({ team_members, postalCodeRange, startAddress, openingsDate, numAddresses, projects, dayPart: { settingsList } }: any) => ({
+export const mapPostValues = ({ teamSettings, team_members, postalCodeRange, startAddress, openingsDate, numAddresses, projects, dayPart: { settingsList } }: any) => ({
     created_at: currentDate(),
     team_members: team_members.map(({ id }: { id: string }) => ({ user: { id } })),
     postal_code_settings: postalCodeRange,
@@ -14,6 +14,7 @@ export const mapPostValues = ({ team_members, postalCodeRange, startAddress, ope
       projects: wrapInNameObjects(projects),
       primary_stadium:  wrapInNameObject(settingsList?.primary_stadium),
       secondary_stadia: wrapInNameObjects(settingsList?.secondary_stadia),
-      exclude_stadia: wrapInNameObjects(settingsList?.exclude_stadia)
+      exclude_stadia: wrapInNameObjects(settingsList?.exclude_stadia),
+      team_settings: teamSettings
     }
 })

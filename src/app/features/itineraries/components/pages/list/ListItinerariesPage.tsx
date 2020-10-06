@@ -15,7 +15,7 @@ const ListItinerariesPage: React.FC = () => {
       navigate(to("/lijst/:itineraryId/", { itineraryId: data.itineraries[0].id.toString() }))
     }
     if (data && data.itineraries.length === 0) {
-      navigate(to("/lijst/nieuw/"))
+      navigate(to("/lijst-instellingen/"))
     }
   }, [data])
 
