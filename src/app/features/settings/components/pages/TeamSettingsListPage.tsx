@@ -1,30 +1,50 @@
 import React from "react"
-import { Link } from "@reach/router"
+import styled from "styled-components"
 
 import { useTeamSettingsList } from "app/state/rest"
+import { useLoggedInUser } from "app/state/rest/custom/useLoggedInUser"
 
-import to from "app/features/shared/routing/to"
+import { ChevronRight } from "@datapunt/asc-assets"
+import { Button } from "@datapunt/asc-ui"
+
+import Greeting from "app/features/shared/components/atoms/Greeting/Greeting";
+import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
 import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout"
+import to from "app/features/shared/routing/to"
 
+const ButtonsColumn = styled.div`
+  display: flex;
+  flex-direction: column;
+  
+  > :not(:last-child) {
+    margin-bottom: 20px; /* TODO Use theme */
+  }
+`
 
 const TeamSettingsListPage: React.FC = () => {
   const { data } = useTeamSettingsList()
+  const loggedInUser = useLoggedInUser()
 
   return <DefaultLayout>
     { data && data.length > 0 && (
       <>
-        <h1>Team intellingen</h1>
-        <ul>
+        <Spacing pb={ 6 }>
+          <p>
+            <Greeting />{ " " }
+            <strong>{ loggedInUser?.first_name }</strong>,
+            voor welk team wil je het genereren van de looplijsten configureren?
+          </p>
+        </Spacing>
+        <ButtonsColumn>
           { data.map(teamSettings => (
-            <li key={teamSettings.id}>
-              <Link to={to("/team-settings/:teamSettingsId", { teamSettingsId: teamSettings.id })}>
-                {teamSettings.name}
-              </Link>
-            </li>
+            <Button as="a" href={ to("/team-settings/:teamSettingsId", { teamSettingsId: teamSettings.id }) }
+                    iconRight={ <ChevronRight /> } key={ teamSettings.id } variant="primaryInverted">
+              { teamSettings.name }
+            </Button>
           )) }
-        </ul>
+        </ButtonsColumn>
       </>
-    )}
+    ) }
   </DefaultLayout>
 }
 
