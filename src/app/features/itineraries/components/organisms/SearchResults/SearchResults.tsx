@@ -8,15 +8,17 @@ import { casesToCardCaseProps } from "app/features/itineraries/utils/mapCaseToCa
 import ItineraryItemCardList from "app/features/itineraries/components/organisms/ItineraryItemCardList/ItineraryItemCardList"
 
 type Props = {
-  postalCode: string
+  postalCode?: string
+  streetName?: string
   streetNumber: number
   suffix?: string
 }
 
-const SearchResults: React.FC<Props> = ({ postalCode, streetNumber, suffix }) => {
+const SearchResults: React.FC<Props> = ({ postalCode, streetName, streetNumber, suffix }) => {
   const { itineraryId } = useParams()
   const { data: itinerary } = useItinerary(itineraryId!)
-  const { data, isBusy } = useSearch(postalCode, streetNumber, suffix)
+  const postalCodeTrimmed = postalCode?.replace(/\s+/g, "")
+  const { data, isBusy } = useSearch(streetNumber, postalCodeTrimmed, streetName, suffix)
 
   const items = useMemo(() => casesToCardCaseProps(data?.cases, itinerary), [itinerary, data])
 

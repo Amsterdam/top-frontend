@@ -7,6 +7,8 @@ export type ApiGroup =
   | "itineraries"
   | "users"
   | "settings"
+  | "teamSettings"
+  | "teamSettingsList"
   | "constants"
   | "case"
   | "permits"
@@ -87,11 +89,11 @@ export const useCase = (id: number|string, options?: Options) => {
   })
 }
 
-export const useSearch = (postalCode: string, streetNumber: number, suffix?: string, options?: Options) => {
+export const useSearch = (streetNumber: number, postalCode?: string, streetName?: string, suffix?: string, options?: Options) => {
   const handleError = useErrorHandler()
   return useApiRequest<{ cases: Case[] }>({
     ...options,
-    url: makeGatewayUrl(["search"], { postalCode, streetNumber, suffix }),
+    url: makeGatewayUrl(["search"], { postalCode, streetName, streetNumber, suffix }),
     groupName: "itineraries",
     handleError,
     getHeaders
@@ -138,6 +140,20 @@ export const useSettings = (options?: Options) => useApiRequest<Components.Schem
     ...options,
     url: makeGatewayUrl(["settings", "planner"]),
     groupName: "settings",
+    getHeaders
+  })
+
+export const useTeamSettingsList = (options?: Options) => useApiRequest<Components.Schemas.TeamSettings[]>({
+    ...options,
+    url: makeGatewayUrl(["team-settings"]),
+    groupName: "teamSettingsList",
+    getHeaders
+  })
+
+export const useTeamSettings = (teamSettingsId: number, options?: Options) => useApiRequest<Components.Schemas.TeamSettings>({
+    ...options,
+    url: makeGatewayUrl(["team-settings", teamSettingsId]),
+    groupName: "teamSettings",
     getHeaders
   })
 

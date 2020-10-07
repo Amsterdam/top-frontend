@@ -32,7 +32,7 @@ const CopyToClipboardButton: FC<Props> = ({ text, onClick }) => {
 
   return (
     <>
-      <StyledButton variant="blank" iconLeft={ <DocumentText /> } onClick={ handleOnClick }>Kopieër naar clipboard</StyledButton>
+      <StyledButton variant="blank" iconLeft={ <DocumentText /> } onClick={ handleOnClick }>Kopieer naar clipboard</StyledButton>
       <TextArea ref={ ref } readOnly />
     </>
   )

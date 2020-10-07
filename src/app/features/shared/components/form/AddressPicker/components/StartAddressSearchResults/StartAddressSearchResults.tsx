@@ -17,7 +17,8 @@ type HandleAddCallback = (caseId: string) => void
 
 type Props = {
   handleAddButtonClick: HandleAddCallback
-  postalCode: string
+  postalCode?: string
+  streetName?: string
   streetNumber: number
   suffix?: string
 }
@@ -33,8 +34,8 @@ const mapResults = (handleAdd: HandleAddCallback, getUrl: (string: string) => st
   buttons: () => <StyledButton icon={<Enlarge />} onClick={() => handleAdd(case_id)} />
 })
 
-const StartAddressSearchResults: React.FC<Props> = ({ postalCode, streetNumber, suffix, handleAddButtonClick }) => {
-  const { data, isBusy } = useSearch(postalCode, streetNumber, suffix)
+const StartAddressSearchResults: React.FC<Props> = ({ handleAddButtonClick, postalCode, streetName, streetNumber, suffix }) => {
+  const { data, isBusy } = useSearch(streetNumber, postalCode, streetName, suffix)
   const { getUrl } = useCaseModal()
 
   const items = useMemo(

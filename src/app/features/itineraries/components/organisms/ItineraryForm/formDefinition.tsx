@@ -1,8 +1,14 @@
+import React from "react"
+
 import { isRequired } from "amsterdam-react-final-form"
 import { FormPositioner } from "amsterdam-scaffold-form/package"
 
+import { ChevronLeft } from "@datapunt/asc-assets"
+
 import { Fields } from "app/features/shared/components/form/Scaffold"
 import { getDayPartOptions } from "./getDayPartOptions"
+import { navigate } from "@reach/router"
+import to from "../../../../shared/routing/to"
 
 export const generateItineraryFormDefinition = (
   users: Components.Schemas.User[],
@@ -68,6 +74,16 @@ export const generateItineraryFormDefinition = (
         name: "startAddress"
       }
     },
+    previous: {
+      type: "Button",
+      props: {
+        iconLeft: <ChevronLeft />,
+        label: "Vorige",
+        onClick: () => navigate(to("/lijst-instellingen/")),
+        style: { marginTop: "16px" },
+        variant: "textButton"
+      }
+    },
     submit: {
       type: "SubmitButton",
       props: {
@@ -78,6 +94,14 @@ export const generateItineraryFormDefinition = (
   }
 
   return new FormPositioner(definition)
-    .setVertical("mobileS")
+    .setGrid("mobileS", "1fr 1fr", [
+      [ "user0", "user0" ],
+      [ "user1", "user1" ],
+      [ "user2", "user2" ],
+      [ "dayPart", "dayPart" ],
+      [ "numAddresses", "numAddresses" ],
+      [ "startAddress", "startAddress" ],
+      [ "previous", "submit" ]
+    ])
     .getFields()
 }
