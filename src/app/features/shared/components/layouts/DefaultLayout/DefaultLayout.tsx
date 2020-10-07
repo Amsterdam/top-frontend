@@ -1,6 +1,6 @@
 import React from "react"
-import { Header, Button, themeColor } from "@datapunt/asc-ui"
-import { Logout } from "@datapunt/asc-assets"
+import { Header, Button, themeColor } from "@amsterdam/asc-ui"
+import { Logout } from "@amsterdam/asc-assets"
 import { Link } from "@reach/router"
 
 import styled from "styled-components"

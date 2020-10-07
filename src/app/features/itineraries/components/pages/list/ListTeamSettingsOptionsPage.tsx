@@ -2,8 +2,8 @@ import React, { useEffect } from "react"
 import { navigate, RouteComponentProps } from "@reach/router"
 import styled from "styled-components"
 
-import { ChevronRight } from "@datapunt/asc-assets"
-import { Button } from "@datapunt/asc-ui"
+import { ChevronRight } from "@amsterdam/asc-assets"
+import { Button } from "@amsterdam/asc-ui"
 
 import { useTeamSettingsList } from "app/state/rest"
 import { useLoggedInUser } from "app/state/rest/custom/useLoggedInUser"

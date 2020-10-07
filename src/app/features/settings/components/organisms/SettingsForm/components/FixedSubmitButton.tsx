@@ -1,6 +1,6 @@
 import React from "react"
 import styled from "styled-components"
-import { Button, themeColor } from "@datapunt/asc-ui"
+import { Button, themeColor } from "@amsterdam/asc-ui"
 import { useFormState } from "react-final-form"
 
 import Box from "app/features/shared/components/atoms/Box/Box"

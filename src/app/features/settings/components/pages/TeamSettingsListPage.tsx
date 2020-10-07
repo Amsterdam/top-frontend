@@ -4,8 +4,8 @@ import styled from "styled-components"
 import { useTeamSettingsList } from "app/state/rest"
 import { useLoggedInUser } from "app/state/rest/custom/useLoggedInUser"
 
-import { ChevronRight } from "@datapunt/asc-assets"
-import { Button } from "@datapunt/asc-ui"
+import { ChevronRight } from "@amsterdam/asc-assets"
+import { Button } from "@amsterdam/asc-ui"
 
 import Greeting from "app/features/shared/components/atoms/Greeting/Greeting"
 import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"

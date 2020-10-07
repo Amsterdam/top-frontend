@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { themeColor } from "@datapunt/asc-ui"
+import { themeColor } from "@amsterdam/asc-ui"
 
 const Label = styled.label`
   display: inline-block;

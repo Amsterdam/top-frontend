@@ -1,5 +1,5 @@
 import React, { useCallback } from "react"
-import { Enlarge } from "@datapunt/asc-assets"
+import { Enlarge } from "@amsterdam/asc-assets"
 
 import StyledButton from "app/features/shared/components/atoms/StyledButton/StyledButton"
 import { useItineraryItems } from "app/state/rest"

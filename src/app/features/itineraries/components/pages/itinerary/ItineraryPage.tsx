@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo, useState } from "react"
-import { themeColor, themeSpacing } from "@datapunt/asc-ui"
+import { themeColor, themeSpacing } from "@amsterdam/asc-ui"
 import { RouteComponentProps, navigate } from "@reach/router"
-import { Card, ChevronDown, Enlarge, TrashBin } from "@datapunt/asc-assets"
+import { Card, ChevronDown, Enlarge, TrashBin } from "@amsterdam/asc-assets"
 import styled from "styled-components"
 
 import { ItineraryItem } from "app/features/types"

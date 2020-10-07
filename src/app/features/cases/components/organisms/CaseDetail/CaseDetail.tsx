@@ -1,7 +1,7 @@
 import React, { FC } from "react"
 import { Link } from "@reach/router"
 import styled from "styled-components"
-import { Hidden } from "@datapunt/asc-ui"
+import { Hidden } from "@amsterdam/asc-ui"
 
 import { usePermitCheckmarks, usePermitDetails } from "app/state/rest"
 

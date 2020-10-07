@@ -1,6 +1,6 @@
 import React from "react"
 
-import { ThemeProvider, GlobalStyle } from "@datapunt/asc-ui"
+import { ThemeProvider, GlobalStyle } from "@amsterdam/asc-ui"
 import { LocationProvider } from "@reach/router"
 import AuthSession from "./app/state/auth/AuthSession"
 import Router from "./app/features/shared/routing/Router"

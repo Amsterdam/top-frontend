@@ -1,7 +1,7 @@
 import React, { useEffect } from "react"
 import { navigate, RouteComponentProps } from "@reach/router"
 
-import { Heading } from "@datapunt/asc-ui"
+import { Heading } from "@amsterdam/asc-ui"
 
 import { useItineraries, useTeamSettings } from "app/state/rest"
 

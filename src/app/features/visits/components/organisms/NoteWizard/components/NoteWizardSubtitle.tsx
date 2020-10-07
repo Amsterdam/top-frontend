@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import { useFormState } from "react-final-form"
-import { Spinner, themeColor, themeSpacing } from "@datapunt/asc-ui"
+import { Spinner, themeColor, themeSpacing } from "@amsterdam/asc-ui"
 
 import displayAddress from "app/features/shared/utils/displayAddress"
 

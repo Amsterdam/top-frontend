@@ -1,5 +1,5 @@
 import React, { useMemo } from "react"
-import { Enlarge } from "@datapunt/asc-assets"
+import { Enlarge } from "@amsterdam/asc-assets"
 
 import { useSearch } from "app/state/rest"
 

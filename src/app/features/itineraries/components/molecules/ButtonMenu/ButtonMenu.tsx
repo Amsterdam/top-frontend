@@ -1,6 +1,6 @@
 import React, { FC, ReactNode } from "react"
 import styled from "styled-components"
-import { themeColor } from "@datapunt/asc-ui"
+import { themeColor } from "@amsterdam/asc-ui"
 
 type Props = {
   children: ReactNode

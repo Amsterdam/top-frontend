@@ -1,9 +1,9 @@
 import React, { useContext } from "react"
-import { themeColor, themeSpacing, Button } from "@datapunt/asc-ui"
+import { themeColor, themeSpacing, Button } from "@amsterdam/asc-ui"
 import styled from "styled-components"
 
 import { ErrorContext } from "app/state/error/ErrorProvider"
-import { Close } from "@datapunt/asc-assets"
+import { Close } from "@amsterdam/asc-assets"
 
 const Wrap = styled.div`
   position: fixed;

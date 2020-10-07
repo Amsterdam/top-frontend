@@ -1,5 +1,5 @@
 import React, { FC, useState } from "react"
-import { Button } from "@datapunt/asc-ui"
+import { Button } from "@amsterdam/asc-ui"
 import { useFormState } from "react-final-form"
 
 import JSONBlock from "./JSONBlock"

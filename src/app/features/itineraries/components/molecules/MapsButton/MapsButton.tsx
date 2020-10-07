@@ -1,5 +1,5 @@
 import React, { FC, MouseEvent } from "react"
-import { Location } from "@datapunt/asc-assets"
+import { Location } from "@amsterdam/asc-assets"
 
 import StyledButton from "app/features/shared/components/atoms/StyledButton/StyledButton"
 import displayAddress from "app/features/shared/utils/displayAddress"

@@ -1,5 +1,5 @@
 import React from "react"
-import { Spinner } from "@datapunt/asc-ui"
+import { Spinner } from "@amsterdam/asc-ui"
 
 import { useCase } from "app/state/rest"
 

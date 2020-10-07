@@ -6,8 +6,8 @@ module.exports = {
     config.module.rules.push({
       test: /\.jsx?$/,
       include: [
-        path.resolve(__dirname, '../node_modules/@datapunt/asc-assets'),
-        path.resolve(__dirname, '../node_modules/@datapunt/asc-ui'),
+        path.resolve(__dirname, '../node_modules/@amsterdam/asc-assets'),
+        path.resolve(__dirname, '../node_modules/@amsterdam/asc-ui'),
       ],
       use: {
         loader: 'babel-loader',
