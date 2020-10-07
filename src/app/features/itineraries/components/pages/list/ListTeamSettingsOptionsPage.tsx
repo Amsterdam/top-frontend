@@ -41,7 +41,7 @@ const ListTeamSettingsOptionsPage: React.FC<RouteComponentProps> = () => {
           <p>
             <Greeting />{ " " }
             <strong>{ loggedInUser?.first_name }</strong>,
-            welk soort zaken wil je vandaag in je looplijst?
+            welke zaken wil je vandaag in je looplijst?
           </p>
         </Spacing>
         <ButtonsColumn>
