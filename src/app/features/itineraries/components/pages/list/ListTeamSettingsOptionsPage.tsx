@@ -13,13 +13,10 @@ import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
 import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout"
 import to from "app/features/shared/routing/to"
 
-const ButtonsColumn = styled.div`
-  display: flex;
-  flex-direction: column;
-  
-  > :not(:last-child) {
-    margin-bottom: 20px; /* TODO Use theme */
-  }
+const ButtonsLayout = styled.div`
+  display: grid;
+  justify-items: start;
+  gap: 20px; /* TODO Use theme */
 `
 
 const ListTeamSettingsOptionsPage: React.FC<RouteComponentProps> = () => {
@@ -44,14 +41,14 @@ const ListTeamSettingsOptionsPage: React.FC<RouteComponentProps> = () => {
             welke zaken wil je vandaag in je looplijst?
           </p>
         </Spacing>
-        <ButtonsColumn>
+        <ButtonsLayout>
           { data.map(teamSettings => (
             <Button as="a" href={ to("/lijst/nieuw/:teamSettingsId/", { teamSettingsId: teamSettings.id }) }
                     iconRight={ <ChevronRight /> } key={ teamSettings.id } variant="primaryInverted">
               { teamSettings.name }
             </Button>
           )) }
-        </ButtonsColumn>
+        </ButtonsLayout>
       </>
     ) }
   </DefaultLayout>
