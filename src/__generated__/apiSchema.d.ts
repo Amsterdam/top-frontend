@@ -124,10 +124,6 @@ declare namespace Components {
         export type OIDCAuthenticate = {
             code: string
         }
-        export type Observation = {
-            value: string
-            verbose: string
-        }
         export type PatchedNoteCrud = {
             readonly id?: number
             text?: string
@@ -148,9 +144,6 @@ declare namespace Components {
             readonly team_type?: {
                 [name: string]: any
             }
-            readonly observation_choices?: Observation[]
-            readonly situation_choices?: Situation[]
-            readonly suggest_next_visit_choices?: SuggestNextVisit[]
             readonly project_choices?: string[]
             readonly stadia_choices?: string[]
             settings?: {
@@ -159,15 +152,13 @@ declare namespace Components {
         }
         export type PatchedVisit = {
             readonly id?: number
-            situation?: string | null
+            situation?: "nobody_present" | "no_cooperation" | "access_granted"
             observations?: string[] | null
-            itinerary_item?: number
-            author?: string // uuid
             start_time?: string // date-time
             description?: string | null
             can_next_visit_go_ahead?: boolean | null
             can_next_visit_go_ahead_description?: string | null
-            suggest_next_visit?: string | null
+            suggest_next_visit?: "weekend" | "daytime" | "evening" | "unknown"
             suggest_next_visit_description?: string | null
             thread_id?: null | number
             personal_notes?: string | null
@@ -217,26 +208,17 @@ declare namespace Components {
         export type Project = {
             name: NameA4dEnum
         }
-        export type Situation = {
-            value: string
-            verbose: string
-        }
+        export type SituationEnum = "nobody_present" | "no_cooperation" | "access_granted";
         export type Stadium = {
             name: Name093Enum
         }
-        export type SuggestNextVisit = {
-            value: string
-            verbose: string
-        }
+        export type SuggestNextVisitEnum = "weekend" | "daytime" | "evening" | "unknown";
         export type TeamSettings = {
             readonly id: number
             name: string
             readonly team_type: {
                 [name: string]: any
             }
-            readonly observation_choices: Observation[]
-            readonly situation_choices: Situation[]
-            readonly suggest_next_visit_choices: SuggestNextVisit[]
             readonly project_choices: string[]
             readonly stadia_choices: string[]
             settings: {
@@ -269,15 +251,13 @@ declare namespace Components {
         }
         export type Visit = {
             readonly id: number
-            situation?: string | null
+            situation?: "nobody_present" | "no_cooperation" | "access_granted"
             observations?: string[] | null
-            itinerary_item: number
-            author: string // uuid
             start_time: string // date-time
             description?: string | null
             can_next_visit_go_ahead?: boolean | null
             can_next_visit_go_ahead_description?: string | null
-            suggest_next_visit?: string | null
+            suggest_next_visit?: "weekend" | "daytime" | "evening" | "unknown"
             suggest_next_visit_description?: string | null
             thread_id?: null | number
             personal_notes?: string | null

@@ -6,7 +6,7 @@ import HelpButton from "app/features/shared/components/molecules/HelpIcon/HelpBu
 
 import { OnBackButtonClick } from "../types"
 
-export const stepOne = (handleBack: OnBackButtonClick, situation: string, observationChoices: {}, suggestNextVisitChoices: {}, situationChoices: {}) => {
+export const stepOne = () => {
   const fields: Fields = {
     time: {
       type: "CurrentTime",
@@ -21,7 +21,7 @@ export const stepOne = (handleBack: OnBackButtonClick, situation: string, observ
         isRequired: true,
         name: "situation",
         label: "Welke situatie is van toepassing?",
-        options: situationChoices || {
+        options: {
           nobody_present: "Niemand aanwezig",
           no_cooperation: "Geen medewerking",
           access_granted: "Toegang verleend"
@@ -42,7 +42,7 @@ export const stepOne = (handleBack: OnBackButtonClick, situation: string, observ
     .getScaffoldProps()
 }
 
-export const notableThings = (handleBack: OnBackButtonClick, situation: string, observationChoices: {}, suggestNextVisitChoices: {}, situationChoices: {}) => {
+export const notableThings = (handleBack: OnBackButtonClick, situation: string) => {
   const fields: Fields = ({
     observations: {
       type: "CheckboxFields",
@@ -50,7 +50,7 @@ export const notableThings = (handleBack: OnBackButtonClick, situation: string, 
         name: "observations",
         label: "Opvallende zaken",
         hint: `${ situation }. Zijn er zaken die verder opvielen? (niet verplicht)`,
-        options: observationChoices || {
+        options: {
           malfunctioning_doorbell: "Bel functioneert niet",
           intercom: "Contact via intercom",
           hotel_furnished: "Hotelmatig ingericht",
@@ -84,7 +84,7 @@ export const notableThings = (handleBack: OnBackButtonClick, situation: string, 
     .getScaffoldProps()
 }
 
-export const suggestion = (handleBack: OnBackButtonClick, situation: string, observationChoices: {}, suggestNextVisitChoices: {}) => {
+export const suggestion = (handleBack: OnBackButtonClick) => {
   const fields: Fields = ({
     suggest_next_visit: {
       type: "RadioFields",
@@ -93,7 +93,7 @@ export const suggestion = (handleBack: OnBackButtonClick, situation: string, obs
         name: "suggest_next_visit",
         label: "Suggestie nieuw bezoek",
         hint: "Wanneer kan dit adres het beste opnieuw bezocht worden?",
-        options: suggestNextVisitChoices || {
+        options: {
           daytime: "Overdag",
           weekend: "Weekend",
           evening: "'s Avonds",
