@@ -3,7 +3,7 @@ declare namespace Components {
         export type Case = {
             readonly id: number
             case_id?: string | null
-            readonly bwv_data: string
+            readonly bwv_data: any
             readonly fraud_prediction: {
                 fraud_probability: number // float
                 fraud_prediction: boolean
@@ -25,6 +25,7 @@ declare namespace Components {
             processed: string | null
             date_from: string | null // date
             date_to?: string | null // date
+            decos_join_web_url?: string // uri ^(?:[a-z0-9.+-]*)://(?:[^\s:@/]+(?::[^\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\d|[0-1]?\d?\d)(?:\.(?:25[0-5]|2[0-4]\d|[0-1]?\d?\d)){3}|\[[0-9a-f:.]+\]|([a-z¡-￿0-9](?:[a-z¡-￿0-9-]{0,61}[a-z¡-￿0-9])?(?:\.(?!-)[a-z¡-￿0-9-]{1,63}(?<!-))*\.(?!-)(?:[a-z¡-￿-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\.?|localhost))(?::\d{2,5})?(?:[/?#][^\s]*)?\Z
         }
         export type FraudPrediction = {
             fraud_probability: number // float
@@ -46,6 +47,7 @@ declare namespace Components {
             readonly items: ItineraryItem[]
             readonly settings: {
                 opening_date: string // date
+                team_settings: TeamSettings
                 target_length?: number
                 projects: Project[]
                 primary_stadium: Stadium
@@ -62,7 +64,7 @@ declare namespace Components {
             readonly case: {
                 readonly id: number
                 case_id?: string | null
-                readonly bwv_data: string
+                readonly bwv_data: any
                 readonly fraud_prediction: any
             }
             readonly visits: Visit[]
@@ -70,6 +72,7 @@ declare namespace Components {
         }
         export type ItinerarySettings = {
             opening_date: string // date
+            team_settings: TeamSettings
             target_length?: number
             projects: Project[]
             primary_stadium: Stadium
@@ -86,10 +89,11 @@ declare namespace Components {
                 readonly first_name: string
                 readonly last_name: string
                 full_name: string
+                team_settings: TeamSettingsId[]
             }
         }
-        export type Name2d6Enum = "Bed en breakfast 2019" | "Burgwallenproject Oudezijde" | "Corpo-rico" | "Digital toezicht Safari" | "Digital toezicht Zebra" | "Haarlemmerbuurt" | "Hotline" | "Mystery Guest" | "Project Andes" | "Project Jordaan" | "Project Lobith" | "Project Sahara" | "Safari" | "Safari 2015" | "Sahara Adams Suites" | "Sahara hele woning" | "Sahara meer dan 4" | "Sahara Recensies" | "Sahara veel adv" | "Social Media 2019" | "Woonschip (woonboot)" | "Zebra";
-        export type Name95fEnum = "Onderzoek buitendienst" | "2de Controle" | "3de Controle" | "Hercontrole" | "2de hercontrole" | "3de hercontrole" | "Avondronde" | "Onderzoek advertentie" | "Weekend buitendienstonderzoek" | "Issuemelding";
+        export type Name093Enum = "Onderzoek buitendienst" | "2de Controle" | "3de Controle" | "Hercontrole" | "2de hercontrole" | "3de hercontrole" | "Avondronde" | "Onderzoek advertentie" | "Weekend buitendienstonderzoek" | "Issuemelding" | "ZL Corporatie" | "Crimineel gebruik woning";
+        export type NameA4dEnum = "Bed en breakfast 2019" | "Burgwallenproject Oudezijde" | "Corpo-rico" | "Digital toezicht Safari" | "Digital toezicht Zebra" | "Haarlemmerbuurt" | "Hotline" | "Mystery Guest" | "Project Andes" | "Project Jordaan" | "Project Lobith" | "Project Sahara" | "Safari" | "Safari 2015" | "Sahara Adams Suites" | "Sahara hele woning" | "Sahara meer dan 4" | "Sahara Recensies" | "Sahara veel adv" | "Social Media 2019" | "Woonschip (woonboot)" | "Zebra" | "ZKL Doorverhuur" | "Combi BI Doorpak" | "Combi BI Melding" | "Combi Doorpak" | "Combi Overbewoning" | "Combi Samenwoners" | "Combi_ZKL_Doorpak" | "Combi_ZKL_Melding";
         export type Note = {
             readonly id: number
             text: string
@@ -100,6 +104,7 @@ declare namespace Components {
                 first_name: string
                 last_name: string
                 full_name: string
+                team_settings: TeamSettingsId[]
             }
         }
         export type NoteCrud = {
@@ -113,23 +118,11 @@ declare namespace Components {
                 first_name: string
                 last_name: string
                 full_name: string
+                team_settings: TeamSettingsId[]
             }
         }
         export type OIDCAuthenticate = {
             code: string
-        }
-        export type PatchedItineraryItem = {
-            readonly id?: number
-            position?: number // float
-            readonly notes?: Note[]
-            readonly case?: {
-                readonly id: number
-                case_id?: string | null
-                readonly bwv_data: string
-                readonly fraud_prediction: any
-            }
-            readonly visits?: Visit[]
-            checked?: boolean
         }
         export type PatchedNoteCrud = {
             readonly id?: number
@@ -142,6 +135,17 @@ declare namespace Components {
                 first_name: string
                 last_name: string
                 full_name: string
+                team_settings: TeamSettingsId[]
+            }
+        }
+        export type PatchedTeamSettings = {
+            readonly id?: number
+            name?: string
+            readonly team_type?: {
+                [name: string]: any
+            }
+            settings?: {
+                [name: string]: any
             }
         }
         export type PatchedVisit = {
@@ -170,8 +174,8 @@ declare namespace Components {
         export type PlannerListSettings = {
             length_of_list?: number
             primary_stadium?: PrimaryStadiumEnum
-            secondary_stadia?: ("Onderzoek buitendienst" | "2de Controle" | "3de Controle" | "Hercontrole" | "2de hercontrole" | "3de hercontrole" | "Avondronde" | "Onderzoek advertentie" | "Weekend buitendienstonderzoek" | "Issuemelding")[]
-            exclude_stadia?: ("Onderzoek buitendienst" | "2de Controle" | "3de Controle" | "Hercontrole" | "2de hercontrole" | "3de hercontrole" | "Avondronde" | "Onderzoek advertentie" | "Weekend buitendienstonderzoek" | "Issuemelding")[]
+            secondary_stadia?: ("Onderzoek buitendienst" | "2de Controle" | "3de Controle" | "Hercontrole" | "2de hercontrole" | "3de hercontrole" | "Avondronde" | "Onderzoek advertentie" | "Weekend buitendienstonderzoek" | "Issuemelding" | "ZL Corporatie" | "Crimineel gebruik woning")[]
+            exclude_stadia?: ("Onderzoek buitendienst" | "2de Controle" | "3de Controle" | "Hercontrole" | "2de hercontrole" | "3de hercontrole" | "Avondronde" | "Onderzoek advertentie" | "Weekend buitendienstonderzoek" | "Issuemelding" | "ZL Corporatie" | "Crimineel gebruik woning")[]
         }
         export type PlannerPostalCodeSettings = {
             range_start: number
@@ -179,7 +183,7 @@ declare namespace Components {
         }
         export type PlannerSettings = {
             opening_date: string // date
-            projects: ("Bed en breakfast 2019" | "Burgwallenproject Oudezijde" | "Corpo-rico" | "Digital toezicht Safari" | "Digital toezicht Zebra" | "Haarlemmerbuurt" | "Hotline" | "Mystery Guest" | "Project Andes" | "Project Jordaan" | "Project Lobith" | "Project Sahara" | "Safari" | "Safari 2015" | "Sahara Adams Suites" | "Sahara hele woning" | "Sahara meer dan 4" | "Sahara Recensies" | "Sahara veel adv" | "Social Media 2019" | "Woonschip (woonboot)" | "Zebra")[]
+            projects: ("Bed en breakfast 2019" | "Burgwallenproject Oudezijde" | "Corpo-rico" | "Digital toezicht Safari" | "Digital toezicht Zebra" | "Haarlemmerbuurt" | "Hotline" | "Mystery Guest" | "Project Andes" | "Project Jordaan" | "Project Lobith" | "Project Sahara" | "Safari" | "Safari 2015" | "Sahara Adams Suites" | "Sahara hele woning" | "Sahara meer dan 4" | "Sahara Recensies" | "Sahara veel adv" | "Social Media 2019" | "Woonschip (woonboot)" | "Zebra" | "ZKL Doorverhuur" | "Combi BI Doorpak" | "Combi BI Melding" | "Combi Doorpak" | "Combi Overbewoning" | "Combi Samenwoners" | "Combi_ZKL_Doorpak" | "Combi_ZKL_Melding")[]
             postal_codes?: PlannerPostalCodeSettings[]
             days: PlannerWeekSettings
         }
@@ -196,15 +200,31 @@ declare namespace Components {
             range_start: number
             range_end: number
         }
-        export type PrimaryStadiumEnum = "Onderzoek buitendienst" | "2de Controle" | "3de Controle" | "Hercontrole" | "2de hercontrole" | "3de hercontrole" | "Avondronde" | "Onderzoek advertentie" | "Weekend buitendienstonderzoek" | "Issuemelding";
+        export type PrimaryStadiumEnum = "Onderzoek buitendienst" | "2de Controle" | "3de Controle" | "Hercontrole" | "2de hercontrole" | "3de hercontrole" | "Avondronde" | "Onderzoek advertentie" | "Weekend buitendienstonderzoek" | "Issuemelding" | "ZL Corporatie" | "Crimineel gebruik woning";
         export type Project = {
-            name: Name2d6Enum
+            name: NameA4dEnum
         }
         export type SituationEnum = "nobody_present" | "no_cooperation" | "access_granted";
         export type Stadium = {
-            name: Name95fEnum
+            name: Name093Enum
         }
         export type SuggestNextVisitEnum = "weekend" | "daytime" | "evening" | "unknown";
+        export type TeamSettings = {
+            readonly id: number
+            name: string
+            readonly team_type: {
+                [name: string]: any
+            }
+            settings: {
+                [name: string]: any
+            }
+        }
+        export type TeamSettingsId = {
+            readonly id: number
+            readonly team_type: {
+                [name: string]: any
+            }
+        }
         export type User = {
             id: string // uuid
             email: string // email
@@ -212,6 +232,7 @@ declare namespace Components {
             first_name: string
             last_name: string
             full_name: string
+            team_settings: TeamSettingsId[]
         }
         export type UserId = {
             id: string // uuid
@@ -220,6 +241,7 @@ declare namespace Components {
             readonly first_name: string
             readonly last_name: string
             full_name: string
+            team_settings: TeamSettingsId[]
         }
         export type Visit = {
             readonly id: number
@@ -233,6 +255,7 @@ declare namespace Components {
             suggest_next_visit_description?: string | null
             personal_notes?: string | null
             itinerary_item: number
+            case_id: number
             author: string // uuid
         }
     }
@@ -307,10 +330,14 @@ declare namespace Paths {
     }
     namespace ItinerariesDestroy {
         namespace Parameters {
+            export type CreatedAt = string;
             export type Id = number;
         }
         export type PathParameters = {
             id: Parameters.Id
+        }
+        export type QueryParameters = {
+            created_at?: Parameters.CreatedAt
         }
         namespace Responses {
             export type $204 = {
@@ -374,9 +401,9 @@ declare namespace Paths {
         }
     }
     namespace ItineraryItemsCreate {
-        export type RequestBody = Components.Schemas.ItineraryItem;
         namespace Responses {
-            export type $200 = Components.Schemas.ItineraryItem;
+            export type $200 = {
+            }
         }
     }
     namespace ItineraryItemsDestroy {
@@ -398,9 +425,9 @@ declare namespace Paths {
         export type PathParameters = {
             id: Parameters.Id
         }
-        export type RequestBody = Components.Schemas.PatchedItineraryItem;
         namespace Responses {
-            export type $200 = Components.Schemas.ItineraryItem;
+            export type $200 = {
+            }
         }
     }
     namespace ItineraryItemsUpdate {
@@ -410,9 +437,9 @@ declare namespace Paths {
         export type PathParameters = {
             id: Parameters.Id
         }
-        export type RequestBody = Components.Schemas.ItineraryItem;
         namespace Responses {
-            export type $200 = Components.Schemas.ItineraryItem;
+            export type $200 = {
+            }
         }
     }
     namespace NotesCreate {
@@ -559,6 +586,79 @@ declare namespace Paths {
                 previous?: string | null
                 results?: Components.Schemas.PlannerSettings[]
             }
+        }
+    }
+    namespace TeamSettingsCreate {
+        export type RequestBody = Components.Schemas.TeamSettings;
+        namespace Responses {
+            export type $200 = Components.Schemas.TeamSettings;
+        }
+    }
+    namespace TeamSettingsDestroy {
+        namespace Parameters {
+            export type Id = number;
+        }
+        export type PathParameters = {
+            id: Parameters.Id
+        }
+        namespace Responses {
+            export type $204 = {
+            }
+        }
+    }
+    namespace TeamSettingsList {
+        namespace Parameters {
+            export type Page = number;
+        }
+        export type QueryParameters = {
+            page?: Parameters.Page
+        }
+        namespace Responses {
+            export type $200 = {
+                /**
+                 * example:
+                 * 123
+                 */
+                count?: number
+                next?: string | null
+                previous?: string | null
+                results?: Components.Schemas.TeamSettings[]
+            }
+        }
+    }
+    namespace TeamSettingsPartialUpdate {
+        namespace Parameters {
+            export type Id = number;
+        }
+        export type PathParameters = {
+            id: Parameters.Id
+        }
+        export type RequestBody = Components.Schemas.PatchedTeamSettings;
+        namespace Responses {
+            export type $200 = Components.Schemas.TeamSettings;
+        }
+    }
+    namespace TeamSettingsRetrieve {
+        namespace Parameters {
+            export type Id = number;
+        }
+        export type PathParameters = {
+            id: Parameters.Id
+        }
+        namespace Responses {
+            export type $200 = Components.Schemas.TeamSettings;
+        }
+    }
+    namespace TeamSettingsUpdate {
+        namespace Parameters {
+            export type Id = number;
+        }
+        export type PathParameters = {
+            id: Parameters.Id
+        }
+        export type RequestBody = Components.Schemas.TeamSettings;
+        namespace Responses {
+            export type $200 = Components.Schemas.TeamSettings;
         }
     }
     namespace UsersList {

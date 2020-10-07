@@ -36,7 +36,7 @@ const AddressPicker: React.FC<AddressPickerProps> = ({ position, align, label, h
         : (
           <Link to={getStartAddressUrl()}>
             <Button type='button' variant="textButton">
-              Klik hier om een adres te kiezen
+              Kies een startadres
             </Button>
           </Link>
         )

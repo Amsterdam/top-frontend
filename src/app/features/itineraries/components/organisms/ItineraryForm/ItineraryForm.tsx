@@ -2,7 +2,7 @@ import React, { FC, useCallback } from "react"
 import { navigate } from "@reach/router"
 import { ScaffoldForm } from "amsterdam-react-final-form"
 
-import { useItineraries, useSettings, useUsers } from "app/state/rest"
+import { useItineraries, useUsers } from "app/state/rest"
 import { useLoggedInUser } from "app/state/rest/custom/useLoggedInUser"
 
 import Scaffold from "app/features/shared/components/form/Scaffold"
@@ -12,9 +12,12 @@ import { getDayPartOptions } from "./getDayPartOptions"
 import { generateItineraryFormDefinition } from "./formDefinition"
 import { mapPostValues } from "./mapPostValues"
 
-const ItineraryForm: FC = () => {
+type Props = {
+  teamSettings: Components.Schemas.TeamSettings
+}
+
+const ItineraryForm: FC<Props> = ({ teamSettings }) => {
   const { data: users } = useUsers()
-  const { data: settings } = useSettings()
   const { execPost } = useItineraries({ lazy: true })
   const loggedInUser = useLoggedInUser()
 
@@ -23,12 +26,12 @@ const ItineraryForm: FC = () => {
       await execPost(mapPostValues(values))
       await navigate(to("/"))
   }, [execPost])
-
-  if (!users || !settings) {
+    
+  if (!users) {
     return null
   }
 
-  const dayPartOptions = getDayPartOptions(settings)
+  const dayPartOptions = getDayPartOptions(teamSettings.settings as Components.Schemas.PlannerSettings)
   const fields = generateItineraryFormDefinition(users.results, dayPartOptions)
 
   return (
@@ -36,9 +39,10 @@ const ItineraryForm: FC = () => {
       keepDirtyOnReinitialize={true}
       onSubmit={handleSubmit}
       initialValues={{
-        openingsDate: settings?.opening_date,
-        projects: settings?.projects,
-        postalCodeRange: settings?.postal_codes,
+        teamSettings,
+        openingsDate: teamSettings.settings?.opening_date,
+        projects: teamSettings.settings?.projects,
+        postalCodeRange: teamSettings.settings?.postal_codes,
         numAddresses: 8,
         dayPart: dayPartOptions[0],
         team_members: [ loggedInUser ]
