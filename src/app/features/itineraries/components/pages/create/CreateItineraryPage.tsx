@@ -23,7 +23,7 @@ const CreateItineraryPage: React.FC<RouteComponentProps<Props>> = ({ teamSetting
   const { data, isBusy } = useItineraries()
   const { hasParameter } = useQueryString()
   let teamSettings = useTeamSettings(teamSettingsId!)
-  let { data: teamSettingsList } = useTeamSettingsList()
+  let { data: teamSettingsList } = useTeamSettingsList({lazy: false})
   const loggedInUser = useLoggedInUser()
   const shouldRedirect = data && data?.itineraries?.length > 0 && !hasParameter("force")
 
