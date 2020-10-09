@@ -3,9 +3,7 @@ import { navigate, RouteComponentProps } from "@reach/router"
 
 import { Heading } from "@datapunt/asc-ui"
 
-import { useItineraries, useTeamSettingsList } from "app/state/rest"
-import { useLoggedInUser } from "app/state/rest/custom/useLoggedInUser"
-import { useTeamSettings } from "app/state/rest/custom/useTeamSettings"
+import { useItineraries, useTeamSettings, useTeamSettingsList } from "app/state/rest"
 
 import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
 import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner"
@@ -22,9 +20,9 @@ type Props = {
 const CreateItineraryPage: React.FC<RouteComponentProps<Props>> = ({ teamSettingsId }) => {
   const { data, isBusy } = useItineraries()
   const { hasParameter } = useQueryString()
-  let teamSettings = useTeamSettings(teamSettingsId!)
-  let { data: teamSettingsList } = useTeamSettingsList({ lazy: false })
-  const loggedInUser = useLoggedInUser()
+  const { data: teamSettings } = useTeamSettings(teamSettingsId!)
+  const { data: teamSettingsList } = useTeamSettingsList()
+
   const shouldRedirect = data && data?.itineraries?.length > 0 && !hasParameter("force")
 
   useEffect(() => {
@@ -33,21 +31,11 @@ const CreateItineraryPage: React.FC<RouteComponentProps<Props>> = ({ teamSetting
     }
   }, [ shouldRedirect, data ])
 
-  if (!teamSettingsList || teamSettingsList.length <= 0) {
-    return null
-  }
-
-  // @ts-ignore
-  if (!teamSettings && loggedInUser?.team_settings.length > 0 && teamSettingsList.length > 0) {
-    teamSettingsList = teamSettingsList.filter((cur) =>
-      cur.id === loggedInUser?.team_settings[0].id
-    )
-    teamSettings = teamSettingsList[0]
-  }
-
   if (!teamSettings) {
     return null
   }
+
+  console.log(teamSettingsList)
 
   return (
     <DefaultLayout>
