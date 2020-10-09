@@ -35,6 +35,8 @@ const CreateItineraryPage: React.FC<RouteComponentProps<Props>> = ({ teamSetting
     return null
   }
 
+  console.log(teamSettingsList)
+
   return (
     <DefaultLayout>
       <Spacing pb={ 4 }>
