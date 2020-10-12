@@ -3,7 +3,7 @@ import { navigate, RouteComponentProps } from "@reach/router"
 
 import { Heading } from "@datapunt/asc-ui"
 
-import { useItineraries, useTeamSettings, useTeamSettingsList } from "app/state/rest"
+import { useItineraries, useTeamSettings } from "app/state/rest"
 
 import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
 import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner"
