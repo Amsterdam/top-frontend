@@ -23,7 +23,7 @@ const TeamSettingsListPage: React.FC = () => {
   const loggedInUser = useLoggedInUser()
 
   return <DefaultLayout>
-    { data && data.length > 0 && (
+    { data && data.results.length > 0 && (
       <>
         <Spacing pb={ 6 }>
           <p>
@@ -33,7 +33,7 @@ const TeamSettingsListPage: React.FC = () => {
           </p>
         </Spacing>
         <ButtonsLayout>
-          { data.map(teamSettings => (
+          { data.results.map(teamSettings => (
             <Button as="a" href={ to("/team-settings/:teamSettingsId", { teamSettingsId: teamSettings.id }) }
                     iconRight={ <ChevronRight /> } key={ teamSettings.id } variant="primaryInverted">
               { teamSettings.name }

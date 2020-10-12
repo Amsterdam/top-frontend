@@ -158,8 +158,10 @@ declare namespace Components {
             can_next_visit_go_ahead_description?: string | null
             suggest_next_visit?: "weekend" | "daytime" | "evening" | "unknown"
             suggest_next_visit_description?: string | null
+            thread_id?: null | number
             personal_notes?: string | null
-            itinerary_item?: number
+            case_id?: number
+            itinerary_item?: null | number
             author?: string // uuid
         }
         export type PermitCheckmark = {
@@ -253,9 +255,10 @@ declare namespace Components {
             can_next_visit_go_ahead_description?: string | null
             suggest_next_visit?: "weekend" | "daytime" | "evening" | "unknown"
             suggest_next_visit_description?: string | null
+            thread_id?: null | number
             personal_notes?: string | null
-            itinerary_item: number
             case_id: number
+            itinerary_item?: null | number
             author: string // uuid
         }
     }

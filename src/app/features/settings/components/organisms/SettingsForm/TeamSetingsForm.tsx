@@ -37,7 +37,6 @@ const TeamSettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId }) =>
   const handleSubmit = useCallback(async (teamSettings: any) => {
     const values = filterEmptyPostalCodes(teamSettings.settings)
     setErrorMessage("")
-    console.log(teamSettings)
     // @ts-ignore
     const f_projects = (acc, cur, i, a) => {
       if (teamSettings?.team_type.project_choices.includes(cur)){

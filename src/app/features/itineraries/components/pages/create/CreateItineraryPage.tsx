@@ -3,7 +3,7 @@ import { navigate, RouteComponentProps } from "@reach/router"
 
 import { Heading } from "@datapunt/asc-ui"
 
-import { useItineraries, useTeamSettings, useTeamSettingsList } from "app/state/rest"
+import { useItineraries, useTeamSettings } from "app/state/rest"
 
 import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
 import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner"
@@ -21,7 +21,6 @@ const CreateItineraryPage: React.FC<RouteComponentProps<Props>> = ({ teamSetting
   const { data, isBusy } = useItineraries()
   const { hasParameter } = useQueryString()
   const { data: teamSettings } = useTeamSettings(teamSettingsId!)
-  const { data: teamSettingsList } = useTeamSettingsList()
 
   const shouldRedirect = data && data?.itineraries?.length > 0 && !hasParameter("force")
 
@@ -34,8 +33,6 @@ const CreateItineraryPage: React.FC<RouteComponentProps<Props>> = ({ teamSetting
   if (!teamSettings) {
     return null
   }
-
-  console.log(teamSettingsList)
 
   return (
     <DefaultLayout>

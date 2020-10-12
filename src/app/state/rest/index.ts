@@ -143,7 +143,7 @@ export const useSettings = (options?: Options) => useApiRequest<Components.Schem
     getHeaders
   })
 
-export const useTeamSettingsList = (options?: Options) => useApiRequest<Components.Schemas.TeamSettings[]>({
+export const useTeamSettingsList = (options?: Options) => useApiRequest<{ results: Components.Schemas.TeamSettings[] }>({
     ...options,
     url: makeGatewayUrl(["team-settings"]),
     groupName: "teamSettingsList",

@@ -32,7 +32,7 @@ const ListTeamSettingsOptionsPage: React.FC<RouteComponentProps> = () => {
   }, [ shouldRedirect, loggedInUser ])
 
   return <DefaultLayout>
-    { data && data.length > 0 && (
+    { data && data.results.length > 0 && (
       <>
         <Spacing pb={ 6 }>
           <p>
@@ -42,7 +42,7 @@ const ListTeamSettingsOptionsPage: React.FC<RouteComponentProps> = () => {
           </p>
         </Spacing>
         <ButtonsLayout>
-          { data.map(teamSettings => (
+          { data.results.map(teamSettings => (
             <Button as="a" href={ to("/lijst/nieuw/:teamSettingsId/", { teamSettingsId: teamSettings.id }) }
                     iconRight={ <ChevronRight /> } key={ teamSettings.id } variant="primaryInverted">
               { teamSettings.name }
