@@ -21,7 +21,6 @@ const CreateItineraryPage: React.FC<RouteComponentProps<Props>> = ({ teamSetting
   const { data, isBusy } = useItineraries()
   const { hasParameter } = useQueryString()
   const { data: teamSettings } = useTeamSettings(teamSettingsId!)
-  const { data: teamSettingsList } = useTeamSettingsList()
 
   const shouldRedirect = data && data?.itineraries?.length > 0 && !hasParameter("force")
 
@@ -34,8 +33,6 @@ const CreateItineraryPage: React.FC<RouteComponentProps<Props>> = ({ teamSetting
   if (!teamSettings) {
     return null
   }
-
-  console.log(teamSettingsList)
 
   return (
     <DefaultLayout>
