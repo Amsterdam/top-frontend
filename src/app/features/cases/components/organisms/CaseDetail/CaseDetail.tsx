@@ -51,7 +51,7 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
   // Header
   const address = displayAddress(caseItem.import_adres.sttnaam, caseItem.import_adres.hsnr, caseItem.import_adres.hsltr || undefined, caseItem.import_adres.toev || undefined)
   const postalCode = caseItem.import_adres.postcode
-  const personCount = caseItem.bwv_personen.length || 0
+  const personCount = caseItem.bwv_personen.filter(person => person.overlijdensdatum === null).length || 0
   const caseNumber = caseItem.bwv_tmp.case_number !== null ? parseInt(caseItem.bwv_tmp.case_number, 10) : undefined
   const caseCount = caseItem.bwv_tmp.num_cases !== null ? parseInt(caseItem.bwv_tmp.num_cases, 10) : undefined
   const openCaseCount = caseItem.bwv_tmp.num_open_cases !== null ? caseItem.bwv_tmp.num_open_cases : undefined
@@ -301,7 +301,7 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
       />
       <CaseDetailSection
         id="personen"
-        title={ `Huidige bewoners${ showBewoners ? ` (${ people.length })` : "" }` }
+        title={ `Huidige bewoners${ showBewoners && ` (${ personCount })` }` }
         data={ showBewoners ? bewoners : [ "Geen inschrijvingen" ] }
       />
       {
