@@ -1,6 +1,6 @@
 import React from "react"
 import styled, { keyframes } from "styled-components"
-import { themeColor } from "@datapunt/asc-ui"
+import { themeColor } from "@amsterdam/asc-ui"
 
 type Props = {
   title: string

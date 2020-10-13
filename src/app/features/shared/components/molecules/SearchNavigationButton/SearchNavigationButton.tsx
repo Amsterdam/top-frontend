@@ -1,6 +1,6 @@
 import React from "react"
 import { Link } from "@reach/router"
-import { Search } from "@datapunt/asc-assets"
+import { Search } from "@amsterdam/asc-assets"
 
 import to from "app/features/shared/routing/to"
 

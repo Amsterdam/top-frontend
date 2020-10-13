@@ -1,5 +1,5 @@
 import React, { useCallback } from "react"
-import { TrashBin } from "@datapunt/asc-assets"
+import { TrashBin } from "@amsterdam/asc-assets"
 
 import StyledButton from "app/features/shared/components/atoms/StyledButton/StyledButton"
 import { useItineraryItem } from "app/state/rest"

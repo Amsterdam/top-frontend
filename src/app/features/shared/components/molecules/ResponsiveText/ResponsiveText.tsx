@@ -1,5 +1,5 @@
 import React, { FC } from "react"
-import { Hidden } from "@datapunt/asc-ui"
+import { Hidden } from "@amsterdam/asc-ui"
 
 type Props = {
   text: [string, string]

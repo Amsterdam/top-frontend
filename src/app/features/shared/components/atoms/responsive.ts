@@ -1,4 +1,4 @@
-import { breakpoint } from "@datapunt/asc-ui"
+import { breakpoint } from "@amsterdam/asc-ui"
 import { css } from "styled-components"
 
 type BreakPoint =

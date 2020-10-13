@@ -1,6 +1,6 @@
 import React, { FC } from "react"
-import { Icon } from "@datapunt/asc-ui"
-import { Checkmark } from "@datapunt/asc-assets"
+import { Icon } from "@amsterdam/asc-ui"
+import { Checkmark } from "@amsterdam/asc-assets"
 
 const CheckmarkIcon: FC = () => (
   <Icon>

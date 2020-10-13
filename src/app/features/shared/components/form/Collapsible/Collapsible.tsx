@@ -1,6 +1,6 @@
 import React from "react"
 import styled from "styled-components"
-import { Accordion, AccordionWrapper, themeSpacing } from "@datapunt/asc-ui"
+import { Accordion, AccordionWrapper, themeSpacing } from "@amsterdam/asc-ui"
 import { ComposedField, Scaffold, ScaffoldFields } from "amsterdam-react-final-form"
 
 export type CollapsibleProps = React.ComponentProps<typeof ComposedField> & {

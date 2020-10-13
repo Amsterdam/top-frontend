@@ -1,5 +1,5 @@
 import React, { useCallback } from "react"
-import { Button, themeColor, themeSpacing } from "@datapunt/asc-ui"
+import { Button, themeColor, themeSpacing } from "@amsterdam/asc-ui"
 
 import InfoIcon from "app/features/shared/components/atoms/InfoIcon/InfoIcon"
 

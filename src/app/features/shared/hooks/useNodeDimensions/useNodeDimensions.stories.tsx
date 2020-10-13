@@ -1,7 +1,7 @@
 import React from "react"
 import { withKnobs, text } from "@storybook/addon-knobs"
 import styled from "styled-components"
-import { themeColor, themeSpacing } from "@datapunt/asc-ui"
+import { themeColor, themeSpacing } from "@amsterdam/asc-ui"
 import useNodeByReference from "../useNodeByReference/useNodeByReference"
 import useNodeDimensions from "./useNodeDimensions"
 

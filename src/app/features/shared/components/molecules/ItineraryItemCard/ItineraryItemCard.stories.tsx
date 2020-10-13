@@ -1,6 +1,6 @@
 import React from "react"
-import { Button } from "@datapunt/asc-ui"
-import { Document, TrashBin } from "@datapunt/asc-assets"
+import { Button } from "@amsterdam/asc-ui"
+import { Document, TrashBin } from "@amsterdam/asc-assets"
 
 import ItineraryItemCard from "./ItineraryItemCard"
 import Badge from "../../atoms/Badge/Badge"

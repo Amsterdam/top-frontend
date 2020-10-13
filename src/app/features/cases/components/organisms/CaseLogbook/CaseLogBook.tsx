@@ -1,5 +1,5 @@
 import React, { useMemo } from "react"
-import { Spinner } from "@datapunt/asc-ui"
+import { Spinner } from "@amsterdam/asc-ui"
 
 import { useCase, useCaseVisits, useUsers } from "app/state/rest"
 import { BWVHotlineBevinding, KeyValueDetail } from "app/features/types"

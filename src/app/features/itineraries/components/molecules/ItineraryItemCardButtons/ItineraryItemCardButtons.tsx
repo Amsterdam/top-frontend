@@ -1,6 +1,6 @@
 import React from "react"
 import { navigate } from "@reach/router"
-import { Button } from "@datapunt/asc-ui"
+import { Button } from "@amsterdam/asc-ui"
 import styled from "styled-components"
 
 import to from "app/features/shared/routing/to"

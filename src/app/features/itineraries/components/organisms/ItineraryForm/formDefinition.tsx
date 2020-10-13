@@ -3,7 +3,7 @@ import React from "react"
 import { isRequired } from "amsterdam-react-final-form"
 import { FormPositioner } from "amsterdam-scaffold-form/package"
 
-import { ChevronLeft } from "@datapunt/asc-assets"
+import { ChevronLeft } from "@amsterdam/asc-assets"
 
 import { Fields } from "app/features/shared/components/form/Scaffold"
 import { getDayPartOptions } from "./getDayPartOptions"

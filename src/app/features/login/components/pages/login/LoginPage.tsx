@@ -1,6 +1,6 @@
 import React from "react"
 import styled from "styled-components"
-import { themeSpacing, Button } from "@datapunt/asc-ui"
+import { themeSpacing, Button } from "@amsterdam/asc-ui"
 
 const CenterWrap = styled.div`
   margin-top: ${ themeSpacing(50) };

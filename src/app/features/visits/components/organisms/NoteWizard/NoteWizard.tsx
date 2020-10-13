@@ -1,6 +1,6 @@
 import React, { useCallback } from "react"
 import { navigate } from "@reach/router"
-import { themeSpacing, themeColor } from "@datapunt/asc-ui"
+import { themeSpacing, themeColor } from "@amsterdam/asc-ui"
 import { ScaffoldForm } from "amsterdam-react-final-form"
 import styled from "styled-components"
 

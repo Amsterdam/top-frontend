@@ -1,6 +1,6 @@
 import React, { useCallback } from "react"
 import { navigate } from "@reach/router"
-import { TrashBin } from "@datapunt/asc-assets"
+import { TrashBin } from "@amsterdam/asc-assets"
 
 import StyledButton from "app/features/shared/components/atoms/StyledButton/StyledButton"
 import { useVisit } from "app/state/rest"

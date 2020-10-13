@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react"
 import { navigate } from "@reach/router"
-import { themeColor, themeSpacing } from "@datapunt/asc-ui"
+import { themeColor, themeSpacing } from "@amsterdam/asc-ui"
 import styled from "styled-components"
 
 type Props = {

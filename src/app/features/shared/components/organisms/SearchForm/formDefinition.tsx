@@ -1,5 +1,5 @@
 import React from "react"
-import { Close, Search } from "@datapunt/asc-assets"
+import { Close, Search } from "@amsterdam/asc-assets"
 import { combineValidators, isMatchingRegex, isRequired, ScaffoldAvailableFields } from "amsterdam-react-final-form"
 import { FormPositioner, FormPositionerFields } from "amsterdam-scaffold-form/package"
 import isRequiredWhenEmpty from "./validators/isRequiredWhenEmpty"

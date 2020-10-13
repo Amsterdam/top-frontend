@@ -6,7 +6,7 @@ import React from "react"
 import styled from "styled-components"
 import { LocationProvider } from "@reach/router"
 import { addDecorator, configure } from "@storybook/react"
-import { GlobalStyle, ThemeProvider, themeSpacing } from "@datapunt/asc-ui"
+import { GlobalStyle, ThemeProvider, themeSpacing } from "@amsterdam/asc-ui"
 import { addParameters } from "@storybook/react"
 
 const Wrap = styled.div`

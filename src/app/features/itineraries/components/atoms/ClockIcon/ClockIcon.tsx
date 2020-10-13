@@ -1,6 +1,6 @@
 import React, { FC } from "react"
-import { Icon } from "@datapunt/asc-ui"
-import { Clock } from "@datapunt/asc-assets"
+import { Icon } from "@amsterdam/asc-ui"
+import { Clock } from "@amsterdam/asc-assets"
 
 const ClockIcon: FC = () => (<Icon><Clock /></Icon>)
 export default ClockIcon

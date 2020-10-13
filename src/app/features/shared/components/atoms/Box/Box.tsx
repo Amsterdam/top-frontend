@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components"
 import { Responsive, responsiveProps } from "../responsive"
-import { themeColor, themeSpacing } from "@datapunt/asc-ui"
+import { themeColor, themeSpacing } from "@amsterdam/asc-ui"
 
 export type Props = {
   p?: Responsive<number>

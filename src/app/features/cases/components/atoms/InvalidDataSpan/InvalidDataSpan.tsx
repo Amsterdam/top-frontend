@@ -1,6 +1,6 @@
 import React, { FC } from "react"
 import styled from "styled-components"
-import { themeColor } from "@datapunt/asc-ui"
+import { themeColor } from "@amsterdam/asc-ui"
 
 const Span = styled.span`
   color: ${ themeColor("support", "invalid") };

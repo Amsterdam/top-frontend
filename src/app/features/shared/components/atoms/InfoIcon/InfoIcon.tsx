@@ -1,6 +1,6 @@
 import React, { FC } from "react"
-import { Icon } from "@datapunt/asc-ui"
-import { Info } from "@datapunt/asc-assets"
+import { Icon } from "@amsterdam/asc-ui"
+import { Info } from "@amsterdam/asc-assets"
 
 const InfoIcon: FC = () => <Icon><Info /></Icon>
 export default InfoIcon

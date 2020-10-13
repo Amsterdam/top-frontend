@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components"
-import { themeSpacing } from "@datapunt/asc-ui"
+import { themeSpacing } from "@amsterdam/asc-ui"
 
 type Props = {
   p?: number
