@@ -20,7 +20,7 @@ import Span from "app/features/cases/components/atoms/Span/Span"
 import MailtoAnchor from "app/features/cases/components/molecules/MailtoAnchor/MailtoAnchor"
 import CaseLogBook from "app/features/cases/components/organisms/CaseLogbook/CaseLogBook"
 
-import { BagData, BagDataError, Case, RelatedCase, BrkData, BrkDataError, KeyValueDetail } from "app/features/types"
+import { BagData, BagDataError, BrkData, BrkDataError, Case, KeyValueDetail, RelatedCase } from "app/features/types"
 
 import CaseDetailHeader from "./CaseDetailHeader"
 import CaseDetailSection from "./CaseDetailSection"
@@ -39,7 +39,7 @@ const P = styled.p`
   margin: 0;
 `
 
-const displayFromToDate = (o: { date_from: string | null, date_to?: string | null }) => `${ o.date_from ?? "-" } tot ${ o.date_to ?? "-" }`
+const displayFromToDate = (o: {date_from: string | null, date_to?: string | null}) => `${ o.date_from ?? "-" } tot ${ o.date_to ?? "-" }`
 
 const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
   const bagId = (caseItem.brk_data as BrkData).bag_id ?? ""
@@ -51,7 +51,7 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
   // Header
   const address = displayAddress(caseItem.import_adres.sttnaam, caseItem.import_adres.hsnr, caseItem.import_adres.hsltr || undefined, caseItem.import_adres.toev || undefined)
   const postalCode = caseItem.import_adres.postcode
-  const personCount = caseItem.bwv_personen.length || 0
+  const personCount = caseItem.bwv_personen.filter(person => person.overlijdensdatum === null).length || 0
   const caseNumber = caseItem.bwv_tmp.case_number !== null ? parseInt(caseItem.bwv_tmp.case_number, 10) : undefined
   const caseCount = caseItem.bwv_tmp.num_cases !== null ? parseInt(caseItem.bwv_tmp.num_cases, 10) : undefined
   const openCaseCount = caseItem.bwv_tmp.num_open_cases !== null ? caseItem.bwv_tmp.num_open_cases : undefined
@@ -65,8 +65,9 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
     .reduce((acc: any, relatedCase: RelatedCase, index, arr) => {
       const { case_id, case_number, case_reason } = relatedCase
 
-      acc.push(["Zaaknummer", <Link to={ to("/cases/:id", { id: case_id }) }>{ `${ case_number } van ${ caseCount }` }</Link>])
-      acc.push(["Openingsreden", case_reason])
+      acc.push([ "Zaaknummer",
+        <Link to={ to("/cases/:id", { id: case_id }) }>{ `${ case_number } van ${ caseCount }` }</Link> ])
+      acc.push([ "Openingsreden", case_reason ])
 
       if (index < arr.length - 1) acc.push(<Hr />)
       return acc
@@ -80,8 +81,8 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
   const vakantieverhuurToday = vakantieverhuurNotified ? caseItem.vakantie_verhuur.notified_rentals.filter(
     rental => isBetweenDates(new Date(rental.check_in), new Date(rental.check_out), new Date())
   ).length > 0 : "-"
-  const vakantieverhuurShortstay = caseItem.vakantie_verhuur.shortstay === "J" ? true : false
-  const vakantieverhuurBnB = caseItem.vakantie_verhuur.is_bnb_declared === "J" ? true : false
+  const vakantieverhuurShortstay = caseItem.vakantie_verhuur.shortstay === "J"
+  const vakantieverhuurBnB = caseItem.vakantie_verhuur.is_bnb_declared === "J"
   const showVakantieverhuur = vakantieverhuurNotified
 
   // Woning
@@ -121,28 +122,28 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
     gebruik={ woningGebruik }
     aantalBouwlagen={ woningBouwlagen }
     etage={ woningEtage }
-    aantalKamers= { woningKamers }
+    aantalKamers={ woningKamers }
     oppervlak={ woningOppervlak }
     isWoonboot={ isWoonboot }
     woonbootStatus={ woonbootStatus }
     woonbootIndicatie={ woonbootIndicatie }
     woonbootAanduiding={ woonbootAanduiding }
-    />
+  />
   const woningFields = [
-    ["Gebruiksdoel", woningBestemming],
-    ["Soort Object (feitelijk gebruik)", woningGebruik],
-    ["Aantal bouwlagen", woningBouwlagen !== undefined ? woningBouwlagen : "-"],
-    ["Verdieping toegang", woningEtage !== undefined ? woningEtage : "-"],
-    ["Aantal kamers", woningKamers > 0 ? woningKamers : "-"],
-    ["Woonoppervlak", woningOppervlak > 0 ? woningOppervlak + " m²" : "-"],
-    ["Eigenaar", eigenaar],
+    [ "Gebruiksdoel", woningBestemming ],
+    [ "Soort Object (feitelijk gebruik)", woningGebruik ],
+    [ "Aantal bouwlagen", woningBouwlagen !== undefined ? woningBouwlagen : "-" ],
+    [ "Verdieping toegang", woningEtage !== undefined ? woningEtage : "-" ],
+    [ "Aantal kamers", woningKamers > 0 ? woningKamers : "-" ],
+    [ "Woonoppervlak", woningOppervlak > 0 ? woningOppervlak + " m²" : "-" ],
+    [ "Eigenaar", eigenaar ],
     mailtoAnchor
   ]
   const woonbootFields = [
-    ["Status", woonbootStatus || "-"],
-    ["Indicatie geconstateerd", woonbootIndicatie],
-    ["Aanduiding in onderzoek", woonbootAanduiding],
-    ["Eigenaar", eigenaar],
+    [ "Status", woonbootStatus || "-" ],
+    [ "Indicatie geconstateerd", woonbootIndicatie ],
+    [ "Aanduiding in onderzoek", woonbootAanduiding ],
+    [ "Eigenaar", eigenaar ],
     mailtoAnchor
   ]
   const woningData = isWoning ? woningFields : woonbootFields
@@ -177,10 +178,11 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
 
   const meldingenData = meldingen.reduce((acc, item, index) => {
     const { datum, anoniem, naam, telnr, text } = item
-    acc.push(["Datum melding", datum || "-"])
-    acc.push(["Anonieme melding", anoniem])
-    acc.push(["Melder", <P className="anonymous"> { naam }</P> || "-"])
-    acc.push(["Melder telefoonnummer", telnr ? <a className="anonymous" href={ "tel://" + telnr }>{ telnr }</a> : "-"])
+    acc.push([ "Datum melding", datum || "-" ])
+    acc.push([ "Anonieme melding", anoniem ])
+    acc.push([ "Melder", <P className="anonymous"> { naam }</P> || "-" ])
+    acc.push([ "Melder telefoonnummer", telnr ?
+      <a className="anonymous" href={ "tel://" + telnr }>{ telnr }</a> : "-" ])
     acc.push(<Purified className="anonymous" text={ text } />)
     if (index < meldingen.length - 1) acc.push(<HrSpaced />)
     return acc
@@ -188,18 +190,19 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
 
   // Bewoners
   const people = Array.isArray(caseItem.bwv_personen) ? caseItem.bwv_personen.map(person => ({
-      name: person.naam,
-      initials: person.voorletters,
-      sex: person.geslacht,
-      born: person.geboortedatum ? formatDate(person.geboortedatum)! : undefined,
-      livingSince: person.vestigingsdatum_adres ? formatDate(person.vestigingsdatum_adres)! : undefined,
-      died: person.overlijdensdatum ? formatDate(person.overlijdensdatum)! : undefined
-    })) : []
+    name: person.naam,
+    initials: person.voorletters,
+    sex: person.geslacht,
+    born: person.geboortedatum ? formatDate(person.geboortedatum)! : undefined,
+    livingSince: person.vestigingsdatum_adres ? formatDate(person.vestigingsdatum_adres)! : undefined,
+    died: person.overlijdensdatum ? formatDate(person.overlijdensdatum)! : undefined
+  })) : []
   const bewoners = people.reduce((acc: any, person, index, arr) => {
-    acc.push(<Span className="anonymous"><strong>{ (index + 1) + ". " + person.initials + " " + person.name + " (" + person.sex + ")" }</strong></Span>)
-    acc.push(["Geboren", <span className="anonymous">{ person.born }</span>])
-    acc.push(["Woont hier sinds", person.livingSince])
-    if (person.died !== undefined) acc.push(["✝️ Overleden", <span className="anonymous">{ person.died }</span>])
+    acc.push(<Span
+      className="anonymous"><strong>{ (index + 1) + ". " + person.initials + " " + person.name + " (" + person.sex + ")" }</strong></Span>)
+    acc.push([ "Geboren", <span className="anonymous">{ person.born }</span> ])
+    acc.push([ "Woont hier sinds", person.livingSince ])
+    if (person.died !== undefined) acc.push([ "✝️ Overleden", <span className="anonymous">{ person.died }</span> ])
     if (index < arr.length - 1) acc.push(<Hr />)
     return acc
   }, [])
@@ -211,24 +214,24 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
       <Purified
         className="anonymous"
         text={ `${ formatDate(date, true) }<br /><strong>${ user }</strong><br />${ replaceNewLines(replaceUrls(statement)) }` }
-        />
-      )
+      />
+  )
   const showStatements = statements.length > 0
 
   // Stadia
   const stadiums = caseItem.import_stadia.map(stadium => ({
-      description: stadium.sta_oms,
-      dateStart: stadium.begindatum ? formatDate(stadium.begindatum, true)! : "-",
-      dateEnd: stadium.einddatum ? formatDate(stadium.einddatum, true)! : "-",
-      datePeil: stadium.peildatum ? formatDate(stadium.peildatum, true)! : "-",
-      num: parseInt(stadium.sta_nr, 10)
-    }))
+    description: stadium.sta_oms,
+    dateStart: stadium.begindatum ? formatDate(stadium.begindatum, true)! : "-",
+    dateEnd: stadium.einddatum ? formatDate(stadium.einddatum, true)! : "-",
+    datePeil: stadium.peildatum ? formatDate(stadium.peildatum, true)! : "-",
+    num: parseInt(stadium.sta_nr, 10)
+  }))
 
   const stadia = stadiums.reduce((acc: any, stadium, index) => {
-    acc.push(["Stadium", <StadiumBadge stadium={stadium.description} />])
-    acc.push(["Start datum", stadium.dateStart])
-    acc.push(["Eind datum", stadium.dateEnd])
-    acc.push(["Peil datum", stadium.datePeil])
+    acc.push([ "Stadium", <StadiumBadge stadium={ stadium.description } /> ])
+    acc.push([ "Start datum", stadium.dateStart ])
+    acc.push([ "Eind datum", stadium.dateEnd ])
+    acc.push([ "Peil datum", stadium.datePeil ])
     if (index < stadiums.length - 1) acc.push(<Hr />)
     return acc
   }, [])
@@ -250,24 +253,25 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
         signal={ lastStadia }
       />
       { showRelatedCases &&
-        <CaseDetailSection
-          title="Andere open zaken op dit adres"
-          data={ relatedCases }
-          />
+      <CaseDetailSection
+        title="Andere open zaken op dit adres"
+        data={ relatedCases }
+      />
       }
       {
-      <CaseDetailSection
-        title="Vakantieverhuur"
-        data={
-          [
-            permitDetails && ["Vakantieverhuur vergunning", permitDetailVakantieVerhuur ? `Ja (${ displayFromToDate(permitDetailVakantieVerhuur) })` : "Nee"],
-            ["Vandaag verhuurd", vakantieverhuurToday],
-            [`Nachten verhuurd ${ new Date().getFullYear() }`, vakantieverhuurDays > 0 ? <ScrollToAnchor anchor="vakantieverhuur" text={ `${ vakantieverhuurDays } nachten` } /> : "-"],
-            ["Shortstay", vakantieverhuurShortstay],
-            permitData && ["B&B vergunning", permitDetailBedAndBreakfast ? `Ja (${ displayFromToDate(permitDetailBedAndBreakfast) })` : "Nee"],
-            <p>Voor alle vergunningen zie Decos</p>
-          ].filter(_ => !!_)
-        }
+        <CaseDetailSection
+          title="Vakantieverhuur"
+          data={
+            [
+              permitDetails && [ "Vakantieverhuur vergunning", permitDetailVakantieVerhuur ? `Ja (${ displayFromToDate(permitDetailVakantieVerhuur) })` : "Nee" ],
+              [ "Vandaag verhuurd", vakantieverhuurToday ],
+              [ `Nachten verhuurd ${ new Date().getFullYear() }`, vakantieverhuurDays > 0 ?
+                <ScrollToAnchor anchor="vakantieverhuur" text={ `${ vakantieverhuurDays } nachten` } /> : "-" ],
+              [ "Shortstay", vakantieverhuurShortstay ],
+              permitData && [ "B&B vergunning", permitDetailBedAndBreakfast ? `Ja (${ displayFromToDate(permitDetailBedAndBreakfast) })` : "Nee" ],
+              <p>Voor alle vergunningen zie Decos</p>
+            ].filter(_ => !!_)
+          }
         />
       }
       { /* This is a display of older permit data
@@ -275,56 +279,58 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
         */
       }
       <Hidden>
-      <CaseDetailSection
-        title="Vakantieverhuur"
-        data={ [
-          ["Vandaag verhuurd", vakantieverhuurToday],
-          [`Nachten verhuurd ${ new Date().getFullYear() }`, vakantieverhuurDays > 0 ? <ScrollToAnchor anchor="vakantieverhuur" text={ `${ vakantieverhuurDays } nachten` } /> : "-"],
-          ["Shortstay", vakantieverhuurShortstay],
-          ["B&B aangemeld", vakantieverhuurBnB]
-        ] }
+        <CaseDetailSection
+          title="Vakantieverhuur"
+          data={ [
+            [ "Vandaag verhuurd", vakantieverhuurToday ],
+            [ `Nachten verhuurd ${ new Date().getFullYear() }`, vakantieverhuurDays > 0 ?
+              <ScrollToAnchor anchor="vakantieverhuur" text={ `${ vakantieverhuurDays } nachten` } /> : "-" ],
+            [ "Shortstay", vakantieverhuurShortstay ],
+            [ "B&B aangemeld", vakantieverhuurBnB ]
+          ] }
         />
       </Hidden>
       <CaseDetailSection
         title={ woningTitle }
         data={ woningData }
         footer={ woningFooter }
-        />
+      />
       <CaseDetailSection
         title="Meldingen / aanleiding"
-        data={ meldingenData.length ? meldingenData : ["-"] }
-        />
+        data={ meldingenData.length ? meldingenData : [ "-" ] }
+      />
       <CaseDetailSection
         id="personen"
-        title={ `Huidige bewoners${ showBewoners ? ` (${ people.length })` : "" }` }
-        data={ showBewoners ? bewoners : ["Geen inschrijvingen"] }
-        />
+        title={ `Huidige bewoners${ showBewoners && ` (${ personCount })` }` }
+        data={ showBewoners ? bewoners : [ "Geen inschrijvingen" ] }
+      />
       {
-      showVakantieverhuur &&
-      <CaseDetailSection
-        id="vakantieverhuur"
-        title={ `Vakantieverhuur dit jaar (${ vakantieverhuurDays })` }
-        data={
-          [...vakantieverNotifiedRentals] // reverse is mutable
-            .reverse()
-            .map((o: { check_in: string, check_out: string }) => [["Check out", formatDate(o.check_out)], ["Check in", formatDate(o.check_in)], <Hr />])
-            .flat(1)
-            .slice(0, -1) // remove last Hr
+        showVakantieverhuur &&
+        <CaseDetailSection
+          id="vakantieverhuur"
+          title={ `Vakantieverhuur dit jaar (${ vakantieverhuurDays })` }
+          data={
+            [ ...vakantieverNotifiedRentals ] // reverse is mutable
+              .reverse()
+              .map((o: {check_in: string, check_out: string}) => [ [ "Check out", formatDate(o.check_out) ], [ "Check in", formatDate(o.check_in) ],
+                <Hr /> ])
+              .flat(1)
+              .slice(0, -1) // remove last Hr
           }
         />
       }
       <CaseLogBook
-        caseId={caseId}
+        caseId={ caseId }
       />
       {
-      showStatements &&
-      <CaseDetailSection
-        title="Mededelingen (kladblok)"
-        data={ statements } />
+        showStatements &&
+        <CaseDetailSection
+          title="Mededelingen (kladblok)"
+          data={ statements } />
       }
       <CaseDetailSection
         title="Stadia"
-        data= { stadia } />
+        data={ stadia } />
     </article>
   )
 }
