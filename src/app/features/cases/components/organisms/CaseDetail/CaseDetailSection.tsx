@@ -1,7 +1,7 @@
 import React, { FC } from "react"
 import styled from "styled-components"
 
-import { Heading } from "@amsterdam/asc-ui"
+import { Heading, themeColor } from "@amsterdam/asc-ui"
 
 import displayBoolean from "app/features/shared/utils/displayBoolean"
 
@@ -25,8 +25,14 @@ const Div = styled.div`
 const P = styled.p`
   margin: 0 0 8px;
 `
+const SourceInfo = styled.p`
+  margin-top: 0;
+  color: ${ themeColor("tint", "level5") };
+  text-align: right;
+`
 
 const CaseDetailSection: FC<Props> = ({ id, title, data, footer }) => {
+  const hasSource = true
   const hasTitle = title !== undefined
   const showFooter = footer !== undefined
 
@@ -36,6 +42,11 @@ const CaseDetailSection: FC<Props> = ({ id, title, data, footer }) => {
       <Heading forwardedAs="h2">{ title }</Heading>
       }
       <SectionBody>
+        { hasSource &&
+        <SourceInfo>
+          Bron: ABC
+        </SourceInfo>
+        }
         { data.map((keyValue, index) => {
           const hasLabel = Array.isArray(keyValue)
           const key = Array.isArray(keyValue) ? keyValue[0] : keyValue
