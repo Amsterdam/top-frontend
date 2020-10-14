@@ -10,6 +10,8 @@ import Footer from "app/features/cases/components/atoms/Footer/Footer"
 import InvalidDataSpan from "app/features/cases/components/atoms/InvalidDataSpan/InvalidDataSpan"
 import { KeyValueDetail } from "app/features/types"
 
+import { Section, SectionBody } from "./CaseDetailStyles"
+
 type Props = {
   id?: string
   title?: string
@@ -17,12 +19,6 @@ type Props = {
   footer?: {title: string, link: string}
 }
 
-const Section = styled.section`
-  overflow: hidden;
-  border: 1px solid #B4B4B4;
-  margin-bottom: 15px;
-  padding: 12px;
-`
 const Div = styled.div`
   display: flex;
 `
@@ -39,41 +35,43 @@ const CaseDetailSection: FC<Props> = ({ id, title, data, footer }) => {
       { hasTitle &&
       <Heading forwardedAs="h2">{ title }</Heading>
       }
-      { data.map((keyValue, index) => {
-        const hasLabel = Array.isArray(keyValue)
-        const key = Array.isArray(keyValue) ? keyValue[0] : keyValue
-        let value = Array.isArray(keyValue) ? keyValue[1] : keyValue
-        if (typeof value === "boolean") {
-          value = displayBoolean(value)
-        }
-        const isString = typeof value === "string"
-        const isUndefined = value == null
+      <SectionBody>
+        { data.map((keyValue, index) => {
+          const hasLabel = Array.isArray(keyValue)
+          const key = Array.isArray(keyValue) ? keyValue[0] : keyValue
+          let value = Array.isArray(keyValue) ? keyValue[1] : keyValue
+          if (typeof value === "boolean") {
+            value = displayBoolean(value)
+          }
+          const isString = typeof value === "string"
+          const isUndefined = value == null
 
-        return (
-          <div key={ String(key) + index }>
-            { hasLabel &&
-            <Div>
-              <Label>{ key }</Label>
-              { isUndefined ?
-                <InvalidDataSpan /> :
-                <span>{ value }</span>
+          return (
+            <div key={ String(key) + index }>
+              { hasLabel &&
+              <Div>
+                <Label>{ key }</Label>
+                { isUndefined ?
+                  <InvalidDataSpan /> :
+                  <span>{ value }</span>
+                }
+              </Div>
               }
-            </Div>
-            }
-            { !hasLabel &&
-            <>
-              { isString && <P>{ value }</P> }
-              { !isString && value }
-            </>
-            }
-          </div>
-        )
-      }) }
-      { showFooter &&
-      <Footer>
-        <a href={ footer!.link }>{ footer!.title }</a>
-      </Footer>
-      }
+              { !hasLabel &&
+              <>
+                { isString && <P>{ value }</P> }
+                { !isString && value }
+              </>
+              }
+            </div>
+          )
+        }) }
+        { showFooter &&
+        <Footer>
+          <a href={ footer!.link }>{ footer!.title }</a>
+        </Footer>
+        }
+      </SectionBody>
     </Section>
   )
 }

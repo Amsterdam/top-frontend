@@ -16,6 +16,8 @@ import ScrollToAnchor from "app/features/shared/components/molecules/ScrollToAnc
 import FraudPredictionDetailsModal from "../FraudPrediction/FraudPredictionDetailsModal"
 import { useFraudPredictionModal } from "../FraudPrediction/hooks/useFraudPredictionModal"
 
+import { Section, SectionBody } from "./CaseDetailStyles"
+
 type Props = {
   address: string
   postalCode: string
@@ -32,11 +34,6 @@ type Props = {
   }
 }
 
-const Header = styled.section`
-  border: 1px solid #B4B4B4;
-  margin-bottom: 15px;
-  padding: 15px;
-`
 const PostalCode = styled.p`
   font-weight: bold;
   margin-bottom: 8px;
@@ -71,53 +68,55 @@ const CaseDetailHeader: FC<Props> = (
         `${ personCount } personen`
 
   return (
-    <Header>
-      <Heading>{ address }</Heading>
-      <PostalCode>{ postalCode }</PostalCode>
-      { signal && <StyledStadiumBadge stadium={ signal! } /> }
-      <div>
-        <Label>Ingeschreven</Label><Span>{ personCount > 0 ?
-        <ScrollToAnchor anchor="personen" text={ personText } /> : personText }</Span>
-      </div>
-      <div>
-        <Label>Zaaknummer</Label>
-        { caseNumber !== undefined && caseCount !== undefined ?
-          <Span><strong>{ caseNumber }</strong> van { caseCount }</Span> :
-          <InvalidDataSpan />
+    <Section>
+      <SectionBody>
+        <Heading>{ address }</Heading>
+        <PostalCode>{ postalCode }</PostalCode>
+        { signal && <StyledStadiumBadge stadium={ signal! } /> }
+        <div>
+          <Label>Ingeschreven</Label><Span>{ personCount > 0 ?
+          <ScrollToAnchor anchor="personen" text={ personText } /> : personText }</Span>
+        </div>
+        <div>
+          <Label>Zaaknummer</Label>
+          { caseNumber !== undefined && caseCount !== undefined ?
+            <Span><strong>{ caseNumber }</strong> van { caseCount }</Span> :
+            <InvalidDataSpan />
+          }
+        </div>
+        <div>
+          <Label>Open zaken</Label>
+          { openCaseCount !== undefined ?
+            <Span>{ openCaseCount }</Span> :
+            <InvalidDataSpan />
+          }
+        </div>
+        <div>
+          <Label>Openingsreden</Label>
+          { caseOpening !== undefined ?
+            <Span>{ caseOpening }</Span> :
+            <InvalidDataSpan />
+          }
+        </div>
+        { fraudPrediction &&
+        <div>
+          <Link to={ getToFraudPredictionModalUrl() }>
+            <Label>Voorspelling (bèta)</Label>
+            <FraudProbability fraudProbability={ fraudPrediction?.fraud_probability } />
+          </Link>
+          <FraudPredictionDetailsModal
+            title={ address }
+            fraudPrediction={ fraudPrediction! }
+          />
+        </div>
         }
-      </div>
-      <div>
-        <Label>Open zaken</Label>
-        { openCaseCount !== undefined ?
-          <Span>{ openCaseCount }</Span> :
-          <InvalidDataSpan />
+        { showFooter &&
+        <Footer>
+          <a href={ footer!.link }>{ footer!.title }</a>
+        </Footer>
         }
-      </div>
-      <div>
-        <Label>Openingsreden</Label>
-        { caseOpening !== undefined ?
-          <Span>{ caseOpening }</Span> :
-          <InvalidDataSpan />
-        }
-      </div>
-      { fraudPrediction &&
-      <div>
-        <Link to={ getToFraudPredictionModalUrl() }>
-          <Label>Voorspelling (bèta)</Label>
-          <FraudProbability fraudProbability={ fraudPrediction?.fraud_probability } />
-        </Link>
-        <FraudPredictionDetailsModal
-          title={ address }
-          fraudPrediction={ fraudPrediction! }
-        />
-      </div>
-      }
-      { showFooter &&
-      <Footer>
-        <a href={ footer!.link }>{ footer!.title }</a>
-      </Footer>
-      }
-    </Header>
+      </SectionBody>
+    </Section>
   )
 }
 
