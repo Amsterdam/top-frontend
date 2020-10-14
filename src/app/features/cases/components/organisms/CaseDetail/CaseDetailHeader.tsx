@@ -46,22 +46,36 @@ const Span = styled.span`
   vertical-align: top;
 `
 
-const CaseDetailHeader: FC<Props> = ({ address, postalCode, personCount, caseNumber, caseCount, openCaseCount, caseOpening, signal, fraudPrediction, footer }) => {
+const CaseDetailHeader: FC<Props> = (
+  {
+    address,
+    postalCode,
+    personCount,
+    caseNumber,
+    caseCount,
+    openCaseCount,
+    caseOpening,
+    signal,
+    fraudPrediction,
+    footer
+  }
+) => {
   const { getUrl: getToFraudPredictionModalUrl } = useFraudPredictionModal()
 
   const showFooter = footer !== undefined
   const personText =
     personCount === 0 ? "Geen inschrijvingen" :
-    personCount === 1 ? "1 persoon" :
-    `${ personCount } personen`
+      personCount === 1 ? "1 persoon" :
+        `${ personCount } personen`
 
   return (
     <Header>
       <h1>{ address }</h1>
       <PostalCode>{ postalCode }</PostalCode>
-      { signal && <StyledStadiumBadge stadium={ signal! } />}
+      { signal && <StyledStadiumBadge stadium={ signal! } /> }
       <div>
-        <Label>Ingeschreven</Label><Span>{ personCount > 0 ? <ScrollToAnchor anchor="personen" text={ personText } /> : personText }</Span>
+        <Label>Ingeschreven</Label><Span>{ personCount > 0 ?
+        <ScrollToAnchor anchor="personen" text={ personText } /> : personText }</Span>
       </div>
       <div>
         <Label>Zaaknummer</Label>
@@ -85,21 +99,21 @@ const CaseDetailHeader: FC<Props> = ({ address, postalCode, personCount, caseNum
         }
       </div>
       { fraudPrediction &&
-        <div>
-          <Link to={getToFraudPredictionModalUrl()}>
-            <Label>Voorspelling (bèta)</Label>
-            <FraudProbability fraudProbability={fraudPrediction?.fraud_probability} />
-          </Link>
-          <FraudPredictionDetailsModal
-            title={address}
-            fraudPrediction={fraudPrediction!}
-          />
-        </div>
+      <div>
+        <Link to={ getToFraudPredictionModalUrl() }>
+          <Label>Voorspelling (bèta)</Label>
+          <FraudProbability fraudProbability={ fraudPrediction?.fraud_probability } />
+        </Link>
+        <FraudPredictionDetailsModal
+          title={ address }
+          fraudPrediction={ fraudPrediction! }
+        />
+      </div>
       }
       { showFooter &&
-        <Footer>
-          <a href={ footer!.link }>{ footer!.title }</a>
-        </Footer>
+      <Footer>
+        <a href={ footer!.link }>{ footer!.title }</a>
+      </Footer>
       }
     </Header>
   )

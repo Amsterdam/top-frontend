@@ -12,7 +12,7 @@ type Props = {
   id?: string
   title?: string
   data: KeyValueDetail[]
-  footer?: { title: string, link: string }
+  footer?: {title: string, link: string}
 }
 
 const Section = styled.section`
@@ -28,7 +28,6 @@ const P = styled.p`
   margin: 0 0 8px;
 `
 
-
 const CaseDetailSection: FC<Props> = ({ id, title, data, footer }) => {
   const hasTitle = title !== undefined
   const showFooter = footer !== undefined
@@ -36,42 +35,42 @@ const CaseDetailSection: FC<Props> = ({ id, title, data, footer }) => {
   return (
     <Section id={ id !== undefined ? id : "" }>
       { hasTitle &&
-        <h2>{ title }</h2>
+      <h2>{ title }</h2>
       }
       { data.map((keyValue, index) => {
-          const hasLabel = Array.isArray(keyValue)
-          const key = Array.isArray(keyValue) ? keyValue[0] : keyValue
-          let value = Array.isArray(keyValue) ? keyValue[1] : keyValue
-          if (typeof value === "boolean") {
-            value = displayBoolean(value)
-          }
-          const isString = typeof value === "string"
-          const isUndefined = value == null
+        const hasLabel = Array.isArray(keyValue)
+        const key = Array.isArray(keyValue) ? keyValue[0] : keyValue
+        let value = Array.isArray(keyValue) ? keyValue[1] : keyValue
+        if (typeof value === "boolean") {
+          value = displayBoolean(value)
+        }
+        const isString = typeof value === "string"
+        const isUndefined = value == null
 
-          return (
-            <div key={ String(key) + index }>
-              { hasLabel &&
-                <Div>
-                  <Label>{ key }</Label>
-                  { isUndefined ?
-                    <InvalidDataSpan /> :
-                    <span>{ value }</span>
-                  }
-                </Div>
+        return (
+          <div key={ String(key) + index }>
+            { hasLabel &&
+            <Div>
+              <Label>{ key }</Label>
+              { isUndefined ?
+                <InvalidDataSpan /> :
+                <span>{ value }</span>
               }
-              { !hasLabel &&
-                <>
-                  { isString && <P>{ value }</P> }
-                  { !isString && value }
-                </>
-              }
-            </div>
-          )
+            </Div>
+            }
+            { !hasLabel &&
+            <>
+              { isString && <P>{ value }</P> }
+              { !isString && value }
+            </>
+            }
+          </div>
+        )
       }) }
       { showFooter &&
-        <Footer>
-          <a href={ footer!.link }>{ footer!.title }</a>
-        </Footer>
+      <Footer>
+        <a href={ footer!.link }>{ footer!.title }</a>
+      </Footer>
       }
     </Section>
   )
