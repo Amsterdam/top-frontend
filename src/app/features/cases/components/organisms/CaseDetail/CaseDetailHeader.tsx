@@ -2,6 +2,8 @@ import React, { FC } from "react"
 import styled from "styled-components"
 import { Link } from "@reach/router"
 
+import { Heading } from "@amsterdam/asc-ui"
+
 import InvalidDataSpan from "app/features/cases/components/atoms/InvalidDataSpan/InvalidDataSpan"
 import Label from "app/features/cases/components/atoms/Label/Label"
 import Footer from "app/features/cases/components/atoms/Footer/Footer"
@@ -70,7 +72,7 @@ const CaseDetailHeader: FC<Props> = (
 
   return (
     <Header>
-      <h1>{ address }</h1>
+      <Heading>{ address }</Heading>
       <PostalCode>{ postalCode }</PostalCode>
       { signal && <StyledStadiumBadge stadium={ signal! } /> }
       <div>

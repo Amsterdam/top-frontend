@@ -1,6 +1,8 @@
 import React, { FC } from "react"
 import styled from "styled-components"
 
+import { Heading } from "@amsterdam/asc-ui"
+
 import displayBoolean from "app/features/shared/utils/displayBoolean"
 
 import Label from "app/features/cases/components/atoms/Label/Label"
@@ -35,7 +37,7 @@ const CaseDetailSection: FC<Props> = ({ id, title, data, footer }) => {
   return (
     <Section id={ id !== undefined ? id : "" }>
       { hasTitle &&
-      <h2>{ title }</h2>
+      <Heading forwardedAs="h2">{ title }</Heading>
       }
       { data.map((keyValue, index) => {
         const hasLabel = Array.isArray(keyValue)
