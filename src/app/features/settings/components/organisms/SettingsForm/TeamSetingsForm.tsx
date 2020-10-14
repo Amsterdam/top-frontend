@@ -37,42 +37,6 @@ const TeamSettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId }) =>
   const handleSubmit = useCallback(async (teamSettings: any) => {
     const values = filterEmptyPostalCodes(teamSettings.settings)
     setErrorMessage("")
-    // @ts-ignore
-    const f_projects = (acc, cur, i, a) => {
-      if (teamSettings?.team_type.project_choices.includes(cur)){
-        acc.push(cur)
-      }
-      return acc
-    }
-    values.projects = values.projects.reduce(f_projects, [])
-    // @ts-ignore
-    Object.keys(values.days).map(day => {
-      Object.keys(values.days[day]).map(part => {
-        // @ts-ignore
-        const f_stadia = (acc, cur, i, a) => {
-          if (teamSettings?.team_type.stadia_choices.includes(cur)){
-            acc.push(cur)
-          }
-          return acc
-        }
-        const stadia_sets = [
-          "secondary_stadia",
-          "exclude_stadia"
-        ]
-        if (!teamSettings.stadia.includes(values.days[day][part]["primary_stadium"])){
-          delete values.days[day][part]
-        } else {
-          stadia_sets.map(stadia_set => {
-            if (values.days[day][part][stadia_set]){
-              values.days[day][part][stadia_set] = values.days[day][part][stadia_set].reduce(f_stadia, [])
-            }
-            return stadia_set
-          })
-        }
-        return part
-      })
-      return day
-    })
 
     try {
       await execPut({
