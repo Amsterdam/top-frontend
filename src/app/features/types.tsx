@@ -134,7 +134,7 @@ export type Case = {
   related_cases: RelatedCase[]
   statements: Statement[]
   fraud_prediction: FraudPrediction | undefined
-  team_settings: Components.Schemas.TeamSettings
+  team_settings_id: number | null
 }
 
 export type ItineraryItem = Omit<Components.Schemas.ItineraryItem, "case"> & {
