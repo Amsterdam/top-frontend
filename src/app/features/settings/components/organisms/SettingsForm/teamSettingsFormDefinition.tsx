@@ -113,7 +113,7 @@ export const createDefinition = (projects: string[], stadia: string[]) => {
             type: "NumberField",
             props: {
               name: "range_end",
-              label: "Tot",
+              label: "Tot en met",
               min: postalCodeMin,
               max: postalCodeMax,
               validate: postalCodeSiblingValidator("end")
