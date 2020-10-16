@@ -74,7 +74,7 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
       return acc
     }, [])
   const showRelatedCases = relatedCases.length > 0
-
+  console.log("sw test 1")
   // Vakantieverhuur
   const vakantieverNotifiedRentals = caseItem.vakantie_verhuur.notified_rentals
   const vakantieverhuurNotified = vakantieverNotifiedRentals.length > 0
