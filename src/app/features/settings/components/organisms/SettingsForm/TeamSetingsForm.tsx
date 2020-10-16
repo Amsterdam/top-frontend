@@ -30,7 +30,7 @@ const TeamSettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId }) =>
   const [ errorMessage, setErrorMessage ] = useState("")
 
   const definition = useMemo(
-    () => createDefinition(teamSettings?.team_type.project_choices ?? [], teamSettings?.team_type.stadia_choices ?? []),
+    () => createDefinition(teamSettings?.project_choices ?? [], teamSettings?.stadia_choices ?? []),
     [ teamSettings ]
   )
 

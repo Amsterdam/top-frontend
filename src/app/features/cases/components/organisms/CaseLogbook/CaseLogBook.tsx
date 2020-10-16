@@ -26,9 +26,9 @@ type LogBookItem = {
   time: string
   hit?: boolean
   text?: string
-  situation?: string
+  situation?: string | null
   observations?: string[] | null
-  suggest_next_visit?: string
+  suggest_next_visit?: string | null
   suggest_next_visit_description?: string | null
   can_next_visit_go_ahead?: boolean | null
   can_next_visit_go_ahead_description?: string | null

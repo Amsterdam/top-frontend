@@ -144,6 +144,8 @@ declare namespace Components {
             readonly team_type?: {
                 [name: string]: any
             }
+            readonly project_choices?: string[]
+            readonly stadia_choices?: string[]
             settings?: {
                 [name: string]: any
             }
@@ -217,6 +219,8 @@ declare namespace Components {
             readonly team_type: {
                 [name: string]: any
             }
+            readonly project_choices: string[]
+            readonly stadia_choices: string[]
             settings: {
                 [name: string]: any
             }

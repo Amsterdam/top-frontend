@@ -9,9 +9,10 @@ import { OnBackButtonClick, WizardStep } from "../types"
 type Props = {
   step: WizardStep
   onBackButtonClicked: OnBackButtonClick
+  teamSettings: Components.Schemas.TeamSettings
 }
 
-const NoteWizardFormScaffoldFields: React.FC<Props> = ({ step, onBackButtonClicked }) => {
+const NoteWizardFormScaffoldFields: React.FC<Props> = ({ step, onBackButtonClicked, teamSettings }) => {
   const { values } = useFormState()
 
   const friendlySituation = values.situation === "nobody_present"
