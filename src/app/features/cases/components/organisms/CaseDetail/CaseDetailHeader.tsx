@@ -6,7 +6,6 @@ import { Heading } from "@amsterdam/asc-ui"
 
 import InvalidDataSpan from "app/features/cases/components/atoms/InvalidDataSpan/InvalidDataSpan"
 import Label from "app/features/cases/components/atoms/Label/Label"
-import Footer from "app/features/cases/components/atoms/Footer/Footer"
 import { FraudPrediction } from "app/features/types"
 
 import StadiumBadge from "app/features/shared/components/molecules/StadiumBadge/StadiumBadge"
@@ -16,7 +15,7 @@ import ScrollToAnchor from "app/features/shared/components/molecules/ScrollToAnc
 import FraudPredictionDetailsModal from "../FraudPrediction/FraudPredictionDetailsModal"
 import { useFraudPredictionModal } from "../FraudPrediction/hooks/useFraudPredictionModal"
 
-import { Section, SectionBody } from "./CaseDetailStyles"
+import { CenteredAnchor, Section, SectionRow } from "./CaseDetailStyles"
 
 type Props = {
   address: string
@@ -69,7 +68,7 @@ const CaseDetailHeader: FC<Props> = (
 
   return (
     <Section>
-      <SectionBody>
+      <SectionRow>
         <Heading>{ address }</Heading>
         <PostalCode>{ postalCode }</PostalCode>
         { signal && <StyledStadiumBadge stadium={ signal! } /> }
@@ -110,12 +109,12 @@ const CaseDetailHeader: FC<Props> = (
           />
         </div>
         }
-        { showFooter &&
-        <Footer>
-          <a href={ footer!.link }>{ footer!.title }</a>
-        </Footer>
-        }
-      </SectionBody>
+      </SectionRow>
+      { showFooter &&
+      <SectionRow>
+        <CenteredAnchor href={ footer!.link }>{ footer!.title }</CenteredAnchor>
+      </SectionRow>
+      }
     </Section>
   )
 }

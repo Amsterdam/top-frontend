@@ -6,11 +6,10 @@ import { Heading, themeColor } from "@amsterdam/asc-ui"
 import displayBoolean from "app/features/shared/utils/displayBoolean"
 
 import Label from "app/features/cases/components/atoms/Label/Label"
-import Footer from "app/features/cases/components/atoms/Footer/Footer"
 import InvalidDataSpan from "app/features/cases/components/atoms/InvalidDataSpan/InvalidDataSpan"
 import { KeyValueDetail } from "app/features/types"
 
-import { Section, SectionBody } from "./CaseDetailStyles"
+import { CenteredAnchor, Section, SectionRow } from "./CaseDetailStyles"
 import Hr from "../../atoms/Hr/Hr";
 
 type Props = {
@@ -41,7 +40,7 @@ const CaseDetailSection: FC<Props> = ({ id, title, data, footer }) => {
       { hasTitle &&
       <Heading forwardedAs="h2">{ title }</Heading>
       }
-      <SectionBody>
+      <SectionRow>
         { data.map((keyValue, index) => {
           const hasLabel = Array.isArray(keyValue)
           const key = Array.isArray(keyValue) ? keyValue[0] : keyValue
@@ -77,12 +76,12 @@ const CaseDetailSection: FC<Props> = ({ id, title, data, footer }) => {
 
           return key === "Bron" ? SourceLabel(index) : keyValuePair
         }) }
-        { showFooter &&
-        <Footer>
-          <a href={ footer!.link }>{ footer!.title }</a>
-        </Footer>
-        }
-      </SectionBody>
+      </SectionRow>
+      { showFooter &&
+      <SectionRow>
+        <CenteredAnchor href={ footer!.link }>{ footer!.title }</CenteredAnchor>
+      </SectionRow>
+      }
     </Section>
   )
 }
