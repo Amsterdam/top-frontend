@@ -10,7 +10,7 @@ import InvalidDataSpan from "app/features/cases/components/atoms/InvalidDataSpan
 import { KeyValueDetail } from "app/features/types"
 
 import { CenteredAnchor, Section, SectionRow } from "./CaseDetailStyles"
-import Hr from "../../atoms/Hr/Hr";
+import Hr from "../../atoms/Hr/Hr"
 
 type Props = {
   id?: string
@@ -29,6 +29,11 @@ const SourceInfo = styled.p`
   margin-top: 0;
   color: ${ themeColor("tint", "level5") };
   text-align: right;
+`
+
+const HrWide = styled(Hr)`
+  margin-left: -16px;
+  margin-right: -16px;
 `
 
 const CaseDetailSection: FC<Props> = ({ id, title, data, footer }) => {
@@ -69,12 +74,12 @@ const CaseDetailSection: FC<Props> = ({ id, title, data, footer }) => {
             }
           </div>
 
-          const SourceLabel = (index: number) => <>
-            { index > 0 && <Hr /> }
+          const sourceLabel = <div key={ "source" + index }>
+            { index > 0 && <HrWide /> }
             <SourceInfo>Bron: { value }</SourceInfo>
-          </>
+          </div>
 
-          return key === "Bron" ? SourceLabel(index) : keyValuePair
+          return key === "Bron" ? sourceLabel : keyValuePair
         }) }
       </SectionRow>
       { showFooter &&
