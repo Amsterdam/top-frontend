@@ -58,7 +58,7 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
   const openCaseCount = caseItem.bwv_tmp.num_open_cases !== null ? caseItem.bwv_tmp.num_open_cases : undefined
   const caseOpening = caseItem.bwv_tmp.openings_reden !== null ? caseItem.bwv_tmp.openings_reden : undefined
   const fraudPrediction = teamSettings && teamSettings.team_type && teamSettings.team_type.show_fraudprediction ? caseItem.fraud_prediction : undefined
-  
+
   // Related cases
   const relatedCases = caseItem.related_cases
     .filter(relatedCase => relatedCase.case_id !== caseId)
@@ -131,13 +131,15 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
     woonbootAanduiding={ woonbootAanduiding }
   />
   const woningFields = [
+    [ "Bron", "BRK" ],
+    [ "Eigenaar", eigenaar ],
+    [ "Bron", "BAG" ],
     [ "Gebruiksdoel", woningBestemming ],
     [ "Soort Object (feitelijk gebruik)", woningGebruik ],
     [ "Aantal bouwlagen", woningBouwlagen !== undefined ? woningBouwlagen : "-" ],
     [ "Verdieping toegang", woningEtage !== undefined ? woningEtage : "-" ],
     [ "Aantal kamers", woningKamers > 0 ? woningKamers : "-" ],
     [ "Woonoppervlak", woningOppervlak > 0 ? woningOppervlak + " m²" : "-" ],
-    [ "Eigenaar", eigenaar ],
     mailtoAnchor
   ]
   const woonbootFields = [

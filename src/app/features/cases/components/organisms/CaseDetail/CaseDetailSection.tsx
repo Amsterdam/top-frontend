@@ -11,6 +11,7 @@ import InvalidDataSpan from "app/features/cases/components/atoms/InvalidDataSpan
 import { KeyValueDetail } from "app/features/types"
 
 import { Section, SectionBody } from "./CaseDetailStyles"
+import Hr from "../../atoms/Hr/Hr";
 
 type Props = {
   id?: string
@@ -32,7 +33,6 @@ const SourceInfo = styled.p`
 `
 
 const CaseDetailSection: FC<Props> = ({ id, title, data, footer }) => {
-  const hasSource = true
   const hasTitle = title !== undefined
   const showFooter = footer !== undefined
 
@@ -42,11 +42,6 @@ const CaseDetailSection: FC<Props> = ({ id, title, data, footer }) => {
       <Heading forwardedAs="h2">{ title }</Heading>
       }
       <SectionBody>
-        { hasSource &&
-        <SourceInfo>
-          Bron: ABC
-        </SourceInfo>
-        }
         { data.map((keyValue, index) => {
           const hasLabel = Array.isArray(keyValue)
           const key = Array.isArray(keyValue) ? keyValue[0] : keyValue
@@ -57,25 +52,30 @@ const CaseDetailSection: FC<Props> = ({ id, title, data, footer }) => {
           const isString = typeof value === "string"
           const isUndefined = value == null
 
-          return (
-            <div key={ String(key) + index }>
-              { hasLabel &&
-              <Div>
-                <Label>{ key }</Label>
-                { isUndefined ?
-                  <InvalidDataSpan /> :
-                  <span>{ value }</span>
-                }
-              </Div>
+          const keyValuePair = <div key={ String(key) + index }>
+            { hasLabel &&
+            <Div>
+              <Label>{ key }</Label>
+              { isUndefined ?
+                <InvalidDataSpan /> :
+                <span>{ value }</span>
               }
-              { !hasLabel &&
-              <>
-                { isString && <P>{ value }</P> }
-                { !isString && value }
-              </>
-              }
-            </div>
-          )
+            </Div>
+            }
+            { !hasLabel &&
+            <>
+              { isString && <P>{ value }</P> }
+              { !isString && value }
+            </>
+            }
+          </div>
+
+          const SourceLabel = (index: number) => <>
+            { index > 0 && <Hr /> }
+            <SourceInfo>Bron: { value }</SourceInfo>
+          </>
+
+          return key === "Bron" ? SourceLabel(index) : keyValuePair
         }) }
         { showFooter &&
         <Footer>
