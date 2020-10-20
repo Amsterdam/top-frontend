@@ -304,7 +304,7 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
       />
       <CaseDetailSection
         id="personen"
-        title={ `Huidige bewoners${ showBewoners && ` (${ personCount })` }` }
+        title={ `Huidige bewoners${ showBewoners ? ` (${ personCount })` : "" }` }
         dataSource="BWV"
         data={ showBewoners ? bewoners : [ "Geen inschrijvingen" ] }
       />
