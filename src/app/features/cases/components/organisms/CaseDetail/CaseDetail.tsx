@@ -271,7 +271,7 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
               [ `Nachten verhuurd ${ new Date().getFullYear() }`, vakantieverhuurDays > 0 ?
                 <ScrollToAnchor anchor="vakantieverhuur" text={ `${ vakantieverhuurDays } nachten` } /> : "-" ],
               [ "Shortstay", vakantieverhuurShortstay ],
-              permitData && [ "B&B vergunning", permitDetailBedAndBreakfast ? `Ja (${ displayFromToDate(permitDetailBedAndBreakfast) })` : "Nee" ],
+              permitData && [ "B&B vergunning", permitDetailBedAndBreakfast ? `Ja (${ displayFromToDate(permitDetailBedAndBreakfast) })` : "Nee" ]
             ].filter(_ => !!_)
           }
         />
