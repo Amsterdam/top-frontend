@@ -1,44 +1,60 @@
 import React, { FC } from "react"
 import styled from "styled-components"
 
+import { Heading, themeColor } from "@amsterdam/asc-ui"
+
 import displayBoolean from "app/features/shared/utils/displayBoolean"
 
 import Label from "app/features/cases/components/atoms/Label/Label"
-import Footer from "app/features/cases/components/atoms/Footer/Footer"
 import InvalidDataSpan from "app/features/cases/components/atoms/InvalidDataSpan/InvalidDataSpan"
 import { KeyValueDetail } from "app/features/types"
+
+import { CenteredAnchor, Section, SectionRow } from "./CaseDetailStyles"
+import Hr from "../../atoms/Hr/Hr"
 
 type Props = {
   id?: string
   title?: string
+  dataSource?: string
   data: KeyValueDetail[]
-  footer?: { title: string, link: string }
+  footer?: {title: string, link: string}
 }
 
-const Section = styled.section`
-  overflow: hidden;
-  border: 1px solid #B4B4B4;
-  margin-bottom: 15px;
-  padding: 12px;
-`
 const Div = styled.div`
   display: flex;
 `
 const P = styled.p`
   margin: 0 0 8px;
 `
+const SourceInfo = styled.p`
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: ${ themeColor("tint", "level5") };
+  text-align: right;
+`
 
+const HrWide = styled(Hr)`
+  margin-left: -16px;
+  margin-right: -16px;
+`
 
-const CaseDetailSection: FC<Props> = ({ id, title, data, footer }) => {
+const CaseDetailSection: FC<Props> = ({ id, dataSource, title, data, footer }) => {
   const hasTitle = title !== undefined
   const showFooter = footer !== undefined
 
   return (
     <Section id={ id !== undefined ? id : "" }>
       { hasTitle &&
-        <h2>{ title }</h2>
+      <Heading forwardedAs="h2">{ title }</Heading>
       }
-      { data.map((keyValue, index) => {
+      <SectionRow>
+        { dataSource &&
+        <>
+          <SourceInfo>Bron: { dataSource }</SourceInfo>
+          <HrWide />
+        </>
+        }
+        { data.map((keyValue, index) => {
           const hasLabel = Array.isArray(keyValue)
           const key = Array.isArray(keyValue) ? keyValue[0] : keyValue
           let value = Array.isArray(keyValue) ? keyValue[1] : keyValue
@@ -48,30 +64,36 @@ const CaseDetailSection: FC<Props> = ({ id, title, data, footer }) => {
           const isString = typeof value === "string"
           const isUndefined = value == null
 
-          return (
-            <div key={ String(key) + index }>
-              { hasLabel &&
-                <Div>
-                  <Label>{ key }</Label>
-                  { isUndefined ?
-                    <InvalidDataSpan /> :
-                    <span>{ value }</span>
-                  }
-                </Div>
+          const keyValuePair = <div key={ String(key) + index }>
+            { hasLabel &&
+            <Div>
+              <Label>{ key }</Label>
+              { isUndefined ?
+                <InvalidDataSpan /> :
+                <span>{ value }</span>
               }
-              { !hasLabel &&
-                <>
-                  { isString && <P>{ value }</P> }
-                  { !isString && value }
-                </>
-              }
-            </div>
-          )
-      }) }
+            </Div>
+            }
+            { !hasLabel &&
+            <>
+              { isString && <P>{ value }</P> }
+              { !isString && value }
+            </>
+            }
+          </div>
+
+          const sourceLabel = <div key={ "dataSource" + index }>
+            { (index > 0 && !dataSource) && <HrWide /> }
+            <SourceInfo>Bron: { value }</SourceInfo>
+          </div>
+
+          return key === "Databron" ? sourceLabel : keyValuePair
+        }) }
+      </SectionRow>
       { showFooter &&
-        <Footer>
-          <a href={ footer!.link }>{ footer!.title }</a>
-        </Footer>
+      <SectionRow>
+        <CenteredAnchor href={ footer!.link }>{ footer!.title }</CenteredAnchor>
+      </SectionRow>
       }
     </Section>
   )
