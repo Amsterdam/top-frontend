@@ -299,11 +299,13 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
         footer={ woningFooter }
       />
       <CaseDetailSection
+        source="BWV"
         title="Meldingen / aanleiding"
         data={ meldingenData.length ? meldingenData : [ "-" ] }
       />
       <CaseDetailSection
         id="personen"
+        source="BWV"
         title={ `Huidige bewoners${ showBewoners && ` (${ personCount })` }` }
         data={ showBewoners ? bewoners : [ "Geen inschrijvingen" ] }
       />
@@ -328,10 +330,12 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
       {
         showStatements &&
         <CaseDetailSection
+          source="BWV"
           title="Mededelingen (kladblok)"
           data={ statements } />
       }
       <CaseDetailSection
+        source="BWV"
         title="Stadia"
         data={ stadia } />
     </article>

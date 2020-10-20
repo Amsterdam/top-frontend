@@ -15,6 +15,7 @@ import Hr from "../../atoms/Hr/Hr"
 type Props = {
   id?: string
   title?: string
+  source?: string
   data: KeyValueDetail[]
   footer?: {title: string, link: string}
 }
@@ -26,7 +27,7 @@ const P = styled.p`
   margin: 0 0 8px;
 `
 const SourceInfo = styled.p`
-  margin-top: 0;
+  margin: 0;
   color: ${ themeColor("tint", "level5") };
   text-align: right;
 `
@@ -36,7 +37,7 @@ const HrWide = styled(Hr)`
   margin-right: -16px;
 `
 
-const CaseDetailSection: FC<Props> = ({ id, title, data, footer }) => {
+const CaseDetailSection: FC<Props> = ({ id, source, title, data, footer }) => {
   const hasTitle = title !== undefined
   const showFooter = footer !== undefined
 
@@ -46,6 +47,12 @@ const CaseDetailSection: FC<Props> = ({ id, title, data, footer }) => {
       <Heading forwardedAs="h2">{ title }</Heading>
       }
       <SectionRow>
+        { source &&
+        <>
+          <SourceInfo>Bron: { source }</SourceInfo>
+          <HrWide />
+        </>
+        }
         { data.map((keyValue, index) => {
           const hasLabel = Array.isArray(keyValue)
           const key = Array.isArray(keyValue) ? keyValue[0] : keyValue
@@ -75,7 +82,7 @@ const CaseDetailSection: FC<Props> = ({ id, title, data, footer }) => {
           </div>
 
           const sourceLabel = <div key={ "source" + index }>
-            { index > 0 && <HrWide /> }
+            { (index > 0 && !source) && <HrWide /> }
             <SourceInfo>Bron: { value }</SourceInfo>
           </div>
 
