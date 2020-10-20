@@ -131,9 +131,9 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
     woonbootAanduiding={ woonbootAanduiding }
   />
   const woningFields = [
-    [ "Bron", "BRK" ],
+    [ "Databron", "BRK" ],
     [ "Eigenaar", eigenaar ],
-    [ "Bron", "BAG" ],
+    [ "Databron", "BAG" ],
     [ "Gebruiksdoel", woningBestemming ],
     [ "Soort Object (feitelijk gebruik)", woningGebruik ],
     [ "Aantal bouwlagen", woningBouwlagen !== undefined ? woningBouwlagen : "-" ],
@@ -299,14 +299,14 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
         footer={ woningFooter }
       />
       <CaseDetailSection
-        source="BWV"
         title="Meldingen / aanleiding"
+        dataSource="BWV"
         data={ meldingenData.length ? meldingenData : [ "-" ] }
       />
       <CaseDetailSection
         id="personen"
-        source="BWV"
         title={ `Huidige bewoners${ showBewoners && ` (${ personCount })` }` }
+        dataSource="BWV"
         data={ showBewoners ? bewoners : [ "Geen inschrijvingen" ] }
       />
       {
@@ -330,13 +330,13 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
       {
         showStatements &&
         <CaseDetailSection
-          source="BWV"
           title="Mededelingen (kladblok)"
+          dataSource="BWV"
           data={ statements } />
       }
       <CaseDetailSection
-        source="BWV"
         title="Stadia"
+        dataSource="BWV"
         data={ stadia } />
     </article>
   )
