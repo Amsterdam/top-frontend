@@ -74,7 +74,7 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
       return acc
     }, [])
   const showRelatedCases = relatedCases.length > 0
-  
+
   // Vakantieverhuur
   const vakantieverNotifiedRentals = caseItem.vakantie_verhuur.notified_rentals
   const vakantieverhuurNotified = vakantieverNotifiedRentals.length > 0
@@ -272,7 +272,6 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
                 <ScrollToAnchor anchor="vakantieverhuur" text={ `${ vakantieverhuurDays } nachten` } /> : "-" ],
               [ "Shortstay", vakantieverhuurShortstay ],
               permitData && [ "B&B vergunning", permitDetailBedAndBreakfast ? `Ja (${ displayFromToDate(permitDetailBedAndBreakfast) })` : "Nee" ],
-              <p>Voor alle vergunningen zie Decos</p>
             ].filter(_ => !!_)
           }
         />
