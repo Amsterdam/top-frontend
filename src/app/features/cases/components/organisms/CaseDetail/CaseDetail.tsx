@@ -58,7 +58,7 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
   const openCaseCount = caseItem.bwv_tmp.num_open_cases !== null ? caseItem.bwv_tmp.num_open_cases : undefined
   const caseOpening = caseItem.bwv_tmp.openings_reden !== null ? caseItem.bwv_tmp.openings_reden : undefined
   const fraudPrediction = teamSettings && teamSettings.team_type && teamSettings.team_type.show_fraudprediction ? caseItem.fraud_prediction : undefined
-  
+
   // Related cases
   const relatedCases = caseItem.related_cases
     .filter(relatedCase => relatedCase.case_id !== caseId)
@@ -74,7 +74,7 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
       return acc
     }, [])
   const showRelatedCases = relatedCases.length > 0
-  
+
   // Vakantieverhuur
   const vakantieverNotifiedRentals = caseItem.vakantie_verhuur.notified_rentals
   const vakantieverhuurNotified = vakantieverNotifiedRentals.length > 0
@@ -131,13 +131,15 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
     woonbootAanduiding={ woonbootAanduiding }
   />
   const woningFields = [
+    [ "Databron", "BRK" ],
+    [ "Eigenaar", eigenaar ],
+    [ "Databron", "BAG" ],
     [ "Gebruiksdoel", woningBestemming ],
     [ "Soort Object (feitelijk gebruik)", woningGebruik ],
     [ "Aantal bouwlagen", woningBouwlagen !== undefined ? woningBouwlagen : "-" ],
     [ "Verdieping toegang", woningEtage !== undefined ? woningEtage : "-" ],
     [ "Aantal kamers", woningKamers > 0 ? woningKamers : "-" ],
     [ "Woonoppervlak", woningOppervlak > 0 ? woningOppervlak + " m²" : "-" ],
-    [ "Eigenaar", eigenaar ],
     mailtoAnchor
   ]
   const woonbootFields = [
@@ -269,8 +271,7 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
               [ `Nachten verhuurd ${ new Date().getFullYear() }`, vakantieverhuurDays > 0 ?
                 <ScrollToAnchor anchor="vakantieverhuur" text={ `${ vakantieverhuurDays } nachten` } /> : "-" ],
               [ "Shortstay", vakantieverhuurShortstay ],
-              permitData && [ "B&B vergunning", permitDetailBedAndBreakfast ? `Ja (${ displayFromToDate(permitDetailBedAndBreakfast) })` : "Nee" ],
-              <p>Voor alle vergunningen zie Decos</p>
+              permitData && [ "B&B vergunning", permitDetailBedAndBreakfast ? `Ja (${ displayFromToDate(permitDetailBedAndBreakfast) })` : "Nee" ]
             ].filter(_ => !!_)
           }
         />
@@ -298,11 +299,13 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
       />
       <CaseDetailSection
         title="Meldingen / aanleiding"
+        dataSource="BWV"
         data={ meldingenData.length ? meldingenData : [ "-" ] }
       />
       <CaseDetailSection
         id="personen"
-        title={ `Huidige bewoners${ showBewoners && ` (${ personCount })` }` }
+        title={ `Huidige bewoners${ showBewoners ? ` (${ personCount })` : "" }` }
+        dataSource="BWV"
         data={ showBewoners ? bewoners : [ "Geen inschrijvingen" ] }
       />
       {
@@ -327,10 +330,12 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
         showStatements &&
         <CaseDetailSection
           title="Mededelingen (kladblok)"
+          dataSource="BWV"
           data={ statements } />
       }
       <CaseDetailSection
         title="Stadia"
+        dataSource="BWV"
         data={ stadia } />
     </article>
   )
