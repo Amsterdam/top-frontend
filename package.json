@@ -1,6 +1,6 @@
 {
   "name": "react-fixxx-looplijsten-frontend",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "private": true,
   "dependencies": {
     "@amsterdam/asc-assets": "^0.25.2",
