@@ -21,4 +21,3 @@ ReactDOM.render(
 serviceWorker.register()
 
 console.log("Commit hash:", process.env.REACT_APP_GIT_COMMIT_HASH ?? "n/a")
-console.log("Test 4")
