@@ -34,8 +34,9 @@ const Ul = styled.ul`
 
 const Li = styled.li`
   border-bottom: 5px solid transparent;
-  border-bottom-color: ${ (props: { isActive?: boolean }) => props.isActive ? themeColor("secondary") : "transparent" };
+  border-bottom-color: ${ (props: {isActive?: boolean}) => props.isActive ? themeColor("secondary") : "transparent" };
   min-height: 33px;
+
   a {
     color: ${ themeColor("tint", "level7") };
     text-decoration: none;
@@ -47,8 +48,8 @@ const Li = styled.li`
   }
 `
 
-const SpacedLi = styled(Li)`  
-  margin-left: auto;  
+const SpacedLi = styled(Li)`
+  margin-left: auto;
 `
 
 // this empty element is used to correct scroll position under fixed header, navigation
@@ -66,15 +67,17 @@ const Navigation: FC = () => {
       <NavWrap>
         <Nav>
           <Ul>
-            <Li isActive={ pathname === "/" || pathname === ("/lijst") || pathname === applyRouteParams("/lijst/:itineraryId/", { itineraryId }) }>
+            <Li
+              isActive={ pathname === "/" || pathname === ("/lijst") || pathname === applyRouteParams("/lijst/:itineraryId/", { itineraryId }) }>
               <ItineraryNavigationButton />
             </Li>
-            { itinerary && itinerary?.settings.team_settings.team_type.show_issuemelding && <Li isActive={ pathname.includes("issuemeldingen") }>
-              <OpenIssuesNavigationButton itineraryId={itineraryId} />
+            { itinerary && itinerary?.settings.team_settings.team_type.show_issuemelding &&
+            <Li isActive={ pathname.includes("issuemeldingen") }>
+              <OpenIssuesNavigationButton itineraryId={ itineraryId } />
             </Li>
             }
-            <SpacedLi isActive={ pathname.includes("zoeken") } >
-              <SearchNavigationButton itineraryId={itineraryId} />
+            <SpacedLi isActive={ pathname.includes("zoeken") }>
+              <SearchNavigationButton itineraryId={ itineraryId } />
             </SpacedLi>
           </Ul>
         </Nav>
