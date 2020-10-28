@@ -34,7 +34,7 @@
     "qs": "^6.9.4",
     "react": "^16.14.0",
     "react-beautiful-dnd": "^13.0.0",
-    "react-dom": "^16.13.1",
+    "react-dom": "^16.14.0",
     "react-scripts": "^3.4.4",
     "resize-observer-polyfill": "^1.5.1",
     "slash-sandwich": "^1.0.12",
