@@ -1,7 +1,8 @@
 import React, { useMemo } from "react"
 import { useParams } from "@reach/router"
-import { useOpenIssues } from "app/state/rest"
+import { Heading } from "@amsterdam/asc-ui"
 
+import { useOpenIssues } from "app/state/rest"
 import { useItinerary } from "app/state/rest/custom/useItinerary"
 
 import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout"
@@ -28,13 +29,13 @@ const OpenIssuesPage: React.FC = () => {
       { hasCases
         ?
         <>
-          <h1>Open issuemeldingen { date }</h1>
+          <Heading>Open issuemeldingen { date }</Heading>
           <p>Deze issuemeldingen zijn vandaag nog beschikbaar, voeg ze toe aan je lijst.</p>
           <ItineraryItemCardList items={cardListItems}/>
         </>
         :
         <>
-          <h1>Open issuemeldingen { date }</h1>
+          <Heading>Open issuemeldingen { date }</Heading>
           <p>Geen issuemeldingen beschikbaar</p>
         </>
       }

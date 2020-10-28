@@ -1,12 +1,12 @@
 import React, { useEffect } from "react"
 import { Close } from "@amsterdam/asc-assets"
+import { Button, Heading } from "@amsterdam/asc-ui"
 
 import { FixedWrap } from "./components/FixedWrap"
 import { Body } from "./components/Body"
 import { Footer } from "./components/Footer"
 import { TopBar } from "./components/TopBar"
 import Portal from "./Portal"
-import { Button } from "@amsterdam/asc-ui"
 
 type Props = {
   title?: string
@@ -14,7 +14,7 @@ type Props = {
   footer?: JSX.Element
 }
 
-const ESCAPE_KEYS = ["Escape", "27"]
+const ESCAPE_KEYS = [ "Escape", "27" ]
 const defaultCloseHandler = () => window.history.back()
 
 const DefaultModal: React.FC<Props> = ({ title, onClose, children, footer }) => {
@@ -35,16 +35,16 @@ const DefaultModal: React.FC<Props> = ({ title, onClose, children, footer }) => 
     <Portal>
       <FixedWrap>
         <TopBar>
-          <h4>{ title }</h4>
+          <Heading forwardedAs="h4">{ title }</Heading>
           <Button
             variant="blank"
-            size={24}
+            size={ 24 }
             icon={ <Close /> }
-            onClick={close}
+            onClick={ close }
           />
         </TopBar>
         <Body>{ children }</Body>
-        { footer && <Footer>{ footer }</Footer>}
+        { footer && <Footer>{ footer }</Footer> }
       </FixedWrap>
     </Portal>
   )

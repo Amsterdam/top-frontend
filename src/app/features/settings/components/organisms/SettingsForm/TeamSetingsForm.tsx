@@ -1,10 +1,13 @@
 import React, { FC, useCallback, useMemo, useState } from "react"
-import { RouteComponentProps, Link } from "@reach/router"
-import { ScaffoldForm } from "amsterdam-react-final-form"
+import { Link, RouteComponentProps } from "@reach/router"
 import styled from "styled-components"
+import { ScaffoldForm } from "amsterdam-react-final-form"
+import { Heading } from "@amsterdam/asc-ui"
+
 import to from "app/features/shared/routing/to"
 import { useTeamSettings } from "app/state/rest"
 
+import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
 import Scaffold from "app/features/shared/components/form/Scaffold"
 import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout"
 
@@ -18,11 +21,13 @@ const Wrap = styled.div`
 `
 
 const filterEmptyPostalCodes = (settings: any) =>
-  ({ ...settings, postal_codes: settings.postal_codes?.filter((i: any) => i != null) ?? []}
-)
+  ({
+    ...settings,
+    postal_codes: settings.postal_codes?.filter((i: any) => i != null) ?? []
+  })
 
 type Props = {
-    teamSettingsId: number
+  teamSettingsId: number
 }
 
 const TeamSettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId }) => {
@@ -40,28 +45,32 @@ const TeamSettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId }) =>
 
     try {
       await execPut({
-        settings: values, 
+        settings: values,
         name: teamSettings.name
       }, { skipCacheClear: true, useResponseAsCache: true })
-    } catch(error) {
+    } catch (error) {
       setErrorMessage(error.response.data.message)
       return error
     }
   }, [ execPut, setErrorMessage ])
 
-  if (!teamSettings || isBusySettings) { return <CenteredSpinner size={60} /> }
+  if (!teamSettings || isBusySettings) {
+    return <CenteredSpinner size={ 60 } />
+  }
 
   return <DefaultLayout>
     <Wrap>
-      <Link to={to("/team-settings")}>
-        Alle instellingen
-      </Link><br></br><br></br><br></br>
-      <span>Wijzig instellingen voor:</span>
-      <h2>{teamSettings.name}</h2>
-      <ScaffoldForm onSubmit={handleSubmit} initialValues={teamSettings}>
-        <Scaffold {...definition} />
-        <FixedSubmitButton errorMessage={errorMessage} />
-        <JSONDisplay />
+      <Spacing pb={ 4 }>
+        <Link to={ to("/team-settings") }>
+          Alle instellingen
+        </Link>
+      </Spacing>
+      <p>Wijzig instellingen voor:</p>
+      <Heading>{ teamSettings.name }</Heading>
+      <ScaffoldForm onSubmit={ handleSubmit } initialValues={ teamSettings }>
+        <Scaffold { ...definition } />
+        <FixedSubmitButton errorMessage={ errorMessage } />
+        <JSONDisplay title="Huidige settings (JSON)" />
       </ScaffoldForm>
     </Wrap>
   </DefaultLayout>

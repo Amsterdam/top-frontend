@@ -1,13 +1,14 @@
 import React from "react"
-import { withKnobs, text } from "@storybook/addon-knobs"
 import styled from "styled-components"
-import { themeColor, themeSpacing } from "@amsterdam/asc-ui"
+import { text, withKnobs } from "@storybook/addon-knobs"
+import { Heading, themeColor, themeSpacing } from "@amsterdam/asc-ui"
+
 import useNodeByReference from "../useNodeByReference/useNodeByReference"
 import useNodeDimensions from "./useNodeDimensions"
 
 export default {
   title: "Shared/Hooks/useNodeDimensions",
-  decorators: [withKnobs]
+  decorators: [ withKnobs ]
 }
 
 const Card = styled.div`
@@ -26,8 +27,8 @@ export const Example: React.FC = () => {
       Please change the content using the knobs below.
     </p>
     <div>
-      <Card ref={ref}>
-        <h4>Content</h4>
+      <Card ref={ ref }>
+        <Heading forwardedAs="h4">Content</Heading>
         { text("content", "Lorem") }
       </Card>
     </div>
@@ -37,12 +38,12 @@ export const Example: React.FC = () => {
         {/*
           IE11 cant seem to stringify the dimensions object.
           That's why we unpack it manually here.
-        */}
+        */ }
         { JSON.stringify({
           x: dimensions?.x,
           y: dimensions?.y,
           width: dimensions?.width,
-          height:dimensions?.height,
+          height: dimensions?.height,
           top: dimensions?.top,
           bottom: dimensions?.bottom
         }, null, 2) }

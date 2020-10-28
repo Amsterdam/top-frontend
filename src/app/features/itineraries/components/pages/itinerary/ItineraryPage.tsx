@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo, useState } from "react"
-import { themeColor, themeSpacing } from "@amsterdam/asc-ui"
-import { RouteComponentProps, navigate } from "@reach/router"
+import { Heading, themeColor, themeSpacing } from "@amsterdam/asc-ui"
+import { navigate, RouteComponentProps } from "@reach/router"
 import { Card, ChevronDown, Enlarge, TrashBin } from "@amsterdam/asc-assets"
 import styled from "styled-components"
 
@@ -32,11 +32,7 @@ const TeamMemberWrap = styled.div`
   border-bottom: 1px solid ${ themeColor("tint", "level3") };
 `
 
-const H2 = styled.h2`
-  margin: 0;
-`
-
-type ColumnWrapProps = { border: boolean }
+type ColumnWrapProps = {border: boolean}
 const ColumnWrap = styled.div<ColumnWrapProps>`
   padding: ${ themeSpacing(2) } 0;
   display: flex;
@@ -62,8 +58,8 @@ const ItineraryPage: React.FC<RouteComponentProps<Props>> = ({ itineraryId }) =>
   const { data: teamSettings } = useTeamSettings(data?.settings.team_settings.id!)
   const { execDelete } = useDeleteItinerary(itineraryId!, { lazy: true }) // <- NOTE: we need a extra hook here, because /itenaries/:id/ only allows a DELETE, no other methods
 
-  const [showDialog, setShowDialog] = useState(false)
-  const [isEditing, setIsEditing] = useState(false)
+  const [ showDialog, setShowDialog ] = useState(false)
+  const [ isEditing, setIsEditing ] = useState(false)
 
   const onClickOptions = useCallback(() => {
     setShowDialog(!showDialog)
@@ -83,7 +79,7 @@ const ItineraryPage: React.FC<RouteComponentProps<Props>> = ({ itineraryId }) =>
 
   const items = data?.items as unknown as ItineraryItem[]
 
-  const cardListItems = useMemo(() => items?.map(mapItineraryItem(itineraryId!, teamSettings!)) ?? [], [items, itineraryId, teamSettings])
+  const cardListItems = useMemo(() => items?.map(mapItineraryItem(itineraryId!, teamSettings!)) ?? [], [ items, itineraryId, teamSettings ])
 
   const teamMemberUsers = useMemo(() => data?.team_members.map(member => member.user) ?? [], [ data ])
   const teamMemberNames = useMemo(() => teamMemberUsers?.map(user => user.full_name).join(", "), [ teamMemberUsers ])
@@ -94,11 +90,12 @@ const ItineraryPage: React.FC<RouteComponentProps<Props>> = ({ itineraryId }) =>
 
   return (
     <DefaultLayout>
-      { (!data || isBusy) && <CenteredSpinner size={60} /> }
+      { (!data || isBusy) && <CenteredSpinner size={ 60 } /> }
       { data && <>
-        <ColumnWrap border={false}>
+        <ColumnWrap border={ false }>
           <Left>
-      <H2>Lijst { formatDate(data.created_at, true) } {data.settings.team_settings.name}</H2>
+            <Heading
+              forwardedAs="h2">Lijst { formatDate(data.created_at, true) } { data.settings.team_settings.name }</Heading>
           </Left>
           <Right>
             <StyledButton variant="blank" iconRight={ <ChevronDown /> } onClick={ onClickOptions }>Opties</StyledButton>
@@ -106,36 +103,38 @@ const ItineraryPage: React.FC<RouteComponentProps<Props>> = ({ itineraryId }) =>
               <ButtonMenuWrap>
                 <ButtonMenu>
                   <CopyToClipboardButton text={ clipboardText } onClick={ onClickClipboard } />
-                  <StyledButton variant="blank" iconLeft={ <Card /> } onClick={ toggleIsEditing }>Wijzig teamleden</StyledButton>
-                  <StyledButton variant="blank" iconLeft={ <TrashBin /> } onClick={deleteItinerary}>
-                    <ResponsiveText text={["Wis lijst", "Wis gehele looplijst"]} />
+                  <StyledButton variant="blank" iconLeft={ <Card /> } onClick={ toggleIsEditing }>Wijzig
+                    teamleden</StyledButton>
+                  <StyledButton variant="blank" iconLeft={ <TrashBin /> } onClick={ deleteItinerary }>
+                    <ResponsiveText text={ [ "Wis lijst", "Wis gehele looplijst" ] } />
                   </StyledButton>
                 </ButtonMenu>
               </ButtonMenuWrap>
             ) }
           </Right>
         </ColumnWrap>
-          <TeamMemberWrap>
-            { !isEditing
-                ? teamMemberNames
-                : <TeamMemberForm
-                    itineraryId={data.id}
-                    initialUsers={teamMemberUsers}
-                    toggleForm={toggleIsEditing}
-                  />
-            }
-          </TeamMemberWrap>
-        <ColumnWrap border={true}>
+        <TeamMemberWrap>
+          { !isEditing
+            ? teamMemberNames
+            : <TeamMemberForm
+              itineraryId={ data.id }
+              initialUsers={ teamMemberUsers }
+              toggleForm={ toggleIsEditing }
+            />
+          }
+        </TeamMemberWrap>
+        <ColumnWrap border={ true }>
           <Left>
-            <MapsButton cases={cases} />
+            <MapsButton cases={ cases } />
           </Left>
           <Right>
-            <StyledButton onClick={() => navigate(to("/lijst/:itineraryId/suggesties/", { itineraryId }))} variant="blank" iconLeft={<Enlarge />}>
+            <StyledButton onClick={ () => navigate(to("/lijst/:itineraryId/suggesties/", { itineraryId })) }
+                          variant="blank" iconLeft={ <Enlarge /> }>
               Voeg adres toe
             </StyledButton>
           </Right>
         </ColumnWrap>
-        <DraggableItineraryItemCardList items={cardListItems} itineraryId={itineraryId!} />
+        <DraggableItineraryItemCardList items={ cardListItems } itineraryId={ itineraryId! } />
       </> }
     </DefaultLayout>
   )
