@@ -1,15 +1,15 @@
 import React, { useMemo } from "react"
 import { RouteComponentProps } from "@reach/router"
+import { Heading } from "@amsterdam/asc-ui"
 
 import { useSuggestions } from "app/state/rest"
+import { useItinerary } from "app/state/rest/custom/useItinerary"
 
 import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout"
-import ItineraryItemCardList from "app/features/itineraries/components/organisms/ItineraryItemCardList/ItineraryItemCardList"
-import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner"
-
+import ItineraryItemCardList
+  from "app/features/itineraries/components/organisms/ItineraryItemCardList/ItineraryItemCardList"
 import { casesToCardCaseProps } from "app/features/itineraries/utils/mapCaseToCardProps"
-
-import { useItinerary } from "app/state/rest/custom/useItinerary"
+import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner"
 
 type Props = {
   itineraryId: string
@@ -19,14 +19,14 @@ const SuggestionsPage: React.FC<RouteComponentProps<Props>> = ({ itineraryId }) 
   const { data: itinerary } = useItinerary(parseInt(itineraryId!))
   const { data, isBusy } = useSuggestions(parseInt(itineraryId!))
 
-  const items = useMemo(() => casesToCardCaseProps(data?.cases, itinerary, true), [itinerary, data])
+  const items = useMemo(() => casesToCardCaseProps(data?.cases, itinerary, true), [ itinerary, data ])
 
   return <DefaultLayout>
-    <h1>Voeg een adres toe</h1>
+    <Heading>Voeg een adres toe</Heading>
     <p>Adressen rondom de adressen in je lijst:</p>
-    { isBusy && <CenteredSpinner size={60} /> }
+    { isBusy && <CenteredSpinner size={ 60 } /> }
     { items.length > 0
-      ? <ItineraryItemCardList items={items}/>
+      ? <ItineraryItemCardList items={ items } />
       : !isBusy
         ? <p>Geen resultaat</p>
         : null

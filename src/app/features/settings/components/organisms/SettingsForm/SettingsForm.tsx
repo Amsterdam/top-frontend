@@ -51,7 +51,7 @@ const SettingsForm: FC = () => {
       <ScaffoldForm onSubmit={handleSubmit} initialValues={settings}>
         <Scaffold {...definition} />
         <FixedSubmitButton errorMessage={errorMessage} />
-        <JSONDisplay />
+        <JSONDisplay title="Huidige settings (JSON)" />
       </ScaffoldForm>
     </Wrap>
   </DefaultLayout>
