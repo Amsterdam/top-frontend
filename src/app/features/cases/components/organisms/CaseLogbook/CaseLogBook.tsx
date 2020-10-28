@@ -5,6 +5,7 @@ import { useCase, useCaseVisits, useUsers } from "app/state/rest"
 import { BWVHotlineBevinding, KeyValueDetail } from "app/features/types"
 
 import formatDate from "app/features/shared/utils/formatDate"
+import highlightText from "app/features/shared/utils/highlightText"
 import replaceNewLines from "app/features/shared/utils/replaceNewLines"
 import Purified from "app/features/shared/components/molecules/Purified/Purified"
 import { formatTime } from "app/features/shared/utils/formatTime"
@@ -88,24 +89,29 @@ const mapLogBookItemToDetailComponents = ({
   can_next_visit_go_ahead,
   can_next_visit_go_ahead_description,
   description
-}: LogBookItem, index: number, allItems: LogBookItem[]): KeyValueDetail[] => [
-  /* eslint-disable no-multi-spaces */
-  !isNullish(source)                                && ["Bron", source],
-  ["Toezichthouder(s)", <strong className="anonymous">{ name }</strong>],
-  ["Starttijd", `${ time } uur`],
-  ["Datum", date],
-  !isNullish(hit)                                   && ["Hit", hit],
-  !isNullish(situation)                             && ["Situatie", translate(situation)],
-  !isNullish(observations)                          && ["Kenmerken", <List items={observations.map(translate)} />],
-  !isNullish(suggest_next_visit)                    && ["Volgend bezoek", translate(suggest_next_visit)],
-  !isNullish(suggest_next_visit_description)        && <Purified className="anonymous" text={ suggest_next_visit_description } />,
-  !isNullish(can_next_visit_go_ahead)               && ["Vervolg actie", can_next_visit_go_ahead ? "Ja, doorlaten" : "Nee, tegenhouden ⚠️"],
-  !isNullish(can_next_visit_go_ahead_description)   && <Purified className="anonymous" text={ can_next_visit_go_ahead_description } />,
-  !isNullish(text)                                  && <Purified className="anonymous" text={ text } />,
-  !isNullish(description)                           && ["Toelichting", <Purified className="anonymous" text={ description } />],
-  index < allItems.length - 1                       && <Hr />
-  /* eslint-enable */
-].filter(_ => !!_)
+}: LogBookItem, index: number, allItems: LogBookItem[]): KeyValueDetail[] => {
+  const highlightedText = highlightText([ "hoofdhuurder", "hoofdhuur", "hh" ], text || "", { caseSensitive: false })
+  const highlightedDescription = highlightText([ "hoofdhuurder", "hoofdhuur", "hh" ], description || "", { caseSensitive: false })
+
+  return [
+    !isNullish(source) && [ "Bron", source ],
+    [ "Toezichthouder(s)", <strong className="anonymous">{ name }</strong> ],
+    [ "Starttijd", `${ time } uur` ],
+    [ "Datum", date ],
+    !isNullish(hit) && [ "Hit", hit ],
+    !isNullish(situation) && [ "Situatie", translate(situation) ],
+    !isNullish(observations) && [ "Kenmerken", <List items={ observations.map(translate) } /> ],
+    !isNullish(suggest_next_visit) && [ "Volgend bezoek", translate(suggest_next_visit) ],
+    !isNullish(suggest_next_visit_description) &&
+    <Purified className="anonymous" text={ suggest_next_visit_description } />,
+    !isNullish(can_next_visit_go_ahead) && [ "Vervolg actie", can_next_visit_go_ahead ? "Ja, doorlaten" : "Nee, tegenhouden ⚠️" ],
+    !isNullish(can_next_visit_go_ahead_description) &&
+    <Purified className="anonymous" text={ can_next_visit_go_ahead_description } />,
+    !isNullish(text) && <Purified className="anonymous" text={ highlightedText } />,
+    !isNullish(description) && [ "Toelichting", <Purified className="anonymous" text={ highlightedDescription } /> ],
+    index < allItems.length - 1 && <Hr />
+  ].filter(_ => !!_)
+}
 
 const CaseLogBook: React.FC<Props> = ({ caseId }) => {
   const { data: caseData, isBusy: isCaseBusy } = useCase(caseId)
