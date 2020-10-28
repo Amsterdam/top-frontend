@@ -68,7 +68,6 @@ declare namespace Components {
                 readonly fraud_prediction: any
             }
             readonly visits: Visit[]
-            checked?: boolean
         }
         export type ItinerarySettings = {
             opening_date: string // date
@@ -146,6 +145,7 @@ declare namespace Components {
             }
             readonly project_choices?: string[]
             readonly stadia_choices?: string[]
+            readonly marked_stadia?: StadiumLabel[]
             settings?: {
                 [name: string]: any
             }
@@ -177,9 +177,9 @@ declare namespace Components {
         }
         export type PlannerListSettings = {
             length_of_list?: number
-            primary_stadium?: PrimaryStadiumEnum
-            secondary_stadia?: ("Onderzoek buitendienst" | "2de Controle" | "3de Controle" | "Hercontrole" | "2de hercontrole" | "3de hercontrole" | "Avondronde" | "Onderzoek advertentie" | "Weekend buitendienstonderzoek" | "Issuemelding" | "ZL Corporatie" | "Crimineel gebruik woning")[]
-            exclude_stadia?: ("Onderzoek buitendienst" | "2de Controle" | "3de Controle" | "Hercontrole" | "2de hercontrole" | "3de hercontrole" | "Avondronde" | "Onderzoek advertentie" | "Weekend buitendienstonderzoek" | "Issuemelding" | "ZL Corporatie" | "Crimineel gebruik woning")[]
+            primary_stadium?: string
+            secondary_stadia?: any[]
+            exclude_stadia?: any[]
         }
         export type PlannerPostalCodeSettings = {
             range_start: number
@@ -187,7 +187,7 @@ declare namespace Components {
         }
         export type PlannerSettings = {
             opening_date: string // date
-            projects: ("Bed en breakfast 2019" | "Burgwallenproject Oudezijde" | "Corpo-rico" | "Digital toezicht Safari" | "Digital toezicht Zebra" | "Haarlemmerbuurt" | "Hotline" | "Mystery Guest" | "Project Andes" | "Project Jordaan" | "Project Lobith" | "Project Sahara" | "Safari" | "Safari 2015" | "Sahara Adams Suites" | "Sahara hele woning" | "Sahara meer dan 4" | "Sahara Recensies" | "Sahara veel adv" | "Social Media 2019" | "Woonschip (woonboot)" | "Zebra" | "ZKL Doorverhuur" | "Combi BI Doorpak" | "Combi BI Melding" | "Combi Doorpak" | "Combi Overbewoning" | "Combi Samenwoners" | "Combi_ZKL_Doorpak" | "Combi_ZKL_Melding")[]
+            projects: any[]
             postal_codes?: PlannerPostalCodeSettings[]
             days: PlannerWeekSettings
         }
@@ -204,13 +204,16 @@ declare namespace Components {
             range_start: number
             range_end: number
         }
-        export type PrimaryStadiumEnum = "Onderzoek buitendienst" | "2de Controle" | "3de Controle" | "Hercontrole" | "2de hercontrole" | "3de hercontrole" | "Avondronde" | "Onderzoek advertentie" | "Weekend buitendienstonderzoek" | "Issuemelding" | "ZL Corporatie" | "Crimineel gebruik woning";
         export type Project = {
             name: NameA4dEnum
         }
         export type SituationEnum = "nobody_present" | "no_cooperation" | "access_granted";
         export type Stadium = {
             name: Name093Enum
+        }
+        export type StadiumLabel = {
+            readonly stadium: string
+            label?: string
         }
         export type SuggestNextVisitEnum = "weekend" | "daytime" | "evening" | "unknown";
         export type TeamSettings = {
@@ -221,6 +224,7 @@ declare namespace Components {
             }
             readonly project_choices: string[]
             readonly stadia_choices: string[]
+            readonly marked_stadia: StadiumLabel[]
             settings: {
                 [name: string]: any
             }
@@ -547,12 +551,14 @@ declare namespace Paths {
         namespace Parameters {
             export type Page = number;
             export type PostalCode = string;
+            export type StreetName = string;
             export type StreetNumber = string;
             export type Suffix = string;
         }
         export type QueryParameters = {
             page?: Parameters.Page
             postalCode?: Parameters.PostalCode
+            streetName?: Parameters.StreetName
             streetNumber?: Parameters.StreetNumber
             suffix?: Parameters.Suffix
         }

@@ -7,6 +7,7 @@ import Badge from "../../atoms/Badge/Badge"
 
 type Props = {
   stadium: string
+  stadiaLabels?: Components.Schemas.StadiumLabel[]
 }
 
 const Column = styled.div`
@@ -15,7 +16,7 @@ const Column = styled.div`
   align-items: start;
 `
 
-const Sanction = styled.div`
+const BageMark = styled.div`
   display: inline-flex;
   align-items: baseline;
   color: ${ themeColor("secondary") };
@@ -33,9 +34,16 @@ const Sanction = styled.div`
   }
 `
 
-const StadiumBadge: React.FC<Props> = ({ stadium }) => {
+const StadiumBadge: React.FC<Props> = ({ stadium, stadiaLabels }) => {
   const isIssueMelding = stadium?.toLowerCase() === "issuemelding"
-  const isSanction = [ "gele kaart", "onderzoek buitendienst", "opleggen boete", "voornemen boete" ].includes(stadium?.toLowerCase())
+  const isMarked = (stadiaLabels || []).map(label => label.stadium).includes(stadium)
+  
+  const labels = (stadiaLabels || []).reduce((total: string[], current) => {
+    if (current.stadium === stadium && !total.includes(stadium)){
+      total.push(current.label as string)
+    }
+    return total
+  }, []).join(", ")
 
   return (
     <Column>
@@ -43,10 +51,10 @@ const StadiumBadge: React.FC<Props> = ({ stadium }) => {
         { stadium }
       </Badge>
       {
-        isSanction &&
-        <Sanction>
-          Sanctie
-        </Sanction>
+        isMarked &&
+        <BageMark>
+          { labels }
+        </BageMark>
       }
     </Column>
   )
