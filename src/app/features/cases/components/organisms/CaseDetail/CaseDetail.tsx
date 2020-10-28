@@ -7,6 +7,7 @@ import { usePermitCheckmarks, usePermitDetails, useTeamSettings } from "app/stat
 
 import to from "app/features/shared/routing/to"
 import formatDate from "app/features/shared/utils/formatDate"
+import highlightText from "app/features/shared/utils/highlightText"
 import replaceNewLines from "app/features/shared/utils/replaceNewLines"
 import replaceUrls from "app/features/shared/utils/replaceUrls"
 import isBetweenDates from "app/features/shared/utils/isBetweenDates"
@@ -181,13 +182,17 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
 
   const meldingenData = meldingen.reduce((acc, item, index) => {
     const { datum, anoniem, naam, telnr, text } = item
+    const highlightedText = highlightText([ "hoofdhuurder", "hoofdhuur", "hh" ], text, { caseSensitive: false })
+
     acc.push([ "Datum melding", datum || "-" ])
     acc.push([ "Anonieme melding", anoniem ])
     acc.push([ "Melder", <P className="anonymous"> { naam }</P> || "-" ])
     acc.push([ "Melder telefoonnummer", telnr ?
       <a className="anonymous" href={ "tel://" + telnr }>{ telnr }</a> : "-" ])
-    acc.push(<Purified className="anonymous" text={ text } />)
+    acc.push(<Purified className="anonymous" text={ highlightedText } />)
+
     if (index < meldingen.length - 1) acc.push(<HrSpaced />)
+
     return acc
   }, [] as KeyValueDetail[])
 
