@@ -8,13 +8,13 @@ import CreateItineraryPage from "./components/pages/create/CreateItineraryPage"
 
 export default {
   "/": ListItinerariesPage,
+  "/issuemeldingen/": OpenIssuesPage,
   "/lijst-instellingen/": ListTeamSettingsOptionsPage,
   "/lijst/:itineraryId/": ItineraryPage,
+  "/lijst/:itineraryId/issuemeldingen/": OpenIssuesPage,
+  "/lijst/:itineraryId/suggesties/": SuggestionsPage,
+  "/lijst/:itineraryId/zoeken/": SearchPage,
   "/lijst/nieuw/": CreateItineraryPage,
   "/lijst/nieuw/:teamSettingsId/": CreateItineraryPage,
-  "/lijst/:itineraryId/issuemeldingen/": OpenIssuesPage,
-  "/issuemeldingen/": OpenIssuesPage,
-  "/lijst/:itineraryId/zoeken/": SearchPage,
-  "/zoeken/": SearchPage,
-  "/lijst/:itineraryId/suggesties/": SuggestionsPage
+  "/zoeken/": SearchPage
 }
