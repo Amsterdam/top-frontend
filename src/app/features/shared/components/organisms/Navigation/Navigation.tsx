@@ -1,10 +1,10 @@
 import React, { FC } from "react"
 import styled from "styled-components"
 import { useLocation, useParams } from "@reach/router"
-import { Link, themeColor } from "@amsterdam/asc-ui"
+import { themeColor } from "@amsterdam/asc-ui"
 import { useItinerary } from "app/state/rest/custom/useItinerary"
 
-import to, { applyRouteParams } from "app/features/shared/routing/to"
+import { applyRouteParams } from "app/features/shared/routing/to"
 import ItineraryNavigationButton from "../../molecules/ItineraryNavigationButton/ItineraryNavigationButton"
 import OpenIssuesNavigationButton from "../../molecules/OpenIssuesNavigationButton/OpenIssuesNavigationButton"
 import SearchNavigationButton from "../../molecules/SearchNavigationButton/SearchNavigationButton"
