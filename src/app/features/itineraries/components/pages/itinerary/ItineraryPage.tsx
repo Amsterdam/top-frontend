@@ -27,8 +27,8 @@ import itineraryToClipboardText from "./itineraryToClipBoardText"
 import { mapItineraryItem } from "./mapItineraryItem"
 
 const TeamMemberWrap = styled.div`
-  padding: ${ themeSpacing(6) } 0;
-  border-top: 1px solid ${ themeColor("tint", "level3") };
+  padding-top: ${ themeSpacing(2) };
+  padding-bottom: ${ themeSpacing(4) };
   border-bottom: 1px solid ${ themeColor("tint", "level3") };
 `
 
@@ -43,6 +43,17 @@ const Left = styled.div`
 `
 
 const Right = styled.div`
+`
+
+const FloatRight = styled.div`
+  float: right;
+  margin-left: ${ themeSpacing(2) };
+  margin-bottom: ${ themeSpacing(2) };
+`
+
+const TeamName = styled.div`
+  font-weight: bold;
+  margin-bottom: ${ themeSpacing(1) };
 `
 
 const ButtonMenuWrap = styled.div`
@@ -82,7 +93,7 @@ const ItineraryPage: React.FC<RouteComponentProps<Props>> = ({ itineraryId }) =>
   const cardListItems = useMemo(() => items?.map(mapItineraryItem(itineraryId!, teamSettings!)) ?? [], [ items, itineraryId, teamSettings ])
 
   const teamMemberUsers = useMemo(() => data?.team_members.map(member => member.user) ?? [], [ data ])
-  const teamMemberNames = useMemo(() => teamMemberUsers?.map(user => user.full_name).join(", ") + ` (${ data?.settings.team_settings.name })`, [ data, teamMemberUsers ])
+  const teamMemberNames = useMemo(() => teamMemberUsers?.map(user => user.full_name).join(", "), [ teamMemberUsers ])
   const cases = useMemo(() => items?.filter(item => item.visits.length === 0).map(item => item.case.bwv_data) ?? [], [ items ])
 
   const clipboardText = cases.map(itineraryToClipboardText).join("\n")
@@ -92,13 +103,8 @@ const ItineraryPage: React.FC<RouteComponentProps<Props>> = ({ itineraryId }) =>
     <DefaultLayout>
       { (!data || isBusy) && <CenteredSpinner size={ 60 } /> }
       { data && <>
-        <ColumnWrap border={ false }>
-          <Left>
-            <Heading forwardedAs="h2">
-              Looplijst { formatDate(data.created_at, true, false) }
-            </Heading>
-          </Left>
-          <Right>
+        <div>
+          <FloatRight>
             <StyledButton variant="blank" iconRight={ <ChevronDown /> } onClick={ onClickOptions }>Opties</StyledButton>
             { showDialog && (
               <ButtonMenuWrap>
@@ -112,18 +118,22 @@ const ItineraryPage: React.FC<RouteComponentProps<Props>> = ({ itineraryId }) =>
                 </ButtonMenu>
               </ButtonMenuWrap>
             ) }
-          </Right>
-        </ColumnWrap>
-        <TeamMemberWrap>
-          { !isEditing
-            ? teamMemberNames
-            : <TeamMemberForm
-              itineraryId={ data.id }
-              initialUsers={ teamMemberUsers }
-              toggleForm={ toggleIsEditing }
-            />
-          }
-        </TeamMemberWrap>
+          </FloatRight>
+          <Heading forwardedAs="h2">
+            Looplijst { formatDate(data.created_at, true, false) }
+          </Heading>
+          <TeamMemberWrap>
+            <TeamName>{ data?.settings.team_settings.name }</TeamName>
+            { !isEditing
+              ? teamMemberNames
+              : <TeamMemberForm
+                itineraryId={ data.id }
+                initialUsers={ teamMemberUsers }
+                toggleForm={ toggleIsEditing }
+              />
+            }
+          </TeamMemberWrap>
+        </div>
         <ColumnWrap border={ true }>
           <Left>
             <MapsButton cases={ cases } />
