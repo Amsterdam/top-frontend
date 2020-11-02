@@ -1,10 +1,10 @@
 import React, { FC } from "react"
 import styled from "styled-components"
 import { useLocation, useParams } from "@reach/router"
-import { themeColor } from "@amsterdam/asc-ui"
+import { Link, themeColor } from "@amsterdam/asc-ui"
 import { useItinerary } from "app/state/rest/custom/useItinerary"
 
-import { applyRouteParams } from "app/features/shared/routing/to"
+import to, { applyRouteParams } from "app/features/shared/routing/to"
 import ItineraryNavigationButton from "../../molecules/ItineraryNavigationButton/ItineraryNavigationButton"
 import OpenIssuesNavigationButton from "../../molecules/OpenIssuesNavigationButton/OpenIssuesNavigationButton"
 import SearchNavigationButton from "../../molecules/SearchNavigationButton/SearchNavigationButton"
@@ -19,8 +19,7 @@ const NavWrap = styled.div`
 
 const Nav = styled.nav`
   background-color: ${ themeColor("tint", "level3") };
-  padding: 15px;
-  padding-bottom: 0;
+  padding: 15px 15px 0;
   margin-bottom: 15px;
 `
 
@@ -62,21 +61,25 @@ const Navigation: FC = () => {
   const { data: itinerary } = useItinerary(itineraryId)
   const { pathname } = useLocation()
 
+  const showItineraryNavigationItems = (pathname.startsWith("/cases") || pathname.startsWith("/issuemeldingen") || (pathname.startsWith("/lijst/") && itineraryId) || pathname.startsWith("/visits") || pathname.startsWith("/zoeken"))
+
   return (
     <>
       <NavWrap>
         <Nav>
           <Ul>
+            { showItineraryNavigationItems &&
             <Li
               isActive={ pathname === "/" || pathname === ("/lijst") || pathname === applyRouteParams("/lijst/:itineraryId/", { itineraryId }) }>
               <ItineraryNavigationButton />
             </Li>
-            { itinerary && itinerary?.settings.team_settings.team_type.show_issuemelding &&
-            <Li isActive={ pathname.includes("issuemeldingen") }>
+            }
+            { showItineraryNavigationItems && itinerary && itinerary?.settings.team_settings.team_type.show_issuemelding &&
+            <Li isActive={ pathname.startsWith("/issuemeldingen") }>
               <OpenIssuesNavigationButton itineraryId={ itineraryId } />
             </Li>
             }
-            <SpacedLi isActive={ pathname.includes("zoeken") }>
+            <SpacedLi isActive={ pathname.startsWith("/zoeken") }>
               <SearchNavigationButton itineraryId={ itineraryId } />
             </SpacedLi>
           </Ul>
