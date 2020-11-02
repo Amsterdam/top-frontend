@@ -3,7 +3,7 @@ declare namespace Components {
         export type Case = {
             readonly id: number
             case_id?: string | null
-            readonly bwv_data: any
+            readonly bwv_data: string
             readonly fraud_prediction: {
                 fraud_probability: number // float
                 fraud_prediction: boolean
@@ -64,7 +64,7 @@ declare namespace Components {
             readonly case: {
                 readonly id: number
                 case_id?: string | null
-                readonly bwv_data: any
+                readonly bwv_data: string
                 readonly fraud_prediction: any
             }
             readonly visits: Visit[]
@@ -91,8 +91,6 @@ declare namespace Components {
                 team_settings: TeamSettingsId[]
             }
         }
-        export type Name093Enum = "Onderzoek buitendienst" | "2de Controle" | "3de Controle" | "Hercontrole" | "2de hercontrole" | "3de hercontrole" | "Avondronde" | "Onderzoek advertentie" | "Weekend buitendienstonderzoek" | "Issuemelding" | "ZL Corporatie" | "Crimineel gebruik woning";
-        export type NameA4dEnum = "Bed en breakfast 2019" | "Burgwallenproject Oudezijde" | "Corpo-rico" | "Digital toezicht Safari" | "Digital toezicht Zebra" | "Haarlemmerbuurt" | "Hotline" | "Mystery Guest" | "Project Andes" | "Project Jordaan" | "Project Lobith" | "Project Sahara" | "Safari" | "Safari 2015" | "Sahara Adams Suites" | "Sahara hele woning" | "Sahara meer dan 4" | "Sahara Recensies" | "Sahara veel adv" | "Social Media 2019" | "Woonschip (woonboot)" | "Zebra" | "ZKL Doorverhuur" | "Combi BI Doorpak" | "Combi BI Melding" | "Combi Doorpak" | "Combi Overbewoning" | "Combi Samenwoners" | "Combi_ZKL_Doorpak" | "Combi_ZKL_Melding";
         export type Note = {
             readonly id: number
             text: string
@@ -123,6 +121,130 @@ declare namespace Components {
         export type OIDCAuthenticate = {
             code: string
         }
+        export type Observation = {
+            value: string
+            verbose: string
+        }
+        export type PaginatedCaseList = {
+            /**
+             * example:
+             * 123
+             */
+            count?: number
+            /**
+             * example:
+             * http://api.example.org/accounts/?page=4
+             */
+            next?: string | null // uri
+            /**
+             * example:
+             * http://api.example.org/accounts/?page=2
+             */
+            previous?: string | null // uri
+            results?: Case[]
+        }
+        export type PaginatedItineraryList = {
+            /**
+             * example:
+             * 123
+             */
+            count?: number
+            /**
+             * example:
+             * http://api.example.org/accounts/?page=4
+             */
+            next?: string | null // uri
+            /**
+             * example:
+             * http://api.example.org/accounts/?page=2
+             */
+            previous?: string | null // uri
+            results?: Itinerary[]
+        }
+        export type PaginatedPlannerSettingsList = {
+            /**
+             * example:
+             * 123
+             */
+            count?: number
+            /**
+             * example:
+             * http://api.example.org/accounts/?page=4
+             */
+            next?: string | null // uri
+            /**
+             * example:
+             * http://api.example.org/accounts/?page=2
+             */
+            previous?: string | null // uri
+            results?: PlannerSettings[]
+        }
+        export type PaginatedTeamSettingsList = {
+            /**
+             * example:
+             * 123
+             */
+            count?: number
+            /**
+             * example:
+             * http://api.example.org/accounts/?page=4
+             */
+            next?: string | null // uri
+            /**
+             * example:
+             * http://api.example.org/accounts/?page=2
+             */
+            previous?: string | null // uri
+            results?: TeamSettings[]
+        }
+        export type PaginatedUserList = {
+            /**
+             * example:
+             * 123
+             */
+            count?: number
+            /**
+             * example:
+             * http://api.example.org/accounts/?page=4
+             */
+            next?: string | null // uri
+            /**
+             * example:
+             * http://api.example.org/accounts/?page=2
+             */
+            previous?: string | null // uri
+            results?: User[]
+        }
+        export type PaginatedVisitList = {
+            /**
+             * example:
+             * 123
+             */
+            count?: number
+            /**
+             * example:
+             * http://api.example.org/accounts/?page=4
+             */
+            next?: string | null // uri
+            /**
+             * example:
+             * http://api.example.org/accounts/?page=2
+             */
+            previous?: string | null // uri
+            results?: Visit[]
+        }
+        export type PatchedItineraryItem = {
+            readonly id?: number
+            position?: number // float
+            readonly notes?: Note[]
+            readonly case?: {
+                readonly id: number
+                case_id?: string | null
+                readonly bwv_data: string
+                readonly fraud_prediction: any
+            }
+            readonly visits?: Visit[]
+        }
         export type PatchedNoteCrud = {
             readonly id?: number
             text?: string
@@ -143,6 +265,9 @@ declare namespace Components {
             readonly team_type?: {
                 [name: string]: any
             }
+            readonly observation_choices?: Observation[]
+            readonly situation_choices?: Situation[]
+            readonly suggest_next_visit_choices?: SuggestNextVisit[]
             readonly project_choices?: string[]
             readonly stadia_choices?: string[]
             readonly marked_stadia?: StadiumLabel[]
@@ -152,13 +277,13 @@ declare namespace Components {
         }
         export type PatchedVisit = {
             readonly id?: number
-            situation?: "nobody_present" | "no_cooperation" | "access_granted"
+            situation?: string | null
             observations?: string[] | null
             start_time?: string // date-time
             description?: string | null
             can_next_visit_go_ahead?: boolean | null
             can_next_visit_go_ahead_description?: string | null
-            suggest_next_visit?: "weekend" | "daytime" | "evening" | "unknown"
+            suggest_next_visit?: string | null
             suggest_next_visit_description?: string | null
             thread_id?: null | number
             personal_notes?: string | null
@@ -205,23 +330,34 @@ declare namespace Components {
             range_end: number
         }
         export type Project = {
-            name: NameA4dEnum
+            name: ProjectNameEnum
         }
-        export type SituationEnum = "nobody_present" | "no_cooperation" | "access_granted";
+        export type ProjectNameEnum = "Bed en breakfast 2019" | "Burgwallenproject Oudezijde" | "Corpo-rico" | "Digital toezicht Safari" | "Digital toezicht Zebra" | "Haarlemmerbuurt" | "Hotline" | "Mystery Guest" | "Project Andes" | "Project Jordaan" | "Project Lobith" | "Project Sahara" | "Safari" | "Safari 2015" | "Sahara Adams Suites" | "Sahara hele woning" | "Sahara meer dan 4" | "Sahara Recensies" | "Sahara veel adv" | "Social Media 2019" | "Woonschip (woonboot)" | "Zebra" | "ZKL Doorverhuur" | "Combi BI Doorpak" | "Combi BI Melding" | "Combi Doorpak" | "Combi Overbewoning" | "Combi Samenwoners" | "Combi_ZKL_Doorpak" | "Combi_ZKL_Melding";
+        export type Situation = {
+            value: string
+            verbose: string
+        }
         export type Stadium = {
-            name: Name093Enum
+            name: StadiumNameEnum
         }
         export type StadiumLabel = {
             readonly stadium: string
             label?: string
         }
-        export type SuggestNextVisitEnum = "weekend" | "daytime" | "evening" | "unknown";
+        export type StadiumNameEnum = "Onderzoek buitendienst" | "2de Controle" | "3de Controle" | "Hercontrole" | "2de hercontrole" | "3de hercontrole" | "Avondronde" | "Onderzoek advertentie" | "Weekend buitendienstonderzoek" | "Issuemelding" | "ZL Corporatie" | "Crimineel gebruik woning";
+        export type SuggestNextVisit = {
+            value: string
+            verbose: string
+        }
         export type TeamSettings = {
             readonly id: number
             name: string
             readonly team_type: {
                 [name: string]: any
             }
+            readonly observation_choices: Observation[]
+            readonly situation_choices: Situation[]
+            readonly suggest_next_visit_choices: SuggestNextVisit[]
             readonly project_choices: string[]
             readonly stadia_choices: string[]
             readonly marked_stadia: StadiumLabel[]
@@ -255,13 +391,13 @@ declare namespace Components {
         }
         export type Visit = {
             readonly id: number
-            situation?: "nobody_present" | "no_cooperation" | "access_granted"
+            situation?: string | null
             observations?: string[] | null
             start_time: string // date-time
             description?: string | null
             can_next_visit_go_ahead?: boolean | null
             can_next_visit_go_ahead_description?: string | null
-            suggest_next_visit?: "weekend" | "daytime" | "evening" | "unknown"
+            suggest_next_visit?: string | null
             suggest_next_visit_description?: string | null
             thread_id?: null | number
             personal_notes?: string | null
@@ -341,14 +477,10 @@ declare namespace Paths {
     }
     namespace ItinerariesDestroy {
         namespace Parameters {
-            export type CreatedAt = string;
             export type Id = number;
         }
         export type PathParameters = {
             id: Parameters.Id
-        }
-        export type QueryParameters = {
-            created_at?: Parameters.CreatedAt
         }
         namespace Responses {
             export type $204 = {
@@ -365,16 +497,7 @@ declare namespace Paths {
             page?: Parameters.Page
         }
         namespace Responses {
-            export type $200 = {
-                /**
-                 * example:
-                 * 123
-                 */
-                count?: number
-                next?: string | null
-                previous?: string | null
-                results?: Components.Schemas.Itinerary[]
-            }
+            export type $200 = Components.Schemas.PaginatedItineraryList;
         }
     }
     namespace ItinerariesSuggestionsRetrieve {
@@ -412,9 +535,9 @@ declare namespace Paths {
         }
     }
     namespace ItineraryItemsCreate {
+        export type RequestBody = Components.Schemas.ItineraryItem;
         namespace Responses {
-            export type $200 = {
-            }
+            export type $200 = Components.Schemas.ItineraryItem;
         }
     }
     namespace ItineraryItemsDestroy {
@@ -436,9 +559,9 @@ declare namespace Paths {
         export type PathParameters = {
             id: Parameters.Id
         }
+        export type RequestBody = Components.Schemas.PatchedItineraryItem;
         namespace Responses {
-            export type $200 = {
-            }
+            export type $200 = Components.Schemas.ItineraryItem;
         }
     }
     namespace ItineraryItemsUpdate {
@@ -448,9 +571,9 @@ declare namespace Paths {
         export type PathParameters = {
             id: Parameters.Id
         }
+        export type RequestBody = Components.Schemas.ItineraryItem;
         namespace Responses {
-            export type $200 = {
-            }
+            export type $200 = Components.Schemas.ItineraryItem;
         }
     }
     namespace NotesCreate {
@@ -563,16 +686,7 @@ declare namespace Paths {
             suffix?: Parameters.Suffix
         }
         namespace Responses {
-            export type $200 = {
-                /**
-                 * example:
-                 * 123
-                 */
-                count?: number
-                next?: string | null
-                previous?: string | null
-                results?: Components.Schemas.Case[]
-            }
+            export type $200 = Components.Schemas.PaginatedCaseList;
         }
     }
     namespace SettingsPlannerCreate {
@@ -589,16 +703,7 @@ declare namespace Paths {
             page?: Parameters.Page
         }
         namespace Responses {
-            export type $200 = {
-                /**
-                 * example:
-                 * 123
-                 */
-                count?: number
-                next?: string | null
-                previous?: string | null
-                results?: Components.Schemas.PlannerSettings[]
-            }
+            export type $200 = Components.Schemas.PaginatedPlannerSettingsList;
         }
     }
     namespace TeamSettingsCreate {
@@ -627,16 +732,7 @@ declare namespace Paths {
             page?: Parameters.Page
         }
         namespace Responses {
-            export type $200 = {
-                /**
-                 * example:
-                 * 123
-                 */
-                count?: number
-                next?: string | null
-                previous?: string | null
-                results?: Components.Schemas.TeamSettings[]
-            }
+            export type $200 = Components.Schemas.PaginatedTeamSettingsList;
         }
     }
     namespace TeamSettingsPartialUpdate {
@@ -682,16 +778,7 @@ declare namespace Paths {
             page?: Parameters.Page
         }
         namespace Responses {
-            export type $200 = {
-                /**
-                 * example:
-                 * 123
-                 */
-                count?: number
-                next?: string | null
-                previous?: string | null
-                results?: Components.Schemas.User[]
-            }
+            export type $200 = Components.Schemas.PaginatedUserList;
         }
     }
     namespace VisitsCreate {
@@ -720,16 +807,7 @@ declare namespace Paths {
             page?: Parameters.Page
         }
         namespace Responses {
-            export type $200 = {
-                /**
-                 * example:
-                 * 123
-                 */
-                count?: number
-                next?: string | null
-                previous?: string | null
-                results?: Components.Schemas.Visit[]
-            }
+            export type $200 = Components.Schemas.PaginatedVisitList;
         }
     }
     namespace VisitsPartialUpdate {
