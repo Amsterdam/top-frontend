@@ -82,7 +82,7 @@ const ItineraryPage: React.FC<RouteComponentProps<Props>> = ({ itineraryId }) =>
   const cardListItems = useMemo(() => items?.map(mapItineraryItem(itineraryId!, teamSettings!)) ?? [], [ items, itineraryId, teamSettings ])
 
   const teamMemberUsers = useMemo(() => data?.team_members.map(member => member.user) ?? [], [ data ])
-  const teamMemberNames = useMemo(() => teamMemberUsers?.map(user => user.full_name).join(", "), [ teamMemberUsers ])
+  const teamMemberNames = useMemo(() => teamMemberUsers?.map(user => user.full_name).join(", ") + ` (${ data?.settings.team_settings.name })`, [ data, teamMemberUsers ])
   const cases = useMemo(() => items?.filter(item => item.visits.length === 0).map(item => item.case.bwv_data) ?? [], [ items ])
 
   const clipboardText = cases.map(itineraryToClipboardText).join("\n")
@@ -94,8 +94,9 @@ const ItineraryPage: React.FC<RouteComponentProps<Props>> = ({ itineraryId }) =>
       { data && <>
         <ColumnWrap border={ false }>
           <Left>
-            <Heading
-              forwardedAs="h2">Looplijst { formatDate(data.created_at, true, false) } { data.settings.team_settings.name }</Heading>
+            <Heading forwardedAs="h2">
+              Looplijst { formatDate(data.created_at, true, false) }
+            </Heading>
           </Left>
           <Right>
             <StyledButton variant="blank" iconRight={ <ChevronDown /> } onClick={ onClickOptions }>Opties</StyledButton>
