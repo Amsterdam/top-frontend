@@ -1,5 +1,5 @@
 import React from "react"
-import { Header, Button, themeColor } from "@amsterdam/asc-ui"
+import { Button, Header, themeColor } from "@amsterdam/asc-ui"
 import { Logout } from "@amsterdam/asc-assets"
 import { Link } from "@reach/router"
 
@@ -19,34 +19,32 @@ const StyledLink = styled(Link)`
 const HeaderWrap = styled.div`
   position: fixed;
   background-color: ${ themeColor("tint", "white") };
-  width:100%;
-  z-index:500;
+  width: 100%;
+  z-index: 500;
 `
 
-type Props = {
+type Props = {}
 
-}
-
-const DefaultLayout: React.FC<Props> = ({ children } ) => (<div>
+const DefaultLayout: React.FC<Props> = ({ children }) => (<div>
   <HeaderWrap>
     <ErrorDisplay />
     <Header
       title="Toezicht op pad"
-      homeLink={to("/")}
-      fullWidth={true}
+      homeLink={ to("/") }
+      fullWidth={ true }
       navigation={
-        <StyledLink to={to("/logout")}>
+        <StyledLink to={ to("/logout") }>
           <Button
             as="span"
             variant="blank"
-            iconLeft={ <Logout /> }>Uitloggen
+            iconLeft={ <Logout /> }>Log uit
           </Button>
         </StyledLink>
       }
     />
   </HeaderWrap>
   <Navigation />
-  <Spacing p={4}>
+  <Spacing p={ 4 }>
     { children }
   </Spacing>
 </div>)

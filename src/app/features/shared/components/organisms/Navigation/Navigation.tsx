@@ -19,8 +19,7 @@ const NavWrap = styled.div`
 
 const Nav = styled.nav`
   background-color: ${ themeColor("tint", "level3") };
-  padding: 15px;
-  padding-bottom: 0;
+  padding: 15px 15px 0;
   margin-bottom: 15px;
 `
 
@@ -34,8 +33,9 @@ const Ul = styled.ul`
 
 const Li = styled.li`
   border-bottom: 5px solid transparent;
-  border-bottom-color: ${ (props: { isActive?: boolean }) => props.isActive ? themeColor("secondary") : "transparent" };
+  border-bottom-color: ${ (props: {isActive?: boolean}) => props.isActive ? themeColor("secondary") : "transparent" };
   min-height: 33px;
+
   a {
     color: ${ themeColor("tint", "level7") };
     text-decoration: none;
@@ -47,8 +47,8 @@ const Li = styled.li`
   }
 `
 
-const SpacedLi = styled(Li)`  
-  margin-left: auto;  
+const SpacedLi = styled(Li)`
+  margin-left: auto;
 `
 
 // this empty element is used to correct scroll position under fixed header, navigation
@@ -61,20 +61,26 @@ const Navigation: FC = () => {
   const { data: itinerary } = useItinerary(itineraryId)
   const { pathname } = useLocation()
 
+  const showItineraryNavigationItems = (pathname.startsWith("/cases") || pathname.startsWith("/issuemeldingen") || (pathname.startsWith("/lijst/") && itineraryId) || pathname.startsWith("/visits") || pathname.startsWith("/zoeken"))
+
   return (
     <>
       <NavWrap>
         <Nav>
           <Ul>
-            <Li isActive={ pathname === "/" || pathname === ("/lijst") || pathname === applyRouteParams("/lijst/:itineraryId/", { itineraryId }) }>
+            { showItineraryNavigationItems &&
+            <Li
+              isActive={ pathname === "/" || pathname === ("/lijst") || pathname === applyRouteParams("/lijst/:itineraryId/", { itineraryId }) }>
               <ItineraryNavigationButton />
             </Li>
-            { itinerary && itinerary?.settings.team_settings.team_type.show_issuemelding && <Li isActive={ pathname.includes("issuemeldingen") }>
-              <OpenIssuesNavigationButton itineraryId={itineraryId} />
+            }
+            { showItineraryNavigationItems && itinerary && itinerary?.settings.team_settings.team_type.show_issuemelding &&
+            <Li isActive={ pathname.startsWith("/issuemeldingen") }>
+              <OpenIssuesNavigationButton itineraryId={ itineraryId } />
             </Li>
             }
-            <SpacedLi isActive={ pathname.includes("zoeken") } >
-              <SearchNavigationButton itineraryId={itineraryId} />
+            <SpacedLi isActive={ pathname.startsWith("/zoeken") }>
+              <SearchNavigationButton itineraryId={ itineraryId } />
             </SpacedLi>
           </Ul>
         </Nav>

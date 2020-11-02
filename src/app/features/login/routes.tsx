@@ -3,7 +3,7 @@ import CallbackPage from "./components/pages/callback/CallbackPage"
 import LogoutPage from "./components/pages/logout/LogoutPage"
 
 export default {
-  "/login": LoginPage,
   "/authentication/callback": CallbackPage,
+  "/login": LoginPage,
   "/logout": LogoutPage
 }

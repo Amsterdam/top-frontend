@@ -2,7 +2,6 @@ import React from "react"
 import { Link } from "@reach/router"
 
 import { useOpenIssues } from "app/state/rest"
-
 import to from "app/features/shared/routing/to"
 
 import ResponsiveText from "../ResponsiveText/ResponsiveText"
@@ -23,7 +22,7 @@ const OpenIssuesNavigationButton: React.FC<Props> = ({ itineraryId }) => {
     : to("/issuemeldingen/")
 
   return <Link to={ href }>
-    <ResponsiveText text={[`Issues ${ numOpenIssues }`, `Open issuemeldingen ${ numOpenIssues }`]}/>
+    <ResponsiveText text={ [ `Issues ${ numOpenIssues }`, `Open issuemeldingen ${ numOpenIssues }` ] } />
   </Link>
 }
 
