@@ -26,6 +26,7 @@ type Props = {
   openCaseCount?: number
   caseOpening?: string
   signal?: string
+  eigenaar?: string
   fraudPrediction?: FraudPrediction
   footer?: {
     title: string
@@ -54,6 +55,7 @@ const CaseDetailHeader: FC<Props> = (
     openCaseCount,
     caseOpening,
     signal,
+    eigenaar,
     fraudPrediction,
     footer
   }
@@ -94,6 +96,13 @@ const CaseDetailHeader: FC<Props> = (
           <Label>Openingsreden</Label>
           { caseOpening !== undefined ?
             <Span>{ caseOpening }</Span> :
+            <InvalidDataSpan />
+          }
+        </div>
+        <div>
+          <Label>Eigenaar</Label>
+          { eigenaar !== undefined ?
+            <Span>{ eigenaar }</Span> :
             <InvalidDataSpan />
           }
         </div>

@@ -256,6 +256,7 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
         caseCount={ caseCount }
         openCaseCount={ openCaseCount }
         caseOpening={ caseOpening }
+        eigenaar={ eigenaar }
         fraudPrediction={ fraudPrediction }
         footer={ { link: `http://www.google.com/maps/place/${ address }, Amsterdam`, title: "Bekijk op Google Maps" } }
         signal={ lastStadia }
