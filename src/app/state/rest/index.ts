@@ -9,6 +9,7 @@ export type ApiGroup =
   | "settings"
   | "teamSettings"
   | "teamSettingsList"
+  | "postCodeRanges"
   | "constants"
   | "case"
   | "permits"
@@ -154,6 +155,13 @@ export const useTeamSettings = (teamSettingsId: number, options?: Options) => us
     ...options,
     url: makeGatewayUrl(["team-settings", teamSettingsId]),
     groupName: "teamSettings",
+    getHeaders
+  })
+
+  export const usePostCodeRanges = (options?: Options) => useApiRequest<{ results: Components.Schemas.PostalCodeRangeSet[] }>({
+    ...options,
+    url: makeGatewayUrl(["postal-code-ranges"]),
+    groupName: "postCodeRanges",
     getHeaders
   })
 

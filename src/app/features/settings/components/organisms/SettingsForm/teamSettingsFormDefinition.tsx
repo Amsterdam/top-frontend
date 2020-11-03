@@ -72,7 +72,7 @@ const createDayPartDefinition = (label: string, day: Day, dayPart: DayPart, stad
 /**
  * Creates form definition for planningSettings
  */
-export const createDefinition = (projects: string[], stadia: string[]) => {
+export const createDefinition = (projects: string[], stadia: string[], postalCodeRangeOptions: string[]) => {
   // @TODO: Move to config
   const postalCodeMin = 1000
   const postalCodeMax = 1109
@@ -122,6 +122,15 @@ export const createDefinition = (projects: string[], stadia: string[]) => {
         }
       }
     },
+    postalCodeRanges: {
+      type: "CheckboxFields",
+      props: {
+        label: "Stadsdelen",
+        name: "settings.postal_code_ranges",
+        options: arrayToObject(postalCodeRangeOptions),
+        columnCount: { laptop: 3, laptopL: 5 }
+      }
+    },
     projects: {
       type: "CheckboxFields",
       props: {
@@ -151,7 +160,6 @@ export const createDefinition = (projects: string[], stadia: string[]) => {
     saturday_day: createDayPartDefinition("Zaterdag weekend", "saturday", "day", stadia, true),
     sunday_day: createDayPartDefinition("Zondag weekend", "sunday", "day", stadia, true)
   }
-
   // Align properties:
   return new FormPositioner(definition)
     // 1 column
@@ -161,6 +169,7 @@ export const createDefinition = (projects: string[], stadia: string[]) => {
       /* eslint-disable no-multi-spaces */
       [ "opening_date"                                                ],
       [ "postal_codes",       "postal_codes",     "postal_codes"      ],
+      [ "postalCodeRanges",       "postalCodeRanges",     "postalCodeRanges"      ],
       [ "projects",           "projects",         "projects"          ],
       [ "monday_day",         "tuesday_day",      "wednesday_day"     ],
       [ "thursday_day",       "friday_day"                            ],
@@ -174,6 +183,7 @@ export const createDefinition = (projects: string[], stadia: string[]) => {
       /* eslint-disable no-multi-spaces */
       [ "opening_date"                                                                                        ],
       [ "postal_codes",       "postal_codes",     "postal_codes"                                              ],
+      [ "postalCodeRanges",       "postalCodeRanges",     "postalCodeRanges", "postalCodeRanges", "postalCodeRanges"],
       [ "projects",           "projects",         "projects",           "projects",         "projects"        ],
       [ "monday_day",         "tuesday_day",      "wednesday_day",      "thursday_day",     "friday_day"      ],
       [ "saturday_day",       "sunday_day"                                                                    ],

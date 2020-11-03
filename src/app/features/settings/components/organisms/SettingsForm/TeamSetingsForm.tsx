@@ -5,7 +5,7 @@ import { ScaffoldForm } from "amsterdam-react-final-form"
 import { Heading } from "@amsterdam/asc-ui"
 
 import to from "app/features/shared/routing/to"
-import { useTeamSettings } from "app/state/rest"
+import { useTeamSettings, usePostCodeRanges } from "app/state/rest"
 
 import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
 import Scaffold from "app/features/shared/components/form/Scaffold"
@@ -32,17 +32,26 @@ type Props = {
 
 const TeamSettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId }) => {
   const { data: teamSettings, execPut, isBusy: isBusySettings } = useTeamSettings(teamSettingsId!)
+  const { data: postalCodeRanges, isBusy: isBusyPostalCodeRanges } = usePostCodeRanges()
   const [ errorMessage, setErrorMessage ] = useState("")
-
+  
   const definition = useMemo(
-    () => createDefinition(teamSettings?.project_choices ?? [], teamSettings?.stadia_choices ?? []),
-    [ teamSettings ]
+    () => createDefinition(teamSettings?.project_choices ?? [], teamSettings?.stadia_choices ?? [], postalCodeRanges?.results.map(p => p.name) ?? []),
+    [ teamSettings, postalCodeRanges ]
   )
 
   const handleSubmit = useCallback(async (teamSettings: any) => {
     const values = filterEmptyPostalCodes(teamSettings.settings)
     setErrorMessage("")
 
+    if (teamSettings.settings.postal_code_ranges.length > 0){
+      values.postal_codes = teamSettings.postalCodeRanges?.results.reduce((total: string[], current: any) => {
+        if (values.postal_code_ranges.includes(current.name)){
+          current.postal_code_ranges.map((pcr: any) => total.push(pcr))
+        }
+        return total
+      }, [])
+    }
     try {
       await execPut({
         settings: values,
@@ -54,7 +63,8 @@ const TeamSettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId }) =>
     }
   }, [ execPut, setErrorMessage ])
 
-  if (!teamSettings || isBusySettings) {
+
+  if (!teamSettings || isBusySettings || !postalCodeRanges || isBusyPostalCodeRanges) {
     return <CenteredSpinner size={ 60 } />
   }
 
@@ -67,7 +77,11 @@ const TeamSettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId }) =>
       </Spacing>
       <p>Wijzig instellingen voor:</p>
       <Heading>{ teamSettings.name }</Heading>
-      <ScaffoldForm onSubmit={ handleSubmit } initialValues={ teamSettings }>
+      <ScaffoldForm onSubmit={ handleSubmit } initialValues={{ 
+          settings: teamSettings.settings,
+          name: teamSettings.name,
+          postalCodeRanges
+        }}>
         <Scaffold { ...definition } />
         <FixedSubmitButton errorMessage={ errorMessage } />
         <JSONDisplay title="Huidige settings (JSON)" />
