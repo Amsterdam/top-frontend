@@ -17,16 +17,16 @@ const ItineraryNavigationButton: React.FC = () => {
   }
 
   if (numItineraries === 1) {
-    return <Link to={ to("/lijst/:itineraryId/", { itineraryId: data?.itineraries[0].id.toString() }) }>
+    return <Link to={ to("/", { itineraryId: data?.itineraries[0].id.toString() }) }>
       Mijn looplijst ({ numItems })
     </Link>
   }
 
   if (numItineraries === 0) {
-    return <Link to={ to("/lijst/nieuw/") }>Nieuwe looplijst</Link>
+    return <Link to={ to("/lijst-instellingen/") }>Genereer looplijst</Link>
   }
 
-  return <Link to={ to("/") }>Mijn looplijst</Link>
+  return null
 }
 
 export default ItineraryNavigationButton
