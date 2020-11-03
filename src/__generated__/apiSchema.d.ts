@@ -179,6 +179,24 @@ declare namespace Components {
             previous?: string | null // uri
             results?: PlannerSettings[]
         }
+        export type PaginatedPostalCodeRangeSetList = {
+            /**
+             * example:
+             * 123
+             */
+            count?: number
+            /**
+             * example:
+             * http://api.example.org/accounts/?page=4
+             */
+            next?: string | null // uri
+            /**
+             * example:
+             * http://api.example.org/accounts/?page=2
+             */
+            previous?: string | null // uri
+            results?: PostalCodeRangeSet[]
+        }
         export type PaginatedTeamSettingsList = {
             /**
              * example:
@@ -259,6 +277,10 @@ declare namespace Components {
                 team_settings: TeamSettingsId[]
             }
         }
+        export type PatchedPostalCodeRangeSet = {
+            name?: string
+            readonly postal_code_ranges?: string[]
+        }
         export type PatchedTeamSettings = {
             readonly id?: number
             name?: string
@@ -324,6 +346,10 @@ declare namespace Components {
             friday: PlannerDaySettings
             saturday: PlannerDaySettings
             sunday: PlannerDaySettings
+        }
+        export type PostalCodeRangeSet = {
+            name: string
+            readonly postal_code_ranges: string[]
         }
         export type PostalCodeSettings = {
             range_start: number
@@ -655,6 +681,70 @@ declare namespace Paths {
         }
         namespace Responses {
             export type $200 = Components.Schemas.DecosPermit[];
+        }
+    }
+    namespace PostalCodeRangesCreate {
+        export type RequestBody = Components.Schemas.PostalCodeRangeSet;
+        namespace Responses {
+            export type $200 = Components.Schemas.PostalCodeRangeSet;
+        }
+    }
+    namespace PostalCodeRangesDestroy {
+        namespace Parameters {
+            export type Id = number;
+        }
+        export type PathParameters = {
+            id: Parameters.Id
+        }
+        namespace Responses {
+            export type $204 = {
+            }
+        }
+    }
+    namespace PostalCodeRangesList {
+        namespace Parameters {
+            export type Page = number;
+        }
+        export type QueryParameters = {
+            page?: Parameters.Page
+        }
+        namespace Responses {
+            export type $200 = Components.Schemas.PaginatedPostalCodeRangeSetList;
+        }
+    }
+    namespace PostalCodeRangesPartialUpdate {
+        namespace Parameters {
+            export type Id = number;
+        }
+        export type PathParameters = {
+            id: Parameters.Id
+        }
+        export type RequestBody = Components.Schemas.PatchedPostalCodeRangeSet;
+        namespace Responses {
+            export type $200 = Components.Schemas.PostalCodeRangeSet;
+        }
+    }
+    namespace PostalCodeRangesRetrieve {
+        namespace Parameters {
+            export type Id = number;
+        }
+        export type PathParameters = {
+            id: Parameters.Id
+        }
+        namespace Responses {
+            export type $200 = Components.Schemas.PostalCodeRangeSet;
+        }
+    }
+    namespace PostalCodeRangesUpdate {
+        namespace Parameters {
+            export type Id = number;
+        }
+        export type PathParameters = {
+            id: Parameters.Id
+        }
+        export type RequestBody = Components.Schemas.PostalCodeRangeSet;
+        namespace Responses {
+            export type $200 = Components.Schemas.PostalCodeRangeSet;
         }
     }
     namespace SchemaRetrieve {
