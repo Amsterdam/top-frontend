@@ -39,7 +39,7 @@
     "resize-observer-polyfill": "^1.5.1",
     "slash-sandwich": "^1.0.12",
     "smoothscroll-polyfill": "^0.4.4",
-    "styled-components": "^5.2.0",
+    "styled-components": "^5.2.1",
     "typescript": "^3.9.7"
   },
   "scripts": {
