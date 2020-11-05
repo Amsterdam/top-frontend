@@ -23,7 +23,20 @@ const Wrap = styled.div`
 const filterEmptyPostalCodes = (settings: any) =>
   ({
     ...settings,
-    postal_codes: settings.postal_codes?.filter((i: any) => i != null) ?? []
+    postal_code_ranges: settings.postal_code_ranges?.filter((i: any) => {
+      if (i == null || !Object.keys(i).includes("range_end") || !Object.keys(i).includes("range_start"))
+      {
+        return false
+      }
+      if (!i.range_end){
+        i.range_end = 1109
+      }
+      if (!i.range_start){
+        i.range_start = 1000
+      }
+      Object.keys(i).filter(x => !["range_start", "range_end"].includes(x)).map(d => delete i[d])
+      return true
+    }) ?? []
   })
 
 type Props = {
@@ -32,25 +45,26 @@ type Props = {
 
 const TeamSettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId }) => {
   const { data: teamSettings, execPut, isBusy: isBusySettings } = useTeamSettings(teamSettingsId!)
-  const { data: postalCodeRanges, isBusy: isBusyPostalCodeRanges } = usePostCodeRanges()
+  const { data: postalCodeRangesPresets, isBusy: isBusyPostalCodeRangesPresets } = usePostCodeRanges()
   const [ errorMessage, setErrorMessage ] = useState("")
   
   const definition = useMemo(
-    () => createDefinition(teamSettings?.project_choices ?? [], teamSettings?.stadia_choices ?? [], postalCodeRanges?.results.map(p => p.name) ?? []),
-    [ teamSettings, postalCodeRanges ]
+    () => createDefinition(teamSettings?.project_choices ?? [], teamSettings?.stadia_choices ?? [], postalCodeRangesPresets?.results.map(p => p.name) ?? []),
+    [ teamSettings, postalCodeRangesPresets ]
   )
 
   const handleSubmit = useCallback(async (teamSettings: any) => {
     const values = filterEmptyPostalCodes(teamSettings.settings)
     setErrorMessage("")
-
-    if (teamSettings.settings.postal_code_ranges.length > 0){
-      values.postal_codes = teamSettings.postalCodeRanges?.results.reduce((total: string[], current: any) => {
-        if (values.postal_code_ranges.includes(current.name)){
-          current.postal_code_ranges.map((pcr: any) => total.push(pcr))
+    if (teamSettings.settings.postal_codes_type === "stadsdeel"){
+      values.postal_codes = teamSettings.postalCodeRangesPresets?.results.reduce((total: string[], current: any) => {
+        if (values.postal_code_ranges_presets.includes(current.name)){
+          current.postal_code_ranges_presets.map((pcr: any) => total.push(pcr))
         }
         return total
       }, [])
+    } else {
+      values.postal_codes = values.postal_code_ranges
     }
     try {
       await execPut({
@@ -64,8 +78,14 @@ const TeamSettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId }) =>
   }, [ execPut, setErrorMessage ])
 
 
-  if (!teamSettings || isBusySettings || !postalCodeRanges || isBusyPostalCodeRanges) {
+  if (!teamSettings || isBusySettings || !postalCodeRangesPresets || isBusyPostalCodeRangesPresets) {
     return <CenteredSpinner size={ 60 } />
+  }
+  if (!teamSettings.settings.postal_code_ranges || teamSettings.settings.postal_code_ranges.length <= 0){
+    teamSettings.settings.postal_code_ranges = teamSettings.settings.postal_codes
+  }
+  if (teamSettings.settings.postal_code_ranges.length <= 0){
+    teamSettings.settings.postal_code_ranges = [{ range_start: 1000, range_end: 1109 }]
   }
 
   return <DefaultLayout>
@@ -80,7 +100,7 @@ const TeamSettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId }) =>
       <ScaffoldForm onSubmit={ handleSubmit } initialValues={{ 
           settings: teamSettings.settings,
           name: teamSettings.name,
-          postalCodeRanges
+          postalCodeRangesPresets
         }}>
         <Scaffold { ...definition } />
         <FixedSubmitButton errorMessage={ errorMessage } />

@@ -86,49 +86,74 @@ export const createDefinition = (projects: string[], stadia: string[], postalCod
         validate: isRequired()
       }
     },
-    postal_codes: {
-      type: "ArrayField",
+    geo_type: {
+      type: "RadioFields",
       props: {
-        name: "settings.postal_codes",
-        allowAdd: true,
-        allowRemove: true,
-        minItems: 1,
-        columns: {
-          "mobileS": "1fr 1fr auto",
-          "laptop": "1fr 1fr 1fr"
-        },
-        label: "Postcode gebieden",
-        scaffoldFields: {
-          postal_code_range_start: {
-            type: "NumberField",
-            props: {
-              name: "range_start",
-              label: "Van",
-              min: postalCodeMin,
-              max: postalCodeMax,
-              validate: postalCodeSiblingValidator("start")
-            }
-          },
-          postal_code_range_end: {
-            type: "NumberField",
-            props: {
-              name: "range_end",
-              label: "Tot en met",
-              min: postalCodeMin,
-              max: postalCodeMax,
-              validate: postalCodeSiblingValidator("end")
+        isRequired: true,
+        label: "Kies een manier om op lokatie te filteren",
+        name: "settings.postal_codes_type",
+        options: {
+          postcode: "Postcode", 
+          stadsdeel: "Stadsdeel"
+        }
+      }
+    },
+    postal_codes: {
+      type: "ShowHide",
+      props: {
+        shouldShow: ({ values: { settings: { postal_codes_type } } }) => postal_codes_type && postal_codes_type === "postcode",
+        field: {
+          type: "ArrayField",
+          props: {
+            name: "settings.postal_code_ranges",
+            allowAdd: true,
+            allowRemove: true,
+            minItems: 1,
+            columns: {
+              "mobileS": "1fr 1fr auto",
+              "laptop": "1fr 1fr 1fr"
+            },
+            label: "Postcode gebieden",
+            scaffoldFields: {
+              postal_code_range_start: {
+                type: "NumberField",
+                props: {
+                  name: "range_start",
+                  label: "Van",
+                  min: postalCodeMin,
+                  max: postalCodeMax,
+                  validate: postalCodeSiblingValidator("start")
+                }
+              },
+              postal_code_range_end: {
+                type: "NumberField",
+                props: {
+                  name: "range_end",
+                  label: "Tot en met",
+                  min: postalCodeMin,
+                  max: postalCodeMax,
+                  validate: postalCodeSiblingValidator("end")
+                }
+              }
             }
           }
         }
       }
     },
     postalCodeRanges: {
-      type: "CheckboxFields",
+      type: "ShowHide",
       props: {
-        label: "Stadsdelen",
-        name: "settings.postal_code_ranges",
-        options: arrayToObject(postalCodeRangeOptions),
-        columnCount: { laptop: 3, laptopL: 5 }
+        shouldShow: ({ values: { settings: { postal_codes_type } } }) => postal_codes_type && postal_codes_type === "stadsdeel",
+        field: {
+          type: "CheckboxFields",
+          props: {
+            label: "Stadsdelen",
+            name: "settings.postal_code_ranges_presets",
+            options: arrayToObject(postalCodeRangeOptions),
+            columnCount: { laptop: 3, laptopL: 5 },
+            validate: isRequired()
+          }
+        }
       }
     },
     projects: {
@@ -168,6 +193,7 @@ export const createDefinition = (projects: string[], stadia: string[], postalCod
     .setGrid("laptop", "1fr 1fr 1fr", [
       /* eslint-disable no-multi-spaces */
       [ "opening_date"                                                ],
+      [ "geo_type"                                                ],
       [ "postal_codes",       "postal_codes",     "postal_codes"      ],
       [ "postalCodeRanges",       "postalCodeRanges",     "postalCodeRanges"      ],
       [ "projects",           "projects",         "projects"          ],
@@ -182,6 +208,7 @@ export const createDefinition = (projects: string[], stadia: string[], postalCod
     .setGrid("laptopL", "1fr 1fr 1fr 1fr 1fr", [
       /* eslint-disable no-multi-spaces */
       [ "opening_date"                                                                                        ],
+      [ "geo_type"                                                                                        ],
       [ "postal_codes",       "postal_codes",     "postal_codes"                                              ],
       [ "postalCodeRanges",       "postalCodeRanges",     "postalCodeRanges", "postalCodeRanges", "postalCodeRanges"],
       [ "projects",           "projects",         "projects",           "projects",         "projects"        ],
