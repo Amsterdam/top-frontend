@@ -17,7 +17,7 @@ const ItineraryNavigationButton: React.FC = () => {
   }
 
   if (numItineraries === 1) {
-    return <Link to={ to("/", { itineraryId: data?.itineraries[0].id.toString() }) }>
+    return <Link to={ to("/lijst/:itineraryId/", { itineraryId: data?.itineraries[0].id.toString() }) }>
       Mijn looplijst ({ numItems })
     </Link>
   }
