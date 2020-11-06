@@ -23,13 +23,13 @@ const ListTeamSettingsOptionsPage: React.FC<RouteComponentProps> = () => {
   const { data } = useTeamSettingsList()
   const loggedInUser = useLoggedInUser()
 
-  const shouldRedirect = loggedInUser?.team_settings && loggedInUser?.team_settings.length > 0
+  const userHasTeamSettings = loggedInUser?.team_settings && loggedInUser?.team_settings.length > 0
 
   useEffect(() => {
-    if (shouldRedirect) {
+    if (userHasTeamSettings) {
       navigate(to("/lijst/nieuw/"))
     }
-  }, [ shouldRedirect, loggedInUser ])
+  }, [ userHasTeamSettings, loggedInUser ])
 
   return <DefaultLayout>
     { data && data.results.length > 0 && (
