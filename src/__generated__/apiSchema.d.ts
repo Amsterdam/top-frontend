@@ -19,6 +19,22 @@ declare namespace Components {
         export type CaseSimple = {
             case_id?: string | null
         }
+        export type DaySettings = {
+            readonly id: number
+            projects: string[]
+            readonly primary_stadium: string
+            secondary_stadia: string[]
+            exclude_stadia: string[]
+            name: string
+            week_day: 1 | 2 | 3 | 4 | 5 | 6
+            opening_date?: string // date
+            postal_code_ranges?: {
+                [name: string]: any
+            }
+            length_of_list?: number
+            team_settings: number
+            postal_code_ranges_presets?: number[]
+        }
         export type DecosPermit = {
             permit_granted?: boolean
             permit_type?: "BED_AND_BREAKFAST" | "VAKANTIEVERHUUR" | "PERMIT_UNKNOWN"
@@ -153,6 +169,24 @@ declare namespace Components {
             previous?: string | null // uri
             results?: Case[]
         }
+        export type PaginatedDaySettingsList = {
+            /**
+             * example:
+             * 123
+             */
+            count?: number
+            /**
+             * example:
+             * http://api.example.org/accounts/?page=4
+             */
+            next?: string | null // uri
+            /**
+             * example:
+             * http://api.example.org/accounts/?page=2
+             */
+            previous?: string | null // uri
+            results?: DaySettings[]
+        }
         export type PaginatedItineraryList = {
             /**
              * example:
@@ -207,7 +241,7 @@ declare namespace Components {
             previous?: string | null // uri
             results?: PlannerSettings[]
         }
-        export type PaginatedPostalCodeRangeSetList = {
+        export type PaginatedPostalCodeRangePresetList = {
             /**
              * example:
              * 123
@@ -223,7 +257,7 @@ declare namespace Components {
              * http://api.example.org/accounts/?page=2
              */
             previous?: string | null // uri
-            results?: PostalCodeRangeSet[]
+            results?: PostalCodeRangePreset[]
         }
         export type PaginatedSuggestNextVisitList = {
             /**
@@ -297,6 +331,22 @@ declare namespace Components {
             previous?: string | null // uri
             results?: Visit[]
         }
+        export type PatchedDaySettings = {
+            readonly id?: number
+            projects?: string[]
+            readonly primary_stadium?: string
+            secondary_stadia?: string[]
+            exclude_stadia?: string[]
+            name?: string
+            week_day?: 1 | 2 | 3 | 4 | 5 | 6
+            opening_date?: string // date
+            postal_code_ranges?: {
+                [name: string]: any
+            }
+            length_of_list?: number
+            team_settings?: number
+            postal_code_ranges_presets?: number[]
+        }
         export type PatchedItineraryItem = {
             readonly id?: number
             position?: number // float
@@ -337,7 +387,7 @@ declare namespace Components {
             value?: string
             verbose?: string
         }
-        export type PatchedPostalCodeRangeSet = {
+        export type PatchedPostalCodeRangePreset = {
             readonly id?: number
             name?: string
             readonly postal_code_ranges_presets?: PostalCodeRange[]
@@ -361,6 +411,7 @@ declare namespace Components {
             settings?: {
                 [name: string]: any
             }
+            readonly day_settings_list?: DaySettings[]
         }
         export type PatchedVisit = {
             readonly id?: number
@@ -415,7 +466,7 @@ declare namespace Components {
             range_start?: number
             range_end?: number
         }
-        export type PostalCodeRangeSet = {
+        export type PostalCodeRangePreset = {
             readonly id: number
             name: string
             readonly postal_code_ranges_presets: PostalCodeRange[]
@@ -453,6 +504,7 @@ declare namespace Components {
             settings: {
                 [name: string]: any
             }
+            readonly day_settings_list: DaySettings[]
         }
         export type TeamSettingsId = {
             readonly id: number
@@ -493,6 +545,7 @@ declare namespace Components {
             itinerary_item?: null | number
             author: string // uuid
         }
+        export type WeekDayEnum = 1 | 2 | 3 | 4 | 5 | 6;
     }
 }
 declare namespace Paths {
@@ -531,6 +584,82 @@ declare namespace Paths {
         }
         namespace Responses {
             export type $200 = Components.Schemas.Visit[];
+        }
+    }
+    namespace ConstantsProjectsRetrieve {
+        namespace Responses {
+            export type $200 = {
+            }
+        }
+    }
+    namespace ConstantsStadiaRetrieve {
+        namespace Responses {
+            export type $200 = {
+            }
+        }
+    }
+    namespace DaySettingsCreate {
+        export type RequestBody = Components.Schemas.DaySettings;
+        namespace Responses {
+            export type $200 = Components.Schemas.DaySettings;
+        }
+    }
+    namespace DaySettingsDestroy {
+        namespace Parameters {
+            export type Id = number;
+        }
+        export type PathParameters = {
+            id: Parameters.Id
+        }
+        namespace Responses {
+            export type $204 = {
+            }
+        }
+    }
+    namespace DaySettingsList {
+        namespace Parameters {
+            export type Page = number;
+        }
+        export type QueryParameters = {
+            page?: Parameters.Page
+        }
+        namespace Responses {
+            export type $200 = Components.Schemas.PaginatedDaySettingsList;
+        }
+    }
+    namespace DaySettingsPartialUpdate {
+        namespace Parameters {
+            export type Id = number;
+        }
+        export type PathParameters = {
+            id: Parameters.Id
+        }
+        export type RequestBody = Components.Schemas.PatchedDaySettings;
+        namespace Responses {
+            export type $200 = Components.Schemas.DaySettings;
+        }
+    }
+    namespace DaySettingsRetrieve {
+        namespace Parameters {
+            export type Id = number;
+        }
+        export type PathParameters = {
+            id: Parameters.Id
+        }
+        namespace Responses {
+            export type $200 = Components.Schemas.DaySettings;
+        }
+    }
+    namespace DaySettingsUpdate {
+        namespace Parameters {
+            export type Id = number;
+        }
+        export type PathParameters = {
+            id: Parameters.Id
+        }
+        export type RequestBody = Components.Schemas.DaySettings;
+        namespace Responses {
+            export type $200 = Components.Schemas.DaySettings;
         }
     }
     namespace FraudPredictionScoringCreate {
@@ -797,13 +926,13 @@ declare namespace Paths {
             export type $200 = Components.Schemas.DecosPermit[];
         }
     }
-    namespace PostalCodeRangesCreate {
-        export type RequestBody = Components.Schemas.PostalCodeRangeSet;
+    namespace PostalCodeRangesPresetsCreate {
+        export type RequestBody = Components.Schemas.PostalCodeRangePreset;
         namespace Responses {
-            export type $200 = Components.Schemas.PostalCodeRangeSet;
+            export type $200 = Components.Schemas.PostalCodeRangePreset;
         }
     }
-    namespace PostalCodeRangesDestroy {
+    namespace PostalCodeRangesPresetsDestroy {
         namespace Parameters {
             export type Id = number;
         }
@@ -815,7 +944,7 @@ declare namespace Paths {
             }
         }
     }
-    namespace PostalCodeRangesList {
+    namespace PostalCodeRangesPresetsList {
         namespace Parameters {
             export type Page = number;
         }
@@ -823,22 +952,22 @@ declare namespace Paths {
             page?: Parameters.Page
         }
         namespace Responses {
-            export type $200 = Components.Schemas.PaginatedPostalCodeRangeSetList;
+            export type $200 = Components.Schemas.PaginatedPostalCodeRangePresetList;
         }
     }
-    namespace PostalCodeRangesPartialUpdate {
+    namespace PostalCodeRangesPresetsPartialUpdate {
         namespace Parameters {
             export type Id = number;
         }
         export type PathParameters = {
             id: Parameters.Id
         }
-        export type RequestBody = Components.Schemas.PatchedPostalCodeRangeSet;
+        export type RequestBody = Components.Schemas.PatchedPostalCodeRangePreset;
         namespace Responses {
-            export type $200 = Components.Schemas.PostalCodeRangeSet;
+            export type $200 = Components.Schemas.PostalCodeRangePreset;
         }
     }
-    namespace PostalCodeRangesRetrieve {
+    namespace PostalCodeRangesPresetsRetrieve {
         namespace Parameters {
             export type Id = number;
         }
@@ -846,19 +975,19 @@ declare namespace Paths {
             id: Parameters.Id
         }
         namespace Responses {
-            export type $200 = Components.Schemas.PostalCodeRangeSet;
+            export type $200 = Components.Schemas.PostalCodeRangePreset;
         }
     }
-    namespace PostalCodeRangesUpdate {
+    namespace PostalCodeRangesPresetsUpdate {
         namespace Parameters {
             export type Id = number;
         }
         export type PathParameters = {
             id: Parameters.Id
         }
-        export type RequestBody = Components.Schemas.PostalCodeRangeSet;
+        export type RequestBody = Components.Schemas.PostalCodeRangePreset;
         namespace Responses {
-            export type $200 = Components.Schemas.PostalCodeRangeSet;
+            export type $200 = Components.Schemas.PostalCodeRangePreset;
         }
     }
     namespace SchemaRetrieve {
