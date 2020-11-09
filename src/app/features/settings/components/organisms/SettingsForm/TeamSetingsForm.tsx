@@ -47,6 +47,7 @@ const TeamSettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId }) =>
   const { data: teamSettings, execPut, isBusy: isBusySettings } = useTeamSettings(teamSettingsId!)
   const { data: postalCodeRangesPresets, isBusy: isBusyPostalCodeRangesPresets } = usePostCodeRanges()
   const [ errorMessage, setErrorMessage ] = useState("")
+  const defaultPostalCodeRange = [{ range_start: 1000, range_end: 1109 }]
   
   const definition = useMemo(
     () => createDefinition(teamSettings?.project_choices ?? [], teamSettings?.stadia_choices ?? [], postalCodeRangesPresets?.results.map(p => p.name) ?? []),
@@ -63,8 +64,10 @@ const TeamSettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId }) =>
         }
         return total
       }, [])
+      values.postal_code_ranges = defaultPostalCodeRange
     } else {
       values.postal_codes = values.postal_code_ranges
+      values.postal_code_ranges_presets = []
     }
     try {
       await execPut({
@@ -75,17 +78,17 @@ const TeamSettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId }) =>
       setErrorMessage(error.response.data.message)
       return error
     }
-  }, [ execPut, setErrorMessage ])
+  }, [defaultPostalCodeRange, execPut])
 
 
   if (!teamSettings || isBusySettings || !postalCodeRangesPresets || isBusyPostalCodeRangesPresets) {
     return <CenteredSpinner size={ 60 } />
   }
+  if (!teamSettings.settings.postal_codes || teamSettings.settings.postal_codes.length <= 0){
+    teamSettings.settings.postal_codes = defaultPostalCodeRange
+  }
   if (!teamSettings.settings.postal_code_ranges || teamSettings.settings.postal_code_ranges.length <= 0){
     teamSettings.settings.postal_code_ranges = teamSettings.settings.postal_codes
-  }
-  if (teamSettings.settings.postal_code_ranges.length <= 0){
-    teamSettings.settings.postal_code_ranges = [{ range_start: 1000, range_end: 1109 }]
   }
 
   return <DefaultLayout>
