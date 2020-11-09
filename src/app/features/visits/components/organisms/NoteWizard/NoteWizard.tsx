@@ -1,6 +1,6 @@
 import React, { useCallback } from "react"
 import { navigate } from "@reach/router"
-import { themeSpacing, themeColor } from "@amsterdam/asc-ui"
+import { themeColor, themeSpacing } from "@amsterdam/asc-ui"
 import { ScaffoldForm } from "amsterdam-react-final-form"
 import styled from "styled-components"
 
@@ -41,7 +41,14 @@ const ButtonWrap = styled.div`
 
 const NoteWizard: React.FC<Props> = ({ itineraryId, caseId, onSubmit, valuesFromApi, visitId }) => {
   const { data: itinerary } = useItinerary(itineraryId)
-  const { pushStep, popStep, getCurrentStep, clearSteps, setValues, getValues: getUnsubmittedValues } = useNoteWizard(caseId)
+  const {
+    pushStep,
+    popStep,
+    getCurrentStep,
+    clearSteps,
+    setValues,
+    getValues: getUnsubmittedValues
+  } = useNoteWizard(caseId)
   const user = useLoggedInUser()
 
   const itineraryItem = itinerary?.items.find(item => item.case.case_id === caseId) as ItineraryItem
@@ -61,7 +68,7 @@ const NoteWizard: React.FC<Props> = ({ itineraryId, caseId, onSubmit, valuesFrom
         return navigate(to("/lijst/:itineraryId/", { itineraryId }))
       })
 
-    switch(wizardStep) {
+    switch (wizardStep) {
       case "stepOne":
         pushStep(
           values.situation === "access_granted"
@@ -85,25 +92,27 @@ const NoteWizard: React.FC<Props> = ({ itineraryId, caseId, onSubmit, valuesFrom
     }
 
     return Promise.resolve(true)
-  }, [pushStep, clearSteps, setValues, wizardStep, onSubmit, itineraryId, itineraryItem, user])
+  }, [ pushStep, clearSteps, setValues, wizardStep, onSubmit, itineraryId, itineraryItem, user ])
 
   return (
     itinerary && itineraryItem && user
       ? (
-        <ScaffoldForm onSubmit={handleSubmit} initialValues={getUnsubmittedValues() ?? valuesFromApi} keepDirtyOnReinitialize={true}>
-          <NodeWizardSubtitle itineraryItem={itineraryItem} />
-            { valuesFromApi && visitId &&
-              <ButtonWrap>
-                <DeleteVisitButton caseId={caseId} itineraryId={itineraryId} visitId={visitId} />
-              </ButtonWrap>
-            }
-          <Spacing pt={2}>
-            <NoteWizardFormScaffoldFields step={wizardStep} onBackButtonClicked={handleBackButtonClick} teamSettings={itinerary.settings.team_settings} />
+        <ScaffoldForm onSubmit={ handleSubmit } initialValues={ getUnsubmittedValues() ?? valuesFromApi }
+                      keepDirtyOnReinitialize={ true }>
+          <NodeWizardSubtitle itineraryItem={ itineraryItem } />
+          { valuesFromApi && visitId &&
+          <ButtonWrap>
+            <DeleteVisitButton caseId={ caseId } itineraryId={ itineraryId } visitId={ visitId } />
+          </ButtonWrap>
+          }
+          <Spacing pt={ 2 }>
+            <NoteWizardFormScaffoldFields step={ wizardStep } onBackButtonClicked={ handleBackButtonClick }
+                                          teamSettings={ itinerary.settings.team_settings } />
             <NoteWizardManager caseID={ caseId } />
           </Spacing>
         </ScaffoldForm>
       )
-     : <CenteredSpinner size={60} />
+      : <CenteredSpinner size={ 60 } />
   )
 }
 

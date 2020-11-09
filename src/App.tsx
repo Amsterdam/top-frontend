@@ -1,6 +1,6 @@
 import React from "react"
 
-import { ThemeProvider, GlobalStyle } from "@amsterdam/asc-ui"
+import { GlobalStyle, ThemeProvider } from "@amsterdam/asc-ui"
 import { LocationProvider } from "@reach/router"
 import AuthSession from "./app/state/auth/AuthSession"
 import Router from "./app/features/shared/routing/Router"
@@ -11,7 +11,7 @@ import NoteWizardProvider from "./app/features/visits/components/organisms/NoteW
 import SearchFormProvider from "./app/features/shared/components/organisms/SearchForm/SearchFormProvider"
 import ErrorProvider from "./app/state/error/ErrorProvider"
 
-function App() {
+function App () {
   return (
     <ThemeProvider>
       <GlobalStyle />
@@ -24,11 +24,7 @@ function App() {
                   <Anonymous />
                   <AuthSession />
                   <Router />
-                  {/*
-                    Modals are teleported to this div using React' portals
-                    @see https://reactjs.org/docs/portals.html
-                  */}
-                  <div id='modal-root' />
+                  <div id="modal-root" />
                 </SearchFormProvider>
               </NoteWizardProvider>
             </AnonymousProvider>

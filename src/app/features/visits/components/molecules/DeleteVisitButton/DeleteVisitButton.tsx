@@ -19,13 +19,14 @@ const DeleteVisitButton: React.FC<Props> = ({ visitId, itineraryId, caseId }) =>
   const { clearSteps } = useNoteWizard(caseId)
 
   const handleClick = useCallback(async () => {
-    if(window.confirm("Weet je zeker dat je dit bezoek wilt verwijderen?")) {
+    if (window.confirm("Weet je zeker dat je dit bezoek wilt verwijderen?")) {
       await navigate(to("/lijst/:itineraryId/", { itineraryId }))
       clearSteps()
       return execDelete()
-    } } , [ execDelete, itineraryId, clearSteps ])
+    }
+  }, [ execDelete, itineraryId, clearSteps ])
 
-  return <StyledButton variant="blank" onClick={handleClick} icon={<TrashBin />} />
+  return <StyledButton variant="blank" onClick={ handleClick } icon={ <TrashBin /> } />
 }
 
 export default DeleteVisitButton
