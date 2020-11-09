@@ -3,7 +3,7 @@ import { navigate, RouteComponentProps } from "@reach/router"
 import styled from "styled-components"
 
 import { ChevronRight } from "@amsterdam/asc-assets"
-import { Button } from "@amsterdam/asc-ui"
+import { Button, Heading } from "@amsterdam/asc-ui"
 
 import { useTeamSettingsList } from "app/state/rest"
 import { useLoggedInUser } from "app/state/rest/custom/useLoggedInUser"
@@ -34,6 +34,8 @@ const ListTeamSettingsOptionsPage: React.FC<RouteComponentProps> = () => {
   return <DefaultLayout>
     { data && data.results.length > 0 && (
       <>
+        <Heading>Genereer looplijst</Heading>
+        <Heading forwardedAs="h2">Kies een team</Heading>
         <Spacing pb={ 6 }>
           <p>
             <Greeting />{ " " }
