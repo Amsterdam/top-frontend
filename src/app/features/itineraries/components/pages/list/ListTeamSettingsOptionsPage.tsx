@@ -3,7 +3,7 @@ import { navigate, RouteComponentProps } from "@reach/router"
 import styled from "styled-components"
 
 import { ChevronRight } from "@amsterdam/asc-assets"
-import { Button } from "@amsterdam/asc-ui"
+import { Button, Heading } from "@amsterdam/asc-ui"
 
 import { useTeamSettingsList } from "app/state/rest"
 import { useLoggedInUser } from "app/state/rest/custom/useLoggedInUser"
@@ -23,17 +23,19 @@ const ListTeamSettingsOptionsPage: React.FC<RouteComponentProps> = () => {
   const { data } = useTeamSettingsList()
   const loggedInUser = useLoggedInUser()
 
-  const shouldRedirect = loggedInUser?.team_settings && loggedInUser?.team_settings.length > 0
+  const userHasTeamSettings = loggedInUser?.team_settings && loggedInUser?.team_settings.length > 0
 
   useEffect(() => {
-    if (shouldRedirect) {
-      navigate(to("/lijst/nieuw/"))
+    if (userHasTeamSettings) {
+      navigate(to("/lijst/nieuw"))
     }
-  }, [ shouldRedirect, loggedInUser ])
+  }, [ userHasTeamSettings, loggedInUser ])
 
   return <DefaultLayout>
     { data && data.results.length > 0 && (
       <>
+        <Heading>Genereer looplijst</Heading>
+        <Heading forwardedAs="h2">Kies een team</Heading>
         <Spacing pb={ 6 }>
           <p>
             <Greeting />{ " " }
@@ -43,7 +45,7 @@ const ListTeamSettingsOptionsPage: React.FC<RouteComponentProps> = () => {
         </Spacing>
         <ButtonsLayout>
           { data.results.map(teamSettings => (
-            <Button as="a" href={ to("/lijst/nieuw/:teamSettingsId/", { teamSettingsId: teamSettings.id }) }
+            <Button as="a" href={ to("/lijst/nieuw/:teamSettingsId", { teamSettingsId: teamSettings.id }) }
                     iconRight={ <ChevronRight /> } key={ teamSettings.id } variant="primaryInverted">
               { teamSettings.name }
             </Button>

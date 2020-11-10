@@ -22,11 +22,11 @@ const ItineraryForm: FC<Props> = ({ teamSettings }) => {
   const loggedInUser = useLoggedInUser()
 
   const handleSubmit = useCallback(async (values) => {
-      // @ts-ignore
-      await execPost(mapPostValues(values))
-      await navigate(to("/"))
-  }, [execPost])
-    
+    // @ts-ignore
+    await execPost(mapPostValues(values))
+    await navigate(to("/lijst"))
+  }, [ execPost ])
+
   if (!users) {
     return null
   }
@@ -36,9 +36,9 @@ const ItineraryForm: FC<Props> = ({ teamSettings }) => {
 
   return (
     <ScaffoldForm
-      keepDirtyOnReinitialize={true}
-      onSubmit={handleSubmit}
-      initialValues={{
+      keepDirtyOnReinitialize={ true }
+      onSubmit={ handleSubmit }
+      initialValues={ {
         teamSettings,
         openingsDate: teamSettings.settings?.opening_date,
         projects: teamSettings.settings?.projects,
@@ -46,9 +46,9 @@ const ItineraryForm: FC<Props> = ({ teamSettings }) => {
         numAddresses: 8,
         dayPart: dayPartOptions[0],
         team_members: [ loggedInUser ]
-      }}
+      } }
     >
-      <Scaffold fields={fields} />
+      <Scaffold fields={ fields } />
     </ScaffoldForm>
   )
 }

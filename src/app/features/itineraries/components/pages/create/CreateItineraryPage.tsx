@@ -1,6 +1,5 @@
 import React, { useEffect } from "react"
 import { navigate, RouteComponentProps } from "@reach/router"
-
 import { Heading } from "@amsterdam/asc-ui"
 
 import { useItineraries, useTeamSettings } from "app/state/rest"
@@ -22,13 +21,13 @@ const CreateItineraryPage: React.FC<RouteComponentProps<Props>> = ({ teamSetting
   const { hasParameter } = useQueryString()
   const { data: teamSettings } = useTeamSettings(teamSettingsId!)
 
-  const shouldRedirect = data && data?.itineraries?.length > 0 && !hasParameter("force")
+  const itineraryExistsOrForceCreateAnother = data && data?.itineraries?.length > 0 && !hasParameter("force")
 
   useEffect(() => {
-    if (shouldRedirect) {
-      navigate(to("/lijst/:itineraryId/", { itineraryId: data?.itineraries[0].id.toString() }))
+    if (itineraryExistsOrForceCreateAnother) {
+      navigate(to("/lijst/:itineraryId", { itineraryId: data?.itineraries[0].id.toString() }))
     }
-  }, [ shouldRedirect, data ])
+  }, [ itineraryExistsOrForceCreateAnother, data ])
 
   if (!teamSettings) {
     return null
@@ -46,7 +45,7 @@ const CreateItineraryPage: React.FC<RouteComponentProps<Props>> = ({ teamSetting
       </Spacing>
       { isBusy
         ? <CenteredSpinner size={ 60 } />
-        : !shouldRedirect ? <ItineraryForm teamSettings={ teamSettings } /> : null
+        : !itineraryExistsOrForceCreateAnother ? <ItineraryForm teamSettings={ teamSettings } /> : null
       }
     </DefaultLayout>
   )

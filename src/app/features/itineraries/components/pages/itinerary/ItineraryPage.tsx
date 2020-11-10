@@ -1,11 +1,11 @@
-import React, { useCallback, useMemo, useState } from "react"
+import React, { useCallback, useEffect, useMemo, useState } from "react"
 import { Heading, themeColor, themeSpacing } from "@amsterdam/asc-ui"
 import { navigate, RouteComponentProps } from "@reach/router"
 import { Card, ChevronDown, Enlarge, TrashBin } from "@amsterdam/asc-assets"
 import styled from "styled-components"
 
 import { ItineraryItem } from "app/features/types"
-import { useDeleteItinerary, useTeamSettings } from "app/state/rest"
+import { useDeleteItinerary, useItineraries, useTeamSettings } from "app/state/rest"
 import { useItinerary } from "app/state/rest/custom/useItinerary"
 
 import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner"
@@ -25,6 +25,7 @@ import TeamMemberForm from "app/features/itineraries/components/organisms/TeamMe
 
 import itineraryToClipboardText from "./itineraryToClipBoardText"
 import { mapItineraryItem } from "./mapItineraryItem"
+import { redirectToCorrectItineraryPage } from "app/features/itineraries/utils/redirectToCorrectItineraryPage"
 
 const TeamMemberWrap = styled.div`
   padding-top: ${ themeSpacing(2) };
@@ -65,8 +66,14 @@ type Props = {
 }
 
 const ItineraryPage: React.FC<RouteComponentProps<Props>> = ({ itineraryId }) => {
-  const { data, isBusy } = useItinerary(parseInt(itineraryId!), { keepUsingInvalidCache: true })
-  const { data: teamSettings } = useTeamSettings(data?.settings.team_settings.id!)
+  const { data: itineraries } = useItineraries()
+
+  useEffect(() => {
+    redirectToCorrectItineraryPage(itineraries?.itineraries, itineraryId)
+  }, [ itineraries, itineraryId ])
+
+  const { data: itinerary, isBusy } = useItinerary(parseInt(itineraryId!), { keepUsingInvalidCache: true })
+  const { data: teamSettings } = useTeamSettings(itinerary?.settings.team_settings.id!)
   const { execDelete } = useDeleteItinerary(itineraryId!, { lazy: true }) // <- NOTE: we need a extra hook here, because /itenaries/:id/ only allows a DELETE, no other methods
 
   const [ showDialog, setShowDialog ] = useState(false)
@@ -84,15 +91,15 @@ const ItineraryPage: React.FC<RouteComponentProps<Props>> = ({ itineraryId }) =>
   const deleteItinerary = useCallback(async () => {
     if (window.confirm("Weet je zeker dat je de hele looplijst wilt verwijderen?")) {
       await execDelete()
-      await navigate(to("/"))
+      await navigate(to("/lijst"))
     }
   }, [ execDelete ])
 
-  const items = data?.items as unknown as ItineraryItem[]
+  const items = itinerary?.items as unknown as ItineraryItem[]
 
   const cardListItems = useMemo(() => items?.map(mapItineraryItem(itineraryId!, teamSettings!)) ?? [], [ items, itineraryId, teamSettings ])
 
-  const teamMemberUsers = useMemo(() => data?.team_members.map(member => member.user) ?? [], [ data ])
+  const teamMemberUsers = useMemo(() => itinerary?.team_members.map(member => member.user) ?? [], [ itinerary ])
   const teamMemberNames = useMemo(() => teamMemberUsers?.map(user => user.full_name).join(", "), [ teamMemberUsers ])
   const cases = useMemo(() => items?.filter(item => item.visits.length === 0).map(item => item.case.bwv_data) ?? [], [ items ])
 
@@ -101,8 +108,8 @@ const ItineraryPage: React.FC<RouteComponentProps<Props>> = ({ itineraryId }) =>
 
   return (
     <DefaultLayout>
-      { (!data || isBusy) && <CenteredSpinner size={ 60 } /> }
-      { data && <>
+      { (!itinerary || isBusy) && <CenteredSpinner size={ 60 } /> }
+      { itinerary && <>
         <div>
           <FloatRight>
             <StyledButton variant="blank" iconRight={ <ChevronDown /> } onClick={ onClickOptions }>Opties</StyledButton>
@@ -120,14 +127,14 @@ const ItineraryPage: React.FC<RouteComponentProps<Props>> = ({ itineraryId }) =>
             ) }
           </FloatRight>
           <Heading forwardedAs="h2">
-            Looplijst { formatDate(data.created_at, true, false) }
+            Looplijst { formatDate(itinerary.created_at, true, false) }
           </Heading>
           <TeamMemberWrap>
-            <TeamName>{ data?.settings.team_settings.name }</TeamName>
+            <TeamName>{ itinerary?.settings.team_settings.name }</TeamName>
             { !isEditing
               ? teamMemberNames
               : <TeamMemberForm
-                itineraryId={ data.id }
+                itineraryId={ itinerary.id }
                 initialUsers={ teamMemberUsers }
                 toggleForm={ toggleIsEditing }
               />
@@ -139,7 +146,7 @@ const ItineraryPage: React.FC<RouteComponentProps<Props>> = ({ itineraryId }) =>
             <MapsButton cases={ cases } />
           </Left>
           <Right>
-            <StyledButton onClick={ () => navigate(to("/lijst/:itineraryId/suggesties/", { itineraryId })) }
+            <StyledButton onClick={ () => navigate(to("/lijst/:itineraryId/suggesties", { itineraryId })) }
                           variant="blank" iconLeft={ <Enlarge /> }>
               Voeg adres toe
             </StyledButton>

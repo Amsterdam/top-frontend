@@ -9,9 +9,9 @@ type Props = {
 }
 
 const NoteWizardModal: React.FC<Props> = ({ children, itineraryId }) => {
-  const handleClose = useCallback(() => navigate(to("/lijst/:itineraryId/", { itineraryId })), [ itineraryId ])
+  const handleClose = useCallback(() => navigate(to("/lijst/:itineraryId", { itineraryId })), [ itineraryId ])
   return (
-    <DefaultModal title="Verwerken bezoek" onClose={handleClose}>
+    <DefaultModal title="Verwerken bezoek" onClose={ handleClose }>
       { children }
     </DefaultModal>
   )
