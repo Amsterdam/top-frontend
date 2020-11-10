@@ -10,8 +10,8 @@ type Props = {
 
 const SearchNavigationButton: React.FC<Props> = ({ itineraryId }) => {
   const href = itineraryId
-    ? to("/lijst/:itineraryId/zoeken/", { itineraryId })
-    : to("/zoeken/")
+    ? to("/lijst/:itineraryId/zoeken", { itineraryId })
+    : to("/zoeken")
 
   return <Link to={ href }><Search width={ 24 } height={ 24 } /></Link>
 }

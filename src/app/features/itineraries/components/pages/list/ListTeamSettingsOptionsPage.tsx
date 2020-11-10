@@ -27,7 +27,7 @@ const ListTeamSettingsOptionsPage: React.FC<RouteComponentProps> = () => {
 
   useEffect(() => {
     if (userHasTeamSettings) {
-      navigate(to("/lijst/nieuw/"))
+      navigate(to("/lijst/nieuw"))
     }
   }, [ userHasTeamSettings, loggedInUser ])
 
@@ -45,7 +45,7 @@ const ListTeamSettingsOptionsPage: React.FC<RouteComponentProps> = () => {
         </Spacing>
         <ButtonsLayout>
           { data.results.map(teamSettings => (
-            <Button as="a" href={ to("/lijst/nieuw/:teamSettingsId/", { teamSettingsId: teamSettings.id }) }
+            <Button as="a" href={ to("/lijst/nieuw/:teamSettingsId", { teamSettingsId: teamSettings.id }) }
                     iconRight={ <ChevronRight /> } key={ teamSettings.id } variant="primaryInverted">
               { teamSettings.name }
             </Button>

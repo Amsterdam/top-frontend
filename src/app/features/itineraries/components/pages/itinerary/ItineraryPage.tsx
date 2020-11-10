@@ -139,7 +139,7 @@ const ItineraryPage: React.FC<RouteComponentProps<Props>> = ({ itineraryId }) =>
             <MapsButton cases={ cases } />
           </Left>
           <Right>
-            <StyledButton onClick={ () => navigate(to("/lijst/:itineraryId/suggesties/", { itineraryId })) }
+            <StyledButton onClick={ () => navigate(to("/lijst/:itineraryId/suggesties", { itineraryId })) }
                           variant="blank" iconLeft={ <Enlarge /> }>
               Voeg adres toe
             </StyledButton>

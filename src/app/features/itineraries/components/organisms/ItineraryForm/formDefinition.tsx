@@ -79,7 +79,7 @@ export const generateItineraryFormDefinition = (
       props: {
         iconLeft: <ChevronLeft />,
         label: "Vorige",
-        onClick: () => navigate(to("/lijst-instellingen/")),
+        onClick: () => navigate(to("/lijst-instellingen")),
         style: { marginTop: "16px" },
         variant: "textButton"
       }

@@ -65,7 +65,7 @@ const NoteWizard: React.FC<Props> = ({ itineraryId, caseId, onSubmit, valuesFrom
     const submit = () => onSubmit(mapPostValues(values, itineraryItem.id, itineraryItem.case.id, user!.id))
       .then(() => {
         clearSteps()
-        return navigate(to("/lijst/:itineraryId/", { itineraryId }))
+        return navigate(to("/lijst/:itineraryId", { itineraryId }))
       })
 
     switch (wizardStep) {

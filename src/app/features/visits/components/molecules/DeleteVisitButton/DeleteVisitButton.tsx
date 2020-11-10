@@ -20,7 +20,7 @@ const DeleteVisitButton: React.FC<Props> = ({ visitId, itineraryId, caseId }) =>
 
   const handleClick = useCallback(async () => {
     if (window.confirm("Weet je zeker dat je dit bezoek wilt verwijderen?")) {
-      await navigate(to("/lijst/:itineraryId/", { itineraryId }))
+      await navigate(to("/lijst/:itineraryId", { itineraryId }))
       clearSteps()
       return execDelete()
     }

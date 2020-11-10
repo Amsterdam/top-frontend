@@ -25,7 +25,7 @@ const CreateItineraryPage: React.FC<RouteComponentProps<Props>> = ({ teamSetting
 
   useEffect(() => {
     if (itineraryExistsOrForceCreateAnother) {
-      navigate(to("/lijst/:itineraryId/", { itineraryId: data?.itineraries[0].id.toString() }))
+      navigate(to("/lijst/:itineraryId", { itineraryId: data?.itineraries[0].id.toString() }))
     }
   }, [ itineraryExistsOrForceCreateAnother, data ])
 

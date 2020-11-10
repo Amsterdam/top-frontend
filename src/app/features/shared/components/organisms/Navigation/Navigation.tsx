@@ -61,7 +61,7 @@ const Navigation: FC = () => {
   const { data: itinerary } = useItinerary(itineraryId)
   const { pathname } = useLocation()
 
-  const showItineraryNavigationItems = (pathname.startsWith("/cases") || pathname.startsWith("/issuemeldingen") || (pathname.startsWith("/lijst/") && itineraryId) || pathname.startsWith("/visits") || pathname.startsWith("/zoeken"))
+  const showItineraryNavigationItems = (pathname.startsWith("/cases") || pathname.startsWith("/issuemeldingen") || (pathname.startsWith("/lijst") && itineraryId) || pathname.startsWith("/visits") || pathname.startsWith("/zoeken"))
 
   return (
     <>
