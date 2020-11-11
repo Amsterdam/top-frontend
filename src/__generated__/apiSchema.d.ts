@@ -278,8 +278,9 @@ declare namespace Components {
             }
         }
         export type PatchedPostalCodeRangeSet = {
+            readonly id?: number
             name?: string
-            readonly postal_code_ranges?: string[]
+            readonly postal_code_ranges_presets?: PostalCodeRange[]
         }
         export type PatchedTeamSettings = {
             readonly id?: number
@@ -288,7 +289,7 @@ declare namespace Components {
                 [name: string]: any
             }
             readonly observation_choices?: Observation[]
-            readonly situation_choices?: Situation[]
+            readonly situation_choices?: any[]
             readonly suggest_next_visit_choices?: SuggestNextVisit[]
             readonly project_choices?: string[]
             readonly stadia_choices?: string[]
@@ -307,7 +308,6 @@ declare namespace Components {
             can_next_visit_go_ahead_description?: string | null
             suggest_next_visit?: string | null
             suggest_next_visit_description?: string | null
-            thread_id?: null | number
             personal_notes?: string | null
             case_id?: number
             itinerary_item?: null | number
@@ -347,9 +347,14 @@ declare namespace Components {
             saturday: PlannerDaySettings
             sunday: PlannerDaySettings
         }
+        export type PostalCodeRange = {
+            range_start?: number
+            range_end?: number
+        }
         export type PostalCodeRangeSet = {
+            readonly id: number
             name: string
-            readonly postal_code_ranges: string[]
+            readonly postal_code_ranges_presets: PostalCodeRange[]
         }
         export type PostalCodeSettings = {
             range_start: number
@@ -359,10 +364,6 @@ declare namespace Components {
             name: ProjectNameEnum
         }
         export type ProjectNameEnum = "Bed en breakfast 2019" | "Burgwallenproject Oudezijde" | "Corpo-rico" | "Digital toezicht Safari" | "Digital toezicht Zebra" | "Haarlemmerbuurt" | "Hotline" | "Mystery Guest" | "Project Andes" | "Project Jordaan" | "Project Lobith" | "Project Sahara" | "Safari" | "Safari 2015" | "Sahara Adams Suites" | "Sahara hele woning" | "Sahara meer dan 4" | "Sahara Recensies" | "Sahara veel adv" | "Social Media 2019" | "Woonschip (woonboot)" | "Zebra" | "ZKL Doorverhuur" | "Combi BI Doorpak" | "Combi BI Melding" | "Combi Doorpak" | "Combi Overbewoning" | "Combi Samenwoners" | "Combi_ZKL_Doorpak" | "Combi_ZKL_Melding";
-        export type Situation = {
-            value: string
-            verbose: string
-        }
         export type Stadium = {
             name: StadiumNameEnum
         }
@@ -382,7 +383,7 @@ declare namespace Components {
                 [name: string]: any
             }
             readonly observation_choices: Observation[]
-            readonly situation_choices: Situation[]
+            readonly situation_choices: any[]
             readonly suggest_next_visit_choices: SuggestNextVisit[]
             readonly project_choices: string[]
             readonly stadia_choices: string[]
@@ -425,7 +426,6 @@ declare namespace Components {
             can_next_visit_go_ahead_description?: string | null
             suggest_next_visit?: string | null
             suggest_next_visit_description?: string | null
-            thread_id?: null | number
             personal_notes?: string | null
             case_id: number
             itinerary_item?: null | number
