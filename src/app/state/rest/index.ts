@@ -10,7 +10,6 @@ export type ApiGroup =
   | "teamSettings"
   | "teamSettingsList"
   | "postCodeRanges"
-  | "constants"
   | "case"
   | "permits"
 
@@ -164,28 +163,6 @@ export const useTeamSettings = (teamSettingsId: number, options?: Options) => us
     groupName: "postCodeRanges",
     getHeaders
   })
-
-export const useProjectConstants = (options?: Options) => {
-  const handleError = useErrorHandler()
-  return useApiRequest<{constants: string[]}>({
-    ...options,
-    url: makeGatewayUrl(["constants", "projects"]),
-    groupName: "constants",
-    handleError,
-    getHeaders
-  })
-}
-
-export const useStadiaConstants = (options?: Options) => {
-  const handleError = useErrorHandler()
-  return useApiRequest<{constants: string[]}>({
-    ...options,
-    url: makeGatewayUrl(["constants", "stadia"]),
-    groupName: "constants",
-    handleError,
-    getHeaders
-  })
-}
 
 export const useDeleteItinerary = (id: string|number, options?: Options) => {
   const handleError = useErrorHandler()
