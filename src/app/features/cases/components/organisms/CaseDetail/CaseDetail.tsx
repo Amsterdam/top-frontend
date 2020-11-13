@@ -23,8 +23,8 @@ import CaseLogBook from "app/features/cases/components/organisms/CaseLogbook/Cas
 
 import { BagData, BagDataError, BrkData, BrkDataError, Case, KeyValueDetail, RelatedCase } from "app/features/types"
 
-import CaseDetailHeader from "./CaseDetailHeader"
 import CaseDetailSection from "./CaseDetailSection"
+import CaseDetailSectionGeneral from "./CaseDetailSectionGeneral"
 
 type Props = {
   caseId: string
@@ -247,7 +247,7 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
 
   return (
     <article className="CaseDetail">
-      <CaseDetailHeader
+      <CaseDetailSectionGeneral
         address={ address }
         caseCount={ caseCount }
         caseItem={ caseItem }

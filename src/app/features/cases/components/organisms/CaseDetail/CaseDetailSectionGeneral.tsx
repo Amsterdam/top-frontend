@@ -51,7 +51,7 @@ const Span = styled.span`
   vertical-align: top;
 `
 
-const CaseDetailHeader: FC<Props> = (
+const CaseDetailSectionGeneral: FC<Props> = (
   {
     address,
     caseCount,
@@ -141,4 +141,4 @@ const CaseDetailHeader: FC<Props> = (
   )
 }
 
-export default CaseDetailHeader
+export default CaseDetailSectionGeneral
