@@ -67,11 +67,11 @@ export const useItineraryItemNote = (id?: number|string, options?: Options) => {
 }
 
 
-export const useOpenIssues = (options?: Options) => {
+export const useOpenIssues = (itineraryId?: string, options?: Options) => {
   const handleError = useErrorHandler()
   return useApiRequest<{ cases: Case[] }>({
     ...options,
-    url: makeGatewayUrl(["cases", "unplanned"], { date: currentDate(), stadium: "Issuemelding" }),
+    url: makeGatewayUrl(["cases", "unplanned"], { date: currentDate(), stadium: "Issuemelding", itinerary_id: itineraryId }),
     groupName: "itineraries",
     handleError,
     getHeaders
