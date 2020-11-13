@@ -16,7 +16,7 @@ import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinne
 const OpenIssuesPage: React.FC = () => {
   const { itineraryId } = useParams()
   const { data: itinerary, isBusy } = useItinerary(itineraryId)
-  const { data } = useOpenIssues()
+  const { data } = useOpenIssues(itineraryId)
 
   const cardListItems = useMemo(() => casesToCardCaseProps(data?.cases, itinerary), [itinerary, data])
   const date = formatDate(currentDate(), true, false)
