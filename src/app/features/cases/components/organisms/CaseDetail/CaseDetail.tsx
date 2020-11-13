@@ -1,11 +1,9 @@
 import React, { FC } from "react"
-import { Link } from "@reach/router"
 import styled from "styled-components"
 import { Hidden } from "@amsterdam/asc-ui"
 
 import { useDaySettings, usePermitCheckmarks, usePermitDetails } from "app/state/rest"
 
-import to from "app/features/shared/routing/to"
 import formatDate from "app/features/shared/utils/formatDate"
 import highlightText from "app/features/shared/utils/highlightText"
 import replaceNewLines from "app/features/shared/utils/replaceNewLines"
@@ -21,10 +19,11 @@ import Span from "app/features/cases/components/atoms/Span/Span"
 import MailtoAnchor from "app/features/cases/components/molecules/MailtoAnchor/MailtoAnchor"
 import CaseLogBook from "app/features/cases/components/organisms/CaseLogbook/CaseLogBook"
 
-import { BagData, BagDataError, BrkData, BrkDataError, Case, KeyValueDetail, RelatedCase } from "app/features/types"
+import { BagData, BagDataError, BrkData, BrkDataError, Case, KeyValueDetail } from "app/features/types"
 
 import CaseDetailSection from "./CaseDetailSection"
 import CaseDetailSectionGeneral from "./CaseDetailSectionGeneral"
+import CaseDetailSectionRelatedCases from "./CaseDetailSectionRelatedCases"
 
 type Props = {
   caseId: string
@@ -57,22 +56,6 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
   const caseCount = caseItem.bwv_tmp.num_cases !== null ? parseInt(caseItem.bwv_tmp.num_cases, 10) : undefined
   const fraudPrediction = !caseItem.day_settings_id || (daySettings && daySettings.team_settings.fraud_predict) ? caseItem.fraud_prediction : undefined
   const isSia = (caseItem.is_sia === "J")
-
-  // Related cases
-  const relatedCases = caseItem.related_cases
-    .filter(relatedCase => relatedCase.case_id !== caseId)
-    .sort((a, b) => parseInt(a.case_number, 10) - parseInt(b.case_number, 10))
-    .reduce((acc: any, relatedCase: RelatedCase, index, arr) => {
-      const { case_id, case_number, case_reason } = relatedCase
-
-      acc.push([ "Zaaknummer",
-        <Link to={ to("/cases/:id", { id: case_id }) }>{ `${ case_number } van ${ caseCount }` }</Link> ])
-      acc.push([ "Openingsreden", case_reason ])
-
-      if (index < arr.length - 1) acc.push(<Hr />)
-      return acc
-    }, [])
-  const showRelatedCases = relatedCases.length > 0
 
   // Vakantieverhuur
   const vakantieverNotifiedRentals = caseItem.vakantie_verhuur.notified_rentals
@@ -262,12 +245,11 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
         signal={ lastStadia }
         isSia={ isSia }
       />
-      { showRelatedCases &&
-      <CaseDetailSection
-        title="Andere open zaken op dit adres"
-        data={ relatedCases }
+      <CaseDetailSectionRelatedCases
+        caseCount={ caseCount }
+        caseId={ caseId }
+        caseItem={ caseItem }
       />
-      }
       {
         (!caseItem.day_settings_id || (daySettings && daySettings?.team_settings.show_vakantieverhuur)) &&
         <CaseDetailSection
