@@ -6,7 +6,7 @@ import { Heading, themeSpacing } from "@amsterdam/asc-ui"
 
 import InvalidDataSpan from "app/features/cases/components/atoms/InvalidDataSpan/InvalidDataSpan"
 import Label from "app/features/cases/components/atoms/Label/Label"
-import { FraudPrediction } from "app/features/types"
+import { Case, FraudPrediction } from "app/features/types"
 
 import StadiumBadge from "app/features/shared/components/molecules/StadiumBadge/StadiumBadge"
 import FraudProbability from "app/features/shared/components/atoms/FraudProbability/FraudProbability"
@@ -19,20 +19,18 @@ import { CenteredAnchor, Section, SectionRow } from "./CaseDetailStyles"
 
 type Props = {
   address: string
-  postalCode: string
-  personCount: number
-  caseNumber?: number
   caseCount?: number
-  openCaseCount?: number
-  caseOpening?: string
-  signal?: string
-  isSia: boolean
+  caseItem: Case
   eigenaar?: string
-  fraudPrediction?: FraudPrediction
   footer?: {
-    title: string
     link: string
+    title: string
   }
+  fraudPrediction?: FraudPrediction
+  isSia: boolean
+  personCount: number
+  postalCode: string
+  signal?: string
 }
 
 const PostalCode = styled.p`
@@ -56,22 +54,25 @@ const Span = styled.span`
 const CaseDetailHeader: FC<Props> = (
   {
     address,
-    postalCode,
-    personCount,
-    caseNumber,
     caseCount,
-    openCaseCount,
-    caseOpening,
-    signal,
-    isSia,
+    caseItem,
     eigenaar,
+    footer,
     fraudPrediction,
-    footer
+    isSia,
+    personCount,
+    postalCode,
+    signal
   }
 ) => {
-  const { getUrl: getToFraudPredictionModalUrl } = useFraudPredictionModal()
+  const caseNumber = caseItem.bwv_tmp.case_number !== null ? parseInt(caseItem.bwv_tmp.case_number, 10) : undefined
+  const caseOpening = caseItem.bwv_tmp.openings_reden !== null ? caseItem.bwv_tmp.openings_reden : undefined
+  const openCaseCount = caseItem.bwv_tmp.num_open_cases !== null ? caseItem.bwv_tmp.num_open_cases : undefined
 
   const showFooter = footer !== undefined
+
+  const { getUrl: getToFraudPredictionModalUrl } = useFraudPredictionModal()
+
   const personText =
     personCount === 0 ? "Geen inschrijvingen" :
       personCount === 1 ? "1 persoon" :

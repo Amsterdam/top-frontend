@@ -54,10 +54,7 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
   const address = displayAddress(caseItem.import_adres.sttnaam, caseItem.import_adres.hsnr, caseItem.import_adres.hsltr || undefined, caseItem.import_adres.toev || undefined)
   const postalCode = caseItem.import_adres.postcode
   const personCount = caseItem.bwv_personen.filter(person => person.overlijdensdatum === null).length || 0
-  const caseNumber = caseItem.bwv_tmp.case_number !== null ? parseInt(caseItem.bwv_tmp.case_number, 10) : undefined
   const caseCount = caseItem.bwv_tmp.num_cases !== null ? parseInt(caseItem.bwv_tmp.num_cases, 10) : undefined
-  const openCaseCount = caseItem.bwv_tmp.num_open_cases !== null ? caseItem.bwv_tmp.num_open_cases : undefined
-  const caseOpening = caseItem.bwv_tmp.openings_reden !== null ? caseItem.bwv_tmp.openings_reden : undefined
   const fraudPrediction = !caseItem.day_settings_id || (daySettings && daySettings.team_settings.fraud_predict) ? caseItem.fraud_prediction : undefined
   const isSia = (caseItem.is_sia === "J")
 
@@ -237,6 +234,7 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
   }))
 
   const stadia = stadiums.reduce((acc: any, stadium, index) => {
+    acc.push([ "Stadium",
     acc.push([ "Stadium", <StadiumBadge stadium={ stadium.description } stadiaLabels={ (caseItem.day_settings_id && daySettings?.team_settings.marked_stadia) || [] } /> ])
     acc.push([ "Start datum", stadium.dateStart ])
     acc.push([ "Eind datum", stadium.dateEnd ])
@@ -251,15 +249,16 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
     <article className="CaseDetail">
       <CaseDetailHeader
         address={ address }
-        postalCode={ postalCode }
-        personCount={ personCount }
-        caseNumber={ caseNumber }
         caseCount={ caseCount }
-        openCaseCount={ openCaseCount }
-        caseOpening={ caseOpening }
+        caseItem={ caseItem }
         eigenaar={ eigenaar }
+        footer={ {
+          link: `http://www.google.com/maps/place/${ address }, Amsterdam`,
+          title: "Bekijk op Google Maps"
+        } }
         fraudPrediction={ fraudPrediction }
-        footer={ { link: `http://www.google.com/maps/place/${ address }, Amsterdam`, title: "Bekijk op Google Maps" } }
+        personCount={ personCount }
+        postalCode={ postalCode }
         signal={ lastStadia }
         isSia={ isSia }
       />

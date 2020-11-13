@@ -23,9 +23,11 @@ type Props = {
 const Div = styled.div`
   display: flex;
 `
+
 const P = styled.p`
   margin: 0 0 8px;
 `
+
 const SourceInfo = styled.p`
   margin-top: 0;
   margin-bottom: 15px;
