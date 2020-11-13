@@ -24,6 +24,8 @@ import { BagData, BagDataError, BrkData, BrkDataError, Case, KeyValueDetail } fr
 import CaseDetailSection from "./CaseDetailSection"
 import CaseDetailSectionGeneral from "./CaseDetailSectionGeneral"
 import CaseDetailSectionRelatedCases from "./CaseDetailSectionRelatedCases"
+import CaseDetailSectionVacationRental from "./CaseDetailSectionVacationRental"
+import CaseDetailSectionVacationRentalThisYear from "./CaseDetailSectionVacationRentalThisYear"
 
 type Props = {
   caseId: string
@@ -66,7 +68,6 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
   ).length > 0 : "-"
   const vakantieverhuurShortstay = caseItem.vakantie_verhuur.shortstay === "J"
   const vakantieverhuurBnB = caseItem.vakantie_verhuur.is_bnb_declared === "J"
-  const showVakantieverhuur = vakantieverhuurNotified
 
   // Woning
   const hasBagData = (caseItem.bag_data as BagDataError).error === undefined
@@ -250,6 +251,9 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
         caseId={ caseId }
         caseItem={ caseItem }
       />
+      <CaseDetailSectionVacationRental
+        caseItem={ caseItem }
+      />
       {
         (!caseItem.day_settings_id || (daySettings && daySettings?.team_settings.show_vakantieverhuur)) &&
         <CaseDetailSection
@@ -298,21 +302,9 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
         dataSource="BWV"
         data={ showBewoners ? bewoners : [ "Geen inschrijvingen" ] }
       />
-      {
-        showVakantieverhuur &&
-        <CaseDetailSection
-          id="vakantieverhuur"
-          title={ `Vakantieverhuur dit jaar (${ vakantieverhuurDays })` }
-          data={
-            [ ...vakantieverNotifiedRentals ] // reverse is mutable
-              .reverse()
-              .map((o: {check_in: string, check_out: string}) => [ [ "Check out", formatDate(o.check_out) ], [ "Check in", formatDate(o.check_in) ],
-                <Hr /> ])
-              .flat(1)
-              .slice(0, -1) // remove last Hr
-          }
-        />
-      }
+      <CaseDetailSectionVacationRentalThisYear
+        caseItem={ caseItem }
+      />
       <CaseLogBook
         caseId={ caseId }
       />
