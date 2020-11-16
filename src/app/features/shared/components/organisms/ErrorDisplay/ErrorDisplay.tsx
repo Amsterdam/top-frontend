@@ -1,5 +1,5 @@
 import React, { useContext } from "react"
-import { themeColor, themeSpacing, Button } from "@amsterdam/asc-ui"
+import { Button, themeColor, themeSpacing } from "@amsterdam/asc-ui"
 import styled from "styled-components"
 
 import { ErrorContext } from "app/state/error/ErrorProvider"
@@ -8,22 +8,20 @@ import { Close } from "@amsterdam/asc-assets"
 const Wrap = styled.div`
   position: fixed;
   top: 0;
-  
-  width: 100%;     
+  display: flex;
+  width: 100%;
   padding: ${ themeSpacing(4) };
   background-color: ${ themeColor("support", "invalid") };
-  display: flex;    
 `
 
 const BackDrop = styled.div`
   position: fixed;
   top: 0;
-  bottom:0;
+  bottom: 0;
   left: 0;
-  right: 0;  
-  background-color: rgba(0,0,0,.7);
-  
+  right: 0;
   z-index: 10;
+  background-color: rgba(0, 0, 0, .7);
 `
 
 const Stretch = styled.div`
@@ -46,7 +44,7 @@ const ErrorDisplay: React.FC = () => {
     return null
   }
 
-  return <BackDrop onClick={clearError}>
+  return <BackDrop onClick={ clearError }>
     <Wrap>
       <Stretch>
         <H3>Oeps, er ging iets mis!</H3>
@@ -54,9 +52,9 @@ const ErrorDisplay: React.FC = () => {
       </Stretch>
       <Button
         variant="secondary"
-        size={24}
+        size={ 24 }
         icon={ <Close /> }
-        onClick={clearError}
+        onClick={ clearError }
       />
     </Wrap>
   </BackDrop>

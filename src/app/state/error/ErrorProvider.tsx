@@ -13,11 +13,11 @@ export const ErrorContext = createContext<Context>({
 })
 
 const ErrorProvider: React.FC = ({ children }) => {
-  const [error, setError] = useState<string|undefined>(undefined)
+  const [ error, setError ] = useState<string | undefined>(undefined)
   const clearError = useCallback(() => setError(undefined), [ setError ])
 
   return (
-    <ErrorContext.Provider value={{ error, setError, clearError }}>
+    <ErrorContext.Provider value={ { error, setError, clearError } }>
       { children }
     </ErrorContext.Provider>
   )
