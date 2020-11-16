@@ -1,5 +1,5 @@
 import React, { useEffect } from "react"
-import { navigate, RouteComponentProps } from "@reach/router"
+import { RouteComponentProps } from "@reach/router"
 import { Heading } from "@amsterdam/asc-ui"
 
 import { useItineraries, useTeamSettings } from "app/state/rest"
@@ -8,9 +8,9 @@ import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
 import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner"
 import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout"
 import { useQueryString } from "app/features/shared/hooks/queryString/useQueryString"
-import to from "app/features/shared/routing/to"
 
 import ItineraryForm from "app/features/itineraries/components/organisms/ItineraryForm/ItineraryForm"
+import { redirectToCorrectItineraryPage } from "app/features/itineraries/utils/redirectToCorrectItineraryPage";
 
 type Props = {
   teamSettingsId: number
@@ -21,13 +21,13 @@ const CreateItineraryPage: React.FC<RouteComponentProps<Props>> = ({ teamSetting
   const { hasParameter } = useQueryString()
   const { data: teamSettings } = useTeamSettings(teamSettingsId!)
 
-  const itineraryExistsOrForceCreateAnother = data && data?.itineraries?.length > 0 && !hasParameter("force")
+  const redirectToExistingItinerary = data && data?.itineraries?.length > 0 && !hasParameter("force")
 
   useEffect(() => {
-    if (itineraryExistsOrForceCreateAnother) {
-      navigate(to("/lijst/:itineraryId", { itineraryId: data?.itineraries[0].id.toString() }))
+    if (redirectToExistingItinerary) {
+      redirectToCorrectItineraryPage(data?.itineraries)
     }
-  }, [ itineraryExistsOrForceCreateAnother, data ])
+  }, [ redirectToExistingItinerary, data ])
 
   if (!teamSettings) {
     return null
@@ -45,7 +45,7 @@ const CreateItineraryPage: React.FC<RouteComponentProps<Props>> = ({ teamSetting
       </Spacing>
       { isBusy
         ? <CenteredSpinner size={ 60 } />
-        : !itineraryExistsOrForceCreateAnother ? <ItineraryForm teamSettings={ teamSettings } /> : null
+        : <ItineraryForm teamSettings={ teamSettings } />
       }
     </DefaultLayout>
   )
