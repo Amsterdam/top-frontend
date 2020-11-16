@@ -17,11 +17,14 @@ export const useErrorHandler = () => {
   const { setError } = useContext(ErrorContext)
 
   return useCallback(async (error: AxiosError | Error) => {
+    const errorMessage = isAxiosError(error) ? error.response?.data.message : error.message
+
     if (isAxiosError(error) && error.response?.status === 401) {
       clearToken()
       await navigate(to("/login"))
     }
-    setError(error.message)
+
+    setError(errorMessage)
   }, [ setError ])
 }
 
@@ -45,4 +48,3 @@ export const makeGatewayUrl = (paths: Array<number | string | undefined>, queryS
 
   return `${ path }${ queryString }`
 }
-
