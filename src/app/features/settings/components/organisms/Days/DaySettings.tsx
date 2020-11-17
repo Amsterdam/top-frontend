@@ -30,7 +30,7 @@ const Dl = styled.dl`
 `
 
 const Dt = styled.dt`
-  font-weight: 500;
+  font-weight: 700;
   margin-bottom: ${ themeSpacing(1) };
 `
 
@@ -89,11 +89,13 @@ const DaySettings: FC<RouteComponentProps<Props>> = ({ teamSettings, postCodeRan
           <Dl>
             <Dt>Projecten</Dt>
             <Dd>
-              <Ul>
-                { daySettings?.projects.map(project => (
-                  <Li key={ project }>{ project }</Li>
-                )) }
-              </Ul>
+              { daySettings?.projects.length ?
+                <Ul>
+                  { daySettings?.projects.map(project => (
+                    <Li key={ project }>{ project }</Li>
+                  )) }
+                </Ul>
+                : "–" }
             </Dd>
           </Dl>
         </Column>
@@ -107,21 +109,25 @@ const DaySettings: FC<RouteComponentProps<Props>> = ({ teamSettings, postCodeRan
           <Dl>
             <Dt>Aanvullen met</Dt>
             <Dd>
-              <Ul>
-                { daySettings?.secondary_stadia.map(stadium => (
-                  <Li key={ stadium }>{ stadium }</Li>
-                )) }
-              </Ul>
+              { daySettings?.secondary_stadia.length ?
+                <Ul>
+                  { daySettings?.secondary_stadia.map(stadium => (
+                    <Li key={ stadium }>{ stadium }</Li>
+                  )) }
+                </Ul>
+                : "–" }
             </Dd>
           </Dl>
           <Dl>
             <Dt>Uitsluiten</Dt>
             <Dd>
-              <Ul>
-                { daySettings?.exclude_stadia.map(stadium => (
-                  <Li key={ stadium }>{ stadium }</Li>
-                )) }
-              </Ul>
+              { daySettings?.exclude_stadia.length ?
+                <Ul>
+                  { daySettings?.exclude_stadia.map(stadium => (
+                    <Li key={ stadium }>{ stadium }</Li>
+                  )) }
+                </Ul>
+                : "–" }
             </Dd>
           </Dl>
         </Column>
