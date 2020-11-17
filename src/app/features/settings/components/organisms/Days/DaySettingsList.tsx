@@ -1,7 +1,7 @@
 import React, { FC } from "react"
 import { Link, RouteComponentProps } from "@reach/router"
 import styled from "styled-components"
-import { Heading } from "@amsterdam/asc-ui"
+import { Heading, themeColor } from "@amsterdam/asc-ui"
 
 import to from "app/features/shared/routing/to"
 import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
@@ -9,13 +9,15 @@ import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/
 import CenteredSpinner from "../../../../shared/components/atoms/CenteredSpinner/CenteredSpinner"
 import DaySettings from "app/features/settings/components/organisms/Days/DaySettings"
 
-const Li = styled.li`
-  padding: 0;
-`
-
 const Ul = styled.ul`
   padding: 0;
   list-style: none;
+  border-top: 1px solid ${ themeColor("tint", "level3") };
+`
+
+const Li = styled.li`
+  padding: 0;
+  border-bottom: 1px solid ${ themeColor("tint", "level3") };
 `
 
 type Props = {
@@ -30,13 +32,13 @@ const DaySettingsList: FC<RouteComponentProps<Props>> = ({ teamSettings, postCod
 
   return (
     <DefaultLayout>
+      <Heading>Plan looplijsten</Heading>
+      <Heading forwardedAs="h2">{ teamSettings.name }</Heading>
       <Spacing pb={ 4 }>
         <Link to={ to("/team-settings") }>
-          Alle instellingen
+          Kies een ander team
         </Link>
       </Spacing>
-      <p>Wijzig instellingen voor:</p>
-      <Heading>{ teamSettings.name }</Heading>
       <Ul>
         { teamSettings.day_settings_list.map(daySettings => (
           <Li key={ daySettings.id }>

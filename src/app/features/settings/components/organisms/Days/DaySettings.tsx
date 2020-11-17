@@ -1,6 +1,6 @@
 import React, { FC } from "react"
 import { navigate, RouteComponentProps } from "@reach/router"
-import { Button, themeColor, themeSpacing } from "@amsterdam/asc-ui"
+import { Button, Heading, themeSpacing } from "@amsterdam/asc-ui"
 import styled from "styled-components"
 
 import to from "app/features/shared/routing/to"
@@ -8,44 +8,38 @@ import { useDaySettings } from "app/state/rest"
 
 import CenteredSpinner from "../../../../shared/components/atoms/CenteredSpinner/CenteredSpinner"
 
-const Li = styled.li`
-  padding: 0;
-`
-
-const Ul = styled.ul`
-  padding: 0 0 0 18px;
-`
-
-const Wrap = styled.div`
-  flex: 1;
-  padding: ${ themeSpacing(3) } ${ themeSpacing(1) };
-  border-top: 2px solid ${ themeColor("tint", "level3") };
-  border-bottom: 2px solid ${ themeColor("tint", "level3") };
-`
-
-const Header = styled.div`
+const Header = styled.header`
   display: flex;
-  flex: 1;
-  padding: ${ themeSpacing(3) } ${ themeSpacing(1) };
-  border-bottom: 1px solid ${ themeColor("tint", "level3") };
-`
-
-const Content = styled.div`
-  display: flex;
-  padding: ${ themeSpacing(3) } ${ themeSpacing(1) };
+  justify-content: space-between;
+  align-content: baseline;
+  padding: ${ themeSpacing(2) } 0;
 `
 
 const Row = styled.div`
+  display: flex;
+  margin-bottom: ${ themeSpacing(4) };
 `
 
 const Column = styled.div`
   flex: 1;
-  padding: ${ themeSpacing(3) } ${ themeSpacing(1) };
+  padding-right: ${ themeSpacing(4) };
 `
 
-const Column2x = styled.div`
-  flex: 2;
-  padding: ${ themeSpacing(3) } ${ themeSpacing(1) };
+const Dt = styled.dt`
+  font-weight: 500;
+  margin-bottom: ${ themeSpacing(1) };
+`
+
+const Dd = styled.dd`
+  margin: 0;
+`
+
+const Ul = styled.ul`
+  padding: 0 0 0 ${ themeSpacing(5) };
+`
+
+const Li = styled.li`
+  padding: 0 0 ${ themeSpacing(1) };
 `
 
 type Props = {
@@ -60,67 +54,85 @@ const DaySettings: FC<RouteComponentProps<Props>> = ({ teamSettings, postCodeRan
     t[c.id] = c.name
     return t
   }, {}) ?? {}
-  const postal_code_ranges = daySettings?.postal_code_ranges && daySettings?.postal_code_ranges.map((pc: any) => ("van: " + pc.range_start + ", tot: " + pc.range_end)).join(", ")
+  const postal_code_ranges = daySettings?.postal_code_ranges && daySettings?.postal_code_ranges.map((pc: any) => (pc.range_start + "–" + pc.range_end)).join(", ")
   const postal_code_ranges_presets = daySettings?.postal_code_ranges_presets && daySettings?.postal_code_ranges_presets.map((pc: any) => postCodeRangesPresetsDict[pc])
 
   if (!teamSettings || !daySettings || isBusy) {
     return <CenteredSpinner size={ 60 } />
   }
 
+  const toEditForm = to("/team-settings/:teamSettingsId/:daySettingsId", {
+    teamSettingsId: teamSettings.id,
+    daySettingsId: daySettings?.id
+  })
+
   return (
-    <Wrap>
+    <section>
       <Header>
-        <h3>{ daySettings?.name }</h3>
-        <Button variant="secondary" onClick={ () => navigate(to("/team-settings/:teamSettingsId/:daySettingsId", {
-          teamSettingsId: teamSettings.id,
-          daySettingsId: daySettings?.id
-        })) }>Wijzig</Button>
+        <Heading forwardedAs="h2">{ daySettings?.name }</Heading>
+        <Button variant="secondary" onClick={ () => navigate(toEditForm) }>Wijzig</Button>
       </Header>
-      <Content>
+      <Row>
         <Column>
-          Openings datum: { daySettings?.opening_date }<br /><br />
-          <strong>Geografische filter:</strong><br />
-          {
-            (postal_code_ranges_presets && postal_code_ranges_presets?.length > 0) ?
-              <span>Stadsdelen: { postal_code_ranges_presets?.join(", ") }</span>
-              : <span>Postcodes: { postal_code_ranges }<br /></span>
-          }
-        </Column>
-      </Content>
-      <Content>
-        <Column>
-          Projecten:
-          <Ul>
-            { daySettings?.projects.map(project => (
-              <Li key={ project }>{ project }</Li>
-            )) }
-          </Ul>
-        </Column>
-        <Column2x>
           <Row>
-            Primair stadium: { daySettings?.primary_stadium }
+            <dl>
+              <Dt>Openingsdatum</Dt>
+              <Dd>{ daySettings?.opening_date }</Dd>
+            </dl>
           </Row>
-          <Content>
-            <Column>
-              Secundair stadia:
-              <Ul>
-                { daySettings?.secondary_stadia.map(stadium => (
-                  <Li key={ stadium }>{ stadium }</Li>
-                )) }
-              </Ul>
-            </Column>
-            <Column>
-              Exclude stadia:
+          <Row>
+            <dl>
+              <Dt>{ (postal_code_ranges_presets?.length) ? "Stadsdelen" : "Postcodes" }</Dt>
+              <Dd>{ (postal_code_ranges_presets?.length) ? postal_code_ranges_presets?.join(", ") : postal_code_ranges }</Dd>
+            </dl>
+          </Row>
+          <Row>
+            <dl>
+              <Dt>Projecten</Dt>
+              <Dd>
+                <Ul>
+                  { daySettings?.projects.map(project => (
+                    <Li key={ project }>{ project }</Li>
+                  )) }
+                </Ul>
+              </Dd>
+            </dl>
+          </Row>
+        </Column>
+        <Column>
+          <Row>
+            <dl>
+              <Dt>Zo veel mogelijk</Dt>
+              <Dd>
+                { daySettings?.primary_stadium }
+              </Dd>
+            </dl>
+          </Row>
+          <Row>
+            <dl>
+              <Dt>Aanvullen met</Dt>
+              <Dd>
+                <Ul>
+                  { daySettings?.secondary_stadia.map(stadium => (
+                    <Li key={ stadium }>{ stadium }</Li>
+                  )) }
+                </Ul>
+              </Dd>
+            </dl>
+          </Row>
+          <dl>
+            <Dt>Uitsluiten</Dt>
+            <Dd>
               <Ul>
                 { daySettings?.exclude_stadia.map(stadium => (
                   <Li key={ stadium }>{ stadium }</Li>
                 )) }
               </Ul>
-            </Column>
-          </Content>
-        </Column2x>
-      </Content>
-    </Wrap>
+            </Dd>
+          </dl>
+        </Column>
+      </Row>
+    </section>
   )
 }
 
