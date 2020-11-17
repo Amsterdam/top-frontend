@@ -65,7 +65,7 @@ const DaySettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId, daySe
       </Spacing>
       <p>Wijzig instellingen voor:</p>
       <Heading>{ teamSettings.name }</Heading>
-      <Heading>{ daySettings.name }</Heading>
+      <Heading forwardedAs="h2">{ daySettings.name }</Heading>
       <ScaffoldForm onSubmit={ handleSubmit } initialValues={ {
         settings: {
           ...daySettings,

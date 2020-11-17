@@ -17,7 +17,7 @@ const fields: Fields = {
         primary: {
           type: "SelectField",
           props: {
-            label: "1. Zoveel mogelijk",
+            label: "1. Zo veel mogelijk",
             name: "primary_stadium",
             options: { foo: "Foo", bar: "Bar" }
           }
@@ -43,11 +43,12 @@ const fields: Fields = {
   }
 }
 
-const handleSubmit = () => {}
+const handleSubmit = () => {
+}
 
 export const Example = () => (
-  <ScaffoldForm onSubmit={handleSubmit}>
-    <Scaffold fields={fields} />
+  <ScaffoldForm onSubmit={ handleSubmit }>
+    <Scaffold fields={ fields } />
     <DebugFormValues />
   </ScaffoldForm>
 )
