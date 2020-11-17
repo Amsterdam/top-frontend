@@ -30,8 +30,10 @@ const ItineraryForm: FC<Props> = ({ teamSettings }) => {
   if (!users) {
     return null
   }
+  console.log(loggedInUser)
+  
 
-  const dayPartOptions = getDayPartOptions(teamSettings.settings as Components.Schemas.PlannerSettings)
+  const dayPartOptions = getDayPartOptions(teamSettings)
   const fields = generateItineraryFormDefinition(users.results, dayPartOptions)
 
   return (
@@ -44,7 +46,7 @@ const ItineraryForm: FC<Props> = ({ teamSettings }) => {
         projects: teamSettings.settings?.projects,
         postalCodeRange: teamSettings.settings?.postal_codes,
         numAddresses: 8,
-        dayPart: dayPartOptions[0],
+        // dayPart: dayPartOptions[0],
         team_members: [ loggedInUser ]
       } }
     >

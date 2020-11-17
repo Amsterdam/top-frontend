@@ -586,18 +586,6 @@ declare namespace Paths {
             export type $200 = Components.Schemas.Visit[];
         }
     }
-    namespace ConstantsProjectsRetrieve {
-        namespace Responses {
-            export type $200 = {
-            }
-        }
-    }
-    namespace ConstantsStadiaRetrieve {
-        namespace Responses {
-            export type $200 = {
-            }
-        }
-    }
     namespace DaySettingsCreate {
         export type RequestBody = Components.Schemas.DaySettings;
         namespace Responses {
