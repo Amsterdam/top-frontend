@@ -1,6 +1,6 @@
 import React, { FC } from "react"
 import { navigate, RouteComponentProps } from "@reach/router"
-import { themeColor, themeSpacing, Button } from "@amsterdam/asc-ui"
+import { Button, themeColor, themeSpacing } from "@amsterdam/asc-ui"
 import styled from "styled-components"
 
 import to from "app/features/shared/routing/to"
@@ -17,35 +17,35 @@ const Ul = styled.ul`
 `
 
 const Wrap = styled.div`
+  flex: 1;
   padding: ${ themeSpacing(3) } ${ themeSpacing(1) };
-
-  flex:1;
   border-top: 2px solid ${ themeColor("tint", "level3") };
   border-bottom: 2px solid ${ themeColor("tint", "level3") };
 `
 
 const Header = styled.div`
-  padding: ${ themeSpacing(3) } ${ themeSpacing(1) };
   display: flex;
-  flex:1;
+  flex: 1;
+  padding: ${ themeSpacing(3) } ${ themeSpacing(1) };
   border-bottom: 1px solid ${ themeColor("tint", "level3") };
 `
+
 const Content = styled.div`
-  padding: ${ themeSpacing(3) } ${ themeSpacing(1) };
   display: flex;
+  padding: ${ themeSpacing(3) } ${ themeSpacing(1) };
 `
 
 const Row = styled.div`
 `
 
 const Column = styled.div`
+  flex: 1;
   padding: ${ themeSpacing(3) } ${ themeSpacing(1) };
-  flex:1;
 `
 
 const Column2x = styled.div`
+  flex: 2;
   padding: ${ themeSpacing(3) } ${ themeSpacing(1) };
-  flex:2;
 `
 
 type Props = {
@@ -68,54 +68,57 @@ const DaySettings: FC<RouteComponentProps<Props>> = ({ teamSettings, postCodeRan
   }
 
   return <Wrap>
-      <Header>
-          <h3>{ daySettings?.name }</h3>
-          <Button variant="secondary" onClick={() => navigate(to("/team-settings/:teamSettingsId/:daySettingsId", { teamSettingsId: teamSettings.id, daySettingsId: daySettings?.id }))}>Wijzig</Button>
-      </Header>
-      <Content>
-        <Column>
-        Openings datum: { daySettings?.opening_date }<br/><br/>
-        <strong>Geografische filter:</strong><br/>
+    <Header>
+      <h3>{ daySettings?.name }</h3>
+      <Button variant="secondary" onClick={ () => navigate(to("/team-settings/:teamSettingsId/:daySettingsId", {
+        teamSettingsId: teamSettings.id,
+        daySettingsId: daySettings?.id
+      })) }>Wijzig</Button>
+    </Header>
+    <Content>
+      <Column>
+        Openings datum: { daySettings?.opening_date }<br /><br />
+        <strong>Geografische filter:</strong><br />
         {
-          (postal_code_ranges_presets && postal_code_ranges_presets?.length > 0) ? <span>Stadsdelen: { postal_code_ranges_presets?.join(", ") }</span>
-          : <span>Postcodes: { postal_code_ranges }<br/></span>
+          (postal_code_ranges_presets && postal_code_ranges_presets?.length > 0) ?
+            <span>Stadsdelen: { postal_code_ranges_presets?.join(", ") }</span>
+            : <span>Postcodes: { postal_code_ranges }<br /></span>
         }
-        
-        </Column>
-      </Content>
-      <Content>
+      </Column>
+    </Content>
+    <Content>
+      <Column>
+        Projecten:
+        <Ul>
+          { daySettings?.projects.map(project => (
+            <Li key={ project }>{ project }</Li>
+          )) }
+        </Ul>
+      </Column>
+      <Column2x>
+        <Row>
+          Primair stadium: { daySettings?.primary_stadium }
+        </Row>
+        <Content>
           <Column>
-            Projecten:
+            Secundair stadia:
             <Ul>
-            { daySettings?.projects.map(project => (
-                <Li key={ project }>{ project }</Li>
-            ))}
+              { daySettings?.secondary_stadia.map(stadium => (
+                <Li key={ stadium }>{ stadium }</Li>
+              )) }
             </Ul>
           </Column>
-          <Column2x>
-            <Row>
-            Primair stadium: { daySettings?.primary_stadium }
-            </Row>
-            <Content>
-                <Column>
-                Secundair stadia:
-                <Ul>
-                { daySettings?.secondary_stadia.map(stadium => (
-                    <Li key={ stadium }>{ stadium }</Li>
-                    ))}
-                </Ul>
-                </Column>
-                <Column>
-                Exclude stadia:
-                <Ul>
-                { daySettings?.exclude_stadia.map(stadium => (
-                    <Li key={ stadium }>{ stadium }</Li>
-                    ))}
-                </Ul>
-                </Column>
-            </Content>
-          </Column2x>
-      </Content>
+          <Column>
+            Exclude stadia:
+            <Ul>
+              { daySettings?.exclude_stadia.map(stadium => (
+                <Li key={ stadium }>{ stadium }</Li>
+              )) }
+            </Ul>
+          </Column>
+        </Content>
+      </Column2x>
+    </Content>
   </Wrap>
 }
 
