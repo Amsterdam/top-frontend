@@ -15,14 +15,18 @@ const Header = styled.header`
   padding: ${ themeSpacing(2) } 0;
 `
 
-const Row = styled.div`
+const Body = styled.div`
   display: flex;
-  margin-bottom: ${ themeSpacing(4) };
+  padding-bottom: ${ themeSpacing(4) };
 `
 
 const Column = styled.div`
   flex: 1;
   padding-right: ${ themeSpacing(4) };
+`
+
+const Dl = styled.dl`
+  margin-bottom: ${ themeSpacing(3) };
 `
 
 const Dt = styled.dt`
@@ -72,55 +76,45 @@ const DaySettings: FC<RouteComponentProps<Props>> = ({ teamSettings, postCodeRan
         <Heading forwardedAs="h2">{ daySettings?.name }</Heading>
         <Button variant="secondary" onClick={ () => navigate(toEditForm) }>Wijzig</Button>
       </Header>
-      <Row>
+      <Body>
         <Column>
-          <Row>
-            <dl>
-              <Dt>Openingsdatum</Dt>
-              <Dd>{ daySettings?.opening_date }</Dd>
-            </dl>
-          </Row>
-          <Row>
-            <dl>
-              <Dt>{ (postal_code_ranges_presets?.length) ? "Stadsdelen" : "Postcodes" }</Dt>
-              <Dd>{ (postal_code_ranges_presets?.length) ? postal_code_ranges_presets?.join(", ") : postal_code_ranges }</Dd>
-            </dl>
-          </Row>
-          <Row>
-            <dl>
-              <Dt>Projecten</Dt>
-              <Dd>
-                <Ul>
-                  { daySettings?.projects.map(project => (
-                    <Li key={ project }>{ project }</Li>
-                  )) }
-                </Ul>
-              </Dd>
-            </dl>
-          </Row>
+          <Dl>
+            <Dt>Openingsdatum</Dt>
+            <Dd>{ daySettings?.opening_date }</Dd>
+          </Dl>
+          <Dl>
+            <Dt>{ (postal_code_ranges_presets?.length) ? "Stadsdelen" : "Postcodes" }</Dt>
+            <Dd>{ (postal_code_ranges_presets?.length) ? postal_code_ranges_presets?.join(", ") : postal_code_ranges }</Dd>
+          </Dl>
+          <Dl>
+            <Dt>Projecten</Dt>
+            <Dd>
+              <Ul>
+                { daySettings?.projects.map(project => (
+                  <Li key={ project }>{ project }</Li>
+                )) }
+              </Ul>
+            </Dd>
+          </Dl>
         </Column>
         <Column>
-          <Row>
-            <dl>
-              <Dt>Zo veel mogelijk</Dt>
-              <Dd>
-                { daySettings?.primary_stadium }
-              </Dd>
-            </dl>
-          </Row>
-          <Row>
-            <dl>
-              <Dt>Aanvullen met</Dt>
-              <Dd>
-                <Ul>
-                  { daySettings?.secondary_stadia.map(stadium => (
-                    <Li key={ stadium }>{ stadium }</Li>
-                  )) }
-                </Ul>
-              </Dd>
-            </dl>
-          </Row>
-          <dl>
+          <Dl>
+            <Dt>Zo veel mogelijk</Dt>
+            <Dd>
+              { daySettings?.primary_stadium }
+            </Dd>
+          </Dl>
+          <Dl>
+            <Dt>Aanvullen met</Dt>
+            <Dd>
+              <Ul>
+                { daySettings?.secondary_stadia.map(stadium => (
+                  <Li key={ stadium }>{ stadium }</Li>
+                )) }
+              </Ul>
+            </Dd>
+          </Dl>
+          <Dl>
             <Dt>Uitsluiten</Dt>
             <Dd>
               <Ul>
@@ -129,9 +123,9 @@ const DaySettings: FC<RouteComponentProps<Props>> = ({ teamSettings, postCodeRan
                 )) }
               </Ul>
             </Dd>
-          </dl>
+          </Dl>
         </Column>
-      </Row>
+      </Body>
     </section>
   )
 }
