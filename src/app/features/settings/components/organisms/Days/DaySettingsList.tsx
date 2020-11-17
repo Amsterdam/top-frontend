@@ -28,21 +28,25 @@ const DaySettingsList: FC<RouteComponentProps<Props>> = ({ teamSettings, postCod
     return <CenteredSpinner size={ 60 } />
   }
 
-  return <DefaultLayout>
+  return (
+    <DefaultLayout>
       <Spacing pb={ 4 }>
         <Link to={ to("/team-settings") }>
           Alle instellingen
         </Link>
       </Spacing>
-      <p>Wijzig instellingen voor:</p>    
+      <p>Wijzig instellingen voor:</p>
       <Heading>{ teamSettings.name }</Heading>
       <Ul>
-      { teamSettings.day_settings_list.map(daySettings => (
-            <Li key={ daySettings.id }><DaySettings teamSettings={ teamSettings } daySettingsId={ daySettings.id } postCodeRangesPresets={postCodeRangesPresets}/></Li>
-          )) }
+        { teamSettings.day_settings_list.map(daySettings => (
+          <Li key={ daySettings.id }>
+            <DaySettings teamSettings={ teamSettings } daySettingsId={ daySettings.id }
+                         postCodeRangesPresets={ postCodeRangesPresets } />
+          </Li>
+        )) }
       </Ul>
-
-  </DefaultLayout>
+    </DefaultLayout>
+  )
 }
 
 export default DaySettingsList
