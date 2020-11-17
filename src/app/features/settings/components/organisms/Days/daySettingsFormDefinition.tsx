@@ -17,7 +17,7 @@ export const createDefinition = (projects: string[], stadia: string[], postalCod
     opening_date: {
       type: "TextField",
       props: {
-        label: "Kies de begindatum van het meest recente stadium",
+        label: "Begindatum van het meest recente stadium",
         name: "settings.opening_date",
         type: "date",
         validate: isRequired()
@@ -27,11 +27,11 @@ export const createDefinition = (projects: string[], stadia: string[], postalCod
       type: "RadioFields",
       props: {
         isRequired: true,
-        label: "Kies een manier om op lokatie te filteren",
+        label: "Selecteer postcodes of stadsdelen",
         name: "postal_codes_type",
         options: {
-          postcode: "Postcode", 
-          stadsdeel: "Stadsdeel"
+          postcode: "Postcodes",
+          stadsdeel: "Stadsdelen"
         }
       }
     },
@@ -48,9 +48,8 @@ export const createDefinition = (projects: string[], stadia: string[], postalCod
             minItems: 1,
             columns: {
               "mobileS": "1fr 1fr auto",
-              "laptop": "1fr 1fr 1fr"
+              "laptop": "1fr 1fr 1fr 1fr 1fr 1fr"
             },
-            label: "Postcode gebieden",
             scaffoldFields: {
               postal_code_range_start: {
                 type: "NumberField",
@@ -84,10 +83,9 @@ export const createDefinition = (projects: string[], stadia: string[], postalCod
         field: {
           type: "CheckboxFields",
           props: {
-            label: "Stadsdelen",
             name: "settings.postal_code_ranges_presets",
             options: postalCodeRangeOptions,
-            columnCount: { laptop: 3, laptopL: 5 },
+            columnCount: { laptop: 6 },
             validate: isRequired()
           }
         }
@@ -103,63 +101,56 @@ export const createDefinition = (projects: string[], stadia: string[], postalCod
         columnCount: { laptop: 3, laptopL: 5 }
       }
     },
-
     primary_stadium: {
-        type: "SelectField",
-        props: {
-          label: "1. Zoveel mogelijk",
-          name: "settings.primary_stadium",
-          options: arrayToObject(stadia),
-          validate: isNotIntersectingWith("settings.exclude_stadia", "\"{item}\" is al geselecteerd bij \"Uitsluiten\"")
-        }
-      },
-      secondary_stadia: {
-        type: "CheckboxFields",
-        props: {
-          label: "2. Aanvullen met",
-          name: "settings.secondary_stadia",
-          options: arrayToObject(stadia),
-          validate: isNotIntersectingWith("settings.exclude_stadia", "\"{item}\" is al geselecteerd bij \"Uitsluiten\"")
-        }
-      },
-      exclude_stadia: {
-        type: "CheckboxFields",
-        props: {
-          label: "3. Uitsluiten",
-          name: "settings.exclude_stadia",
-          options: arrayToObject(stadia),
-          validate: combineValidators(
-            isNotIntersectingWith("settings.primary_stadium", "\"{item}\" is al geselecteerd bij \"Zoveel mogelijk\""),
-            isNotIntersectingWith("settings.secondary_stadia", "\"{item}\" is al geselecteerd bij \"Aanvullen met\"")
-          )
-        }
+      type: "SelectField",
+      props: {
+        label: "1. Zo veel mogelijk",
+        name: "settings.primary_stadium",
+        options: arrayToObject(stadia),
+        validate: isNotIntersectingWith("settings.exclude_stadia", "\"{item}\" is al geselecteerd bij \"Uitsluiten\"")
       }
+    },
+    secondary_stadia: {
+      type: "CheckboxFields",
+      props: {
+        label: "2. Aanvullen met",
+        name: "settings.secondary_stadia",
+        options: arrayToObject(stadia),
+        validate: isNotIntersectingWith("settings.exclude_stadia", "\"{item}\" is al geselecteerd bij \"Uitsluiten\"")
+      }
+    },
+    exclude_stadia: {
+      type: "CheckboxFields",
+      props: {
+        label: "3. Uitsluiten",
+        name: "settings.exclude_stadia",
+        options: arrayToObject(stadia),
+        validate: combineValidators(
+          isNotIntersectingWith("settings.primary_stadium", "\"{item}\" is al geselecteerd bij \"Zo veel mogelijk\""),
+          isNotIntersectingWith("settings.secondary_stadia", "\"{item}\" is al geselecteerd bij \"Aanvullen met\"")
+        )
+      }
+    }
   }
+
   // Align properties:
   return new FormPositioner(definition)
-    // 1 column
     .setVertical("mobileS")
-    // 3 columns:
     .setGrid("laptop", "1fr 1fr 1fr", [
-      /* eslint-disable no-multi-spaces */
-      [ "opening_date"                                                ],
-      [ "geo_type"                                                ],
-      [ "postal_codes",       "postal_codes",     "postal_codes"      ],
-      [ "postalCodeRanges",       "postalCodeRanges",     "postalCodeRanges"      ],
-      [ "projects",           "projects",         "projects"          ],
-      [ "primary_stadium",         "secondary_stadia",      "exclude_stadia"     ]
-      /* eslint-enable */
+      [ "opening_date" ],
+      [ "geo_type" ],
+      [ "postal_codes", "postal_codes", "postal_codes" ],
+      [ "postalCodeRanges", "postalCodeRanges", "postalCodeRanges" ],
+      [ "projects", "projects", "projects" ],
+      [ "primary_stadium", "secondary_stadia", "exclude_stadia" ]
     ])
-    // 5 columns
     .setGrid("laptopL", "1fr 1fr 1fr 1fr 1fr", [
-      /* eslint-disable no-multi-spaces */
-      [ "opening_date"                                                                                        ],
-      [ "geo_type"                                                                                        ],
-      [ "postal_codes",       "postal_codes",     "postal_codes"                                              ],
-      [ "postalCodeRanges",       "postalCodeRanges",     "postalCodeRanges", "postalCodeRanges", "postalCodeRanges"],
-      [ "projects",           "projects",         "projects",           "projects",         "projects"        ],
-      [ "primary_stadium",         "secondary_stadia",      "exclude_stadia"     ]
-      /* eslint-enable */
+      [ "opening_date" ],
+      [ "geo_type" ],
+      [ "postal_codes", "postal_codes", "postal_codes", "postal_codes", "postal_codes" ],
+      [ "postalCodeRanges", "postalCodeRanges", "postalCodeRanges", "postalCodeRanges", "postalCodeRanges" ],
+      [ "projects", "projects", "projects", "projects", "projects" ],
+      [ "primary_stadium", "secondary_stadia", "exclude_stadia" ]
     ])
     .getScaffoldProps()
 }
