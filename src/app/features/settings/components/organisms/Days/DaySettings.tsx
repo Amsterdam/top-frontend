@@ -1,6 +1,6 @@
 import React, { FC } from "react"
 import { navigate, RouteComponentProps } from "@reach/router"
-import { Button, Heading, themeSpacing } from "@amsterdam/asc-ui"
+import { Button, Heading, themeColor, themeSpacing } from "@amsterdam/asc-ui"
 import styled from "styled-components"
 
 import to from "app/features/shared/routing/to"
@@ -8,30 +8,41 @@ import { useDaySettings } from "app/state/rest"
 
 import CenteredSpinner from "../../../../shared/components/atoms/CenteredSpinner/CenteredSpinner"
 
+const Section = styled.section`
+  background-color: ${ themeColor("tint", "level2") };
+  padding: ${ themeSpacing(4) };
+`
+
 const Header = styled.header`
   display: flex;
   justify-content: space-between;
   align-content: baseline;
-  padding: ${ themeSpacing(2) } 0;
 `
 
 const Body = styled.div`
   display: flex;
-  padding-bottom: ${ themeSpacing(4) };
 `
 
 const Column = styled.div`
   flex: 1;
-  padding-right: ${ themeSpacing(4) };
+
+  &:not(:last-child) {
+    padding-right: ${ themeSpacing(4) };
+  }
 `
 
 const Dl = styled.dl`
-  margin-bottom: ${ themeSpacing(3) };
+  margin: 0;
+
+  &:not(:last-child) {
+    margin-bottom: ${ themeSpacing(4) };
+  }
 `
 
 const Dt = styled.dt`
-  font-weight: 700;
   margin-bottom: ${ themeSpacing(1) };
+  font-weight: 500;
+  color: ${ themeColor("tint", "level5") };
 `
 
 const Dd = styled.dd`
@@ -71,7 +82,7 @@ const DaySettings: FC<RouteComponentProps<Props>> = ({ teamSettings, postCodeRan
   })
 
   return (
-    <section>
+    <Section>
       <Header>
         <Heading forwardedAs="h2">{ daySettings?.name }</Heading>
         <Button variant="secondary" onClick={ () => navigate(toEditForm) }>Wijzig</Button>
@@ -80,7 +91,7 @@ const DaySettings: FC<RouteComponentProps<Props>> = ({ teamSettings, postCodeRan
         <Column>
           <Dl>
             <Dt>Openingsdatum</Dt>
-            <Dd>{ daySettings?.opening_date }</Dd>
+            <Dd>{ daySettings?.opening_date || "–" }</Dd>
           </Dl>
           <Dl>
             <Dt>{ (postal_code_ranges_presets?.length) ? "Stadsdelen" : "Postcodes" }</Dt>
@@ -103,7 +114,7 @@ const DaySettings: FC<RouteComponentProps<Props>> = ({ teamSettings, postCodeRan
           <Dl>
             <Dt>Zo veel mogelijk</Dt>
             <Dd>
-              { daySettings?.primary_stadium }
+              { daySettings?.primary_stadium || "–" }
             </Dd>
           </Dl>
           <Dl>
@@ -132,7 +143,7 @@ const DaySettings: FC<RouteComponentProps<Props>> = ({ teamSettings, postCodeRan
           </Dl>
         </Column>
       </Body>
-    </section>
+    </Section>
   )
 }
 
