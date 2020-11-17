@@ -28,7 +28,7 @@
     "dompurify": "^2.2.2",
     "env-cmd": "^10.1.0",
     "immer": "^7.0.14",
-    "jwt-decode": "^3.1.1",
+    "jwt-decode": "^3.1.2",
     "lodash.difference": "^4.5.0",
     "lodash.isequal": "^4.5.0",
     "qs": "^6.9.4",
