@@ -78,7 +78,7 @@ const DaySettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId, daySe
   return <DefaultLayout>
     <Wrap>
       <Spacing pb={ 4 }>
-        <Link to={ to("/team-settings-days/:teamSettingsId", { teamSettingsId }) }>
+        <Link to={ to("/team-settings/:teamSettingsId", { teamSettingsId }) }>
           Alle dagen
         </Link>
       </Spacing>
