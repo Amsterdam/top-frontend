@@ -1,7 +1,7 @@
 import React, { FC } from "react"
 import { Link, RouteComponentProps } from "@reach/router"
 import styled from "styled-components"
-import { Heading, themeSpacing } from "@amsterdam/asc-ui"
+import { Heading, Paragraph, themeSpacing } from "@amsterdam/asc-ui"
 
 import to from "app/features/shared/routing/to"
 import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
@@ -34,16 +34,23 @@ const DaySettingsList: FC<RouteComponentProps<Props>> = ({ teamSettings, postCod
           Kies een ander team
         </Link>
       </Spacing>
-      <Grid>
-        { teamSettings.day_settings_list.map(daySettings => (
-          <DaySettings
-            key={ daySettings.id }
-            teamSettings={ teamSettings }
-            daySettingsId={ daySettings.id }
-            postCodeRangesPresets={ postCodeRangesPresets }
-          />
-        )) }
-      </Grid>
+      { teamSettings.day_settings_list.length ?
+        <Grid>
+          { teamSettings.day_settings_list.map(daySettings => (
+            <DaySettings
+              key={ daySettings.id }
+              teamSettings={ teamSettings }
+              daySettingsId={ daySettings.id }
+              postCodeRangesPresets={ postCodeRangesPresets }
+            />
+          )) }
+        </Grid>
+        : (
+          <Paragraph>
+            Dit team heeft nog geen instellingen. Maak ze aan in de beheeromgeving.
+          </Paragraph>
+        )
+      }
     </DefaultLayout>
   )
 }
