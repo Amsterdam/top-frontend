@@ -11,7 +11,6 @@ export type ApiGroup =
   | "teamSettings"
   | "teamSettingsList"
   | "postCodeRangesPresets"
-  | "constants"
   | "case"
   | "permits"
 
