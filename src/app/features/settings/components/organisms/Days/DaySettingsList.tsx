@@ -12,12 +12,12 @@ import DaySettings from "app/features/settings/components/organisms/Days/DaySett
 const Ul = styled.ul`
   padding: 0;
   list-style: none;
-  border-top: 1px solid ${ themeColor("tint", "level3") };
+  border-top: 1px solid ${ themeColor("tint", "level4") };
 `
 
 const Li = styled.li`
   padding: 0;
-  border-bottom: 1px solid ${ themeColor("tint", "level3") };
+  border-bottom: 1px solid ${ themeColor("tint", "level4") };
 `
 
 type Props = {
