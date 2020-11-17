@@ -11,7 +11,7 @@ export const mapPostValues = ({ teamSettings, team_members, postalCodeRange, sta
       },
       opening_date: openingsDate,
       target_length: numAddresses,
-      projects: wrapInNameObjects(projects),
+      projects: wrapInNameObjects(settingsList?.projects),
       primary_stadium:  wrapInNameObject(settingsList?.primary_stadium),
       secondary_stadia: wrapInNameObjects(settingsList?.secondary_stadia),
       exclude_stadia: wrapInNameObjects(settingsList?.exclude_stadia),

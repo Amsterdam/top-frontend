@@ -412,17 +412,15 @@ declare namespace Components {
             range_end: number
         }
         export type Project = {
-            name: ProjectNameEnum
+            name: string
         }
-        export type ProjectNameEnum = "Bed en breakfast 2019" | "Burgwallenproject Oudezijde" | "Corpo-rico" | "Digital toezicht Safari" | "Digital toezicht Zebra" | "Haarlemmerbuurt" | "Hotline" | "Mystery Guest" | "Project Andes" | "Project Jordaan" | "Project Lobith" | "Project Sahara" | "Safari" | "Safari 2015" | "Sahara Adams Suites" | "Sahara hele woning" | "Sahara meer dan 4" | "Sahara Recensies" | "Sahara veel adv" | "Social Media 2019" | "Woonschip (woonboot)" | "Zebra" | "ZKL Doorverhuur" | "Combi BI Doorpak" | "Combi BI Melding" | "Combi Doorpak" | "Combi Overbewoning" | "Combi Samenwoners" | "Combi_ZKL_Doorpak" | "Combi_ZKL_Melding";
         export type Stadium = {
-            name: StadiumNameEnum
+            name: string
         }
         export type StadiumLabel = {
             readonly stadium: string
             label?: string
         }
-        export type StadiumNameEnum = "Onderzoek buitendienst" | "2de Controle" | "3de Controle" | "Hercontrole" | "2de hercontrole" | "3de hercontrole" | "Avondronde" | "Onderzoek advertentie" | "Weekend buitendienstonderzoek" | "Issuemelding" | "ZL Corporatie" | "Crimineel gebruik woning";
         export type SuggestNextVisit = {
             value: string
             verbose: string
@@ -522,18 +520,6 @@ declare namespace Paths {
         }
         namespace Responses {
             export type $200 = Components.Schemas.Visit[];
-        }
-    }
-    namespace ConstantsProjectsRetrieve {
-        namespace Responses {
-            export type $200 = {
-            }
-        }
-    }
-    namespace ConstantsStadiaRetrieve {
-        namespace Responses {
-            export type $200 = {
-            }
         }
     }
     namespace DaySettingsCreate {
