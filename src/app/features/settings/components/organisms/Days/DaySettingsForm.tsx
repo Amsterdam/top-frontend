@@ -1,5 +1,5 @@
 import React, { FC, useCallback, useMemo, useState } from "react"
-import { Link, RouteComponentProps } from "@reach/router"
+import { Link, navigate, RouteComponentProps } from "@reach/router"
 import styled from "styled-components"
 import { ScaffoldForm } from "amsterdam-react-final-form"
 import { Heading } from "@amsterdam/asc-ui"
@@ -38,6 +38,7 @@ const DaySettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId, daySe
     }, {}) ?? []),
     [ teamSettings, postalCodeRangesPresets ]
   )
+
   const handleSubmit = useCallback(async (data: any) => {
     const values = filterEmptyPostalCodes(data.settings)
     setErrorMessage("")
@@ -46,6 +47,7 @@ const DaySettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId, daySe
     }
     try {
       await execPut(values, { skipCacheClear: true, useResponseAsCache: true })
+      navigate(to("/team-settings/:teamSettingsId", { teamSettingsId }))
     } catch (error) {
       setErrorMessage(error.response.data.message)
       return error
