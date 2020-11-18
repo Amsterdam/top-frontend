@@ -1,7 +1,7 @@
 import React, { useMemo } from "react"
 import { Spinner } from "@amsterdam/asc-ui"
 
-import { useCase, useCaseVisits, useUsers } from "app/state/rest"
+import { useCase, useCaseVisits, useUsers, useSuggestNextVisit, useObservations } from "app/state/rest"
 import { BWVHotlineBevinding, KeyValueDetail } from "app/features/types"
 
 import formatDate from "app/features/shared/utils/formatDate"
@@ -75,7 +75,7 @@ const mapVisitToLogbookItem = (users: Components.Schemas.User[]) => ({
 })
 
 // Maps a LogBookItem to a KeyValueDetail[] (accepted by CaseDetailSection `data`)
-const mapLogBookItemToDetailComponents = ({
+const mapLogBookItemToDetailComponents = (observationTranslations: Components.Schemas.Observation[], suggestNextVisitsTranslations: Components.Schemas.SuggestNextVisit[]) => ({
   source,
   name,
   time,
@@ -92,6 +92,16 @@ const mapLogBookItemToDetailComponents = ({
 }: LogBookItem, index: number, allItems: LogBookItem[]): KeyValueDetail[] => {
   const highlightedText = highlightText([ "hoofdhuurder", "hoofdhuur", "hh" ], text || "", { caseSensitive: false })
   const highlightedDescription = highlightText([ "hoofdhuurder", "hoofdhuur", "hh" ], description || "", { caseSensitive: false })
+  const observationTranslationsMap: Record<string, string> = (observationTranslations ?? []).reduce((t: any, c) => {
+    t[c.value] = c.verbose
+    return t
+  }, {})
+  const suggestNextVisitsTranslationsMap: Record<string, string> = (suggestNextVisitsTranslations ?? []).reduce((t: any, c) => {
+    t[c.value] = c.verbose
+    return t
+  }, {})
+  const translateObservation = (key: string) => observationTranslationsMap[key] ?? key
+  const translateSuggestNextVisits = (key: string) => suggestNextVisitsTranslationsMap[key] ?? key
 
   return [
     !isNullish(source) && [ "Bron", source ],
@@ -100,8 +110,8 @@ const mapLogBookItemToDetailComponents = ({
     [ "Datum", date ],
     !isNullish(hit) && [ "Hit", hit ],
     !isNullish(situation) && [ "Situatie", translate(situation) ],
-    !isNullish(observations) && [ "Kenmerken", <List items={ observations.map(translate) } /> ],
-    !isNullish(suggest_next_visit) && [ "Volgend bezoek", translate(suggest_next_visit) ],
+    !isNullish(observations) && [ "Kenmerken", <List items={ observations.map(translateObservation) } /> ],
+    !isNullish(suggest_next_visit) && [ "Volgend bezoek", translateSuggestNextVisits(suggest_next_visit) ],
     !isNullish(suggest_next_visit_description) &&
     <Purified className="anonymous" text={ suggest_next_visit_description } />,
     !isNullish(can_next_visit_go_ahead) && [ "Vervolg actie", can_next_visit_go_ahead ? "Ja, doorlaten" : "Nee, tegenhouden ⚠️" ],
@@ -116,15 +126,18 @@ const mapLogBookItemToDetailComponents = ({
 const CaseLogBook: React.FC<Props> = ({ caseId }) => {
   const { data: caseData, isBusy: isCaseBusy } = useCase(caseId)
   const { data: caseVisitsData, isBusy: isVisitsBusy } = useCaseVisits(caseId)
+  const { data: suggestNextVisits, isBusy: isSuggestNextVisitBusy } = useSuggestNextVisit()
+  const { data: observations, isBusy: isObservationsBusy } = useObservations()
   const { data: users, isBusy: isUsersBusy } = useUsers()
 
-  const isBusy = isCaseBusy || isVisitsBusy || isUsersBusy
-
+  const isBusy = isCaseBusy || isVisitsBusy || isUsersBusy || isSuggestNextVisitBusy || isObservationsBusy
+  console.log(observations) 
   const items = useMemo(() => {
     // Safeguard.
     if (caseData === undefined || caseVisitsData === undefined || users === undefined) {
       return undefined
     }
+    console.log(caseVisitsData)
 
     // Map apiData to LogBookItems:
     const logBookItems: LogBookItem[] = [
@@ -134,9 +147,9 @@ const CaseLogBook: React.FC<Props> = ({ caseId }) => {
 
     // Map to CaseDetail-data components:
     return logBookItems
-      .map(mapLogBookItemToDetailComponents)
+      .map(mapLogBookItemToDetailComponents(observations?.results!, suggestNextVisits?.results!))
       .flat()
-  }, [ caseData, caseVisitsData, users ])
+  }, [ caseData, caseVisitsData, users, observations, suggestNextVisits ])
 
   return <CaseDetailSection
     title="Logboek"

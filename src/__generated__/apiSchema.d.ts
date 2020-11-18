@@ -65,7 +65,17 @@ declare namespace Components {
                 readonly id: number
                 case_id?: string | null
                 readonly bwv_data: string
-                readonly fraud_prediction: any
+                readonly fraud_prediction: {
+                    fraud_probability: number // float
+                    fraud_prediction: boolean
+                    business_rules: {
+                        [name: string]: any
+                    }
+                    shap_values: {
+                        [name: string]: any
+                    }
+                    readonly sync_date: string // date-time
+                }
             }
             readonly visits: Visit[]
         }
@@ -161,6 +171,24 @@ declare namespace Components {
             previous?: string | null // uri
             results?: Itinerary[]
         }
+        export type PaginatedObservationList = {
+            /**
+             * example:
+             * 123
+             */
+            count?: number
+            /**
+             * example:
+             * http://api.example.org/accounts/?page=4
+             */
+            next?: string | null // uri
+            /**
+             * example:
+             * http://api.example.org/accounts/?page=2
+             */
+            previous?: string | null // uri
+            results?: Observation[]
+        }
         export type PaginatedPlannerSettingsList = {
             /**
              * example:
@@ -196,6 +224,24 @@ declare namespace Components {
              */
             previous?: string | null // uri
             results?: PostalCodeRangeSet[]
+        }
+        export type PaginatedSuggestNextVisitList = {
+            /**
+             * example:
+             * 123
+             */
+            count?: number
+            /**
+             * example:
+             * http://api.example.org/accounts/?page=4
+             */
+            next?: string | null // uri
+            /**
+             * example:
+             * http://api.example.org/accounts/?page=2
+             */
+            previous?: string | null // uri
+            results?: SuggestNextVisit[]
         }
         export type PaginatedTeamSettingsList = {
             /**
@@ -259,7 +305,17 @@ declare namespace Components {
                 readonly id: number
                 case_id?: string | null
                 readonly bwv_data: string
-                readonly fraud_prediction: any
+                readonly fraud_prediction: {
+                    fraud_probability: number // float
+                    fraud_prediction: boolean
+                    business_rules: {
+                        [name: string]: any
+                    }
+                    shap_values: {
+                        [name: string]: any
+                    }
+                    readonly sync_date: string // date-time
+                }
             }
             readonly visits?: Visit[]
         }
@@ -277,10 +333,18 @@ declare namespace Components {
                 team_settings: TeamSettingsId[]
             }
         }
+        export type PatchedObservation = {
+            value?: string
+            verbose?: string
+        }
         export type PatchedPostalCodeRangeSet = {
             readonly id?: number
             name?: string
             readonly postal_code_ranges_presets?: PostalCodeRange[]
+        }
+        export type PatchedSuggestNextVisit = {
+            value?: string
+            verbose?: string
         }
         export type PatchedTeamSettings = {
             readonly id?: number
@@ -361,17 +425,15 @@ declare namespace Components {
             range_end: number
         }
         export type Project = {
-            name: ProjectNameEnum
+            name: string
         }
-        export type ProjectNameEnum = "Bed en breakfast 2019" | "Burgwallenproject Oudezijde" | "Corpo-rico" | "Digital toezicht Safari" | "Digital toezicht Zebra" | "Haarlemmerbuurt" | "Hotline" | "Mystery Guest" | "Project Andes" | "Project Jordaan" | "Project Lobith" | "Project Sahara" | "Safari" | "Safari 2015" | "Sahara Adams Suites" | "Sahara hele woning" | "Sahara meer dan 4" | "Sahara Recensies" | "Sahara veel adv" | "Social Media 2019" | "Woonschip (woonboot)" | "Zebra" | "ZKL Doorverhuur" | "Combi BI Doorpak" | "Combi BI Melding" | "Combi Doorpak" | "Combi Overbewoning" | "Combi Samenwoners" | "Combi_ZKL_Doorpak" | "Combi_ZKL_Melding";
         export type Stadium = {
-            name: StadiumNameEnum
+            name: string
         }
         export type StadiumLabel = {
             readonly stadium: string
             label?: string
         }
-        export type StadiumNameEnum = "Onderzoek buitendienst" | "2de Controle" | "3de Controle" | "Hercontrole" | "2de hercontrole" | "3de hercontrole" | "Avondronde" | "Onderzoek advertentie" | "Weekend buitendienstonderzoek" | "Issuemelding" | "ZL Corporatie" | "Crimineel gebruik woning";
         export type SuggestNextVisit = {
             value: string
             verbose: string
@@ -643,6 +705,70 @@ declare namespace Paths {
             export type $200 = Components.Schemas.NoteCrud;
         }
     }
+    namespace ObservationsCreate {
+        export type RequestBody = Components.Schemas.Observation;
+        namespace Responses {
+            export type $200 = Components.Schemas.Observation;
+        }
+    }
+    namespace ObservationsDestroy {
+        namespace Parameters {
+            export type Id = number;
+        }
+        export type PathParameters = {
+            id: Parameters.Id
+        }
+        namespace Responses {
+            export type $204 = {
+            }
+        }
+    }
+    namespace ObservationsList {
+        namespace Parameters {
+            export type Page = number;
+        }
+        export type QueryParameters = {
+            page?: Parameters.Page
+        }
+        namespace Responses {
+            export type $200 = Components.Schemas.PaginatedObservationList;
+        }
+    }
+    namespace ObservationsPartialUpdate {
+        namespace Parameters {
+            export type Id = number;
+        }
+        export type PathParameters = {
+            id: Parameters.Id
+        }
+        export type RequestBody = Components.Schemas.PatchedObservation;
+        namespace Responses {
+            export type $200 = Components.Schemas.Observation;
+        }
+    }
+    namespace ObservationsRetrieve {
+        namespace Parameters {
+            export type Id = number;
+        }
+        export type PathParameters = {
+            id: Parameters.Id
+        }
+        namespace Responses {
+            export type $200 = Components.Schemas.Observation;
+        }
+    }
+    namespace ObservationsUpdate {
+        namespace Parameters {
+            export type Id = number;
+        }
+        export type PathParameters = {
+            id: Parameters.Id
+        }
+        export type RequestBody = Components.Schemas.Observation;
+        namespace Responses {
+            export type $200 = Components.Schemas.Observation;
+        }
+    }
     namespace OidcAuthenticateCreate {
         export type RequestBody = Components.Schemas.OIDCAuthenticate;
         namespace Responses {
@@ -782,6 +908,70 @@ declare namespace Paths {
         }
         namespace Responses {
             export type $200 = Components.Schemas.PaginatedPlannerSettingsList;
+        }
+    }
+    namespace SuggestNextVisitCreate {
+        export type RequestBody = Components.Schemas.SuggestNextVisit;
+        namespace Responses {
+            export type $200 = Components.Schemas.SuggestNextVisit;
+        }
+    }
+    namespace SuggestNextVisitDestroy {
+        namespace Parameters {
+            export type Id = number;
+        }
+        export type PathParameters = {
+            id: Parameters.Id
+        }
+        namespace Responses {
+            export type $204 = {
+            }
+        }
+    }
+    namespace SuggestNextVisitList {
+        namespace Parameters {
+            export type Page = number;
+        }
+        export type QueryParameters = {
+            page?: Parameters.Page
+        }
+        namespace Responses {
+            export type $200 = Components.Schemas.PaginatedSuggestNextVisitList;
+        }
+    }
+    namespace SuggestNextVisitPartialUpdate {
+        namespace Parameters {
+            export type Id = number;
+        }
+        export type PathParameters = {
+            id: Parameters.Id
+        }
+        export type RequestBody = Components.Schemas.PatchedSuggestNextVisit;
+        namespace Responses {
+            export type $200 = Components.Schemas.SuggestNextVisit;
+        }
+    }
+    namespace SuggestNextVisitRetrieve {
+        namespace Parameters {
+            export type Id = number;
+        }
+        export type PathParameters = {
+            id: Parameters.Id
+        }
+        namespace Responses {
+            export type $200 = Components.Schemas.SuggestNextVisit;
+        }
+    }
+    namespace SuggestNextVisitUpdate {
+        namespace Parameters {
+            export type Id = number;
+        }
+        export type PathParameters = {
+            id: Parameters.Id
+        }
+        export type RequestBody = Components.Schemas.SuggestNextVisit;
+        namespace Responses {
+            export type $200 = Components.Schemas.SuggestNextVisit;
         }
     }
     namespace TeamSettingsCreate {
