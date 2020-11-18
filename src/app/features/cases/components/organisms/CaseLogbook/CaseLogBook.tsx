@@ -131,13 +131,12 @@ const CaseLogBook: React.FC<Props> = ({ caseId }) => {
   const { data: users, isBusy: isUsersBusy } = useUsers()
 
   const isBusy = isCaseBusy || isVisitsBusy || isUsersBusy || isSuggestNextVisitBusy || isObservationsBusy
-  console.log(observations) 
+
   const items = useMemo(() => {
     // Safeguard.
     if (caseData === undefined || caseVisitsData === undefined || users === undefined) {
       return undefined
     }
-    console.log(caseVisitsData)
 
     // Map apiData to LogBookItems:
     const logBookItems: LogBookItem[] = [
