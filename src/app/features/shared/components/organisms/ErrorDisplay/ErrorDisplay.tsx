@@ -1,9 +1,10 @@
 import React, { useContext } from "react"
-import { Button, Heading, Paragraph, themeColor, themeSpacing } from "@amsterdam/asc-ui"
 import styled from "styled-components"
-
-import { ErrorContext } from "app/state/error/ErrorProvider"
 import { Close } from "@amsterdam/asc-assets"
+import { Button, Heading, Paragraph, themeColor, themeSpacing } from "@amsterdam/asc-ui"
+
+import { Severity } from "app/features/types"
+import { ErrorContext } from "app/state/error/ErrorProvider"
 
 const Backdrop = styled.div`
   position: fixed;
@@ -15,21 +16,24 @@ const Backdrop = styled.div`
   background-color: rgba(0, 0, 0, .7);
 `
 
-const Wrap = styled.div`
+const Wrap = styled.div<{severity: Severity}>`
   position: fixed;
   top: 0;
   display: flex;
   width: 100%;
   padding: ${ themeSpacing(4) };
-  background-color: ${ themeColor("support", "invalid") };
+  background-color: ${ props => themeColor("support", props.severity === "INFO" ? "focus" : "invalid") };
 `
 
 const Stretch = styled.div`
-  color: ${ themeColor("tint", "level1") };
   flex: 1;
 `
 
 const InverseHeading = styled(Heading)`
+  color: ${ themeColor("tint", "level1") };
+`
+
+const InverseParagraph = styled(Paragraph)`
   color: ${ themeColor("tint", "level1") };
 `
 
@@ -42,14 +46,13 @@ const ErrorDisplay: React.FC = () => {
 
   return (
     <Backdrop onClick={ clearError }>
-      <Wrap>
+      <Wrap severity={ severity }>
         <Stretch>
           <InverseHeading forwardedAs="h3">Oeps, er ging iets mis!</InverseHeading>
-          { message && <Paragraph>{ message }</Paragraph> }
-          <Paragraph>Ernst: { severity || "–" }</Paragraph>
+          { message && <InverseParagraph>{ message } (ernst: { severity || "–" })</InverseParagraph> }
         </Stretch>
         <Button
-          variant="secondary"
+          variant="blank"
           size={ 24 }
           icon={ <Close /> }
           onClick={ clearError }

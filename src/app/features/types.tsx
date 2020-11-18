@@ -148,3 +148,5 @@ export type Itinerary = Omit<Components.Schemas.Itinerary, "items"> & {
 
 type Value = string | ReactNode
 export type KeyValueDetail = Value | [string, Value]
+
+export type Severity = "INFO" | "WARNING" | "ERROR" | undefined

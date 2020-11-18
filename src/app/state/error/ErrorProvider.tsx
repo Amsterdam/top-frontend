@@ -1,6 +1,5 @@
 import React, { createContext, useCallback, useState } from "react"
-
-type Severity = "INFO" | "WARNING" | "ERROR" | "CLEARED"
+import { Severity } from "app/features/types"
 
 type Context = {
   message?: string
@@ -25,7 +24,7 @@ const ErrorProvider: React.FC = ({ children }) => {
     setSeverity(severity)
   }
 
-  const clearError = useCallback(() => setError(undefined, "CLEARED"), [])
+  const clearError = useCallback(() => setError(undefined, undefined), [])
 
   return (
     <ErrorContext.Provider value={ { message, severity, setError, clearError } }>
