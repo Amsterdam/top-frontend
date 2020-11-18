@@ -1,65 +1,65 @@
 import React, { useContext } from "react"
-import { themeColor, themeSpacing, Button } from "@amsterdam/asc-ui"
 import styled from "styled-components"
-
-import { ErrorContext } from "app/state/error/ErrorProvider"
 import { Close } from "@amsterdam/asc-assets"
+import { Button, Heading, Paragraph, themeColor, themeSpacing } from "@amsterdam/asc-ui"
 
-const Wrap = styled.div`
+import { Severity } from "app/features/types"
+import { ErrorContext } from "app/state/error/ErrorProvider"
+
+const Backdrop = styled.div`
   position: fixed;
   top: 0;
-  
-  width: 100%;     
-  padding: ${ themeSpacing(4) };
-  background-color: ${ themeColor("support", "invalid") };
-  display: flex;    
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  background-color: rgba(0, 0, 0, .7);
 `
 
-const BackDrop = styled.div`
+const Wrap = styled.div<{severity: Severity}>`
   position: fixed;
   top: 0;
-  bottom:0;
-  left: 0;
-  right: 0;  
-  background-color: rgba(0,0,0,.7);
-  
-  z-index: 10;
+  display: flex;
+  width: 100%;
+  padding: ${ themeSpacing(4) };
+  background-color: ${ props => props.severity === "INFO" ? themeColor("primary") : themeColor("support", "invalid") };
 `
 
 const Stretch = styled.div`
-  color: ${ themeColor("tint", "level1") };
   flex: 1;
 `
 
-const H3 = styled.h3`
-  margin: 0;
+const InverseHeading = styled(Heading)`
+  color: ${ themeColor("tint", "level1") };
 `
 
-const P = styled.p`
-  margin-bottom: 0;
+const InverseParagraph = styled(Paragraph)`
+  color: ${ themeColor("tint", "level1") };
 `
 
 const ErrorDisplay: React.FC = () => {
-  const { error, clearError } = useContext(ErrorContext)
+  const { message, severity, clearError } = useContext(ErrorContext)
 
-  if (!error) {
+  if (!message) {
     return null
   }
 
-  return <BackDrop onClick={clearError}>
-    <Wrap>
-      <Stretch>
-        <H3>Oeps, er ging iets mis!</H3>
-        <P>{ error }</P>
-      </Stretch>
-      <Button
-        variant="secondary"
-        size={24}
-        icon={ <Close /> }
-        onClick={clearError}
-      />
-    </Wrap>
-  </BackDrop>
+  return (
+    <Backdrop onClick={ clearError }>
+      <Wrap severity={ severity }>
+        <Stretch>
+          <InverseHeading forwardedAs="h3">Oeps, er ging iets mis!</InverseHeading>
+          { message && <InverseParagraph>{ message }</InverseParagraph> }
+        </Stretch>
+        <Button
+          variant="blank"
+          size={ 24 }
+          icon={ <Close /> }
+          onClick={ clearError }
+        />
+      </Wrap>
+    </Backdrop>
+  )
 }
 
 export default ErrorDisplay

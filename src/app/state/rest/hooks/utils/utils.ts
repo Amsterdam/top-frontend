@@ -16,12 +16,16 @@ const isAxiosError = (error: any): error is AxiosError => error.isAxiosError
 export const useErrorHandler = () => {
   const { setError } = useContext(ErrorContext)
 
-  return useCallback(async (error: AxiosError|Error) => {
+  return useCallback(async (error: AxiosError | Error) => {
+    const errorMessage = isAxiosError(error) ? error.response?.data.message : error.message
+    const errorSeverity = isAxiosError(error) ? error.response?.data.severity : undefined
+
     if (isAxiosError(error) && error.response?.status === 401) {
       clearToken()
       await navigate(to("/login"))
     }
-    setError(error.message)
+
+    setError(errorMessage, errorSeverity)
   }, [ setError ])
 }
 
@@ -36,8 +40,8 @@ export const getHeaders = () => {
 /**
  * Utility function to create a gateway URL.
  */
-export const makeGatewayUrl = (paths: Array<number|string|undefined>, queryStringParams?: Record<string, number|string|undefined>) => {
-  const path = slashSandwich([process.env.REACT_APP_GATEWAY, ...paths])
+export const makeGatewayUrl = (paths: Array<number | string | undefined>, queryStringParams?: Record<string, number | string | undefined>) => {
+  const path = slashSandwich([ process.env.REACT_APP_GATEWAY, ...paths ])
 
   const queryString = queryStringParams
     ? qs.stringify(queryStringParams, { addQueryPrefix: true })
@@ -45,4 +49,3 @@ export const makeGatewayUrl = (paths: Array<number|string|undefined>, queryStrin
 
   return `${ path }${ queryString }`
 }
-
