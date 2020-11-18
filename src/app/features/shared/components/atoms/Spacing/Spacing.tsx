@@ -13,8 +13,8 @@ const Spacing = styled.div<Props>`
   ${ (props) => props.p && css`padding: ${ themeSpacing(props.p) }` }
   ${ (props) => props.pt && css`padding-top: ${ themeSpacing(props.pt) }` }
   ${ (props) => props.pb && css`padding-bottom: ${ themeSpacing(props.pb) }` }
-  ${ (props) => props.pr && css`padding: ${ themeSpacing(props.pr) }` }
-  ${ (props) => props.pl && css`padding: ${ themeSpacing(props.pl) }` }
+  ${ (props) => props.pr && css`padding-right: ${ themeSpacing(props.pr) }` }
+  ${ (props) => props.pl && css`padding-left: ${ themeSpacing(props.pl) }` }
 `
 
 export default Spacing
