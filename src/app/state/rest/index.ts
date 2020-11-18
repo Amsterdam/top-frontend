@@ -186,6 +186,28 @@ export const useVisits = (options?: Options) => {
   })
 }
 
+export const useSuggestNextVisit = (options?: Options) => {
+  const handleError = useErrorHandler()
+  return useApiRequest<{results: Components.Schemas.SuggestNextVisit[]}>({
+    ...options,
+    url: makeGatewayUrl(["suggest-next-visit"]),
+    groupName: "itineraries",
+    handleError,
+    getHeaders
+  })
+}
+
+export const useObservations = (options?: Options) => {
+  const handleError = useErrorHandler()
+  return useApiRequest<{results: Components.Schemas.Observation[]}>({
+    ...options,
+    url: makeGatewayUrl(["observations"]),
+    groupName: "itineraries",
+    handleError,
+    getHeaders
+  })
+}
+
 export const useVisit = (id: string|number, options?: Options) => {
   const handleError = useErrorHandler()
   return useApiRequest<Components.Schemas.Visit>({
