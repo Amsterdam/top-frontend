@@ -10,7 +10,7 @@ type Context = {
 
 export const ErrorContext = createContext<Context>({
   message: undefined,
-  severity: "INFO",
+  severity: undefined,
   setError: (message, severity) => {},
   clearError: () => {}
 })
