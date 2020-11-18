@@ -37,7 +37,7 @@ const ListItinerariesPage: React.FC = () => {
         <ol>
           { data.itineraries.map(itinerary => (
             <Li key={ itinerary.id }>
-              <TeamName>{ itinerary.settings.team_settings.name }</TeamName>
+              <TeamName>{ itinerary.settings.day_settings }</TeamName>
               <Link to={ to("/lijst/:itineraryId", { itineraryId: itinerary.id.toString() }) }>
                 { itinerary.team_members.map(member => member.user.full_name).join(", ") }
               </Link>

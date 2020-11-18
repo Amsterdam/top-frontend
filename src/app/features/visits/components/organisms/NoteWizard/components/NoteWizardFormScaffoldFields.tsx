@@ -10,10 +10,10 @@ import { OnBackButtonClick, WizardStep } from "../types"
 type Props = {
   step: WizardStep
   onBackButtonClicked: OnBackButtonClick
-  teamSettings: Components.Schemas.TeamSettings
+  daySettings: Components.Schemas.DaySettings
 }
 
-const NoteWizardFormScaffoldFields: React.FC<Props> = ({ step, onBackButtonClicked, teamSettings }) => {
+const NoteWizardFormScaffoldFields: React.FC<Props> = ({ step, onBackButtonClicked, daySettings }) => {
   const { values } = useFormState()
 
   const friendlySituation = values.situation === "nobody_present"
@@ -21,8 +21,8 @@ const NoteWizardFormScaffoldFields: React.FC<Props> = ({ step, onBackButtonClick
     : "Je kreeg geen medewerking"
 
     const choices = Object.keys({ 
-      observation_choices: teamSettings.observation_choices,
-      suggest_next_visit_choices: teamSettings.suggest_next_visit_choices
+      observation_choices: daySettings.team_settings.observation_choices,
+      suggest_next_visit_choices: daySettings.team_settings.suggest_next_visit_choices
     }).reduce((previousValue, currentValue) => { 
       // @ts-ignore
       previousValue[currentValue] = teamSettings[currentValue].reduce((prev, curr) => {
@@ -32,7 +32,7 @@ const NoteWizardFormScaffoldFields: React.FC<Props> = ({ step, onBackButtonClick
       return previousValue
     }, {}) as Components.Schemas.TeamSettings
 
-    const situation_choices = teamSettings.situation_choices.reduce((t, c) => {
+    const situation_choices = daySettings.team_settings.situation_choices.reduce((t, c) => {
       t[c] = translation["visit_situation_" + c]
       return t
     }, {})

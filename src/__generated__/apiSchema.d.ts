@@ -21,19 +21,28 @@ declare namespace Components {
         }
         export type DaySettings = {
             readonly id: number
-            projects: string[]
-            readonly primary_stadium: string
-            secondary_stadia: string[]
-            exclude_stadia: string[]
             name: string
-            week_day: 1 | 2 | 3 | 4 | 5 | 6
+            readonly week_day: null | number
             opening_date?: string // date
             postal_code_ranges?: {
                 [name: string]: any
             }
-            length_of_list?: number
-            team_settings: number
             postal_code_ranges_presets?: number[]
+            length_of_list?: number
+            projects: number[]
+            primary_stadium: null | number
+            secondary_stadia: number[]
+            exclude_stadia: number[]
+            readonly team_settings: {
+                name: string
+                readonly observation_choices: Observation[]
+                readonly situation_choices: any[]
+                readonly suggest_next_visit_choices: SuggestNextVisit[]
+                fraud_predict?: boolean
+                readonly marked_stadia: StadiumLabel[]
+                show_issuemelding?: boolean
+                show_vakantieverhuur?: boolean
+            }
         }
         export type DecosPermit = {
             permit_granted?: boolean
@@ -63,7 +72,7 @@ declare namespace Components {
             readonly items: ItineraryItem[]
             readonly settings: {
                 opening_date: string // date
-                team_settings: TeamSettings
+                day_settings: DaySettings
                 target_length?: number
                 projects: Project[]
                 primary_stadium: Stadium
@@ -81,13 +90,23 @@ declare namespace Components {
                 readonly id: number
                 case_id?: string | null
                 readonly bwv_data: string
-                readonly fraud_prediction: any
+                readonly fraud_prediction: {
+                    fraud_probability: number // float
+                    fraud_prediction: boolean
+                    business_rules: {
+                        [name: string]: any
+                    }
+                    shap_values: {
+                        [name: string]: any
+                    }
+                    readonly sync_date: string // date-time
+                }
             }
             readonly visits: Visit[]
         }
         export type ItinerarySettings = {
             opening_date: string // date
-            team_settings: TeamSettings
+            day_settings: DaySettings
             target_length?: number
             projects: Project[]
             primary_stadium: Stadium
@@ -287,19 +306,28 @@ declare namespace Components {
         }
         export type PatchedDaySettings = {
             readonly id?: number
-            projects?: string[]
-            readonly primary_stadium?: string
-            secondary_stadia?: string[]
-            exclude_stadia?: string[]
             name?: string
-            week_day?: 1 | 2 | 3 | 4 | 5 | 6
+            readonly week_day?: null | number
             opening_date?: string // date
             postal_code_ranges?: {
                 [name: string]: any
             }
-            length_of_list?: number
-            team_settings?: number
             postal_code_ranges_presets?: number[]
+            length_of_list?: number
+            projects?: number[]
+            primary_stadium?: null | number
+            secondary_stadia?: number[]
+            exclude_stadia?: number[]
+            readonly team_settings?: {
+                name: string
+                readonly observation_choices: Observation[]
+                readonly situation_choices: any[]
+                readonly suggest_next_visit_choices: SuggestNextVisit[]
+                fraud_predict?: boolean
+                readonly marked_stadia: StadiumLabel[]
+                show_issuemelding?: boolean
+                show_vakantieverhuur?: boolean
+            }
         }
         export type PatchedItineraryItem = {
             readonly id?: number
@@ -309,7 +337,17 @@ declare namespace Components {
                 readonly id: number
                 case_id?: string | null
                 readonly bwv_data: string
-                readonly fraud_prediction: any
+                readonly fraud_prediction: {
+                    fraud_probability: number // float
+                    fraud_prediction: boolean
+                    business_rules: {
+                        [name: string]: any
+                    }
+                    shap_values: {
+                        [name: string]: any
+                    }
+                    readonly sync_date: string // date-time
+                }
             }
             readonly visits?: Visit[]
         }
@@ -335,9 +373,6 @@ declare namespace Components {
         export type PatchedTeamSettings = {
             readonly id?: number
             name?: string
-            readonly team_type?: {
-                [name: string]: any
-            }
             readonly observation_choices?: Observation[]
             readonly situation_choices?: any[]
             readonly suggest_next_visit_choices?: SuggestNextVisit[]
@@ -428,9 +463,6 @@ declare namespace Components {
         export type TeamSettings = {
             readonly id: number
             name: string
-            readonly team_type: {
-                [name: string]: any
-            }
             readonly observation_choices: Observation[]
             readonly situation_choices: any[]
             readonly suggest_next_visit_choices: SuggestNextVisit[]
@@ -442,11 +474,18 @@ declare namespace Components {
             }
             readonly day_settings_list: DaySettings[]
         }
+        export type TeamSettingsCompact = {
+            name: string
+            readonly observation_choices: Observation[]
+            readonly situation_choices: any[]
+            readonly suggest_next_visit_choices: SuggestNextVisit[]
+            fraud_predict?: boolean
+            readonly marked_stadia: StadiumLabel[]
+            show_issuemelding?: boolean
+            show_vakantieverhuur?: boolean
+        }
         export type TeamSettingsId = {
             readonly id: number
-            readonly team_type: {
-                [name: string]: any
-            }
         }
         export type User = {
             id: string // uuid
@@ -481,7 +520,6 @@ declare namespace Components {
             itinerary_item?: null | number
             author: string // uuid
         }
-        export type WeekDayEnum = 1 | 2 | 3 | 4 | 5 | 6;
     }
 }
 declare namespace Paths {

@@ -5,7 +5,7 @@ import { Card, ChevronDown, Enlarge, TrashBin } from "@amsterdam/asc-assets"
 import styled from "styled-components"
 
 import { ItineraryItem } from "app/features/types"
-import { useDeleteItinerary, useItineraries, useTeamSettings } from "app/state/rest"
+import { useDeleteItinerary, useItineraries } from "app/state/rest"
 import { useItinerary } from "app/state/rest/custom/useItinerary"
 
 import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner"
@@ -73,7 +73,6 @@ const ItineraryPage: React.FC<RouteComponentProps<Props>> = ({ itineraryId }) =>
   }, [ itineraries, itineraryId ])
 
   const { data: itinerary, isBusy } = useItinerary(parseInt(itineraryId!), { keepUsingInvalidCache: true })
-  const { data: teamSettings } = useTeamSettings(itinerary?.settings.team_settings.id!)
   const { execDelete } = useDeleteItinerary(itineraryId!, { lazy: true }) // <- NOTE: we need a extra hook here, because /itenaries/:id/ only allows a DELETE, no other methods
 
   const [ showDialog, setShowDialog ] = useState(false)
@@ -97,7 +96,7 @@ const ItineraryPage: React.FC<RouteComponentProps<Props>> = ({ itineraryId }) =>
 
   const items = itinerary?.items as unknown as ItineraryItem[]
 
-  const cardListItems = useMemo(() => items?.map(mapItineraryItem(itineraryId!, teamSettings!)) ?? [], [ items, itineraryId, teamSettings ])
+  const cardListItems = useMemo(() => items?.map(mapItineraryItem(itineraryId!, itinerary?.settings.day_settings!)) ?? [], [ items, itineraryId, itinerary ])
 
   const teamMemberUsers = useMemo(() => itinerary?.team_members.map(member => member.user) ?? [], [ itinerary ])
   const teamMemberNames = useMemo(() => teamMemberUsers?.map(user => user.full_name).join(", "), [ teamMemberUsers ])
@@ -130,7 +129,7 @@ const ItineraryPage: React.FC<RouteComponentProps<Props>> = ({ itineraryId }) =>
             Looplijst { formatDate(itinerary.created_at, true, false) }
           </Heading>
           <TeamMemberWrap>
-            <TeamName>{ itinerary?.settings.team_settings.name }</TeamName>
+            <TeamName>{ itinerary?.settings.day_settings.team_settings.name } - { itinerary?.settings.day_settings.name }</TeamName>
             { !isEditing
               ? teamMemberNames
               : <TeamMemberForm
