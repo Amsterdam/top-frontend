@@ -22,7 +22,7 @@ const Wrap = styled.div<{severity: Severity}>`
   display: flex;
   width: 100%;
   padding: ${ themeSpacing(4) };
-  background-color: ${ props => themeColor("support", props.severity === "INFO" ? "focus" : "invalid") };
+  background-color: ${ props => props.severity === "INFO" ? themeColor("primary") : themeColor("support", "invalid") };
 `
 
 const Stretch = styled.div`
@@ -49,7 +49,7 @@ const ErrorDisplay: React.FC = () => {
       <Wrap severity={ severity }>
         <Stretch>
           <InverseHeading forwardedAs="h3">Oeps, er ging iets mis!</InverseHeading>
-          { message && <InverseParagraph>{ message } (ernst: { severity || "–" })</InverseParagraph> }
+          { message && <InverseParagraph>{ message }</InverseParagraph> }
         </Stretch>
         <Button
           variant="blank"
