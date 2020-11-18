@@ -25,7 +25,7 @@ const ErrorProvider: React.FC = ({ children }) => {
     setSeverity(severity)
   }
 
-  const clearError = useCallback(() => setError(undefined, undefined), [ setMessage, setSeverity ])
+  const clearError = useCallback(() => setError(undefined, undefined), [])
 
   return (
     <ErrorContext.Provider value={ { message, severity, setError, clearError } }>
