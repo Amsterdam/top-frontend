@@ -50,10 +50,12 @@ const Dd = styled.dd`
 `
 
 const Ul = styled.ul`
+  margin: 0;
   padding: 0 0 0 ${ themeSpacing(5) };
 `
 
 const Li = styled.li`
+  margin: 0;
   padding: 0 0 ${ themeSpacing(1) };
 `
 
@@ -65,16 +67,16 @@ type Props = {
 
 const DaySettings: FC<RouteComponentProps<Props>> = ({ teamSettings, postCodeRangesPresets, daySettingsId }) => {
   const { data: daySettings, isBusy } = useDaySettings(daySettingsId!)
-  const postCodeRangesPresetsDict = postCodeRangesPresets?.reduce((t: any, c) => {
-    t[c.id] = c.name
-    return t
-  }, {}) ?? {}
-  const postal_code_ranges = daySettings?.postal_code_ranges && daySettings?.postal_code_ranges.map((pc: any) => (pc.range_start + "–" + pc.range_end)).join(", ")
-  const postal_code_ranges_presets = daySettings?.postal_code_ranges_presets && daySettings?.postal_code_ranges_presets.map((pc: any) => postCodeRangesPresetsDict[pc])
 
   if (!teamSettings || !daySettings || isBusy) {
     return <CenteredSpinner size={ 60 } />
   }
+
+  const postalCodeRangesPresetsDict = postCodeRangesPresets?.reduce((t: any, c) => {
+    t[c.id] = c.name
+    return t
+  }, {}) ?? {}
+  const postalCodeRangesPresets: string[] | undefined = daySettings?.postal_code_ranges_presets && daySettings?.postal_code_ranges_presets.map((pc: any) => postalCodeRangesPresetsDict[pc]) // Stadsdelen
 
   const toEditForm = to("/team-settings/:teamSettingsId/:daySettingsId", {
     teamSettingsId: teamSettings.id,
@@ -94,8 +96,16 @@ const DaySettings: FC<RouteComponentProps<Props>> = ({ teamSettings, postCodeRan
             <Dd>{ daySettings?.opening_date || "–" }</Dd>
           </Dl>
           <Dl>
-            <Dt>{ (postal_code_ranges_presets?.length) ? "Stadsdelen" : "Postcodes" }</Dt>
-            <Dd>{ (postal_code_ranges_presets?.length) ? postal_code_ranges_presets?.join(", ") : postal_code_ranges }</Dd>
+            <Dt>{ (postalCodeRangesPresets?.length) ? (postalCodeRangesPresets.length === 1 ? "Stadsdeel" : "Stadsdelen") : "Postcodes" }</Dt>
+            <Dd>{ (postalCodeRangesPresets?.length) ? postalCodeRangesPresets.join(", ") :
+              <Ul>
+                {
+                  daySettings?.postal_code_ranges?.map((range: any, index: number) =>
+                    <Li key={ "range-" + index }>{ range.range_start }–{ range.range_end }</Li>
+                  )
+                }
+              </Ul>
+            }</Dd>
           </Dl>
           <Dl>
             <Dt>Projecten</Dt>
