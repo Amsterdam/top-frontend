@@ -34,6 +34,7 @@ const DaySettingsList: FC<RouteComponentProps<Props>> = ({ teamSettings, postCod
           Kies een ander team
         </Link>
       </Spacing>
+      <Paragraph>Momenteel zijn de dagen als volgt ingepland:</Paragraph>
       { teamSettings.day_settings_list.length ?
         <Grid>
           { teamSettings.day_settings_list.map(daySettings => (
