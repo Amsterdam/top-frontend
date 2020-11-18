@@ -88,7 +88,7 @@ const DaySettings: FC<RouteComponentProps<Props>> = ({ teamSettings, postCodeRan
     <Section>
       <Header>
         <Heading forwardedAs="h2">{ daySettings?.name }</Heading>
-        <Button variant="secondary" onClick={ () => navigate(toEditForm) }>Wijzig</Button>
+        <Button onClick={ () => navigate(toEditForm) }>Wijzig</Button>
       </Header>
       <Body>
         <Column>
