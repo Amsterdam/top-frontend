@@ -16,30 +16,28 @@ const FixedBox = styled(Box)`
   position: fixed;
   bottom: 0;
   left: 0;
-  left: 0;
   height: 85px;
   border-top: 1px solid ${ themeColor("tint", "level5") };
 `
 
 /**
- * Renders a submit-button in a fixed-positioned container
+ * Renders a submit button in a fixed-positioned container
  */
 const FixedSubmitButton: React.FC<Props> = ({ errorMessage }) => {
   const { submitSucceeded, submitting, hasValidationErrors, dirty, dirtySinceLastSubmit } = useFormState()
 
   return (
     <div>
-      <FixedBox hAlign='flex-end' vAlign='center' p={4} bgColor='level1'>
+      <FixedBox hAlign="flex-end" vAlign="center" p={ 4 } bgColor="level1">
         { errorMessage && !dirtySinceLastSubmit && <ErrorMessage text={ errorMessage! } /> }
-        { submitSucceeded && !submitting && !dirty && !errorMessage && <SuccessMessage text='Succesvol opgeslagen' /> }
-        { submitting && <SmallSpinner />}
-        <Box pl={3} width='auto'>
-          <Button variant="secondary" disabled={submitting || hasValidationErrors}>Bewaren</Button>
+        { submitSucceeded && !submitting && !dirty && !errorMessage && <SuccessMessage text="Succesvol bewaard" /> }
+        { submitting && <SmallSpinner /> }
+        <Box pl={ 3 } width="auto">
+          <Button variant="secondary" disabled={ submitting || hasValidationErrors }>Bewaren</Button>
         </Box>
       </FixedBox>
     </div>
   )
 }
-
 
 export default FixedSubmitButton
