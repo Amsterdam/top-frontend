@@ -18,13 +18,14 @@ export const useErrorHandler = () => {
 
   return useCallback(async (error: AxiosError | Error) => {
     const errorMessage = isAxiosError(error) ? error.response?.data.message : error.message
+    const errorSeverity = isAxiosError(error) ? error.response?.data.severity : undefined
 
     if (isAxiosError(error) && error.response?.status === 401) {
       clearToken()
       await navigate(to("/login"))
     }
 
-    setError(errorMessage)
+    setError(errorMessage, errorSeverity)
   }, [ setError ])
 }
 
