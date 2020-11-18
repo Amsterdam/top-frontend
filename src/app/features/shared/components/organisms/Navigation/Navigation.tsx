@@ -74,7 +74,7 @@ const Navigation: FC = () => {
               <ItineraryNavigationButton />
             </Li>
             }
-            { showItineraryNavigationItems && itinerary && itinerary?.settings.team_settings.team_type.show_issuemelding &&
+            { showItineraryNavigationItems && itinerary && itinerary?.settings.day_settings.team_settings.show_issuemelding &&
             <Li isActive={ pathname.startsWith("/issuemeldingen") }>
               <OpenIssuesNavigationButton itineraryId={ itineraryId } />
             </Li>
