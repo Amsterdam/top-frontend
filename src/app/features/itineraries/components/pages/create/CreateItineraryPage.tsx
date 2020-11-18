@@ -10,7 +10,7 @@ import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/
 import { useQueryString } from "app/features/shared/hooks/queryString/useQueryString"
 
 import ItineraryForm from "app/features/itineraries/components/organisms/ItineraryForm/ItineraryForm"
-import { redirectToCorrectItineraryPage } from "app/features/itineraries/utils/redirectToCorrectItineraryPage";
+import { redirectToCorrectItineraryPage } from "app/features/itineraries/utils/redirectToCorrectItineraryPage"
 
 type Props = {
   teamSettingsId: number

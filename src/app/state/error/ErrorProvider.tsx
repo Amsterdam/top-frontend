@@ -1,6 +1,6 @@
 import React, { createContext, useCallback, useState } from "react"
 
-type Severity = "INFO" | "WARNING" | "ERROR"
+type Severity = "INFO" | "WARNING" | "ERROR" | "CLEARED"
 
 type Context = {
   message?: string
@@ -11,8 +11,8 @@ type Context = {
 
 export const ErrorContext = createContext<Context>({
   message: undefined,
-  severity: undefined,
-  setError: () => {},
+  severity: "INFO",
+  setError: (message, severity) => {},
   clearError: () => {}
 })
 
@@ -25,7 +25,7 @@ const ErrorProvider: React.FC = ({ children }) => {
     setSeverity(severity)
   }
 
-  const clearError = useCallback(() => setError(undefined, undefined), [])
+  const clearError = useCallback(() => setError(undefined, "CLEARED"), [])
 
   return (
     <ErrorContext.Provider value={ { message, severity, setError, clearError } }>
