@@ -13,7 +13,8 @@ def deploy(environment) {
     parameters: [
         [$class: 'StringParameterValue', name: 'INFRASTRUCTURE', value: 'secure'],
         [$class: 'StringParameterValue', name: 'INVENTORY', value: environment],
-        [$class: 'StringParameterValue', name: 'PLAYBOOK', value: 'deploy-looplijsten-frontend.yml'],
+        [$class: 'StringParameterValue', name: 'PLAYBOOK', value: 'deploy.yml'],
+        [$class: 'StringParameterValue', name: 'PLAYBOOKPARAMS', value: "-e cmdb_id=app_looplijsten-frontend"]
     ]
 }
 
