@@ -234,7 +234,7 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
       <CaseDetailSectionGeneral
         address={ address }
         caseCount={ caseCount }
-        caseItem={ caseItem }
+        caseId={ caseId }
         eigenaar={ eigenaar }
         footer={ {
           link: `http://www.google.com/maps/place/${ address }, Amsterdam`,
@@ -249,10 +249,9 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
       <CaseDetailSectionRelatedCases
         caseCount={ caseCount }
         caseId={ caseId }
-        caseItem={ caseItem }
       />
       <CaseDetailSectionVacationRental
-        caseItem={ caseItem }
+        caseId={ caseId }
       />
       {
         (!caseItem.day_settings_id || (daySettings && daySettings?.team_settings.show_vakantieverhuur)) &&
@@ -303,7 +302,7 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
         data={ showBewoners ? bewoners : [ "Geen inschrijvingen" ] }
       />
       <CaseDetailSectionVacationRentalThisYear
-        caseItem={ caseItem }
+        caseId={ caseId }
       />
       <CaseLogBook
         caseId={ caseId }

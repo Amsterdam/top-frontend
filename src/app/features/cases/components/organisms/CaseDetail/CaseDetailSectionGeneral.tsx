@@ -1,26 +1,23 @@
 import React, { FC } from "react"
 import styled from "styled-components"
 import { Link } from "@reach/router"
-
 import { Heading, themeSpacing } from "@amsterdam/asc-ui"
 
-import InvalidDataSpan from "app/features/cases/components/atoms/InvalidDataSpan/InvalidDataSpan"
-import Label from "app/features/cases/components/atoms/Label/Label"
-import { Case, FraudPrediction } from "app/features/types"
-
-import StadiumBadge from "app/features/shared/components/molecules/StadiumBadge/StadiumBadge"
+import { useCase } from "app/state/rest"
+import { FraudPrediction } from "app/features/types"
 import FraudProbability from "app/features/shared/components/atoms/FraudProbability/FraudProbability"
 import ScrollToAnchor from "app/features/shared/components/molecules/ScrollToAnchor/ScrollToAnchor"
-
+import StadiumBadge from "app/features/shared/components/molecules/StadiumBadge/StadiumBadge"
+import InvalidDataSpan from "../../atoms/InvalidDataSpan/InvalidDataSpan"
+import Label from "../../atoms/Label/Label"
 import FraudPredictionDetailsModal from "../FraudPrediction/FraudPredictionDetailsModal"
 import { useFraudPredictionModal } from "../FraudPrediction/hooks/useFraudPredictionModal"
-
 import { CenteredAnchor, Section, SectionRow } from "./CaseDetailStyles"
 
 type Props = {
   address: string
   caseCount?: number
-  caseItem: Case
+  caseId: string
   eigenaar?: string
   footer?: {
     link: string
@@ -55,7 +52,7 @@ const CaseDetailSectionGeneral: FC<Props> = (
   {
     address,
     caseCount,
-    caseItem,
+    caseId,
     eigenaar,
     footer,
     fraudPrediction,
@@ -65,9 +62,11 @@ const CaseDetailSectionGeneral: FC<Props> = (
     signal
   }
 ) => {
-  const caseNumber = caseItem.bwv_tmp.case_number !== null ? parseInt(caseItem.bwv_tmp.case_number, 10) : undefined
-  const caseOpening = caseItem.bwv_tmp.openings_reden !== null ? caseItem.bwv_tmp.openings_reden : undefined
-  const openCaseCount = caseItem.bwv_tmp.num_open_cases !== null ? caseItem.bwv_tmp.num_open_cases : undefined
+  const { data: caseData } = useCase(caseId)
+
+  const caseNumber = caseData?.bwv_tmp.case_number !== null ? parseInt(caseData?.bwv_tmp.case_number || "", 10) : undefined
+  const caseOpening = caseData?.bwv_tmp.openings_reden !== null ? caseData?.bwv_tmp.openings_reden : undefined
+  const openCaseCount = caseData?.bwv_tmp.num_open_cases !== null ? caseData?.bwv_tmp.num_open_cases : undefined
 
   const showFooter = footer !== undefined
 

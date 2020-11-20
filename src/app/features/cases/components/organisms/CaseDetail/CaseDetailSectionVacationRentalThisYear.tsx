@@ -1,21 +1,21 @@
 import React, { FC } from "react"
 
-import { Case } from "app/features/types"
-
+import { useCase } from "app/state/rest"
 import formatDate from "app/features/shared/utils/formatDate"
 import Hr from "app/features/cases/components/atoms/Hr/Hr"
-
 import CaseDetailSection from "app/features/cases/components/organisms/CaseDetail/CaseDetailSection"
 
 type Props = {
-  caseItem: Case
+  caseId: string
 }
 
-const CaseDetailSectionVacationRentalThisYear: FC<Props> = ({ caseItem }) => {
-  const notifiedRentals = caseItem.vakantie_verhuur.notified_rentals
-  const rentedDays = caseItem.vakantie_verhuur.rented_days
+const CaseDetailSectionVacationRentalThisYear: FC<Props> = ({ caseId }) => {
+  const { data: caseData } = useCase(caseId)
 
-  if (!notifiedRentals.length) {
+  const notifiedRentals = caseData?.vakantie_verhuur.notified_rentals
+  const rentedDays = caseData?.vakantie_verhuur.rented_days
+
+  if (!notifiedRentals?.length) {
     return <></>
   }
 

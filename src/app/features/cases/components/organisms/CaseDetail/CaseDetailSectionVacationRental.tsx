@@ -1,12 +1,15 @@
 import React, { FC } from "react"
-import { Case } from "app/features/types"
+
+import { useCase } from "app/state/rest"
 
 type Props = {
-  caseItem: Case
+  caseId: string
 }
 
-const CaseDetailSectionVacationRental: FC<Props> = ({ caseItem }) => {
-  return <></>
+const CaseDetailSectionVacationRental: FC<Props> = ({ caseId }) => {
+  const { data: caseData } = useCase(caseId)
+
+  return <div>{ !!caseData }</div>
 }
 
 export default CaseDetailSectionVacationRental
