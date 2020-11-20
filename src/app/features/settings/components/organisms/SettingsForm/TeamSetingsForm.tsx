@@ -15,7 +15,7 @@ import { createDefinition } from "./teamSettingsFormDefinition"
 import FixedSubmitButton from "./components/FixedSubmitButton"
 import JSONDisplay from "./components/JSONDisplay"
 import CenteredSpinner from "../../../../shared/components/atoms/CenteredSpinner/CenteredSpinner"
-import { filterEmptyPostalCodes } from "app/features/settings/utils/filterEmptyPostalCodes";
+import { filterEmptyPostalCodes } from "app/features/settings/utils/filterEmptyPostalCodes"
 
 const Wrap = styled.div`
   margin: 0 8px 100px 8px

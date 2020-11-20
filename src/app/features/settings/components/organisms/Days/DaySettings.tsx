@@ -7,7 +7,7 @@ import to from "app/features/shared/routing/to"
 import { useDaySettings } from "app/state/rest"
 
 import CenteredSpinner from "../../../../shared/components/atoms/CenteredSpinner/CenteredSpinner"
-import formatDate from "app/features/shared/utils/formatDate";
+import formatDate from "app/features/shared/utils/formatDate"
 
 const Section = styled.section`
   background-color: ${ themeColor("tint", "level2") };
