@@ -58,7 +58,7 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
   const caseCount = caseItem.bwv_tmp.num_cases !== null ? parseInt(caseItem.bwv_tmp.num_cases, 10) : undefined
   const openCaseCount = caseItem.bwv_tmp.num_open_cases !== null ? caseItem.bwv_tmp.num_open_cases : undefined
   const caseOpening = caseItem.bwv_tmp.openings_reden !== null ? caseItem.bwv_tmp.openings_reden : undefined
-  const fraudPrediction = daySettings && daySettings.team_settings.fraud_predict ? caseItem.fraud_prediction : undefined
+  const fraudPrediction = !caseItem.day_settings_id || (daySettings && daySettings.team_settings.fraud_predict) ? caseItem.fraud_prediction : undefined
 
   // Related cases
   const relatedCases = caseItem.related_cases
@@ -236,7 +236,7 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
   }))
 
   const stadia = stadiums.reduce((acc: any, stadium, index) => {
-    acc.push([ "Stadium", <StadiumBadge stadium={ stadium.description } stadiaLabels={ daySettings?.team_settings.marked_stadia } /> ])
+    acc.push([ "Stadium", <StadiumBadge stadium={ stadium.description } stadiaLabels={ (caseItem.day_settings_id && daySettings?.team_settings.marked_stadia) || [] } /> ])
     acc.push([ "Start datum", stadium.dateStart ])
     acc.push([ "Eind datum", stadium.dateEnd ])
     acc.push([ "Peil datum", stadium.datePeil ])
@@ -268,7 +268,7 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
       />
       }
       {
-        daySettings?.team_settings.show_vakantieverhuur && <CaseDetailSection
+        (!caseItem.day_settings_id || (daySettings && daySettings?.team_settings.show_vakantieverhuur)) && <CaseDetailSection
           title="Vakantieverhuur"
           data={
             [
