@@ -14,7 +14,7 @@ import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/
 import { createDefinition } from "./daySettingsFormDefinition"
 import FixedSubmitButton from "../SettingsForm/components/FixedSubmitButton"
 import CenteredSpinner from "../../../../shared/components/atoms/CenteredSpinner/CenteredSpinner"
-import { filterEmptyPostalCodes } from "app/features/settings/utils/filterEmptyPostalCodes";
+import { filterEmptyPostalCodes } from "app/features/settings/utils/filterEmptyPostalCodes"
 
 const Wrap = styled.div`
   margin: 0 8px 100px 8px
@@ -52,7 +52,7 @@ const DaySettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId, daySe
       setErrorMessage(error.response.data.message)
       return error
     }
-  }, [ execPut, setErrorMessage ])
+  }, [ execPut, setErrorMessage, teamSettingsId ])
 
   if (!daySettings || isBusyDaySettings || !teamSettings || isBusySettings || !postalCodeRangesPresets || isBusyPostalCodeRangesPresets) {
     return <CenteredSpinner size={ 60 } />
@@ -72,8 +72,8 @@ const DaySettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId, daySe
         settings: {
           ...daySettings,
           postal_code_ranges_presets: (daySettings.postal_code_ranges_presets ?? []).map((pcp: any) => String(pcp))
-          //   postal_codes_type: postal_codes_type
         },
+        postal_codes_type: (daySettings.postal_code_ranges_presets ?? []).length > 0 ? "stadsdeel" : "postcode",
         name: teamSettings.name
       } }>
         <Scaffold { ...definition } />
