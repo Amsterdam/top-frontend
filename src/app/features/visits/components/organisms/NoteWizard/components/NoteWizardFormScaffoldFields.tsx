@@ -25,7 +25,7 @@ const NoteWizardFormScaffoldFields: React.FC<Props> = ({ step, onBackButtonClick
       suggest_next_visit_choices: daySettings.team_settings.suggest_next_visit_choices
     }).reduce((previousValue, currentValue) => { 
       // @ts-ignore
-      previousValue[currentValue] = teamSettings[currentValue].reduce((prev, curr) => {
+      previousValue[currentValue] = daySettings.team_settings[currentValue].reduce((prev, curr) => {
         prev[curr.value] = curr.verbose
         return prev
       }, {})
