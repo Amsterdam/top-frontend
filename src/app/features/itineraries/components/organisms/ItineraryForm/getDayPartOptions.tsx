@@ -1,9 +1,8 @@
-import getCurrentDay from "app/features/shared/utils/day"
-import isWeekDay from "app/features/shared/utils/isWeekDay"
-
-export const getDayPartOptions = (settings: Components.Schemas.PlannerSettings) => {
-  const currentDay = settings.days[getCurrentDay()]
-  return isWeekDay()
-    ? [ { label: "daglijst", settingsList: currentDay.day }, { label: "avondlijst", settingsList: currentDay.evening } ]
-    : [ { label: "weekend", settingsList: currentDay.day } ]
+export const getDayPartOptions = (teamSettings: Components.Schemas.TeamSettings) => {
+  // const currentDay = settings.days[getCurrentDay()]
+  console.log((new Date().getDay()))
+  return teamSettings.day_settings_list.filter(ds => ds.week_day === ((new Date().getDay()))).map(ds => ({
+      "label": ds.name,
+      "settingsList": ds
+    }))
 }

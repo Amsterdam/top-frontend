@@ -7,9 +7,10 @@ export type ApiGroup =
   | "itineraries"
   | "users"
   | "settings"
+  | "daySettings"
   | "teamSettings"
   | "teamSettingsList"
-  | "postCodeRanges"
+  | "postCodeRangesPresets"
   | "case"
   | "permits"
 
@@ -157,10 +158,17 @@ export const useTeamSettings = (teamSettingsId: number, options?: Options) => us
     getHeaders
   })
 
-  export const usePostCodeRanges = (options?: Options) => useApiRequest<{ results: Components.Schemas.PostalCodeRangeSet[] }>({
+  export const useDaySettings = (daySettingsId: number, options?: Options) => useApiRequest<Components.Schemas.DaySettings>({
     ...options,
-    url: makeGatewayUrl(["postal-code-ranges"]),
-    groupName: "postCodeRanges",
+    url: makeGatewayUrl(["day-settings", daySettingsId]),
+    groupName: "daySettings",
+    getHeaders
+  })
+
+  export const usePostCodeRanges = (options?: Options) => useApiRequest<{ results: Components.Schemas.PostalCodeRangePreset[] }>({
+    ...options,
+    url: makeGatewayUrl(["postal-code-ranges-presets"]),
+    groupName: "postCodeRangesPresets",
     getHeaders
   })
 

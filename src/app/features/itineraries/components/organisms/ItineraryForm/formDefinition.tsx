@@ -6,13 +6,13 @@ import { FormPositioner } from "amsterdam-scaffold-form/package"
 import { ChevronLeft } from "@amsterdam/asc-assets"
 
 import { Fields } from "app/features/shared/components/form/Scaffold"
-import { getDayPartOptions } from "./getDayPartOptions"
+import { getDaySettingsOptions } from "./getDaySettingsOptions"
 import { navigate } from "@reach/router"
 import to from "../../../../shared/routing/to"
 
 export const generateItineraryFormDefinition = (
   users: Components.Schemas.User[],
-  dayPartOptions: ReturnType<typeof getDayPartOptions>
+  daySettingsOptions: ReturnType<typeof getDaySettingsOptions>
 ) => {
   const definition: Fields = {
     user0: {
@@ -48,13 +48,13 @@ export const generateItineraryFormDefinition = (
         validate: isRequired()
       }
     },
-    dayPart: {
+    daySettings: {
       type: "ComplexRadioFields",
       props: {
         label: "Wat voor looplijst wil je maken?",
-        name: "dayPart",
+        name: "daySettings",
         optionLabelField: "label",
-        options: dayPartOptions
+        options: daySettingsOptions
       }
     },
     numAddresses: {
@@ -98,7 +98,7 @@ export const generateItineraryFormDefinition = (
       [ "user0", "user0" ],
       [ "user1", "user1" ],
       [ "user2", "user2" ],
-      [ "dayPart", "dayPart" ],
+      [ "daySettings", "daySettings" ],
       [ "numAddresses", "numAddresses" ],
       [ "startAddress", "startAddress" ],
       [ "previous", "submit" ]

@@ -8,7 +8,7 @@ import { useLoggedInUser } from "app/state/rest/custom/useLoggedInUser"
 import Scaffold from "app/features/shared/components/form/Scaffold"
 import to from "app/features/shared/routing/to"
 
-import { getDayPartOptions } from "./getDayPartOptions"
+import { getDaySettingsOptions } from "./getDaySettingsOptions"
 import { generateItineraryFormDefinition } from "./formDefinition"
 import { mapPostValues } from "./mapPostValues"
 
@@ -30,9 +30,11 @@ const ItineraryForm: FC<Props> = ({ teamSettings }) => {
   if (!users) {
     return null
   }
+  console.log(teamSettings)
+  
 
-  const dayPartOptions = getDayPartOptions(teamSettings.settings as Components.Schemas.PlannerSettings)
-  const fields = generateItineraryFormDefinition(users.results, dayPartOptions)
+  const daySettingsOptions = getDaySettingsOptions(teamSettings)
+  const fields = generateItineraryFormDefinition(users.results, daySettingsOptions)
 
   return (
     <ScaffoldForm
@@ -40,11 +42,8 @@ const ItineraryForm: FC<Props> = ({ teamSettings }) => {
       onSubmit={ handleSubmit }
       initialValues={ {
         teamSettings,
-        openingsDate: teamSettings.settings?.opening_date,
-        projects: teamSettings.settings?.projects,
-        postalCodeRange: teamSettings.settings?.postal_codes,
         numAddresses: 8,
-        dayPart: dayPartOptions[0],
+        daySettings: daySettingsOptions[0],
         team_members: [ loggedInUser ]
       } }
     >
