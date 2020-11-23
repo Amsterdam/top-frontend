@@ -30,8 +30,6 @@ const ItineraryForm: FC<Props> = ({ teamSettings }) => {
   if (!users) {
     return null
   }
-  console.log(teamSettings)
-  
 
   const daySettingsOptions = getDaySettingsOptions(teamSettings)
   const fields = generateItineraryFormDefinition(users.results, daySettingsOptions)
