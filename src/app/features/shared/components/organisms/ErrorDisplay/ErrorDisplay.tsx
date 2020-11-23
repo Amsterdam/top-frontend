@@ -38,7 +38,7 @@ const InverseParagraph = styled(Paragraph)`
 `
 
 const ErrorDisplay: React.FC = () => {
-  const { message, severity, clearError } = useContext(ErrorContext)
+  const { message, severity, title, clearError } = useContext(ErrorContext)
 
   if (!message) {
     return null
@@ -48,7 +48,9 @@ const ErrorDisplay: React.FC = () => {
     <Backdrop onClick={ clearError }>
       <Wrap severity={ severity }>
         <Stretch>
-          <InverseHeading forwardedAs="h3">Oeps, er ging iets mis!</InverseHeading>
+          <InverseHeading forwardedAs="h3">
+            { title || "Oeps, er ging iets mis!" }
+          </InverseHeading>
           { message && <InverseParagraph>{ message }</InverseParagraph> }
         </Stretch>
         <Button
