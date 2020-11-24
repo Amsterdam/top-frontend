@@ -4,18 +4,18 @@ import { themeColor, themeSpacing } from "@amsterdam/asc-ui"
 import styled from "styled-components"
 
 type Props = {
-  href?: string
-  backgroundColor?: "level1" | "level2" | "level3" | "level4" | "level5" | "level6"
   address: string | JSX.Element
-  postalCode: string | JSX.Element
-  reason?: string | JSX.Element
-  fraudProbability?: string | JSX.Element
+  backgroundColor?: "level1" | "level2" | "level3" | "level4" | "level5" | "level6"
   badge?: JSX.Element
   buttons?: (onDeleteButtonClick: () => void) => JSX.Element
-  notes?: JSX.Element
-  isVisited?: boolean
-  isSia?: boolean
   daySettings?: Components.Schemas.DaySettings
+  fraudProbability?: string | JSX.Element
+  href?: string
+  isSia?: boolean
+  isVisited?: boolean
+  notes?: JSX.Element
+  postalCode: string | JSX.Element
+  reason?: string | JSX.Element
 }
 
 type WrapProps = Pick<Props, "backgroundColor">
@@ -65,18 +65,18 @@ const FraudProbability = styled.p`
 
 const ItineraryItemCard: React.FC<Props> = (
   {
-    href,
     address,
-    postalCode,
-    isVisited,
-    reason,
-    buttons,
-    badge,
-    fraudProbability,
     backgroundColor,
-    notes,
+    badge,
+    buttons,
+    daySettings,
+    fraudProbability,
+    href,
     isSia,
-    daySettings
+    isVisited,
+    notes,
+    postalCode,
+    reason
   }
 ) => {
   const [ isBeingDeleted, setIsBeingDeleted ] = useState(false)

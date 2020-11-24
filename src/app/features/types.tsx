@@ -4,24 +4,24 @@ export type BusinessRules = Record<string, number>
 export type ShapValues = Record<string, number>
 
 export type FraudPrediction = {
-  fraud_probability: number
-  fraud_prediction: boolean
   business_rules: BusinessRules
+  fraud_prediction: boolean
+  fraud_probability: number
   shap_values: ShapValues
 }
 
 export type BagData = {
-  gebruiksdoel: string[]
-  gebruik: string | null
-  bouwlagen: number | null
+  aanduiding_in_onderzoek?: boolean
   aantal_kamers: number | null
+  bouwlagen: number | null
+  gebruik: string | null
+  gebruiksdoel: string[]
+  indicatie_geconstateerd?: boolean
+  ligplaatsidentificatie?: string
   oppervlakte: number | null
+  status: string
   verblijfsobjectidentificatie: string | null
   verdieping_toegang: number | null
-  status: string
-  ligplaatsidentificatie?: string
-  indicatie_geconstateerd?: boolean
-  aanduiding_in_onderzoek?: boolean
 }
 
 export type BagDataError = {
@@ -38,22 +38,22 @@ export type BrkDataError = {
 }
 
 type ImportAdres = {
-  sttnaam: string
-  hsnr: string
-  toev: string | null
   hsltr: string | null
+  hsnr: string
   postcode: string
+  sttnaam: string
+  toev: string | null
 }
 
 export type BWVHotlineBevinding = {
-  toez_hdr1_code: string
-  toez_hdr2_code: string
-  toez_hdr1_naam: string
-  toez_hdr2_naam: string
   bevinding_datum: string
   bevinding_tijd: string
   hit: "J" | "N"
   opmerking: string | null
+  toez_hdr1_code: string
+  toez_hdr1_naam: string
+  toez_hdr2_code: string
+  toez_hdr2_naam: string
   volgnr_bevinding: string
 }
 
@@ -65,78 +65,78 @@ type BWVTmp = {
 }
 
 type BWVHotlineMelding = {
-  melding_datum: string
-  melding_anoniem: "J" | "N"
   melder_naam: string
   melder_telnr: string
+  melding_anoniem: "J" | "N"
+  melding_datum: string
   situatie_schets: string
 }
 
 type BWVPersoon = {
-  naam: string
-  voorletters: string
-  geslacht: "M" | "V"
   geboortedatum: string
+  geslacht: "M" | "V"
+  naam: string
   overlijdensdatum: string
   vestigingsdatum_adres: string
+  voorletters: string
 }
 
 type ImportStadia = {
-  sta_oms: string
   begindatum: string
   einddatum: string
   peildatum: string
   sta_nr: string
+  sta_oms: string
 }
 
 type VakantieVerhuur = {
+  is_bnb_declared: "J" | "N"
   notified_rentals: [ {check_in: string, check_out: string} ]
   rented_days: number
   shortstay: "J" | "N"
-  is_bnb_declared: "J" | "N"
 }
 
 export type RelatedCase = {
-  case_number: string
   case_id: string
+  case_number: string
   case_reason: string
 }
 
 type Statement = {
-  user: string
   date: string
   statement: string
+  user: string
 }
 
 export type BWVData = {
   case_id: string
-  street_name: string
+  case_reason: string
+  distance?: number
+  is_sia: boolean
   postal_code: string
   stadium: Components.Schemas.Stadium["name"]
+  street_name: string
   street_number: number
   suffix: string | null
   suffix_letter: string | null
-  case_reason: string
-  distance?: number
   teams?: Components.Schemas.ItineraryTeamMember[]
-  is_sia: boolean
 }
 
 export type Case = {
   bag_data: BagData | BagDataError
   brk_data: BrkData | BrkDataError
-  import_adres: ImportAdres
   bwv_hotline_bevinding: BWVHotlineBevinding[]
-  bwv_tmp: BWVTmp
   bwv_hotline_melding: BWVHotlineMelding[]
   bwv_personen: BWVPersoon[]
+  bwv_tmp: BWVTmp
+  day_settings_id: number | null | undefined
+  fraud_prediction: FraudPrediction | undefined
+  import_adres: ImportAdres
   import_stadia: ImportStadia[]
-  vakantie_verhuur: VakantieVerhuur
+  is_sia: string
   related_cases: RelatedCase[]
   statements: Statement[]
-  fraud_prediction: FraudPrediction | undefined
-  day_settings_id: number | null | undefined
-  is_sia: string
+  vakantie_verhuur: VakantieVerhuur
 }
 
 export type ItineraryItem = Omit<Components.Schemas.ItineraryItem, "case"> & {
