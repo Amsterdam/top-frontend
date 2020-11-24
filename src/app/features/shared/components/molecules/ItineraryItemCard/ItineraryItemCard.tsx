@@ -2,7 +2,7 @@ import React, { useCallback, useState } from "react"
 import { navigate } from "@reach/router"
 import { themeColor, themeSpacing } from "@amsterdam/asc-ui"
 import styled from "styled-components"
-import StadiumBadge from "app/features/shared/components/molecules/StadiumBadge/StadiumBadge";
+import StadiumBadge from "app/features/shared/components/molecules/StadiumBadge/StadiumBadge"
 
 type Props = {
   address: string | JSX.Element
