@@ -35,17 +35,19 @@ const DaySettingsList: FC<RouteComponentProps<Props>> = ({ teamSettings, postCod
         </Link>
       </Spacing>
       { teamSettings.day_settings_list.length ?
-        <Paragraph>Momenteel zijn de dagen als volgt ingepland:</Paragraph>
-        <Grid>
-          { teamSettings.day_settings_list.map(daySettings => (
-            <DaySettings
-              key={ daySettings.id }
-              teamSettings={ teamSettings }
-              daySettingsId={ daySettings.id }
-              postCodeRangesPresets={ postCodeRangesPresets }
-            />
-          )) }
-        </Grid>
+        <>
+          <Paragraph>Momenteel zijn de dagen als volgt ingepland:</Paragraph>
+          <Grid>
+            { teamSettings.day_settings_list.map(daySettings => (
+              <DaySettings
+                key={ daySettings.id }
+                teamSettings={ teamSettings }
+                daySettingsId={ daySettings.id }
+                postCodeRangesPresets={ postCodeRangesPresets }
+              />
+            )) }
+          </Grid>
+        </>
         : (
           <Paragraph>
             Dit team heeft nog geen instellingen. Maak ze aan in de beheeromgeving.
