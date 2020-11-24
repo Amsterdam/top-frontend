@@ -59,6 +59,7 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
   const openCaseCount = caseItem.bwv_tmp.num_open_cases !== null ? caseItem.bwv_tmp.num_open_cases : undefined
   const caseOpening = caseItem.bwv_tmp.openings_reden !== null ? caseItem.bwv_tmp.openings_reden : undefined
   const fraudPrediction = !caseItem.day_settings_id || (daySettings && daySettings.team_settings.fraud_predict) ? caseItem.fraud_prediction : undefined
+  const isSia = (caseItem.is_sia === "J")
 
   // Related cases
   const relatedCases = caseItem.related_cases
@@ -260,6 +261,7 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
         fraudPrediction={ fraudPrediction }
         footer={ { link: `http://www.google.com/maps/place/${ address }, Amsterdam`, title: "Bekijk op Google Maps" } }
         signal={ lastStadia }
+        isSia={ isSia }
       />
       { showRelatedCases &&
       <CaseDetailSection

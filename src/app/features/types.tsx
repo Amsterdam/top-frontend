@@ -135,6 +135,7 @@ export type Case = {
   statements: Statement[]
   fraud_prediction: FraudPrediction | undefined
   day_settings_id: number | null | undefined
+  is_sia: string
 }
 
 export type ItineraryItem = Omit<Components.Schemas.ItineraryItem, "case"> & {

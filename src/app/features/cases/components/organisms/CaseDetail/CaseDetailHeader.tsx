@@ -26,6 +26,7 @@ type Props = {
   openCaseCount?: number
   caseOpening?: string
   signal?: string
+  isSia: boolean
   eigenaar?: string
   fraudPrediction?: FraudPrediction
   footer?: {
@@ -55,6 +56,7 @@ const CaseDetailHeader: FC<Props> = (
     openCaseCount,
     caseOpening,
     signal,
+    isSia,
     eigenaar,
     fraudPrediction,
     footer
@@ -74,6 +76,7 @@ const CaseDetailHeader: FC<Props> = (
         <Heading>{ address }</Heading>
         <PostalCode>{ postalCode }</PostalCode>
         { signal && <StyledStadiumBadge stadium={ signal! } /> }
+        <strong>{ isSia && "SIA" }</strong>
         <div>
           <Label>Ingeschreven</Label><Span>{ personCount > 0 ?
           <ScrollToAnchor anchor="personen" text={ personText } /> : personText }</Span>
