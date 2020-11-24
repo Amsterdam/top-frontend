@@ -106,7 +106,7 @@ export const createDefinition = (projects: string[], stadia: string[], postalCod
       props: {
         label: "1. Zo veel mogelijk",
         name: "settings.primary_stadium",
-        options: arrayToObject(stadia),
+        options: Object.assign({ "": "Geen voorkeur" }, arrayToObject(stadia)),
         validate: isNotIntersectingWith("settings.exclude_stadia", "\"{item}\" is al geselecteerd bij \"Uitsluiten\"")
       }
     },
