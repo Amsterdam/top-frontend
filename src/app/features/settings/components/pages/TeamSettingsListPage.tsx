@@ -22,6 +22,8 @@ const TeamSettingsListPage: React.FC = () => {
   const { data } = useTeamSettingsList()
   const loggedInUser = useLoggedInUser()
 
+  const teams = data?.results.sort((a, b) => a.name > b.name ? 1 : -1) || []
+
   return <DefaultLayout>
     { data && data.results.length > 0 && (
       <>
@@ -35,7 +37,7 @@ const TeamSettingsListPage: React.FC = () => {
           </p>
         </Spacing>
         <ButtonsLayout>
-          { data.results.map(teamSettings => (
+          { teams.map(teamSettings => (
             <Button
               as="a"
               href={ to("/team-settings/:teamSettingsId", { teamSettingsId: teamSettings.id }) }
