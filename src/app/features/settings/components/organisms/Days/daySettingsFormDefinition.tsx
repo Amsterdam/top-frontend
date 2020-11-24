@@ -107,7 +107,7 @@ export const createDefinition = (projects: string[], stadia: string[], postalCod
         label: "1. Zo veel mogelijk",
         name: "settings.primary_stadium",
         options: Object.assign({ "": "Geen voorkeur" }, arrayToObject(stadia)),
-        validate: isNotIntersectingWith("settings.exclude_stadia", "\"{item}\" is al geselecteerd bij \"Uitsluiten\"")
+        validate: isNotIntersectingWith("settings.exclude_stadia", "‘{item}’ is al geselecteerd bij ‘Uitsluiten’")
       }
     },
     secondary_stadia: {
@@ -116,7 +116,7 @@ export const createDefinition = (projects: string[], stadia: string[], postalCod
         label: "2. Aanvullen met",
         name: "settings.secondary_stadia",
         options: arrayToObject(stadia),
-        validate: isNotIntersectingWith("settings.exclude_stadia", "\"{item}\" is al geselecteerd bij \"Uitsluiten\"")
+        validate: isNotIntersectingWith("settings.exclude_stadia", "‘{item}’ is al geselecteerd bij ‘Uitsluiten’")
       }
     },
     exclude_stadia: {
@@ -126,8 +126,8 @@ export const createDefinition = (projects: string[], stadia: string[], postalCod
         name: "settings.exclude_stadia",
         options: arrayToObject(stadia),
         validate: combineValidators(
-          isNotIntersectingWith("settings.primary_stadium", "\"{item}\" is al geselecteerd bij \"Zo veel mogelijk\""),
-          isNotIntersectingWith("settings.secondary_stadia", "\"{item}\" is al geselecteerd bij \"Aanvullen met\"")
+          isNotIntersectingWith("settings.primary_stadium", "‘{item}’ is al geselecteerd bij ‘Zo veel mogelijk’"),
+          isNotIntersectingWith("settings.secondary_stadia", "‘{item}’ is al geselecteerd bij ‘Aanvullen met’")
         )
       }
     }
