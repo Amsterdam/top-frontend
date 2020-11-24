@@ -14,6 +14,7 @@ type Props = {
   buttons?: (onDeleteButtonClick: () => void) => JSX.Element
   notes?: JSX.Element
   isVisited?: boolean
+  isSia?: boolean
   daySettings?: Components.Schemas.DaySettings
 }
 
@@ -62,7 +63,22 @@ const FraudProbability = styled.p`
   color: ${ themeColor("tint", "level4") };
 `
 
-const ItineraryItemCard: React.FC<Props> = ({ href, address, postalCode, isVisited, reason, buttons, badge, fraudProbability, backgroundColor, notes, daySettings }) => {
+const ItineraryItemCard: React.FC<Props> = (
+  {
+    href,
+    address,
+    postalCode,
+    isVisited,
+    reason,
+    buttons,
+    badge,
+    fraudProbability,
+    backgroundColor,
+    notes,
+    isSia,
+    daySettings
+  }
+) => {
   const [ isBeingDeleted, setIsBeingDeleted ] = useState(false)
   const setBeingDeleted = useCallback(() => setIsBeingDeleted(true), [ setIsBeingDeleted ])
 
@@ -79,6 +95,7 @@ const ItineraryItemCard: React.FC<Props> = ({ href, address, postalCode, isVisit
         { fraudProbability && daySettings?.team_settings.fraud_predict && <FraudProbability>{ fraudProbability }</FraudProbability> }
         { reason && <Reason>{ reason }</Reason> }
         { badge }
+        <strong>{ isSia && "SIA" }</strong>
         { notes }
       </Left>
       <Right>

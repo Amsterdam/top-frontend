@@ -119,6 +119,7 @@ export type BWVData = {
   case_reason: string
   distance?: number
   teams?: Components.Schemas.ItineraryTeamMember[]
+  is_sia: boolean
 }
 
 export type Case = {

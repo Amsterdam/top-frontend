@@ -16,7 +16,7 @@ export const mapItineraryItem = (itineraryId: string, daySettings: Components.Sc
   case: {
     case_id,
     fraud_prediction,
-    bwv_data: { street_name, street_number, suffix_letter, suffix, postal_code, case_reason, stadium } }
+    bwv_data: { street_name, street_number, suffix_letter, suffix, postal_code, case_reason, stadium, is_sia } }
   }: ItineraryItem) =>
   ({
     href: to("/cases/:id", { id: case_id ?? "" }),
@@ -33,5 +33,6 @@ export const mapItineraryItem = (itineraryId: string, daySettings: Components.Sc
     daySettings,
     notes: visits[0]?.personal_notes 
       ? <Notes note={ visits[0].personal_notes } />
-      : undefined
+      : undefined,
+    isSia: is_sia
   })
