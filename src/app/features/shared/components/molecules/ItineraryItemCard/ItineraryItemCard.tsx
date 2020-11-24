@@ -2,32 +2,34 @@ import React, { useCallback, useState } from "react"
 import { navigate } from "@reach/router"
 import { themeColor, themeSpacing } from "@amsterdam/asc-ui"
 import styled from "styled-components"
+import StadiumBadge from "app/features/shared/components/molecules/StadiumBadge/StadiumBadge"
 
 type Props = {
-  href?: string
+  address: string | JSX.Element
   backgroundColor?: "level1" | "level2" | "level3" | "level4" | "level5" | "level6"
-  address: string|JSX.Element
-  postalCode: string|JSX.Element
-  reason?: string|JSX.Element
-  fraudProbability?: string|JSX.Element
   badge?: JSX.Element
   buttons?: (onDeleteButtonClick: () => void) => JSX.Element
-  notes?: JSX.Element
-  isVisited?: boolean
   daySettings?: Components.Schemas.DaySettings
+  fraudProbability?: string | JSX.Element
+  href?: string
+  isSia?: boolean
+  isVisited?: boolean
+  notes?: JSX.Element
+  postalCode: string | JSX.Element
+  reason?: string | JSX.Element
 }
 
 type WrapProps = Pick<Props, "backgroundColor">
 const Wrap = styled.div<WrapProps>`
-  background-color: ${ props => themeColor("tint", props.backgroundColor ?? "level1" ) };
+  background-color: ${ props => themeColor("tint", props.backgroundColor ?? "level1") };
   padding: ${ themeSpacing(3) } ${ themeSpacing(1) };
   display: flex;
-  flex:1;
+  flex: 1;
   border-top: 1px solid ${ themeColor("tint", "level3") };
   border-bottom: 1px solid ${ themeColor("tint", "level3") };
 `
 
-type LeftProps = { opacity?: number }
+type LeftProps = {opacity?: number}
 const Left = styled.div<LeftProps>`
   cursor: pointer;
   flex: 1;
@@ -51,6 +53,15 @@ const PostalCode = styled.p`
   margin: ${ themeSpacing(1) } 0;
 `
 
+const BadgeRow = styled.div`
+  display: flex;
+  margin-bottom: ${ themeSpacing(2) };
+  
+  > :not(:last-child) {
+    margin-right: ${ themeSpacing(2) };
+  }
+`
+
 const Reason = styled.p`
   margin: ${ themeSpacing(2) } 0;
 `
@@ -62,7 +73,22 @@ const FraudProbability = styled.p`
   color: ${ themeColor("tint", "level4") };
 `
 
-const ItineraryItemCard: React.FC<Props> = ({ href, address, postalCode, isVisited, reason, buttons, badge, fraudProbability, backgroundColor, notes, daySettings }) => {
+const ItineraryItemCard: React.FC<Props> = (
+  {
+    address,
+    backgroundColor,
+    badge,
+    buttons,
+    daySettings,
+    fraudProbability,
+    href,
+    isSia,
+    isVisited,
+    notes,
+    postalCode,
+    reason
+  }
+) => {
   const [ isBeingDeleted, setIsBeingDeleted ] = useState(false)
   const setBeingDeleted = useCallback(() => setIsBeingDeleted(true), [ setIsBeingDeleted ])
 
@@ -70,15 +96,19 @@ const ItineraryItemCard: React.FC<Props> = ({ href, address, postalCode, isVisit
     if (href) {
       return navigate(href)
     }
-  }, [href])
+  }, [ href ])
   return (
-    <Wrap backgroundColor={backgroundColor}>
-      <Left onClick={handleClick} opacity={ isVisited || isBeingDeleted ? 0.4 : 1 }>
+    <Wrap backgroundColor={ backgroundColor }>
+      <Left onClick={ handleClick } opacity={ isVisited || isBeingDeleted ? 0.4 : 1 }>
         <Address>{ address }</Address>
         <PostalCode>{ postalCode }</PostalCode>
-        { fraudProbability && daySettings?.team_settings.fraud_predict && <FraudProbability>{ fraudProbability }</FraudProbability> }
+        { fraudProbability && daySettings?.team_settings.fraud_predict &&
+        <FraudProbability>{ fraudProbability }</FraudProbability> }
         { reason && <Reason>{ reason }</Reason> }
-        { badge }
+        <BadgeRow>
+          { badge }
+          { isSia && <StadiumBadge stadium="SIA" /> }
+        </BadgeRow>
         { notes }
       </Left>
       <Right>

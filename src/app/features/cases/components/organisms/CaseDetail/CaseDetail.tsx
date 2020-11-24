@@ -3,7 +3,7 @@ import { Link } from "@reach/router"
 import styled from "styled-components"
 import { Hidden } from "@amsterdam/asc-ui"
 
-import { usePermitCheckmarks, usePermitDetails, useDaySettings } from "app/state/rest"
+import { useDaySettings, usePermitCheckmarks, usePermitDetails } from "app/state/rest"
 
 import to from "app/features/shared/routing/to"
 import formatDate from "app/features/shared/utils/formatDate"
@@ -59,6 +59,7 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
   const openCaseCount = caseItem.bwv_tmp.num_open_cases !== null ? caseItem.bwv_tmp.num_open_cases : undefined
   const caseOpening = caseItem.bwv_tmp.openings_reden !== null ? caseItem.bwv_tmp.openings_reden : undefined
   const fraudPrediction = !caseItem.day_settings_id || (daySettings && daySettings.team_settings.fraud_predict) ? caseItem.fraud_prediction : undefined
+  const isSia = (caseItem.is_sia === "J")
 
   // Related cases
   const relatedCases = caseItem.related_cases
@@ -260,6 +261,7 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
         fraudPrediction={ fraudPrediction }
         footer={ { link: `http://www.google.com/maps/place/${ address }, Amsterdam`, title: "Bekijk op Google Maps" } }
         signal={ lastStadia }
+        isSia={ isSia }
       />
       { showRelatedCases &&
       <CaseDetailSection
@@ -268,7 +270,8 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
       />
       }
       {
-        (!caseItem.day_settings_id || (daySettings && daySettings?.team_settings.show_vakantieverhuur)) && <CaseDetailSection
+        (!caseItem.day_settings_id || (daySettings && daySettings?.team_settings.show_vakantieverhuur)) &&
+        <CaseDetailSection
           title="Vakantieverhuur"
           data={
             [

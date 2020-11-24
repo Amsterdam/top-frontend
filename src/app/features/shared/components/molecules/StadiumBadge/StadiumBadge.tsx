@@ -16,7 +16,7 @@ const Column = styled.div`
   align-items: start;
 `
 
-const BageMark = styled.div`
+const BadgeMark = styled.div`
   display: inline-flex;
   align-items: baseline;
   color: ${ themeColor("secondary") };
@@ -37,9 +37,10 @@ const BageMark = styled.div`
 const StadiumBadge: React.FC<Props> = ({ stadium, stadiaLabels }) => {
   const isIssueMelding = stadium?.toLowerCase() === "issuemelding"
   const isMarked = (stadiaLabels || []).map(label => label.stadium).includes(stadium)
-  
+  const isSia = (stadium === "SIA")
+
   const labels = (stadiaLabels || []).reduce((total: string[], current) => {
-    if (current.stadium === stadium && !total.includes(stadium)){
+    if (current.stadium === stadium && !total.includes(stadium)) {
       total.push(current.label as string)
     }
     return total
@@ -47,14 +48,14 @@ const StadiumBadge: React.FC<Props> = ({ stadium, stadiaLabels }) => {
 
   return (
     <Column>
-      <Badge variant={ isIssueMelding ? "secondary" : "primary" }>
+      <Badge variant={ isSia || isIssueMelding ? "secondary" : "primary" }>
         { stadium }
       </Badge>
       {
         isMarked &&
-        <BageMark>
+        <BadgeMark>
           { labels }
-        </BageMark>
+        </BadgeMark>
       }
     </Column>
   )

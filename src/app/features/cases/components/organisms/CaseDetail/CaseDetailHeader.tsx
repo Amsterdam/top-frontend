@@ -2,7 +2,7 @@ import React, { FC } from "react"
 import styled from "styled-components"
 import { Link } from "@reach/router"
 
-import { Heading } from "@amsterdam/asc-ui"
+import { Heading, themeSpacing } from "@amsterdam/asc-ui"
 
 import InvalidDataSpan from "app/features/cases/components/atoms/InvalidDataSpan/InvalidDataSpan"
 import Label from "app/features/cases/components/atoms/Label/Label"
@@ -26,6 +26,7 @@ type Props = {
   openCaseCount?: number
   caseOpening?: string
   signal?: string
+  isSia: boolean
   eigenaar?: string
   fraudPrediction?: FraudPrediction
   footer?: {
@@ -38,9 +39,16 @@ const PostalCode = styled.p`
   font-weight: bold;
   margin-bottom: 8px;
 `
-const StyledStadiumBadge = styled(StadiumBadge)`
-  margin-bottom: 8px;
+
+const BadgeRow = styled.div`
+  display: flex;
+  margin-bottom: ${ themeSpacing(2) };
+  
+  > :not(:last-child) {
+    margin-right: ${ themeSpacing(2) };
+  }
 `
+
 const Span = styled.span`
   vertical-align: top;
 `
@@ -55,6 +63,7 @@ const CaseDetailHeader: FC<Props> = (
     openCaseCount,
     caseOpening,
     signal,
+    isSia,
     eigenaar,
     fraudPrediction,
     footer
@@ -73,7 +82,10 @@ const CaseDetailHeader: FC<Props> = (
       <SectionRow>
         <Heading>{ address }</Heading>
         <PostalCode>{ postalCode }</PostalCode>
-        { signal && <StyledStadiumBadge stadium={ signal! } /> }
+        <BadgeRow>
+          { signal && <StadiumBadge stadium={ signal! } /> }
+          { isSia && <StadiumBadge stadium="SIA" /> }
+        </BadgeRow>
         <div>
           <Label>Ingeschreven</Label><Span>{ personCount > 0 ?
           <ScrollToAnchor anchor="personen" text={ personText } /> : personText }</Span>
