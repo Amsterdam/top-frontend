@@ -3,6 +3,8 @@ import { useCallback, useEffect, useContext } from "react"
 
 import { ApiContext } from "../provider/ApiProvider"
 import { ApiGroup } from "../index"
+import createAuthHeaders from "./utils/createAuthHeaders"
+import useKeycloak from "app/state/auth/keycloak/useKeycloak"
 
 type GetOptions = {
   method: "get"
@@ -39,6 +41,8 @@ const useApiRequest = <Schema, Payload = Partial<Schema>>({ url, groupName, hand
     isRequestPendingInQueue
   } = useContext(ApiContext)[groupName]
 
+  const { token, updateToken } = useKeycloak()
+
   /**
    * Executes an API request
    */
@@ -48,8 +52,11 @@ const useApiRequest = <Schema, Payload = Partial<Schema>>({ url, groupName, hand
         clearCache()
       }
 
+      const isUpdated = await updateToken(30)
+      if (isUpdated) return
+
       const response = await axios.request<Schema>({
-        headers: getHeaders ? getHeaders() : undefined,
+        headers: getHeaders && token ? createAuthHeaders(token) : undefined,
         method: options.method,
         url,
         data: payload
@@ -67,7 +74,7 @@ const useApiRequest = <Schema, Payload = Partial<Schema>>({ url, groupName, hand
         throw error
       }
     }
-  }, [clearCache, setCacheItem, url, handleError, getHeaders])
+  }, [clearCache, setCacheItem, url, handleError, getHeaders, token, updateToken])
 
   /**
    * Queues an API request

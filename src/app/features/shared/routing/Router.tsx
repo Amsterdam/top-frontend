@@ -5,7 +5,7 @@ import routes from "app/config/routes"
 import ProtectedRoute from "./components/ProtectedRoute"
 import NotFoundPage from "../components/pages/NotFoundPage"
 
-const allowList = /^\/login|^\/authentication/
+const allowList = /^\/login|^\/authentication\/|^\/auth/
 
 const Router: React.FC = () => (
   <ReachRouter>

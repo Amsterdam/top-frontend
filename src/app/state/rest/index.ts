@@ -13,6 +13,7 @@ export type ApiGroup =
   | "postCodeRangesPresets"
   | "case"
   | "permits"
+  | "auth"
 
 export type Options = {
   keepUsingInvalidCache?: boolean
@@ -257,5 +258,20 @@ export const usePermitDetails = (bagId: string, options?: Options) => {
     groupName: "permits",
     handleError,
     getHeaders
+  })
+}
+
+/**
+ * Please configure your endpoints here:
+ * NOTE: For example "cases" and "cases/:id" share the same group config. Cache will be cleared for the whole group.
+ */
+
+export const useIsAuthorized = (options?: Options) => {
+  const handleError = useErrorHandler()
+  return useApiRequest<any>({
+    ...options,
+    url: makeGatewayUrl(["is-authorized"]),
+    groupName: "auth",
+    handleError
   })
 }

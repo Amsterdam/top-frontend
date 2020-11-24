@@ -676,7 +676,7 @@ declare namespace Paths {
             }
         }
     }
-    namespace IsAuthenticatedRetrieve {
+    namespace IsAuthorizedRetrieve {
         namespace Responses {
             export type $200 = {
             }

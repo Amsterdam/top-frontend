@@ -16,7 +16,8 @@ export const ApiContext = React.createContext<GroupedContext>({
   daySettings: noopContext,
   teamSettings: noopContext,
   teamSettingsList: noopContext,
-  postCodeRangesPresets: noopContext
+  postCodeRangesPresets: noopContext,
+  auth: noopContext
 })
 
 const ApiProvider: React.FC = ({ children }) => {
@@ -54,6 +55,10 @@ const ApiProvider: React.FC = ({ children }) => {
       ...useRequestQueue()
     },
     permits: {
+      ...useApiCache(),
+      ...useRequestQueue()
+    },
+    auth: {
       ...useApiCache(),
       ...useRequestQueue()
     }

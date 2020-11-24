@@ -25,6 +25,8 @@ const HeaderWrap = styled.div`
 
 type Props = {}
 
+const logoutUrl: string = process.env.REACT_APP_AUTH_LOGOUT_URL ?? ""
+
 const DefaultLayout: React.FC<Props> = ({ children }) => (<div>
   <HeaderWrap>
     <ErrorDisplay />
@@ -33,7 +35,7 @@ const DefaultLayout: React.FC<Props> = ({ children }) => (<div>
       homeLink={ to("/") }
       fullWidth={ true }
       navigation={
-        <StyledLink to={ to("/logout") }>
+        <StyledLink as="a" href={ logoutUrl }>
           <Button
             as="span"
             variant="blank"

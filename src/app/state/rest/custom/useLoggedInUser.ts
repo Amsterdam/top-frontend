@@ -1,9 +1,9 @@
 import { useUsers } from "../index"
-import { getUserId } from "../../auth/tokenStore"
 import { useMemo } from "react"
+import useKeycloak from "app/state/auth/keycloak/useKeycloak"
 
 export const useLoggedInUser = () => {
+  const token = useKeycloak()
   const { data } = useUsers()
-  const userId = getUserId()
-  return useMemo(() => data?.results.find(_ => _.id === userId), [ data, userId ])
+  return useMemo(() => data?.results.find(_ => _.username === token.tokenParsed.email), [ data, token ])
 }
