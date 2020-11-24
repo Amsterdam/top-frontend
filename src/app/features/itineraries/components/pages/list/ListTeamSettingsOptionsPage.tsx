@@ -45,8 +45,13 @@ const ListTeamSettingsOptionsPage: React.FC<RouteComponentProps> = () => {
         </Spacing>
         <ButtonsLayout>
           { data.results.map(teamSettings => (
-            <Button as="a" href={ to("/lijst/nieuw/:teamSettingsId", { teamSettingsId: teamSettings.id }) }
-                    iconRight={ <ChevronRight /> } key={ teamSettings.id } variant="primaryInverted">
+            <Button
+              as="a"
+              href={ to("/lijst/nieuw/:teamSettingsId", { teamSettingsId: teamSettings.id }) }
+              iconRight={ <ChevronRight /> }
+              key={ teamSettings.id }
+              variant="primaryInverted"
+            >
               { teamSettings.name }
             </Button>
           )) }
