@@ -37,6 +37,7 @@ const BadgeMark = styled.div`
 const StadiumBadge: React.FC<Props> = ({ stadium, stadiaLabels }) => {
   const isIssueMelding = stadium?.toLowerCase() === "issuemelding"
   const isMarked = (stadiaLabels || []).map(label => label.stadium).includes(stadium)
+  const isSia = (stadium === "SIA")
 
   const labels = (stadiaLabels || []).reduce((total: string[], current) => {
     if (current.stadium === stadium && !total.includes(stadium)) {
@@ -47,7 +48,7 @@ const StadiumBadge: React.FC<Props> = ({ stadium, stadiaLabels }) => {
 
   return (
     <Column>
-      <Badge variant={ isIssueMelding ? "secondary" : "primary" }>
+      <Badge variant={ isSia || isIssueMelding ? "secondary" : "primary" }>
         { stadium }
       </Badge>
       {

@@ -2,6 +2,7 @@ import React, { useCallback, useState } from "react"
 import { navigate } from "@reach/router"
 import { themeColor, themeSpacing } from "@amsterdam/asc-ui"
 import styled from "styled-components"
+import StadiumBadge from "app/features/shared/components/molecules/StadiumBadge/StadiumBadge";
 
 type Props = {
   address: string | JSX.Element
@@ -52,6 +53,15 @@ const PostalCode = styled.p`
   margin: ${ themeSpacing(1) } 0;
 `
 
+const BadgeRow = styled.div`
+  display: flex;
+  margin-bottom: ${ themeSpacing(2) };
+  
+  > :not(:last-child) {
+    margin-right: ${ themeSpacing(2) };
+  }
+`
+
 const Reason = styled.p`
   margin: ${ themeSpacing(2) } 0;
 `
@@ -95,8 +105,10 @@ const ItineraryItemCard: React.FC<Props> = (
         { fraudProbability && daySettings?.team_settings.fraud_predict &&
         <FraudProbability>{ fraudProbability }</FraudProbability> }
         { reason && <Reason>{ reason }</Reason> }
-        { badge }
-        <strong>{ isSia && "SIA" }</strong>
+        <BadgeRow>
+          { badge }
+          { isSia && <StadiumBadge stadium="SIA" /> }
+        </BadgeRow>
         { notes }
       </Left>
       <Right>
