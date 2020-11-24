@@ -30,7 +30,7 @@ export type BagDataError = {
 
 export type BrkData = {
   bag_id: string | null
-  owners: { _display: string }[]
+  owners: {_display: string}[]
 }
 
 export type BrkDataError = {
@@ -90,7 +90,7 @@ type ImportStadia = {
 }
 
 type VakantieVerhuur = {
-  notified_rentals: [{ check_in: string, check_out: string }]
+  notified_rentals: [ {check_in: string, check_out: string} ]
   rented_days: number
   shortstay: "J" | "N"
   is_bnb_declared: "J" | "N"
@@ -144,11 +144,12 @@ export type ItineraryItem = Omit<Components.Schemas.ItineraryItem, "case"> & {
     bwv_data: BWVData
   }
 }
+
 export type Itinerary = Omit<Components.Schemas.Itinerary, "items"> & {
   items: ItineraryItem[]
 }
 
 type Value = string | ReactNode
-export type KeyValueDetail = Value | [string, Value]
+export type KeyValueDetail = Value | [ string, Value ]
 
 export type Severity = "INFO" | "WARNING" | "ERROR" | undefined

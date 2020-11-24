@@ -31,7 +31,7 @@ export const mapItineraryItem = (itineraryId: string, daySettings: Components.Sc
     isVisited: visits.length > 0,
     buttons: (onDeleteButtonClicked: () => void) => <ItineraryItemCardButtons onDeleteButtonClicked={onDeleteButtonClicked} itineraryId={ itineraryId } itineraryItemId={ id } caseId={ case_id } visits={ visits } />,
     daySettings,
-    notes: visits[0]?.personal_notes 
+    notes: visits[0]?.personal_notes
       ? <Notes note={ visits[0].personal_notes } />
       : undefined,
     isSia: is_sia

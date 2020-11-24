@@ -3,7 +3,7 @@ import { Link } from "@reach/router"
 import styled from "styled-components"
 import { Hidden } from "@amsterdam/asc-ui"
 
-import { usePermitCheckmarks, usePermitDetails, useDaySettings } from "app/state/rest"
+import { useDaySettings, usePermitCheckmarks, usePermitDetails } from "app/state/rest"
 
 import to from "app/features/shared/routing/to"
 import formatDate from "app/features/shared/utils/formatDate"
@@ -270,7 +270,8 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
       />
       }
       {
-        (!caseItem.day_settings_id || (daySettings && daySettings?.team_settings.show_vakantieverhuur)) && <CaseDetailSection
+        (!caseItem.day_settings_id || (daySettings && daySettings?.team_settings.show_vakantieverhuur)) &&
+        <CaseDetailSection
           title="Vakantieverhuur"
           data={
             [
