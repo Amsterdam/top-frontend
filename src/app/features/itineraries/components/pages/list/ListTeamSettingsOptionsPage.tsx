@@ -3,7 +3,7 @@ import { navigate, RouteComponentProps } from "@reach/router"
 import styled from "styled-components"
 
 import { ChevronRight } from "@amsterdam/asc-assets"
-import { Button, Heading } from "@amsterdam/asc-ui"
+import { Button, Heading, themeSpacing } from "@amsterdam/asc-ui"
 
 import { useTeamSettingsList } from "app/state/rest"
 import { useLoggedInUser } from "app/state/rest/custom/useLoggedInUser"
@@ -16,7 +16,7 @@ import to from "app/features/shared/routing/to"
 const ButtonsLayout = styled.div`
   display: grid;
   justify-items: start;
-  gap: 20px; /* TODO Use theme */
+  gap: ${ themeSpacing(6) };
 `
 
 const ListTeamSettingsOptionsPage: React.FC<RouteComponentProps> = () => {
