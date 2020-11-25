@@ -8,7 +8,7 @@ import Hr from "../../atoms/Hr/Hr"
 import CaseDetailSection from "../../organisms/CaseDetail/CaseDetailSection"
 
 type Props = {
-  caseCount: number
+  caseCount?: number
   caseId: string
 }
 

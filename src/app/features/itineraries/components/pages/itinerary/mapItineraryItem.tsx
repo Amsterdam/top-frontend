@@ -32,16 +32,17 @@ export const mapItineraryItem = (itineraryId: string, daySettings: Components.Sc
     isSia: (is_sia === "J"),
     isVisited: visits.length > 0,
     itemId: id.toString(),
-    position,
-    postalCode: postal_code,
-    reason: case_reason,
     notes: visits[0]?.personal_notes
       ? <Notes note={ visits[0].personal_notes } />
       : undefined,
+    position,
+    postalCode: postal_code,
+    reason: case_reason,
     buttons: (onDeleteButtonClicked: () => void) =>
       <ItineraryItemCardButtons
         caseId={ case_id }
-        itineraryId={ itineraryId } itineraryItemId={ id }
+        itineraryId={ itineraryId }
+        itineraryItemId={ id }
         onDeleteButtonClicked={ onDeleteButtonClicked }
         visits={ visits }
       />

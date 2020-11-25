@@ -218,7 +218,6 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
   }))
 
   const stadia = stadiums.reduce((acc: any, stadium, index) => {
-    acc.push([ "Stadium",
     acc.push([ "Stadium", <StadiumBadge stadium={ stadium.description } stadiaLabels={ (caseItem.day_settings_id && daySettings?.team_settings.marked_stadia) || [] } /> ])
     acc.push([ "Start datum", stadium.dateStart ])
     acc.push([ "Eind datum", stadium.dateEnd ])
