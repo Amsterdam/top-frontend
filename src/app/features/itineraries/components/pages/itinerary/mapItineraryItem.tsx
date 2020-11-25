@@ -29,7 +29,7 @@ export const mapItineraryItem = (itineraryId: string, daySettings: Components.Sc
     fraudProbability: <FraudProbability fraudProbability={ fraud_prediction?.fraud_probability } />,
     href: to("/cases/:id", { id: case_id ?? "" }),
     id: case_id!,
-    isSia: is_sia,
+    isSia: (is_sia === "J"),
     isVisited: visits.length > 0,
     itemId: id.toString(),
     position,
