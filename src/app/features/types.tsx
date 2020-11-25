@@ -112,7 +112,7 @@ export type BWVData = {
   case_id: string
   case_reason: string
   distance?: number
-  is_sia: boolean
+  is_sia: string
   postal_code: string
   stadium: Components.Schemas.Stadium["name"]
   street_name: string
