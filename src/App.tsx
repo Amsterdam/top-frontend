@@ -25,7 +25,6 @@ function App () {
                 <NoteWizardProvider>
                   <SearchFormProvider>
                     <Anonymous />
-                    <AuthSession />
                     <Router />
                     <div id="modal-root" />
                   </SearchFormProvider>

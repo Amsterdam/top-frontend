@@ -1,7 +1,6 @@
 import React, { ComponentType, useEffect } from "react"
 import { navigate, RouteComponentProps } from "@reach/router"
 import useKeycloak from "app/state/auth/keycloak/useKeycloak"
-import { useIsAuthorized } from "app/state/rest/"
 import { hasToken } from "app/state/auth/tokenStore"
 
 import to from "../to"
@@ -14,7 +13,7 @@ type Props = {
  * The user needs to be logged on to visit this route
  */
 const ProtectedRoute: React.FC<Props> = ({ page: Page, ...restProps }) => {
-  const { data } = useIsAuthorized()
+  const { token } = useKeycloak()
   
   // useEffect(() => {
   //   if (!token) {
@@ -22,7 +21,7 @@ const ProtectedRoute: React.FC<Props> = ({ page: Page, ...restProps }) => {
   //   }
   // }, [token, data])
 
-  return !data?.is_authorized
+  return token
     ? <Page {...restProps} />
     : null
 }
