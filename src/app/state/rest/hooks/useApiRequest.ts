@@ -28,10 +28,9 @@ type Config = {
   url: string
   groupName: ApiGroup
   handleError?: ( error: AxiosError ) => void
-  getHeaders?: () => Record<string, string>
 }
 
-const useApiRequest = <Schema, Payload = Partial<Schema>>({ url, groupName, handleError, getHeaders, lazy, keepUsingInvalidCache }: Config) => {
+const useApiRequest = <Schema, Payload = Partial<Schema>>({ url, groupName, handleError, lazy, keepUsingInvalidCache }: Config) => {
   const {
     getCacheItem,
     setCacheItem,
@@ -42,7 +41,6 @@ const useApiRequest = <Schema, Payload = Partial<Schema>>({ url, groupName, hand
   } = useContext(ApiContext)[groupName]
 
   const { token, updateToken } = useKeycloak()
-
   /**
    * Executes an API request
    */
@@ -56,7 +54,7 @@ const useApiRequest = <Schema, Payload = Partial<Schema>>({ url, groupName, hand
       if (isUpdated) return
 
       const response = await axios.request<Schema>({
-        headers: getHeaders && token ? createAuthHeaders(token) : undefined,
+        headers: token ? createAuthHeaders(token) : undefined,
         method: options.method,
         url,
         data: payload
@@ -74,7 +72,7 @@ const useApiRequest = <Schema, Payload = Partial<Schema>>({ url, groupName, hand
         throw error
       }
     }
-  }, [clearCache, setCacheItem, url, handleError, getHeaders, token, updateToken])
+  }, [clearCache, setCacheItem, url, handleError, token, updateToken])
 
   /**
    * Queues an API request

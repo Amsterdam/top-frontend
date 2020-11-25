@@ -2,7 +2,6 @@ import React from "react"
 
 import { GlobalStyle, ThemeProvider } from "@amsterdam/asc-ui"
 import { LocationProvider } from "@reach/router"
-import AuthSession from "./app/state/auth/AuthSession"
 import Router from "./app/features/shared/routing/Router"
 import ApiProvider from "./app/state/rest/provider/ApiProvider"
 import KeycloakProvider from "app/state/auth/keycloak/KeycloakProvider"
