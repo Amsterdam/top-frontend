@@ -97,6 +97,10 @@ const DaySettings: FC<RouteComponentProps<Props>> = ({ teamSettings, postCodeRan
             <Dd>{ daySettings?.opening_date ? formatDate(daySettings.opening_date) : "–" }</Dd>
           </Dl>
           <Dl>
+            <Dt>Geef SIA meldingen voorrang</Dt>
+            <Dd>{ daySettings?.sia_presedence ? "Ja" : "Nee" }</Dd>
+          </Dl>
+          <Dl>
             <Dt>{ (postalCodeRangesPresets?.length) ? (postalCodeRangesPresets.length === 1 ? "Stadsdeel" : "Stadsdelen") : "Postcodes" }</Dt>
             <Dd>{ (postalCodeRangesPresets?.length) ? postalCodeRangesPresets.join(", ") :
               <Ul>

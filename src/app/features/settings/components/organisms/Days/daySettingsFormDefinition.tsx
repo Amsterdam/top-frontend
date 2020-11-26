@@ -23,6 +23,13 @@ export const createDefinition = (projects: string[], stadia: string[], postalCod
         validate: isRequired()
       }
     },
+    sia_presedence: {
+      type: "Boolean",
+      props: {
+        label: "Geef SIA meldingen voorrang",
+        name: "settings.sia_presedence"
+      }
+    },
     geo_type: {
       type: "RadioFields",
       props: {
@@ -138,6 +145,7 @@ export const createDefinition = (projects: string[], stadia: string[], postalCod
     .setVertical("mobileS")
     .setGrid("laptop", "1fr 1fr 1fr", [
       [ "opening_date" ],
+      [ "sia_presedence" ],
       [ "geo_type" ],
       [ "postal_codes", "postal_codes", "postal_codes" ],
       [ "postalCodeRanges", "postalCodeRanges", "postalCodeRanges" ],
@@ -146,6 +154,7 @@ export const createDefinition = (projects: string[], stadia: string[], postalCod
     ])
     .setGrid("laptopL", "1fr 1fr 1fr 1fr 1fr", [
       [ "opening_date" ],
+      [ "sia_presedence" ],
       [ "geo_type" ],
       [ "postal_codes", "postal_codes", "postal_codes", "postal_codes", "postal_codes" ],
       [ "postalCodeRanges", "postalCodeRanges", "postalCodeRanges", "postalCodeRanges", "postalCodeRanges" ],

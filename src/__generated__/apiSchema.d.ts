@@ -43,6 +43,7 @@ declare namespace Components {
                 show_issuemelding?: boolean
                 show_vakantieverhuur?: boolean
             }
+            sia_presedence?: boolean
         }
         export type DecosPermit = {
             permit_granted?: boolean
@@ -364,6 +365,7 @@ declare namespace Components {
                 show_issuemelding?: boolean
                 show_vakantieverhuur?: boolean
             }
+            sia_presedence?: boolean
         }
         export type PatchedItineraryItem = {
             readonly id?: number
