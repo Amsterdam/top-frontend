@@ -30,7 +30,7 @@ const CaseDetailSectionRelatedCases: FC<Props> = ({ caseCount, caseId }) => {
     }, [])
 
   if (!relatedCases.length) {
-    return <></>
+    return null
   }
 
   return (

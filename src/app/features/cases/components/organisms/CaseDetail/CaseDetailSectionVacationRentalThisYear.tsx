@@ -16,7 +16,7 @@ const CaseDetailSectionVacationRentalThisYear: FC<Props> = ({ caseId }) => {
   const rentedDays = caseData?.vakantie_verhuur.rented_days
 
   if (!notifiedRentals?.length) {
-    return <></>
+    return null
   }
 
   return (

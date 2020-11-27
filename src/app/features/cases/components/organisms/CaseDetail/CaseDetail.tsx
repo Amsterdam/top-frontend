@@ -1,16 +1,13 @@
 import React, { FC } from "react"
 import styled from "styled-components"
-import { Hidden } from "@amsterdam/asc-ui"
 
-import { useDaySettings, usePermitCheckmarks, usePermitDetails } from "app/state/rest"
+import { useDaySettings } from "app/state/rest"
 
 import formatDate from "app/features/shared/utils/formatDate"
 import highlightText from "app/features/shared/utils/highlightText"
 import replaceNewLines from "app/features/shared/utils/replaceNewLines"
 import replaceUrls from "app/features/shared/utils/replaceUrls"
-import isBetweenDates from "app/features/shared/utils/isBetweenDates"
 import displayAddress from "app/features/shared/utils/displayAddress"
-import ScrollToAnchor from "app/features/shared/components/molecules/ScrollToAnchor/ScrollToAnchor"
 import Purified from "app/features/shared/components/molecules/Purified/Purified"
 import StadiumBadge from "app/features/shared/components/molecules/StadiumBadge/StadiumBadge"
 
@@ -41,15 +38,8 @@ const P = styled.p`
   margin: 0;
 `
 
-const displayFromToDate = (o: { date_from: string | null, date_to?: string | null }) => `${ o.date_from ?? "-" } tot ${ o.date_to ?? "-" }`
-
 const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
-  const bagId = (caseItem.brk_data as BrkData).bag_id ?? ""
-  const { data: permitData } = usePermitCheckmarks(bagId, { lazy: !bagId })
-  const { data: permitDetails } = usePermitDetails(bagId, { lazy: !bagId })
   const { data: daySettings } = useDaySettings(caseItem.day_settings_id!)
-  const permitDetailVakantieVerhuur = permitDetails?.find(detail => detail.permit_type === "VAKANTIEVERHUUR")
-  const permitDetailBedAndBreakfast = permitDetails?.find(detail => detail.permit_type === "BED_AND_BREAKFAST")
 
   // Header
   const address = displayAddress(caseItem.import_adres.sttnaam, caseItem.import_adres.hsnr, caseItem.import_adres.hsltr || undefined, caseItem.import_adres.toev || undefined)
@@ -58,16 +48,6 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
   const caseCount = caseItem.bwv_tmp.num_cases !== null ? parseInt(caseItem.bwv_tmp.num_cases, 10) : undefined
   const fraudPrediction = !caseItem.day_settings_id || (daySettings && daySettings.team_settings.fraud_predict) ? caseItem.fraud_prediction : undefined
   const isSia = (caseItem.is_sia === "J")
-
-  // Vakantieverhuur
-  const vakantieverNotifiedRentals = caseItem.vakantie_verhuur.notified_rentals
-  const vakantieverhuurNotified = vakantieverNotifiedRentals.length > 0
-  const vakantieverhuurDays = caseItem.vakantie_verhuur.rented_days
-  const vakantieverhuurToday = vakantieverhuurNotified ? caseItem.vakantie_verhuur.notified_rentals.filter(
-    rental => isBetweenDates(new Date(rental.check_in), new Date(rental.check_out), new Date())
-  ).length > 0 : "-"
-  const vakantieverhuurShortstay = caseItem.vakantie_verhuur.shortstay === "J"
-  const vakantieverhuurBnB = caseItem.vakantie_verhuur.is_bnb_declared === "J"
 
   // Woning
   const hasBagData = (caseItem.bag_data as BagDataError).error === undefined
@@ -241,10 +221,10 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
           title: "Bekijk op Google Maps"
         } }
         fraudPrediction={ fraudPrediction }
+        isSia={ isSia }
         personCount={ personCount }
         postalCode={ postalCode }
         signal={ lastStadia }
-        isSia={ isSia }
       />
       <CaseDetailSectionRelatedCases
         caseCount={ caseCount }
@@ -253,38 +233,6 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
       <CaseDetailSectionVacationRental
         caseId={ caseId }
       />
-      {
-        (!caseItem.day_settings_id || (daySettings && daySettings?.team_settings.show_vakantieverhuur)) &&
-        <CaseDetailSection
-          title="Vakantieverhuur"
-          data={
-            [
-              permitDetails && [ "Vakantieverhuur vergunning", permitDetailVakantieVerhuur ? `Ja (${ displayFromToDate(permitDetailVakantieVerhuur) })` : "Nee" ],
-              [ "Vandaag verhuurd", vakantieverhuurToday ],
-              [ `Nachten verhuurd ${ new Date().getFullYear() }`, vakantieverhuurDays > 0 ?
-                <ScrollToAnchor anchor="vakantieverhuur" text={ `${ vakantieverhuurDays } nachten` } /> : "-" ],
-              [ "Shortstay", vakantieverhuurShortstay ],
-              permitData && [ "B&B vergunning", permitDetailBedAndBreakfast ? `Ja (${ displayFromToDate(permitDetailBedAndBreakfast) })` : "Nee" ]
-            ].filter(_ => !!_)
-          }
-        />
-      }
-      { /* This is a display of older permit data
-           TODO: Remove eventually
-        */
-      }
-      <Hidden>
-        <CaseDetailSection
-          title="Vakantieverhuur"
-          data={ [
-            [ "Vandaag verhuurd", vakantieverhuurToday ],
-            [ `Nachten verhuurd ${ new Date().getFullYear() }`, vakantieverhuurDays > 0 ?
-              <ScrollToAnchor anchor="vakantieverhuur" text={ `${ vakantieverhuurDays } nachten` } /> : "-" ],
-            [ "Shortstay", vakantieverhuurShortstay ],
-            [ "B&B aangemeld", vakantieverhuurBnB ]
-          ] }
-        />
-      </Hidden>
       <CaseDetailSection
         title={ woningTitle }
         data={ woningData }
