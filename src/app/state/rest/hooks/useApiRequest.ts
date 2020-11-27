@@ -6,6 +6,9 @@ import { ApiGroup } from "../index"
 import createAuthHeaders from "./utils/createAuthHeaders"
 import useKeycloak from "app/state/auth/keycloak/useKeycloak"
 
+import { navigate } from "@reach/router"
+import to from "app/features/shared/routing/to"
+
 type GetOptions = {
   method: "get"
 }
@@ -40,7 +43,7 @@ const useApiRequest = <Schema, Payload = Partial<Schema>>({ url, groupName, hand
     isRequestPendingInQueue
   } = useContext(ApiContext)[groupName]
 
-  const { token, updateToken } = useKeycloak()
+  const { token, updateToken, logout } = useKeycloak()
   /**
    * Executes an API request
    */
@@ -66,13 +69,17 @@ const useApiRequest = <Schema, Payload = Partial<Schema>>({ url, groupName, hand
 
       return response
     } catch(error) {
-      if (handleError) {
+      switch (error?.response?.status) {
+        case 401: logout(); break
+        case 403: navigate(to("/auth")); break
+      }
+      if (handleError && error) {
         handleError(error)
       } else {
         throw error
       }
     }
-  }, [clearCache, setCacheItem, url, handleError, token, updateToken])
+  }, [clearCache, setCacheItem, url, handleError, token, updateToken, logout])
 
   /**
    * Queues an API request

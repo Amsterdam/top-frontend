@@ -2,6 +2,7 @@ import React from "react"
 import { Button, Header, themeColor } from "@amsterdam/asc-ui"
 import { Logout } from "@amsterdam/asc-assets"
 import { Link } from "@reach/router"
+import useKeycloak from "app/state/auth/keycloak/useKeycloak"
 
 import styled from "styled-components"
 
@@ -25,30 +26,31 @@ const HeaderWrap = styled.div`
 
 type Props = {}
 
-const logoutUrl: string = process.env.REACT_APP_AUTH_LOGOUT_URL ?? ""
+const DefaultLayout: React.FC<Props> = ({ children }) => {
+  const { logout } = useKeycloak()
 
-const DefaultLayout: React.FC<Props> = ({ children }) => (<div>
-  <HeaderWrap>
-    <ErrorDisplay />
-    <Header
-      title="Toezicht op pad"
-      homeLink={ to("/") }
-      fullWidth={ true }
-      navigation={
-        <StyledLink as="a" href={ logoutUrl }>
-          <Button
-            as="span"
-            variant="blank"
-            iconLeft={ <Logout /> }>Log uit
-          </Button>
-        </StyledLink>
-      }
-    />
-  </HeaderWrap>
-  <Navigation />
-  <Spacing p={ 4 }>
-    { children }
-  </Spacing>
-</div>)
+  return <div>
+    <HeaderWrap>
+      <ErrorDisplay />
+      <Header
+        title="Toezicht op pad"
+        homeLink={ to("/") }
+        fullWidth={ true }
+        navigation={
+          <StyledLink as="a" onClick={ logout }>
+            <Button
+              as="span"
+              variant="blank"
+              iconLeft={ <Logout /> }>Log uit
+            </Button>
+          </StyledLink>
+        }
+      />
+    </HeaderWrap>
+    <Navigation />
+    <Spacing p={ 4 }>
+      { children }
+    </Spacing>
+  </div> }
 
 export default DefaultLayout
