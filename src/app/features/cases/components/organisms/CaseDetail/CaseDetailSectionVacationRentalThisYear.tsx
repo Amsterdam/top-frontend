@@ -26,7 +26,7 @@ const CaseDetailSectionVacationRentalThisYear: FC<Props> = ({ caseId }) => {
       data={
         [ ...notifiedRentals ] // reverse is mutable
           .reverse()
-          .map((o: {check_in: string, check_out: string}) => [ [ "Check out", formatDate(o.check_out) ], [ "Check in", formatDate(o.check_in) ],
+          .map((o: { check_in: string, check_out: string }) => [ [ "Check out", formatDate(o.check_out) ], [ "Check in", formatDate(o.check_in) ],
             <Hr /> ])
           .flat(1)
           .slice(0, -1) // remove last Hr

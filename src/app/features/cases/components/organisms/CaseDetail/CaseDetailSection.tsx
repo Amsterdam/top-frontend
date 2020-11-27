@@ -17,7 +17,7 @@ type Props = {
   title?: string
   dataSource?: string
   data: KeyValueDetail[]
-  footer?: {title: string, link: string}
+  footer?: { title: string, link: string }
 }
 
 const Div = styled.div`

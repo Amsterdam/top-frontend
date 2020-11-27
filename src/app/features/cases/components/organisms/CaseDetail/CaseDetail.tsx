@@ -41,7 +41,7 @@ const P = styled.p`
   margin: 0;
 `
 
-const displayFromToDate = (o: {date_from: string | null, date_to?: string | null}) => `${ o.date_from ?? "-" } tot ${ o.date_to ?? "-" }`
+const displayFromToDate = (o: { date_from: string | null, date_to?: string | null }) => `${ o.date_from ?? "-" } tot ${ o.date_to ?? "-" }`
 
 const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
   const bagId = (caseItem.brk_data as BrkData).bag_id ?? ""
@@ -218,7 +218,8 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
   }))
 
   const stadia = stadiums.reduce((acc: any, stadium, index) => {
-    acc.push([ "Stadium", <StadiumBadge stadium={ stadium.description } stadiaLabels={ (caseItem.day_settings_id && daySettings?.team_settings.marked_stadia) || [] } /> ])
+    acc.push([ "Stadium", <StadiumBadge stadium={ stadium.description }
+                                        stadiaLabels={ (caseItem.day_settings_id && daySettings?.team_settings.marked_stadia) || [] } /> ])
     acc.push([ "Start datum", stadium.dateStart ])
     acc.push([ "Eind datum", stadium.dateEnd ])
     acc.push([ "Peil datum", stadium.datePeil ])

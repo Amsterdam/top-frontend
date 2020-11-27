@@ -38,7 +38,7 @@ const PostalCode = styled.p`
 const BadgeRow = styled.div`
   display: flex;
   margin-bottom: ${ themeSpacing(2) };
-  
+
   > :not(:last-child) {
     margin-right: ${ themeSpacing(2) };
   }
