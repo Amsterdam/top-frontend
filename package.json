@@ -79,7 +79,7 @@
     "@babel/core": "^7.12.9",
     "@storybook/addon-knobs": "^6.0.28",
     "@storybook/preset-create-react-app": "^3.1.5",
-    "@storybook/react": "^6.1.6",
+    "@storybook/react": "^6.1.7",
     "@testing-library/react-hooks": "^3.4.2",
     "@types/enzyme": "^3.10.8",
     "@types/enzyme-adapter-react-16": "^1.0.6",
