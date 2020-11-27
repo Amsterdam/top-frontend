@@ -3,6 +3,11 @@ import { useCallback, useEffect, useContext } from "react"
 
 import { ApiContext } from "../provider/ApiProvider"
 import { ApiGroup } from "../index"
+import createAuthHeaders from "./utils/createAuthHeaders"
+import useKeycloak from "app/state/auth/keycloak/useKeycloak"
+
+import { navigate } from "@reach/router"
+import to from "app/features/shared/routing/to"
 
 type GetOptions = {
   method: "get"
@@ -26,10 +31,9 @@ type Config = {
   url: string
   groupName: ApiGroup
   handleError?: ( error: AxiosError ) => void
-  getHeaders?: () => Record<string, string>
 }
 
-const useApiRequest = <Schema, Payload = Partial<Schema>>({ url, groupName, handleError, getHeaders, lazy, keepUsingInvalidCache }: Config) => {
+const useApiRequest = <Schema, Payload = Partial<Schema>>({ url, groupName, handleError, lazy, keepUsingInvalidCache }: Config) => {
   const {
     getCacheItem,
     setCacheItem,
@@ -39,6 +43,7 @@ const useApiRequest = <Schema, Payload = Partial<Schema>>({ url, groupName, hand
     isRequestPendingInQueue
   } = useContext(ApiContext)[groupName]
 
+  const { token, updateToken, logout } = useKeycloak()
   /**
    * Executes an API request
    */
@@ -48,8 +53,11 @@ const useApiRequest = <Schema, Payload = Partial<Schema>>({ url, groupName, hand
         clearCache()
       }
 
+      const isUpdated = await updateToken(30)
+      if (isUpdated) return
+
       const response = await axios.request<Schema>({
-        headers: getHeaders ? getHeaders() : undefined,
+        headers: token ? createAuthHeaders(token) : undefined,
         method: options.method,
         url,
         data: payload
@@ -61,13 +69,17 @@ const useApiRequest = <Schema, Payload = Partial<Schema>>({ url, groupName, hand
 
       return response
     } catch(error) {
-      if (handleError) {
+      switch (error?.response?.status) {
+        case 401: logout(); break
+        case 403: navigate(to("/auth")); break
+      }
+      if (handleError && error) {
         handleError(error)
       } else {
         throw error
       }
     }
-  }, [clearCache, setCacheItem, url, handleError, getHeaders])
+  }, [clearCache, setCacheItem, url, handleError, token, updateToken, logout])
 
   /**
    * Queues an API request

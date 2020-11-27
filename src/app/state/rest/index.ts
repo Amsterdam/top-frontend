@@ -1,5 +1,5 @@
 import useApiRequest from "./hooks/useApiRequest"
-import { getHeaders, makeGatewayUrl, useErrorHandler } from "./hooks/utils/utils"
+import { makeGatewayUrl, useErrorHandler } from "./hooks/utils/utils"
 import currentDate from "../../features/shared/utils/currentDate"
 import { Case, ItineraryItem, Itinerary } from "../../features/types"
 
@@ -13,6 +13,7 @@ export type ApiGroup =
   | "postCodeRangesPresets"
   | "case"
   | "permits"
+  | "auth"
 
 export type Options = {
   keepUsingInvalidCache?: boolean
@@ -29,8 +30,7 @@ export const useItineraries = (options?: Options) => {
     ...options,
     url: makeGatewayUrl(["itineraries"], { created_at: currentDate() }),
     groupName: "itineraries",
-    handleError,
-    getHeaders
+    handleError
   })
 }
 
@@ -40,8 +40,7 @@ export const useItineraryItems = (options?: Options) => {
     ...options,
     url: makeGatewayUrl(["itinerary-items"]),
     groupName: "itineraries",
-    handleError,
-    getHeaders
+    handleError
   })
 }
 
@@ -51,8 +50,7 @@ export const useItineraryItem = (id: number|string, options?: Options) => {
     ...options,
     url: makeGatewayUrl(["itinerary-items", id]),
     groupName: "itineraries",
-    handleError,
-    getHeaders
+    handleError
   })
 }
 
@@ -62,8 +60,7 @@ export const useItineraryItemNote = (id?: number|string, options?: Options) => {
     ...options,
     url: makeGatewayUrl(["notes", id]),
     groupName: "itineraries",
-    handleError,
-    getHeaders
+    handleError
   })
 }
 
@@ -74,8 +71,7 @@ export const useOpenIssues = (itineraryId?: string, options?: Options) => {
     ...options,
     url: makeGatewayUrl(["cases", "unplanned"], { date: currentDate(), stadium: "Issuemelding", itinerary_id: itineraryId }),
     groupName: "itineraries",
-    handleError,
-    getHeaders
+    handleError
   })
 }
 
@@ -85,8 +81,7 @@ export const useCase = (id: number|string, options?: Options) => {
     ...options,
     url: makeGatewayUrl(["cases", id]),
     groupName: "case",
-    handleError,
-    getHeaders
+    handleError
   })
 }
 
@@ -96,8 +91,7 @@ export const useSearch = (streetNumber: number, postalCode?: string, streetName?
     ...options,
     url: makeGatewayUrl(["search"], { postalCode, streetName, streetNumber, suffix }),
     groupName: "itineraries",
-    handleError,
-    getHeaders
+    handleError
   })
 }
 
@@ -107,8 +101,7 @@ export const useSuggestions = (itineraryId: number, options?: Options) => {
     ...options,
     url: makeGatewayUrl(["itineraries", itineraryId, "suggestions"]),
     groupName: "itineraries",
-    handleError,
-    getHeaders
+    handleError
   })
 }
 
@@ -118,8 +111,7 @@ export const useUsers = (options?: Options) => {
     ...options,
     url: makeGatewayUrl(["users"]),
     groupName: "users",
-    handleError,
-    getHeaders
+    handleError
   })
 }
 
@@ -132,44 +124,38 @@ export const useTeam = (itineraryId: number, options?: Options) => {
     ...options,
     url: makeGatewayUrl(["itineraries", itineraryId, "team"]),
     groupName: "itineraries",
-    handleError,
-    getHeaders
+    handleError
   })
 }
 
 export const useSettings = (options?: Options) => useApiRequest<Components.Schemas.PlannerSettings>({
     ...options,
     url: makeGatewayUrl(["settings", "planner"]),
-    groupName: "settings",
-    getHeaders
+    groupName: "settings"
   })
 
 export const useTeamSettingsList = (options?: Options) => useApiRequest<{ results: Components.Schemas.TeamSettings[] }>({
     ...options,
     url: makeGatewayUrl(["team-settings"]),
-    groupName: "teamSettingsList",
-    getHeaders
+    groupName: "teamSettingsList"
   })
 
 export const useTeamSettings = (teamSettingsId: number, options?: Options) => useApiRequest<Components.Schemas.TeamSettings>({
     ...options,
     url: makeGatewayUrl(["team-settings", teamSettingsId]),
-    groupName: "teamSettings",
-    getHeaders
+    groupName: "teamSettings"
   })
 
   export const useDaySettings = (daySettingsId: number, options?: Options) => useApiRequest<Components.Schemas.DaySettings>({
     ...options,
     url: makeGatewayUrl(["day-settings", daySettingsId]),
-    groupName: "daySettings",
-    getHeaders
+    groupName: "daySettings"
   })
 
   export const usePostCodeRanges = (options?: Options) => useApiRequest<{ results: Components.Schemas.PostalCodeRangePreset[] }>({
     ...options,
     url: makeGatewayUrl(["postal-code-ranges-presets"]),
-    groupName: "postCodeRangesPresets",
-    getHeaders
+    groupName: "postCodeRangesPresets"
   })
 
 export const useDeleteItinerary = (id: string|number, options?: Options) => {
@@ -178,8 +164,7 @@ export const useDeleteItinerary = (id: string|number, options?: Options) => {
     ...options,
     url: makeGatewayUrl(["itineraries", id]),
     groupName: "itineraries",
-    handleError,
-    getHeaders
+    handleError
   })
 }
 
@@ -189,8 +174,7 @@ export const useVisits = (options?: Options) => {
     ...options,
     url: makeGatewayUrl(["visits"]),
     groupName: "itineraries",
-    handleError,
-    getHeaders
+    handleError
   })
 }
 
@@ -200,8 +184,7 @@ export const useSuggestNextVisit = (options?: Options) => {
     ...options,
     url: makeGatewayUrl(["suggest-next-visit"]),
     groupName: "itineraries",
-    handleError,
-    getHeaders
+    handleError
   })
 }
 
@@ -211,8 +194,7 @@ export const useObservations = (options?: Options) => {
     ...options,
     url: makeGatewayUrl(["observations"]),
     groupName: "itineraries",
-    handleError,
-    getHeaders
+    handleError
   })
 }
 
@@ -222,8 +204,7 @@ export const useVisit = (id: string|number, options?: Options) => {
     ...options,
     url: makeGatewayUrl(["visits", id]),
     groupName: "itineraries",
-    handleError,
-    getHeaders
+    handleError
   })
 }
 
@@ -233,8 +214,7 @@ export const useCaseVisits = (caseId: string|number, options?: Options) => {
     ...options,
     url: makeGatewayUrl(["cases", caseId, "visits"]),
     groupName: "itineraries",
-    handleError,
-    getHeaders
+    handleError
   })
 }
 
@@ -244,8 +224,7 @@ export const usePermitCheckmarks = (bagId: string, options?: Options) => {
     ...options,
     url: makeGatewayUrl(["permits", "checkmarks"], { bag_id: bagId }),
     groupName: "permits",
-    handleError,
-    getHeaders
+    handleError
   })
 }
 
@@ -255,7 +234,21 @@ export const usePermitDetails = (bagId: string, options?: Options) => {
     ...options,
     url: makeGatewayUrl(["permits", "details"], { bag_id: bagId }),
     groupName: "permits",
-    handleError,
-    getHeaders
+    handleError
+  })
+}
+
+/**
+ * Please configure your endpoints here:
+ * NOTE: For example "cases" and "cases/:id" share the same group config. Cache will be cleared for the whole group.
+ */
+
+export const useIsAuthorized = (options?: Options) => {
+  const handleError = useErrorHandler()
+  return useApiRequest<any>({
+    ...options,
+    url: makeGatewayUrl(["is-authorized"]),
+    groupName: "auth",
+    handleError
   })
 }

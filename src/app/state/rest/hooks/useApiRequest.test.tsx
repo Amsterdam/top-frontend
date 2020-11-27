@@ -1,25 +1,34 @@
+import React from "react"
 import nock from "nock"
 
 import { renderHook, act } from "@testing-library/react-hooks"
 import useApiRequest from "./useApiRequest"
 import ApiProvider from "../provider/ApiProvider"
+import KeycloakProvider from "app/state/auth/keycloak/KeycloakProvider"
 
 type Pet = {
   name: string
   type: string
 }
 
+const Wrapper: React.FC = ({ children }) => (
+    <KeycloakProvider>
+      <ApiProvider>
+        { children }
+      </ApiProvider>
+    </KeycloakProvider>
+  )
+
 describe("useApiRequest", () => {
   it("should perform a GET request on mount", async () => {
-    const getHeaders = jest.fn()
-    const usePet = () => useApiRequest<Pet>({ url: "http://localhost/pet", groupName: "itineraries", getHeaders })
+    const usePet = () => useApiRequest<Pet>({ url: "http://localhost/pet", groupName: "itineraries" })
 
     // Define nock scope:
     const scope = nock("http://localhost")
       .get("/pet")
       .reply(200, { name: "Fifi", type: "dog" })
 
-    const { result, waitForNextUpdate } = renderHook(usePet, { wrapper: ApiProvider })
+    const { result, waitForNextUpdate } = renderHook(usePet, { wrapper: Wrapper })
 
     // Busy... no results yet.
     expect(result.current.isBusy).toEqual(true)
@@ -27,12 +36,11 @@ describe("useApiRequest", () => {
 
     // Make API respond:
     await act(() => waitForNextUpdate())
+    await act(() => waitForNextUpdate())
 
     // not busy anymore... results are in!
     expect(result.current.isBusy).toEqual(false)
     expect(result.current.data).toEqual({ name: "Fifi", type: "dog" })
-
-    expect(getHeaders).toHaveBeenCalled()
 
     expect(scope.isDone()).toEqual(true) // <- all scoped endpoints are called
   })
@@ -50,7 +58,7 @@ describe("useApiRequest", () => {
       second: usePet()
     })
 
-    const { result, waitForNextUpdate } = renderHook(useTwoHooks, { wrapper: ApiProvider })
+    const { result, waitForNextUpdate } = renderHook(useTwoHooks, { wrapper: Wrapper })
 
     // Busy...
     expect(result.current.first.isBusy).toEqual(true)
@@ -59,6 +67,7 @@ describe("useApiRequest", () => {
     expect(result.current.first.data).toEqual(undefined)
     expect(result.current.second.data).toEqual(undefined)
 
+    await act(() => waitForNextUpdate())
     await act(() => waitForNextUpdate())
 
     // not busy anymore
@@ -100,7 +109,8 @@ describe("useApiRequest", () => {
     prepareScope(scope)
 
     const onSuccess = jest.fn()
-    const { result, waitForNextUpdate } = renderHook(usePet, { wrapper: ApiProvider })
+    const { result, waitForNextUpdate } = renderHook(usePet, { wrapper: Wrapper })
+    await act(() => waitForNextUpdate())
     await act(() => waitForNextUpdate())
 
     // On mount, "Fifi" should be fetched
@@ -130,7 +140,8 @@ describe("useApiRequest", () => {
       .get("/pet")
       .reply(500, { detail: "S.O.S." })
 
-    const { waitForNextUpdate } = renderHook(usePet, { wrapper: ApiProvider })
+    const { waitForNextUpdate } = renderHook(usePet, { wrapper: Wrapper })
+    await act(() => waitForNextUpdate())
     await act(() => waitForNextUpdate())
 
     expect(handleError).toHaveBeenCalledWith(expect.objectContaining({
