@@ -48,8 +48,8 @@ export const notableThings = (handleBack: OnBackButtonClick, situation: string, 
       type: "CheckboxFields",
       props: {
         name: "observations",
-        label: "Opvallende zaken",
-        hint: `${ situation }. Zijn er zaken die verder opvielen? (niet verplicht)`,
+        label: "Opvallende zaken (optioneel)",
+        hint: `${ situation }. Zijn er zaken die verder opvielen?`,
         options: observationChoices || {
           malfunctioning_doorbell: "Bel functioneert niet",
           intercom: "Contact via intercom",
@@ -186,8 +186,8 @@ export const nextVisit = (handleBack: OnBackButtonClick, situation: string, obse
           type: "TextAreaField",
           props: {
             name: "can_next_visit_go_ahead_description",
-            label: "Aanvullende informatie",
-            hint: "Zijn er nog noemenswaardigheden? (niet verplicht)"
+            label: "Aanvullende informatie (optioneel)",
+            hint: "Zijn er nog noemenswaardigheden?"
           }
         }
       }
@@ -224,7 +224,8 @@ export const accessGranted = (handleBack: OnBackButtonClick, situation: string, 
     notes: {
       type: "TextAreaField",
       props: {
-        label: "Maak hier je notities om later te verwerken",
+        label: "Eigen notitie voor rapportage",
+        hint: "(wordt niet zichtbaar in logboek)",
         name: "personal_notes",
         rows: 12,
         extraLabel: <HelpButton>
