@@ -12,7 +12,7 @@ import InvalidDataSpan from "../../atoms/InvalidDataSpan/InvalidDataSpan"
 import Label from "../../atoms/Label/Label"
 import FraudPredictionDetailsModal from "../FraudPrediction/FraudPredictionDetailsModal"
 import { useFraudPredictionModal } from "../FraudPrediction/hooks/useFraudPredictionModal"
-import { CenteredAnchor, Section, SectionRow } from "./CaseDetailStyles"
+import { CenteredAnchor, Section, SectionRow } from "./CaseDetailSectionStyles"
 
 type Props = {
   address: string

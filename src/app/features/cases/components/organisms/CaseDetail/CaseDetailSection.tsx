@@ -9,7 +9,7 @@ import Label from "app/features/cases/components/atoms/Label/Label"
 import InvalidDataSpan from "app/features/cases/components/atoms/InvalidDataSpan/InvalidDataSpan"
 import { KeyValueDetail } from "app/features/types"
 
-import { CenteredAnchor, Section, SectionRow } from "./CaseDetailStyles"
+import { CenteredAnchor, Section, SectionRow } from "./CaseDetailSectionStyles"
 import Hr from "../../atoms/Hr/Hr"
 
 type Props = {
