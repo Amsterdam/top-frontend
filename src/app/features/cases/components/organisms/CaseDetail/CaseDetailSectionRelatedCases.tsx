@@ -5,7 +5,7 @@ import { useCase } from "app/state/rest"
 import { RelatedCase } from "app/features/types"
 import to from "app/features/shared/routing/to"
 import Hr from "../../atoms/Hr/Hr"
-import CaseDetailSection from "../../organisms/CaseDetail/CaseDetailSection"
+import CaseDetailSection from "./CaseDetailSection"
 
 type Props = {
   caseCount?: number

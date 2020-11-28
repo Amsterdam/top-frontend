@@ -3,7 +3,7 @@ import React, { FC } from "react"
 import { useCase } from "app/state/rest"
 import formatDate from "app/features/shared/utils/formatDate"
 import Hr from "app/features/cases/components/atoms/Hr/Hr"
-import CaseDetailSection from "app/features/cases/components/organisms/CaseDetail/CaseDetailSection"
+import CaseDetailSection from "./CaseDetailSection"
 
 type Props = {
   caseId: string

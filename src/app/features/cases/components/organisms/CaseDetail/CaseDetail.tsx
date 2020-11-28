@@ -9,7 +9,6 @@ import replaceNewLines from "app/features/shared/utils/replaceNewLines"
 import replaceUrls from "app/features/shared/utils/replaceUrls"
 import displayAddress from "app/features/shared/utils/displayAddress"
 import Purified from "app/features/shared/components/molecules/Purified/Purified"
-import StadiumBadge from "app/features/shared/components/molecules/StadiumBadge/StadiumBadge"
 
 import Hr from "app/features/cases/components/atoms/Hr/Hr"
 import Span from "app/features/cases/components/atoms/Span/Span"
@@ -23,6 +22,7 @@ import CaseDetailSectionGeneral from "./CaseDetailSectionGeneral"
 import CaseDetailSectionRelatedCases from "./CaseDetailSectionRelatedCases"
 import CaseDetailSectionVacationRental from "./CaseDetailSectionVacationRental"
 import CaseDetailSectionVacationRentalThisYear from "./CaseDetailSectionVacationRentalThisYear"
+import CaseDetailSectionStadia from "app/features/cases/components/organisms/CaseDetail/CaseDetailSectionStadia"
 
 type Props = {
   caseId: string
@@ -188,27 +188,6 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
   )
   const showStatements = statements.length > 0
 
-  // Stadia
-  const stadiums = caseItem.import_stadia.map(stadium => ({
-    description: stadium.sta_oms,
-    dateStart: stadium.begindatum ? formatDate(stadium.begindatum, true)! : "-",
-    dateEnd: stadium.einddatum ? formatDate(stadium.einddatum, true)! : "-",
-    datePeil: stadium.peildatum ? formatDate(stadium.peildatum, true)! : "-",
-    num: parseInt(stadium.sta_nr, 10)
-  }))
-
-  const stadia = stadiums.reduce((acc: any, stadium, index) => {
-    acc.push([ "Stadium", <StadiumBadge stadium={ stadium.description }
-                                        stadiaLabels={ (caseItem.day_settings_id && daySettings?.team_settings.marked_stadia) || [] } /> ])
-    acc.push([ "Start datum", stadium.dateStart ])
-    acc.push([ "Eind datum", stadium.dateEnd ])
-    acc.push([ "Peil datum", stadium.datePeil ])
-    if (index < stadiums.length - 1) acc.push(<Hr />)
-    return acc
-  }, [])
-
-  const lastStadia = stadiums.length ? stadiums[0].description : undefined
-
   return (
     <article className="CaseDetail">
       <CaseDetailSectionGeneral
@@ -224,7 +203,6 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
         isSia={ isSia }
         personCount={ personCount }
         postalCode={ postalCode }
-        signal={ lastStadia }
       />
       <CaseDetailSectionRelatedCases
         caseCount={ caseCount }
@@ -262,10 +240,9 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
           dataSource="BWV"
           data={ statements } />
       }
-      <CaseDetailSection
-        title="Stadia"
-        dataSource="BWV"
-        data={ stadia } />
+      <CaseDetailSectionStadia
+        caseId={ caseId }
+      />
     </article>
   )
 }

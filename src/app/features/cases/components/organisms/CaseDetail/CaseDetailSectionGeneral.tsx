@@ -58,8 +58,7 @@ const CaseDetailSectionGeneral: FC<Props> = (
     fraudPrediction,
     isSia,
     personCount,
-    postalCode,
-    signal
+    postalCode
   }
 ) => {
   const { data: caseData } = useCase(caseId)
@@ -67,6 +66,9 @@ const CaseDetailSectionGeneral: FC<Props> = (
   const caseNumber = caseData?.bwv_tmp.case_number !== null ? parseInt(caseData?.bwv_tmp.case_number || "", 10) : undefined
   const caseOpening = caseData?.bwv_tmp.openings_reden !== null ? caseData?.bwv_tmp.openings_reden : undefined
   const openCaseCount = caseData?.bwv_tmp.num_open_cases !== null ? caseData?.bwv_tmp.num_open_cases : undefined
+
+  const stadiaLabels = caseData?.import_stadia.map(stadium => ({ description: stadium.sta_oms }))
+  const lastStadiumLabel = stadiaLabels?.length ? stadiaLabels[0].description : undefined
 
   const showFooter = footer !== undefined
 
@@ -83,7 +85,7 @@ const CaseDetailSectionGeneral: FC<Props> = (
         <Heading>{ address }</Heading>
         <PostalCode>{ postalCode }</PostalCode>
         <BadgeRow>
-          { signal && <StadiumBadge stadium={ signal! } /> }
+          { lastStadiumLabel && <StadiumBadge stadium={ lastStadiumLabel! } /> }
           { isSia && <StadiumBadge stadium="SIA" /> }
         </BadgeRow>
         <div>
