@@ -5,12 +5,11 @@ import CaseDetailSection from "app/features/cases/components/organisms/CaseDetai
 import ScrollToAnchor from "app/features/shared/components/molecules/ScrollToAnchor/ScrollToAnchor"
 import { BrkData } from "app/features/types"
 import isBetweenDates from "app/features/shared/utils/isBetweenDates"
+import formatDateRange from "app/features/shared/utils/formatDateRange"
 
 type Props = {
   caseId: string
 }
-
-const formatDateRange = (o: { date_from: string | null, date_to?: string | null }) => `${ o.date_from ?? "-" } tot ${ o.date_to ?? "-" }`
 
 const CaseDetailSectionVacationRental: FC<Props> = ({ caseId }) => {
   const { data: caseData } = useCase(caseId)
