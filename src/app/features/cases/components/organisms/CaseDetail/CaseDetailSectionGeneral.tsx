@@ -12,6 +12,8 @@ import InvalidDataSpan from "../../atoms/InvalidDataSpan/InvalidDataSpan"
 import Label from "../../atoms/Label/Label"
 import FraudPredictionDetailsModal from "../FraudPrediction/FraudPredictionDetailsModal"
 import { useFraudPredictionModal } from "../FraudPrediction/hooks/useFraudPredictionModal"
+
+import { getCaseCount } from "./utils"
 import { CenteredAnchor, Section, SectionRow } from "./CaseDetailSectionStyles"
 
 type Props = {
@@ -51,7 +53,6 @@ const Span = styled.span`
 const CaseDetailSectionGeneral: FC<Props> = (
   {
     address,
-    caseCount,
     caseId,
     eigenaar,
     footer,
@@ -63,6 +64,7 @@ const CaseDetailSectionGeneral: FC<Props> = (
 ) => {
   const { data: caseData } = useCase(caseId)
 
+  const caseCount = getCaseCount(caseData)
   const caseNumber = caseData?.bwv_tmp.case_number !== null ? parseInt(caseData?.bwv_tmp.case_number || "", 10) : undefined
   const caseOpening = caseData?.bwv_tmp.openings_reden !== null ? caseData?.bwv_tmp.openings_reden : undefined
   const openCaseCount = caseData?.bwv_tmp.num_open_cases !== null ? caseData?.bwv_tmp.num_open_cases : undefined

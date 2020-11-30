@@ -5,14 +5,15 @@ import { useCase } from "app/state/rest"
 import { RelatedCase } from "app/features/types"
 import to from "app/features/shared/routing/to"
 import Hr from "../../atoms/Hr/Hr"
+
+import { getCaseCount } from "./utils"
 import CaseDetailSection from "./CaseDetailSection"
 
 type Props = {
-  caseCount?: number
   caseId: string
 }
 
-const CaseDetailSectionRelatedCases: FC<Props> = ({ caseCount, caseId }) => {
+const CaseDetailSectionRelatedCases: FC<Props> = ({ caseId }) => {
   const { data: caseData } = useCase(caseId)
 
   const relatedCases = caseData?.related_cases
@@ -22,7 +23,7 @@ const CaseDetailSectionRelatedCases: FC<Props> = ({ caseCount, caseId }) => {
       const { case_id, case_number, case_reason } = relatedCase
 
       acc.push([ "Zaaknummer",
-        <Link to={ to("/cases/:id", { id: case_id }) }>{ `${ case_number } van ${ caseCount }` }</Link> ])
+        <Link to={ to("/cases/:id", { id: case_id }) }>{ `${ case_number } van ${ getCaseCount(caseData) }` }</Link> ])
       acc.push([ "Openingsreden", case_reason ])
 
       if (index < arr.length - 1) acc.push(<Hr />)

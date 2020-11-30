@@ -31,11 +31,10 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
 
   // Header
   const address = displayAddress(caseItem.import_adres.sttnaam, caseItem.import_adres.hsnr, caseItem.import_adres.hsltr || undefined, caseItem.import_adres.toev || undefined)
-  const postalCode = caseItem.import_adres.postcode
-  const residentCount = caseItem.bwv_personen.filter(person => person.overlijdensdatum === null).length || 0
-  const caseCount = caseItem.bwv_tmp.num_cases !== null ? parseInt(caseItem.bwv_tmp.num_cases, 10) : undefined
   const fraudPrediction = !caseItem.day_settings_id || (daySettings && daySettings.team_settings.fraud_predict) ? caseItem.fraud_prediction : undefined
   const isSia = (caseItem.is_sia === "J")
+  const postalCode = caseItem.import_adres.postcode
+  const residentCount = caseItem.bwv_personen.filter(person => person.overlijdensdatum === null).length || 0
 
   // Woning
   const hasBagData = (caseItem.bag_data as BagDataError).error === undefined
@@ -125,7 +124,6 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
     <article className="CaseDetail">
       <CaseDetailSectionGeneral
         address={ address }
-        caseCount={ caseCount }
         caseId={ caseId }
         eigenaar={ eigenaar }
         footer={ {
@@ -138,7 +136,6 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
         postalCode={ postalCode }
       />
       <CaseDetailSectionRelatedCases
-        caseCount={ caseCount }
         caseId={ caseId }
       />
       <CaseDetailSectionVacationRental
