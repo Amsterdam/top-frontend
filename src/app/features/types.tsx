@@ -72,7 +72,7 @@ type BWVHotlineMelding = {
   situatie_schets: string
 }
 
-type BWVPersoon = {
+export type BWVPersoon = {
   geboortedatum: string
   geslacht: "M" | "V"
   naam: string

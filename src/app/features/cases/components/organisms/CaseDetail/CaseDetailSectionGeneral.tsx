@@ -25,8 +25,8 @@ type Props = {
   }
   fraudPrediction?: FraudPrediction
   isSia: boolean
-  personCount: number
   postalCode: string
+  residentCount: number
   signal?: string
 }
 
@@ -57,7 +57,7 @@ const CaseDetailSectionGeneral: FC<Props> = (
     footer,
     fraudPrediction,
     isSia,
-    personCount,
+    residentCount,
     postalCode
   }
 ) => {
@@ -74,10 +74,10 @@ const CaseDetailSectionGeneral: FC<Props> = (
 
   const { getUrl: getToFraudPredictionModalUrl } = useFraudPredictionModal()
 
-  const personText =
-    personCount === 0 ? "Geen inschrijvingen" :
-      personCount === 1 ? "1 persoon" :
-        `${ personCount } personen`
+  const residentsText =
+    residentCount === 0 ? "Geen inschrijvingen" :
+      residentCount === 1 ? "1 persoon" :
+        `${ residentCount } personen`
 
   return (
     <Section>
@@ -89,8 +89,8 @@ const CaseDetailSectionGeneral: FC<Props> = (
           { isSia && <StadiumBadge stadium="SIA" /> }
         </BadgeRow>
         <div>
-          <Label>Ingeschreven</Label><Span>{ personCount > 0 ?
-          <ScrollToAnchor anchor="personen" text={ personText } /> : personText }</Span>
+          <Label>Ingeschreven</Label><Span>{ residentCount > 0 ?
+          <ScrollToAnchor anchor="inschrijvingen" text={ residentsText } /> : residentsText }</Span>
         </div>
         <div>
           <Label>Zaaknummer</Label>

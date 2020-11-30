@@ -7,9 +7,6 @@ import replaceNewLines from "app/features/shared/utils/replaceNewLines"
 import replaceUrls from "app/features/shared/utils/replaceUrls"
 import displayAddress from "app/features/shared/utils/displayAddress"
 import Purified from "app/features/shared/components/molecules/Purified/Purified"
-
-import Hr from "app/features/cases/components/atoms/Hr/Hr"
-import Span from "app/features/cases/components/atoms/Span/Span"
 import MailtoAnchor from "app/features/cases/components/molecules/MailtoAnchor/MailtoAnchor"
 import CaseLogBook from "app/features/cases/components/organisms/CaseLogbook/CaseLogBook"
 
@@ -22,6 +19,7 @@ import CaseDetailSectionVacationRental from "./CaseDetailSectionVacationRental"
 import CaseDetailSectionVacationRentalThisYear from "./CaseDetailSectionVacationRentalThisYear"
 import CaseDetailSectionStadia from "app/features/cases/components/organisms/CaseDetail/CaseDetailSectionStadia"
 import CaseDetailSectionSignal from "app/features/cases/components/organisms/CaseDetail/CaseDetailSectionSignal"
+import CaseDetailSectionResidents from "app/features/cases/components/organisms/CaseDetail/CaseDetailSectionResidents"
 
 type Props = {
   caseId: string
@@ -34,7 +32,7 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
   // Header
   const address = displayAddress(caseItem.import_adres.sttnaam, caseItem.import_adres.hsnr, caseItem.import_adres.hsltr || undefined, caseItem.import_adres.toev || undefined)
   const postalCode = caseItem.import_adres.postcode
-  const personCount = caseItem.bwv_personen.filter(person => person.overlijdensdatum === null).length || 0
+  const residentCount = caseItem.bwv_personen.filter(person => person.overlijdensdatum === null).length || 0
   const caseCount = caseItem.bwv_tmp.num_cases !== null ? parseInt(caseItem.bwv_tmp.num_cases, 10) : undefined
   const fraudPrediction = !caseItem.day_settings_id || (daySettings && daySettings.team_settings.fraud_predict) ? caseItem.fraud_prediction : undefined
   const isSia = (caseItem.is_sia === "J")
@@ -113,26 +111,6 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
       { link: woningUrl, title: "Bekijk op Data & informatie" } :
       undefined
 
-  // Bewoners
-  const people = Array.isArray(caseItem.bwv_personen) ? caseItem.bwv_personen.map(person => ({
-    name: person.naam,
-    initials: person.voorletters,
-    sex: person.geslacht,
-    born: person.geboortedatum ? formatDate(person.geboortedatum)! : undefined,
-    livingSince: person.vestigingsdatum_adres ? formatDate(person.vestigingsdatum_adres)! : undefined,
-    died: person.overlijdensdatum ? formatDate(person.overlijdensdatum)! : undefined
-  })) : []
-  const bewoners = people.reduce((acc: any, person, index, arr) => {
-    acc.push(<Span
-      className="anonymous"><strong>{ (index + 1) + ". " + person.initials + " " + person.name + " (" + person.sex + ")" }</strong></Span>)
-    acc.push([ "Geboren", <span className="anonymous">{ person.born }</span> ])
-    acc.push([ "Woont hier sinds", person.livingSince ])
-    if (person.died !== undefined) acc.push([ "✝️ Overleden", <span className="anonymous">{ person.died }</span> ])
-    if (index < arr.length - 1) acc.push(<Hr />)
-    return acc
-  }, [])
-  const showBewoners = personCount > 0
-
   // Statements
   const statements = caseItem.statements.map(
     ({ user, date, statement }) =>
@@ -156,7 +134,7 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
         } }
         fraudPrediction={ fraudPrediction }
         isSia={ isSia }
-        personCount={ personCount }
+        residentCount={ residentCount }
         postalCode={ postalCode }
       />
       <CaseDetailSectionRelatedCases
@@ -174,11 +152,8 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
       <CaseDetailSectionSignal
         caseId={ caseId }
       />
-      <CaseDetailSection
-        id="personen"
-        title={ `Huidige bewoners${ showBewoners ? ` (${ personCount })` : "" }` }
-        dataSource="BWV"
-        data={ showBewoners ? bewoners : [ "Geen inschrijvingen" ] }
+      <CaseDetailSectionResidents
+        caseId={ caseId }
       />
       <CaseDetailSectionVacationRentalThisYear
         caseId={ caseId }
