@@ -1,10 +1,8 @@
 import React, { FC } from "react"
-import styled from "styled-components"
 
 import { useDaySettings } from "app/state/rest"
 
 import formatDate from "app/features/shared/utils/formatDate"
-import highlightText from "app/features/shared/utils/highlightText"
 import replaceNewLines from "app/features/shared/utils/replaceNewLines"
 import replaceUrls from "app/features/shared/utils/replaceUrls"
 import displayAddress from "app/features/shared/utils/displayAddress"
@@ -15,7 +13,7 @@ import Span from "app/features/cases/components/atoms/Span/Span"
 import MailtoAnchor from "app/features/cases/components/molecules/MailtoAnchor/MailtoAnchor"
 import CaseLogBook from "app/features/cases/components/organisms/CaseLogbook/CaseLogBook"
 
-import { BagData, BagDataError, BrkData, BrkDataError, Case, KeyValueDetail } from "app/features/types"
+import { BagData, BagDataError, BrkData, BrkDataError, Case } from "app/features/types"
 
 import CaseDetailSection from "./CaseDetailSection"
 import CaseDetailSectionGeneral from "./CaseDetailSectionGeneral"
@@ -23,20 +21,12 @@ import CaseDetailSectionRelatedCases from "./CaseDetailSectionRelatedCases"
 import CaseDetailSectionVacationRental from "./CaseDetailSectionVacationRental"
 import CaseDetailSectionVacationRentalThisYear from "./CaseDetailSectionVacationRentalThisYear"
 import CaseDetailSectionStadia from "app/features/cases/components/organisms/CaseDetail/CaseDetailSectionStadia"
+import CaseDetailSectionSignal from "app/features/cases/components/organisms/CaseDetail/CaseDetailSectionSignal"
 
 type Props = {
   caseId: string
   caseItem: Case
 }
-
-const HrSpaced = styled(Hr)`
-  margin: 24px 0;
-`
-
-const P = styled.p`
-  display: inline-block;
-  margin: 0;
-`
 
 const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
   const { data: daySettings } = useDaySettings(caseItem.day_settings_id!)
@@ -123,41 +113,6 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
       { link: woningUrl, title: "Bekijk op Data & informatie" } :
       undefined
 
-  // Melding
-  const meldingen = caseItem.bwv_hotline_melding.map(melding => {
-    const {
-      melding_datum: datum,
-      melding_anoniem: anoniem,
-      melder_naam: naam,
-      melder_telnr: telnr,
-      situatie_schets: text
-    } = melding
-
-    return {
-      datum: datum ? formatDate(datum, true)! : undefined,
-      anoniem: anoniem === "J",
-      naam,
-      telnr,
-      text: replaceNewLines(replaceUrls((text || "").trim(), "_blank"))
-    }
-  }).reverse()
-
-  const meldingenData = meldingen.reduce((acc, item, index) => {
-    const { datum, anoniem, naam, telnr, text } = item
-    const highlightedText = highlightText([ "hoofdhuurder", "hoofdhuur", "hh" ], text, { caseSensitive: false })
-
-    acc.push([ "Datum melding", datum || "-" ])
-    acc.push([ "Anonieme melding", anoniem ])
-    acc.push([ "Melder", <P className="anonymous"> { naam }</P> || "-" ])
-    acc.push([ "Melder telefoonnummer", telnr ?
-      <a className="anonymous" href={ "tel://" + telnr }>{ telnr }</a> : "-" ])
-    acc.push(<Purified className="anonymous" text={ highlightedText } />)
-
-    if (index < meldingen.length - 1) acc.push(<HrSpaced />)
-
-    return acc
-  }, [] as KeyValueDetail[])
-
   // Bewoners
   const people = Array.isArray(caseItem.bwv_personen) ? caseItem.bwv_personen.map(person => ({
     name: person.naam,
@@ -216,10 +171,8 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
         data={ woningData }
         footer={ woningFooter }
       />
-      <CaseDetailSection
-        title="Meldingen / aanleiding"
-        dataSource="BWV"
-        data={ meldingenData.length ? meldingenData : [ "-" ] }
+      <CaseDetailSectionSignal
+        caseId={ caseId }
       />
       <CaseDetailSection
         id="personen"
