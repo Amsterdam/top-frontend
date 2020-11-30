@@ -48,8 +48,8 @@ export const notableThings = (handleBack: OnBackButtonClick, situation: string, 
       type: "CheckboxFields",
       props: {
         name: "observations",
-        label: "Opvallende zaken",
-        hint: `${ situation }. Zijn er zaken die verder opvielen? (niet verplicht)`,
+        label: "Opvallende zaken (optioneel)",
+        hint: `${ situation }. Zijn er zaken die verder opvielen?`,
         options: observationChoices || {
           malfunctioning_doorbell: "Bel functioneert niet",
           intercom: "Contact via intercom",
@@ -78,8 +78,8 @@ export const notableThings = (handleBack: OnBackButtonClick, situation: string, 
 
   return new FormPositioner(fields)
     .setGrid("mobileS", "1fr 1fr", [
-      ["observations", "observations"],
-      ["back", "submit"]
+      [ "observations", "observations" ],
+      [ "back", "submit" ]
     ])
     .getScaffoldProps()
 }
@@ -104,15 +104,15 @@ export const suggestion = (handleBack: OnBackButtonClick, situation: string, obs
     suggest_next_visit_description: {
       type: "ShowHide",
       props: {
-          shouldShow: ({ values: { suggest_next_visit } }) => suggest_next_visit && suggest_next_visit !== "daytime",
-          field: {
-            type: "TextAreaField",
-            props: {
-              isRequired: true,
-              label: "Geef toelichting",
-              name: "suggest_next_visit_description"
-            }
+        shouldShow: ({ values: { suggest_next_visit } }) => suggest_next_visit && suggest_next_visit !== "daytime",
+        field: {
+          type: "TextAreaField",
+          props: {
+            isRequired: true,
+            label: "Geef toelichting",
+            name: "suggest_next_visit_description"
           }
+        }
       }
     },
     back: {
@@ -134,13 +134,12 @@ export const suggestion = (handleBack: OnBackButtonClick, situation: string, obs
 
   return new FormPositioner(fields)
     .setGrid("mobileS", "1fr 1fr", [
-      ["suggest_next_visit", "suggest_next_visit"],
-      ["suggest_next_visit_description", "suggest_next_visit_description"],
-      ["back", "submit"]
+      [ "suggest_next_visit", "suggest_next_visit" ],
+      [ "suggest_next_visit_description", "suggest_next_visit_description" ],
+      [ "back", "submit" ]
     ])
     .getScaffoldProps()
 }
-
 
 export const nextVisit = (handleBack: OnBackButtonClick, situation: string, observationChoices: {}, suggestNextVisitChoices: {}, situationChoices: {}) => {
   const fields: Fields = {
@@ -187,8 +186,8 @@ export const nextVisit = (handleBack: OnBackButtonClick, situation: string, obse
           type: "TextAreaField",
           props: {
             name: "can_next_visit_go_ahead_description",
-            label: "Aanvullende informatie",
-            hint: "Zijn er nog noemenswaardigheden? (niet verplicht)"
+            label: "Aanvullende informatie (optioneel)",
+            hint: "Zijn er nog noemenswaardigheden?"
           }
         }
       }
@@ -212,10 +211,10 @@ export const nextVisit = (handleBack: OnBackButtonClick, situation: string, obse
 
   return new FormPositioner(fields)
     .setGrid("mobileS", "1fr 1fr", [
-      ["next_visit", "next_visit"],
-      ["next_visit_no_description", "next_visit_no_description"],
-      ["next_visit_yes_description", "next_visit_yes_description"],
-      ["back", "submit"]
+      [ "next_visit", "next_visit" ],
+      [ "next_visit_no_description", "next_visit_no_description" ],
+      [ "next_visit_yes_description", "next_visit_yes_description" ],
+      [ "back", "submit" ]
     ])
     .getScaffoldProps()
 }
@@ -225,7 +224,8 @@ export const accessGranted = (handleBack: OnBackButtonClick, situation: string, 
     notes: {
       type: "TextAreaField",
       props: {
-        label: "Maak hier je notities om later te verwerken",
+        label: "Eigen notitie voor rapportage",
+        hint: "(wordt niet zichtbaar in logboek)",
         name: "personal_notes",
         rows: 12,
         extraLabel: <HelpButton>
@@ -262,9 +262,9 @@ export const accessGranted = (handleBack: OnBackButtonClick, situation: string, 
 
   return new FormPositioner(fields)
     .setGrid("mobileS", "1fr 1fr", [
-      ["notes", "notes"],
-      ["description", "description"],
-      ["back", "submit"]
+      [ "notes", "notes" ],
+      [ "description", "description" ],
+      [ "back", "submit" ]
     ])
     .getScaffoldProps()
 }
