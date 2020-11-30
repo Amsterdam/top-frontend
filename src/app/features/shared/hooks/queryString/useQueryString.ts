@@ -1,5 +1,5 @@
 import { useLocation } from "@reach/router"
-import { queryString, parse } from "./queryString"
+import { parse, queryString } from "./queryString"
 
 /**
  * Example usage:

@@ -1,5 +1,5 @@
 import axios, { AxiosError } from "axios"
-import { useCallback, useEffect, useContext } from "react"
+import { useCallback, useContext, useEffect } from "react"
 
 import { ApiContext } from "../provider/ApiProvider"
 import { ApiGroup } from "../index"
@@ -23,17 +23,24 @@ const isGetOptions = (options: any): options is GetOptions =>
   options.method === "get"
 
 const isMutateOptions = (options: any): options is MutateOptions =>
-  ["post", "put", "patch", "delete"].includes(options.method)
+  [ "post", "put", "patch", "delete" ].includes(options.method)
 
 type Config = {
   keepUsingInvalidCache?: boolean
   lazy?: boolean
   url: string
   groupName: ApiGroup
-  handleError?: ( error: AxiosError ) => void
+  handleError?: (error: AxiosError) => void
 }
 
-const useApiRequest = <Schema, Payload = Partial<Schema>>({ url, groupName, handleError, lazy, keepUsingInvalidCache }: Config) => {
+const useApiRequest = <Schema, Payload = Partial<Schema>> (
+  {
+    url,
+    groupName,
+    handleError,
+    lazy,
+    keepUsingInvalidCache
+  }: Config) => {
   const {
     getCacheItem,
     setCacheItem,
@@ -66,10 +73,14 @@ const useApiRequest = <Schema, Payload = Partial<Schema>>({ url, groupName, hand
       }
 
       return response
-    } catch(error) {
+    } catch (error) {
       switch (error?.response?.status) {
-        // case 401: logout(); break
-        case 403: navigate(to("/auth")); break
+        // case 401:
+        //  logout()
+        //  break
+        case 403:
+          navigate(to("/auth"))
+          break
       }
       if (handleError && error) {
         handleError(error)
@@ -77,7 +88,7 @@ const useApiRequest = <Schema, Payload = Partial<Schema>>({ url, groupName, hand
         throw error
       }
     }
-  }, [clearCache, setCacheItem, url, handleError, token])
+  }, [ clearCache, setCacheItem, url, handleError, token ])
 
   /**
    * Queues an API request
@@ -144,6 +155,5 @@ const useApiRequest = <Schema, Payload = Partial<Schema>>({ url, groupName, hand
     updateCache
   }
 }
-
 
 export default useApiRequest

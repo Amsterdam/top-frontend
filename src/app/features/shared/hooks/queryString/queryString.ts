@@ -6,8 +6,8 @@ const stringify = (parsed: ParsedQs) => qs.stringify(parsed, { addQueryPrefix: t
 
 const removeProp = (obj: ParsedQs, prop: string) => Object
   .entries(obj)
-  .filter(([key]) => key !== prop)
-  .reduce((acc, [key, val]) => ({ ...acc, [key]: val }), {})
+  .filter(([ key ]) => key !== prop)
+  .reduce((acc, [ key, val ]) => ({ ...acc, [key]: val }), {})
 
 /**
  * Immutable queryString manager.
@@ -24,7 +24,7 @@ export const queryString = (path: string, parsedQs: ParsedQs) => {
 
   const hasParameter = (param: string) => parsedQs[param] !== undefined
 
-  const setParameter = (param: string, value: string) => queryString(path, { ...parsedQs, [param]:value })
+  const setParameter = (param: string, value: string) => queryString(path, { ...parsedQs, [param]: value })
 
   const deleteParameter = (param: string) => queryString(path, removeProp(parsedQs, param))
 

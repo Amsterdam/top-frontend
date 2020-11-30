@@ -7,11 +7,12 @@ describe("UniqueDropdown", () => {
   it("should throw an error when given name is non array like", () => {
     jest.spyOn(console, "error")
     // @ts-ignore
-    console.error.mockImplementation(() => {})
+    console.error.mockImplementation(() => {
+    })
 
     const component = () => mount(
-      <ScaffoldForm onSubmit={jest.fn()}>
-        <UniqueDropdown name='foo' options={[{ label: "foo" }]} optionLabelField="label"/>
+      <ScaffoldForm onSubmit={ jest.fn() }>
+        <UniqueDropdown name="foo" options={ [ { label: "foo" } ] } optionLabelField="label" />
       </ScaffoldForm>
     )
 
@@ -26,14 +27,14 @@ describe("UniqueDropdown", () => {
     ]
 
     const component = mount(
-      <ScaffoldForm onSubmit={jest.fn()}>
-        <UniqueDropdown name='foo[0]' options={options} optionLabelField="label"/>
-        <UniqueDropdown name='foo[1]' options={options} optionLabelField="label"/>
+      <ScaffoldForm onSubmit={ jest.fn() }>
+        <UniqueDropdown name="foo[0]" options={ options } optionLabelField="label" />
+        <UniqueDropdown name="foo[1]" options={ options } optionLabelField="label" />
       </ScaffoldForm>
     )
-    
+
     component.find("select").at(0).simulate("change", { target: { value: 0 } })
-    
+
     const otherOptions = component.find("select").at(1).find("option")
     expect(otherOptions.length).toEqual(1)
     expect(otherOptions.at(0).text()).toEqual("bar")
