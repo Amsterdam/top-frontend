@@ -47,6 +47,7 @@
     "start:local": "env-cmd -f .env.development_local react-scripts start",
     "build": "react-scripts build",
     "build:acc": "env-cmd -f .env.acceptance react-scripts build",
+    "build:local": "env-cmd -f .env.development_local react-scripts build",
     "test": "react-scripts test --watchAll=false",
     "test:ci": "CI=true npm run test",
     "lint": "eslint --cache --ext .ts,.tsx src",
