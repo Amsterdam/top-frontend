@@ -7,5 +7,5 @@
 - Use `useKeycloak` hook in your components
 
 ## TODO
-- Look into SSI (Single Signon) support
+- Look into SSO (Single Sign On) support
 - IE11 bug
