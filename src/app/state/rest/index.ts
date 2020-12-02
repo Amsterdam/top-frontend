@@ -128,12 +128,6 @@ export const useTeam = (itineraryId: number, options?: Options) => {
   })
 }
 
-export const useSettings = (options?: Options) => useApiRequest<Components.Schemas.PlannerSettings>({
-    ...options,
-    url: makeGatewayUrl(["settings", "planner"]),
-    groupName: "settings"
-  })
-
 export const useTeamSettingsList = (options?: Options) => useApiRequest<{ results: Components.Schemas.TeamSettings[] }>({
     ...options,
     url: makeGatewayUrl(["team-settings"]),
