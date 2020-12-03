@@ -53,8 +53,6 @@ const useApiRequest = <Schema, Payload = Partial<Schema>>({ url, groupName, hand
         clearCache()
       }
 
-      const isUpdated = await updateToken(30)
-      if (isUpdated) return
 
       const response = await axios.request<Schema>({
         headers: token ? createAuthHeaders(token) : undefined,
@@ -79,7 +77,7 @@ const useApiRequest = <Schema, Payload = Partial<Schema>>({ url, groupName, hand
         throw error
       }
     }
-  }, [clearCache, setCacheItem, url, handleError, token, updateToken])
+  }, [clearCache, setCacheItem, url, handleError, token])
 
   /**
    * Queues an API request
@@ -127,6 +125,13 @@ const useApiRequest = <Schema, Payload = Partial<Schema>>({ url, groupName, hand
       execGet()
     }
   }, [ execGet, cacheItem, lazy ])
+
+  useEffect(() => {
+    (async () => {
+      const isUpdated = await updateToken(30)
+      if (isUpdated && process.env.REACT_APP_ENVIRONMENT !== "production") console.log("Keycloak token refreshed")
+    })()
+  })
 
   return {
     data,
