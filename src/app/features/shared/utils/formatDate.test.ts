@@ -1,15 +1,33 @@
 import formatDate from "./formatDate"
 
 describe("formatDate", () => {
-  it("day, month, year", () => {
-    expect(formatDate("11-11-2022")).toBe("11 nov 2022")
+  it("default", () => {
+    expect(formatDate("11-13-2022")).toBe("13 nov 2022")
   })
 
-  it("weekday day, month, year", () => {
-    expect(formatDate("11-11-2022", true)).toBe("vr 11 nov 2022")
+  it("with week day", () => {
+    expect(formatDate("11-13-2022", true)).toBe("zo 13 nov 2022")
   })
 
-  it("day, month", () => {
-    expect(formatDate("11-11-2022", false, false)).toBe("11 nov")
+  it("with weekday, without year", () => {
+    expect(formatDate("11-13-2022", true, false)).toBe("zo 13 nov")
+  })
+
+  it("without weekday, without year", () => {
+    expect(formatDate("11-13-2022", false, false)).toBe("13 nov")
+  })
+
+  it("date object", () => {
+    const date = new Date("November 13, 2022")
+    expect(formatDate(date)).toBe("13 nov 2022")
+  })
+
+  it("date object with weekday, without year", () => {
+    const date = new Date("November 13, 2022")
+    expect(formatDate(date, true, false)).toBe("zo 13 nov")
+  })
+
+  it("invalid date", () => {
+    expect(formatDate("hello")).toBe(undefined)
   })
 })
