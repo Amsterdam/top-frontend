@@ -45,6 +45,21 @@ declare namespace Components {
             }
             sia_presedence?: boolean
         }
+        export type DaySettingsCompact = {
+            readonly id: number
+            name: string
+            readonly week_day: number
+            readonly team_settings: {
+                name: string
+                readonly observation_choices: Observation[]
+                readonly situation_choices: any[]
+                readonly suggest_next_visit_choices: SuggestNextVisit[]
+                fraud_predict?: boolean
+                readonly marked_stadia: StadiumLabel[]
+                show_issuemelding?: boolean
+                show_vakantieverhuur?: boolean
+            }
+        }
         export type DecosPermit = {
             permit_granted?: boolean
             permit_type?: "BED_AND_BREAKFAST" | "VAKANTIEVERHUUR" | "PERMIT_UNKNOWN"
@@ -233,24 +248,6 @@ declare namespace Components {
             previous?: string | null // uri
             results?: Observation[]
         }
-        export type PaginatedPlannerSettingsList = {
-            /**
-             * example:
-             * 123
-             */
-            count?: number
-            /**
-             * example:
-             * http://api.example.org/accounts/?page=4
-             */
-            next?: string | null // uri
-            /**
-             * example:
-             * http://api.example.org/accounts/?page=2
-             */
-            previous?: string | null // uri
-            results?: PlannerSettings[]
-        }
         export type PaginatedPostalCodeRangePresetList = {
             /**
              * example:
@@ -425,10 +422,7 @@ declare namespace Components {
             readonly project_choices?: string[]
             readonly stadia_choices?: string[]
             readonly marked_stadia?: StadiumLabel[]
-            settings?: {
-                [name: string]: any
-            }
-            readonly day_settings_list?: DaySettings[]
+            readonly day_settings_list?: DaySettingsCompact[]
         }
         export type PatchedVisit = {
             readonly id?: number
@@ -450,35 +444,6 @@ declare namespace Components {
             has_vacation_rental_permit: HasVacationRentalPermitEnum
         }
         export type PermitTypeEnum = "BED_AND_BREAKFAST" | "VAKANTIEVERHUUR" | "PERMIT_UNKNOWN";
-        export type PlannerDaySettings = {
-            day?: PlannerListSettings
-            evening?: PlannerListSettings
-        }
-        export type PlannerListSettings = {
-            length_of_list?: number
-            primary_stadium?: string
-            secondary_stadia?: any[]
-            exclude_stadia?: any[]
-        }
-        export type PlannerPostalCodeSettings = {
-            range_start: number
-            range_end: number
-        }
-        export type PlannerSettings = {
-            opening_date: string // date
-            projects: any[]
-            postal_codes?: PlannerPostalCodeSettings[]
-            days: PlannerWeekSettings
-        }
-        export type PlannerWeekSettings = {
-            monday: PlannerDaySettings
-            tuesday: PlannerDaySettings
-            wednesday: PlannerDaySettings
-            thursday: PlannerDaySettings
-            friday: PlannerDaySettings
-            saturday: PlannerDaySettings
-            sunday: PlannerDaySettings
-        }
         export type PostalCodeRange = {
             range_start?: number
             range_end?: number
@@ -515,10 +480,7 @@ declare namespace Components {
             readonly project_choices: string[]
             readonly stadia_choices: string[]
             readonly marked_stadia: StadiumLabel[]
-            settings: {
-                [name: string]: any
-            }
-            readonly day_settings_list: DaySettings[]
+            readonly day_settings_list: DaySettingsCompact[]
         }
         export type TeamSettingsCompact = {
             name: string
@@ -1028,23 +990,6 @@ declare namespace Paths {
         }
         namespace Responses {
             export type $200 = Components.Schemas.PaginatedCaseList;
-        }
-    }
-    namespace SettingsPlannerCreate {
-        export type RequestBody = Components.Schemas.PlannerSettings;
-        namespace Responses {
-            export type $200 = Components.Schemas.PlannerSettings;
-        }
-    }
-    namespace SettingsPlannerList {
-        namespace Parameters {
-            export type Page = number;
-        }
-        export type QueryParameters = {
-            page?: Parameters.Page
-        }
-        namespace Responses {
-            export type $200 = Components.Schemas.PaginatedPlannerSettingsList;
         }
     }
     namespace SuggestNextVisitCreate {
