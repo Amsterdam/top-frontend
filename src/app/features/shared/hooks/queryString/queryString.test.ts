@@ -18,10 +18,10 @@ describe("queryString", () => {
   })
 
   it("should be able to get a parameter", () => {
-      const result = queryString("path", { foo: "fooVal" })
-        .getParameter("foo")
+    const result = queryString("path", { foo: "fooVal" })
+      .getParameter("foo")
 
-      expect(result).toEqual("fooVal")
+    expect(result).toEqual("fooVal")
   })
 
   it("should be able to delete a parameter", () => {

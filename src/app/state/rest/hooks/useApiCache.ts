@@ -14,13 +14,14 @@ export type ApiCache = {
 }
 
 type State = Record<string, ApiCacheItem>
+
 type Action =
   | { type: "UPDATE_ITEM", key: string, updater: (item: any) => void }
   | { type: "SET_ITEM", key: string, value: any }
   | { type: "CLEAR" }
 
 const reducer = (state: State, action: Action) => {
-  switch(action.type) {
+  switch (action.type) {
     case "UPDATE_ITEM":
       const value = produce(state[action.key].value, action.updater)
       return {
@@ -35,7 +36,7 @@ const reducer = (state: State, action: Action) => {
     case "CLEAR":
       return Object
         .entries(state)
-        .reduce((acc, [key, val]) => ({
+        .reduce((acc, [ key, val ]) => ({
           ...acc,
           [key]: { valid: false, value: val.value }
         }), {})
@@ -46,8 +47,19 @@ export const useApiCache = (): ApiCache => {
   const [ cache, dispatch ] = useReducer(reducer, {})
 
   const getCacheItem = useCallback((key: string) => cache[key], [ cache ])
-  const setCacheItem = useCallback((key: string, value: any) => dispatch({ type: "SET_ITEM", key, value }), [ dispatch ])
-  const updateCacheItem = useCallback((key: string, updater: (cache: any) => void) => dispatch({ type: "UPDATE_ITEM", key, updater }), [ dispatch ])
+
+  const setCacheItem = useCallback((key: string, value: any) => dispatch({
+    type: "SET_ITEM",
+    key,
+    value
+  }), [ dispatch ])
+
+  const updateCacheItem = useCallback((key: string, updater: (cache: any) => void) => dispatch({
+    type: "UPDATE_ITEM",
+    key,
+    updater
+  }), [ dispatch ])
+
   const clearCache = useCallback(() => dispatch({ type: "CLEAR" }), [ dispatch ])
 
   return { getCacheItem, setCacheItem, updateCacheItem, clearCache }

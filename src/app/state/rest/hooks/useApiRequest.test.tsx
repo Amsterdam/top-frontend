@@ -1,7 +1,7 @@
 import React from "react"
 import nock from "nock"
 
-import { renderHook, act } from "@testing-library/react-hooks"
+import { act, renderHook } from "@testing-library/react-hooks"
 import useApiRequest from "./useApiRequest"
 import ApiProvider from "../provider/ApiProvider"
 import KeycloakProvider from "app/state/auth/keycloak/KeycloakProvider"
@@ -12,12 +12,12 @@ type Pet = {
 }
 
 const Wrapper: React.FC = ({ children }) => (
-    <KeycloakProvider>
-      <ApiProvider>
-        { children }
-      </ApiProvider>
-    </KeycloakProvider>
-  )
+  <KeycloakProvider>
+    <ApiProvider>
+      { children }
+    </ApiProvider>
+  </KeycloakProvider>
+)
 
 describe("useApiRequest", () => {
   it("should perform a GET request on mount", async () => {

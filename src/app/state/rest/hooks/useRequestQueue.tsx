@@ -1,4 +1,4 @@
-import { useReducer, useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect, useReducer, useState } from "react"
 import produce from "immer"
 
 type QueuedPromise = () => Promise<any>
@@ -21,11 +21,11 @@ export type RequestQueue = {
 }
 
 const reducer = produce((draft: State, action: Action) => {
-  switch(action.type) {
+  switch (action.type) {
     case "PUSH":
       if (!isPending(draft, action.item.url, action.item.method)) {
         draft.push(action.item)
-      } 
+      }
       break
     case "SHIFT":
       draft.shift()
@@ -37,12 +37,14 @@ const isPending = (state: Readonly<State>, url: string, method: string): boolean
   state.find(_ => _.url === url && _.method.toUpperCase() === method.toUpperCase()) !== undefined
 
 export const useRequestQueue = () => {
-  const [isBusy, setIsBusy] = useState(false)
-  const [state, dispatch] = useReducer(reducer, [])
+  const [ isBusy, setIsBusy ] = useState(false)
+  const [ state, dispatch ] = useReducer(reducer, [])
   const isRequestPendingInQueue = useCallback((url, method) => isPending(state, url, method), [ state ])
 
   const pushRequestInQueue = useCallback(
-    (url: string, method: string, promise: QueuedPromise) => { dispatch({ type: "PUSH", item: { url, method, promise } }) },
+    (url: string, method: string, promise: QueuedPromise) => {
+      dispatch({ type: "PUSH", item: { url, method, promise } })
+    },
     [ dispatch ]
   )
 

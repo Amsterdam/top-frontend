@@ -7,7 +7,7 @@ const months = [
   "jun",
   "jul",
   "aug",
-  "sept",
+  "sep",
   "okt",
   "nov",
   "dec"
@@ -23,9 +23,26 @@ const days = [
   "za"
 ]
 
-const formatDate = (str: string | Date, includeDay = false, includeYear = true): string | undefined => {
-  const date = typeof str === "object" ? str : new Date(str)
-  if (date.toString() === "Invalid Date") return undefined
-  return `${ includeDay ? `${ days[date.getDay()] } ` : "" }${ date.getDate() } ${ months[date.getMonth()] } ${ includeYear ? date.getFullYear() : "" }`
+const formatDate = (date: string | Date, includeWeekDay = false, includeYear = true): string | undefined => {
+  const dateObj = (typeof date === "object") ? date : new Date(date)
+
+  if (dateObj.toString() === "Invalid Date") {
+    return undefined
+  }
+
+  let formattedDate = []
+
+  if (includeWeekDay) {
+    formattedDate.push(days[dateObj.getDay()])
+  }
+
+  formattedDate.push(dateObj.getDate(), months[dateObj.getMonth()])
+
+  if (includeYear) {
+    formattedDate.push(dateObj.getFullYear())
+  }
+
+  return formattedDate.join(" ")
 }
+
 export default formatDate
