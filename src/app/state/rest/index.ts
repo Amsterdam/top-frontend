@@ -161,7 +161,8 @@ export const useTeamSettings = (teamSettingsId: number, options?: Options) => us
   export const usePostCodeRanges = (options?: Options) => useApiRequest<{ results: Components.Schemas.PostalCodeRangePreset[] }>({
     ...options,
     url: makeGatewayUrl(["postal-code-ranges-presets"]),
-    groupName: "postCodeRangesPresets"
+    groupName: "postCodeRangesPresets",
+    isProtected: true
   })
 
 export const useDeleteItinerary = (id: string|number, options?: Options) => {
