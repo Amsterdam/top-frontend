@@ -52,7 +52,8 @@ export const useItineraryItem = (id: number|string, options?: Options) => {
     ...options,
     url: makeGatewayUrl(["itinerary-items", id]),
     groupName: "itineraries",
-    handleError
+    handleError,
+    isProtected: true
   })
 }
 
