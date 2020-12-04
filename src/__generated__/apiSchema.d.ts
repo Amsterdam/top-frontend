@@ -30,7 +30,7 @@ declare namespace Components {
             postal_code_ranges_presets?: number[]
             length_of_list?: number
             projects: number[]
-            primary_stadium: null | number
+            primary_stadium?: null | number
             secondary_stadia: number[]
             exclude_stadia: number[]
             readonly team_settings: {

@@ -30,7 +30,8 @@ export const useItineraries = (options?: Options) => {
     ...options,
     url: makeGatewayUrl(["itineraries"], { created_at: currentDate() }),
     groupName: "itineraries",
-    handleError
+    handleError,
+    isProtected: true
   })
 }
 
@@ -40,7 +41,8 @@ export const useItineraryItems = (options?: Options) => {
     ...options,
     url: makeGatewayUrl(["itinerary-items"]),
     groupName: "itineraries",
-    handleError
+    handleError,
+    isProtected: true
   })
 }
 
@@ -60,7 +62,8 @@ export const useItineraryItemNote = (id?: number|string, options?: Options) => {
     ...options,
     url: makeGatewayUrl(["notes", id]),
     groupName: "itineraries",
-    handleError
+    handleError,
+    isProtected: true
   })
 }
 
@@ -71,7 +74,8 @@ export const useOpenIssues = (itineraryId?: string, options?: Options) => {
     ...options,
     url: makeGatewayUrl(["cases", "unplanned"], { date: currentDate(), stadium: "Issuemelding", itinerary_id: itineraryId }),
     groupName: "itineraries",
-    handleError
+    handleError,
+    isProtected: true
   })
 }
 
@@ -81,7 +85,8 @@ export const useCase = (id: number|string, options?: Options) => {
     ...options,
     url: makeGatewayUrl(["cases", id]),
     groupName: "case",
-    handleError
+    handleError,
+    isProtected: true
   })
 }
 
@@ -91,7 +96,8 @@ export const useSearch = (streetNumber: number, postalCode?: string, streetName?
     ...options,
     url: makeGatewayUrl(["search"], { postalCode, streetName, streetNumber, suffix }),
     groupName: "itineraries",
-    handleError
+    handleError,
+    isProtected: true
   })
 }
 
@@ -101,7 +107,8 @@ export const useSuggestions = (itineraryId: number, options?: Options) => {
     ...options,
     url: makeGatewayUrl(["itineraries", itineraryId, "suggestions"]),
     groupName: "itineraries",
-    handleError
+    handleError,
+    isProtected: true
   })
 }
 
@@ -111,7 +118,8 @@ export const useUsers = (options?: Options) => {
     ...options,
     url: makeGatewayUrl(["users"]),
     groupName: "users",
-    handleError
+    handleError,
+    isProtected: true
   })
 }
 
@@ -124,26 +132,30 @@ export const useTeam = (itineraryId: number, options?: Options) => {
     ...options,
     url: makeGatewayUrl(["itineraries", itineraryId, "team"]),
     groupName: "itineraries",
-    handleError
+    handleError,
+    isProtected: true
   })
 }
 
 export const useTeamSettingsList = (options?: Options) => useApiRequest<{ results: Components.Schemas.TeamSettings[] }>({
     ...options,
     url: makeGatewayUrl(["team-settings"]),
-    groupName: "teamSettingsList"
+    groupName: "teamSettingsList",
+    isProtected: true
   })
 
 export const useTeamSettings = (teamSettingsId: number, options?: Options) => useApiRequest<Components.Schemas.TeamSettings>({
     ...options,
     url: makeGatewayUrl(["team-settings", teamSettingsId]),
-    groupName: "teamSettings"
+    groupName: "teamSettings",
+    isProtected: true
   })
 
   export const useDaySettings = (daySettingsId: number, options?: Options) => useApiRequest<Components.Schemas.DaySettings>({
     ...options,
     url: makeGatewayUrl(["day-settings", daySettingsId]),
-    groupName: "daySettings"
+    groupName: "daySettings",
+    isProtected: true
   })
 
   export const usePostCodeRanges = (options?: Options) => useApiRequest<{ results: Components.Schemas.PostalCodeRangePreset[] }>({
@@ -158,7 +170,8 @@ export const useDeleteItinerary = (id: string|number, options?: Options) => {
     ...options,
     url: makeGatewayUrl(["itineraries", id]),
     groupName: "itineraries",
-    handleError
+    handleError,
+    isProtected: true
   })
 }
 
@@ -168,7 +181,8 @@ export const useVisits = (options?: Options) => {
     ...options,
     url: makeGatewayUrl(["visits"]),
     groupName: "itineraries",
-    handleError
+    handleError,
+    isProtected: true
   })
 }
 
@@ -178,7 +192,8 @@ export const useSuggestNextVisit = (options?: Options) => {
     ...options,
     url: makeGatewayUrl(["suggest-next-visit"]),
     groupName: "itineraries",
-    handleError
+    handleError,
+    isProtected: true
   })
 }
 
@@ -188,7 +203,8 @@ export const useObservations = (options?: Options) => {
     ...options,
     url: makeGatewayUrl(["observations"]),
     groupName: "itineraries",
-    handleError
+    handleError,
+    isProtected: true
   })
 }
 
@@ -198,7 +214,8 @@ export const useVisit = (id: string|number, options?: Options) => {
     ...options,
     url: makeGatewayUrl(["visits", id]),
     groupName: "itineraries",
-    handleError
+    handleError,
+    isProtected: true
   })
 }
 
@@ -208,7 +225,8 @@ export const useCaseVisits = (caseId: string|number, options?: Options) => {
     ...options,
     url: makeGatewayUrl(["cases", caseId, "visits"]),
     groupName: "itineraries",
-    handleError
+    handleError,
+    isProtected: true
   })
 }
 
@@ -218,7 +236,8 @@ export const usePermitCheckmarks = (bagId: string, options?: Options) => {
     ...options,
     url: makeGatewayUrl(["permits", "checkmarks"], { bag_id: bagId }),
     groupName: "permits",
-    handleError
+    handleError,
+    isProtected: true
   })
 }
 
@@ -228,7 +247,8 @@ export const usePermitDetails = (bagId: string, options?: Options) => {
     ...options,
     url: makeGatewayUrl(["permits", "details"], { bag_id: bagId }),
     groupName: "permits",
-    handleError
+    handleError,
+    isProtected: true
   })
 }
 
@@ -243,6 +263,7 @@ export const useIsAuthorized = (options?: Options) => {
     ...options,
     url: makeGatewayUrl(["is-authorized"]),
     groupName: "auth",
-    handleError
+    handleError,
+    isProtected: true
   })
 }
