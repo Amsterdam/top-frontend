@@ -1,5 +1,6 @@
 import styled from "styled-components"
 import Hr from "app/features/cases/components/atoms/Hr/Hr"
+import { themeSpacing } from "@amsterdam/asc-ui"
 
 export const CenteredAnchor = styled.a`
   display: block;
@@ -25,4 +26,14 @@ export const SectionRow = styled.div`
   &:not(:last-child) {
     border-bottom-width: 0;
   }
+`
+
+export const Grid = styled.div`
+  display: grid;
+  grid-template-columns: 160px auto;
+  grid-gap: ${ themeSpacing(3) } ${ themeSpacing(4) }
+`
+
+export const SpanColumns = styled.div`
+  grid-column: span 2;
 `

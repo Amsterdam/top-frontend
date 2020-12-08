@@ -9,11 +9,12 @@ import ScrollToAnchor from "app/features/shared/components/molecules/ScrollToAnc
 import StadiumBadge from "app/features/shared/components/molecules/StadiumBadge/StadiumBadge"
 import InvalidDataSpan from "app/features/cases/components/atoms/InvalidDataSpan/InvalidDataSpan"
 import Label from "app/features/cases/components/atoms/Label/Label"
-import FraudPredictionDetailsModal from "app/features/cases/components/organisms/FraudPrediction/FraudPredictionDetailsModal"
+import FraudPredictionDetailsModal
+  from "app/features/cases/components/organisms/FraudPrediction/FraudPredictionDetailsModal"
 import { useFraudPredictionModal } from "app/features/cases/components/organisms/FraudPrediction/hooks/useFraudPredictionModal"
 
 import { getAddress, getCaseCount, getEigenaar } from "../utils"
-import { CenteredAnchor, Section, SectionRow } from "../CaseDetailSectionStyles"
+import { CenteredAnchor, Grid, Section, SectionRow } from "../CaseDetailSectionStyles"
 
 type Props = {
   caseId: string
@@ -24,7 +25,7 @@ const PostalCode = styled.p`
   margin-bottom: 8px;
 `
 
-const BadgeRow = styled.div`
+const BadgesRow = styled.div`
   display: flex;
   margin-bottom: ${ themeSpacing(2) };
 
@@ -71,54 +72,50 @@ const General: FC<Props> = ({ caseId }) => {
       <SectionRow>
         <Heading>{ address }</Heading>
         <PostalCode>{ postalCode }</PostalCode>
-        <BadgeRow>
+        <BadgesRow>
           { lastStadiumLabel && <StadiumBadge stadium={ lastStadiumLabel! } /> }
           { isSia && <StadiumBadge stadium="SIA" /> }
-        </BadgeRow>
-        <div>
-          <Label>Ingeschreven</Label><Span>{ residentCount > 0 ?
-          <ScrollToAnchor anchor="inschrijvingen" text={ residentsText } /> : residentsText }</Span>
-        </div>
-        <div>
+        </BadgesRow>
+        <Grid>
+          <Label>Ingeschreven</Label>
+          <Span>{ residentCount > 0
+            ? <ScrollToAnchor anchor="inschrijvingen" text={ residentsText } />
+            : residentsText
+          }</Span>
           <Label>Zaaknummer</Label>
-          { caseNumber !== undefined && caseCount !== undefined ?
-            <Span><strong>{ caseNumber }</strong> van { caseCount }</Span> :
-            <InvalidDataSpan />
+          { caseNumber !== undefined && caseCount !== undefined
+            ? <Span><strong>{ caseNumber }</strong> van { caseCount }</Span>
+            : <InvalidDataSpan />
           }
-        </div>
-        <div>
           <Label>Open zaken</Label>
-          { openCaseCount !== undefined ?
-            <Span>{ openCaseCount }</Span> :
-            <InvalidDataSpan />
+          { openCaseCount !== undefined
+            ? <Span>{ openCaseCount }</Span>
+            : <InvalidDataSpan />
           }
-        </div>
-        <div>
           <Label>Openingsreden</Label>
-          { caseOpening !== undefined ?
-            <Span>{ caseOpening }</Span> :
-            <InvalidDataSpan />
+          { caseOpening !== undefined
+            ? <Span>{ caseOpening }</Span>
+            : <InvalidDataSpan />
           }
-        </div>
-        <div>
           <Label>Eigenaar</Label>
-          { eigenaar !== undefined ?
-            <Span>{ eigenaar }</Span> :
-            <InvalidDataSpan />
+          { eigenaar !== undefined
+            ? <Span>{ eigenaar }</Span>
+            :
+            <span>Gemeente Amsterdam - Eigendom (recht van) (1/1), Woningstichting Rochdale - Erfpacht (recht van) (1/1)</span>
           }
-        </div>
-        { fraudPrediction &&
-        <div>
-          <Link to={ getToFraudPredictionModalUrl() }>
-            <Label>Voorspelling (bèta)</Label>
-            <FraudProbability fraudProbability={ fraudPrediction?.fraud_probability } />
-          </Link>
-          <FraudPredictionDetailsModal
-            title={ address }
-            fraudPrediction={ fraudPrediction! }
-          />
-        </div>
-        }
+          { fraudPrediction &&
+          <>
+            <Link to={ getToFraudPredictionModalUrl() }>
+              <Label>Voorspelling (bèta)</Label>
+              <FraudProbability fraudProbability={ fraudPrediction?.fraud_probability } />
+            </Link>
+            <FraudPredictionDetailsModal
+              title={ address }
+              fraudPrediction={ fraudPrediction! }
+            />
+          </>
+          }
+        </Grid>
       </SectionRow>
       <SectionRow>
         <CenteredAnchor href={ `http://www.google.com/maps/place/${ address }, Amsterdam` }>
