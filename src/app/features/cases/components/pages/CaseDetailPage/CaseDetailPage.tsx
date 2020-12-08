@@ -16,11 +16,13 @@ type Props = {
 const CaseDetailPage: React.FC<RouteComponentProps<Props>> = ({ id }) => {
   const { data, isBusy } = useCase(id!)
 
-  return <DefaultLayout>
-    { isBusy && <CenteredSpinner size={60} /> }
-    { data && id && <CaseDetail caseId={id} caseItem={data} /> }
-    <AnonymousToggle />
-  </DefaultLayout>
+  return (
+    <DefaultLayout>
+      { isBusy && <CenteredSpinner size={ 60 } /> }
+      { data && id && <CaseDetail caseId={ id } caseItem={ data } /> }
+      <AnonymousToggle />
+    </DefaultLayout>
+  )
 }
 
 export default CaseDetailPage

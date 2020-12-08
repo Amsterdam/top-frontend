@@ -1,7 +1,7 @@
 import React, { FC } from "react"
 
 import { BWVPersoon } from "app/features/types"
-import { useCase } from "app/state/rest/index"
+import { useCase } from "app/state/rest"
 import formatDate from "app/features/shared/utils/formatDate"
 import Span from "app/features/cases/components/atoms/Span/Span"
 import Hr from "app/features/cases/components/atoms/Hr/Hr"

@@ -1,7 +1,7 @@
 import React, { FC } from "react"
 import styled from "styled-components"
 
-import { useCase } from "app/state/rest/index"
+import { useCase } from "app/state/rest"
 import formatDate from "app/features/shared/utils/formatDate"
 import replaceNewLines from "app/features/shared/utils/replaceNewLines"
 import replaceUrls from "app/features/shared/utils/replaceUrls"

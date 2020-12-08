@@ -1,6 +1,6 @@
 import React, { FC } from "react"
 
-import { useCase } from "app/state/rest/index"
+import { useCase } from "app/state/rest"
 import Purified from "app/features/shared/components/molecules/Purified/Purified"
 import formatDate from "app/features/shared/utils/formatDate"
 import replaceNewLines from "app/features/shared/utils/replaceNewLines"

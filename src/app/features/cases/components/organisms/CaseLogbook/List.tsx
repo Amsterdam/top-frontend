@@ -6,18 +6,24 @@ type Props = {
   items: string[]
 }
 
-const UL = styled.ul`
+const Ul = styled.ul`
   display: inline-block;
   padding: 0;
   margin: 0 0 ${ themeSpacing(3) } 0;
 `
 
-const LI = styled.li`
+const Li = styled.li`
   list-style: none;
 `
 
-const List: React.FC<Props> = ({ items }) => (<UL>
-  { items.map(item => <LI key={item}>{ item }</LI>) }
-</UL>)
+const List: React.FC<Props> = ({ items }) => (
+  <Ul>
+    { items.map(item =>
+      <Li key={ item }>
+        { item }
+      </Li>)
+    }
+  </Ul>
+)
 
 export default List

@@ -1,6 +1,6 @@
 import React, { FC } from "react"
 
-import { useCase } from "app/state/rest/index"
+import { useCase } from "app/state/rest"
 import { BagData, BagDataError } from "app/features/types"
 import MailtoAnchor from "app/features/cases/components/molecules/MailtoAnchor/MailtoAnchor"
 import CaseDetailSection from "./CaseDetailSection"

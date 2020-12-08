@@ -1,7 +1,7 @@
 import React, { useMemo } from "react"
 import { Spinner } from "@amsterdam/asc-ui"
 
-import { useCase, useCaseVisits, useUsers, useSuggestNextVisit, useObservations } from "app/state/rest"
+import { useCase, useCaseVisits, useObservations, useSuggestNextVisit, useUsers } from "app/state/rest"
 import { BWVHotlineBevinding, KeyValueDetail } from "app/features/types"
 
 import formatDate from "app/features/shared/utils/formatDate"
@@ -38,32 +38,36 @@ type LogBookItem = {
 }
 
 // Maps a BWVHotlineBevinding to a LogBookItem
-const mapBWVToLogBookItem = ({
-  toez_hdr1_naam,
-  toez_hdr2_naam,
-  bevinding_datum,
-  bevinding_tijd,
-  hit,
-  opmerking
-}: BWVHotlineBevinding): LogBookItem => ({
-  source: "BWV",
-  name: [toez_hdr1_naam, toez_hdr2_naam].filter(i => i != null).join(", "),
-  date: formatDate(bevinding_datum, true)!,
-  time: bevinding_tijd,
-  hit: hit === "J",
-  text: replaceNewLines((opmerking || "").trim(), "<br /><br />"),
-  sort: new Date(bevinding_datum)
-})
+const mapBWVToLogBookItem = (
+  {
+    toez_hdr1_naam,
+    toez_hdr2_naam,
+    bevinding_datum,
+    bevinding_tijd,
+    hit,
+    opmerking
+  }: BWVHotlineBevinding): LogBookItem => (
+  {
+    source: "BWV",
+    name: [ toez_hdr1_naam, toez_hdr2_naam ].filter(i => i != null).join(", "),
+    date: formatDate(bevinding_datum, true)!,
+    time: bevinding_tijd,
+    hit: hit === "J",
+    text: replaceNewLines((opmerking || "").trim(), "<br /><br />"),
+    sort: new Date(bevinding_datum)
+  }
+)
 
 // Maps a Visit to a LogBookItem
-const mapVisitToLogbookItem = (users: Components.Schemas.User[]) => ({
-  author,
-  start_time,
-  suggest_next_visit_description,
-  can_next_visit_go_ahead_description,
-  description,
-  ...rest
-}: Components.Schemas.Visit): LogBookItem => ({
+const mapVisitToLogbookItem = (users: Components.Schemas.User[]) => (
+  {
+    author,
+    start_time,
+    suggest_next_visit_description,
+    can_next_visit_go_ahead_description,
+    description,
+    ...rest
+  }: Components.Schemas.Visit): LogBookItem => ({
   name: users.find(_ => _.id === author)?.full_name ?? author,
   date: formatDate(start_time, true)!,
   time: formatTime(start_time),
@@ -75,21 +79,25 @@ const mapVisitToLogbookItem = (users: Components.Schemas.User[]) => ({
 })
 
 // Maps a LogBookItem to a KeyValueDetail[] (accepted by CaseDetailSection `data`)
-const mapLogBookItemToDetailComponents = (observationTranslations: Components.Schemas.Observation[], suggestNextVisitsTranslations: Components.Schemas.SuggestNextVisit[]) => ({
-  source,
-  name,
-  time,
-  date,
-  hit,
-  text,
-  situation,
-  observations,
-  suggest_next_visit,
-  suggest_next_visit_description,
-  can_next_visit_go_ahead,
-  can_next_visit_go_ahead_description,
-  description
-}: LogBookItem, index: number, allItems: LogBookItem[]): KeyValueDetail[] => {
+const mapLogBookItemToDetailComponents = (observationTranslations: Components.Schemas.Observation[], suggestNextVisitsTranslations: Components.Schemas.SuggestNextVisit[]) => (
+  {
+    source,
+    name,
+    time,
+    date,
+    hit,
+    text,
+    situation,
+    observations,
+    suggest_next_visit,
+    suggest_next_visit_description,
+    can_next_visit_go_ahead,
+    can_next_visit_go_ahead_description,
+    description
+  }: LogBookItem,
+  index: number,
+  allItems: LogBookItem[]
+): KeyValueDetail[] => {
   const highlightedText = highlightText([ "hoofdhuurder", "hoofdhuur", "hh" ], text || "", { caseSensitive: false })
   const highlightedDescription = highlightText([ "hoofdhuurder", "hoofdhuur", "hh" ], description || "", { caseSensitive: false })
   const observationTranslationsMap: Record<string, string> = (observationTranslations ?? []).reduce((t: any, c) => {
@@ -138,11 +146,11 @@ const CaseLogBook: React.FC<Props> = ({ caseId }) => {
       return undefined
     }
 
-    // Map apiData to LogBookItems:
+    // Map API data to logbook items
     const logBookItems: LogBookItem[] = [
       ...caseData?.bwv_hotline_bevinding.map(mapBWVToLogBookItem),
       ...caseVisitsData.map(mapVisitToLogbookItem(users.results))
-    ].sort((a,b) => a.sort > b.sort ? -1 : 1)
+    ].sort((a, b) => a.sort > b.sort ? -1 : 1)
 
     // Map to CaseDetail-data components:
     return logBookItems
@@ -152,7 +160,7 @@ const CaseLogBook: React.FC<Props> = ({ caseId }) => {
 
   return <CaseDetailSection
     title="Logboek"
-    data={ items ?? [ isBusy ? <Spinner /> : "-"]}
+    data={ items ?? [ isBusy ? <Spinner /> : "-" ] }
   />
 }
 

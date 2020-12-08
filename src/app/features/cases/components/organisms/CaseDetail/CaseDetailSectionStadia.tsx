@@ -1,6 +1,6 @@
 import React, { FC } from "react"
 
-import { useCase, useDaySettings } from "app/state/rest/index"
+import { useCase, useDaySettings } from "app/state/rest"
 import formatDate from "app/features/shared/utils/formatDate"
 import StadiumBadge from "app/features/shared/components/molecules/StadiumBadge/StadiumBadge"
 import Hr from "app/features/cases/components/atoms/Hr/Hr"
