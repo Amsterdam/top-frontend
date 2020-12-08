@@ -20,7 +20,7 @@ const CaseDetailSectionVacationRental: FC<Props> = ({ caseId }) => {
 
   const { data: daySettings } = useDaySettings(caseData?.day_settings_id!)
 
-  if (!daySettings?.team_settings.show_vakantieverhuur) {
+  if (!daySettings?.team_settings?.show_vakantieverhuur) {
     return null
   }
 
