@@ -4,16 +4,16 @@ import { Link } from "@amsterdam/asc-ui"
 import { useCase } from "app/state/rest"
 import { RelatedCase } from "app/features/types"
 import to from "app/features/shared/routing/to"
-import Hr from "../../atoms/Hr/Hr"
+import Hr from "app/features/cases/components/atoms/Hr/Hr"
 
-import { getCaseCount } from "./utils"
-import CaseDetailSection from "./CaseDetailSection"
+import { getCaseCount } from "../utils"
+import CaseDetailSection from "../CaseDetailSection"
 
 type Props = {
   caseId: string
 }
 
-const CaseDetailSectionRelatedCases: FC<Props> = ({ caseId }) => {
+const RelatedCases: FC<Props> = ({ caseId }) => {
   const { data: caseData } = useCase(caseId)
 
   const relatedCases = caseData?.related_cases
@@ -42,4 +42,4 @@ const CaseDetailSectionRelatedCases: FC<Props> = ({ caseId }) => {
   )
 }
 
-export default CaseDetailSectionRelatedCases
+export default RelatedCases

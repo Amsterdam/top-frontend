@@ -3,14 +3,14 @@ import React, { FC } from "react"
 import { useCase } from "app/state/rest"
 import { BagData, BagDataError } from "app/features/types"
 import MailtoAnchor from "app/features/cases/components/molecules/MailtoAnchor/MailtoAnchor"
-import CaseDetailSection from "./CaseDetailSection"
-import { getAddress, getEigenaar } from "./utils"
+import CaseDetailSection from "../CaseDetailSection"
+import { getAddress, getEigenaar } from "../utils"
 
 type Props = {
   caseId: string
 }
 
-const CaseDetailSectionResidence: FC<Props> = ({ caseId }) => {
+const Residence: FC<Props> = ({ caseId }) => {
   const { data: caseData } = useCase(caseId)
 
   if (!caseData) {
@@ -101,4 +101,4 @@ const CaseDetailSectionResidence: FC<Props> = ({ caseId }) => {
   )
 }
 
-export default CaseDetailSectionResidence
+export default Residence

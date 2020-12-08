@@ -4,13 +4,13 @@ import { useCase, useDaySettings } from "app/state/rest"
 import formatDate from "app/features/shared/utils/formatDate"
 import StadiumBadge from "app/features/shared/components/molecules/StadiumBadge/StadiumBadge"
 import Hr from "app/features/cases/components/atoms/Hr/Hr"
-import CaseDetailSection from "./CaseDetailSection"
+import CaseDetailSection from "../CaseDetailSection"
 
 type Props = {
   caseId: string
 }
 
-const CaseDetailSectionStadia: FC<Props> = ({ caseId }) => {
+const Stadia: FC<Props> = ({ caseId }) => {
   const { data: caseData } = useCase(caseId)
   const { data: daySettings } = useDaySettings(caseData?.day_settings_id!)
 
@@ -48,4 +48,4 @@ const CaseDetailSectionStadia: FC<Props> = ({ caseId }) => {
   )
 }
 
-export default CaseDetailSectionStadia
+export default Stadia

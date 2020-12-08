@@ -6,7 +6,7 @@ import formatDate from "app/features/shared/utils/formatDate"
 import replaceNewLines from "app/features/shared/utils/replaceNewLines"
 import replaceUrls from "app/features/shared/utils/replaceUrls"
 
-import CaseDetailSection from "./CaseDetailSection"
+import CaseDetailSection from "../CaseDetailSection"
 
 type Props = {
   caseId: string

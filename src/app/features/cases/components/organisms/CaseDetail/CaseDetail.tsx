@@ -1,16 +1,16 @@
 import React, { FC } from "react"
 import { Case } from "app/features/types"
 
-import CaseDetailSectionGeneral from "./CaseDetailSectionGeneral"
-import CaseDetailSectionLogbook from "./CaseDetailSectionLogbook"
-import CaseDetailSectionRelatedCases from "./CaseDetailSectionRelatedCases"
-import CaseDetailSectionResidence from "./CaseDetailSectionResidence"
-import CaseDetailSectionResidents from "./CaseDetailSectionResidents"
-import CaseDetailSectionScratchpad from "./CaseDetailSectionScratchpad"
-import CaseDetailSectionSignal from "./CaseDetailSectionSignal"
-import CaseDetailSectionStadia from "./CaseDetailSectionStadia"
-import CaseDetailSectionVacationRental from "./CaseDetailSectionVacationRental"
-import CaseDetailSectionVacationRentalThisYear from "./CaseDetailSectionVacationRentalThisYear"
+import General from "./sections/General"
+import Logbook from "./sections/Logbook"
+import RelatedCases from "./sections/RelatedCases"
+import Residence from "./sections/Residence"
+import Residents from "./sections/Residents"
+import Scratchpad from "./sections/Scratchpad"
+import Signal from "./sections/Signal"
+import Stadia from "./sections/Stadia"
+import VacationRental from "./sections/VacationRental"
+import VacationRentalThisYear from "./sections/VacationRentalThisYear"
 
 type Props = {
   caseId: string
@@ -19,16 +19,16 @@ type Props = {
 
 const CaseDetail: FC<Props> = ({ caseId, caseItem }) => (
   <article className="CaseDetail">
-    <CaseDetailSectionGeneral caseId={ caseId } />
-    <CaseDetailSectionRelatedCases caseId={ caseId } />
-    <CaseDetailSectionVacationRental caseId={ caseId } />
-    <CaseDetailSectionResidence caseId={ caseId } />
-    <CaseDetailSectionSignal caseId={ caseId } />
-    <CaseDetailSectionResidents caseId={ caseId } />
-    <CaseDetailSectionVacationRentalThisYear caseId={ caseId } />
-    <CaseDetailSectionLogbook caseId={ caseId } />
-    <CaseDetailSectionScratchpad caseId={ caseId } />
-    <CaseDetailSectionStadia caseId={ caseId } />
+    <General caseId={ caseId } />
+    <RelatedCases caseId={ caseId } />
+    <VacationRental caseId={ caseId } />
+    <Residence caseId={ caseId } />
+    <Signal caseId={ caseId } />
+    <Residents caseId={ caseId } />
+    <VacationRentalThisYear caseId={ caseId } />
+    <Logbook caseId={ caseId } />
+    <Scratchpad caseId={ caseId } />
+    <Stadia caseId={ caseId } />
   </article>
 )
 

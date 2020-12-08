@@ -3,13 +3,13 @@ import React, { FC } from "react"
 import { useCase } from "app/state/rest"
 import formatDate from "app/features/shared/utils/formatDate"
 import Hr from "app/features/cases/components/atoms/Hr/Hr"
-import CaseDetailSection from "./CaseDetailSection"
+import CaseDetailSection from "../CaseDetailSection"
 
 type Props = {
   caseId: string
 }
 
-const CaseDetailSectionVacationRentalThisYear: FC<Props> = ({ caseId }) => {
+const VacationRentalThisYear: FC<Props> = ({ caseId }) => {
   const { data: caseData } = useCase(caseId)
 
   const notifiedRentals = caseData?.vakantie_verhuur.notified_rentals
@@ -35,4 +35,4 @@ const CaseDetailSectionVacationRentalThisYear: FC<Props> = ({ caseId }) => {
   )
 }
 
-export default CaseDetailSectionVacationRentalThisYear
+export default VacationRentalThisYear

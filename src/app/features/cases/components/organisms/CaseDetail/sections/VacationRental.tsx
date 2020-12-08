@@ -5,13 +5,13 @@ import ScrollToAnchor from "app/features/shared/components/molecules/ScrollToAnc
 import { BrkData } from "app/features/types"
 import isBetweenDates from "app/features/shared/utils/isBetweenDates"
 import formatDateRange from "app/features/shared/utils/formatDateRange"
-import CaseDetailSection from "./CaseDetailSection"
+import CaseDetailSection from "../CaseDetailSection"
 
 type Props = {
   caseId: string
 }
 
-const CaseDetailSectionVacationRental: FC<Props> = ({ caseId }) => {
+const VacationRental: FC<Props> = ({ caseId }) => {
   const { data: caseData } = useCase(caseId)
 
   const bagId = (caseData?.brk_data as BrkData).bag_id ?? ""
@@ -51,4 +51,4 @@ const CaseDetailSectionVacationRental: FC<Props> = ({ caseId }) => {
   )
 }
 
-export default CaseDetailSectionVacationRental
+export default VacationRental

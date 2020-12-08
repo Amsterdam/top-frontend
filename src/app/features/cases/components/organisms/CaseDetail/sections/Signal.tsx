@@ -8,8 +8,8 @@ import replaceUrls from "app/features/shared/utils/replaceUrls"
 import highlightText from "app/features/shared/utils/highlightText"
 import Purified from "app/features/shared/components/molecules/Purified/Purified"
 import { KeyValueDetail } from "app/features/types"
-import CaseDetailSection from "./CaseDetailSection"
-import { HrSpaced } from "./CaseDetailSectionStyles"
+import CaseDetailSection from "../CaseDetailSection"
+import { HrSpaced } from "../CaseDetailSectionStyles"
 
 type Props = {
   caseId: string
@@ -19,7 +19,7 @@ const P = styled.p`
   margin: 0 0 8px;
 `
 
-const CaseDetailSectionSignal: FC<Props> = ({ caseId }) => {
+const Signal: FC<Props> = ({ caseId }) => {
   const { data: caseData } = useCase(caseId)
 
   if (!caseData?.bwv_hotline_melding.length) {
@@ -71,4 +71,4 @@ const CaseDetailSectionSignal: FC<Props> = ({ caseId }) => {
   )
 }
 
-export default CaseDetailSectionSignal
+export default Signal

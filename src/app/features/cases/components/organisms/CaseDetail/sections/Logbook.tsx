@@ -11,9 +11,9 @@ import replaceNewLines from "app/features/shared/utils/replaceNewLines"
 import Hr from "app/features/cases/components/atoms/Hr/Hr"
 import Purified from "app/features/shared/components/molecules/Purified/Purified"
 
-import CaseDetailSection from "./CaseDetailSection"
-import CaseDetailSectionLogbookList from "./CaseDetailSectionLogbookList"
-import { isNullish, mapLogbookValue } from "./utils"
+import CaseDetailSection from "../CaseDetailSection"
+import List from "../List"
+import { isNullish, mapLogbookValue } from "../utils"
 
 type Props = {
   caseId: string
@@ -117,7 +117,7 @@ const mapLogBookItemToDetailComponents = (observationTranslations: Components.Sc
     [ "Datum", date ],
     !isNullish(hit) && [ "Hit", hit ],
     !isNullish(situation) && [ "Situatie", mapLogbookValue(situation) ],
-    !isNullish(observations) && [ "Kenmerken", <CaseDetailSectionLogbookList items={ observations.map(translateObservation) } /> ],
+    !isNullish(observations) && [ "Kenmerken", <List items={ observations.map(translateObservation) } /> ],
     !isNullish(suggest_next_visit) && [ "Volgend bezoek", translateSuggestNextVisits(suggest_next_visit) ],
     !isNullish(suggest_next_visit_description) &&
     <Purified className="anonymous" text={ suggest_next_visit_description } />,
@@ -130,7 +130,7 @@ const mapLogBookItemToDetailComponents = (observationTranslations: Components.Sc
   ].filter(_ => !!_)
 }
 
-const CaseDetailSectionLogbook: React.FC<Props> = ({ caseId }) => {
+const Logbook: React.FC<Props> = ({ caseId }) => {
   const { data: caseData, isBusy: isCaseBusy } = useCase(caseId)
   const { data: caseVisitsData, isBusy: isVisitsBusy } = useCaseVisits(caseId)
   const { data: suggestNextVisits, isBusy: isSuggestNextVisitBusy } = useSuggestNextVisit()
@@ -165,4 +165,4 @@ const CaseDetailSectionLogbook: React.FC<Props> = ({ caseId }) => {
   )
 }
 
-export default CaseDetailSectionLogbook
+export default Logbook

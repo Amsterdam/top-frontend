@@ -5,7 +5,7 @@ import { useCase } from "app/state/rest"
 import formatDate from "app/features/shared/utils/formatDate"
 import Span from "app/features/cases/components/atoms/Span/Span"
 import Hr from "app/features/cases/components/atoms/Hr/Hr"
-import CaseDetailSection from "./CaseDetailSection"
+import CaseDetailSection from "../CaseDetailSection"
 
 type Props = {
   caseId: string
@@ -20,7 +20,7 @@ const mapPerson = (person: BWVPersoon) => ({
   sex: person.geslacht
 })
 
-const CaseDetailSectionResidents: FC<Props> = ({ caseId }) => {
+const Residents: FC<Props> = ({ caseId }) => {
   const { data: caseData } = useCase(caseId)
 
   const persons = Array.isArray(caseData?.bwv_personen) ? caseData?.bwv_personen.map(mapPerson) : []
@@ -57,4 +57,4 @@ const CaseDetailSectionResidents: FC<Props> = ({ caseId }) => {
   )
 }
 
-export default CaseDetailSectionResidents
+export default Residents

@@ -7,13 +7,13 @@ import { useCase, useDaySettings } from "app/state/rest"
 import FraudProbability from "app/features/shared/components/atoms/FraudProbability/FraudProbability"
 import ScrollToAnchor from "app/features/shared/components/molecules/ScrollToAnchor/ScrollToAnchor"
 import StadiumBadge from "app/features/shared/components/molecules/StadiumBadge/StadiumBadge"
-import InvalidDataSpan from "../../atoms/InvalidDataSpan/InvalidDataSpan"
-import Label from "../../atoms/Label/Label"
-import FraudPredictionDetailsModal from "../FraudPrediction/FraudPredictionDetailsModal"
-import { useFraudPredictionModal } from "../FraudPrediction/hooks/useFraudPredictionModal"
+import InvalidDataSpan from "app/features/cases/components/atoms/InvalidDataSpan/InvalidDataSpan"
+import Label from "app/features/cases/components/atoms/Label/Label"
+import FraudPredictionDetailsModal from "app/features/cases/components/organisms/FraudPrediction/FraudPredictionDetailsModal"
+import { useFraudPredictionModal } from "app/features/cases/components/organisms/FraudPrediction/hooks/useFraudPredictionModal"
 
-import { getAddress, getCaseCount, getEigenaar } from "./utils"
-import { CenteredAnchor, Section, SectionRow } from "./CaseDetailSectionStyles"
+import { getAddress, getCaseCount, getEigenaar } from "../utils"
+import { CenteredAnchor, Section, SectionRow } from "../CaseDetailSectionStyles"
 
 type Props = {
   caseId: string
@@ -37,7 +37,7 @@ const Span = styled.span`
   vertical-align: top;
 `
 
-const CaseDetailSectionGeneral: FC<Props> = ({ caseId }) => {
+const General: FC<Props> = ({ caseId }) => {
   const { data: caseData } = useCase(caseId)
   const { data: daySettings } = useDaySettings(caseData?.day_settings_id!)
   const { getUrl: getToFraudPredictionModalUrl } = useFraudPredictionModal()
@@ -129,4 +129,4 @@ const CaseDetailSectionGeneral: FC<Props> = ({ caseId }) => {
   )
 }
 
-export default CaseDetailSectionGeneral
+export default General
