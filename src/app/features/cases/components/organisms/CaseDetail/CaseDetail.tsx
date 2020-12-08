@@ -3,21 +3,17 @@ import React, { FC } from "react"
 import { useDaySettings } from "app/state/rest"
 import { Case } from "app/features/types"
 
-import formatDate from "app/features/shared/utils/formatDate"
-import replaceNewLines from "app/features/shared/utils/replaceNewLines"
-import replaceUrls from "app/features/shared/utils/replaceUrls"
-import Purified from "app/features/shared/components/molecules/Purified/Purified"
-
-import CaseDetailSection from "./CaseDetailSection"
 import CaseDetailSectionGeneral from "./CaseDetailSectionGeneral"
 import CaseDetailSectionRelatedCases from "./CaseDetailSectionRelatedCases"
+import CaseDetailSectionResidence from "./CaseDetailSectionResidence"
+import CaseDetailSectionResidents from "./CaseDetailSectionResidents"
+import CaseDetailSectionScratchpad from "./CaseDetailSectionScratchpad"
+import CaseDetailSectionSignal from "./CaseDetailSectionSignal"
+import CaseDetailSectionStadia from "./CaseDetailSectionStadia"
 import CaseDetailSectionVacationRental from "./CaseDetailSectionVacationRental"
 import CaseDetailSectionVacationRentalThisYear from "./CaseDetailSectionVacationRentalThisYear"
-import CaseDetailSectionStadia from "./CaseDetailSectionStadia"
-import CaseDetailSectionSignal from "./CaseDetailSectionSignal"
-import CaseDetailSectionResidents from "./CaseDetailSectionResidents"
-import CaseDetailSectionResidence from "./CaseDetailSectionResidence"
 import CaseLogBook from "../CaseLogbook/CaseLogBook"
+
 import { getAddress, getEigenaar } from "./utils"
 
 type Props = {
@@ -35,16 +31,6 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
   const isSia = (caseItem.is_sia === "J")
   const postalCode = caseItem.import_adres.postcode
   const residentCount = caseItem.bwv_personen.filter(person => person.overlijdensdatum === null).length || 0
-
-  // Statements
-  const statements = caseItem.statements.map(
-    ({ user, date, statement }) =>
-      <Purified
-        className="anonymous"
-        text={ `${ formatDate(date, true) }<br /><strong>${ user }</strong><br />${ replaceNewLines(replaceUrls(statement)) }` }
-      />
-  )
-  const showStatements = statements.length > 0
 
   return (
     <article className="CaseDetail">
@@ -82,13 +68,9 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => {
       <CaseLogBook
         caseId={ caseId }
       />
-      {
-        showStatements &&
-        <CaseDetailSection
-          title="Mededelingen (kladblok)"
-          dataSource="BWV"
-          data={ statements } />
-      }
+      <CaseDetailSectionScratchpad
+        caseId={ caseId }
+      />
       <CaseDetailSectionStadia
         caseId={ caseId }
       />
