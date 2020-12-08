@@ -2,6 +2,7 @@ import React, { FC } from "react"
 import { Case } from "app/features/types"
 
 import CaseDetailSectionGeneral from "./CaseDetailSectionGeneral"
+import CaseDetailSectionLogbook from "./CaseDetailSectionLogbook"
 import CaseDetailSectionRelatedCases from "./CaseDetailSectionRelatedCases"
 import CaseDetailSectionResidence from "./CaseDetailSectionResidence"
 import CaseDetailSectionResidents from "./CaseDetailSectionResidents"
@@ -10,7 +11,6 @@ import CaseDetailSectionSignal from "./CaseDetailSectionSignal"
 import CaseDetailSectionStadia from "./CaseDetailSectionStadia"
 import CaseDetailSectionVacationRental from "./CaseDetailSectionVacationRental"
 import CaseDetailSectionVacationRentalThisYear from "./CaseDetailSectionVacationRentalThisYear"
-import CaseLogBook from "../CaseLogbook/CaseLogBook"
 
 type Props = {
   caseId: string
@@ -26,7 +26,7 @@ const CaseDetail: FC<Props> = ({ caseId, caseItem }) => (
     <CaseDetailSectionSignal caseId={ caseId } />
     <CaseDetailSectionResidents caseId={ caseId } />
     <CaseDetailSectionVacationRentalThisYear caseId={ caseId } />
-    <CaseLogBook caseId={ caseId } />
+    <CaseDetailSectionLogbook caseId={ caseId } />
     <CaseDetailSectionScratchpad caseId={ caseId } />
     <CaseDetailSectionStadia caseId={ caseId } />
   </article>

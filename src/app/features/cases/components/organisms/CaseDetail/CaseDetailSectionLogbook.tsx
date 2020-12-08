@@ -5,16 +5,15 @@ import { useCase, useCaseVisits, useObservations, useSuggestNextVisit, useUsers 
 import { BWVHotlineBevinding, KeyValueDetail } from "app/features/types"
 
 import formatDate from "app/features/shared/utils/formatDate"
+import { formatTime } from "app/features/shared/utils/formatTime"
 import highlightText from "app/features/shared/utils/highlightText"
 import replaceNewLines from "app/features/shared/utils/replaceNewLines"
-import Purified from "app/features/shared/components/molecules/Purified/Purified"
-import { formatTime } from "app/features/shared/utils/formatTime"
-
-import CaseDetailSection from "../CaseDetail/CaseDetailSection"
 import Hr from "app/features/cases/components/atoms/Hr/Hr"
+import Purified from "app/features/shared/components/molecules/Purified/Purified"
 
-import { isNullish, translate } from "./util"
-import List from "./List"
+import CaseDetailSection from "./CaseDetailSection"
+import CaseDetailSectionLogbookList from "./CaseDetailSectionLogbookList"
+import { isNullish, mapLogbookValue } from "./utils"
 
 type Props = {
   caseId: string
@@ -117,8 +116,8 @@ const mapLogBookItemToDetailComponents = (observationTranslations: Components.Sc
     [ "Starttijd", `${ time } uur` ],
     [ "Datum", date ],
     !isNullish(hit) && [ "Hit", hit ],
-    !isNullish(situation) && [ "Situatie", translate(situation) ],
-    !isNullish(observations) && [ "Kenmerken", <List items={ observations.map(translateObservation) } /> ],
+    !isNullish(situation) && [ "Situatie", mapLogbookValue(situation) ],
+    !isNullish(observations) && [ "Kenmerken", <CaseDetailSectionLogbookList items={ observations.map(translateObservation) } /> ],
     !isNullish(suggest_next_visit) && [ "Volgend bezoek", translateSuggestNextVisits(suggest_next_visit) ],
     !isNullish(suggest_next_visit_description) &&
     <Purified className="anonymous" text={ suggest_next_visit_description } />,
@@ -131,7 +130,7 @@ const mapLogBookItemToDetailComponents = (observationTranslations: Components.Sc
   ].filter(_ => !!_)
 }
 
-const CaseLogBook: React.FC<Props> = ({ caseId }) => {
+const CaseDetailSectionLogbook: React.FC<Props> = ({ caseId }) => {
   const { data: caseData, isBusy: isCaseBusy } = useCase(caseId)
   const { data: caseVisitsData, isBusy: isVisitsBusy } = useCaseVisits(caseId)
   const { data: suggestNextVisits, isBusy: isSuggestNextVisitBusy } = useSuggestNextVisit()
@@ -158,10 +157,12 @@ const CaseLogBook: React.FC<Props> = ({ caseId }) => {
       .flat()
   }, [ caseData, caseVisitsData, users, observations, suggestNextVisits ])
 
-  return <CaseDetailSection
-    title="Logboek"
-    data={ items ?? [ isBusy ? <Spinner /> : "-" ] }
-  />
+  return (
+    <CaseDetailSection
+      title="Logboek"
+      data={ items ?? [ isBusy ? <Spinner /> : "-" ] }
+    />
+  )
 }
 
-export default CaseLogBook
+export default CaseDetailSectionLogbook

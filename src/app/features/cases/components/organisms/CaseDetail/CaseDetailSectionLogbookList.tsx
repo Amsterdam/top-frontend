@@ -16,7 +16,7 @@ const Li = styled.li`
   list-style: none;
 `
 
-const List: React.FC<Props> = ({ items }) => (
+const CaseDetailSectionLogbookList: React.FC<Props> = ({ items }) => (
   <Ul>
     { items.map(item =>
       <Li key={ item }>
@@ -26,4 +26,4 @@ const List: React.FC<Props> = ({ items }) => (
   </Ul>
 )
 
-export default List
+export default CaseDetailSectionLogbookList
