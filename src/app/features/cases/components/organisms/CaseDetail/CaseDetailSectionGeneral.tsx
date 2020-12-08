@@ -3,8 +3,7 @@ import styled from "styled-components"
 import { Link } from "@reach/router"
 import { Heading, themeSpacing } from "@amsterdam/asc-ui"
 
-import { useCase } from "app/state/rest"
-import { FraudPrediction } from "app/features/types"
+import { useCase, useDaySettings } from "app/state/rest"
 import FraudProbability from "app/features/shared/components/atoms/FraudProbability/FraudProbability"
 import ScrollToAnchor from "app/features/shared/components/molecules/ScrollToAnchor/ScrollToAnchor"
 import StadiumBadge from "app/features/shared/components/molecules/StadiumBadge/StadiumBadge"
@@ -13,23 +12,11 @@ import Label from "../../atoms/Label/Label"
 import FraudPredictionDetailsModal from "../FraudPrediction/FraudPredictionDetailsModal"
 import { useFraudPredictionModal } from "../FraudPrediction/hooks/useFraudPredictionModal"
 
-import { getCaseCount } from "./utils"
+import { getAddress, getCaseCount, getEigenaar } from "./utils"
 import { CenteredAnchor, Section, SectionRow } from "./CaseDetailSectionStyles"
 
 type Props = {
-  address: string
-  caseCount?: number
   caseId: string
-  eigenaar?: string
-  footer?: {
-    link: string
-    title: string
-  }
-  fraudPrediction?: FraudPrediction
-  isSia: boolean
-  postalCode: string
-  residentCount: number
-  signal?: string
 }
 
 const PostalCode = styled.p`
@@ -50,31 +37,29 @@ const Span = styled.span`
   vertical-align: top;
 `
 
-const CaseDetailSectionGeneral: FC<Props> = (
-  {
-    address,
-    caseId,
-    eigenaar,
-    footer,
-    fraudPrediction,
-    isSia,
-    residentCount,
-    postalCode
-  }
-) => {
+const CaseDetailSectionGeneral: FC<Props> = ({ caseId }) => {
   const { data: caseData } = useCase(caseId)
+  const { data: daySettings } = useDaySettings(caseData?.day_settings_id!)
+  const { getUrl: getToFraudPredictionModalUrl } = useFraudPredictionModal()
+
+  if (!caseData) {
+    return null
+  }
 
   const caseCount = getCaseCount(caseData)
-  const caseNumber = caseData?.bwv_tmp.case_number !== null ? parseInt(caseData?.bwv_tmp.case_number || "", 10) : undefined
-  const caseOpening = caseData?.bwv_tmp.openings_reden !== null ? caseData?.bwv_tmp.openings_reden : undefined
-  const openCaseCount = caseData?.bwv_tmp.num_open_cases !== null ? caseData?.bwv_tmp.num_open_cases : undefined
+  const caseNumber = caseData.bwv_tmp.case_number !== null ? parseInt(caseData.bwv_tmp.case_number || "", 10) : undefined
+  const caseOpening = caseData.bwv_tmp.openings_reden !== null ? caseData.bwv_tmp.openings_reden : undefined
+  const openCaseCount = caseData.bwv_tmp.num_open_cases !== null ? caseData.bwv_tmp.num_open_cases : undefined
 
-  const stadiaLabels = caseData?.import_stadia.map(stadium => ({ description: stadium.sta_oms }))
+  const address = getAddress(caseData.import_adres)
+  const eigenaar = getEigenaar(caseData)
+  const fraudPrediction = !caseData.day_settings_id || (daySettings && daySettings.team_settings.fraud_predict) ? caseData.fraud_prediction : undefined
+  const isSia = (caseData.is_sia === "J")
+  const postalCode = caseData.import_adres.postcode
+  const residentCount = caseData.bwv_personen.filter(person => person.overlijdensdatum === null).length || 0
+
+  const stadiaLabels = caseData.import_stadia.map(stadium => ({ description: stadium.sta_oms }))
   const lastStadiumLabel = stadiaLabels?.length ? stadiaLabels[0].description : undefined
-
-  const showFooter = footer !== undefined
-
-  const { getUrl: getToFraudPredictionModalUrl } = useFraudPredictionModal()
 
   const residentsText =
     residentCount === 0 ? "Geen inschrijvingen" :
@@ -135,11 +120,11 @@ const CaseDetailSectionGeneral: FC<Props> = (
         </div>
         }
       </SectionRow>
-      { showFooter &&
       <SectionRow>
-        <CenteredAnchor href={ footer!.link }>{ footer!.title }</CenteredAnchor>
+        <CenteredAnchor href={ `http://www.google.com/maps/place/${ address }, Amsterdam` }>
+          Bekijk op Google Maps
+        </CenteredAnchor>
       </SectionRow>
-      }
     </Section>
   )
 }
