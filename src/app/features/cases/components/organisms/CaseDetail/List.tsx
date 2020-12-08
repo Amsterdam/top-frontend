@@ -14,6 +14,7 @@ const Ul = styled.ul`
 
 const Li = styled.li`
   list-style: none;
+  margin: 0 0 ${ themeSpacing(2) } 0;
 `
 
 const List: React.FC<Props> = ({ items }) => (
