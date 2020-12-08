@@ -10,7 +10,7 @@ import replaceNewLines from "app/features/shared/utils/replaceNewLines"
 import Purified from "app/features/shared/components/molecules/Purified/Purified"
 import { formatTime } from "app/features/shared/utils/formatTime"
 
-import CaseDetailSection from "app/features/cases/components/organisms/CaseDetail/CaseDetailSection"
+import CaseDetailSection from "../CaseDetail/CaseDetailSection"
 import Hr from "app/features/cases/components/atoms/Hr/Hr"
 
 import { isNullish, translate } from "./util"

@@ -1,11 +1,11 @@
 import React, { FC } from "react"
 
 import { useCase, useDaySettings, usePermitCheckmarks, usePermitDetails } from "app/state/rest"
-import CaseDetailSection from "app/features/cases/components/organisms/CaseDetail/CaseDetailSection"
 import ScrollToAnchor from "app/features/shared/components/molecules/ScrollToAnchor/ScrollToAnchor"
 import { BrkData } from "app/features/types"
 import isBetweenDates from "app/features/shared/utils/isBetweenDates"
 import formatDateRange from "app/features/shared/utils/formatDateRange"
+import CaseDetailSection from "./CaseDetailSection"
 
 type Props = {
   caseId: string
