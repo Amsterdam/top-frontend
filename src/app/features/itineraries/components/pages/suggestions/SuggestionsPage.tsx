@@ -28,7 +28,7 @@ const SuggestionsPage: React.FC<RouteComponentProps<Props>> = ({ itineraryId }) 
     { items.length > 0
       ? <ItineraryItemCardList items={ items } />
       : !isBusy
-        ? <p>Geen resultaat</p>
+        ? <p>Geen resultaten gevonden.</p>
         : null
     }
   </DefaultLayout>

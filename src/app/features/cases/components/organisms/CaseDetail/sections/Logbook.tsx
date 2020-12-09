@@ -157,16 +157,18 @@ const Logbook: React.FC<Props> = ({ caseId }) => {
       ...caseVisitsData.map(mapVisitToLogbookItem(users.results))
     ].sort((a, b) => a.sort > b.sort ? -1 : 1)
 
-    // Map to CaseDetail data components
-    return logbookItems
+    // Map to array of KeyValueDetails
+    const details = logbookItems
       .map(mapLogbookItemToDetailComponents(observations?.results!, suggestNextVisits?.results!))
       .flat()
+
+    return details.length ? details : [ "Geen notities." ]
   }, [ caseData, caseVisitsData, users, observations, suggestNextVisits ])
 
   return (
     <CaseDetailSection
       title="Logboek"
-      data={ items ?? [ isBusy ? <Spinner /> : "-" ] }
+      data={ isBusy ? [ <Spinner /> ] : items! }
     />
   )
 }
