@@ -1,16 +1,14 @@
 import React, { FC } from "react"
 import styled from "styled-components"
-
 import { Heading, themeColor } from "@amsterdam/asc-ui"
 
 import displayBoolean from "app/features/shared/utils/displayBoolean"
-
 import Label from "app/features/cases/components/atoms/Label/Label"
-import InvalidDataSpan from "app/features/cases/components/atoms/InvalidDataSpan/InvalidDataSpan"
+import InvalidValue from "app/features/cases/components/atoms/Value/InvalidValue"
 import { KeyValueDetail } from "app/features/types"
 
-import { CenteredAnchor, Grid, Section, SectionRow, SpanColumns } from "./CaseDetailSectionStyles"
 import Hr from "../../atoms/Hr/Hr"
+import { CenteredAnchor, Grid, Section, SectionRow, SpanColumns } from "./CaseDetailSectionStyles"
 
 type Props = {
   id?: string
@@ -63,7 +61,7 @@ const CaseDetailSection: FC<Props> = ({ id, dataSource, title, data, footer }) =
               { hasLabel ?
                 <>
                   <Label>{ key }</Label>
-                  { (value == null) ? <InvalidDataSpan /> : <span>{ value }</span> }
+                  { (value == null) ? <InvalidValue /> : <span>{ value }</span> }
                 </>
                 :
                 <SpanColumns key={ String(key) + index }>{ value }</SpanColumns>

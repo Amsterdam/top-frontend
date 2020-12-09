@@ -7,7 +7,7 @@ import { useCase, useDaySettings } from "app/state/rest"
 import FraudProbability from "app/features/shared/components/atoms/FraudProbability/FraudProbability"
 import ScrollToAnchor from "app/features/shared/components/molecules/ScrollToAnchor/ScrollToAnchor"
 import StadiumBadge from "app/features/shared/components/molecules/StadiumBadge/StadiumBadge"
-import InvalidDataSpan from "app/features/cases/components/atoms/InvalidDataSpan/InvalidDataSpan"
+import InvalidValue from "app/features/cases/components/atoms/Value/InvalidValue"
 import Label from "app/features/cases/components/atoms/Label/Label"
 import FraudPredictionDetailsModal
   from "app/features/cases/components/organisms/FraudPrediction/FraudPredictionDetailsModal"
@@ -85,17 +85,17 @@ const General: FC<Props> = ({ caseId }) => {
           <Label>Zaaknummer</Label>
           { caseNumber !== undefined && caseCount !== undefined
             ? <Span><strong>{ caseNumber }</strong> van { caseCount }</Span>
-            : <InvalidDataSpan />
+            : <InvalidValue />
           }
           <Label>Open zaken</Label>
           { openCaseCount !== undefined
             ? <Span>{ openCaseCount }</Span>
-            : <InvalidDataSpan />
+            : <InvalidValue />
           }
           <Label>Openingsreden</Label>
           { caseOpening !== undefined
             ? <Span>{ caseOpening }</Span>
-            : <InvalidDataSpan />
+            : <InvalidValue />
           }
           <Label>Eigenaar</Label>
           { eigenaar !== undefined
