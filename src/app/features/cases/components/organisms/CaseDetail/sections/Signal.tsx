@@ -48,11 +48,11 @@ const Signal: FC<Props> = ({ caseId }) => {
     const { datum, anoniem, naam, telnr, text } = item
     const highlightedText = highlightText([ "hoofdhuurder", "hoofdhuur", "hh" ], text, { caseSensitive: false })
 
-    acc.push([ "Datum melding", datum || "-" ])
+    acc.push([ "Datum melding", datum || "–" ])
     acc.push([ "Anonieme melding", anoniem ])
-    acc.push([ "Melder", <P className="anonymous"> { naam }</P> || "-" ])
+    acc.push([ "Melder", <P className="anonymous"> { naam }</P> || "–" ])
     acc.push([ "Melder telefoonnummer", telnr ?
-      <a className="anonymous" href={ "tel://" + telnr }>{ telnr }</a> : "-" ])
+      <a className="anonymous" href={ "tel://" + telnr }>{ telnr }</a> : "–" ])
     acc.push(<Purified className="anonymous" text={ highlightedText } />)
 
     if (index < meldingen.length - 1) {
@@ -66,7 +66,7 @@ const Signal: FC<Props> = ({ caseId }) => {
     <CaseDetailSection
       title="Meldingen / aanleiding"
       dataSource="BWV"
-      data={ meldingenData.length ? meldingenData : [ "-" ] }
+      data={ meldingenData.length ? meldingenData : [ "–" ] }
     />
   )
 }

@@ -57,7 +57,7 @@ const LoadingRows: React.FC<LoadingRowsProps> = ({ numRows }) => <>
 </>
 
 const castValue = (value: Value): string|JSX.Element => {
-  if (value == null) return "-"
+  if (value == null) return "–"
   if (typeof value === "number") return `${ value }`
   return value
 }
@@ -86,7 +86,7 @@ const DefinitionList: React.FC<Props> = ({ isLoading, numLoadingRows, numInitial
                 .map(([key, value]) => (
                   <div key={key}>
                     <dt>{ key }</dt>
-                    <dd>{ castValue(value) || "-" }</dd>
+                    <dd>{ castValue(value) || "–" }</dd>
                   </div>
                 )) }
             </>

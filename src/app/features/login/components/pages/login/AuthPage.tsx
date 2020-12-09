@@ -12,10 +12,10 @@ const AuthPage: React.FC = () => {
   const showUnauthorized = data?.isAuthorized === false
 
   const values = {
-    Naam: keycloak.tokenParsed?.name ?? "-",
-    "E-mail": keycloak.tokenParsed?.email ?? "-",
-    Gebruikersnaam: keycloak.tokenParsed?.preferred_username ?? "-",
-    "Keycloak groepen": keycloak.realmAccess?.roles.join(", ") ?? "-"
+    Naam: keycloak.tokenParsed?.name ?? "–",
+    "E-mail": keycloak.tokenParsed?.email ?? "–",
+    Gebruikersnaam: keycloak.tokenParsed?.preferred_username ?? "–",
+    "Keycloak groepen": keycloak.realmAccess?.roles.join(", ") ?? "–"
   }
 
   return (
