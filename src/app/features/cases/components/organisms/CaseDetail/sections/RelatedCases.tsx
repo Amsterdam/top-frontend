@@ -1,5 +1,5 @@
 import React, { FC } from "react"
-import { Link } from "@amsterdam/asc-ui"
+import { Link } from "@reach/router"
 
 import { useCase } from "app/state/rest"
 import { RelatedCase } from "app/features/types"
