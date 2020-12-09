@@ -36,7 +36,7 @@ const OpenIssuesPage: React.FC = () => {
         :
         <>
           <Heading>Open issuemeldingen { date }</Heading>
-          <p>Geen issuemeldingen beschikbaar</p>
+          <p>Geen issuemeldingen beschikbaar.</p>
         </>
       }
     </DefaultLayout>

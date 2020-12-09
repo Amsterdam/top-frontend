@@ -47,7 +47,7 @@ const StartAddressSearchResults: React.FC<Props> = ({ handleAddButtonClick, post
       ? <CenteredSpinner size={60} />
       : items && items.length > 0
           ? <ItineraryItemCardList items={items} />
-          : <p>Geen resultaten gevonden</p>
+          : <p>Geen resultaten gevonden.</p>
 }
 
 export default StartAddressSearchResults

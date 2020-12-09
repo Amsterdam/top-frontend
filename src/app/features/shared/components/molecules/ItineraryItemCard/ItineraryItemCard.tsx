@@ -87,8 +87,7 @@ const ItineraryItemCard: React.FC<Props> = (
     notes,
     postalCode,
     reason
-  }
-) => {
+  }) => {
   const [ isBeingDeleted, setIsBeingDeleted ] = useState(false)
   const setBeingDeleted = useCallback(() => setIsBeingDeleted(true), [ setIsBeingDeleted ])
 

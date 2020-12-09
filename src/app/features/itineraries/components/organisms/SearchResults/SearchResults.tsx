@@ -25,7 +25,7 @@ const SearchResults: React.FC<Props> = ({ postalCode, streetName, streetNumber, 
   return items.length > 0
     ? <ItineraryItemCardList items={items}/>
     : !isBusy
-      ? <p>Geen resultaat</p>
+      ? <p>Geen resultaat.</p>
       : null
 }
 

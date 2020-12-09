@@ -1,7 +1,7 @@
 import React, { useEffect } from "react"
 
 import DefaultModal from "app/features/shared/components/organisms/Modal/DefaultModal"
-import Case from "app/features/cases/components/organisms/CaseDetail/CaseDetail"
+import CaseDetail from "app/features/cases/components/organisms/CaseDetail/CaseDetail"
 
 import { useCase } from "app/state/rest"
 import { useCaseModal } from "../../hooks/useCaseModal"
@@ -22,11 +22,13 @@ const CaseModal: React.FC = () => {
   }
 
   return (
-    <DefaultModal title='Zaakinformatie'>
-      { data ? <Case caseId={id as string} caseItem={data}/> : <CenteredSpinner size={60} /> }
+    <DefaultModal title="Zaakinformatie">
+      { data
+        ? <CaseDetail caseId={ id as string } />
+        : <CenteredSpinner size={ 60 } />
+      }
     </DefaultModal>
   )
 }
-
 
 export default CaseModal

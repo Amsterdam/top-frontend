@@ -9,7 +9,7 @@ import Label from "app/features/cases/components/atoms/Label/Label"
 import InvalidDataSpan from "app/features/cases/components/atoms/InvalidDataSpan/InvalidDataSpan"
 import { KeyValueDetail } from "app/features/types"
 
-import { CenteredAnchor, Section, SectionRow } from "./CaseDetailStyles"
+import { CenteredAnchor, Section, SectionRow } from "./CaseDetailSectionStyles"
 import Hr from "../../atoms/Hr/Hr"
 
 type Props = {
@@ -17,15 +17,17 @@ type Props = {
   title?: string
   dataSource?: string
   data: KeyValueDetail[]
-  footer?: {title: string, link: string}
+  footer?: { title: string, link: string }
 }
 
 const Div = styled.div`
   display: flex;
 `
+
 const P = styled.p`
   margin: 0 0 8px;
 `
+
 const SourceInfo = styled.p`
   margin-top: 0;
   margin-bottom: 15px;
