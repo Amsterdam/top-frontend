@@ -22,11 +22,11 @@ const P = styled.p`
 const Signal: FC<Props> = ({ caseId }) => {
   const { data: caseData } = useCase(caseId)
 
-  if (!caseData?.bwv_hotline_melding.length) {
+  if (!caseData || !caseData.bwv_hotline_melding.length) {
     return null
   }
 
-  const meldingen = caseData?.bwv_hotline_melding.map(melding => {
+  const meldingen = caseData.bwv_hotline_melding.map(melding => {
     const {
       melding_datum: datum,
       melding_anoniem: anoniem,

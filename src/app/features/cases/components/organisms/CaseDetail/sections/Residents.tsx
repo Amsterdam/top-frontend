@@ -23,7 +23,11 @@ const mapPerson = (person: BWVPersoon) => ({
 const Residents: FC<Props> = ({ caseId }) => {
   const { data: caseData } = useCase(caseId)
 
-  const persons = Array.isArray(caseData?.bwv_personen) ? caseData?.bwv_personen.map(mapPerson) : []
+  if (!caseData) {
+    return null
+  }
+
+  const persons = Array.isArray(caseData.bwv_personen) ? caseData.bwv_personen.map(mapPerson) : []
 
   const residents = persons?.reduce((acc: any, person, index, arr) => {
     acc.push(<Span
@@ -42,7 +46,7 @@ const Residents: FC<Props> = ({ caseId }) => {
     return acc
   }, [])
 
-  const residentCount = caseData?.bwv_personen.filter(person => person.overlijdensdatum === null).length || 0
+  const residentCount: number = caseData.bwv_personen.filter(person => person.overlijdensdatum === null).length
 
   return (
     <CaseDetailSection

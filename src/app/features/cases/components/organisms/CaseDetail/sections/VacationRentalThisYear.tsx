@@ -12,8 +12,12 @@ type Props = {
 const VacationRentalThisYear: FC<Props> = ({ caseId }) => {
   const { data: caseData } = useCase(caseId)
 
-  const notifiedRentals = caseData?.vakantie_verhuur.notified_rentals
-  const rentedDays = caseData?.vakantie_verhuur.rented_days
+  if (!caseData) {
+    return null
+  }
+
+  const notifiedRentals = caseData.vakantie_verhuur.notified_rentals
+  const rentedDays = caseData.vakantie_verhuur.rented_days
 
   if (!notifiedRentals?.length) {
     return null

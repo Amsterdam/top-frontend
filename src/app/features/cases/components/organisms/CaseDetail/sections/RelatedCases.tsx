@@ -16,7 +16,11 @@ type Props = {
 const RelatedCases: FC<Props> = ({ caseId }) => {
   const { data: caseData } = useCase(caseId)
 
-  const relatedCases = caseData?.related_cases
+  if (!caseData) {
+    return null
+  }
+
+  const relatedCases = caseData.related_cases
     .filter(relatedCase => relatedCase.case_id !== caseId)
     .sort((a, b) => parseInt(a.case_number, 10) - parseInt(b.case_number, 10))
     .reduce((acc: any, relatedCase: RelatedCase, index, arr) => {
@@ -29,10 +33,6 @@ const RelatedCases: FC<Props> = ({ caseId }) => {
       if (index < arr.length - 1) acc.push(<Hr />)
       return acc
     }, [])
-
-  if (!relatedCases.length) {
-    return null
-  }
 
   return (
     <CaseDetailSection

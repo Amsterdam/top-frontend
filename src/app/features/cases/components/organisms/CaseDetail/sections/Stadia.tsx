@@ -14,7 +14,11 @@ const Stadia: FC<Props> = ({ caseId }) => {
   const { data: caseData } = useCase(caseId)
   const { data: daySettings } = useDaySettings(caseData?.day_settings_id!)
 
-  const stadiums = caseData?.import_stadia.map(stadium => ({
+  if (!caseData) {
+    return null
+  }
+
+  const stadiums = caseData.import_stadia.map(stadium => ({
     description: stadium.sta_oms,
     dateStart: stadium.begindatum ? formatDate(stadium.begindatum, true)! : "-",
     dateEnd: stadium.einddatum ? formatDate(stadium.einddatum, true)! : "-",
@@ -26,7 +30,7 @@ const Stadia: FC<Props> = ({ caseId }) => {
     acc.push([ "Stadium",
       <StadiumBadge
         stadium={ stadium.description }
-        stadiaLabels={ (caseData?.day_settings_id && daySettings?.team_settings.marked_stadia) || [] }
+        stadiaLabels={ (caseData.day_settings_id && daySettings?.team_settings.marked_stadia) || [] }
       />
     ])
     acc.push([ "Start datum", stadium.dateStart ])

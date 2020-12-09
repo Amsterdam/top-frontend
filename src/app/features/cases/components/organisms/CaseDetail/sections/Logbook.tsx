@@ -146,14 +146,13 @@ const Logbook: React.FC<Props> = ({ caseId }) => {
   const isBusy = isCaseBusy || isVisitsBusy || isUsersBusy || isSuggestNextVisitBusy || isObservationsBusy
 
   const items = useMemo(() => {
-    // Safeguard
     if (caseData === undefined || caseVisitsData === undefined || users === undefined) {
       return undefined
     }
 
     // Map API data to LogbookItems
     const logbookItems: LogbookItem[] = [
-      ...caseData?.bwv_hotline_bevinding.map(mapBWVToLogbookItem),
+      ...caseData.bwv_hotline_bevinding.map(mapBWVToLogbookItem),
       ...caseVisitsData.map(mapVisitToLogbookItem(users.results))
     ].sort((a, b) => a.sort > b.sort ? -1 : 1)
 
@@ -168,7 +167,7 @@ const Logbook: React.FC<Props> = ({ caseId }) => {
   return (
     <CaseDetailSection
       title="Logboek"
-      data={ isBusy ? [ <Spinner /> ] : items! }
+      data={ isBusy ? [ <Spinner /> ] : items ?? [] }
     />
   )
 }

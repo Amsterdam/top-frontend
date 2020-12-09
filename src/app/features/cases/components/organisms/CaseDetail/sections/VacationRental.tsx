@@ -20,19 +20,19 @@ const VacationRental: FC<Props> = ({ caseId }) => {
 
   const { data: daySettings } = useDaySettings(caseData?.day_settings_id!)
 
-  if (!daySettings?.team_settings?.show_vakantieverhuur) {
+  if (!caseData || !daySettings?.team_settings?.show_vakantieverhuur) {
     return null
   }
 
   const permitVakantieVerhuur = permitDetails?.find(detail => detail.permit_type === "VAKANTIEVERHUUR")
   const permitBedAndBreakfast = permitDetails?.find(detail => detail.permit_type === "BED_AND_BREAKFAST")
 
-  const notifiedRentals = caseData?.vakantie_verhuur.notified_rentals
+  const notifiedRentals = caseData.vakantie_verhuur.notified_rentals
   const notified = notifiedRentals?.length
 
-  const rentedDays = caseData?.vakantie_verhuur.rented_days
+  const rentedDays = caseData.vakantie_verhuur.rented_days
   const rentedToday = notified ? notifiedRentals?.filter(r => isBetweenDates(new Date(r.check_in), new Date(r.check_out), new Date())).length : "-"
-  const shortstay = caseData?.vakantie_verhuur.shortstay === "J"
+  const shortstay = caseData.vakantie_verhuur.shortstay === "J"
 
   return (
     <CaseDetailSection
