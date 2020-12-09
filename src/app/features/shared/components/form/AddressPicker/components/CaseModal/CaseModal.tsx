@@ -24,7 +24,7 @@ const CaseModal: React.FC = () => {
   return (
     <DefaultModal title="Zaakinformatie">
       { data
-        ? <CaseDetail caseId={ id as string } caseItem={ data } />
+        ? <CaseDetail caseId={ id as string } />
         : <CenteredSpinner size={ 60 } />
       }
     </DefaultModal>

@@ -1,5 +1,4 @@
 import React, { FC } from "react"
-import { Case } from "app/features/types"
 
 import General from "./sections/General"
 import Logbook from "./sections/Logbook"
@@ -14,10 +13,9 @@ import VacationRentalThisYear from "./sections/VacationRentalThisYear"
 
 type Props = {
   caseId: string
-  caseItem: Case
 }
 
-const CaseDetail: FC<Props> = ({ caseId, caseItem }) => (
+const CaseDetail: FC<Props> = ({ caseId }) => (
   <article className="CaseDetail">
     <General caseId={ caseId } />
     <RelatedCases caseId={ caseId } />
