@@ -5,5 +5,5 @@ export default styled.hr`
   border: 0;
   height: 1px;
   background: ${ themeColor("tint", "level4") };
-  margin: 8px 0 16px;
+  margin: 12px 0;
 `

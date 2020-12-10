@@ -19,8 +19,7 @@ type Props = {
 }
 
 const SourceInfo = styled.p`
-  margin-top: 0;
-  margin-bottom: 15px;
+  margin: 0;
   color: ${ themeColor("tint", "level5") };
   text-align: right;
 `

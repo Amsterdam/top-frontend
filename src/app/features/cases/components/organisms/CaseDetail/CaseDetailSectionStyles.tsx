@@ -1,14 +1,9 @@
 import styled from "styled-components"
-import Hr from "app/features/cases/components/atoms/Hr/Hr"
 import { themeSpacing } from "@amsterdam/asc-ui"
 
 export const CenteredAnchor = styled.a`
   display: block;
   text-align: center;
-`
-
-export const HrSpaced = styled(Hr)`
-  margin: 24px 0;
 `
 
 export const Section = styled.section`

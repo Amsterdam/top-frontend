@@ -1,5 +1,5 @@
 import React, { FC } from "react"
-import styled from "styled-components"
+import Hr from "app/features/cases/components/atoms/Hr/Hr"
 
 import { useCase } from "app/state/rest"
 import formatDate from "app/features/shared/utils/formatDate"
@@ -9,15 +9,10 @@ import highlightText from "app/features/shared/utils/highlightText"
 import Purified from "app/features/shared/components/molecules/Purified/Purified"
 import { KeyValueDetail } from "app/features/types"
 import CaseDetailSection from "../CaseDetailSection"
-import { HrSpaced } from "../CaseDetailSectionStyles"
 
 type Props = {
   caseId: string
 }
-
-const P = styled.p`
-  margin: 0 0 8px;
-`
 
 const Signal: FC<Props> = ({ caseId }) => {
   const { data: caseData } = useCase(caseId)
@@ -50,13 +45,13 @@ const Signal: FC<Props> = ({ caseId }) => {
 
     acc.push([ "Datum melding", datum || "–" ])
     acc.push([ "Anonieme melding", anoniem ])
-    acc.push([ "Melder", <P className="anonymous"> { naam }</P> || "–" ])
+    acc.push([ "Melder", <span className="anonymous"> { naam }</span> || "–" ])
     acc.push([ "Melder telefoonnummer", telnr ?
       <a className="anonymous" href={ "tel://" + telnr }>{ telnr }</a> : "–" ])
     acc.push(<Purified className="anonymous" text={ highlightedText } />)
 
     if (index < meldingen.length - 1) {
-      acc.push(<HrSpaced />)
+      acc.push(<Hr />)
     }
 
     return acc
@@ -66,7 +61,7 @@ const Signal: FC<Props> = ({ caseId }) => {
     <CaseDetailSection
       title="Meldingen / aanleiding"
       dataSource="BWV"
-      data={ meldingenData.length ? meldingenData : [ "–" ] }
+      data={ meldingenData.length ? meldingenData : [ "Geen meldingen." ] }
     />
   )
 }
