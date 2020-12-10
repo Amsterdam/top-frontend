@@ -100,8 +100,7 @@ const General: FC<Props> = ({ caseId }) => {
           <Label>Eigenaar</Label>
           { eigenaar !== undefined
             ? <Span>{ eigenaar }</Span>
-            :
-            <span>Gemeente Amsterdam - Eigendom (recht van) (1/1), Woningstichting Rochdale - Erfpacht (recht van) (1/1)</span>
+            : <InvalidValue />
           }
           { fraudPrediction &&
           <>
