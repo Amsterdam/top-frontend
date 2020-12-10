@@ -1,5 +1,12 @@
 import styled from "styled-components"
-import { themeSpacing } from "@amsterdam/asc-ui"
+import { themeColor, themeSpacing } from "@amsterdam/asc-ui"
+
+export const Hr = styled.hr`
+  border: 0;
+  height: 1px;
+  background: ${ themeColor("tint", "level4") };
+  margin: 12px 0;
+`
 
 export const CenteredAnchor = styled.a`
   display: block;

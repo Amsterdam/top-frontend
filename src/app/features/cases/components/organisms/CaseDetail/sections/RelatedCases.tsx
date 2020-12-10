@@ -4,10 +4,10 @@ import { Link } from "@reach/router"
 import { useCase } from "app/state/rest"
 import { RelatedCase } from "app/features/types"
 import to from "app/features/shared/routing/to"
-import Hr from "app/features/cases/components/atoms/Hr/Hr"
 
 import { getCaseCount } from "../utils"
 import CaseDetailSection from "../CaseDetailSection"
+import { Hr } from "../CaseDetailSectionStyles"
 
 type Props = {
   caseId: string

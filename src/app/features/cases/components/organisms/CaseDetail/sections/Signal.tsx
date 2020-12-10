@@ -1,5 +1,4 @@
 import React, { FC } from "react"
-import Hr from "app/features/cases/components/atoms/Hr/Hr"
 
 import { useCase } from "app/state/rest"
 import formatDate from "app/features/shared/utils/formatDate"
@@ -8,7 +7,9 @@ import replaceUrls from "app/features/shared/utils/replaceUrls"
 import highlightText from "app/features/shared/utils/highlightText"
 import Purified from "app/features/shared/components/molecules/Purified/Purified"
 import { KeyValueDetail } from "app/features/types"
+
 import CaseDetailSection from "../CaseDetailSection"
+import { Hr } from "../CaseDetailSectionStyles"
 
 type Props = {
   caseId: string

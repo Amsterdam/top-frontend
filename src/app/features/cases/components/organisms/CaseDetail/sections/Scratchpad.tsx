@@ -5,9 +5,9 @@ import Purified from "app/features/shared/components/molecules/Purified/Purified
 import formatDate from "app/features/shared/utils/formatDate"
 import replaceNewLines from "app/features/shared/utils/replaceNewLines"
 import replaceUrls from "app/features/shared/utils/replaceUrls"
-import Hr from "app/features/cases/components/atoms/Hr/Hr"
 
 import CaseDetailSection from "../CaseDetailSection"
+import { Hr } from "../CaseDetailSectionStyles"
 
 type Props = {
   caseId: string
