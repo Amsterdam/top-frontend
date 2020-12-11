@@ -131,7 +131,7 @@ const mapLogbookItemToDetailComponents = (observationTranslations: Components.Sc
     !isNullish(can_next_visit_go_ahead_description) &&
     <Purified className="anonymous" text={ can_next_visit_go_ahead_description } />,
     !isNullish(text) && <Purified className="anonymous" text={ highlightedText } />,
-    !isNullish(description) && [ "Toelichting", <Purified className="anonymous" text={ highlightedDescription } /> ],
+    !isNullish(description) && <Purified className="anonymous" text={ highlightedDescription } />,
     index < allItems.length - 1 && <Hr />
   ].filter(_ => !!_)
 }
