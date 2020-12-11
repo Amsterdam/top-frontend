@@ -26,7 +26,8 @@ export const SectionRow = styled.div`
 export const Grid = styled.div`
   display: grid;
   grid-template-columns: 160px auto;
-  grid-gap: ${ themeSpacing(3) } ${ themeSpacing(4) }
+  grid-gap: ${ themeSpacing(3) } ${ themeSpacing(4) };
+  place-items: baseline start;
 `
 
 export const SpanColumns = styled.div`
