@@ -1,13 +1,15 @@
 import styled from "styled-components"
-import Hr from "app/features/cases/components/atoms/Hr/Hr"
+import { themeColor, themeSpacing } from "@amsterdam/asc-ui"
+
+export const Hr = styled.hr`
+  border: 0;
+  height: 1px;
+  background: ${ themeColor("tint", "level4") };
+`
 
 export const CenteredAnchor = styled.a`
   display: block;
   text-align: center;
-`
-
-export const HrSpaced = styled(Hr)`
-  margin: 24px 0;
 `
 
 export const Section = styled.section`
@@ -25,4 +27,16 @@ export const SectionRow = styled.div`
   &:not(:last-child) {
     border-bottom-width: 0;
   }
+`
+
+export const Grid = styled.div`
+  display: grid;
+  grid-template-columns: minmax(140px, 1fr) 3fr;
+  grid-gap: ${ themeSpacing(3) } ${ themeSpacing(4) };
+  place-items: baseline start;
+`
+
+export const SpanColumns = styled.div`
+  grid-column: span 2;
+  justify-self: stretch;
 `

@@ -8,10 +8,10 @@ import formatDate from "app/features/shared/utils/formatDate"
 import { formatTime } from "app/features/shared/utils/formatTime"
 import highlightText from "app/features/shared/utils/highlightText"
 import replaceNewLines from "app/features/shared/utils/replaceNewLines"
-import Hr from "app/features/cases/components/atoms/Hr/Hr"
 import Purified from "app/features/shared/components/molecules/Purified/Purified"
 
 import CaseDetailSection from "../CaseDetailSection"
+import { Hr } from "../CaseDetailSectionStyles"
 import List from "../List"
 import { isNullish, mapLogbookValue } from "../utils"
 
@@ -131,7 +131,7 @@ const mapLogbookItemToDetailComponents = (observationTranslations: Components.Sc
     !isNullish(can_next_visit_go_ahead_description) &&
     <Purified className="anonymous" text={ can_next_visit_go_ahead_description } />,
     !isNullish(text) && <Purified className="anonymous" text={ highlightedText } />,
-    !isNullish(description) && [ "Toelichting", <Purified className="anonymous" text={ highlightedDescription } /> ],
+    !isNullish(description) && <Purified className="anonymous" text={ highlightedDescription } />,
     index < allItems.length - 1 && <Hr />
   ].filter(_ => !!_)
 }

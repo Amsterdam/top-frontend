@@ -7,6 +7,7 @@ import replaceNewLines from "app/features/shared/utils/replaceNewLines"
 import replaceUrls from "app/features/shared/utils/replaceUrls"
 
 import CaseDetailSection from "../CaseDetailSection"
+import { Hr } from "../CaseDetailSectionStyles"
 
 type Props = {
   caseId: string
@@ -19,13 +20,17 @@ const CaseDetailScratchpad: FC<Props> = ({ caseId }) => {
     return null
   }
 
-  const statements = caseData.statements.map(
-    ({ user, date, statement }) =>
-      <Purified
-        className="anonymous"
-        text={ `${ formatDate(date, true) }<br /><strong>${ user }</strong><br />${ replaceNewLines(replaceUrls(statement)) }` }
-      />
-  )
+  const statements = caseData.statements.reduce((acc: any, statement, index, arr) => {
+    acc.push([ "Toezichthouder", <strong className="anonymous">{ statement.user }</strong> ])
+    acc.push([ "Datum", formatDate(statement.date, true) ])
+    acc.push(<Purified className="anonymous" text={ replaceNewLines(replaceUrls(statement.statement)) } />)
+
+    if (index < arr.length - 1) {
+      acc.push(<Hr />)
+    }
+
+    return acc
+  }, [])
 
   return (
     <CaseDetailSection

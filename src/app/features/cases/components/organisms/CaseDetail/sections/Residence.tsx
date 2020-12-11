@@ -65,16 +65,16 @@ const Residence: FC<Props> = ({ caseId }) => {
     [ "Eigenaar", eigenaar ],
     [ "Databron", "BAG" ],
     [ "Gebruiksdoel", woningBestemming ],
-    [ "Soort Object (feitelijk gebruik)", woningGebruik ],
-    [ "Aantal bouwlagen", woningBouwlagen !== undefined ? woningBouwlagen : "-" ],
-    [ "Verdieping toegang", woningEtage !== undefined ? woningEtage : "-" ],
-    [ "Aantal kamers", woningKamers > 0 ? woningKamers : "-" ],
-    [ "Woonoppervlak", woningOppervlak > 0 ? woningOppervlak + " m²" : "-" ],
+    [ "Soort object (feitelijk gebruik)", woningGebruik ],
+    [ "Aantal bouwlagen", woningBouwlagen !== undefined ? woningBouwlagen : "–" ],
+    [ "Verdieping toegang", woningEtage !== undefined ? woningEtage : "–" ],
+    [ "Aantal kamers", woningKamers > 0 ? woningKamers : "–" ],
+    [ "Woonoppervlak", woningOppervlak > 0 ? woningOppervlak + " m²" : "–" ],
     mailtoAnchor
   ]
 
   const woonbootFields = [
-    [ "Status", woonbootStatus || "-" ],
+    [ "Status", woonbootStatus || "–" ],
     [ "Indicatie geconstateerd", woonbootIndicatie ],
     [ "Aanduiding in onderzoek", woonbootAanduiding ],
     [ "Eigenaar", eigenaar ],

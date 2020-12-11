@@ -4,10 +4,10 @@ import { Link } from "@reach/router"
 import { useCase } from "app/state/rest"
 import { RelatedCase } from "app/features/types"
 import to from "app/features/shared/routing/to"
-import Hr from "app/features/cases/components/atoms/Hr/Hr"
 
 import { getCaseCount } from "../utils"
 import CaseDetailSection from "../CaseDetailSection"
+import { Hr } from "../CaseDetailSectionStyles"
 
 type Props = {
   caseId: string
@@ -20,8 +20,13 @@ const RelatedCases: FC<Props> = ({ caseId }) => {
     return null
   }
 
-  const relatedCases = caseData.related_cases
-    .filter(relatedCase => relatedCase.case_id !== caseId)
+  const otherCases = caseData.related_cases.filter(relatedCase => relatedCase.case_id !== caseId)
+
+  if (!otherCases.length) {
+    return null
+  }
+
+  const relatedCases = otherCases
     .sort((a, b) => parseInt(a.case_number, 10) - parseInt(b.case_number, 10))
     .reduce((acc: any, relatedCase: RelatedCase, index, arr) => {
       const { case_id, case_number, case_reason } = relatedCase

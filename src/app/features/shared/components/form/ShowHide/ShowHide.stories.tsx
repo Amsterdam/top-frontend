@@ -13,7 +13,7 @@ const fields: Fields = {
       label: "Make a choice below and see form fields appearing",
       name: "dropDown",
       options: {
-         "": "-",
+         "": "–",
          foo: "foo",
          bar: "bar"
       }
