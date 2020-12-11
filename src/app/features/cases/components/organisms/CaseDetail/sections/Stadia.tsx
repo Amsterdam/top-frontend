@@ -34,9 +34,9 @@ const Stadia: FC<Props> = ({ caseId }) => {
         stadiaLabels={ (caseData.day_settings_id && daySettings?.team_settings.marked_stadia) || [] }
       />
     ])
-    acc.push([ "Start datum", stadium.dateStart ])
-    acc.push([ "Eind datum", stadium.dateEnd ])
-    acc.push([ "Peil datum", stadium.datePeil ])
+    acc.push([ "Startdatum", stadium.dateStart ])
+    acc.push([ "Einddatum", stadium.dateEnd ])
+    acc.push([ "Peildatum", stadium.datePeil ])
 
     if (index < stadiums.length - 1) {
       acc.push(<Hr />)

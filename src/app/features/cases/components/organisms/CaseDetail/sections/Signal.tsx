@@ -44,10 +44,10 @@ const Signal: FC<Props> = ({ caseId }) => {
     const { datum, anoniem, naam, telnr, text } = item
     const highlightedText = highlightText([ "hoofdhuurder", "hoofdhuur", "hh" ], text, { caseSensitive: false })
 
-    acc.push([ "Datum melding", datum || "–" ])
-    acc.push([ "Anonieme melding", anoniem ])
+    acc.push([ "Datum", datum || "–" ])
+    acc.push([ "Anoniem", anoniem ])
     acc.push([ "Melder", <span className="anonymous"> { naam }</span> || "–" ])
-    acc.push([ "Melder telefoonnummer", telnr ?
+    acc.push([ "Telefoonnummer", telnr ?
       <a className="anonymous" href={ "tel://" + telnr }>{ telnr }</a> : "–" ])
     acc.push(<Purified className="anonymous" text={ highlightedText } />)
 
