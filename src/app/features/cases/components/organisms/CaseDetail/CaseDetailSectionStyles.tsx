@@ -5,7 +5,6 @@ export const Hr = styled.hr`
   border: 0;
   height: 1px;
   background: ${ themeColor("tint", "level4") };
-  margin: 12px 0;
 `
 
 export const CenteredAnchor = styled.a`
@@ -39,4 +38,5 @@ export const Grid = styled.div`
 
 export const SpanColumns = styled.div`
   grid-column: span 2;
+  justify-self: stretch;
 `

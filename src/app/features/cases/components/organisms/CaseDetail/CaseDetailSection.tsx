@@ -24,8 +24,7 @@ const SourceInfo = styled.p`
 `
 
 const HrWide = styled(Hr)`
-  margin-left: -16px;
-  margin-right: -16px;
+  margin: 12px -16px;
 `
 
 const CaseDetailSection: FC<Props> = ({ id, dataSource, title, data, footer }) => {
