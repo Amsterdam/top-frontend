@@ -22,7 +22,7 @@ type Props = {
 
 const DaySettingsList: FC<RouteComponentProps<Props>> = ({ teamSettings, postCodeRangesPresets }) => {
   if (!teamSettings || !postCodeRangesPresets) {
-    return <CenteredSpinner size={ 60 } />
+    return <CenteredSpinner explanation="Planning ophalen…" size={ 60 } />
   }
 
   return (
