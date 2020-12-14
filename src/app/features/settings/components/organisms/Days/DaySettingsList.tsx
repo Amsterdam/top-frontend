@@ -27,7 +27,7 @@ const DaySettingsList: FC<RouteComponentProps<Props>> = ({ teamSettings, postCod
 
   return (
     <DefaultLayout>
-      <Heading>Plan looplijsten</Heading>
+      <Heading>Looplijstinstellingen voor planner</Heading>
       <Heading forwardedAs="h2">{ teamSettings.name }</Heading>
       <Spacing pb={ 8 }>
         <Link to={ to("/team-settings") }>

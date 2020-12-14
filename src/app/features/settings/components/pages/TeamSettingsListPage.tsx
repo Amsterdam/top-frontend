@@ -27,7 +27,7 @@ const TeamSettingsListPage: React.FC = () => {
   return <DefaultLayout>
     { data && data.results.length > 0 && (
       <>
-        <Heading>Plan looplijsten</Heading>
+        <Heading>Looplijstinstellingen voor planner</Heading>
         <Heading forwardedAs="h2">Kies een team</Heading>
         <Spacing pb={ 6 }>
           <p>
