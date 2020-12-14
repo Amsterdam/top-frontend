@@ -60,7 +60,7 @@ const DaySettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId, daySe
   }, [ execPut, setErrorMessage, teamSettingsId ])
 
   if (!daySettings || isBusyDaySettings || !teamSettings || isBusySettings || !postalCodeRangesPresets || isBusyPostalCodeRangesPresets) {
-    return <CenteredSpinner size={ 60 } />
+    return <CenteredSpinner explanation="Instellingen ophalen…" size={ 60 } />
   }
 
   return <DefaultLayout>

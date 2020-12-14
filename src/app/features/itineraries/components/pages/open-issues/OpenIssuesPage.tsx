@@ -6,7 +6,8 @@ import { useOpenIssues } from "app/state/rest"
 import { useItinerary } from "app/state/rest/custom/useItinerary"
 
 import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout"
-import ItineraryItemCardList from "app/features/itineraries/components/organisms/ItineraryItemCardList/ItineraryItemCardList"
+import ItineraryItemCardList
+  from "app/features/itineraries/components/organisms/ItineraryItemCardList/ItineraryItemCardList"
 import { casesToCardCaseProps } from "app/features/itineraries/utils/mapCaseToCardProps"
 
 import formatDate from "app/features/shared/utils/formatDate"
@@ -18,26 +19,21 @@ const OpenIssuesPage: React.FC = () => {
   const { data: itinerary, isBusy } = useItinerary(itineraryId)
   const { data } = useOpenIssues(itineraryId)
 
-  const cardListItems = useMemo(() => casesToCardCaseProps(data?.cases, itinerary), [itinerary, data])
+  const cardListItems = useMemo(() => casesToCardCaseProps(data?.cases, itinerary), [ itinerary, data ])
   const date = formatDate(currentDate(), true, false)
 
   const hasCases = data && data.cases.length > 0
 
   return (
     <DefaultLayout>
-      { isBusy && <CenteredSpinner size={60} /> }
+      { isBusy && <CenteredSpinner explanation="Issuemeldingen ophalen…" size={ 60 } /> }
+      { !isBusy && <Heading forwardedAs="h2">Open issuemeldingen { date }</Heading> }
       { hasCases
-        ?
-        <>
-          <Heading>Open issuemeldingen { date }</Heading>
+        ? <>
           <p>Deze issuemeldingen zijn vandaag nog beschikbaar, voeg ze toe aan je lijst.</p>
-          <ItineraryItemCardList items={cardListItems}/>
+          <ItineraryItemCardList items={ cardListItems } />
         </>
-        :
-        <>
-          <Heading>Open issuemeldingen { date }</Heading>
-          <p>Geen issuemeldingen beschikbaar.</p>
-        </>
+        : <p>Geen issuemeldingen beschikbaar.</p>
       }
     </DefaultLayout>
   )

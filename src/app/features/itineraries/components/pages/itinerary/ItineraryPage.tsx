@@ -107,7 +107,7 @@ const ItineraryPage: React.FC<RouteComponentProps<Props>> = ({ itineraryId }) =>
 
   return (
     <DefaultLayout>
-      { (!itinerary || isBusy) && <CenteredSpinner size={ 60 } /> }
+      { (!itinerary || isBusy) && <CenteredSpinner explanation="Looplijst ophalen…" size={ 60 } /> }
       { itinerary && <>
         <div>
           <FloatRight>
@@ -129,7 +129,7 @@ const ItineraryPage: React.FC<RouteComponentProps<Props>> = ({ itineraryId }) =>
             Looplijst { formatDate(itinerary.created_at, true, false) }
           </Heading>
           <TeamMemberWrap>
-            <TeamName>{ itinerary?.settings.day_settings.team_settings.name } - { itinerary?.settings.day_settings.name }</TeamName>
+            <TeamName>{ itinerary?.settings.day_settings.team_settings.name } – { itinerary?.settings.day_settings.name }</TeamName>
             { !isEditing
               ? teamMemberNames
               : <TeamMemberForm

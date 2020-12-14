@@ -44,7 +44,7 @@ const CreateItineraryPage: React.FC<RouteComponentProps<Props>> = ({ teamSetting
         </Heading>
       </Spacing>
       { isBusy
-        ? <CenteredSpinner size={ 60 } />
+        ? <CenteredSpinner explanation="We genereren je looplijst…" size={ 60 } />
         : <ItineraryForm teamSettings={ teamSettings } />
       }
     </DefaultLayout>

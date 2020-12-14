@@ -21,17 +21,18 @@ const SuggestionsPage: React.FC<RouteComponentProps<Props>> = ({ itineraryId }) 
 
   const items = useMemo(() => casesToCardCaseProps(data?.cases, itinerary, true), [ itinerary, data ])
 
-  return <DefaultLayout>
-    <Heading>Voeg een adres toe</Heading>
-    <p>Adressen rondom de adressen in je lijst:</p>
-    { isBusy && <CenteredSpinner size={ 60 } /> }
-    { items.length > 0
-      ? <ItineraryItemCardList items={ items } />
-      : !isBusy
-        ? <p>Geen resultaten gevonden.</p>
-        : null
-    }
-  </DefaultLayout>
+  return (
+    <DefaultLayout>
+      <Heading>Voeg een adres toe</Heading>
+      { isBusy && <CenteredSpinner explanation="Zaken ophalen…" size={ 60 } /> }
+      { items.length > 0
+        ? <ItineraryItemCardList items={ items } />
+        : !isBusy
+          ? <p>Geen resultaten gevonden.</p>
+          : null
+      }
+    </DefaultLayout>
+  )
 }
 
 export default SuggestionsPage

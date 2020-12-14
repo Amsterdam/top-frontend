@@ -18,7 +18,7 @@ const EditVisitPage: React.FC = () => {
   return (
     <NoteWizardModal itineraryId={itineraryId}>
       { isBusy
-          ? <CenteredSpinner size={60} />
+          ? <CenteredSpinner explanation="Bezoek ophalen…" size={60} />
           : <NoteWizard
               onSubmit={execPut}
               itineraryId={itineraryId}

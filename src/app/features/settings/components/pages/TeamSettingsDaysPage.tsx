@@ -12,7 +12,7 @@ const TeamSettingsDaysPage: React.FC<RouteComponentProps<Props>> = ({ teamSettin
     const { data: teamSettings, isBusy: isBusySettings } = useTeamSettings(teamSettingsId!)
     const { data: postCodeRangesPresets, isBusy: isBusyPostalCodeRangesPresets } = usePostCodeRanges()
     if (!teamSettings || isBusySettings || !postCodeRangesPresets || isBusyPostalCodeRangesPresets) {
-        return <CenteredSpinner size={ 60 } />
+        return <CenteredSpinner explanation="Instellingen ophalen…" size={ 60 } />
       }
     return <DaySettingsList teamSettings={teamSettings} postCodeRangesPresets={postCodeRangesPresets.results} />
 }
