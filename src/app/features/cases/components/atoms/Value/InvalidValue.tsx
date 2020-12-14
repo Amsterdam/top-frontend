@@ -6,5 +6,6 @@ const Span = styled.span`
   color: ${ themeColor("support", "invalid") };
 `
 
-const InvalidDataSpan: FC = () => <Span>-</Span>
-export default InvalidDataSpan
+const InvalidValue: FC = () => <Span>–</Span>
+
+export default InvalidValue

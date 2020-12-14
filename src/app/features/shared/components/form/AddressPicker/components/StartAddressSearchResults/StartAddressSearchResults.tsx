@@ -44,10 +44,10 @@ const StartAddressSearchResults: React.FC<Props> = ({ handleAddButtonClick, post
   )
 
   return isBusy || !items
-      ? <CenteredSpinner size={60} />
+      ? <CenteredSpinner explanation="Zaken ophalen…" size={60} />
       : items && items.length > 0
           ? <ItineraryItemCardList items={items} />
-          : <p>Geen resultaten gevonden</p>
+          : <p>Geen zaken gevonden.</p>
 }
 
 export default StartAddressSearchResults

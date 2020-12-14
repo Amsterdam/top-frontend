@@ -1,5 +1,6 @@
 import React, { FC } from "react"
 import DOMPurify from "dompurify"
+import { Paragraph } from "@amsterdam/asc-ui"
 
 type Props = {
   text: string
@@ -8,6 +9,6 @@ type Props = {
 
 const Purified: FC<Props> = ({ text, className = "" }) => {
   const purifiedText = DOMPurify.sanitize(text)
-  return <p className={ className } dangerouslySetInnerHTML={ { __html: purifiedText } }></p>
+  return <Paragraph className={ className } dangerouslySetInnerHTML={ { __html: purifiedText } }></Paragraph>
 }
 export default Purified

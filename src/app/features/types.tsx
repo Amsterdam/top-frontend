@@ -37,7 +37,7 @@ export type BrkDataError = {
   error: string
 }
 
-type ImportAdres = {
+export type ImportAdres = {
   hsltr: string | null
   hsnr: string
   postcode: string
@@ -72,7 +72,7 @@ type BWVHotlineMelding = {
   situatie_schets: string
 }
 
-type BWVPersoon = {
+export type BWVPersoon = {
   geboortedatum: string
   geslacht: "M" | "V"
   naam: string

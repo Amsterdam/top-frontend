@@ -1,41 +1,30 @@
 import React, { FC } from "react"
 import styled from "styled-components"
-
 import { Heading, themeColor } from "@amsterdam/asc-ui"
 
 import displayBoolean from "app/features/shared/utils/displayBoolean"
-
 import Label from "app/features/cases/components/atoms/Label/Label"
-import InvalidDataSpan from "app/features/cases/components/atoms/InvalidDataSpan/InvalidDataSpan"
+import InvalidValue from "app/features/cases/components/atoms/Value/InvalidValue"
 import { KeyValueDetail } from "app/features/types"
 
-import { CenteredAnchor, Section, SectionRow } from "./CaseDetailStyles"
-import Hr from "../../atoms/Hr/Hr"
+import { CenteredAnchor, Grid, Hr, Section, SectionRow, SpanColumns } from "./CaseDetailSectionStyles"
 
 type Props = {
   id?: string
   title?: string
   dataSource?: string
   data: KeyValueDetail[]
-  footer?: {title: string, link: string}
+  footer?: { title: string, link: string }
 }
 
-const Div = styled.div`
-  display: flex;
-`
-const P = styled.p`
-  margin: 0 0 8px;
-`
 const SourceInfo = styled.p`
-  margin-top: 0;
-  margin-bottom: 15px;
+  margin: 0;
   color: ${ themeColor("tint", "level5") };
   text-align: right;
 `
 
 const HrWide = styled(Hr)`
-  margin-left: -16px;
-  margin-right: -16px;
+  margin: 12px -16px;
 `
 
 const CaseDetailSection: FC<Props> = ({ id, dataSource, title, data, footer }) => {
@@ -54,41 +43,38 @@ const CaseDetailSection: FC<Props> = ({ id, dataSource, title, data, footer }) =
           <HrWide />
         </>
         }
-        { data.map((keyValue, index) => {
-          const hasLabel = Array.isArray(keyValue)
-          const key = Array.isArray(keyValue) ? keyValue[0] : keyValue
-          let value = Array.isArray(keyValue) ? keyValue[1] : keyValue
-          if (typeof value === "boolean") {
-            value = displayBoolean(value)
-          }
-          const isString = typeof value === "string"
-          const isUndefined = value == null
+        <Grid>
+          { data.map((keyValue, index) => {
+            const hasLabel = Array.isArray(keyValue)
 
-          const keyValuePair = <div key={ String(key) + index }>
-            { hasLabel &&
-            <Div>
-              <Label>{ key }</Label>
-              { isUndefined ?
-                <InvalidDataSpan /> :
-                <span>{ value }</span>
+            const key = Array.isArray(keyValue) ? keyValue[0] : keyValue
+            let value = Array.isArray(keyValue) ? keyValue[1] : keyValue
+
+            if (typeof value === "boolean") {
+              value = displayBoolean(value)
+            }
+
+            const keyValuePair = <React.Fragment key={ String(key) + index }>
+              { hasLabel ?
+                <>
+                  <Label>{ key }</Label>
+                  { (value == null) ? <InvalidValue /> : <span>{ value }</span> }
+                </>
+                :
+                <SpanColumns key={ String(key) + index }>{ value }</SpanColumns>
               }
-            </Div>
-            }
-            { !hasLabel &&
-            <>
-              { isString && <P>{ value }</P> }
-              { !isString && value }
-            </>
-            }
-          </div>
+            </React.Fragment>
 
-          const sourceLabel = <div key={ "dataSource" + index }>
-            { (index > 0 && !dataSource) && <HrWide /> }
-            <SourceInfo>Bron: { value }</SourceInfo>
-          </div>
+            const sourceLabel = (
+              <SpanColumns key={ String(value) + index }>
+                { (index > 0 && !dataSource) && <HrWide /> }
+                <SourceInfo>Bron: { value }</SourceInfo>
+              </SpanColumns>
+            )
 
-          return key === "Databron" ? sourceLabel : keyValuePair
-        }) }
+            return key === "Databron" ? sourceLabel : keyValuePair
+          }) }
+        </Grid>
       </SectionRow>
       { showFooter &&
       <SectionRow>

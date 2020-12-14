@@ -70,7 +70,7 @@ const DaySettings: FC<RouteComponentProps<Props>> = ({ teamSettings, postCodeRan
   const { data: daySettings, isBusy } = useDaySettings(daySettingsId!)
 
   if (!teamSettings || !daySettings || isBusy) {
-    return <CenteredSpinner size={ 60 } />
+    return <CenteredSpinner explanation="Instellingen ophalen…" size={ 60 } />
   }
 
   const postalCodeRangesPresetsDict = postCodeRangesPresets?.reduce((t: any, c) => {

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react"
-import { useItineraries } from "app/state/rest/index"
+import { useItineraries } from "app/state/rest"
 import { redirectToCorrectItineraryPage } from "app/features/itineraries/utils/redirectToCorrectItineraryPage"
 
 const HomePage: React.FC = () => {
