@@ -1,5 +1,5 @@
 import React from "react"
-import { DebugFormValues, ScaffoldForm } from "amsterdam-react-final-form"
+import { DebugFormValues, ScaffoldForm } from "@amsterdam/amsterdam-react-final-form"
 import Scaffold, { Fields } from "../Scaffold"
 
 export default {

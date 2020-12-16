@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo } from "react"
-import { ScaffoldForm } from "amsterdam-react-final-form"
+import { ScaffoldForm } from "@amsterdam/amsterdam-react-final-form"
 
 import { useTeam, useUsers } from "app/state/rest"
 import Scaffold from "app/features/shared/components/form/Scaffold"

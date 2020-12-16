@@ -1,5 +1,5 @@
 import React, { FC, useCallback, useContext, useMemo } from "react"
-import { Scaffold, ScaffoldForm } from "amsterdam-react-final-form"
+import { Scaffold, ScaffoldForm } from "@amsterdam/amsterdam-react-final-form"
 import { createDefinition } from "./formDefinition"
 import { SearchFormContext } from "./SearchFormProvider"
 

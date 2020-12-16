@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo, useState } from "react"
 import { useField } from "react-final-form"
-import { Dimensions, Responsive, UnboundSelectField, ComposedField, isRequired, UnboundTextField } from "amsterdam-react-final-form"
+import { Dimensions, Responsive, UnboundSelectField, ComposedField, isRequired, UnboundTextField } from "@amsterdam/amsterdam-react-final-form"
 import { getCurrentTime } from "app/features/visits/components/organisms/NoteWizard/utils/getCurrentTime"
 import styled from "styled-components"
 import { themeSpacing } from "@amsterdam/asc-ui"

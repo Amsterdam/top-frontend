@@ -1,7 +1,7 @@
 import React, { useCallback } from "react"
 import { navigate } from "@reach/router"
 import { themeColor, themeSpacing } from "@amsterdam/asc-ui"
-import { ScaffoldForm } from "amsterdam-react-final-form"
+import { ScaffoldForm } from "@amsterdam/amsterdam-react-final-form"
 import styled from "styled-components"
 
 import { ItineraryItem } from "app/features/types"

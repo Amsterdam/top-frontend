@@ -1,6 +1,6 @@
 import React, { FC, useCallback } from "react"
 import { navigate } from "@reach/router"
-import { ScaffoldForm } from "amsterdam-react-final-form"
+import { ScaffoldForm } from "@amsterdam/amsterdam-react-final-form"
 
 import { useItineraries, useUsers } from "app/state/rest"
 import { useLoggedInUser } from "app/state/rest/custom/useLoggedInUser"

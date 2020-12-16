@@ -4,7 +4,7 @@ import { useField } from "react-final-form"
 import _difference from "lodash/difference"
 import _isEqual from "lodash/isEqual"
 
-import ComplexSelectField, { Props as ComplexSelectFieldProps } from "amsterdam-react-final-form/components/final-form/SelectField/ComplexSelectField"
+import ComplexSelectField, { Props as ComplexSelectFieldProps } from "@amsterdam/amsterdam-react-final-form/components/final-form/SelectField/ComplexSelectField"
 
 export type UniqueDropdownProps = ComplexSelectFieldProps<any>
 

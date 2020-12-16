@@ -1,6 +1,6 @@
 import type { FieldState, FieldValidator } from "final-form"
 import { getIn } from "final-form"
-import { isRequired } from "amsterdam-react-final-form"
+import { isRequired } from "@amsterdam/amsterdam-react-final-form"
 
 type Value = number
 

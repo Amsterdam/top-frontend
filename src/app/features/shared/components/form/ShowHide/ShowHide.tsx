@@ -4,7 +4,7 @@ import produce from "immer"
 import ScaffoldField, { Field } from "../ScaffoldField"
 import { useFormState } from "react-final-form"
 import { FormState } from "final-form"
-import { Dimensions, Responsive } from "amsterdam-react-final-form"
+import { Dimensions, Responsive } from "@amsterdam/amsterdam-react-final-form"
 
 export type ShowHideProps = {
   position?: Responsive<Dimensions>
