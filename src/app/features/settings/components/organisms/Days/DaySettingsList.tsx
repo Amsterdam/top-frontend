@@ -6,7 +6,7 @@ import { Heading, Paragraph, themeSpacing } from "@amsterdam/asc-ui"
 import to from "app/features/shared/routing/to"
 import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
 import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout"
-import CenteredSpinner from "../../../../shared/components/atoms/CenteredSpinner/CenteredSpinner"
+import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner"
 import DaySettings from "app/features/settings/components/organisms/Days/DaySettings"
 
 const Grid = styled.div`

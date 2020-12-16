@@ -1,6 +1,6 @@
 import capitalize from "app/features/shared/utils/capitalize"
 
-import { BusinessRules, ShapValues } from "../../../../../types"
+import { BusinessRules, ShapValues } from "app/features/types"
 
 type CombinedShapValue = {
   title: string

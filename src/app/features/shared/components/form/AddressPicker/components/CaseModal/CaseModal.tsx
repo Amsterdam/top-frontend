@@ -5,7 +5,7 @@ import CaseDetail from "app/features/cases/components/organisms/CaseDetail/CaseD
 
 import { useCase } from "app/state/rest"
 import { useCaseModal } from "../../hooks/useCaseModal"
-import CenteredSpinner from "../../../../atoms/CenteredSpinner/CenteredSpinner"
+import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner"
 
 const CaseModal: React.FC = () => {
   const { shouldShow, id } = useCaseModal()

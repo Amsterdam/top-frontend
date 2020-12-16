@@ -4,7 +4,7 @@ import { FormPositioner } from "@amsterdam/scaffold-form/package"
 import { Fields } from "app/features/shared/components/form/Scaffold"
 import HelpButton from "app/features/shared/components/molecules/HelpIcon/HelpButton"
 
-import { OnBackButtonClick } from "../types"
+import { OnBackButtonClick } from "app/features/visits/components/organisms/NoteWizard/types"
 
 export const stepOne = (handleBack: OnBackButtonClick, situation: string, observationChoices: {}, suggestNextVisitChoices: {}, situationChoices: {}) => {
   const fields: Fields = {

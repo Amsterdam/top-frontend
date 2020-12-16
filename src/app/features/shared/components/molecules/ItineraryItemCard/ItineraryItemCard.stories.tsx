@@ -3,8 +3,8 @@ import { Button } from "@amsterdam/asc-ui"
 import { Document, TrashBin } from "@amsterdam/asc-assets"
 
 import ItineraryItemCard from "./ItineraryItemCard"
-import Badge from "../../atoms/Badge/Badge"
-import Spacing from "../../atoms/Spacing/Spacing"
+import Badge from "app/features/shared/components/atoms/Badge/Badge"
+import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
 
 export default {
   title: "Shared/Molecules/ItineraryItemCard"

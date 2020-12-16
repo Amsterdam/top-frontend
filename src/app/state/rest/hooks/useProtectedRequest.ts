@@ -3,7 +3,8 @@ import useKeycloak from "app/state/auth/keycloak/useKeycloak"
 import useRequest from "./useRequest"
 
 type Method = "get" | "post" | "put" | "patch" | "delete"
-export default () => {
+
+const useProtectedRequest = () => {
   const keycloak = useKeycloak()
   const request = useRequest()
 
@@ -21,5 +22,7 @@ export default () => {
       headers
     )
     return response
-  }, [keycloak, request])
+  }, [ keycloak, request ])
 }
+
+export default useProtectedRequest

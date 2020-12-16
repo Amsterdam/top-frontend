@@ -1,7 +1,7 @@
 import React from "react"
 import { RouteComponentProps } from "@reach/router"
 import { useTeamSettings, usePostCodeRanges } from "app/state/rest"
-import CenteredSpinner from "../../../shared/components/atoms/CenteredSpinner/CenteredSpinner"
+import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner"
 import DaySettingsList from "app/features/settings/components/organisms/Days/DaySettingsList"
 
 type Props = {

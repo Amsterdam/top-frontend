@@ -1,7 +1,7 @@
 import useApiRequest from "./hooks/useApiRequest"
 import { makeGatewayUrl, useErrorHandler } from "./hooks/utils/utils"
 import currentDate from "../../features/shared/utils/currentDate"
-import { Case, ItineraryItem, Itinerary } from "../../features/types"
+import { Case, ItineraryItem, Itinerary } from "app/features/types"
 
 export type ApiGroup =
   | "itineraries"

@@ -1,4 +1,4 @@
-import { FormValues } from "../types"
+import { FormValues } from "app/features/visits/components/organisms/NoteWizard/types"
 import { mapDateToTime, mapTimeToDate } from "./mapDateToTime"
 import { mapYesNoToBoolean, mapBooleanToYesNo } from "./mapYesNoToBoolean"
 

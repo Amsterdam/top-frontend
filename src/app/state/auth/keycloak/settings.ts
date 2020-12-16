@@ -1,4 +1,4 @@
-export default {
+const settings = {
   "realm": process.env.REACT_APP_KEYCLOAK_REALM,
   "url": process.env.REACT_APP_AUTH_URL,
   "ssl-required": "external",
@@ -7,3 +7,5 @@ export default {
   "confidential-port": 0,
   "clientId": process.env.REACT_APP_CLIENT_ID
 }
+
+export default settings

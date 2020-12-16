@@ -13,7 +13,7 @@ import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/
 
 import { createDefinition } from "./daySettingsFormDefinition"
 import FixedSubmitButton from "../SettingsForm/components/FixedSubmitButton"
-import CenteredSpinner from "../../../../shared/components/atoms/CenteredSpinner/CenteredSpinner"
+import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner"
 import { filterEmptyPostalCodes } from "app/features/settings/utils/filterEmptyPostalCodes"
 
 const Wrap = styled.div`

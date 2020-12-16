@@ -7,7 +7,7 @@ import OpenIssuesPage from "./components/pages/open-issues/OpenIssuesPage"
 import SearchPage from "./components/pages/search/SearchPage"
 import SuggestionsPage from "./components/pages/suggestions/SuggestionsPage"
 
-export default {
+const routes = {
   "/": HomePage,
   "/kies-looplijst": ListItinerariesPage,
   "/issuemeldingen": OpenIssuesPage,
@@ -21,3 +21,5 @@ export default {
   "/lijst/nieuw/:teamSettingsId": CreateItineraryPage,
   "/zoeken": SearchPage
 }
+
+export default routes

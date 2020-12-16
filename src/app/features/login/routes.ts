@@ -1,5 +1,7 @@
 import AuthPage from "./components/pages/login/AuthPage"
 
-export default {
+const routes = {
   "/auth": AuthPage
 }
+
+export default routes

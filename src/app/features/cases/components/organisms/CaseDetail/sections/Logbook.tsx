@@ -11,7 +11,7 @@ import replaceNewLines from "app/features/shared/utils/replaceNewLines"
 import Purified from "app/features/shared/components/molecules/Purified/Purified"
 
 import CaseDetailSection from "../CaseDetailSection"
-import { Hr } from "../CaseDetailSectionStyles"
+import { Hr } from "app/features/cases/components/organisms/CaseDetail/CaseDetailSectionStyles"
 import List from "../List"
 import { isNullish, mapLogbookValue } from "../utils"
 

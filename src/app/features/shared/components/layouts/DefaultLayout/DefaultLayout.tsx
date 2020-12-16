@@ -8,7 +8,7 @@ import styled from "styled-components"
 
 import to from "app/features/shared/routing/to"
 import Navigation from "../../organisms/Navigation/Navigation"
-import Spacing from "../../atoms/Spacing/Spacing"
+import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
 import ErrorDisplay from "../../organisms/ErrorDisplay/ErrorDisplay"
 
 const StyledLink = styled(Link)`

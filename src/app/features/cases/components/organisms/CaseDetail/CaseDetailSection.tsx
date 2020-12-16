@@ -7,7 +7,7 @@ import Label from "app/features/cases/components/atoms/Label/Label"
 import InvalidValue from "app/features/cases/components/atoms/Value/InvalidValue"
 import { KeyValueDetail } from "app/features/types"
 
-import { CenteredAnchor, Grid, Hr, Section, SectionRow, SpanColumns } from "./CaseDetailSectionStyles"
+import { CenteredAnchor, Grid, Hr, Section, SectionRow, SpanColumns } from "app/features/cases/components/organisms/CaseDetail/CaseDetailSectionStyles"
 
 type Props = {
   id?: string

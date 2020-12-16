@@ -8,7 +8,7 @@ import { useLoggedInUser } from "app/state/rest/custom/useLoggedInUser"
 import Scaffold from "app/features/shared/components/form/Scaffold"
 import to from "app/features/shared/routing/to"
 
-import { getDaySettingsOptions } from "./getDaySettingsOptions"
+import { getDaySettingsOptions } from "app/features/itineraries/components/organisms/ItineraryForm/getDaySettingsOptions"
 import { generateItineraryFormDefinition } from "./formDefinition"
 import { mapPostValues } from "./mapPostValues"
 

@@ -6,7 +6,7 @@ import { FormPositioner } from "@amsterdam/scaffold-form/package"
 import { ChevronLeft } from "@amsterdam/asc-assets"
 
 import { Fields } from "app/features/shared/components/form/Scaffold"
-import { getDaySettingsOptions } from "./getDaySettingsOptions"
+import { getDaySettingsOptions } from "app/features/itineraries/components/organisms/ItineraryForm/getDaySettingsOptions"
 import { navigate } from "@reach/router"
 import to from "../../../../shared/routing/to"
 
