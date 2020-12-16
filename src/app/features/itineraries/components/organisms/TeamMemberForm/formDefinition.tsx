@@ -1,4 +1,4 @@
-import { FormPositioner } from "amsterdam-scaffold-form/package"
+import { FormPositioner } from "@amsterdam/scaffold-form/package"
 import { Fields } from "app/features/shared/components/form/Scaffold"
 
 export const generateFormDefinition = (

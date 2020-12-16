@@ -1,7 +1,7 @@
 import React, { FC, useCallback, useMemo, useState } from "react"
 import { Link, navigate, RouteComponentProps } from "@reach/router"
 import styled from "styled-components"
-import { ScaffoldForm } from "amsterdam-react-final-form"
+import { ScaffoldForm } from "@amsterdam/amsterdam-react-final-form"
 import { Heading } from "@amsterdam/asc-ui"
 
 import to from "app/features/shared/routing/to"

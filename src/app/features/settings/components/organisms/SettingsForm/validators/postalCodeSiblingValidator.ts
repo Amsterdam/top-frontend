@@ -1,7 +1,7 @@
 import {
   isAboveOtherField,
   isBelowOtherField
-} from "amsterdam-react-final-form"
+} from "@amsterdam/amsterdam-react-final-form"
 
 import type { FieldValidator, FieldState } from "final-form"
 type Value = number | null | undefined

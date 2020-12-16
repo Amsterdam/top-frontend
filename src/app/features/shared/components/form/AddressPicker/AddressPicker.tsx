@@ -1,5 +1,5 @@
 import React from "react"
-import { ComposedField } from "amsterdam-react-final-form"
+import { ComposedField } from "@amsterdam/amsterdam-react-final-form"
 import { Button } from "@amsterdam/asc-ui"
 import { Link } from "@reach/router"
 import { useField } from "react-final-form"

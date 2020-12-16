@@ -1,5 +1,5 @@
-import { combineValidators, isNotIntersectingWith, isRequired } from "amsterdam-react-final-form"
-import { FormPositioner, FormPositionerFields } from "amsterdam-scaffold-form/package"
+import { combineValidators, isNotIntersectingWith, isRequired } from "@amsterdam/amsterdam-react-final-form"
+import { FormPositioner, FormPositionerFields } from "@amsterdam/scaffold-form/package"
 
 import { Field } from "app/features/shared/components/form/ScaffoldField"
 import postalCodeSiblingValidator from "../SettingsForm/validators/postalCodeSiblingValidator"
