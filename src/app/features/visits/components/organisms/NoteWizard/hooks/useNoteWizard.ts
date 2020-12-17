@@ -1,6 +1,6 @@
 import { useCallback, useContext } from "react"
 import { NoteWizardContext } from "../NoteWizardProvider"
-import { FormValues, WizardStep } from "../types"
+import { FormValues, WizardStep } from "app/features/visits/components/organisms/NoteWizard/types"
 
 export const useNoteWizard = (caseID: string) => {
   const {

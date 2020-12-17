@@ -7,7 +7,7 @@ import replaceNewLines from "app/features/shared/utils/replaceNewLines"
 import replaceUrls from "app/features/shared/utils/replaceUrls"
 
 import CaseDetailSection from "../CaseDetailSection"
-import { Hr } from "../CaseDetailSectionStyles"
+import { Hr } from "app/features/cases/components/organisms/CaseDetail/CaseDetailSectionStyles"
 
 type Props = {
   caseId: string

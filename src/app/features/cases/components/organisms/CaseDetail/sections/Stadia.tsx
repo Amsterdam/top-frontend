@@ -5,7 +5,7 @@ import formatDate from "app/features/shared/utils/formatDate"
 import StadiumBadge from "app/features/shared/components/molecules/StadiumBadge/StadiumBadge"
 
 import CaseDetailSection from "../CaseDetailSection"
-import { Hr } from "../CaseDetailSectionStyles"
+import { Hr } from "app/features/cases/components/organisms/CaseDetail/CaseDetailSectionStyles"
 
 type Props = {
   caseId: string

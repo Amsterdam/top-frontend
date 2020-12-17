@@ -2,7 +2,7 @@ import React, { useEffect } from "react"
 import { useFormState } from "react-final-form"
 
 import { useNoteWizard } from "../hooks/useNoteWizard"
-import { FormValues } from "../types"
+import { FormValues } from "app/features/visits/components/organisms/NoteWizard/types"
 
 type Props = {
   caseID: string

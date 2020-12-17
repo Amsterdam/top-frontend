@@ -5,7 +5,7 @@ import { Spinner, themeColor, themeSpacing } from "@amsterdam/asc-ui"
 
 import displayAddress from "app/features/shared/utils/displayAddress"
 
-import { FormValues } from "../types"
+import { FormValues } from "app/features/visits/components/organisms/NoteWizard/types"
 import { ItineraryItem } from "app/features/types"
 
 type Props = {

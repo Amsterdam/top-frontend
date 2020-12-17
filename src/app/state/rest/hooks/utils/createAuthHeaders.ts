@@ -1,1 +1,3 @@
-export default (token: string) => ({ Authorization: `Bearer ${ token }` })
+const createAuthHeaders = (token: string) => ({ Authorization: `Bearer ${ token }` })
+
+export default createAuthHeaders

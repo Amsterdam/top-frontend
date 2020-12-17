@@ -7,7 +7,7 @@ import to from "app/features/shared/routing/to"
 
 import { getCaseCount } from "../utils"
 import CaseDetailSection from "../CaseDetailSection"
-import { Hr } from "../CaseDetailSectionStyles"
+import { Hr } from "app/features/cases/components/organisms/CaseDetail/CaseDetailSectionStyles"
 
 type Props = {
   caseId: string

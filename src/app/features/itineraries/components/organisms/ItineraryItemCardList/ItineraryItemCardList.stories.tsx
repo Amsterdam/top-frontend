@@ -1,6 +1,6 @@
 import React from "react"
 import ItineraryItemCardList from "./ItineraryItemCardList"
-import Badge from "../../../../shared/components/atoms/Badge/Badge"
+import Badge from "app/features/shared/components/atoms/Badge/Badge"
 
 export default {
   title: "Shared/Organisms/ItineraryItemCardList"

@@ -9,7 +9,7 @@ import Purified from "app/features/shared/components/molecules/Purified/Purified
 import { KeyValueDetail } from "app/features/types"
 
 import CaseDetailSection from "../CaseDetailSection"
-import { Hr } from "../CaseDetailSectionStyles"
+import { Hr } from "app/features/cases/components/organisms/CaseDetail/CaseDetailSectionStyles"
 
 type Props = {
   caseId: string

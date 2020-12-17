@@ -1,5 +1,7 @@
 import CaseDetailPage from "./components/pages/CaseDetailPage/CaseDetailPage"
 
-export default {
+const routes = {
   "/cases/:id": CaseDetailPage
 }
+
+export default routes

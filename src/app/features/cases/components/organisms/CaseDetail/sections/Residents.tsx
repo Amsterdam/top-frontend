@@ -6,7 +6,7 @@ import formatDate from "app/features/shared/utils/formatDate"
 import Span from "app/features/cases/components/atoms/Span/Span"
 
 import CaseDetailSection from "../CaseDetailSection"
-import { Hr } from "../CaseDetailSectionStyles"
+import { Hr } from "app/features/cases/components/organisms/CaseDetail/CaseDetailSectionStyles"
 
 type Props = {
   caseId: string

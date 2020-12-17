@@ -14,7 +14,7 @@ import FraudPredictionDetailsModal
 import { useFraudPredictionModal } from "app/features/cases/components/organisms/FraudPrediction/hooks/useFraudPredictionModal"
 
 import { getAddress, getCaseCount, getEigenaar } from "../utils"
-import { CenteredAnchor, Grid, Section, SectionRow } from "../CaseDetailSectionStyles"
+import { CenteredAnchor, Grid, Section, SectionRow } from "app/features/cases/components/organisms/CaseDetail/CaseDetailSectionStyles"
 
 type Props = {
   caseId: string

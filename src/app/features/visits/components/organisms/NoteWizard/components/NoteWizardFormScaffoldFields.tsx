@@ -2,10 +2,10 @@ import React from "react"
 import { useFormState } from "react-final-form"
 
 import Scaffold from "app/features/shared/components/form/Scaffold"
-import translation from "../../../../lang/nl_nl"
+import translation from "app/features/visits/lang/nl_nl"
 
 import * as formDefinitions from "./formDefinitions"
-import { OnBackButtonClick, WizardStep } from "../types"
+import { OnBackButtonClick, WizardStep } from "app/features/visits/components/organisms/NoteWizard/types"
 
 type Props = {
   step: WizardStep
@@ -20,10 +20,10 @@ const NoteWizardFormScaffoldFields: React.FC<Props> = ({ step, onBackButtonClick
     ? "Er was niemand aanwezig"
     : "Je kreeg geen medewerking"
 
-    const choices = Object.keys({ 
+    const choices = Object.keys({
       observation_choices: daySettings.team_settings.observation_choices,
       suggest_next_visit_choices: daySettings.team_settings.suggest_next_visit_choices
-    }).reduce((previousValue, currentValue) => { 
+    }).reduce((previousValue, currentValue) => {
       // @ts-ignore
       previousValue[currentValue] = daySettings.team_settings[currentValue].reduce((prev, curr) => {
         prev[curr.value] = curr.verbose
@@ -36,8 +36,8 @@ const NoteWizardFormScaffoldFields: React.FC<Props> = ({ step, onBackButtonClick
       t[c] = translation["visit_situation_" + c]
       return t
     }, {})
-  
-  
+
+
     return <Scaffold {...formDefinitions[step](onBackButtonClicked, friendlySituation, choices.observation_choices, choices.suggest_next_visit_choices, situation_choices)} />
 }
 

@@ -14,14 +14,14 @@ import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinne
 import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
 
 import { useNoteWizard } from "./hooks/useNoteWizard"
-import NoteWizardManager from "./components/NoteWizardManager"
+import NoteWizardManager from "app/features/visits/components/organisms/NoteWizard/components/NoteWizardManager"
 import NoteWizardFormScaffoldFields from "./components/NoteWizardFormScaffoldFields"
 import NodeWizardSubtitle from "./components/NoteWizardSubtitle"
 
 import DeleteVisitButton from "app/features/visits/components/molecules/DeleteVisitButton/DeleteVisitButton"
 
 import { mapPostValues } from "./utils/mapValues"
-import { FormValues } from "./types"
+import { FormValues } from "app/features/visits/components/organisms/NoteWizard/types"
 
 type Props = {
   valuesFromApi?: FormValues

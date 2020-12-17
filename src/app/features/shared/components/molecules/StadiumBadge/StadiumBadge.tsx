@@ -3,7 +3,7 @@ import styled from "styled-components"
 
 import { themeColor, themeSpacing } from "@amsterdam/asc-ui"
 
-import Badge from "../../atoms/Badge/Badge"
+import Badge from "app/features/shared/components/atoms/Badge/Badge"
 
 type Props = {
   stadium: string
