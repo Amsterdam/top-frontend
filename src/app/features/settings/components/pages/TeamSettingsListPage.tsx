@@ -33,7 +33,7 @@ const TeamSettingsListPage: React.FC = () => {
           <p>
             <Greeting />{ " " }
             <strong>{ loggedInUser?.first_name }</strong>,
-            voor welk team wil je het genereren van de looplijsten configureren?
+            voor welk team wil je de looplijstinstellingen beheren?
           </p>
         </Spacing>
         <ButtonsLayout>
