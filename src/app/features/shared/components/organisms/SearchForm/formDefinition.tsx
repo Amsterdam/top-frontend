@@ -17,7 +17,7 @@ export const createDefinition = (onResetButtonClick: () => void) => {
       }
     },
     postalCode: {
-      type: "TextField",
+      type: "NumberField",
       props: {
         label: "Postcode",
         name: "postalCode",
@@ -43,7 +43,7 @@ export const createDefinition = (onResetButtonClick: () => void) => {
       }
     },
     suffix: {
-      type: "TextField",
+      type: "NumberField",
       props: {
         label: "Toevoeging",
         name: "suffix",
