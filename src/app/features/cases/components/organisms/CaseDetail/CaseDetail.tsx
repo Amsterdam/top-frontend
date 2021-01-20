@@ -8,6 +8,7 @@ import Residents from "./sections/Residents"
 import Scratchpad from "./sections/Scratchpad"
 import Signal from "./sections/Signal"
 import Stadia from "./sections/Stadia"
+import Permits from "./sections/Permits"
 import VacationRental from "./sections/VacationRental"
 import VacationRentalThisYear from "./sections/VacationRentalThisYear"
 
@@ -19,6 +20,7 @@ const CaseDetail: FC<Props> = ({ caseId }) => (
   <article className="CaseDetail">
     <General caseId={ caseId } />
     <RelatedCases caseId={ caseId } />
+    <Permits caseId={ caseId } />
     <VacationRental caseId={ caseId } />
     <Residence caseId={ caseId } />
     <Signal caseId={ caseId } />
