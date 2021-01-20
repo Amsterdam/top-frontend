@@ -1,6 +1,6 @@
 import React, { FC } from "react"
 
-import { useCase, useDaySettings, usePermitCheckmarks, usePermitDetails } from "app/state/rest"
+import { useCase, usePermitCheckmarks, usePermitDetails } from "app/state/rest"
 import ScrollToAnchor from "app/features/shared/components/molecules/ScrollToAnchor/ScrollToAnchor"
 import { BrkData } from "app/features/types"
 import isBetweenDates from "app/features/shared/utils/isBetweenDates"
@@ -18,9 +18,7 @@ const VacationRental: FC<Props> = ({ caseId }) => {
   const { data: permitCheckmarks } = usePermitCheckmarks(bagId, { lazy: !bagId })
   const { data: permitDetails } = usePermitDetails(bagId, { lazy: !bagId })
 
-  const { data: daySettings } = useDaySettings(caseData?.day_settings_id!)
-
-  if (!caseData || !daySettings?.team_settings?.show_vakantieverhuur) {
+  if (!caseData) {
     return null
   }
 
