@@ -44,7 +44,7 @@ const Permits: FC<Props> = ({ caseId }) => {
     <Heading forwardedAs="h4">Vakantieverhuur</Heading>,
     [ "Verhuurd vandaag", rentedToday ],
     [ `Verhuurd ${ today.getFullYear() }`, rentedDays ?
-      <ScrollToAnchor anchor="vakantieverhuur" text={ `${ rentedDays } nachten` } /> : "Nee" ]
+      <ScrollToAnchor anchor="vakantieverhuur" text={ `${ rentedDays } nachten` } /> : "0 nachten" ]
   ]
 
   return (
