@@ -4,6 +4,7 @@ import { Heading } from "@amsterdam/asc-ui"
 import { useAllPermitCheckmarks, useCase } from "app/state/rest"
 import { BrkData } from "app/features/types"
 import ScrollToAnchor from "app/features/shared/components/molecules/ScrollToAnchor/ScrollToAnchor"
+import displayBoolean from "app/features/shared/utils/displayBoolean"
 import isBetweenDates from "app/features/shared/utils/isBetweenDates"
 
 import CaseDetailSection from "../CaseDetailSection"
@@ -31,13 +32,13 @@ const Permits: FC<Props> = ({ caseId }) => {
   const shortstay = caseData.vakantie_verhuur.shortstay === "J"
 
   const permits = [
-    [ "Omzetting", permitCheckmarks.has_omzettings_permit ],
-    [ "Splitsing", permitCheckmarks.has_splitsing_permit ],
-    [ "Woonvorming", permitCheckmarks.has_woonvorming_permit ],
-    [ "Samenvoeging", permitCheckmarks.has_samenvoeging_permit ],
-    [ "Ligplaats", permitCheckmarks.has_ligplaats_permit ],
-    [ "Vakantieverhuur", permitCheckmarks.has_vacation_rental_permit ],
-    [ "B&B", permitCheckmarks.has_b_and_b_permit ],
+    [ "Omzetting", displayBoolean(permitCheckmarks.has_omzettings_permit) ],
+    [ "Splitsing", displayBoolean(permitCheckmarks.has_splitsing_permit) ],
+    [ "Woonvorming", displayBoolean(permitCheckmarks.has_woonvorming_permit) ],
+    [ "Samenvoeging", displayBoolean(permitCheckmarks.has_samenvoeging_permit) ],
+    [ "Ligplaats", displayBoolean(permitCheckmarks.has_ligplaats_permit) ],
+    [ "Vakantieverhuur", displayBoolean(permitCheckmarks.has_vacation_rental_permit) ],
+    [ "B&B", displayBoolean(permitCheckmarks.has_b_and_b_permit) ],
     [ "Shortstay", shortstay ],
     <Hr />,
     <Heading forwardedAs="h4">Vakantieverhuur</Heading>,
