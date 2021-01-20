@@ -19,13 +19,13 @@ const Permits: FC<Props> = ({ caseId }) => {
   }
 
   const permits = [
-    [ "B&B", permitCheckmarks.has_b_and_b_permit ],
-    [ "Ligplaats", permitCheckmarks.has_ligplaats_permit ],
     [ "Omzetting", permitCheckmarks.has_omzettings_permit ],
-    [ "Samenvoeging", permitCheckmarks.has_samenvoeging_permit ],
     [ "Splitsing", permitCheckmarks.has_splitsing_permit ],
+    [ "Woonvorming", permitCheckmarks.has_woonvorming_permit ],
+    [ "Samenvoeging", permitCheckmarks.has_samenvoeging_permit ],
+    [ "Ligplaats", permitCheckmarks.has_ligplaats_permit ],
     [ "Vakantieverhuur", permitCheckmarks.has_vacation_rental_permit ],
-    [ "Woonvorming", permitCheckmarks.has_woonvorming_permit ]
+    [ "B&B", permitCheckmarks.has_b_and_b_permit ]
   ]
 
   return (
