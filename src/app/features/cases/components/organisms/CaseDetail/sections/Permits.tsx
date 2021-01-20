@@ -8,7 +8,7 @@ type Props = {
   caseId: string
 }
 
-const VacationRental: FC<Props> = ({ caseId }) => {
+const Permits: FC<Props> = ({ caseId }) => {
   const { data: caseData } = useCase(caseId)
 
   const bagId = (caseData?.brk_data as BrkData).bag_id ?? ""
@@ -28,4 +28,4 @@ const VacationRental: FC<Props> = ({ caseId }) => {
   )
 }
 
-export default VacationRental
+export default Permits
