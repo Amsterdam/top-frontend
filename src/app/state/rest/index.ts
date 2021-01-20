@@ -243,6 +243,17 @@ export const usePermitCheckmarks = (bagId: string, options?: Options) => {
   })
 }
 
+export const useAllPermitCheckmarks = (bagId: string, options?: Options) => {
+  const handleError = useErrorHandler()
+  return useApiRequest<Components.Schemas.PermitCheckmark>({
+    ...options,
+    url: makeGatewayUrl(["all-permits", "checkmarks"], { bag_id: bagId }),
+    groupName: "permits",
+    handleError,
+    isProtected: true
+  })
+}
+
 export const usePermitDetails = (bagId: string, options?: Options) => {
   const handleError = useErrorHandler()
   return useApiRequest<Components.Schemas.DecosPermit[]>({
