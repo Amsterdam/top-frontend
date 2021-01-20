@@ -2,7 +2,6 @@ import React, { FC } from "react"
 import { Heading } from "@amsterdam/asc-ui"
 
 import { useAllPermitCheckmarks, useCase } from "app/state/rest"
-import { BrkData } from "app/features/types"
 import ScrollToAnchor from "app/features/shared/components/molecules/ScrollToAnchor/ScrollToAnchor"
 import displayBoolean from "app/features/shared/utils/displayBoolean"
 import isBetweenDates from "app/features/shared/utils/isBetweenDates"
@@ -17,8 +16,7 @@ type Props = {
 const Permits: FC<Props> = ({ caseId }) => {
   const { data: caseData } = useCase(caseId)
 
-  const bagId = (caseData?.brk_data as BrkData).bag_id ?? ""
-  const { data: permitCheckmarks } = useAllPermitCheckmarks(bagId, { lazy: !bagId })
+  const { data: permitCheckmarks } = useAllPermitCheckmarks(caseId, { lazy: !caseId })
 
   if (!caseData || !permitCheckmarks) {
     return null
