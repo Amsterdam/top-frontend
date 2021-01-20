@@ -1,6 +1,6 @@
 import React, { FC } from "react"
 
-import { useCase, useDaySettings, useAllPermitCheckmarks } from "app/state/rest"
+import { useAllPermitCheckmarks, useCase } from "app/state/rest"
 import { BrkData } from "app/features/types"
 import CaseDetailSection from "../CaseDetailSection"
 
@@ -14,9 +14,7 @@ const Permits: FC<Props> = ({ caseId }) => {
   const bagId = (caseData?.brk_data as BrkData).bag_id ?? ""
   const { data: permitCheckmarks } = useAllPermitCheckmarks(bagId, { lazy: !bagId })
 
-  const { data: daySettings } = useDaySettings(caseData?.day_settings_id!)
-
-  if (!caseData || !daySettings?.team_settings?.show_vakantieverhuur) {
+  if (!permitCheckmarks) {
     return null
   }
 
