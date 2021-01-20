@@ -243,9 +243,19 @@ export const usePermitCheckmarks = (bagId: string, options?: Options) => {
   })
 }
 
+export type allPermitCheckmarks = {
+  has_b_and_b_permit: boolean
+  has_ligplaats_permit: boolean
+  has_omzettings_permit: boolean
+  has_samenvoeging_permit: boolean
+  has_splitsing_permit: boolean
+  has_vacation_rental_permit: boolean
+  has_woonvorming_permit: boolean
+}
+
 export const useAllPermitCheckmarks = (bagId: string, options?: Options) => {
   const handleError = useErrorHandler()
-  return useApiRequest<Components.Schemas.PermitCheckmark>({
+  return useApiRequest<allPermitCheckmarks>({
     ...options,
     url: makeGatewayUrl(["all-permits", "checkmarks"], { bag_id: bagId }),
     groupName: "permits",
