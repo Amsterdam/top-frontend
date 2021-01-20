@@ -2,9 +2,7 @@ import React, { FC } from "react"
 import { Heading } from "@amsterdam/asc-ui"
 
 import { useAllPermitCheckmarks, useCase } from "app/state/rest"
-import { BrkData } from "app/features/types"
 import ScrollToAnchor from "app/features/shared/components/molecules/ScrollToAnchor/ScrollToAnchor"
-import displayBoolean from "app/features/shared/utils/displayBoolean"
 import isBetweenDates from "app/features/shared/utils/isBetweenDates"
 
 import CaseDetailSection from "../CaseDetailSection"
@@ -17,8 +15,7 @@ type Props = {
 const Permits: FC<Props> = ({ caseId }) => {
   const { data: caseData } = useCase(caseId)
 
-  const bagId = (caseData?.brk_data as BrkData).bag_id ?? ""
-  const { data: permitCheckmarks } = useAllPermitCheckmarks(bagId, { lazy: !bagId })
+  const { data: permitCheckmarks } = useAllPermitCheckmarks(caseId, { lazy: !caseId })
 
   if (!caseData || !permitCheckmarks) {
     return null
@@ -32,13 +29,13 @@ const Permits: FC<Props> = ({ caseId }) => {
   const shortstay = caseData.vakantie_verhuur.shortstay === "J"
 
   const permits = [
-    [ "Omzetting", displayBoolean(permitCheckmarks.has_omzettings_permit) ],
-    [ "Splitsing", displayBoolean(permitCheckmarks.has_splitsing_permit) ],
-    [ "Woonvorming", displayBoolean(permitCheckmarks.has_woonvorming_permit) ],
-    [ "Samenvoeging", displayBoolean(permitCheckmarks.has_samenvoeging_permit) ],
-    [ "Ligplaats", displayBoolean(permitCheckmarks.has_ligplaats_permit) ],
-    [ "Vakantieverhuur", displayBoolean(permitCheckmarks.has_vacation_rental_permit) ],
-    [ "B&B", displayBoolean(permitCheckmarks.has_b_and_b_permit) ],
+    [ "Omzetting", permitCheckmarks.has_omzettings_permit === "True" ? "Ja" : "Nee" ],
+    [ "Splitsing", permitCheckmarks.has_splitsing_permit === "True" ? "Ja" : "Nee" ],
+    [ "Woonvorming", permitCheckmarks.has_woonvorming_permit === "True" ? "Ja" : "Nee" ],
+    [ "Samenvoeging", permitCheckmarks.has_samenvoeging_permit === "True" ? "Ja" : "Nee" ],
+    [ "Ligplaats", permitCheckmarks.has_ligplaats_permit === "True" ? "Ja" : "Nee" ],
+    [ "Vakantieverhuur", permitCheckmarks.has_vacation_rental_permit === "True" ? "Ja" : "Nee" ],
+    [ "B&B", permitCheckmarks.has_b_and_b_permit === "True" ? "Ja" : "Nee" ],
     [ "Shortstay", shortstay ],
     <Hr />,
     <Heading forwardedAs="h4">Vakantieverhuur</Heading>,

@@ -244,13 +244,13 @@ export const usePermitCheckmarks = (bagId: string, options?: Options) => {
 }
 
 export type allPermitCheckmarks = {
-  has_b_and_b_permit: boolean
-  has_ligplaats_permit: boolean
-  has_omzettings_permit: boolean
-  has_samenvoeging_permit: boolean
-  has_splitsing_permit: boolean
-  has_vacation_rental_permit: boolean
-  has_woonvorming_permit: boolean
+  has_b_and_b_permit: string
+  has_ligplaats_permit: string
+  has_omzettings_permit: string
+  has_samenvoeging_permit: string
+  has_splitsing_permit: string
+  has_vacation_rental_permit: string
+  has_woonvorming_permit: string
 }
 
 export const useAllPermitCheckmarks = (bagId: string, options?: Options) => {
