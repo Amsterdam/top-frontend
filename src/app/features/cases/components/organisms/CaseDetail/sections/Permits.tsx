@@ -27,15 +27,15 @@ const Permits: FC<Props> = ({ caseId }) => {
   const rentedDays = caseData.vakantie_verhuur.rented_days
   const rentedToday = notified ? notifiedRentals?.filter(r => isBetweenDates(new Date(r.check_in), new Date(r.check_out), today)).length : "Nee"
   const shortstay = caseData.vakantie_verhuur.shortstay === "J"
+  const permitReadeableAnwser = (p: string) => (p === "True" ? "Ja" : p === "False" ? "Nee" : "Onbekent")
 
   const permits = [
-    [ "Omzetting", permitCheckmarks.has_omzettings_permit === "True" ? "Ja" : "Nee" ],
-    [ "Splitsing", permitCheckmarks.has_splitsing_permit === "True" ? "Ja" : "Nee" ],
-    [ "Woonvorming", permitCheckmarks.has_woonvorming_permit === "True" ? "Ja" : "Nee" ],
-    [ "Samenvoeging", permitCheckmarks.has_samenvoeging_permit === "True" ? "Ja" : "Nee" ],
-    [ "Ligplaats", permitCheckmarks.has_ligplaats_permit === "True" ? "Ja" : "Nee" ],
-    [ "Vakantieverhuur", permitCheckmarks.has_vacation_rental_permit === "True" ? "Ja" : "Nee" ],
-    [ "B&B", permitCheckmarks.has_b_and_b_permit === "True" ? "Ja" : "Nee" ],
+    [ "Omzetting", permitReadeableAnwser(permitCheckmarks.has_omzettings_permit) ],
+    [ "Splitsing", permitReadeableAnwser(permitCheckmarks.has_splitsing_permit) ],
+    [ "Onttrekking- vorming en samenvoeging", permitReadeableAnwser(permitCheckmarks.has_ontrekking_vorming_samenvoeging_permit) ],
+    [ "Ligplaats", permitReadeableAnwser(permitCheckmarks.has_ligplaats_permit) ],
+    [ "Vakantieverhuur", permitReadeableAnwser(permitCheckmarks.has_vacation_rental_permit) ],
+    [ "B&B", permitReadeableAnwser(permitCheckmarks.has_b_and_b_permit) ],
     [ "Shortstay", shortstay ],
     <Hr />,
     <Heading forwardedAs="h4">Vakantieverhuur</Heading>,
