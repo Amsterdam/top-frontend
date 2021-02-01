@@ -1,4 +1,4 @@
-import displayBoolean from "app/features/shared/utils/displayBoolean"
+import formatBoolean from "app/features/shared/utils/formatBoolean"
 
 export const email = "Terugmelding.Basisinformatie@amsterdam.nl"
 export const subject = "Terugmelding Basisinformatie"
@@ -35,8 +35,8 @@ Aantal kamers: ${ aantalKamers !== undefined ? aantalKamers : "–" }
 Woonoppervlak: ${ oppervlak !== undefined ? `${ oppervlak } m² ` : "–" }`
     :
     `Status: ${ woonbootStatus || "–" }
-Indicatie geconstateerd: ${ displayBoolean(woonbootIndicatie) }
-Aanduiding in onderzoek: ${ displayBoolean(woonbootAanduiding) }`
+Indicatie geconstateerd: ${ formatBoolean(woonbootIndicatie) }
+Aanduiding in onderzoek: ${ formatBoolean(woonbootAanduiding) }`
   }
 
 We hebben bij onze controle de volgende afwijkingen geconstateerd:

@@ -8,7 +8,7 @@ enum ReturnValue {
   Yes = "Ja"
 }
 
-const displayBoolean = (bool?: BooleanValue): string => {
+const formatBoolean = (bool?: BooleanValue): string => {
   if (bool === undefined) {
     return ReturnValue.Unknown
   }
@@ -24,4 +24,4 @@ const displayBoolean = (bool?: BooleanValue): string => {
   return bool ? ReturnValue.Yes : ReturnValue.No
 }
 
-export default displayBoolean
+export default formatBoolean
