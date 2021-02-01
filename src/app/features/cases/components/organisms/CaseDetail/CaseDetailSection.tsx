@@ -2,7 +2,7 @@ import React, { FC } from "react"
 import styled from "styled-components"
 import { Heading, themeColor } from "@amsterdam/asc-ui"
 
-import displayBoolean from "app/features/shared/utils/displayBoolean"
+import formatBoolean from "app/features/shared/utils/formatBoolean"
 import Label from "app/features/cases/components/atoms/Label/Label"
 import InvalidValue from "app/features/cases/components/atoms/Value/InvalidValue"
 import { KeyValueDetail } from "app/features/types"
@@ -51,7 +51,7 @@ const CaseDetailSection: FC<Props> = ({ id, dataSource, title, data, footer }) =
             let value = Array.isArray(keyValue) ? keyValue[1] : keyValue
 
             if (typeof value === "boolean") {
-              value = displayBoolean(value)
+              value = formatBoolean(value)
             }
 
             const keyValuePair = <React.Fragment key={ String(key) + index }>
