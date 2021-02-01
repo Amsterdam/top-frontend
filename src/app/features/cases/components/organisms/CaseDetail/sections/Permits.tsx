@@ -29,6 +29,7 @@ const Permits: FC<Props> = ({ caseId }) => {
   return (
     <CaseDetailSection
       title="Vergunningen"
+      dataSource="Decos JOIN"
       data={ permitData }
       experimental
     />
