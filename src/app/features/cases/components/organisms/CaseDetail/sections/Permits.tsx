@@ -31,7 +31,7 @@ const Permits: FC<Props> = ({ caseId }) => {
       title="Vergunningen"
       dataSource="Decos JOIN"
       data={ permitData }
-      experimental
+      experimental="Let op: we werken momenteel aan het ophalen en tonen van vergunningen. Controleer voorlopig zelf of deze overeenkomen met de gegevens in Decos JOIN."
     />
   )
 }

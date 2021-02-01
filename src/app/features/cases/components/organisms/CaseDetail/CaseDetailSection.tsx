@@ -22,7 +22,7 @@ type Props = {
   dataSource?: string
   data: KeyValueDetail[]
   footer?: { title: string, link: string }
-  experimental?: Boolean
+  experimental?: Boolean | string
 }
 
 const SourceInfo = styled.p`
@@ -33,6 +33,11 @@ const SourceInfo = styled.p`
 
 const HrWide = styled(Hr)`
   margin: 12px -16px;
+`
+
+const WarningParagraph = styled(Paragraph)`
+  color: ${ themeColor("error") };
+  margin-bottom: 0;
 `
 
 const WarningSubTitle = styled(Paragraph)`
@@ -91,6 +96,13 @@ const CaseDetailSection: FC<Props> = ({ id, dataSource, title, data, footer, exp
           }) }
         </Grid>
       </SectionRow>
+      { typeof experimental === "string" &&
+      <SectionRow>
+        <WarningParagraph>
+          { experimental }
+        </WarningParagraph>
+      </SectionRow>
+      }
       { showFooter &&
       <SectionRow>
         <CenteredAnchor href={ footer!.link }>{ footer!.title }</CenteredAnchor>
