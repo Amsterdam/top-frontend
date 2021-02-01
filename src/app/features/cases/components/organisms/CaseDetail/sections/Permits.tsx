@@ -20,7 +20,7 @@ const Permits: FC<Props> = ({ caseId }) => {
   const permitData = [
     [ "Omzetting", formatBoolean(permitCheckmarks.has_omzettings_permit) ],
     [ "Splitsing", formatBoolean(permitCheckmarks.has_splitsing_permit) ],
-    [ "Onttrekking- vorming en samenvoeging", formatBoolean(permitCheckmarks.has_ontrekking_vorming_samenvoeging_permit) ],
+    [ "Onttrekking, vorming en samenvoeging", formatBoolean(permitCheckmarks.has_ontrekking_vorming_samenvoeging_permit) ],
     [ "Ligplaats", formatBoolean(permitCheckmarks.has_ligplaats_permit) ],
     [ "Vakantieverhuur", formatBoolean(permitCheckmarks.has_vacation_rental_permit) ],
     [ "B&B", formatBoolean(permitCheckmarks.has_b_and_b_permit) ]
