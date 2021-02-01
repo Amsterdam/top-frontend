@@ -36,6 +36,8 @@ const HrWide = styled(Hr)`
 `
 
 const WarningParagraph = styled(Paragraph)`
+  font-size: 14px;
+  line-height: ${ 18 / 14 };
   color: ${ themeColor("error") };
   margin-bottom: 0;
 `
