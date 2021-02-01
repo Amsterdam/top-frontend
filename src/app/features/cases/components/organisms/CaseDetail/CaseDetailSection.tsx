@@ -1,13 +1,20 @@
 import React, { FC } from "react"
 import styled from "styled-components"
-import { Heading, themeColor } from "@amsterdam/asc-ui"
+import { Heading, Paragraph, themeColor, themeSpacing } from "@amsterdam/asc-ui"
 
 import formatBoolean from "app/features/shared/utils/formatBoolean"
 import Label from "app/features/cases/components/atoms/Label/Label"
 import InvalidValue from "app/features/cases/components/atoms/Value/InvalidValue"
 import { KeyValueDetail } from "app/features/types"
 
-import { CenteredAnchor, Grid, Hr, Section, SectionRow, SpanColumns } from "app/features/cases/components/organisms/CaseDetail/CaseDetailSectionStyles"
+import {
+  CenteredAnchor,
+  Grid,
+  Hr,
+  Section,
+  SectionRow,
+  SpanColumns
+} from "app/features/cases/components/organisms/CaseDetail/CaseDetailSectionStyles"
 
 type Props = {
   id?: string
@@ -15,6 +22,7 @@ type Props = {
   dataSource?: string
   data: KeyValueDetail[]
   footer?: { title: string, link: string }
+  experimental?: Boolean | string
 }
 
 const SourceInfo = styled.p`
@@ -27,7 +35,20 @@ const HrWide = styled(Hr)`
   margin: 12px -16px;
 `
 
-const CaseDetailSection: FC<Props> = ({ id, dataSource, title, data, footer }) => {
+const WarningParagraph = styled(Paragraph)`
+  font-size: 14px;
+  line-height: ${ 18 / 14 };
+  color: ${ themeColor("error") };
+  margin-bottom: 0;
+`
+
+const WarningSubTitle = styled(Paragraph)`
+  color: ${ themeColor("error") };
+  margin-top: -${ themeSpacing(2) };
+  margin-bottom: ${ themeSpacing(3) };
+`
+
+const CaseDetailSection: FC<Props> = ({ id, dataSource, title, data, footer, experimental }) => {
   const hasTitle = title !== undefined
   const showFooter = footer !== undefined
 
@@ -36,6 +57,7 @@ const CaseDetailSection: FC<Props> = ({ id, dataSource, title, data, footer }) =
       { hasTitle &&
       <Heading forwardedAs="h2">{ title }</Heading>
       }
+      { experimental && <WarningSubTitle className="warning">experimenteel</WarningSubTitle> }
       <SectionRow>
         { dataSource &&
         <>
@@ -76,6 +98,13 @@ const CaseDetailSection: FC<Props> = ({ id, dataSource, title, data, footer }) =
           }) }
         </Grid>
       </SectionRow>
+      { typeof experimental === "string" &&
+      <SectionRow>
+        <WarningParagraph>
+          { experimental }
+        </WarningParagraph>
+      </SectionRow>
+      }
       { showFooter &&
       <SectionRow>
         <CenteredAnchor href={ footer!.link }>{ footer!.title }</CenteredAnchor>
