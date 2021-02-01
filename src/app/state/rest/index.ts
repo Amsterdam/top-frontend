@@ -243,13 +243,15 @@ export const usePermitCheckmarks = (bagId: string, options?: Options) => {
   })
 }
 
+export type booleanString = "True" | "False" | "UNKNOWN"
+
 export type allPermitCheckmarks = {
-  has_b_and_b_permit: string
-  has_ligplaats_permit: string
-  has_omzettings_permit: string
-  has_splitsing_permit: string
-  has_vacation_rental_permit: string
-  has_ontrekking_vorming_samenvoeging_permit: string
+  has_b_and_b_permit: booleanString
+  has_ligplaats_permit: booleanString
+  has_omzettings_permit: booleanString
+  has_splitsing_permit: booleanString
+  has_vacation_rental_permit: booleanString
+  has_ontrekking_vorming_samenvoeging_permit: booleanString
 }
 
 export const useAllPermitCheckmarks = (bagId: string, options?: Options) => {
