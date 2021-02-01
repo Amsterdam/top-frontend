@@ -48,6 +48,7 @@ const Permits: FC<Props> = ({ caseId }) => {
     <CaseDetailSection
       title="Vergunningen"
       data={ permits }
+      experimental
     />
   )
 }
