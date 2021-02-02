@@ -2,8 +2,8 @@ import React, { FC } from "react"
 
 import { useAllPermitCheckmarks, useCase } from "app/state/rest"
 import formatBoolean from "app/features/shared/utils/formatBoolean"
-import { BrkData } from "app/features/types"
 
+import { getBagId } from "../utils"
 import CaseDetailSection from "../CaseDetailSection"
 
 type Props = {
@@ -12,8 +12,8 @@ type Props = {
 
 const Permits: FC<Props> = ({ caseId }) => {
   const { data: caseData } = useCase(caseId)
-  const bagId = (caseData?.brk_data as BrkData).bag_id ?? ""
-  const { data: permitCheckmarks } = useAllPermitCheckmarks(bagId, { lazy: !bagId })
+  const bagId = getBagId(caseData!)
+  const { data: permitCheckmarks } = useAllPermitCheckmarks(bagId!, { lazy: !bagId })
 
   if (!caseData || !permitCheckmarks) {
     return null

@@ -2,9 +2,10 @@ import React, { FC } from "react"
 
 import { useCase, usePermitCheckmarks, usePermitDetails } from "app/state/rest"
 import ScrollToAnchor from "app/features/shared/components/molecules/ScrollToAnchor/ScrollToAnchor"
-import { BrkData } from "app/features/types"
 import isBetweenDates from "app/features/shared/utils/isBetweenDates"
 import formatDateRange from "app/features/shared/utils/formatDateRange"
+
+import { getBagId } from "../utils"
 import CaseDetailSection from "../CaseDetailSection"
 
 type Props = {
@@ -14,9 +15,9 @@ type Props = {
 const VacationRental: FC<Props> = ({ caseId }) => {
   const { data: caseData } = useCase(caseId)
 
-  const bagId = (caseData?.brk_data as BrkData).bag_id ?? ""
-  const { data: permitCheckmarks } = usePermitCheckmarks(bagId, { lazy: !bagId })
-  const { data: permitDetails } = usePermitDetails(bagId, { lazy: !bagId })
+  const bagId = getBagId(caseData!)
+  const { data: permitCheckmarks } = usePermitCheckmarks(bagId!, { lazy: !bagId })
+  const { data: permitDetails } = usePermitDetails(bagId!, { lazy: !bagId })
 
   if (!caseData) {
     return null

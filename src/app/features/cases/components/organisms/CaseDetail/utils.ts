@@ -1,7 +1,13 @@
-import { BrkData, BrkDataError, Case, ImportAdres } from "app/features/types"
+import { BagData, BagDataError, BrkData, BrkDataError, Case, ImportAdres } from "app/features/types"
 import displayAddress from "app/features/shared/utils/displayAddress"
 
 export const getAddress = (address: ImportAdres) => displayAddress(address.sttnaam, address.hsnr, address.hsltr || undefined, address.toev || undefined)
+
+export const getBagId = (caseData: Case) => {
+  const hasBagData = (caseData?.bag_data as BagDataError).error === undefined
+
+  return hasBagData ? (caseData?.bag_data as BagData).verblijfsobjectidentificatie : undefined
+}
 
 export const getCaseCount = (caseData: Case) => {
   if (caseData.bwv_tmp.num_cases === null) {
@@ -27,7 +33,7 @@ export const getEigenaar = (caseData: Case) => {
   return undefined
 }
 
-export const isNullish = (a: any): a is undefined|null => a === undefined || a === null || a === ""
+export const isNullish = (a: any): a is undefined | null => a === undefined || a === null || a === ""
 
 const logbookTranslationsMap: Record<string, string> = {
   nobody_present: "Niemand aanwezig",
