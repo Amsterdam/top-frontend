@@ -104,8 +104,8 @@ const General: FC<Props> = ({ caseId }) => {
           }
           { fraudPrediction &&
           <>
+            <Label>Voorspelling (bèta)</Label>
             <Link to={ getToFraudPredictionModalUrl() }>
-              <Label>Voorspelling (bèta)</Label>
               <FraudProbability fraudProbability={ fraudPrediction?.fraud_probability } />
             </Link>
             <FraudPredictionDetailsModal
