@@ -3,8 +3,9 @@ import React, { FC } from "react"
 import { useCase } from "app/state/rest"
 import { BagData, BagDataError } from "app/features/types"
 import MailtoAnchor from "app/features/cases/components/molecules/MailtoAnchor/MailtoAnchor"
+
+import { getAddress, getBagId, getEigenaar } from "../utils"
 import CaseDetailSection from "../CaseDetailSection"
-import { getAddress, getEigenaar } from "../utils"
 
 type Props = {
   caseId: string
@@ -31,7 +32,7 @@ const Residence: FC<Props> = ({ caseId }) => {
   const woningEtage = hasBagData && bagData.verdieping_toegang != null ? bagData.verdieping_toegang : undefined
   const woningKamers = hasBagData && bagData.aantal_kamers ? bagData.aantal_kamers : 0
   const woningOppervlak = hasBagData && bagData.oppervlakte && bagData.oppervlakte > 1 ? bagData.oppervlakte : 0
-  const woningBagId = hasBagData ? bagData.verblijfsobjectidentificatie : undefined
+  const woningBagId = getBagId(caseData!)
 
   // Woonboot
   const woonbootLigplaatsIndicatie = hasBagData && bagData.ligplaatsidentificatie
