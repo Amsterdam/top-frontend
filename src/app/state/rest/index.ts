@@ -1,7 +1,7 @@
 import useApiRequest from "./hooks/useApiRequest"
 import { makeGatewayUrl, useErrorHandler } from "./hooks/utils/utils"
 import currentDate from "../../features/shared/utils/currentDate"
-import { Case, ItineraryItem, Itinerary } from "app/features/types"
+import { Case, Itinerary, ItineraryItem } from "app/features/types"
 
 export type ApiGroup =
   | "itineraries"
@@ -28,7 +28,7 @@ export const useItineraries = (options?: Options) => {
   const handleError = useErrorHandler()
   return useApiRequest<{ itineraries: Itinerary[] }>({
     ...options,
-    url: makeGatewayUrl(["itineraries"], { created_at: currentDate() }),
+    url: makeGatewayUrl([ "itineraries" ], { created_at: currentDate() }),
     groupName: "itineraries",
     handleError,
     isProtected: true
@@ -39,52 +39,55 @@ export const useItineraryItems = (options?: Options) => {
   const handleError = useErrorHandler()
   return useApiRequest<{ itineraries: ItineraryItem[] }, { case_id: string, itinerary: number }>({
     ...options,
-    url: makeGatewayUrl(["itinerary-items"]),
+    url: makeGatewayUrl([ "itinerary-items" ]),
     groupName: "itineraries",
     handleError,
     isProtected: true
   })
 }
 
-export const useItineraryItem = (id: number|string, options?: Options) => {
+export const useItineraryItem = (id: number | string, options?: Options) => {
   const handleError = useErrorHandler()
   return useApiRequest<{ itineraries: ItineraryItem }, Partial<ItineraryItem>>({
     ...options,
-    url: makeGatewayUrl(["itinerary-items", id]),
+    url: makeGatewayUrl([ "itinerary-items", id ]),
     groupName: "itineraries",
     handleError,
     isProtected: true
   })
 }
 
-export const useItineraryItemNote = (id?: number|string, options?: Options) => {
+export const useItineraryItemNote = (id?: number | string, options?: Options) => {
   const handleError = useErrorHandler()
   return useApiRequest<Components.Schemas.NoteCrud>({
     ...options,
-    url: makeGatewayUrl(["notes", id]),
+    url: makeGatewayUrl([ "notes", id ]),
     groupName: "itineraries",
     handleError,
     isProtected: true
   })
 }
-
 
 export const useOpenIssues = (itineraryId?: string, options?: Options) => {
   const handleError = useErrorHandler()
   return useApiRequest<{ cases: Case[] }>({
     ...options,
-    url: makeGatewayUrl(["cases", "unplanned"], { date: currentDate(), stadium: "Issuemelding", itinerary_id: itineraryId }),
+    url: makeGatewayUrl([ "cases", "unplanned" ], {
+      date: currentDate(),
+      stadium: "Issuemelding",
+      itinerary_id: itineraryId
+    }),
     groupName: "itineraries",
     handleError,
     isProtected: true
   })
 }
 
-export const useCase = (id: number|string, options?: Options) => {
+export const useCase = (id: number | string, options?: Options) => {
   const handleError = useErrorHandler()
   return useApiRequest<Case>({
     ...options,
-    url: makeGatewayUrl(["cases", id]),
+    url: makeGatewayUrl([ "cases", id ]),
     groupName: "case",
     handleError,
     isProtected: true
@@ -105,7 +108,7 @@ export const useSearch = (streetNumber: number, postalCode?: string, streetName?
 
   return useApiRequest<{ cases: Case[] }>({
     ...options,
-    url: makeGatewayUrl(["search"], params),
+    url: makeGatewayUrl([ "search" ], params),
     groupName: "itineraries",
     handleError,
     isProtected: true
@@ -116,7 +119,7 @@ export const useSuggestions = (itineraryId: number, options?: Options) => {
   const handleError = useErrorHandler()
   return useApiRequest<{ cases: Case[] }>({
     ...options,
-    url: makeGatewayUrl(["itineraries", itineraryId, "suggestions"]),
+    url: makeGatewayUrl([ "itineraries", itineraryId, "suggestions" ]),
     groupName: "itineraries",
     handleError,
     isProtected: true
@@ -127,7 +130,7 @@ export const useUsers = (options?: Options) => {
   const handleError = useErrorHandler()
   return useApiRequest<{ results: Components.Schemas.User[] }>({
     ...options,
-    url: makeGatewayUrl(["users"]),
+    url: makeGatewayUrl([ "users" ]),
     groupName: "users",
     handleError,
     isProtected: true
@@ -136,12 +139,10 @@ export const useUsers = (options?: Options) => {
 
 export const useTeam = (itineraryId: number, options?: Options) => {
   const handleError = useErrorHandler()
-  return useApiRequest<
-    { results: Components.Schemas.User[] },
-    { team_members: { user: Components.Schemas.User }[] }
-  >({
+  return useApiRequest<{ results: Components.Schemas.User[] },
+    { team_members: { user: Components.Schemas.User }[] }>({
     ...options,
-    url: makeGatewayUrl(["itineraries", itineraryId, "team"]),
+    url: makeGatewayUrl([ "itineraries", itineraryId, "team" ]),
     groupName: "itineraries",
     handleError,
     isProtected: true
@@ -149,38 +150,38 @@ export const useTeam = (itineraryId: number, options?: Options) => {
 }
 
 export const useTeamSettingsList = (options?: Options) => useApiRequest<{ results: Components.Schemas.TeamSettings[] }>({
-    ...options,
-    url: makeGatewayUrl(["team-settings"]),
-    groupName: "teamSettingsList",
-    isProtected: true
-  })
+  ...options,
+  url: makeGatewayUrl([ "team-settings" ]),
+  groupName: "teamSettingsList",
+  isProtected: true
+})
 
 export const useTeamSettings = (teamSettingsId: number, options?: Options) => useApiRequest<Components.Schemas.TeamSettings>({
-    ...options,
-    url: makeGatewayUrl(["team-settings", teamSettingsId]),
-    groupName: "teamSettings",
-    isProtected: true
-  })
+  ...options,
+  url: makeGatewayUrl([ "team-settings", teamSettingsId ]),
+  groupName: "teamSettings",
+  isProtected: true
+})
 
-  export const useDaySettings = (daySettingsId: number, options?: Options) => useApiRequest<Components.Schemas.DaySettings>({
-    ...options,
-    url: makeGatewayUrl(["day-settings", daySettingsId]),
-    groupName: "daySettings",
-    isProtected: true
-  })
+export const useDaySettings = (daySettingsId: number, options?: Options) => useApiRequest<Components.Schemas.DaySettings>({
+  ...options,
+  url: makeGatewayUrl([ "day-settings", daySettingsId ]),
+  groupName: "daySettings",
+  isProtected: true
+})
 
-  export const usePostCodeRanges = (options?: Options) => useApiRequest<{ results: Components.Schemas.PostalCodeRangePreset[] }>({
-    ...options,
-    url: makeGatewayUrl(["postal-code-ranges-presets"]),
-    groupName: "postCodeRangesPresets",
-    isProtected: true
-  })
+export const usePostCodeRanges = (options?: Options) => useApiRequest<{ results: Components.Schemas.PostalCodeRangePreset[] }>({
+  ...options,
+  url: makeGatewayUrl([ "postal-code-ranges-presets" ]),
+  groupName: "postCodeRangesPresets",
+  isProtected: true
+})
 
-export const useDeleteItinerary = (id: string|number, options?: Options) => {
+export const useDeleteItinerary = (id: string | number, options?: Options) => {
   const handleError = useErrorHandler()
-  return useApiRequest<{constants: string[]}>({
+  return useApiRequest<{ constants: string[] }>({
     ...options,
-    url: makeGatewayUrl(["itineraries", id]),
+    url: makeGatewayUrl([ "itineraries", id ]),
     groupName: "itineraries",
     handleError,
     isProtected: true
@@ -191,7 +192,7 @@ export const useVisits = (options?: Options) => {
   const handleError = useErrorHandler()
   return useApiRequest<Components.Schemas.Visit[], Components.Schemas.Visit>({
     ...options,
-    url: makeGatewayUrl(["visits"]),
+    url: makeGatewayUrl([ "visits" ]),
     groupName: "itineraries",
     handleError,
     isProtected: true
@@ -200,9 +201,9 @@ export const useVisits = (options?: Options) => {
 
 export const useSuggestNextVisit = (options?: Options) => {
   const handleError = useErrorHandler()
-  return useApiRequest<{results: Components.Schemas.SuggestNextVisit[]}>({
+  return useApiRequest<{ results: Components.Schemas.SuggestNextVisit[] }>({
     ...options,
-    url: makeGatewayUrl(["suggest-next-visit"]),
+    url: makeGatewayUrl([ "suggest-next-visit" ]),
     groupName: "itineraries",
     handleError,
     isProtected: true
@@ -211,31 +212,31 @@ export const useSuggestNextVisit = (options?: Options) => {
 
 export const useObservations = (options?: Options) => {
   const handleError = useErrorHandler()
-  return useApiRequest<{results: Components.Schemas.Observation[]}>({
+  return useApiRequest<{ results: Components.Schemas.Observation[] }>({
     ...options,
-    url: makeGatewayUrl(["observations"]),
+    url: makeGatewayUrl([ "observations" ]),
     groupName: "itineraries",
     handleError,
     isProtected: true
   })
 }
 
-export const useVisit = (id: string|number, options?: Options) => {
+export const useVisit = (id: string | number, options?: Options) => {
   const handleError = useErrorHandler()
   return useApiRequest<Components.Schemas.Visit>({
     ...options,
-    url: makeGatewayUrl(["visits", id]),
+    url: makeGatewayUrl([ "visits", id ]),
     groupName: "itineraries",
     handleError,
     isProtected: true
   })
 }
 
-export const useCaseVisits = (caseId: string|number, options?: Options) => {
+export const useCaseVisits = (caseId: string | number, options?: Options) => {
   const handleError = useErrorHandler()
   return useApiRequest<Components.Schemas.Visit[]>({
     ...options,
-    url: makeGatewayUrl(["cases", caseId, "visits"]),
+    url: makeGatewayUrl([ "cases", caseId, "visits" ]),
     groupName: "itineraries",
     handleError,
     isProtected: true
@@ -246,7 +247,7 @@ export const usePermitCheckmarks = (bagId: string, options?: Options) => {
   const handleError = useErrorHandler()
   return useApiRequest<Components.Schemas.PermitCheckmark>({
     ...options,
-    url: makeGatewayUrl(["permits", "checkmarks"], { bag_id: bagId }),
+    url: makeGatewayUrl([ "permits", "checkmarks" ], { bag_id: bagId }),
     groupName: "permits",
     handleError,
     isProtected: true
@@ -268,7 +269,7 @@ export const useAllPermitCheckmarks = (bagId: string, options?: Options) => {
   const handleError = useErrorHandler()
   return useApiRequest<allPermitCheckmarks>({
     ...options,
-    url: makeGatewayUrl(["all-permits", "checkmarks"], { bag_id: bagId }),
+    url: makeGatewayUrl([ "all-permits", "checkmarks" ], { bag_id: bagId }),
     groupName: "permits",
     handleError,
     isProtected: true
@@ -279,7 +280,7 @@ export const usePermitDetails = (bagId: string, options?: Options) => {
   const handleError = useErrorHandler()
   return useApiRequest<Components.Schemas.DecosPermit[]>({
     ...options,
-    url: makeGatewayUrl(["permits", "details"], { bag_id: bagId }),
+    url: makeGatewayUrl([ "permits", "details" ], { bag_id: bagId }),
     groupName: "permits",
     handleError,
     isProtected: true
@@ -295,7 +296,7 @@ export const useIsAuthorized = (options?: Options) => {
   const handleError = useErrorHandler()
   return useApiRequest<any>({
     ...options,
-    url: makeGatewayUrl(["is-authorized"]),
+    url: makeGatewayUrl([ "is-authorized" ]),
     groupName: "auth",
     handleError,
     isProtected: true
