@@ -2,11 +2,11 @@ import React, { FC } from "react"
 import styled from "styled-components"
 import { Heading, Paragraph, themeColor, themeSpacing } from "@amsterdam/asc-ui"
 
-import formatBoolean from "app/features/shared/utils/formatBoolean"
-import Label from "app/features/cases/components/atoms/Label/Label"
 import InlineSkeleton from "app/features/shared/components/atoms/InlineSkeleton/InlineSkeleton"
-import InvalidValue from "app/features/cases/components/atoms/Value/InvalidValue"
+import Label from "app/features/shared/components/atoms/Label/Label"
+import formatBoolean from "app/features/shared/utils/formatBoolean"
 import { KeyValueDetail } from "app/features/types"
+import InvalidValue from "app/features/cases/components/atoms/Value/InvalidValue"
 
 import {
   CenteredAnchor,

@@ -5,10 +5,10 @@ import { Heading, themeSpacing } from "@amsterdam/asc-ui"
 
 import { useCase, useDaySettings } from "app/state/rest"
 import FraudProbability from "app/features/shared/components/atoms/FraudProbability/FraudProbability"
+import Label from "app/features/shared/components/atoms/Label/Label"
 import ScrollToAnchor from "app/features/shared/components/molecules/ScrollToAnchor/ScrollToAnchor"
 import StadiumBadge from "app/features/shared/components/molecules/StadiumBadge/StadiumBadge"
 import InvalidValue from "app/features/cases/components/atoms/Value/InvalidValue"
-import Label from "app/features/cases/components/atoms/Label/Label"
 import FraudPredictionDetailsModal
   from "app/features/cases/components/organisms/FraudPrediction/FraudPredictionDetailsModal"
 import { useFraudPredictionModal } from "app/features/cases/components/organisms/FraudPrediction/hooks/useFraudPredictionModal"
