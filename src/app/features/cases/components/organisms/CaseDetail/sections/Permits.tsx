@@ -14,14 +14,18 @@ const Permits: FC<Props> = ({ caseId }) => {
   const { data: caseData } = useCase(caseId)
   const bagId = getBagId(caseData!)
   const { data: permits, isBusy } = useAllPermitCheckmarks(bagId!, { lazy: !bagId })
+  const permitsLookup = (permitType: string) => (permits?.reduce((a: any, c) => {
+    a[c.permit_type] = c
+    return a
+  }, {})[permitType]) || "UNKNOWN"
 
   const permitData = [
-    [ "Omzetting", formatBoolean(permits?.has_omzettings_permit) ],
-    [ "Splitsing", formatBoolean(permits?.has_splitsing_permit) ],
-    [ "Onttrekking, vorming en samenvoeging", formatBoolean(permits?.has_ontrekking_vorming_samenvoeging_permit) ],
-    [ "Ligplaats", formatBoolean(permits?.has_ligplaats_permit) ],
-    [ "Vakantieverhuur", formatBoolean(permits?.has_vacation_rental_permit) ],
-    [ "B&B", formatBoolean(permits?.has_b_and_b_permit) ]
+    [ "Omzetting", formatBoolean(permitsLookup("OMZETTINGSVERGUNNING").permit_granted) ],
+    [ "Splitsing", formatBoolean(permitsLookup("SPLITTINGSVERGUNNING").permit_granted) ],
+    [ "Onttrekking, vorming en samenvoeging", formatBoolean(permitsLookup("ONTREKKING_VORMING_SAMENVOEGING_VERGUNNINGEN").permit_granted) ],
+    [ "Ligplaats", formatBoolean(permitsLookup("LIGPLAATSVERGUNNING").permit_granted) ],
+    [ "Vakantieverhuur", formatBoolean(permitsLookup("VAKANTIEVERHUURVERGUNNING").permit_granted) ],
+    [ "B&B", formatBoolean(permitsLookup("B_EN_B_VERGUNNING").permit_granted) ]
   ]
 
   return (
