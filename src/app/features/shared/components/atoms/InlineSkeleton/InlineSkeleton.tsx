@@ -1,4 +1,3 @@
-import React from "react"
 import styled, { keyframes } from "styled-components"
 import { themeColor } from "@amsterdam/asc-ui"
 
@@ -21,7 +20,7 @@ const InlineSkeleton = styled.span`
   background-size: ${ backgroundWidth } 100%;
   background-repeat: no-repeat;
   animation: ${ animation } 2s linear infinite;
-  
+
   &::before {
     content: "Ophalen…"; // Provides appropriate dimensions and enables baseline alignment
     opacity: 0;
