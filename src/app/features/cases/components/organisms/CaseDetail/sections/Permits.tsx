@@ -13,28 +13,27 @@ type Props = {
 const Permits: FC<Props> = ({ caseId }) => {
   const { data: caseData } = useCase(caseId)
   const bagId = getBagId(caseData!)
-  const { data: permitCheckmarks } = useAllPermitCheckmarks(bagId!, { lazy: !bagId })
-
-  if (!caseData || !permitCheckmarks) {
-    return null
-  }
+  const { data: permits, isBusy } = useAllPermitCheckmarks(bagId!, { lazy: !bagId })
 
   const permitData = [
-    [ "Omzetting", formatBoolean(permitCheckmarks.has_omzettings_permit) ],
-    [ "Splitsing", formatBoolean(permitCheckmarks.has_splitsing_permit) ],
-    [ "Onttrekking, vorming en samenvoeging", formatBoolean(permitCheckmarks.has_ontrekking_vorming_samenvoeging_permit) ],
-    [ "Ligplaats", formatBoolean(permitCheckmarks.has_ligplaats_permit) ],
-    [ "Vakantieverhuur", formatBoolean(permitCheckmarks.has_vacation_rental_permit) ],
-    [ "B&B", formatBoolean(permitCheckmarks.has_b_and_b_permit) ]
+    [ "Omzetting", formatBoolean(permits?.has_omzettings_permit) ],
+    [ "Splitsing", formatBoolean(permits?.has_splitsing_permit) ],
+    [ "Onttrekking, vorming en samenvoeging", formatBoolean(permits?.has_ontrekking_vorming_samenvoeging_permit) ],
+    [ "Ligplaats", formatBoolean(permits?.has_ligplaats_permit) ],
+    [ "Vakantieverhuur", formatBoolean(permits?.has_vacation_rental_permit) ],
+    [ "B&B", formatBoolean(permits?.has_b_and_b_permit) ]
   ]
 
   return (
-    <CaseDetailSection
-      title="Vergunningen"
-      dataSource="Decos JOIN"
-      data={ permitData }
-      experimental="Let op: we werken momenteel aan het ophalen en tonen van vergunningen. Controleer voorlopig zelf of deze overeenkomen met de gegevens in Decos JOIN."
-    />
+    <>
+      <CaseDetailSection
+        title="Vergunningen"
+        dataSource="Decos JOIN"
+        data={ permitData }
+        experimental="Let op: we werken momenteel aan het ophalen en tonen van vergunningen. Controleer voorlopig zelf of deze overeenkomen met de gegevens in Decos JOIN."
+        isBusy={ isBusy }
+      />
+    </>
   )
 }
 

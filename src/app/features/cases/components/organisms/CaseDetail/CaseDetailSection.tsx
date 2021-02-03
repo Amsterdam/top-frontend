@@ -4,6 +4,7 @@ import { Heading, Paragraph, themeColor, themeSpacing } from "@amsterdam/asc-ui"
 
 import formatBoolean from "app/features/shared/utils/formatBoolean"
 import Label from "app/features/cases/components/atoms/Label/Label"
+import InlineSkeleton from "app/features/shared/components/atoms/InlineSkeleton/InlineSkeleton"
 import InvalidValue from "app/features/cases/components/atoms/Value/InvalidValue"
 import { KeyValueDetail } from "app/features/types"
 
@@ -23,6 +24,7 @@ type Props = {
   data: KeyValueDetail[]
   footer?: { title: string, link: string }
   experimental?: Boolean | string
+  isBusy?: Boolean
 }
 
 const SourceInfo = styled.p`
@@ -48,7 +50,7 @@ const WarningSubTitle = styled(Paragraph)`
   margin-bottom: ${ themeSpacing(3) };
 `
 
-const CaseDetailSection: FC<Props> = ({ id, dataSource, title, data, footer, experimental }) => {
+const CaseDetailSection: FC<Props> = ({ id, dataSource, title, data, footer, experimental, isBusy }) => {
   const hasTitle = title !== undefined
   const showFooter = footer !== undefined
 
@@ -80,7 +82,7 @@ const CaseDetailSection: FC<Props> = ({ id, dataSource, title, data, footer, exp
               { hasLabel ?
                 <>
                   <Label>{ key }</Label>
-                  { (value == null) ? <InvalidValue /> : <span>{ value }</span> }
+                  { isBusy ? <InlineSkeleton /> : (value == null) ? <InvalidValue /> : <span>{ value }</span> }
                 </>
                 :
                 <SpanColumns key={ String(key) + index }>{ value }</SpanColumns>
