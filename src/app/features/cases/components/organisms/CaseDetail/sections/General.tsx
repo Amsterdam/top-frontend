@@ -113,7 +113,7 @@ const General: FC<Props> = ({ caseId }) => {
         </Grid>
       </SectionRow>
       <SectionRow>
-        <CenteredAnchor href={ `http://www.google.com/maps/place/${ address }, Amsterdam` }>
+        <CenteredAnchor href={ `https://www.google.com/maps/place/${ address }, Amsterdam` }>
           Bekijk op Google Maps
         </CenteredAnchor>
       </SectionRow>
