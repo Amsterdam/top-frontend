@@ -9,7 +9,6 @@ import Label from "app/features/shared/components/atoms/Label/Label"
 import Value from "app/features/shared/components/atoms/Value/Value"
 import ScrollToAnchor from "app/features/shared/components/molecules/ScrollToAnchor/ScrollToAnchor"
 import StadiumBadge from "app/features/shared/components/molecules/StadiumBadge/StadiumBadge"
-import InvalidValue from "app/features/cases/components/atoms/Value/InvalidValue"
 import FraudPredictionDetailsModal
   from "app/features/cases/components/organisms/FraudPrediction/FraudPredictionDetailsModal"
 import { useFraudPredictionModal } from "app/features/cases/components/organisms/FraudPrediction/hooks/useFraudPredictionModal"
@@ -38,10 +37,6 @@ const BadgesRow = styled.div`
   > :not(:last-child) {
     margin-right: ${ themeSpacing(2) };
   }
-`
-
-const Span = styled.span`
-  vertical-align: top;
 `
 
 const General: FC<Props> = ({ caseId }) => {
@@ -84,13 +79,13 @@ const General: FC<Props> = ({ caseId }) => {
         </BadgesRow>
         <Grid>
           <Label>Ingeschreven</Label>
-          <Span>{ residentCount > 0
+          <span>{ residentCount > 0
             ? <ScrollToAnchor anchor="inschrijvingen" text={ residentsText } />
             : residentsText
-          }</Span>
+          }</span>
           <Label>Zaaknummer</Label>
           <Value valid={ caseNumber !== undefined && caseCount !== undefined }>
-            <Span><strong>{ caseNumber }</strong> van { caseCount }</Span>
+            <span><strong>{ caseNumber }</strong> van { caseCount }</span>
           </Value>
           <Label>Open zaken</Label>
           <Value value={ openCaseCount } />
