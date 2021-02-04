@@ -32,30 +32,30 @@ const Permits: FC<Props> = ({ caseId }) => {
   const address = getAddress(caseData?.import_adres ?? {} as ImportAdres)
 
   return (
-    <>
-      <CaseDetailSection
-        title="Vergunningen"
-        dataSource="Decos JOIN"
-        experimental="Let op: we werken momenteel aan het ophalen en tonen van vergunningen. Controleer voorlopig zelf of deze overeenkomen met de gegevens in Decos JOIN."
-        isBusy={ isBusy }
-      >
-        <Label>Omzetting</Label>
-        <Link to={ getToPermitDetailModalUrl() }>
-          <Value>{ permitGranted("OMZETTINGSVERGUNNING") }</Value>
-        </Link>
-        <Label>Splitsing</Label>
-        <Value>{ permitGranted("SPLITTINGSVERGUNNING") }</Value>
-        <Label>Onttrekking, vorming en samenvoeging</Label>
-        <Value>{ permitGranted("ONTREKKING_VORMING_SAMENVOEGING_VERGUNNINGEN") }</Value>
-        <Label>Ligplaats</Label>
-        <Value>{ permitGranted("LIGPLAATSVERGUNNING") }</Value>
-        <Label>Vakantieverhuur</Label>
-        <Value>{ permitGranted("VAKANTIEVERHUURVERGUNNING") }</Value>
-        <Label>B&B</Label>
-        <Value>{ permitGranted("B_EN_B_VERGUNNING") }</Value>
-        <PermitDetailsModal title={ address } permits={ permits } />
-      </CaseDetailSection>
-    </>
+    <CaseDetailSection
+      title="Vergunningen"
+      dataSource="Decos JOIN"
+      experimental="Let op: we werken momenteel aan het ophalen en tonen van vergunningen. Controleer voorlopig zelf of deze overeenkomen met de gegevens in Decos JOIN."
+      isBusy={ isBusy }
+    >
+      <Label>Omzetting</Label>
+      <Value>{ permitGranted("OMZETTINGSVERGUNNING") }</Value>
+      <Label>Splitsing</Label>
+      <Value>{ permitGranted("SPLITTINGSVERGUNNING") }</Value>
+      <Label>Onttrekking, vorming en samenvoeging</Label>
+      <Value>{ permitGranted("ONTREKKING_VORMING_SAMENVOEGING_VERGUNNINGEN") }</Value>
+      <Label>Ligplaats</Label>
+      <Value>{ permitGranted("LIGPLAATSVERGUNNING") }</Value>
+      <Label>Vakantieverhuur</Label>
+      <Value>{ permitGranted("VAKANTIEVERHUURVERGUNNING") }</Value>
+      <Label>B&B</Label>
+      <Value>{ permitGranted("B_EN_B_VERGUNNING") }</Value>
+      <div />
+      <Link to={ getToPermitDetailModalUrl() }>
+        Bekijk details
+      </Link>
+      <PermitDetailsModal title={ address } permits={ permits } />
+    </CaseDetailSection>
   )
 }
 
