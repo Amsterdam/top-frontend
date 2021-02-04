@@ -60,13 +60,66 @@ declare namespace Components {
                 show_vakantieverhuur?: boolean
             }
         }
+        export type DecosJoinFolderFieldsResponse = {
+            bol4?: boolean | null
+            bol5?: boolean | null
+            bol7?: boolean | null
+            company?: string | null
+            date1?: string | null
+            date2?: string | null
+            date4?: string | null
+            date5?: string
+            date6: string
+            date7?: string
+            department?: string | null
+            document_date?: string | null
+            email1?: string | null
+            email2?: string | null
+            email3?: string | null
+            firstname?: string | null
+            dfunction: string | null
+            parentKey: string | null
+            sequence?: null | number
+            itemtype_key?: string | null
+            mailaddress?: string | null
+            mark?: string | null
+            num5?: null | number
+            num6?: null | number
+            phone1?: string | null
+            phone3?: string | null
+            processed?: boolean
+            received_date?: string | null
+            subject1?: string | null
+            surname?: string | null
+            text2?: string | null
+            text6?: string | null
+            text7?: string | null
+            text8?: string | null
+            text9?: string | null
+            title?: string | null
+            zipcode?: string | null
+            it_extid?: string | null
+            text13?: string | null
+            text16?: string | null
+            date10?: string | null
+            num7?: null | number
+            text17?: string | null
+            text18?: string | null
+            text22?: string | null
+            text23?: string | null
+            text44?: string | null
+            text45?: string | null
+            date20?: string | null
+            num20?: null | number
+            num22?: null | number
+            itemrel_key: string | null
+        }
         export type DecosPermit = {
-            permit_granted?: boolean
-            permit_type?: "BED_AND_BREAKFAST" | "VAKANTIEVERHUUR" | "PERMIT_UNKNOWN"
-            processed: string | null
+            permit_granted: HasVacationRentalPermitEnum
+            permit_type: string
             date_from: string | null // date
-            date_to?: string | null // date
             decos_join_web_url?: string // uri ^(?:[a-z0-9.+-]*)://(?:[^\s:@/]+(?::[^\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\d|[0-1]?\d?\d)(?:\.(?:25[0-5]|2[0-4]\d|[0-1]?\d?\d)){3}|\[[0-9a-f:.]+\]|([a-z¡-￿0-9](?:[a-z¡-￿0-9-]{0,61}[a-z¡-￿0-9])?(?:\.(?!-)[a-z¡-￿0-9-]{1,63}(?<!-))*\.(?!-)(?:[a-z¡-￿-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\.?|localhost))(?::\d{2,5})?(?:[/?#][^\s]*)?\Z
+            raw_data: DecosJoinFolderFieldsResponse
         }
         export type FraudPrediction = {
             fraud_probability: number // float
@@ -79,7 +132,6 @@ declare namespace Components {
             }
             readonly sync_date: string // date-time
         }
-        export type HasBAndBPermitEnum = "True" | "False" | "UNKNOWN";
         export type HasVacationRentalPermitEnum = "True" | "False" | "UNKNOWN";
         export type Itinerary = {
             readonly id: number
@@ -440,10 +492,9 @@ declare namespace Components {
             author?: string // uuid
         }
         export type PermitCheckmark = {
-            has_b_and_b_permit: HasBAndBPermitEnum
+            has_b_and_b_permit: HasVacationRentalPermitEnum
             has_vacation_rental_permit: HasVacationRentalPermitEnum
         }
-        export type PermitTypeEnum = "BED_AND_BREAKFAST" | "VAKANTIEVERHUUR" | "PERMIT_UNKNOWN";
         export type PostalCodeRange = {
             range_start?: number
             range_end?: number
@@ -531,6 +582,23 @@ declare namespace Components {
     }
 }
 declare namespace Paths {
+    namespace AllPermitsDetailsList {
+        namespace Parameters {
+            export type BagId = string;
+        }
+        export type QueryParameters = {
+            bag_id: Parameters.BagId
+        }
+        namespace Responses {
+            export type $200 = Components.Schemas.DecosPermit[];
+        }
+    }
+    namespace AllPermitsTestConnectRetrieve {
+        namespace Responses {
+            export type $200 = {
+            }
+        }
+    }
     namespace CasesRetrieve {
         namespace Parameters {
             export type Id = string;

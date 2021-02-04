@@ -22,6 +22,11 @@ const Permits: FC<Props> = ({ caseId }) => {
   const { data: permits, isBusy } = useAllPermitCheckmarks(bagId!, { lazy: !bagId })
   const { getUrl: getToPermitDetailModalUrl } = usePermitDetailsModal()
 
+  const permitsLookup = (permitType: string) => (permits?.reduce((a: any, c) => {
+    a[c.permit_type] = c
+    return a
+  }, {})[permitType]) || "UNKNOWN"
+
   const address = getAddress(caseData?.import_adres ?? {} as ImportAdres)
 
   return (
@@ -34,18 +39,18 @@ const Permits: FC<Props> = ({ caseId }) => {
       >
         <Label>Omzetting</Label>
         <Link to={ getToPermitDetailModalUrl() }>
-          <Value>{ formatBoolean(permits?.has_omzettings_permit) }</Value>
+          <Value>{ formatBoolean(permitsLookup("OMZETTINGSVERGUNNING").permit_granted) }</Value>
         </Link>
         <Label>Splitsing</Label>
-        <Value>{ formatBoolean(permits?.has_splitsing_permit) }</Value>
+        <Value>{ formatBoolean(permitsLookup("SPLITTINGSVERGUNNING").permit_granted) }</Value>
         <Label>Onttrekking, vorming en samenvoeging</Label>
-        <Value>{ formatBoolean(permits?.has_ontrekking_vorming_samenvoeging_permit) }</Value>
+        <Value>{ formatBoolean(permitsLookup("ONTREKKING_VORMING_SAMENVOEGING_VERGUNNINGEN").permit_granted) }</Value>
         <Label>Ligplaats</Label>
-        <Value>{ formatBoolean(permits?.has_ligplaats_permit) }</Value>
+        <Value>{ formatBoolean(permitsLookup("LIGPLAATSVERGUNNING").permit_granted) }</Value>
         <Label>Vakantieverhuur</Label>
-        <Value>{ formatBoolean(permits?.has_vacation_rental_permit) }</Value>
+        <Value>{ formatBoolean(permitsLookup("VAKANTIEVERHUURVERGUNNING").permit_granted) }</Value>
         <Label>B&B</Label>
-        <Value>{ formatBoolean(permits?.has_b_and_b_permit) }</Value>
+        <Value>{ formatBoolean(permitsLookup("B_EN_B_VERGUNNING").permit_granted) }</Value>
         <PermitDetailsModal title={ address } />
       </CaseDetailSection>
     </>

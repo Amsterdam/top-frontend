@@ -265,11 +265,20 @@ export type allPermitCheckmarks = {
   has_ontrekking_vorming_samenvoeging_permit: booleanString
 }
 
+export type permitType = {
+  permit_granted: booleanString
+  permit_type: string
+  date_from: string
+  decos_join_web_url: string
+  raw_data: any
+  details: any
+}
+
 export const useAllPermitCheckmarks = (bagId: string, options?: Options) => {
   const handleError = useErrorHandler()
-  return useApiRequest<allPermitCheckmarks>({
+  return useApiRequest<permitType[]>({
     ...options,
-    url: makeGatewayUrl([ "all-permits", "checkmarks" ], { bag_id: bagId }),
+    url: makeGatewayUrl([ "all-permits", "details" ], { bag_id: bagId }),
     groupName: "permits",
     handleError,
     isProtected: true
