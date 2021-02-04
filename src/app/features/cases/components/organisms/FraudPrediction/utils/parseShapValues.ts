@@ -5,7 +5,7 @@ import { BusinessRules, ShapValues } from "app/features/types"
 type CombinedShapValue = {
   title: string
   shap: number
-  business: number|undefined
+  business: number | undefined
 }
 
 type SplitCombinedShapValue = {
@@ -68,7 +68,7 @@ const relevantShapValues: string[] = [
 
 // Some shap-value keys are hard to grasp.
 // We translate them into something useful with this map:
-const translationMap: {[translation: string]: string} = {
+const translationMap: { [translation: string]: string } = {
   "adres_id": "uniek id dat aan het adres is gekoppeld",
   "afg_code_beh": "geeft aan op welke afdeling bij de openingsreden hoort (HANZLT of VTBD)",
   "afs_oms": "reden van afsluiten zaak",
@@ -139,7 +139,7 @@ const translationMap: {[translation: string]: string} = {
   "has_persons_with_prev_confirmed_fraude": "geeft aan of er een persoon ingeschreven staat waarbij eerder woonfraude is geregistreerd",
   "has_persons_with_prev_suspected_fraude": "geeft aan of er een persoon ingeschreven staat wie eerder is verdacht van woonfraude",
   "has_address_prev_confirmed_fraude": "geeft aan of er op het adres eerder woonfraude is geregistreerd",
-  "has_address_prev_suspected_fraude":  "geeft aan of het adres eerder onderzocht is in een woonfraude zaak"
+  "has_address_prev_suspected_fraude": "geeft aan of het adres eerder onderzocht is in een woonfraude zaak"
 }
 
 const translate = (str: string) => translationMap[str] ?? str
@@ -153,16 +153,16 @@ export const parseShapValues = (shapValues: ShapValues, businessRules: BusinessR
   const combined = Object
     .entries(shapValues)
     // We're only interested in the relevant ones:
-    .filter(([key]) => relevantShapValues.includes(key))
+    .filter(([ key ]) => relevantShapValues.includes(key))
     // Map to 'CombinedShapValue'
-    .map(([key, val]) => ({
+    .map(([ key, val ]) => ({
       title: humanize(translate(key)),
       shap: val,
       business: businessRules[key] && roundIfNecessary(businessRules[key])
     }))
 
   // Sort, highest shap first.
-  const sorted = [...combined].sort((a,b) => Math.abs(a.shap) > Math.abs(b.shap) ? -1 : 1)
+  const sorted = [ ...combined ].sort((a, b) => Math.abs(a.shap) > Math.abs(b.shap) ? -1 : 1)
 
   // Split shapValues into positive ones and negative ones.
   return {

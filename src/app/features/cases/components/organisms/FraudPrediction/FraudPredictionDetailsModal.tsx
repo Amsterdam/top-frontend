@@ -1,4 +1,5 @@
 import React from "react"
+
 import DefaultModal from "app/features/shared/components/organisms/Modal/DefaultModal"
 import { FraudPredictionDetails } from "./FraudPredictionDetails"
 import { useFraudPredictionModal } from "./hooks/useFraudPredictionModal"
@@ -17,8 +18,8 @@ const FraudPredictionDetailsModal: React.FC<Props> = ({ title, fraudPrediction }
   }
 
   return (
-    <DefaultModal title={title}>
-      <FraudPredictionDetails fraudPrediction={fraudPrediction} />
+    <DefaultModal title={ title }>
+      <FraudPredictionDetails fraudPrediction={ fraudPrediction } />
     </DefaultModal>
   )
 }
