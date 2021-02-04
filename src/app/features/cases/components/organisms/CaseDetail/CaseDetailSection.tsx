@@ -21,7 +21,7 @@ type Props = {
   id?: string
   title?: string
   dataSource?: string
-  data: KeyValueDetail[]
+  data?: KeyValueDetail[]
   footer?: { title: string, link: string }
   experimental?: Boolean | string
   isBusy?: Boolean
@@ -50,7 +50,7 @@ const WarningSubTitle = styled(Paragraph)`
   margin-bottom: ${ themeSpacing(3) };
 `
 
-const CaseDetailSection: FC<Props> = ({ id, dataSource, title, data, footer, experimental, isBusy }) => {
+const CaseDetailSection: FC<Props> = ({ id, dataSource, title, data, footer, experimental, isBusy, children }) => {
   const hasTitle = title !== undefined
   const showFooter = footer !== undefined
 
@@ -68,7 +68,7 @@ const CaseDetailSection: FC<Props> = ({ id, dataSource, title, data, footer, exp
         </>
         }
         <Grid>
-          { data.map((keyValue, index) => {
+          { data?.map((keyValue, index) => {
             const hasLabel = Array.isArray(keyValue)
 
             const key = Array.isArray(keyValue) ? keyValue[0] : keyValue
@@ -98,6 +98,7 @@ const CaseDetailSection: FC<Props> = ({ id, dataSource, title, data, footer, exp
 
             return key === "Databron" ? sourceLabel : keyValuePair
           }) }
+          { children }
         </Grid>
       </SectionRow>
       { typeof experimental === "string" &&
