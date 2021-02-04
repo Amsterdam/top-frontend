@@ -13,6 +13,7 @@ type Props = {
  * @param children Child components are displayed if no value is provided and validity evaluates to true.
  * @constructor
  * @todo Incorporate <InvalidValue/>
+ * @todo Incorporate <InlineSkeleton/>
  */
 const Value: FunctionComponent<Props> = ({ valid, value, children }) => {
   if (valid === false || (value === undefined && !children)) {
