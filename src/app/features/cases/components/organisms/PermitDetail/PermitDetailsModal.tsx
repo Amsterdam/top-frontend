@@ -7,7 +7,12 @@ import DefaultModal from "app/features/shared/components/organisms/Modal/Default
 import Label from "app/features/shared/components/atoms/Label/Label"
 import Value from "app/features/shared/components/atoms/Value/Value"
 
-import { Grid } from "app/features/cases/components/organisms/CaseDetail/CaseDetailSectionStyles"
+import {
+  Grid,
+  Hr,
+  HrWide,
+  SourceInfo
+} from "app/features/cases/components/organisms/CaseDetail/CaseDetailSectionStyles"
 import { usePermitDetailsModal } from "./hooks/usePermitDetailsModal"
 
 type Props = {
@@ -15,9 +20,8 @@ type Props = {
   permits?: permitType[]
 }
 
-const Hr = styled.hr`
-  margin-top: ${ themeSpacing(5) };
-  margin-bottom: ${ themeSpacing(5) };
+const Details = styled.details`
+  margin-top: ${ themeSpacing(4) };
 `
 
 const Summary = styled.summary`
@@ -33,6 +37,8 @@ const PermitDetailsModal: React.FC<Props> = ({ title, permits }) => {
 
   return (
     <DefaultModal title={ title }>
+      <SourceInfo>Bron: Decos JOIN</SourceInfo>
+      <HrWide />
       { permits?.map((permit) => {
           const rawData = Object.entries(permit.raw_data).sort()
           return (
@@ -44,9 +50,8 @@ const PermitDetailsModal: React.FC<Props> = ({ title, permits }) => {
                 <Label>Geldig per</Label>
                 <Value value={ permit.date_from } />
               </Grid>
-              <br />
               { rawData &&
-              <details>
+              <Details>
                 <Summary>Alle informatie</Summary>
                 <Grid>
                   { rawData.map(([ key, value ]) => (
@@ -58,7 +63,7 @@ const PermitDetailsModal: React.FC<Props> = ({ title, permits }) => {
                   )
                   }
                 </Grid>
-              </details>
+              </Details>
               }
               <Hr />
             </section>)

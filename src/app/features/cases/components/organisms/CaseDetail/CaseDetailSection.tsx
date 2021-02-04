@@ -11,9 +11,10 @@ import InvalidValue from "app/features/cases/components/atoms/Value/InvalidValue
 import {
   CenteredAnchor,
   Grid,
-  Hr,
+  HrWide,
   Section,
   SectionRow,
+  SourceInfo,
   SpanColumns
 } from "app/features/cases/components/organisms/CaseDetail/CaseDetailSectionStyles"
 
@@ -26,16 +27,6 @@ type Props = {
   experimental?: Boolean | string
   isBusy?: Boolean
 }
-
-const SourceInfo = styled.p`
-  margin: 0;
-  color: ${ themeColor("tint", "level5") };
-  text-align: right;
-`
-
-const HrWide = styled(Hr)`
-  margin: 12px -16px;
-`
 
 const WarningParagraph = styled(Paragraph)`
   font-size: 14px;

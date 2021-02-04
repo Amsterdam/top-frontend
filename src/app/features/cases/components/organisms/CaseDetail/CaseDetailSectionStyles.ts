@@ -1,10 +1,21 @@
 import styled from "styled-components"
 import { themeColor, themeSpacing } from "@amsterdam/asc-ui"
 
+export const Grid = styled.div`
+  display: grid;
+  grid-template-columns: minmax(140px, 1fr) 3fr;
+  grid-gap: ${ themeSpacing(3) } ${ themeSpacing(4) };
+  place-items: baseline start;
+`
+
 export const Hr = styled.hr`
   border: 0;
   height: 1px;
   background: ${ themeColor("tint", "level4") };
+`
+
+export const HrWide = styled(Hr)`
+  margin: 12px -16px;
 `
 
 export const CenteredAnchor = styled.a`
@@ -29,11 +40,10 @@ export const SectionRow = styled.div`
   }
 `
 
-export const Grid = styled.div`
-  display: grid;
-  grid-template-columns: minmax(140px, 1fr) 3fr;
-  grid-gap: ${ themeSpacing(3) } ${ themeSpacing(4) };
-  place-items: baseline start;
+export const SourceInfo = styled.p`
+  margin: 0;
+  color: ${ themeColor("tint", "level5") };
+  text-align: right;
 `
 
 export const SpanColumns = styled.div`
