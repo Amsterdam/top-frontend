@@ -20,6 +20,10 @@ const Hr = styled.hr`
   margin-bottom: ${ themeSpacing(5) };
 `
 
+const Summary = styled.summary`
+  margin-bottom: ${ themeSpacing(4) };
+`
+
 const PermitDetailsModal: React.FC<Props> = ({ title, permits }) => {
   const { shouldShow } = usePermitDetailsModal()
 
@@ -29,17 +33,36 @@ const PermitDetailsModal: React.FC<Props> = ({ title, permits }) => {
 
   return (
     <DefaultModal title={ title }>
-      { permits?.map((permit) =>
-        <section>
-          <Heading forwardedAs="h3">{ permit.details.PERMIT_NAME }</Heading>
-          <Grid>
-            <Label>Status</Label>
-            <Value value={ permit.details.RESULT_VERBOSE } />
-            <Label>Geldig per</Label>
-            <Value value={ permit.date_from } />
-          </Grid>
-          <Hr />
-        </section>
+      { permits?.map((permit) => {
+          const rawData = Object.entries(permit.raw_data).sort()
+          return (
+            <section>
+              <Heading forwardedAs="h3">{ permit.permit_type }</Heading>
+              <Grid>
+                <Label>Status</Label>
+                <Value value={ permit.details.RESULT_VERBOSE } />
+                <Label>Geldig per</Label>
+                <Value value={ permit.date_from } />
+              </Grid>
+              <br />
+              { rawData &&
+              <details>
+                <Summary>Alle informatie</Summary>
+                <Grid>
+                  { rawData.map(([ key, value ]) => (
+                      <>
+                        <Label>{ key }</Label>
+                        <Value value={ value } />
+                      </>
+                    )
+                  )
+                  }
+                </Grid>
+              </details>
+              }
+              <Hr />
+            </section>)
+        }
       ) }
     </DefaultModal>)
 }
