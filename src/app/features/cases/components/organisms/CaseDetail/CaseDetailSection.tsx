@@ -2,18 +2,19 @@ import React, { FC } from "react"
 import styled from "styled-components"
 import { Heading, Paragraph, themeColor, themeSpacing } from "@amsterdam/asc-ui"
 
-import formatBoolean from "app/features/shared/utils/formatBoolean"
-import Label from "app/features/cases/components/atoms/Label/Label"
 import InlineSkeleton from "app/features/shared/components/atoms/InlineSkeleton/InlineSkeleton"
-import InvalidValue from "app/features/cases/components/atoms/Value/InvalidValue"
+import Label from "app/features/shared/components/atoms/Label/Label"
+import formatBoolean from "app/features/shared/utils/formatBoolean"
 import { KeyValueDetail } from "app/features/types"
+import InvalidValue from "app/features/cases/components/atoms/Value/InvalidValue"
 
 import {
   CenteredAnchor,
   Grid,
-  Hr,
+  HrWide,
   Section,
   SectionRow,
+  SourceInfo,
   SpanColumns
 } from "app/features/cases/components/organisms/CaseDetail/CaseDetailSectionStyles"
 
@@ -21,21 +22,11 @@ type Props = {
   id?: string
   title?: string
   dataSource?: string
-  data: KeyValueDetail[]
+  data?: KeyValueDetail[]
   footer?: { title: string, link: string }
   experimental?: Boolean | string
   isBusy?: Boolean
 }
-
-const SourceInfo = styled.p`
-  margin: 0;
-  color: ${ themeColor("tint", "level5") };
-  text-align: right;
-`
-
-const HrWide = styled(Hr)`
-  margin: 12px -16px;
-`
 
 const WarningParagraph = styled(Paragraph)`
   font-size: 14px;
@@ -50,7 +41,7 @@ const WarningSubTitle = styled(Paragraph)`
   margin-bottom: ${ themeSpacing(3) };
 `
 
-const CaseDetailSection: FC<Props> = ({ id, dataSource, title, data, footer, experimental, isBusy }) => {
+const CaseDetailSection: FC<Props> = ({ id, dataSource, title, data, footer, experimental, isBusy, children }) => {
   const hasTitle = title !== undefined
   const showFooter = footer !== undefined
 
@@ -68,7 +59,7 @@ const CaseDetailSection: FC<Props> = ({ id, dataSource, title, data, footer, exp
         </>
         }
         <Grid>
-          { data.map((keyValue, index) => {
+          { data?.map((keyValue, index) => {
             const hasLabel = Array.isArray(keyValue)
 
             const key = Array.isArray(keyValue) ? keyValue[0] : keyValue
@@ -98,6 +89,7 @@ const CaseDetailSection: FC<Props> = ({ id, dataSource, title, data, footer, exp
 
             return key === "Databron" ? sourceLabel : keyValuePair
           }) }
+          { children }
         </Grid>
       </SectionRow>
       { typeof experimental === "string" &&

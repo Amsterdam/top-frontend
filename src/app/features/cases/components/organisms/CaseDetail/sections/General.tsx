@@ -5,16 +5,21 @@ import { Heading, themeSpacing } from "@amsterdam/asc-ui"
 
 import { useCase, useDaySettings } from "app/state/rest"
 import FraudProbability from "app/features/shared/components/atoms/FraudProbability/FraudProbability"
+import Label from "app/features/shared/components/atoms/Label/Label"
+import Value from "app/features/shared/components/atoms/Value/Value"
 import ScrollToAnchor from "app/features/shared/components/molecules/ScrollToAnchor/ScrollToAnchor"
 import StadiumBadge from "app/features/shared/components/molecules/StadiumBadge/StadiumBadge"
-import InvalidValue from "app/features/cases/components/atoms/Value/InvalidValue"
-import Label from "app/features/cases/components/atoms/Label/Label"
 import FraudPredictionDetailsModal
   from "app/features/cases/components/organisms/FraudPrediction/FraudPredictionDetailsModal"
 import { useFraudPredictionModal } from "app/features/cases/components/organisms/FraudPrediction/hooks/useFraudPredictionModal"
 
 import { getAddress, getCaseCount, getEigenaar } from "../utils"
-import { CenteredAnchor, Grid, Section, SectionRow } from "app/features/cases/components/organisms/CaseDetail/CaseDetailSectionStyles"
+import {
+  CenteredAnchor,
+  Grid,
+  Section,
+  SectionRow
+} from "app/features/cases/components/organisms/CaseDetail/CaseDetailSectionStyles"
 
 type Props = {
   caseId: string
@@ -32,10 +37,6 @@ const BadgesRow = styled.div`
   > :not(:last-child) {
     margin-right: ${ themeSpacing(2) };
   }
-`
-
-const Span = styled.span`
-  vertical-align: top;
 `
 
 const General: FC<Props> = ({ caseId }) => {
@@ -78,30 +79,20 @@ const General: FC<Props> = ({ caseId }) => {
         </BadgesRow>
         <Grid>
           <Label>Ingeschreven</Label>
-          <Span>{ residentCount > 0
+          <span>{ residentCount > 0
             ? <ScrollToAnchor anchor="inschrijvingen" text={ residentsText } />
             : residentsText
-          }</Span>
+          }</span>
           <Label>Zaaknummer</Label>
-          { caseNumber !== undefined && caseCount !== undefined
-            ? <Span><strong>{ caseNumber }</strong> van { caseCount }</Span>
-            : <InvalidValue />
-          }
+          <Value valid={ caseNumber !== undefined && caseCount !== undefined }>
+            <span><strong>{ caseNumber }</strong> van { caseCount }</span>
+          </Value>
           <Label>Open zaken</Label>
-          { openCaseCount !== undefined
-            ? <Span>{ openCaseCount }</Span>
-            : <InvalidValue />
-          }
+          <Value value={ openCaseCount } />
           <Label>Openingsreden</Label>
-          { caseOpening !== undefined
-            ? <Span>{ caseOpening }</Span>
-            : <InvalidValue />
-          }
+          <Value value={ caseOpening } />
           <Label>Eigenaar</Label>
-          { eigenaar !== undefined
-            ? <Span>{ eigenaar }</Span>
-            : <InvalidValue />
-          }
+          <Value value={ eigenaar } />
           { fraudPrediction &&
           <>
             <Label>Voorspelling (bèta)</Label>
@@ -117,7 +108,7 @@ const General: FC<Props> = ({ caseId }) => {
         </Grid>
       </SectionRow>
       <SectionRow>
-        <CenteredAnchor href={ `http://www.google.com/maps/place/${ address }, Amsterdam` }>
+        <CenteredAnchor href={ `https://www.google.com/maps/place/${ address }, Amsterdam` }>
           Bekijk op Google Maps
         </CenteredAnchor>
       </SectionRow>

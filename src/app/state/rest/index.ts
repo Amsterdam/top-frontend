@@ -264,6 +264,7 @@ export type allPermitCheckmarks = {
   has_vacation_rental_permit: booleanString
   has_ontrekking_vorming_samenvoeging_permit: booleanString
 }
+
 export type permitType = {
   permit_granted: booleanString
   permit_type: string
