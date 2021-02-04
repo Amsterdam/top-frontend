@@ -22,10 +22,12 @@ const Permits: FC<Props> = ({ caseId }) => {
   const { data: permits, isBusy } = useAllPermitCheckmarks(bagId!, { lazy: !bagId })
   const { getUrl: getToPermitDetailModalUrl } = usePermitDetailsModal()
 
-  const permitsLookup = (permitType: string) => (permits?.reduce((a: any, c) => {
+  const permitsLookup = (permitType: string) => permits?.reduce((a: any, c) => {
     a[c.permit_type] = c
     return a
-  }, {})[permitType]) || "UNKNOWN"
+  }, {})[permitType] || "UNKNOWN"
+
+  const permitGranted = (permitType: string) => formatBoolean(permitsLookup(permitType).permit_granted)
 
   const address = getAddress(caseData?.import_adres ?? {} as ImportAdres)
 
@@ -39,19 +41,19 @@ const Permits: FC<Props> = ({ caseId }) => {
       >
         <Label>Omzetting</Label>
         <Link to={ getToPermitDetailModalUrl() }>
-          <Value>{ formatBoolean(permitsLookup("OMZETTINGSVERGUNNING").permit_granted) }</Value>
+          <Value>{ permitGranted("OMZETTINGSVERGUNNING") }</Value>
         </Link>
         <Label>Splitsing</Label>
-        <Value>{ formatBoolean(permitsLookup("SPLITTINGSVERGUNNING").permit_granted) }</Value>
+        <Value>{ permitGranted("SPLITTINGSVERGUNNING") }</Value>
         <Label>Onttrekking, vorming en samenvoeging</Label>
-        <Value>{ formatBoolean(permitsLookup("ONTREKKING_VORMING_SAMENVOEGING_VERGUNNINGEN").permit_granted) }</Value>
+        <Value>{ permitGranted("ONTREKKING_VORMING_SAMENVOEGING_VERGUNNINGEN") }</Value>
         <Label>Ligplaats</Label>
-        <Value>{ formatBoolean(permitsLookup("LIGPLAATSVERGUNNING").permit_granted) }</Value>
+        <Value>{ permitGranted("LIGPLAATSVERGUNNING") }</Value>
         <Label>Vakantieverhuur</Label>
-        <Value>{ formatBoolean(permitsLookup("VAKANTIEVERHUURVERGUNNING").permit_granted) }</Value>
+        <Value>{ permitGranted("VAKANTIEVERHUURVERGUNNING") }</Value>
         <Label>B&B</Label>
-        <Value>{ formatBoolean(permitsLookup("B_EN_B_VERGUNNING").permit_granted) }</Value>
-        <PermitDetailsModal title={ address } />
+        <Value>{ permitGranted("B_EN_B_VERGUNNING") }</Value>
+        <PermitDetailsModal title={ address } permits={ permits } />
       </CaseDetailSection>
     </>
   )
