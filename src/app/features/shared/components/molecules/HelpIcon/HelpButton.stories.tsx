@@ -3,10 +3,11 @@ import React from "react"
 import HelpButton from "./HelpButton"
 import styled from "styled-components"
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default {
+const metadata = {
   title: "Shared / Molecules / HelpButton"
 }
+
+export default metadata
 
 const CenterCenter = styled.div`
   width: 100vw;
