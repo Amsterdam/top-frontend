@@ -3,7 +3,7 @@ import { DebugFormValues, ScaffoldForm } from "@amsterdam/amsterdam-react-final-
 import Scaffold, { Fields } from "../Scaffold"
 
 const metadata = {
-  title: "Custom form components / Collapsible"
+  title: "Forms / Collapsible"
 }
 
 export default metadata

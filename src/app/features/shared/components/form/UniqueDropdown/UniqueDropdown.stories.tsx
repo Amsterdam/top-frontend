@@ -3,7 +3,7 @@ import { DebugFormValues, ScaffoldForm } from "@amsterdam/amsterdam-react-final-
 import Scaffold, { Fields } from "../Scaffold"
 
 const metadata = {
-  title: "Custom form components / UniqueDropDown"
+  title: "Forms / UniqueDropDown"
 }
 
 export default metadata
