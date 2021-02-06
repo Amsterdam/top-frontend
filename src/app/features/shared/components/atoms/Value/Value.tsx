@@ -4,7 +4,7 @@ import { themeColor } from "@amsterdam/asc-ui"
 
 import formatBoolean from "app/features/shared/utils/formatBoolean"
 
-type Props = {
+export type Props = {
   valid?: Boolean
   value?: any
 }
