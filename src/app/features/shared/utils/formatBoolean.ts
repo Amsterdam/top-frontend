@@ -4,13 +4,14 @@ type BooleanValue = boolean | booleanString
 
 enum ReturnValue {
   No = "Nee",
-  Unknown = "Onbekend",
+  Undefined = "Onbekend",
+  Unknown = "Niet gevonden",
   Yes = "Ja"
 }
 
 const formatBoolean = (bool?: BooleanValue): string => {
   if (bool === undefined) {
-    return ReturnValue.Unknown
+    return ReturnValue.Undefined
   }
 
   if (typeof bool === "string") {
