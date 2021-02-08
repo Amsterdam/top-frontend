@@ -39,35 +39,33 @@ const PermitDetailsModal: React.FC<Props> = ({ title, permits }) => {
     <DefaultModal title={ title }>
       <SourceInfo>Bron: Decos JOIN</SourceInfo>
       <HrWide />
-      { permits?.map((permit) => {
-          const rawData = Object.entries(permit.raw_data).sort()
-          return (
-            <section>
-              <Heading forwardedAs="h3">{ permit.permit_type }</Heading>
+      { permits?.map((permit) => (
+          <section key={ permit.permit_type }>
+            <Heading forwardedAs="h3">{ permit.permit_type }</Heading>
+            <Grid>
+              <Label>Resultaat</Label>
+              <Value value={ permit.details?.RESULT_VERBOSE } />
+              <Label>Geldig per</Label>
+              <Value value={ permit.date_from } />
+            </Grid>
+            { permit.raw_data &&
+            <Details>
+              <Summary>Alle informatie</Summary>
               <Grid>
-                <Label>Status</Label>
-                <Value value={ permit.details.RESULT_VERBOSE } />
-                <Label>Geldig per</Label>
-                <Value value={ permit.date_from } />
-              </Grid>
-              { rawData &&
-              <Details>
-                <Summary>Alle informatie</Summary>
-                <Grid>
-                  { rawData.map(([ key, value ]) => (
-                      <>
-                        <Label>{ key }</Label>
-                        <Value value={ value } />
-                      </>
-                    )
+                { Object.entries(permit.raw_data).sort().map(([ key, value ]) => (
+                    <>
+                      <Label>{ key }</Label>
+                      <Value value={ value } />
+                    </>
                   )
-                  }
-                </Grid>
-              </Details>
-              }
-              <Hr />
-            </section>)
-        }
+                )
+                }
+              </Grid>
+            </Details>
+            }
+            <Hr />
+          </section>
+        )
       ) }
     </DefaultModal>)
 }
