@@ -10,14 +10,12 @@ import Value from "app/features/shared/components/atoms/Value/Value"
 import { getBagId } from "../utils"
 import CaseDetailSection from "../CaseDetailSection"
 import { Grid, HrWide } from "app/features/cases/components/organisms/CaseDetail/CaseDetailSectionStyles"
+import ScrollToAnchor from "app/features/shared/components/molecules/ScrollToAnchor/ScrollToAnchor"
+import isBetweenDates from "app/features/shared/utils/isBetweenDates"
 
 type Props = {
   caseId: string
 }
-
-const TwoColumns = styled.span`
-  grid-column: span 2;
-`
 
 const Details = styled.details`
   margin-top: ${ themeSpacing(4) };
@@ -47,50 +45,64 @@ const Permits: FC<Props> = ({ caseId }) => {
     TEXT9: "Soort vergunning"
   }
 
-  const validPermits = permits?.filter(permit => permit.permit_granted === "True") || []
+  const foundPermits = permits?.filter(permit => [ "True", "False" ].includes(permit.permit_granted)) || []
+
+  const notifiedRentals = caseData?.vakantie_verhuur.notified_rentals
+  const notified = notifiedRentals?.length
+
+  const rentedDays = caseData?.vakantie_verhuur.rented_days
+  const rentedToday = notified ? notifiedRentals?.filter(r => isBetweenDates(new Date(r.check_in), new Date(r.check_out), new Date())).length : "–"
 
   return (
     <CaseDetailSection
       title="Vergunningen"
+      data={ [
+        [ "Databron", "BWV" ],
+        [ "Shortstay", caseData?.vakantie_verhuur.shortstay === "J" ]
+      ] }
       dataSource="Decos JOIN"
       experimental="Let op: we werken momenteel aan het ophalen en tonen van vergunningen. Controleer voorlopig zelf of deze overeenkomen met de gegevens in Decos JOIN."
       isBusy={ isBusy }
     >
-      { validPermits.map(((permit, index) => (
+      { foundPermits.map(((permit, index) => (
           <React.Fragment key={ permit.permit_type }>
             <Heading forwardedAs="h4">{ permit.permit_type }</Heading>
             <Grid>
-              { permit.details
-                ? Object.entries(permit.details).map(([ key, value ]) => (
-                  <React.Fragment key={ key }>
-                    <Label>{ PermitDetails[key] || "key" }</Label>
-                    <Value value={ key.startsWith("DATE_") ? formatDate(String(value)) : value } />
-                  </React.Fragment>
-                ))
-                : <TwoColumns>Geen details gevonden.</TwoColumns>
+              { Object.entries(permit.details).map(([ key, value ]) => (
+                <React.Fragment key={ key }>
+                  <Label>{ PermitDetails[key] || "key" }</Label>
+                  <Value value={ key.startsWith("DATE_") ? formatDate(String(value)) : value } />
+                </React.Fragment>
+              )) }
+              { permit.permit_type === "Vakantieverhuurvergunning" &&
+              <>
+                <Label>Vandaag verhuurd</Label>
+                <Value value={ rentedToday } />
+                <Label>Nachten verhuurd { new Date().getFullYear() }</Label>
+                <Value>
+                  { rentedDays ? <ScrollToAnchor anchor="vakantieverhuur" text={ `${ rentedDays } nachten` } /> : "–" }
+                </Value>
+              </>
               }
             </Grid>
             { permit.raw_data &&
             <Details>
-              <Summary>Alle informatie</Summary>
+              <Summary>Alle details</Summary>
               <Grid>
-                { permit.raw_data ?
-                  Object.entries(permit.raw_data).sort().map(([ key, value ]) => (
-                    <React.Fragment key={ key }>
-                      <Label>{ key }</Label>
-                      <Value value={ value } />
-                    </React.Fragment>
-                  ))
-                  : <TwoColumns>Geen verdere informatie gevonden.</TwoColumns>
-                }
+                { Object.entries(permit.raw_data).sort().map(([ key, value ]) => (
+                  <React.Fragment key={ key }>
+                    <Label>{ key }</Label>
+                    <Value value={ value } />
+                  </React.Fragment>
+                )) }
               </Grid>
             </Details>
             }
-            { (index < validPermits.length - 1) && <HrWide /> }
+            { (index < foundPermits.length - 1) && <HrWide /> }
           </React.Fragment>
         ))
-      )
-      }
+      ) }
+      <HrWide />
     </CaseDetailSection>
   )
 }
