@@ -58,6 +58,7 @@ const CaseDetailSection: FC<Props> = ({ id, dataSource, title, data, footer, exp
           <HrWide />
         </>
         }
+        { children }
         <Grid>
           { data?.map((keyValue, index) => {
             const hasLabel = Array.isArray(keyValue)
@@ -89,7 +90,6 @@ const CaseDetailSection: FC<Props> = ({ id, dataSource, title, data, footer, exp
 
             return key === "Databron" ? sourceLabel : keyValuePair
           }) }
-          { children }
         </Grid>
       </SectionRow>
       { typeof experimental === "string" &&
