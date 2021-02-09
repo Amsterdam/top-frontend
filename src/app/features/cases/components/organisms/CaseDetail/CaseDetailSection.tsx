@@ -89,8 +89,8 @@ const CaseDetailSection: FC<Props> = ({ id, dataSource, title, data, footer, exp
 
             return key === "Databron" ? sourceLabel : keyValuePair
           }) }
-          { children }
         </Grid>
+        { children }
       </SectionRow>
       { typeof experimental === "string" &&
       <SectionRow>
