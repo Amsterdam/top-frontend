@@ -22,13 +22,6 @@ const Permits: FC<Props> = ({ caseId }) => {
   const { data: permits, isBusy } = useAllPermitCheckmarks(bagId!, { lazy: !bagId })
   const { getUrl: getToPermitDetailModalUrl } = usePermitDetailsModal()
 
-  const permitsLookup = (permitType: string) => permits?.reduce((a: any, c) => {
-    a[c.permit_type] = c
-    return a
-  }, {})[permitType] || "UNKNOWN"
-
-  const permitGranted = (permitType: string) => formatBoolean(permitsLookup(permitType).permit_granted)
-
   const address = getAddress(caseData?.import_adres ?? {} as ImportAdres)
 
   return (
@@ -38,19 +31,12 @@ const Permits: FC<Props> = ({ caseId }) => {
       experimental="Let op: we werken momenteel aan het ophalen en tonen van vergunningen. Controleer voorlopig zelf of deze overeenkomen met de gegevens in Decos JOIN."
       isBusy={ isBusy }
     >
-      <Label>Omzetting</Label>
-      <Value>{ permitGranted("OMZETTINGSVERGUNNING") }</Value>
-      <Label>Splitsing</Label>
-      <Value>{ permitGranted("SPLITTINGSVERGUNNING") }</Value>
-      <Label>Onttrekking, vorming en samenvoeging</Label>
-      <Value>{ permitGranted("ONTREKKING_VORMING_SAMENVOEGING_VERGUNNINGEN") }</Value>
-      <Label>Ligplaats</Label>
-      <Value>{ permitGranted("LIGPLAATSVERGUNNING") }</Value>
-      <Label>Vakantieverhuur</Label>
-      <Value>{ permitGranted("VAKANTIEVERHUURVERGUNNING") }</Value>
-      <Label>B&B</Label>
-      <Value>{ permitGranted("B_EN_B_VERGUNNING") }</Value>
-      <div />
+      { permits?.map((permit => (
+        <React.Fragment key={ permit.permit_type }>
+          <Label>{ permit.permit_type }</Label>
+          <Value value={ formatBoolean(permit.permit_granted) } />
+        </ React.Fragment>
+      ))) }
       <Link to={ getToPermitDetailModalUrl() }>
         Bekijk details
       </Link>
