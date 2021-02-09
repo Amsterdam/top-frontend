@@ -6,6 +6,7 @@ import { permitType } from "app/state/rest"
 import DefaultModal from "app/features/shared/components/organisms/Modal/DefaultModal"
 import Label from "app/features/shared/components/atoms/Label/Label"
 import Value from "app/features/shared/components/atoms/Value/Value"
+import formatDate from "app/features/shared/utils/formatDate"
 
 import {
   Grid,
@@ -60,8 +61,8 @@ const PermitDetailsModal: React.FC<Props> = ({ title, permits }) => {
               { permit.details
                 ? Object.entries(permit.details).map(([ key, value ]) => (
                   <React.Fragment key={ key }>
-                    <Value value={ value } />
                     <Label>{ PermitDetails[key] || "key" }</Label>
+                    <Value value={ key.startsWith("DATE_") ? formatDate(String(value)) : value } />
                   </React.Fragment>
                 ))
                 : <p>Geen details gevonden.</p>
