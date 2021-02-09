@@ -6,19 +6,19 @@ import { permitType } from "app/state/rest"
 import DefaultModal from "app/features/shared/components/organisms/Modal/DefaultModal"
 import Label from "app/features/shared/components/atoms/Label/Label"
 import Value from "app/features/shared/components/atoms/Value/Value"
+import formatDate from "app/features/shared/utils/formatDate"
 
-import {
-  Grid,
-  Hr,
-  HrWide,
-  SourceInfo
-} from "app/features/cases/components/organisms/CaseDetail/CaseDetailSectionStyles"
+import { Grid, HrWide, SourceInfo } from "app/features/cases/components/organisms/CaseDetail/CaseDetailSectionStyles"
 import { usePermitDetailsModal } from "./hooks/usePermitDetailsModal"
 
 type Props = {
   title: string
   permits?: permitType[]
 }
+
+const TwoColumns = styled.span`
+  grid-column: span 2;
+`
 
 const Details = styled.details`
   margin-top: ${ themeSpacing(4) };
@@ -42,8 +42,11 @@ const PermitDetailsModal: React.FC<Props> = ({ title, permits }) => {
     DATE_VALID_TO: "Geldig tot",
     DATE_VALID_UNTIL: "Geldig tot en met",
     HOLDER: "Vergunninghouder",
-    PERMIT_NAME: "Soort vergunning",
-    RESULT: "Resultaat"
+    PERMIT_NAME: "Vergunning",
+    RESULT: "Resultaat",
+    SUBJECT1: "Omschrijving",
+    TEXT9: "Soort vergunning",
+    TEXT44: "BAG-id"
   }
 
   return (
@@ -57,28 +60,30 @@ const PermitDetailsModal: React.FC<Props> = ({ title, permits }) => {
               { permit.details
                 ? Object.entries(permit.details).map(([ key, value ]) => (
                   <React.Fragment key={ key }>
-                    <Label>{ PermitDetails[key] || "–" }</Label>
-                    <Value value={ value } />
+                    <Label>{ PermitDetails[key] || "key" }</Label>
+                    <Value value={ key.startsWith("DATE_") ? formatDate(String(value)) : value } />
                   </React.Fragment>
                 ))
-                : <p>Geen details gevonden.</p>
+                : <TwoColumns>Geen details gevonden.</TwoColumns>
               }
             </Grid>
             { permit.raw_data &&
             <Details>
               <Summary>Alle informatie</Summary>
               <Grid>
-                { Object.entries(permit.raw_data).sort().map(([ key, value ]) => (
+                { permit.raw_data ?
+                  Object.entries(permit.raw_data).sort().map(([ key, value ]) => (
                     <React.Fragment key={ key }>
                       <Label>{ key }</Label>
                       <Value value={ value } />
                     </React.Fragment>
-                  )
-                ) }
+                  ))
+                  : <TwoColumns>Geen verdere informatie gevonden.</TwoColumns>
+                }
               </Grid>
             </Details>
             }
-            <Hr />
+            <HrWide />
           </section>
         )
       ) }
