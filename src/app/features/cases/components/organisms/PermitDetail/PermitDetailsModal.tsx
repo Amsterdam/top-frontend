@@ -35,6 +35,17 @@ const PermitDetailsModal: React.FC<Props> = ({ title, permits }) => {
     return null
   }
 
+  const PermitDetails: Record<string, string> = {
+    APPLICANT: "Aangevraagd door",
+    DATE_DECISION: "Datum besluit",
+    DATE_VALID_FROM: "Geldig per",
+    DATE_VALID_TO: "Geldig tot",
+    DATE_VALID_UNTIL: "Geldig tot en met",
+    HOLDER: "Vergunninghouder",
+    PERMIT_NAME: "Soort vergunning",
+    RESULT: "Resultaat"
+  }
+
   return (
     <DefaultModal title={ title }>
       <SourceInfo>Bron: Decos JOIN</SourceInfo>
@@ -43,10 +54,15 @@ const PermitDetailsModal: React.FC<Props> = ({ title, permits }) => {
           <section key={ permit.permit_type }>
             <Heading forwardedAs="h3">{ permit.permit_type }</Heading>
             <Grid>
-              <Label>Resultaat</Label>
-              <Value value={ permit.details?.RESULT_VERBOSE } />
-              <Label>Geldig per</Label>
-              <Value value={ permit.date_from } />
+              { permit.details
+                ? Object.entries(permit.details).map(([ key, value ]) => (
+                  <React.Fragment key={ key }>
+                    <Label>{ PermitDetails[key] || "–" }</Label>
+                    <Value value={ value } />
+                  </React.Fragment>
+                ))
+                : <p>Geen details gevonden.</p>
+              }
             </Grid>
             { permit.raw_data &&
             <Details>
@@ -58,8 +74,7 @@ const PermitDetailsModal: React.FC<Props> = ({ title, permits }) => {
                       <Value value={ value } />
                     </React.Fragment>
                   )
-                )
-                }
+                ) }
               </Grid>
             </Details>
             }

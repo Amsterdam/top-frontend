@@ -37,6 +37,7 @@ const Permits: FC<Props> = ({ caseId }) => {
           <Value value={ formatBoolean(permit.permit_granted) } />
         </ React.Fragment>
       ))) }
+      <div />
       <Link to={ getToPermitDetailModalUrl() }>
         Bekijk details
       </Link>
