@@ -9,7 +9,7 @@ type Props = {
   value?: any
 }
 
-const Span = styled.span`
+const Text = styled.span`
   word-break: break-word;
 `
 
@@ -35,7 +35,7 @@ const Value: FunctionComponent<Props> = ({ valid, value, children }) => {
     value = String(value)
   }
 
-  return value ? <Span>{ value }</Span> : <>{ children }</>
+  return value ? <Text>{ value }</Text> : <Text>{ children }</Text>
 }
 
 export default Value
