@@ -53,10 +53,10 @@ const PermitDetailsModal: React.FC<Props> = ({ title, permits }) => {
               <Summary>Alle informatie</Summary>
               <Grid>
                 { Object.entries(permit.raw_data).sort().map(([ key, value ]) => (
-                    <>
+                    <React.Fragment key={ key }>
                       <Label>{ key }</Label>
                       <Value value={ value } />
-                    </>
+                    </React.Fragment>
                   )
                 )
                 }

@@ -22,6 +22,6 @@ describe("formatBoolean", () => {
   })
 
   it("unknown", () => {
-    expect(formatBoolean("UNKNOWN")).toBe("Onbekend")
+    expect(formatBoolean("UNKNOWN")).toBe("Niet gevonden")
   })
 })
