@@ -42,8 +42,11 @@ const PermitDetailsModal: React.FC<Props> = ({ title, permits }) => {
     DATE_VALID_TO: "Geldig tot",
     DATE_VALID_UNTIL: "Geldig tot en met",
     HOLDER: "Vergunninghouder",
-    PERMIT_NAME: "Soort vergunning",
-    RESULT: "Resultaat"
+    PERMIT_NAME: "Vergunning",
+    RESULT: "Resultaat",
+    SUBJECT1: "Omschrijving",
+    TEXT9: "Soort vergunning",
+    TEXT44: "BAG-id"
   }
 
   return (
@@ -57,8 +60,8 @@ const PermitDetailsModal: React.FC<Props> = ({ title, permits }) => {
               { permit.details
                 ? Object.entries(permit.details).map(([ key, value ]) => (
                   <React.Fragment key={ key }>
-                    <Label>{ PermitDetails[key] || "–" }</Label>
                     <Value value={ value } />
+                    <Label>{ PermitDetails[key] || "key" }</Label>
                   </React.Fragment>
                 ))
                 : <p>Geen details gevonden.</p>
