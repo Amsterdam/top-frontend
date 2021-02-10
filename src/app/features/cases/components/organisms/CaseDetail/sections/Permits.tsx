@@ -89,11 +89,11 @@ const Permits: FC<Props> = ({ caseId }) => {
                 { permitIsForBAndB(permit) ?
                   <>
                     <Label>Geldig tot en met</Label>
-                    <Value value={ formatDate(permit.details.DATE_VALID_UNTIL) } />
+                    <Value value={ formatDate(permit.details.DATE_VALID_UNTIL ?? permit.details.DATE_VALID_TO) } />
                   </> :
                   <>
                     <Label>Geldig tot</Label>
-                    <Value value={ formatDate(permit.details.DATE_VALID_TO) } />
+                    <Value value={ formatDate(permit.details.DATE_VALID_TO ?? permit.details.DATE_VALID_UNTIL) } />
                   </>
                 }
               </>
