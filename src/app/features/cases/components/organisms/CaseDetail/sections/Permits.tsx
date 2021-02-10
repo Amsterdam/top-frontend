@@ -100,9 +100,9 @@ const Permits: FC<Props> = ({ caseId }) => {
               }
               { permit.permit_type === "Vakantieverhuur" &&
               <>
-                <Label>Vandaag verhuurd</Label>
+                <Label>Vandaag verhuurd (bron: BWV)</Label>
                 <Value value={ rentedToday } />
-                <Label>Nachten verhuurd { new Date().getFullYear() }</Label>
+                <Label>Nachten verhuurd { new Date().getFullYear() } (bron: BWV)</Label>
                 <Value>
                   { rentedDays ? <ScrollToAnchor anchor="vakantieverhuur" text={ `${ rentedDays } nachten` } /> : "–" }
                 </Value>
