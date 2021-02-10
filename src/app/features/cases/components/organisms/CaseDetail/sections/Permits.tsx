@@ -119,7 +119,7 @@ const Permits: FC<Props> = ({ caseId }) => {
           </React.Fragment>
         ))
         ) :
-        <TwoColumns>{ isBusy ? "Vergunningen ophalen…" : "Geen vergunningen gevonden." }</TwoColumns>
+        <TwoColumns>{ isBusy ? "Vergunningen ophalen…" : "Geen vergunningen of aanvragen gevonden." }</TwoColumns>
       }
       <HrWide />
     </CaseDetailSection>
