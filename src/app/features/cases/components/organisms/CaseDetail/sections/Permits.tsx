@@ -66,8 +66,8 @@ const Permits: FC<Props> = ({ caseId }) => {
         [ "Databron", "BWV" ],
         [ "Shortstay", caseData?.vakantie_verhuur.shortstay === "J" ]
       ] }
-      dataSource="Decos JOIN"
-      experimental="Let op: we werken momenteel aan het ophalen en tonen van vergunningen. Controleer voorlopig zelf of deze overeenkomen met de gegevens in Decos JOIN."
+      dataSource="Decos"
+      experimental="Let op: we werken momenteel aan het ophalen en tonen van vergunningen. Controleer voorlopig zelf of deze overeenkomen met de gegevens in Decos."
       isBusy={ isBusy }
     >
       { foundPermits.length ? foundPermits.map(((permit, index) => (
