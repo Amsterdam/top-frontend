@@ -5,8 +5,9 @@ export const getAddress = (address: ImportAdres) => displayAddress(address.sttna
 
 export const getBagId = (caseData: Case) => {
   const hasBagData = (caseData?.bag_data as BagDataError).error === undefined
+  const bagData = caseData?.bag_data as BagData
 
-  return hasBagData ? (caseData?.bag_data as BagData).verblijfsobjectidentificatie : undefined
+  return hasBagData ? (bagData.verblijfsobjectidentificatie ?? bagData.ligplaatsidentificatie) : undefined
 }
 
 export const getCaseCount = (caseData: Case) => {
