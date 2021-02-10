@@ -88,7 +88,7 @@ const Permits: FC<Props> = ({ caseId }) => {
                 :
                 <TwoColumns>Geen details gevonden.</TwoColumns>
               }
-              { permit.permit_type === "Vakantieverhuurvergunning" &&
+              { permit.permit_type === "Vakantieverhuur" &&
               <>
                 <Label>Vandaag verhuurd</Label>
                 <Value value={ rentedToday } />
