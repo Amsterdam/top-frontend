@@ -40,7 +40,7 @@ const Permits: FC<Props> = ({ caseId }) => {
   const notified = notifiedRentals?.length
 
   const rentedDays = caseData?.vakantie_verhuur.rented_days
-  const rentedToday = notified ? notifiedRentals?.filter(r => isBetweenDates(new Date(r.check_in), new Date(r.check_out), new Date())).length : "–"
+  const rentedToday = notified ? notifiedRentals?.filter(r => isBetweenDates(new Date(r.check_in), new Date(r.check_out), new Date())).length : false
 
   return (
     <CaseDetailSection
