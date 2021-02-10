@@ -2,16 +2,16 @@ import React, { FC } from "react"
 import styled from "styled-components"
 import { Heading, themeSpacing } from "@amsterdam/asc-ui"
 
-import { useAllPermitCheckmarks, useCase } from "app/state/rest"
+import { permitType, useAllPermitCheckmarks, useCase } from "app/state/rest"
 import formatDate from "app/features/shared/utils/formatDate"
+import isBetweenDates from "app/features/shared/utils/isBetweenDates"
 import Label from "app/features/shared/components/atoms/Label/Label"
 import Value from "app/features/shared/components/atoms/Value/Value"
+import ScrollToAnchor from "app/features/shared/components/molecules/ScrollToAnchor/ScrollToAnchor"
 
 import { getBagId } from "../utils"
 import CaseDetailSection from "../CaseDetailSection"
-import { Grid, HrWide } from "app/features/cases/components/organisms/CaseDetail/CaseDetailSectionStyles"
-import ScrollToAnchor from "app/features/shared/components/molecules/ScrollToAnchor/ScrollToAnchor"
-import isBetweenDates from "app/features/shared/utils/isBetweenDates"
+import { Grid, HrWide } from "../CaseDetailSectionStyles"
 
 type Props = {
   caseId: string
@@ -42,6 +42,9 @@ const Permits: FC<Props> = ({ caseId }) => {
   const rentedDays = caseData?.vakantie_verhuur.rented_days
   const rentedToday = notified ? notifiedRentals?.filter(r => isBetweenDates(new Date(r.check_in), new Date(r.check_out), new Date())).length : false
 
+  const permitHasBeenGranted = (permit: permitType) => permit.permit_granted === "True"
+  const permitIsForBAndB = (permit: permitType) => permit.permit_type.startsWith("B&B")
+
   return (
     <CaseDetailSection
       title="Vergunningen"
@@ -63,7 +66,7 @@ const Permits: FC<Props> = ({ caseId }) => {
               <Value value={ permit.details.RESULT } />
               <Label>Omschrijving zaak</Label>
               <Value value={ permit.details.SUBJECT } />
-              { permit.permit_type.startsWith("B&B") &&
+              { permitIsForBAndB(permit) &&
               <>
                 <Label>Soort vergunning</Label>
                 <Value value={ permit.details.PERMIT_TYPE } />
@@ -71,7 +74,7 @@ const Permits: FC<Props> = ({ caseId }) => {
               }
               <Label>Aangevraagd door</Label>
               <Value value={ permit.details.APPLICANT } />
-              { permit.permit_type.startsWith("B&B") &&
+              { permitIsForBAndB(permit) &&
               <>
                 <Label>Vergunninghouder</Label>
                 <Value value={ permit.details.HOLDER } />
@@ -79,11 +82,11 @@ const Permits: FC<Props> = ({ caseId }) => {
               }
               <Label>Locatie</Label>
               <Value value={ permit.details.ADDRESS } />
-              { permit.permit_granted === "True" &&
+              { permitHasBeenGranted(permit) &&
               <>
                 <Label>Verleend per</Label>
                 <Value value={ formatDate(permit.details.DATE_VALID_FROM) } />
-                { permit.permit_type.startsWith("B&B") ?
+                { permitIsForBAndB(permit) ?
                   <>
                     <Label>Geldig tot en met</Label>
                     <Value value={ formatDate(permit.details.DATE_VALID_UNTIL) } />
