@@ -39,7 +39,7 @@ const Permits: FC<Props> = ({ caseId }) => {
     DATE_VALID_UNTIL: "Geldig tot en met",
     HOLDER: "Vergunninghouder",
     PERMIT_NAME: "Naam vergunning",
-    PERMIT_TYPE: "Soort Vergunning",
+    PERMIT_TYPE: "Soort vergunning",
     RESULT: "Resultaat",
     SUBJECT: "Omschrijving",
     TEXT9: "Soort vergunning"
