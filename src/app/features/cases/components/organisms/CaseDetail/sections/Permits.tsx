@@ -34,21 +34,6 @@ const Permits: FC<Props> = ({ caseId }) => {
   const bagId = getBagId(caseData!)
   const { data: permits, isBusy } = useAllPermitCheckmarks(bagId!, { lazy: !bagId })
 
-  const PermitDetails: Record<string, string> = {
-    ADDRESS: "Locatie",
-    APPLICANT: "Aangevraagd door",
-    DATE_DECISION: "Datum besluit",
-    DATE_VALID_FROM: "Geldig per",
-    DATE_VALID_TO: "Geldig tot",
-    DATE_VALID_UNTIL: "Geldig tot en met",
-    HOLDER: "Vergunninghouder",
-    PERMIT_NAME: "Naam vergunning",
-    PERMIT_TYPE: "Soort vergunning",
-    RESULT: "Resultaat",
-    SUBJECT: "Omschrijving",
-    TEXT9: "Soort vergunning"
-  }
-
   const foundPermits = permits?.filter(permit => [ "True", "False" ].includes(permit.permit_granted)) || []
 
   const notifiedRentals = caseData?.vakantie_verhuur.notified_rentals
@@ -56,8 +41,6 @@ const Permits: FC<Props> = ({ caseId }) => {
 
   const rentedDays = caseData?.vakantie_verhuur.rented_days
   const rentedToday = notified ? notifiedRentals?.filter(r => isBetweenDates(new Date(r.check_in), new Date(r.check_out), new Date())).length : "–"
-
-  // const permitDetails =
 
   return (
     <CaseDetailSection
@@ -78,15 +61,39 @@ const Permits: FC<Props> = ({ caseId }) => {
               <Value value={ permit.permit_granted === "True" ? "Geldig" : "Niet geldig" } />
               <Label>Resultaat</Label>
               <Value value={ permit.details.RESULT } />
-              { Object.keys(permit.details).length
-                ? Object.entries(permit.details).map(([ key, value ]) => (key !== "RESULT") ? (
-                  <React.Fragment key={ key }>
-                    <Label>{ PermitDetails[key] || "key" }</Label>
-                    <Value value={ key.startsWith("DATE_") ? formatDate(String(value)) : value } />
-                  </React.Fragment>
-                ) : null)
-                :
-                <TwoColumns>Geen details gevonden.</TwoColumns>
+              <Label>Omschrijving zaak</Label>
+              <Value value={ permit.details.SUBJECT } />
+              { permit.permit_type.startsWith("B&B") &&
+              <>
+                <Label>Soort vergunning</Label>
+                <Value value={ permit.details.PERMIT_TYPE } />
+              </>
+              }
+              <Label>Aangevraagd door</Label>
+              <Value value={ permit.details.APPLICANT } />
+              { permit.permit_type.startsWith("B&B") &&
+              <>
+                <Label>Vergunninghouder</Label>
+                <Value value={ permit.details.HOLDER } />
+              </>
+              }
+              <Label>Locatie</Label>
+              <Value value={ permit.details.ADDRESS } />
+              { permit.permit_granted === "True" &&
+              <>
+                <Label>Verleend per</Label>
+                <Value value={ formatDate(permit.details.DATE_VALID_FROM) } />
+                { permit.permit_type.startsWith("B&B") ?
+                  <>
+                    <Label>Geldig tot en met</Label>
+                    <Value value={ formatDate(permit.details.DATE_VALID_UNTIL) } />
+                  </> :
+                  <>
+                    <Label>Geldig tot</Label>
+                    <Value value={ formatDate(permit.details.DATE_VALID_TO) } />
+                  </>
+                }
+              </>
               }
               { permit.permit_type === "Vakantieverhuur" &&
               <>
@@ -96,6 +103,12 @@ const Permits: FC<Props> = ({ caseId }) => {
                 <Value>
                   { rentedDays ? <ScrollToAnchor anchor="vakantieverhuur" text={ `${ rentedDays } nachten` } /> : "–" }
                 </Value>
+              </>
+              }
+              { permit.permit_granted === "False" &&
+              <>
+                <Label>Datum besluit</Label>
+                <Value value={ formatDate(permit.details.DATE_DECISION) } />
               </>
               }
             </Grid>
