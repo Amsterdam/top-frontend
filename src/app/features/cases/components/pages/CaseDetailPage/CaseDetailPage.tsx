@@ -20,7 +20,8 @@ const CaseDetailPage: React.FC<RouteComponentProps<Props>> = ({ id }) => {
     <DefaultLayout>
       { isBusy && <CenteredSpinner explanation="Zaak ophalen…" size={ 60 } /> }
       { data && id && <CaseDetail caseId={ id } /> }
-      <AnonymousToggle />
+      { data && id && <AnonymousToggle /> }
+      { !isBusy && !data && <p>Geen zaak gevonden met id ‘{ id }’.</p> }
     </DefaultLayout>
   )
 }

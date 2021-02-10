@@ -2,11 +2,11 @@ import React, { FC } from "react"
 import styled from "styled-components"
 import { Heading, Paragraph, themeColor, themeSpacing } from "@amsterdam/asc-ui"
 
+import { KeyValueDetail } from "app/features/types"
 import InlineSkeleton from "app/features/shared/components/atoms/InlineSkeleton/InlineSkeleton"
 import Label from "app/features/shared/components/atoms/Label/Label"
+import Value from "app/features/shared/components/atoms/Value/Value"
 import formatBoolean from "app/features/shared/utils/formatBoolean"
-import { KeyValueDetail } from "app/features/types"
-import InvalidValue from "app/features/cases/components/atoms/Value/InvalidValue"
 
 import {
   CenteredAnchor,
@@ -74,7 +74,7 @@ const CaseDetailSection: FC<Props> = ({ id, dataSource, title, data, footer, exp
               { hasLabel ?
                 <>
                   <Label>{ key }</Label>
-                  { isBusy ? <InlineSkeleton /> : (value == null) ? <InvalidValue /> : <span>{ value }</span> }
+                  { isBusy ? <InlineSkeleton /> : (value == null) ? <Value valid={ false } /> : <span>{ value }</span> }
                 </>
                 :
                 <SpanColumns key={ String(key) + index }>{ value }</SpanColumns>

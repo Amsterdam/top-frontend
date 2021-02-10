@@ -1,8 +1,8 @@
 import React, { FunctionComponent } from "react"
 import styled from "styled-components"
+import { themeColor } from "@amsterdam/asc-ui"
 
 import formatBoolean from "app/features/shared/utils/formatBoolean"
-import InvalidValue from "app/features/cases/components/atoms/Value/InvalidValue"
 
 type Props = {
   valid?: Boolean
@@ -13,18 +13,25 @@ const Text = styled.span`
   word-break: break-word;
 `
 
+const InvalidValue = styled.span`
+  color: ${ themeColor("support", "invalid") };
+`
+
 /**
- * Displays a value if it’s valid, or its children, or an <InvalidValue /> if the value is invalid.
+ * Displays a value or child components if the value is valid, a dash if it is undefined, or a red dash if it is invalid.
  * @param valid A condition expressing the validity of the value. If omitted, the value is checked for undefined.
  * @param value The value to display.
  * @param children Child components are displayed if no value is provided and validity evaluates to true.
  * @constructor
- * @todo Incorporate <InvalidValue/>
  * @todo Incorporate <InlineSkeleton/>
  */
 const Value: FunctionComponent<Props> = ({ valid, value, children }) => {
-  if (valid === false || (value === undefined && !children)) {
-    return <InvalidValue />
+  if (valid === false) {
+    return <InvalidValue>–</InvalidValue>
+  }
+
+  if (value === undefined && !children) {
+    return <span>–</span>
   }
 
   if (typeof value === "boolean" || [ "True", "False", "UNKNOWN" ].includes(value)) {
