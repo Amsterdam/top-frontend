@@ -19,10 +19,10 @@ const CaseDetail: FC<Props> = ({ caseId }) => (
   <article className="CaseDetail">
     <General caseId={ caseId } />
     <RelatedCases caseId={ caseId } />
-    <Permits caseId={ caseId } />
     <Residence caseId={ caseId } />
     <Signal caseId={ caseId } />
     <Residents caseId={ caseId } />
+    <Permits caseId={ caseId } />
     <VacationRentalThisYear caseId={ caseId } />
     <Logbook caseId={ caseId } />
     <Scratchpad caseId={ caseId } />
