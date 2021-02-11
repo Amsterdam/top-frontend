@@ -1,6 +1,6 @@
 import React, { FC } from "react"
 import styled from "styled-components"
-import { Heading, themeSpacing } from "@amsterdam/asc-ui"
+import { Heading } from "@amsterdam/asc-ui"
 
 import { permitType, useAllPermitCheckmarks, useCase } from "app/state/rest"
 import formatDate from "app/features/shared/utils/formatDate"
@@ -16,14 +16,6 @@ import { Grid, HrWide } from "../CaseDetailSectionStyles"
 type Props = {
   caseId: string
 }
-
-const Details = styled.details`
-  margin-top: ${ themeSpacing(4) };
-`
-
-const Summary = styled.summary`
-  margin-bottom: ${ themeSpacing(4) };
-`
 
 const TwoColumns = styled.span`
   grid-column: span 2;
@@ -98,13 +90,15 @@ const Permits: FC<Props> = ({ caseId }) => {
                   <>
                     <Label>Geldig tot en met</Label>
                     <Value>
-                      <span className="anonymous">{ formatDate(permit.details.DATE_VALID_UNTIL ?? permit.details.DATE_VALID_TO) }</span>
+                      <span
+                        className="anonymous">{ formatDate(permit.details.DATE_VALID_UNTIL ?? permit.details.DATE_VALID_TO) }</span>
                     </Value>
                   </> :
                   <>
                     <Label>Geldig tot</Label>
                     <Value>
-                      <span className="anonymous">{ formatDate(permit.details.DATE_VALID_TO ?? permit.details.DATE_VALID_UNTIL) }</span>
+                      <span
+                        className="anonymous">{ formatDate(permit.details.DATE_VALID_TO ?? permit.details.DATE_VALID_UNTIL) }</span>
                     </Value>
                   </>
                 }
@@ -127,22 +121,6 @@ const Permits: FC<Props> = ({ caseId }) => {
               </>
               }
             </Grid>
-            { permit.raw_data &&
-            <Details>
-              <Summary>Alle informatie</Summary>
-              <Grid>
-                { Object.keys(permit.raw_data).length
-                  ? Object.entries(permit.raw_data).sort().map(([ key, value ]) => (
-                    <React.Fragment key={ key }>
-                      <Label>{ key }</Label>
-                      <Value value={ value } />
-                    </React.Fragment>
-                  ))
-                  : <TwoColumns>Geen informatie gevonden.</TwoColumns>
-                }
-              </Grid>
-            </Details>
-            }
             { (index < foundPermits.length - 1) && <HrWide /> }
           </React.Fragment>
         ))
