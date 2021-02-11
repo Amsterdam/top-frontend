@@ -92,7 +92,9 @@ const General: FC<Props> = ({ caseId }) => {
           <Label>Openingsreden</Label>
           <Value value={ caseOpening } />
           <Label>Eigenaar</Label>
-          <Value value={ eigenaar } />
+          <Value>
+            <span className="anonymous">{ eigenaar }</span>
+          </Value>
           { fraudPrediction &&
           <>
             <Label>Voorspelling (bèta)</Label>

@@ -73,27 +73,39 @@ const Permits: FC<Props> = ({ caseId }) => {
               </>
               }
               <Label>Aangevraagd door</Label>
-              <Value value={ permit.details.APPLICANT } />
+              <Value>
+                <span className="anonymous">{ permit.details.APPLICANT }</span>
+              </Value>
               { permitIsForBAndB(permit) &&
               <>
                 <Label>Vergunninghouder</Label>
-                <Value value={ permit.details.HOLDER } />
+                <Value>
+                  <span className="anonymous">{ permit.details.HOLDER }</span>
+                </Value>
               </>
               }
               <Label>Locatie</Label>
-              <Value value={ permit.details.ADDRESS } />
+              <Value>
+                <span className="anonymous">{ permit.details.ADDRESS }</span>
+              </Value>
               { permitHasBeenGranted(permit) &&
               <>
                 <Label>Verleend per</Label>
-                <Value value={ formatDate(permit.details.DATE_VALID_FROM) } />
+                <Value>
+                  <span className="anonymous">{ formatDate(permit.details.DATE_VALID_FROM) }</span>
+                </Value>
                 { permitIsForBAndB(permit) ?
                   <>
                     <Label>Geldig tot en met</Label>
-                    <Value value={ formatDate(permit.details.DATE_VALID_UNTIL ?? permit.details.DATE_VALID_TO) } />
+                    <Value>
+                      <span className="anonymous">{ formatDate(permit.details.DATE_VALID_UNTIL ?? permit.details.DATE_VALID_TO) }</span>
+                    </Value>
                   </> :
                   <>
                     <Label>Geldig tot</Label>
-                    <Value value={ formatDate(permit.details.DATE_VALID_TO ?? permit.details.DATE_VALID_UNTIL) } />
+                    <Value>
+                      <span className="anonymous">{ formatDate(permit.details.DATE_VALID_TO ?? permit.details.DATE_VALID_UNTIL) }</span>
+                    </Value>
                   </>
                 }
               </>
