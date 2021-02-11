@@ -61,9 +61,11 @@ const Residence: FC<Props> = ({ caseId }) => {
     woonbootAanduiding={ woonbootAanduiding }
   />
 
+  const ownerField = [ "Eigenaar", <span className="anonymous">{ eigenaar }</span> ]
+
   const woningFields = [
     [ "Databron", "BRK" ],
-    [ "Eigenaar", eigenaar ],
+    ownerField,
     [ "Databron", "BAG" ],
     [ "Gebruiksdoel", woningBestemming ],
     [ "Soort object (feitelijk gebruik)", woningGebruik ],
@@ -78,7 +80,7 @@ const Residence: FC<Props> = ({ caseId }) => {
     [ "Status", woonbootStatus || "–" ],
     [ "Indicatie geconstateerd", woonbootIndicatie ],
     [ "Aanduiding in onderzoek", woonbootAanduiding ],
-    [ "Eigenaar", <span className="anonymous">{ eigenaar }</span> ],
+    ownerField,
     mailtoAnchor
   ]
 
