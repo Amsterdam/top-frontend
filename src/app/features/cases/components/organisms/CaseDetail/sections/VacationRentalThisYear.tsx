@@ -36,6 +36,7 @@ const VacationRentalThisYear: FC<Props> = ({ caseId }) => {
           .flat(1)
           .slice(0, -1) // remove last Hr
       }
+      dataSource="BWV"
     />
   )
 }
