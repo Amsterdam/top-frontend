@@ -13,6 +13,7 @@ export type ApiGroup =
   | "postCodeRangesPresets"
   | "case"
   | "permits"
+  | "decos"
   | "auth"
 
 export type Options = {
@@ -274,12 +275,17 @@ export type permitType = {
   details: any
 }
 
+export type decosType = {
+  permits: permitType[]
+  vakantieverhuur_meldingen: any
+}
+
 export const useAllPermitCheckmarks = (bagId: string, options?: Options) => {
   const handleError = useErrorHandler()
-  return useApiRequest<permitType[]>({
+  return useApiRequest<decosType>({
     ...options,
-    url: makeGatewayUrl([ "all-permits", "details" ], { bag_id: bagId }),
-    groupName: "permits",
+    url: makeGatewayUrl([ "decos", "details" ], { bag_id: bagId }),
+    groupName: "decos",
     handleError,
     isProtected: true
   })

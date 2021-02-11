@@ -24,9 +24,9 @@ const TwoColumns = styled.span`
 const Permits: FC<Props> = ({ caseId }) => {
   const { data: caseData } = useCase(caseId)
   const bagId = getBagId(caseData!)
-  const { data: permits, isBusy } = useAllPermitCheckmarks(bagId!, { lazy: !bagId })
+  const { data: decos, isBusy } = useAllPermitCheckmarks(bagId!, { lazy: !bagId })
 
-  const foundPermits = permits?.filter(permit => [ "True", "False" ].includes(permit.permit_granted)) || []
+  const foundPermits = decos?.permits?.filter(permit => [ "True", "False" ].includes(permit.permit_granted)) || []
 
   const notifiedRentals = caseData?.vakantie_verhuur.notified_rentals
   const notified = notifiedRentals?.length
