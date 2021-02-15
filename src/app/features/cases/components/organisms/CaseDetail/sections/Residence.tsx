@@ -78,7 +78,7 @@ const Residence: FC<Props> = ({ caseId }) => {
     [ "Status", woonbootStatus || "–" ],
     [ "Indicatie geconstateerd", woonbootIndicatie ],
     [ "Aanduiding in onderzoek", woonbootAanduiding ],
-    [ "Eigenaar", eigenaar ],
+    [ "Eigenaar", <span className="anonymous">{ eigenaar }</span> ],
     mailtoAnchor
   ]
 

@@ -1,6 +1,6 @@
 import React, { FC } from "react"
 import styled from "styled-components"
-import { Heading, themeSpacing } from "@amsterdam/asc-ui"
+import { Heading } from "@amsterdam/asc-ui"
 
 import { permitType, useAllPermitCheckmarks, useCase } from "app/state/rest"
 import formatDate from "app/features/shared/utils/formatDate"
@@ -17,14 +17,6 @@ type Props = {
   caseId: string
 }
 
-const Details = styled.details`
-  margin-top: ${ themeSpacing(4) };
-`
-
-const Summary = styled.summary`
-  margin-bottom: ${ themeSpacing(4) };
-`
-
 const TwoColumns = styled.span`
   grid-column: span 2;
 `
@@ -32,9 +24,9 @@ const TwoColumns = styled.span`
 const Permits: FC<Props> = ({ caseId }) => {
   const { data: caseData } = useCase(caseId)
   const bagId = getBagId(caseData!)
-  const { data: permits, isBusy } = useAllPermitCheckmarks(bagId!, { lazy: !bagId })
+  const { data: decos, isBusy } = useAllPermitCheckmarks(bagId!, { lazy: !bagId })
 
-  const foundPermits = permits?.filter(permit => [ "True", "False" ].includes(permit.permit_granted)) || []
+  const foundPermits = decos?.permits?.filter(permit => [ "True", "False" ].includes(permit.permit_granted)) || []
 
   const notifiedRentals = caseData?.vakantie_verhuur.notified_rentals
   const notified = notifiedRentals?.length
@@ -73,27 +65,41 @@ const Permits: FC<Props> = ({ caseId }) => {
               </>
               }
               <Label>Aangevraagd door</Label>
-              <Value value={ permit.details.APPLICANT } />
+              <Value>
+                <span className="anonymous">{ permit.details.APPLICANT }</span>
+              </Value>
               { permitIsForBAndB(permit) &&
               <>
                 <Label>Vergunninghouder</Label>
-                <Value value={ permit.details.HOLDER } />
+                <Value>
+                  <span className="anonymous">{ permit.details.HOLDER }</span>
+                </Value>
               </>
               }
               <Label>Locatie</Label>
-              <Value value={ permit.details.ADDRESS } />
+              <Value>
+                <span className="anonymous">{ permit.details.ADDRESS }</span>
+              </Value>
               { permitHasBeenGranted(permit) &&
               <>
                 <Label>Verleend per</Label>
-                <Value value={ formatDate(permit.details.DATE_VALID_FROM) } />
+                <Value>
+                  <span className="anonymous">{ formatDate(permit.details.DATE_VALID_FROM) }</span>
+                </Value>
                 { permitIsForBAndB(permit) ?
                   <>
                     <Label>Geldig tot en met</Label>
-                    <Value value={ formatDate(permit.details.DATE_VALID_UNTIL ?? permit.details.DATE_VALID_TO) } />
+                    <Value>
+                      <span
+                        className="anonymous">{ formatDate(permit.details.DATE_VALID_UNTIL ?? permit.details.DATE_VALID_TO) }</span>
+                    </Value>
                   </> :
                   <>
                     <Label>Geldig tot</Label>
-                    <Value value={ formatDate(permit.details.DATE_VALID_TO ?? permit.details.DATE_VALID_UNTIL) } />
+                    <Value>
+                      <span
+                        className="anonymous">{ formatDate(permit.details.DATE_VALID_TO ?? permit.details.DATE_VALID_UNTIL) }</span>
+                    </Value>
                   </>
                 }
               </>
@@ -115,22 +121,6 @@ const Permits: FC<Props> = ({ caseId }) => {
               </>
               }
             </Grid>
-            { permit.raw_data &&
-            <Details>
-              <Summary>Alle informatie</Summary>
-              <Grid>
-                { Object.keys(permit.raw_data).length
-                  ? Object.entries(permit.raw_data).sort().map(([ key, value ]) => (
-                    <React.Fragment key={ key }>
-                      <Label>{ key }</Label>
-                      <Value value={ value } />
-                    </React.Fragment>
-                  ))
-                  : <TwoColumns>Geen informatie gevonden.</TwoColumns>
-                }
-              </Grid>
-            </Details>
-            }
             { (index < foundPermits.length - 1) && <HrWide /> }
           </React.Fragment>
         ))

@@ -34,7 +34,7 @@ const Span = styled.span`
 const AnonymousToggle: FC = () => {
   const { isAnonymous, toggleAnonymous } = useContext(AnonymousContext)
   return (
-    <Div className="AnonymousToggle">
+    <Div>
       <Span isHidden={ !isAnonymous }>Privé modus staat aan</Span>
       <EyeButton onClick={ toggleAnonymous } isOpen={ isAnonymous } />
     </Div>
