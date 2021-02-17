@@ -9,7 +9,6 @@ const metadata = {
 export default metadata
 
 const fields: Fields = {
-
   collapsible: {
     type: "Collapsible",
     props: {

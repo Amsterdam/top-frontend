@@ -38,11 +38,12 @@ const fields: Fields = {
   }
 }
 
-const handleSubmit = () => {}
+const handleSubmit = () => {
+}
 
 export const Example = () => (
-  <ScaffoldForm onSubmit={handleSubmit}>
-    <Scaffold fields={fields} />
+  <ScaffoldForm onSubmit={ handleSubmit }>
+    <Scaffold fields={ fields } />
     <DebugFormValues />
   </ScaffoldForm>
 )

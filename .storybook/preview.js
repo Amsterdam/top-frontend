@@ -5,12 +5,11 @@ import React from "react"
 
 import styled from "styled-components"
 import { LocationProvider } from "@reach/router"
-import { addDecorator, configure } from "@storybook/react"
+import { addDecorator, addParameters, configure } from "@storybook/react"
 import { GlobalStyle, ThemeProvider, themeSpacing } from "@amsterdam/asc-ui"
-import { addParameters } from "@storybook/react"
 
 const Wrap = styled.div`
-  padding: ${ themeSpacing(5) };
+  padding: ${themeSpacing(5)};
 `
 
 // automatically import all files ending in *.stories.js
@@ -20,7 +19,7 @@ const extendedTheme = {
   globalStyle: "",
 }
 
-function withGlobalStyles(storyFn) {
+function withGlobalStyles (storyFn) {
   return (
     <ThemeProvider overrides={extendedTheme}>
       <LocationProvider>
@@ -32,14 +31,15 @@ function withGlobalStyles(storyFn) {
         </>
       </LocationProvider>
     </ThemeProvider>
-)
+  )
 }
 
 addDecorator(withGlobalStyles)
 configure(req, module)
 
 addParameters({
-  viewport: { viewports: {
+  viewport: {
+    viewports: {
       mobileS: {
         name: "mobileS",
         styles: {
@@ -110,5 +110,6 @@ addParameters({
           height: "768px",
         }
       }
-    } },
+    }
+  },
 });

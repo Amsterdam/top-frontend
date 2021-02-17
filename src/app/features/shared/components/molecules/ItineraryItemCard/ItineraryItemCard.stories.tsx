@@ -15,32 +15,32 @@ export default metadata
 export const Example = () =>
   <ItineraryItemCard
     address="Kolksteeg 2D"
+    badge={ <Badge>Onderzoek buitendienst</Badge> }
     postalCode="1012PT"
     reason="Hotline"
-    badge={<Badge>Onderzoek buitendienst</Badge>}
   />
 
 export const ExampleWithButtons = () =>
   <ItineraryItemCard
     address="Kolksteeg 2D"
-    postalCode="1012PT"
-    reason="Hotline"
-    badge={<Badge>Onderzoek buitendienst</Badge>}
-    buttons={() => <>
-      <Spacing pb={2}>
-        <Button icon={<Document />} variant="tertiary" />
+    buttons={ () => <>
+      <Spacing pb={ 2 }>
+        <Button icon={ <Document /> } variant="tertiary" />
       </Spacing>
       <Spacing>
-        <Button icon={<TrashBin />} variant="tertiary" />
+        <Button icon={ <TrashBin /> } variant="tertiary" />
       </Spacing>
-    </>}
+    </> }
+    badge={ <Badge>Onderzoek buitendienst</Badge> }
+    postalCode="1012PT"
+    reason="Hotline"
   />
 
 export const ExampleWithFraudProbability = () =>
   <ItineraryItemCard
     address="Kolksteeg 2D"
+    badge={ <Badge>Onderzoek buitendienst</Badge> }
+    fraudProbability="🤖 % onbekend"
     postalCode="1012PT"
     reason="Hotline"
-    badge={<Badge>Onderzoek buitendienst</Badge>}
-    fraudProbability="🤖 % onbekend"
   />
