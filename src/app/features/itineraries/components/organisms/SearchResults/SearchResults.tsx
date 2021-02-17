@@ -5,7 +5,8 @@ import { useSearch } from "app/state/rest"
 import { useItinerary } from "app/state/rest/custom/useItinerary"
 
 import { casesToCardCaseProps } from "app/features/itineraries/utils/mapCaseToCardProps"
-import ItineraryItemCardList from "app/features/itineraries/components/organisms/ItineraryItemCardList/ItineraryItemCardList"
+import ItineraryItemCardList
+  from "app/features/itineraries/components/organisms/ItineraryItemCardList/ItineraryItemCardList"
 
 type Props = {
   postalCode?: string
@@ -19,7 +20,7 @@ const SearchResults: React.FC<Props> = ({ postalCode, streetName, streetNumber, 
   const { data: itinerary } = useItinerary(itineraryId!)
   const { data, isBusy } = useSearch(streetNumber, postalCode, streetName, suffix)
 
-  const items = useMemo(() => casesToCardCaseProps(data?.cases, itinerary), [itinerary, data])
+  const items = useMemo(() => casesToCardCaseProps(data?.cases, itinerary), [ itinerary, data ])
 
   return items.length > 0
     ? <ItineraryItemCardList items={ items } title="Deze zaken voldoen aan je zoekopdracht:" />

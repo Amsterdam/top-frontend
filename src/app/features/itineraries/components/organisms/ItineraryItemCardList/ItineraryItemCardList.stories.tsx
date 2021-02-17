@@ -6,12 +6,49 @@ export default {
   title: "Shared/Organisms/ItineraryItemCardList"
 }
 
-export const Example = () =>
-  <ItineraryItemCardList items={[
-    { address: "Lorem ipsum", postalCode: "1234PT", fraudProbability: "% onbekend", reason: "hotline", badge: <Badge>Onderzoek buitendienst</Badge> },
-    { address: "Lorem ipsum", postalCode: "1234PT", fraudProbability: "% onbekend", reason: "hotline", badge: <Badge>Onderzoek buitendienst</Badge> },
-    { address: "Lorem ipsum", postalCode: "1234PT", fraudProbability: "% onbekend", reason: "hotline", badge: <Badge>Onderzoek buitendienst</Badge> },
-    { address: "Lorem ipsum", postalCode: "1234PT", fraudProbability: "% onbekend", reason: "hotline", badge: <Badge>Onderzoek buitendienst</Badge> },
-    { address: "Lorem ipsum", postalCode: "1234PT", fraudProbability: "% onbekend", reason: "hotline", badge: <Badge>Onderzoek buitendienst</Badge> },
-    { address: "Lorem ipsum", postalCode: "1234PT", fraudProbability: "% onbekend", reason: "hotline", badge: <Badge>Onderzoek buitendienst</Badge> }
-  ]} />
+export const Example = () => (
+  <ItineraryItemCardList items={ [
+    {
+      address: "Lorem ipsum",
+      badge: <Badge>Onderzoek buitendienst</Badge>,
+      fraudProbability: "% onbekend",
+      postalCode: "1234PT",
+      reason: "hotline"
+    },
+    {
+      address: "Lorem ipsum",
+      badge: <Badge>Onderzoek buitendienst</Badge>,
+      fraudProbability: "% onbekend",
+      postalCode: "1234PT",
+      reason: "hotline"
+    },
+    {
+      address: "Lorem ipsum",
+      badge: <Badge>Onderzoek buitendienst</Badge>,
+      fraudProbability: "% onbekend",
+      postalCode: "1234PT",
+      reason: "hotline"
+    },
+    {
+      address: "Lorem ipsum",
+      badge: <Badge>Onderzoek buitendienst</Badge>,
+      fraudProbability: "% onbekend",
+      postalCode: "1234PT",
+      reason: "hotline"
+    },
+    {
+      address: "Lorem ipsum",
+      badge: <Badge>Onderzoek buitendienst</Badge>,
+      fraudProbability: "% onbekend",
+      postalCode: "1234PT",
+      reason: "hotline"
+    },
+    {
+      address: "Lorem ipsum",
+      badge: <Badge>Onderzoek buitendienst</Badge>,
+      fraudProbability: "% onbekend",
+      postalCode: "1234PT",
+      reason: "hotline"
+    }
+  ] } />
+)
