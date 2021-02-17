@@ -3,11 +3,12 @@ import ItineraryItemCard from "app/features/shared/components/molecules/Itinerar
 
 type Props = {
   items: Array<React.ComponentProps<typeof ItineraryItemCard>>
+  title?: string
 }
 
-const ItineraryItemCardList: React.FC<Props> = ({ items }) => (
+const ItineraryItemCardList: React.FC<Props> = ({ items, title }) => (
   <>
-    <p>Zaken rondom de adressen in je lijst:</p>
+    { title && <p>{ title }</p> }
     { items.map((item, i) => <ItineraryItemCard key={ i } { ...item } />) }
   </>
 )

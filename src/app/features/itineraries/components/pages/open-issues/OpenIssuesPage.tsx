@@ -29,10 +29,10 @@ const OpenIssuesPage: React.FC = () => {
       { isBusy && <CenteredSpinner explanation="Issuemeldingen ophalen…" size={ 60 } /> }
       { !isBusy && <Heading forwardedAs="h2">Open issuemeldingen { date }</Heading> }
       { hasCases
-        ? <>
-          <p>Deze issuemeldingen zijn vandaag nog beschikbaar, voeg ze toe aan je lijst.</p>
-          <ItineraryItemCardList items={ cardListItems } />
-        </>
+        ? <ItineraryItemCardList
+          items={ cardListItems }
+          title="Deze issuemeldingen zijn vandaag nog beschikbaar, voeg ze toe aan je lijst."
+        />
         : <p>Geen issuemeldingen beschikbaar.</p>
       }
     </DefaultLayout>

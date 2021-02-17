@@ -8,7 +8,8 @@ import displayAddress from "app/features/shared/utils/displayAddress"
 import StyledButton from "app/features/shared/components/atoms/StyledButton/StyledButton"
 
 import ItineraryItemCard from "app/features/shared/components/molecules/ItineraryItemCard/ItineraryItemCard"
-import ItineraryItemCardList from "app/features/itineraries/components/organisms/ItineraryItemCardList/ItineraryItemCardList"
+import ItineraryItemCardList
+  from "app/features/itineraries/components/organisms/ItineraryItemCardList/ItineraryItemCardList"
 import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner"
 import FraudProbability from "../../../../atoms/FraudProbability/FraudProbability"
 import { useCaseModal } from "../../hooks/useCaseModal"
@@ -23,18 +24,38 @@ type Props = {
   suffix?: string
 }
 
-const mapResults = (handleAdd: HandleAddCallback, getUrl: (string: string) => string) => ({ case_id, street_name, street_number, suffix_letter, suffix, postal_code, case_reason, stadium, fraud_prediction }: any): React.ComponentProps<typeof ItineraryItemCard> => ({
+const mapResults = (handleAdd: HandleAddCallback, getUrl: (string: string) => string) => (
+  {
+    case_id,
+    street_name,
+    street_number,
+    suffix_letter,
+    suffix,
+    postal_code,
+    case_reason,
+    stadium,
+    fraud_prediction
+  }: any
+): React.ComponentProps<typeof ItineraryItemCard> => ({
   href: getUrl(case_id),
   backgroundColor: "level2",
   address: displayAddress(street_name, street_number, suffix_letter, suffix),
   postalCode: postal_code,
   reason: case_reason,
-  badge: <StadiumBadge stadium={stadium} />,
-  fraudProbability: <FraudProbability fraudProbability={fraud_prediction?.fraud_probability} />,
-  buttons: () => <StyledButton icon={<Enlarge />} onClick={() => handleAdd(case_id)} />
+  badge: <StadiumBadge stadium={ stadium } />,
+  fraudProbability: <FraudProbability fraudProbability={ fraud_prediction?.fraud_probability } />,
+  buttons: () => <StyledButton icon={ <Enlarge /> } onClick={ () => handleAdd(case_id) } />
 })
 
-const StartAddressSearchResults: React.FC<Props> = ({ handleAddButtonClick, postalCode, streetName, streetNumber, suffix }) => {
+const StartAddressSearchResults: React.FC<Props> = (
+  {
+    handleAddButtonClick,
+    postalCode,
+    streetName,
+    streetNumber,
+    suffix
+  }
+) => {
   const { data, isBusy } = useSearch(streetNumber, postalCode, streetName, suffix)
   const { getUrl } = useCaseModal()
 
@@ -44,10 +65,10 @@ const StartAddressSearchResults: React.FC<Props> = ({ handleAddButtonClick, post
   )
 
   return isBusy || !items
-      ? <CenteredSpinner explanation="Zaken ophalen…" size={60} />
-      : items && items.length > 0
-          ? <ItineraryItemCardList items={items} />
-          : <p>Geen zaken gevonden.</p>
+    ? <CenteredSpinner explanation="Zaken ophalen…" size={ 60 } />
+    : items && items.length > 0
+      ? <ItineraryItemCardList items={ items } title="Zaken rondom de adressen in je lijst:" />
+      : <p>Geen zaken gevonden.</p>
 }
 
 export default StartAddressSearchResults
