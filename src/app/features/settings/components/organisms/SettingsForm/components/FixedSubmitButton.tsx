@@ -16,6 +16,7 @@ const FixedBox = styled(Box)`
   position: fixed;
   bottom: 0;
   left: 0;
+  z-index: 1;
   height: 85px;
   border-top: 1px solid ${ themeColor("tint", "level5") };
 `

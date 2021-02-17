@@ -55,16 +55,18 @@ export const createDefinition = (onResetButtonClick: () => void) => {
       props: {
         alignedHorizontally: { tabletM: true },
         icon: <Close />,
-        onClick: onResetButtonClick
+        onClick: onResetButtonClick,
+        style: { minWidth: "initial" } // Override ASC
       }
     },
     submit: {
       type: "SubmitButton",
       props: {
+        align: "right",
         alignedHorizontally: { tabletM: true },
         icon: <Search />,
-        tabIndex: 5,
-        align: "right"
+        style: { minWidth: "initial" }, // Override ASC
+        tabIndex: 5
       }
     }
   }

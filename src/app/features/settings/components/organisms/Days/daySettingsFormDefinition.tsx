@@ -27,7 +27,8 @@ export const createDefinition = (projects: string[], stadia: string[], postalCod
       type: "Boolean",
       props: {
         label: "Geef SIA meldingen voorrang",
-        name: "settings.sia_presedence"
+        name: "settings.sia_presedence",
+        style: { top: 2, left: 0 }
       }
     },
     geo_type: {
