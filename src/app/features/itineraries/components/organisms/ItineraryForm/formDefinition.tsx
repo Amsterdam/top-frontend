@@ -88,7 +88,8 @@ export const generateItineraryFormDefinition = (
       type: "SubmitButton",
       props: {
         align: "right",
-        label: "Genereer looplijst"
+        label: "Genereer looplijst",
+        style: { minWidth: "initial" }
       }
     }
   }
