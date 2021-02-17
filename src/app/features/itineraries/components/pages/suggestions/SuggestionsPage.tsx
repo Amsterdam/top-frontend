@@ -26,7 +26,7 @@ const SuggestionsPage: React.FC<RouteComponentProps<Props>> = ({ itineraryId }) 
       <Heading>Voeg een adres toe</Heading>
       { isBusy && <CenteredSpinner explanation="Zaken ophalen…" size={ 60 } /> }
       { items.length > 0
-        ? <ItineraryItemCardList items={ items } />
+        ? <ItineraryItemCardList items={ items } title="Zaken rondom de adressen in je lijst:" />
         : !isBusy
           ? <p>Geen resultaten gevonden.</p>
           : null

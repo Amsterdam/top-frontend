@@ -22,7 +22,7 @@ const SearchResults: React.FC<Props> = ({ postalCode, streetName, streetNumber, 
   const items = useMemo(() => casesToCardCaseProps(data?.cases, itinerary), [itinerary, data])
 
   return items.length > 0
-    ? <ItineraryItemCardList items={items}/>
+    ? <ItineraryItemCardList items={ items } title="Deze zaken voldoen aan je zoekopdracht:" />
     : !isBusy
       ? <p>Geen resultaat.</p>
       : null
