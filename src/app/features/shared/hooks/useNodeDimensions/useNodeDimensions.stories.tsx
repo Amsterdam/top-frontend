@@ -6,6 +6,7 @@ import { Heading, themeColor, themeSpacing } from "@amsterdam/asc-ui"
 import useNodeByReference from "../useNodeByReference/useNodeByReference"
 import useNodeDimensions from "./useNodeDimensions"
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   title: "Shared/Hooks/useNodeDimensions",
   decorators: [ withKnobs ]

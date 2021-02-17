@@ -6,6 +6,7 @@ import ItineraryItemCard from "./ItineraryItemCard"
 import Badge from "app/features/shared/components/atoms/Badge/Badge"
 import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   title: "Shared/Molecules/ItineraryItemCard"
 }

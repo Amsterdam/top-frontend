@@ -2,6 +2,7 @@ import React from "react"
 import { DebugFormValues, ScaffoldForm } from "@amsterdam/amsterdam-react-final-form"
 import Scaffold, { Fields } from "../Scaffold"
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   title: "Custom form components / UniqueDropDown"
 }
