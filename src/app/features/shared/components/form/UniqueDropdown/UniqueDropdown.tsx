@@ -27,13 +27,14 @@ const UniqueDropdown: React.FC<UniqueDropdownProps> = ({ options, ...restProps }
     throw new Error("Given fieldname should be an item in an array. Eg. 'field[0]'.")
   }
 
-  const { input: { value: allFieldValues } } = useField(restProps.name.replace(fieldNamePattern, ""))
-  const { input: { value: ownValue } } = useField(restProps.name)
+  //const { input: { value: allFieldValues } } = useField(restProps.name.replace(fieldNamePattern, ""))
+  //const { input: { value: ownValue } } = useField(restProps.name)
 
-  const otherFieldValues = _difference(allFieldValues || [], [ownValue])
-  const filteredOptions = options?.filter(alreadySelected(otherFieldValues)) ?? []
+  //const otherFieldValues = _difference(allFieldValues || [], [ownValue])
+  //const filteredOptions = options?.filter(alreadySelected(otherFieldValues)) ?? []
 
-  return (<ComplexSelectField {...restProps} options={filteredOptions} />)
+  //return (<ComplexSelectField {...restProps} options={filteredOptions} />)
+  return (<ComplexSelectField {...restProps} options={options} />)
 }
 
 export default UniqueDropdown
