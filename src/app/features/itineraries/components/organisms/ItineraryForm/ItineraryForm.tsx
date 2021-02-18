@@ -41,8 +41,7 @@ const ItineraryForm: FC<Props> = ({ teamSettings }) => {
       initialValues={ {
         teamSettings,
         numAddresses: 8,
-        daySettings: daySettingsOptions[0],
-        team_members: [ loggedInUser ]
+        daySettings: daySettingsOptions[0]
       } }
     >
       <Scaffold fields={ fields } />
