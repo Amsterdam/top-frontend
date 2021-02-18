@@ -9,17 +9,18 @@
 
 ## development
 
+- There is a dependency on https://github.com/Amsterdam/fixxx-looplijsten-backend
+
 Run:
 
 - `git clone https://github.com/Amsterdam/fixxx-looplijsten-frontend.git`
 - `cd fixxx-looplijsten-frontend`
-- `npm install`
+- `npm install .`
 - `npm run swagger:generate-schema:acc` to fetch the latest API-schemas
+- `npm start`
 
-Connect to acceptance backend
-
-- `npm run start`
-- open http://localhost:3001/ in browser
+### Connecting to Acceptance API
+- It's possible to connect a locally run fixxx-looplijsten-frontend to Acceptance gateway. Add `REACT_APP_GATEWAY=https://https://acc.api.top.amsterdam.nl/api/v1/` to `.env.development.local`. See [.env.development](https://github.com/Amsterdam/fixxx-looplijsten-frontend/blob/master/.env.development) for examples.
 
 ## deployment
 
