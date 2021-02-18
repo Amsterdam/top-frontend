@@ -20,6 +20,7 @@ export const generateItineraryFormDefinition = (
       props: {
         name: "team_members[0]",
         label: "Toezichthouder 1",
+        hint: "Selecteer hier je eigen naam.",
         options: users,
         optionLabelField: "full_name",
         withEmptyOption: true,
