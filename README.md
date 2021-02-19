@@ -1,78 +1,42 @@
-# Fixxx Looplijsten Frontend
+# TOP app (Toezicht op pad)
 
-## commands
+Dankzij de TOP app hebben toezichthouders Wonen veel informatie over zaken, adressen en bewoners bij de hand als zij op straat
+hun werk doen. Ook kunnen zij hun eigen looplijst samenstellen, op basis van instellingen die planners hebben
+klaargezet.
 
-- `npm run lint`
-- `npm run test`
-- `npm run start`
-- `npm run build`
+## Getting started
 
-## development
+1. `git clone https://github.com/Amsterdam/fixxx-looplijsten-frontend.git`
+1. `cd fixxx-looplijsten-frontend`
+1. `npm install .`
+1. `npm run swagger:generate-schema:acc` to fetch the latest API-schemas
+1. `npm start`
 
-- There is a dependency on https://github.com/Amsterdam/fixxx-looplijsten-backend
+## Development
 
-Run:
+### Using the acceptance backend
 
-- `git clone https://github.com/Amsterdam/fixxx-looplijsten-frontend.git`
-- `cd fixxx-looplijsten-frontend`
-- `npm install .`
-- `npm run swagger:generate-schema:acc` to fetch the latest API-schemas
-- `npm start`
+To connect your locally run frontend to the acceptance backend:
 
-### Connecting to Acceptance API
-- It's possible to connect a locally run fixxx-looplijsten-frontend to Acceptance gateway. Add `REACT_APP_GATEWAY=https://https://acc.api.top.amsterdam.nl/api/v1/` to `.env.development.local`. See [.env.development](https://github.com/Amsterdam/fixxx-looplijsten-frontend/blob/master/.env.development) for examples.
+1. Create a new file `.env.development.local`. Git will ignore it.
+1. Add `REACT_APP_GATEWAY=https://acc.api.top.amsterdam.nl/api/v1/` to it.
 
-## deployment
+See [.env.development](https://github.com/Amsterdam/fixxx-looplijsten-frontend/blob/master/.env.development) for
+examples.
 
-- `master` branch is automatically deployed to [acceptance](https://acc.top.amsterdam.nl)
-- tag any branch, but preferably master, with a tag like `v1.0.0` to deploy that specific commit to [production](https://top.amsterdam.nl)
+### Using a local backend
 
-## Original README
+Download the [looplijsten backend](https://github.com/Amsterdam/fixxx-looplijsten-backend) and run the Docker
+instances.<br />
+Load data from BWV which can be gotten from Datapunt.<br />
+Consult the backend readme for more info.<br />
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Deployment
 
-## Available Scripts
+- The `master` branch is automatically deployed to [acceptance](https://acc.top.amsterdam.nl/).
+- Tag any branch, but preferably master, with a tag like `v1.0.0` to deploy that specific commit
+  to [production](https://top.amsterdam.nl/).
 
-In the project directory, you can run:
+.
 
-### `yarn start`
-
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
-
-If you also want to run [fixxx-looplijsten-backend](https://github.com/Amsterdam/fixxx-looplijsten-backend) locally <br/>
-and you want this frontend to talk to you local backend run `yarn run start:local`
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+_This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app)._
