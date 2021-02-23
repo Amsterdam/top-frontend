@@ -67,7 +67,7 @@ const StartAddressSearchResults: React.FC<Props> = (
   return isBusy || !items
     ? <CenteredSpinner explanation="Zaken ophalen…" size={ 60 } />
     : items && items.length > 0
-      ? <ItineraryItemCardList items={ items } title="Zaken rondom de adressen in je lijst:" />
+      ? <ItineraryItemCardList items={ items } title="Deze zaken voldoen aan je zoekopdracht:" />
       : <p>Geen zaken gevonden.</p>
 }
 
