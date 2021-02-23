@@ -49,14 +49,17 @@ const Residents: FC<Props> = ({ caseId }) => {
 
   const residentCount: number = caseData.bwv_personen.filter(person => person.overlijdensdatum === null).length
 
+  if (!residentCount) {
+    return null
+  }
+
   return (
     <CaseDetailSection
       id="inschrijvingen"
-      title={ `Ingeschreven personen${ residentCount > 0 && ` (${ residentCount })` }` }
+      title="Ingeschreven personen"
       dataSource="BWV"
-      data={ residentCount ? residents : [ "Geen inschrijvingen." ] }
+      data={ residents }
     />
-
   )
 }
 
