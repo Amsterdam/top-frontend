@@ -16,7 +16,7 @@ const mapPerson = (person: BWVPersoon) => ({
   born: person.geboortedatum ? formatDate(person.geboortedatum)! : undefined,
   died: person.overlijdensdatum ? formatDate(person.overlijdensdatum)! : undefined,
   initials: person.voorletters,
-  livingSince: person.vestigingsdatum_adres ? formatDate(person.vestigingsdatum_adres)! : undefined,
+  settlementDate: person.vestigingsdatum_adres ? formatDate(person.vestigingsdatum_adres)! : undefined,
   name: person.naam,
   sex: person.geslacht
 })
@@ -34,7 +34,7 @@ const Residents: FC<Props> = ({ caseId }) => {
     acc.push(<Span
       className="anonymous"><strong>{ (index + 1) + ". " + person.initials + " " + person.name + " (" + person.sex + ")" }</strong></Span>)
     acc.push([ "Geboren", <span className="anonymous">{ person.born }</span> ])
-    acc.push([ "Woont hier sinds", person.livingSince ])
+    acc.push([ "Ingeschreven per", person.settlementDate ])
 
     if (person.died !== undefined) {
       acc.push([ "✝️ Overleden", <span className="anonymous">{ person.died }</span> ])
@@ -52,7 +52,7 @@ const Residents: FC<Props> = ({ caseId }) => {
   return (
     <CaseDetailSection
       id="inschrijvingen"
-      title={ `Huidige bewoners${ residentCount ? ` (${ residentCount })` : "" }` }
+      title={ `Ingeschreven personen${ residentCount > 0 && ` (${ residentCount })` }` }
       dataSource="BWV"
       data={ residentCount ? residents : [ "Geen inschrijvingen." ] }
     />
