@@ -21,7 +21,7 @@ const CaseDetailScratchpad: FC<Props> = ({ caseId }) => {
   }
 
   const statements = caseData.statements.reduce((acc: any, statement, index, arr) => {
-    acc.push([ "Toezichthouder", <strong className="anonymous">{ statement.user }</strong> ])
+    acc.push([ "Door", <strong className="anonymous">{ statement.user }</strong> ])
     acc.push([ "Datum", formatDate(statement.date, true) ])
     acc.push(<Purified className="anonymous" text={ replaceNewLines(replaceUrls(statement.statement)) } />)
 
