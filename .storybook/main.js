@@ -1,7 +1,7 @@
 const path = require('path')
 
 module.exports = {
-  stories: ['../src/**/*.stories.(ts|tsx|js|jsx)'],
+  stories: [ '../src/**/*.stories.@(ts|tsx|js|jsx)' ],
   webpackFinal: (config) => {
     config.module.rules.push({
       test: /\.jsx?$/,
@@ -13,11 +13,11 @@ module.exports = {
         loader: 'babel-loader',
         options: {
           presets: [
-            ['@babel/preset-env', { "useBuiltIns": "entry", "corejs": 2 }],
+            [ '@babel/preset-env', { "useBuiltIns": "entry", "corejs": 2 } ],
             '@babel/preset-react',
           ],
           plugins: [
-            ['babel-plugin-styled-components', { 'pure': true }],
+            [ 'babel-plugin-styled-components', { 'pure': true } ],
           ],
         }
       }
@@ -25,5 +25,5 @@ module.exports = {
 
     return config
   },
-  addons: ['@storybook/preset-create-react-app', '@storybook/addon-knobs']
+  addons: [ '@storybook/preset-create-react-app', '@storybook/addon-knobs' ]
 };

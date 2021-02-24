@@ -2,13 +2,13 @@ import React from "react"
 import { DebugFormValues, ScaffoldForm } from "@amsterdam/amsterdam-react-final-form"
 import Scaffold, { Fields } from "../Scaffold"
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default {
-  title: "Custom form components / Collapsible"
+const metadata = {
+  title: "Forms / Collapsible"
 }
 
-const fields: Fields = {
+export default metadata
 
+const fields: Fields = {
   collapsible: {
     type: "Collapsible",
     props: {
