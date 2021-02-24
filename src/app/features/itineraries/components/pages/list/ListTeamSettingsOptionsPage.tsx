@@ -31,7 +31,8 @@ const ListTeamSettingsOptionsPage: React.FC<RouteComponentProps> = () => {
     }
   }, [ userHasTeamSettings, loggedInUser ])
 
-  const teams = data?.results.sort((a, b) => a.name > b.name ? 1 : -1) || []
+  const teams = data?.results ?? []
+  const sortedTeams = [ ...teams ].sort((a, b) => a.name > b.name ? 1 : -1) || []
 
   return <DefaultLayout>
     { data && data.results.length > 0 && (
@@ -46,7 +47,7 @@ const ListTeamSettingsOptionsPage: React.FC<RouteComponentProps> = () => {
           </p>
         </Spacing>
         <ButtonsLayout>
-          { teams.map(teamSettings => (
+          { sortedTeams.map(teamSettings => (
             <Button
               as="a"
               href={ to("/lijst/nieuw/:teamSettingsId", { teamSettingsId: teamSettings.id }) }

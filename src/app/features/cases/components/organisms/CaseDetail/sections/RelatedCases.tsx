@@ -26,7 +26,7 @@ const RelatedCases: FC<Props> = ({ caseId }) => {
     return null
   }
 
-  const relatedCases = otherCases
+  const relatedCases = [ ...otherCases ]
     .sort((a, b) => parseInt(a.case_number, 10) - parseInt(b.case_number, 10))
     .reduce((acc: any, relatedCase: RelatedCase, index, arr) => {
       const { case_id, case_number, case_reason } = relatedCase
