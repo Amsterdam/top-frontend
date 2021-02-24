@@ -36,6 +36,7 @@ const Permits: FC<Props> = ({ caseId }) => {
 
   const permitHasBeenGranted = (permit: permitType) => permit.permit_granted === "True"
   const permitIsForBAndB = (permit: permitType) => permit.permit_type.startsWith("B&B")
+  const permitHasEndDate = (permit: permitType) => permit.details.DATE_VALID_TO || permit.details.DATE_VALID_UNTIL
 
   return (
     <CaseDetailSection
@@ -86,7 +87,8 @@ const Permits: FC<Props> = ({ caseId }) => {
                 <Value>
                   <span className="anonymous">{ formatDate(permit.details.DATE_VALID_FROM) }</span>
                 </Value>
-                { permitIsForBAndB(permit) ?
+                { permitHasEndDate(permit) &&
+                permitIsForBAndB(permit) ?
                   <>
                     <Label>Geldig tot en met</Label>
                     <Value>
