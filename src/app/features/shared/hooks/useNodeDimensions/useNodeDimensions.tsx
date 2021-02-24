@@ -15,15 +15,12 @@ import ResizeObserver from "resize-observer-polyfill"
  *
  *   return <div ref={ref}></div>
  * }
- *
  * ```
- *
- *
  */
 const useNodeDimensions = (node?: Element) => {
   const [ dimensions, setDimensions ] = useState<DOMRectReadOnly>()
 
-  const resizeObserver = useMemo(() => new ResizeObserver(( entries ) => {
+  const resizeObserver = useMemo(() => new ResizeObserver((entries: ResizeObserverEntry[]) => {
     setDimensions(entries[0].contentRect as DOMRectReadOnly)
   }), [ setDimensions ])
 
@@ -37,7 +34,7 @@ const useNodeDimensions = (node?: Element) => {
         resizeObserver.unobserve(node)
       }
     }
-  }, [node, resizeObserver])
+  }, [ node, resizeObserver ])
 
   return dimensions
 }
