@@ -32,7 +32,7 @@ To use a local backend, clone the [backend repository](https://github.com/Amster
 the Docker instances. Load data from BWV which can be gotten from Datapunt – consult the backend readme for more info.
 
 ```
-npm start:local
+npm run start:local
 ````
 
 ## Deploying
