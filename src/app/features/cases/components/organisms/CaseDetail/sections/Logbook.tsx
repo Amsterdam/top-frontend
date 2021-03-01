@@ -22,6 +22,8 @@ type Props = {
 type LogbookItem = {
   source?: string
   name: string
+  toezichthouders: string[]
+  handhaver: string | null
   date: string
   time: string
   hit?: boolean
@@ -50,6 +52,8 @@ const mapBWVToLogbookItem = (
   {
     source: "BWV",
     name: [ toez_hdr1_naam, toez_hdr2_naam ].filter(i => i != null).join(", "),
+    toezichthouders: [],
+    handhaver: "",
     date: formatDate(bevinding_datum, true)!,
     time: bevinding_tijd,
     hit: hit === "J",
@@ -62,6 +66,7 @@ const mapBWVToLogbookItem = (
 const mapVisitToLogbookItem = (users: Components.Schemas.User[]) => (
   {
     author,
+    team_members,
     start_time,
     suggest_next_visit_description,
     can_next_visit_go_ahead_description,
@@ -71,6 +76,8 @@ const mapVisitToLogbookItem = (users: Components.Schemas.User[]) => (
 ): LogbookItem => (
   {
     name: users.find(_ => _.id === author)?.full_name ?? author,
+    toezichthouders: team_members.slice(0, 2).map((tm: Components.Schemas.VisitTeamMember) => tm.user.full_name),
+    handhaver: team_members[2] && team_members[2].user.full_name,
     date: formatDate(start_time, true)!,
     time: formatTime(start_time),
     sort: new Date(start_time),
@@ -86,6 +93,8 @@ const mapLogbookItemToDetailComponents = (observationTranslations: Components.Sc
   {
     source,
     name,
+    toezichthouders,
+    handhaver,
     time,
     date,
     hit,
@@ -118,7 +127,9 @@ const mapLogbookItemToDetailComponents = (observationTranslations: Components.Sc
 
   return [
     !isNullish(source) && [ "Bron", source ],
-    [ "Toezichthouder(s)", <strong className="anonymous">{ name }</strong> ],
+    [ "Auteur", <strong className="anonymous">{ name }</strong> ],
+    [ "Toezichthouders", <strong className="anonymous">{ toezichthouders && toezichthouders.join(", ") }</strong> ],
+    [ "Handhaver", <strong className="anonymous">{ handhaver }</strong> ],
     [ "Starttijd", `${ time } uur` ],
     [ "Datum", date ],
     !isNullish(hit) && [ "Hit", hit ],
