@@ -60,66 +60,25 @@ declare namespace Components {
                 show_vakantieverhuur?: boolean
             }
         }
-        export type DecosJoinFolderFieldsResponse = {
-            bol4?: boolean | null
-            bol5?: boolean | null
-            bol7?: boolean | null
-            company?: string | null
-            date1?: string | null
-            date2?: string | null
-            date4?: string | null
-            date5?: string
-            date6: string
-            date7?: string
-            department?: string | null
-            document_date?: string | null
-            email1?: string | null
-            email2?: string | null
-            email3?: string | null
-            firstname?: string | null
-            dfunction: string | null
-            parentKey: string | null
-            sequence?: null | number
-            itemtype_key?: string | null
-            mailaddress?: string | null
-            mark?: string | null
-            num5?: null | number
-            num6?: null | number
-            phone1?: string | null
-            phone3?: string | null
-            processed?: boolean
-            received_date?: string | null
-            subject1?: string | null
-            surname?: string | null
-            text2?: string | null
-            text6?: string | null
-            text7?: string | null
-            text8?: string | null
-            text9?: string | null
-            title?: string | null
-            zipcode?: string | null
-            it_extid?: string | null
-            text13?: string | null
-            text16?: string | null
-            date10?: string | null
-            num7?: null | number
-            text17?: string | null
-            text18?: string | null
-            text22?: string | null
-            text23?: string | null
-            text44?: string | null
-            text45?: string | null
-            date20?: string | null
-            num20?: null | number
-            num22?: null | number
-            itemrel_key: string | null
+        export type Decos = {
+            permits: DecosPermit[]
+            vakantieverhuur_meldingen: {
+                rented_days_count: null | number
+                planned_days_count: null | number
+                is_rented_today: boolean
+                meldingen: VakantieverhuurMelding[]
+            } | null
         }
         export type DecosPermit = {
             permit_granted: HasVacationRentalPermitEnum
             permit_type: string
-            date_from: string | null // date
             decos_join_web_url?: string // uri ^(?:[a-z0-9.+-]*)://(?:[^\s:@/]+(?::[^\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\d|[0-1]?\d?\d)(?:\.(?:25[0-5]|2[0-4]\d|[0-1]?\d?\d)){3}|\[[0-9a-f:.]+\]|([a-z¡-￿0-9](?:[a-z¡-￿0-9-]{0,61}[a-z¡-￿0-9])?(?:\.(?!-)[a-z¡-￿0-9-]{1,63}(?<!-))*\.(?!-)(?:[a-z¡-￿-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\.?|localhost))(?::\d{2,5})?(?:[/?#][^\s]*)?\Z
-            raw_data: DecosJoinFolderFieldsResponse
+            raw_data?: {
+                [name: string]: any
+            } | null
+            details?: {
+                [name: string]: any
+            } | null
         }
         export type FraudPrediction = {
             fraud_probability: number // float
@@ -186,12 +145,12 @@ declare namespace Components {
             readonly id: number
             readonly user: {
                 id: string // uuid
-                readonly email: string // email
-                readonly username: string
-                readonly first_name: string
-                readonly last_name: string
+                email: string // email
+                username: string
+                first_name: string
+                last_name: string
                 full_name: string
-                team_settings: TeamSettingsId[]
+                team_settings: UserTeamSettingsId[]
             }
         }
         export type Note = {
@@ -204,7 +163,7 @@ declare namespace Components {
                 first_name: string
                 last_name: string
                 full_name: string
-                team_settings: TeamSettingsId[]
+                team_settings: UserTeamSettingsId[]
             }
         }
         export type NoteCrud = {
@@ -218,7 +177,7 @@ declare namespace Components {
                 first_name: string
                 last_name: string
                 full_name: string
-                team_settings: TeamSettingsId[]
+                team_settings: UserTeamSettingsId[]
             }
         }
         export type OIDCAuthenticate = {
@@ -449,7 +408,7 @@ declare namespace Components {
                 first_name: string
                 last_name: string
                 full_name: string
-                team_settings: TeamSettingsId[]
+                team_settings: UserTeamSettingsId[]
             }
         }
         export type PatchedObservation = {
@@ -478,6 +437,7 @@ declare namespace Components {
         }
         export type PatchedVisit = {
             readonly id?: number
+            readonly team_members?: VisitTeamMember[]
             situation?: string | null
             observations?: string[] | null
             start_time?: string // date-time
@@ -543,9 +503,6 @@ declare namespace Components {
             show_issuemelding?: boolean
             show_vakantieverhuur?: boolean
         }
-        export type TeamSettingsId = {
-            readonly id: number
-        }
         export type User = {
             id: string // uuid
             email: string // email
@@ -553,19 +510,26 @@ declare namespace Components {
             first_name: string
             last_name: string
             full_name: string
-            team_settings: TeamSettingsId[]
+            team_settings: UserTeamSettingsId[]
         }
-        export type UserId = {
-            id: string // uuid
-            readonly email: string // email
-            readonly username: string
-            readonly first_name: string
-            readonly last_name: string
-            full_name: string
-            team_settings: TeamSettingsId[]
+        export type UserTeamSettingsId = {
+            readonly id: number
+        }
+        export type VakantieverhuurMelding = {
+            is_afmelding: boolean
+            melding_date: string // date-time
+            first_day: string // date-time
+            last_day: string // date-time
+        }
+        export type VakantieverhuurRentalInformation = {
+            rented_days_count: null | number
+            planned_days_count: null | number
+            is_rented_today: boolean
+            meldingen: VakantieverhuurMelding[]
         }
         export type Visit = {
             readonly id: number
+            readonly team_members: VisitTeamMember[]
             situation?: string | null
             observations?: string[] | null
             start_time: string // date-time
@@ -579,26 +543,21 @@ declare namespace Components {
             itinerary_item?: null | number
             author: string // uuid
         }
-    }
-}
-declare namespace Paths {
-    namespace AllPermitsDetailsList {
-        namespace Parameters {
-            export type BagId = string;
-        }
-        export type QueryParameters = {
-            bag_id: Parameters.BagId
-        }
-        namespace Responses {
-            export type $200 = Components.Schemas.DecosPermit[];
-        }
-    }
-    namespace AllPermitsTestConnectRetrieve {
-        namespace Responses {
-            export type $200 = {
+        export type VisitTeamMember = {
+            readonly id: number
+            readonly user: {
+                id: string // uuid
+                email: string // email
+                username: string
+                first_name: string
+                last_name: string
+                full_name: string
+                team_settings: UserTeamSettingsId[]
             }
         }
     }
+}
+declare namespace Paths {
     namespace CasesRetrieve {
         namespace Parameters {
             export type Id = string;
@@ -698,6 +657,23 @@ declare namespace Paths {
         export type RequestBody = Components.Schemas.DaySettings;
         namespace Responses {
             export type $200 = Components.Schemas.DaySettings;
+        }
+    }
+    namespace DecosDetailsRetrieve {
+        namespace Parameters {
+            export type BagId = string;
+        }
+        export type QueryParameters = {
+            bag_id: Parameters.BagId
+        }
+        namespace Responses {
+            export type $200 = Components.Schemas.Decos;
+        }
+    }
+    namespace DecosTestConnectRetrieve {
+        namespace Responses {
+            export type $200 = {
+            }
         }
     }
     namespace FraudPredictionScoringCreate {
