@@ -3,7 +3,6 @@ import React, { FC } from "react"
 import { BWVPersoon } from "app/features/types"
 import { useCase } from "app/state/rest"
 import formatDate from "app/features/shared/utils/formatDate"
-import Span from "app/features/cases/components/atoms/Span/Span"
 
 import CaseDetailSection from "../CaseDetailSection"
 import { Hr } from "app/features/cases/components/organisms/CaseDetail/CaseDetailSectionStyles"
@@ -31,8 +30,8 @@ const Residents: FC<Props> = ({ caseId }) => {
   const persons = Array.isArray(caseData.bwv_personen) ? caseData.bwv_personen.map(mapPerson) : []
 
   const residents = persons?.reduce((acc: any, person, index, arr) => {
-    acc.push(<Span
-      className="anonymous"><strong>{ (index + 1) + ". " + person.initials + " " + person.name + " (" + person.sex + ")" }</strong></Span>)
+    acc.push(<strong
+      className="anonymous">{ (index + 1) + ". " + person.initials + " " + person.name + " (" + person.sex + ")" }</strong>)
     acc.push([ "Geboren", <span className="anonymous">{ person.born }</span> ])
     acc.push([ "Ingeschreven per", person.settlementDate ])
 

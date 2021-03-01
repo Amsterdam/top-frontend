@@ -518,8 +518,8 @@ declare namespace Components {
         export type VakantieverhuurMelding = {
             is_afmelding: boolean
             melding_date: string // date-time
-            first_day: string // date-time
-            last_day: string // date-time
+            check_in_date: string // date-time
+            check_out_date: string // date-time
         }
         export type VakantieverhuurRentalInformation = {
             rented_days_count: null | number
