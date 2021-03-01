@@ -127,8 +127,7 @@ const mapLogbookItemToDetailComponents = (observationTranslations: Components.Sc
 
   return [
     !isNullish(source) && [ "Bron", source ],
-    [ "Auteur", <strong className="anonymous">{ name }</strong> ],
-    [ "Toezichthouders", <strong className="anonymous">{ toezichthouders && toezichthouders.join(", ") }</strong> ],
+    [ "Door", <strong className="anonymous">{ toezichthouders && toezichthouders.join(", ") }</strong> ],
     [ "Handhaver", <strong className="anonymous">{ handhaver }</strong> ],
     [ "Starttijd", `${ time } uur` ],
     [ "Datum", date ],
