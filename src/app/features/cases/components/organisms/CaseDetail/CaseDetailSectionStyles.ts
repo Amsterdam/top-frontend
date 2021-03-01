@@ -9,6 +9,7 @@ export const Grid = styled.div`
 `
 
 export const Hr = styled.hr`
+  margin: 0;
   border: 0;
   height: 1px;
   background: ${ themeColor("tint", "level4") };

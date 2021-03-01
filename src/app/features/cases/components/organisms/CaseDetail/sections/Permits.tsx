@@ -19,6 +19,7 @@ type Props = {
 
 const TwoColumns = styled.span`
   grid-column: span 2;
+  justify-self: stretch;
 `
 
 const Permits: FC<Props> = ({ caseId }) => {
