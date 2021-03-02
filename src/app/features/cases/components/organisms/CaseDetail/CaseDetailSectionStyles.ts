@@ -1,6 +1,8 @@
 import styled from "styled-components"
 import { themeColor, themeSpacing } from "@amsterdam/asc-ui"
 
+import StyledLink from "app/features/shared/components/atoms/StyledLink/StyledLink"
+
 export const Grid = styled.div`
   display: grid;
   grid-template-columns: minmax(140px, 1fr) 3fr;
@@ -19,7 +21,7 @@ export const HrWide = styled(Hr)`
   margin: 12px -16px;
 `
 
-export const CenteredAnchor = styled.a`
+export const CenteredAnchor = styled(StyledLink)`
   display: block;
   text-align: center;
 `

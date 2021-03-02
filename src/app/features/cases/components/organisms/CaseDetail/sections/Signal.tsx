@@ -5,6 +5,7 @@ import formatDate from "app/features/shared/utils/formatDate"
 import replaceNewLines from "app/features/shared/utils/replaceNewLines"
 import replaceUrls from "app/features/shared/utils/replaceUrls"
 import highlightText from "app/features/shared/utils/highlightText"
+import StyledLink from "app/features/shared/components/atoms/StyledLink/StyledLink"
 import Purified from "app/features/shared/components/molecules/Purified/Purified"
 import { KeyValueDetail } from "app/features/types"
 
@@ -48,7 +49,7 @@ const Signal: FC<Props> = ({ caseId }) => {
     acc.push([ "Anoniem", anoniem ])
     acc.push([ "Melder", <span className="anonymous"> { naam }</span> || "–" ])
     acc.push([ "Telefoonnummer", telnr ?
-      <a className="anonymous" href={ "tel://" + telnr }>{ telnr }</a> : "–" ])
+      <StyledLink className="anonymous" href={ "tel://" + telnr }>{ telnr }</StyledLink> : "–" ])
     acc.push(<Purified className="anonymous" text={ highlightedText } />)
 
     if (index < meldingen.length - 1) {

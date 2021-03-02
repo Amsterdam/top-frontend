@@ -1,5 +1,6 @@
 import React, { FC } from "react"
 
+import StyledLink from "app/features/shared/components/atoms/StyledLink/StyledLink"
 import { body, email, subject } from "app/features/cases/email/basisInformatie"
 
 type Props = {
@@ -35,6 +36,6 @@ const MailtoAnchor: FC<Props> = (
 ) => {
   const href = `mailto:${ email }?subject=${ subject }&body=${ body(isWoonboot, address, postalCode, gebruiksdoel, gebruik, aantalBouwlagen, etage, aantalKamers, oppervlak, woonbootStatus, woonbootIndicatie, woonbootAanduiding) }`
   const text = "Meld BAG afwijkingen"
-  return <a href={ href }>{ text }</a>
+  return <StyledLink href={ href }>{ text }</StyledLink>
 }
 export default MailtoAnchor
