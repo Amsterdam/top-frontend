@@ -1,5 +1,7 @@
 import React, { FC, MouseEvent } from "react"
 
+import StyledLink from "app/features/shared/components/atoms/StyledLink/StyledLink"
+
 type Props = {
   anchor: string
   text: string
@@ -16,6 +18,6 @@ const ScrollToAnchor: FC<Props> = ({ anchor, text }) => {
     window.scrollTo({ top, left: 0, behavior: "smooth" })
   }
 
-  return <a href={ `#${ anchor }` } onClick={ onClick }>{ text }</a>
+  return <StyledLink href={ `#${ anchor }` } onClick={ onClick }>{ text }</StyledLink>
 }
 export default ScrollToAnchor
