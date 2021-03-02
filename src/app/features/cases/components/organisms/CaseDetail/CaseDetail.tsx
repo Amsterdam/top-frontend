@@ -1,4 +1,5 @@
 import React, { FC } from "react"
+import styled from "styled-components"
 
 import General from "./sections/General"
 import Logbook from "./sections/Logbook"
@@ -15,8 +16,26 @@ type Props = {
   caseId: string
 }
 
+const Article = styled.article`
+  @media (min-width: 60rem) {
+    columns: 2;
+  }
+
+  @media (min-width: 90rem) {
+    columns: 3;
+  }
+
+  @media (min-width: 120rem) {
+    columns: 4;
+  }
+
+  @media (min-width: 150rem) {
+    columns: 5;
+  }
+`
+
 const CaseDetail: FC<Props> = ({ caseId }) => (
-  <article className="CaseDetail">
+  <Article>
     <General caseId={ caseId } />
     <RelatedCases caseId={ caseId } />
     <Residence caseId={ caseId } />
@@ -27,7 +46,7 @@ const CaseDetail: FC<Props> = ({ caseId }) => (
     <Logbook caseId={ caseId } />
     <Scratchpad caseId={ caseId } />
     <Stadia caseId={ caseId } />
-  </article>
+  </Article>
 )
 
 export default CaseDetail

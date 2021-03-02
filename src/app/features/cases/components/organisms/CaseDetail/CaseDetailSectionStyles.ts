@@ -27,6 +27,7 @@ export const CenteredAnchor = styled(StyledLink)`
 `
 
 export const Section = styled.section`
+  break-inside: avoid-column;
   overflow: hidden;
 
   &:not(:last-child) {
