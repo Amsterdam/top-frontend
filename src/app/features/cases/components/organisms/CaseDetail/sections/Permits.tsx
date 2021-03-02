@@ -1,5 +1,4 @@
 import React, { FC } from "react"
-import styled from "styled-components"
 import { Heading } from "@amsterdam/asc-ui"
 
 import { permitType, useAllPermitCheckmarks, useCase } from "app/state/rest"
@@ -11,16 +10,11 @@ import ScrollToAnchor from "app/features/shared/components/molecules/ScrollToAnc
 
 import { getBagId } from "../utils"
 import CaseDetailSection from "../CaseDetailSection"
-import { Grid, HrWide } from "../CaseDetailSectionStyles"
+import { Grid, HrWide, TwoColumns } from "../CaseDetailSectionStyles"
 
 type Props = {
   caseId: string
 }
-
-const TwoColumns = styled.span`
-  grid-column: span 2;
-  justify-self: stretch;
-`
 
 const Permits: FC<Props> = ({ caseId }) => {
   const { data: caseData } = useCase(caseId)

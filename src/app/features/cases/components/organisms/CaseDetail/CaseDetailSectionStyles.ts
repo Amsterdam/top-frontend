@@ -47,7 +47,7 @@ export const SourceInfo = styled.p`
   text-align: right;
 `
 
-export const SpanColumns = styled.div`
+export const TwoColumns = styled.div`
   grid-column: span 2;
   justify-self: stretch;
 `
