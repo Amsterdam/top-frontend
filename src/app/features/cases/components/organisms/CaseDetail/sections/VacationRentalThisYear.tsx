@@ -1,43 +1,97 @@
 import React, { FC } from "react"
+import styled from "styled-components"
 
-import { useCase } from "app/state/rest"
+import { themeColor, themeSpacing } from "@amsterdam/asc-ui"
+
+import { useAllPermitCheckmarks, useCase } from "app/state/rest"
+import formatBoolean from "app/features/shared/utils/formatBoolean"
 import formatDate from "app/features/shared/utils/formatDate"
+import Label from "app/features/shared/components/atoms/Label/Label"
+import Value from "app/features/shared/components/atoms/Value/Value"
 
+import { getBagId } from "../utils"
 import CaseDetailSection from "../CaseDetailSection"
-import { Hr } from "app/features/cases/components/organisms/CaseDetail/CaseDetailSectionStyles"
+import { Grid, Hr, TwoColumns } from "../CaseDetailSectionStyles"
 
 type Props = {
   caseId: string
 }
 
+const Details = styled.details`
+  grid-column: span 2;
+  justify-self: stretch;
+`
+
+const Summary = styled.summary`
+  color: ${ themeColor("primary") };
+
+  details[open] > & {
+    margin-bottom: ${ themeSpacing(4) };
+  }
+`
+
 const VacationRentalThisYear: FC<Props> = ({ caseId }) => {
   const { data: caseData } = useCase(caseId)
+  const bagId = getBagId(caseData!)
+  const { data: decos, isBusy } = useAllPermitCheckmarks(bagId!, { lazy: !bagId })
+  const verhuur = decos?.vakantieverhuur_meldingen ?? []
 
   if (!caseData) {
-    return null
-  }
-
-  const notifiedRentals = caseData.vakantie_verhuur.notified_rentals
-  const rentedDays = caseData.vakantie_verhuur.rented_days
-
-  if (!notifiedRentals?.length) {
     return null
   }
 
   return (
     <CaseDetailSection
       id="vakantieverhuur"
-      title={ `Vakantieverhuur dit jaar (${ rentedDays })` }
-      data={
-        [ ...notifiedRentals ] // reverse is mutable
-          .reverse()
-          .map((o: { check_in: string, check_out: string }) => [ [ "Check out", formatDate(o.check_out) ], [ "Check in", formatDate(o.check_in) ],
-            <Hr /> ])
-          .flat(1)
-          .slice(0, -1) // remove last Hr
-      }
-      dataSource="BWV"
-    />
+      title="Vakantieverhuur dit jaar"
+      dataSource="Decos"
+      isBusy={ isBusy }
+    >
+      <Grid>
+        <Label>Nachten verhuurd</Label>
+        <Value>
+          <strong>{ verhuur.rented_days_count }</strong>
+        </Value>
+        <Label>Vandaag verhuurd</Label>
+        <Value value={ formatBoolean(verhuur.is_rented_today) } />
+        <Label>Nachten gepland</Label>
+        <Value value={ verhuur.planned_days_count } />
+        { verhuur.rented_days_count > 0 &&
+        <>
+          <TwoColumns>
+            <Hr />
+          </TwoColumns>
+          <Details>
+            <Summary>Alle meldingen</Summary>
+            <Grid>
+              {
+                verhuur.meldingen.map((melding: Components.Schemas.VakantieverhuurMelding) => {
+                  const checkIn = new Date(melding.check_in_date)
+                  const checkOut = new Date(melding.check_out_date)
+                  const nightsRented = (checkOut.getTime() - checkIn.getTime()) / 8.64e+7
+
+                  return (
+                    <>
+                      <TwoColumns>
+                        <strong>
+                          { melding.is_afmelding ? "Afmelding " : "Melding " }
+                          { nightsRented } nachten
+                        </strong>
+                      </TwoColumns>
+                      <Label>Check in</Label>
+                      <Value value={ formatDate(melding.check_in_date) } />
+                      <Label>Check out</Label>
+                      <Value value={ formatDate(melding.check_out_date) } />
+                    </>
+                  )
+                })
+              }
+            </Grid>
+          </Details>
+        </>
+        }
+      </Grid>
+    </CaseDetailSection>
   )
 }
 

@@ -15,7 +15,7 @@ import {
   Section,
   SectionRow,
   SourceInfo,
-  SpanColumns
+  TwoColumns
 } from "app/features/cases/components/organisms/CaseDetail/CaseDetailSectionStyles"
 
 type Props = {
@@ -77,15 +77,15 @@ const CaseDetailSection: FC<Props> = ({ id, dataSource, title, data, footer, exp
                   { isBusy ? <InlineSkeleton /> : (value == null) ? <Value valid={ false } /> : <span>{ value }</span> }
                 </>
                 :
-                <SpanColumns key={ String(key) + index }>{ value }</SpanColumns>
+                <TwoColumns key={ String(key) + index }>{ value }</TwoColumns>
               }
             </React.Fragment>
 
             const sourceLabel = (
-              <SpanColumns key={ String(value) + index }>
+              <TwoColumns key={ String(value) + index }>
                 { (index > 0 && !dataSource) && <HrWide /> }
                 <SourceInfo>Bron: { value }</SourceInfo>
-              </SpanColumns>
+              </TwoColumns>
             )
 
             return key === "Databron" ? sourceLabel : keyValuePair

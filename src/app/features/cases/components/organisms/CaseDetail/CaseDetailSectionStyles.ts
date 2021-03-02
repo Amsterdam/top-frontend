@@ -9,6 +9,7 @@ export const Grid = styled.div`
 `
 
 export const Hr = styled.hr`
+  margin: 0;
   border: 0;
   height: 1px;
   background: ${ themeColor("tint", "level4") };
@@ -46,7 +47,7 @@ export const SourceInfo = styled.p`
   text-align: right;
 `
 
-export const SpanColumns = styled.div`
+export const TwoColumns = styled.div`
   grid-column: span 2;
   justify-self: stretch;
 `

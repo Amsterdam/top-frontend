@@ -1,25 +1,18 @@
 import React, { FC } from "react"
-import styled from "styled-components"
 import { Heading } from "@amsterdam/asc-ui"
 
 import { permitType, useAllPermitCheckmarks, useCase } from "app/state/rest"
 import formatDate from "app/features/shared/utils/formatDate"
-import isBetweenDates from "app/features/shared/utils/isBetweenDates"
 import Label from "app/features/shared/components/atoms/Label/Label"
 import Value from "app/features/shared/components/atoms/Value/Value"
-import ScrollToAnchor from "app/features/shared/components/molecules/ScrollToAnchor/ScrollToAnchor"
 
 import { getBagId } from "../utils"
 import CaseDetailSection from "../CaseDetailSection"
-import { Grid, HrWide } from "../CaseDetailSectionStyles"
+import { Grid, HrWide, TwoColumns } from "../CaseDetailSectionStyles"
 
 type Props = {
   caseId: string
 }
-
-const TwoColumns = styled.span`
-  grid-column: span 2;
-`
 
 const Permits: FC<Props> = ({ caseId }) => {
   const { data: caseData } = useCase(caseId)
@@ -28,14 +21,9 @@ const Permits: FC<Props> = ({ caseId }) => {
 
   const foundPermits = decos?.permits?.filter(permit => [ "True", "False" ].includes(permit.permit_granted)) || []
 
-  const notifiedRentals = caseData?.vakantie_verhuur.notified_rentals
-  const notified = notifiedRentals?.length
-
-  const rentedDays = caseData?.vakantie_verhuur.rented_days
-  const rentedToday = notified ? notifiedRentals?.filter(r => isBetweenDates(new Date(r.check_in), new Date(r.check_out), new Date())).length : false
-
   const permitHasBeenGranted = (permit: permitType) => permit.permit_granted === "True"
   const permitIsForBAndB = (permit: permitType) => permit.permit_type.startsWith("B&B")
+  const permitHasEndDate = (permit: permitType) => permit.details.DATE_VALID_TO || permit.details.DATE_VALID_UNTIL
 
   return (
     <CaseDetailSection
@@ -86,7 +74,8 @@ const Permits: FC<Props> = ({ caseId }) => {
                 <Value>
                   <span className="anonymous">{ formatDate(permit.details.DATE_VALID_FROM) }</span>
                 </Value>
-                { permitIsForBAndB(permit) ?
+                { permitHasEndDate(permit) &&
+                permitIsForBAndB(permit) ?
                   <>
                     <Label>Geldig tot en met</Label>
                     <Value>
@@ -102,16 +91,6 @@ const Permits: FC<Props> = ({ caseId }) => {
                     </Value>
                   </>
                 }
-              </>
-              }
-              { permit.permit_type === "Vakantieverhuur" &&
-              <>
-                <Label>Vandaag verhuurd (bron: BWV)</Label>
-                <Value value={ rentedToday } />
-                <Label>Nachten verhuurd { new Date().getFullYear() } (bron: BWV)</Label>
-                <Value>
-                  { rentedDays ? <ScrollToAnchor anchor="vakantieverhuur" text={ `${ rentedDays } nachten` } /> : "–" }
-                </Value>
               </>
               }
               { permit.permit_granted === "False" &&
