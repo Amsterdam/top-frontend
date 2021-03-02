@@ -37,7 +37,7 @@ const DefaultLayout: React.FC<Props> = ({ children }) => {
   const { logout } = useKeycloak()
 
   return (
-    <div>
+    <>
       <HeaderWrap>
         <ErrorDisplay />
         <Header
@@ -59,7 +59,7 @@ const DefaultLayout: React.FC<Props> = ({ children }) => {
       <Spacing p={ 4 }>
         { children }
       </Spacing>
-    </div>
+    </>
   )
 }
 
