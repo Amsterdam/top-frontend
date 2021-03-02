@@ -11,6 +11,13 @@ import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
 import ErrorDisplay from "../../organisms/ErrorDisplay/ErrorDisplay"
 import Navigation from "../../organisms/Navigation/Navigation"
 
+const envs = {
+  acceptance: "ACC",
+  development: "DEV",
+  production: undefined,
+  test: "TST"
+}
+
 const HeaderWrap = styled.div`
   position: fixed;
   background-color: ${ themeColor("tint", "white") };
@@ -34,7 +41,7 @@ const DefaultLayout: React.FC<Props> = ({ children }) => {
       <HeaderWrap>
         <ErrorDisplay />
         <Header
-          title="Toezicht op pad"
+          title={ [ "Toezicht op pad", envs[process.env.NODE_ENV] ].join(" ") }
           homeLink={ to("/") }
           fullWidth={ true }
           navigation={
