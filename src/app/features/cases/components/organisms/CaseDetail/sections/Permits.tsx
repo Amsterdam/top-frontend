@@ -53,42 +53,29 @@ const Permits: FC<Props> = ({ caseId }) => {
               </>
               }
               <Label>Aangevraagd door</Label>
-              <Value>
-                <span className="anonymous">{ permit.details.APPLICANT }</span>
-              </Value>
+              <Value sensitive value={ permit.details.APPLICANT } />
               { permitIsForBAndB(permit) &&
               <>
                 <Label>Vergunninghouder</Label>
-                <Value>
-                  <span className="anonymous">{ permit.details.HOLDER }</span>
-                </Value>
+                <Value sensitive value={ permit.details.HOLDER } />
               </>
               }
               <Label>Locatie</Label>
-              <Value>
-                <span className="anonymous">{ permit.details.ADDRESS }</span>
-              </Value>
+              <Value sensitive value={ permit.details.ADDRESS } />
               { permitHasBeenGranted(permit) &&
               <>
                 <Label>Verleend per</Label>
-                <Value>
-                  <span className="anonymous">{ formatDate(permit.details.DATE_VALID_FROM) }</span>
-                </Value>
+                <Value sensitive value={ formatDate(permit.details.DATE_VALID_FROM) } />
                 { permitHasEndDate(permit) &&
                 permitIsForBAndB(permit) ?
                   <>
                     <Label>Geldig tot en met</Label>
-                    <Value>
-                      <span
-                        className="anonymous">{ formatDate(permit.details.DATE_VALID_UNTIL ?? permit.details.DATE_VALID_TO) }</span>
-                    </Value>
+                    <Value sensitive
+                           value={ formatDate(permit.details.DATE_VALID_UNTIL ?? permit.details.DATE_VALID_TO) } />
                   </> :
                   <>
                     <Label>Geldig tot</Label>
-                    <Value>
-                      <span
-                        className="anonymous">{ formatDate(permit.details.DATE_VALID_TO ?? permit.details.DATE_VALID_UNTIL) }</span>
-                    </Value>
+                    <Value sensitive value={ formatDate(permit.details.DATE_VALID_TO ?? permit.details.DATE_VALID_UNTIL) } />
                   </>
                 }
               </>
