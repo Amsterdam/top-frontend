@@ -13,10 +13,20 @@ import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
 import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout"
 import to from "app/features/shared/routing/to"
 
-const ButtonsLayout = styled.div`
+const basePath = process.env.REACT_APP_BASEPATH ?? "/"
+
+const Grid = styled.div`
   display: grid;
   justify-items: start;
-  gap: ${ themeSpacing(6) };
+  gap: ${ themeSpacing(4) };
+`
+
+const Illustration = styled.div`
+  max-width: 30em;
+  flex: auto;
+  // https://pixabay.com/vectors/amsterdam-netherlands-houses-street-4167026/
+  background: url('${ basePath }images/background-2.png') no-repeat bottom;
+  background-size: contain;
 `
 
 const ListTeamSettingsOptionsPage: React.FC<RouteComponentProps> = () => {
@@ -36,17 +46,17 @@ const ListTeamSettingsOptionsPage: React.FC<RouteComponentProps> = () => {
 
   return <DefaultLayout>
     { data && data.results.length > 0 && (
-      <>
+      <Illustration>
         <Heading>Genereer looplijst</Heading>
         <Heading forwardedAs="h2">Kies een team</Heading>
-        <Spacing pb={ 6 }>
+        <Spacing pb={ 4 }>
           <p>
             <Greeting />{ " " }
             <strong>{ loggedInUser?.first_name }</strong>,
             welke zaken wil je vandaag in je looplijst?
           </p>
         </Spacing>
-        <ButtonsLayout>
+        <Grid>
           { sortedTeams.map(teamSettings => (
             <Button
               as="a"
@@ -58,8 +68,8 @@ const ListTeamSettingsOptionsPage: React.FC<RouteComponentProps> = () => {
               { teamSettings.name }
             </Button>
           )) }
-        </ButtonsLayout>
-      </>
+        </Grid>
+      </Illustration>
     ) }
   </DefaultLayout>
 }

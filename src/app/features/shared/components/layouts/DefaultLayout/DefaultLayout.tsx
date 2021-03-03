@@ -1,13 +1,12 @@
 import React from "react"
 import styled from "styled-components"
 
-import { Button, Header, themeColor } from "@amsterdam/asc-ui"
+import { Button, Header, themeColor, themeSpacing } from "@amsterdam/asc-ui"
 import { Logout } from "@amsterdam/asc-assets"
 import { Link } from "@reach/router"
 
 import useKeycloak from "app/state/auth/keycloak/useKeycloak"
 import to from "app/features/shared/routing/to"
-import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
 import ErrorDisplay from "../../organisms/ErrorDisplay/ErrorDisplay"
 import Navigation from "../../organisms/Navigation/Navigation"
 
@@ -17,6 +16,14 @@ const envs = {
   production: undefined,
   test: "TST"
 }
+
+const Main = styled.main`
+  display: flex;
+  flex-direction: column;
+  min-width: 100vw;
+  min-height: calc(100vh - 100px);
+  padding: ${ themeSpacing(4) };;
+`
 
 const HeaderWrap = styled.div`
   position: fixed;
@@ -56,9 +63,9 @@ const DefaultLayout: React.FC<Props> = ({ children }) => {
         />
       </HeaderWrap>
       <Navigation />
-      <Spacing p={ 4 }>
+      <Main>
         { children }
-      </Spacing>
+      </Main>
     </>
   )
 }
