@@ -13,6 +13,7 @@ export const createDefinition = (projects: string[], stadia: string[], postalCod
   // @TODO: Move to config
   const postalCodeMin = 1000
   const postalCodeMax = 1109
+
   const definition: FormPositionerFields<Field> = {
     opening_date: {
       type: "TextField",
@@ -23,6 +24,10 @@ export const createDefinition = (projects: string[], stadia: string[], postalCod
         validate: isRequired()
       }
     },
+    divider1: {
+      type: "Divider",
+      props: {}
+    },
     sia_presedence: {
       type: "Boolean",
       props: {
@@ -30,6 +35,10 @@ export const createDefinition = (projects: string[], stadia: string[], postalCod
         name: "settings.sia_presedence",
         style: { top: 2, left: 0 }
       }
+    },
+    divider2: {
+      type: "Divider",
+      props: {}
     },
     geo_type: {
       type: "RadioFields",
@@ -99,6 +108,10 @@ export const createDefinition = (projects: string[], stadia: string[], postalCod
         }
       }
     },
+    divider3: {
+      type: "Divider",
+      props: {}
+    },
     projects: {
       type: "CheckboxFields",
       props: {
@@ -108,6 +121,10 @@ export const createDefinition = (projects: string[], stadia: string[], postalCod
         validate: isRequired(),
         columnCount: { laptop: 3, laptopL: 5 }
       }
+    },
+    divider4: {
+      type: "Divider",
+      props: {}
     },
     primary_stadium: {
       type: "SelectField",
@@ -146,20 +163,28 @@ export const createDefinition = (projects: string[], stadia: string[], postalCod
     .setVertical("mobileS")
     .setGrid("laptop", "1fr 1fr 1fr", [
       [ "opening_date" ],
+      [ "divider1", "divider1", "divider1" ],
       [ "sia_presedence" ],
+      [ "divider2", "divider2", "divider2" ],
       [ "geo_type" ],
       [ "postal_codes", "postal_codes", "postal_codes" ],
       [ "postalCodeRanges", "postalCodeRanges", "postalCodeRanges" ],
+      [ "divider3", "divider3", "divider3" ],
       [ "projects", "projects", "projects" ],
+      [ "divider4", "divider4", "divider4" ],
       [ "primary_stadium", "secondary_stadia", "exclude_stadia" ]
     ])
     .setGrid("laptopL", "1fr 1fr 1fr 1fr 1fr", [
       [ "opening_date" ],
+      [ "divider1", "divider1", "divider1", "divider1", "divider1" ],
       [ "sia_presedence" ],
+      [ "divider2", "divider2", "divider2", "divider2", "divider2" ],
       [ "geo_type" ],
       [ "postal_codes", "postal_codes", "postal_codes", "postal_codes", "postal_codes" ],
       [ "postalCodeRanges", "postalCodeRanges", "postalCodeRanges", "postalCodeRanges", "postalCodeRanges" ],
+      [ "divider3", "divider3", "divider3", "divider3", "divider3" ],
       [ "projects", "projects", "projects", "projects", "projects" ],
+      [ "divider4", "divider4", "divider4", "divider4", "divider4" ],
       [ "primary_stadium", "secondary_stadia", "exclude_stadia" ]
     ])
     .getScaffoldProps()
