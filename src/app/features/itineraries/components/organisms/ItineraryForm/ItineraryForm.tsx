@@ -3,6 +3,7 @@ import { navigate } from "@reach/router"
 import { ScaffoldForm } from "@amsterdam/amsterdam-react-final-form"
 
 import { useItineraries, useUsers } from "app/state/rest"
+import { useLoggedInUser } from "app/state/rest/custom/useLoggedInUser"
 
 import Scaffold from "app/features/shared/components/form/Scaffold"
 import to from "app/features/shared/routing/to"
@@ -17,6 +18,7 @@ type Props = {
 
 const ItineraryForm: FC<Props> = ({ teamSettings }) => {
   const { data: users } = useUsers()
+  const loggedInUser = useLoggedInUser()
   const { execPost } = useItineraries({ lazy: true })
 
   const handleSubmit = useCallback(async (values) => {
@@ -39,7 +41,8 @@ const ItineraryForm: FC<Props> = ({ teamSettings }) => {
       initialValues={ {
         teamSettings,
         numAddresses: 8,
-        daySettings: daySettingsOptions[0]
+        daySettings: daySettingsOptions[0],
+        team_members: [ loggedInUser ]
       } }
     >
       <Scaffold fields={ fields } />
