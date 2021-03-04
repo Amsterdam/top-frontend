@@ -64,8 +64,8 @@ export const createDefinition = (projects: string[], stadia: string[], postalCod
             allowRemove: true,
             minItems: 1,
             columns: {
-              "mobileS": "1fr 1fr auto",
-              "laptop": "1fr 1fr 1fr 1fr 1fr 1fr"
+              "tabletM": "1fr 1fr 1fr",
+              "laptopM": "1fr 1fr 1fr 1fr"
             },
             scaffoldFields: {
               postal_code_range_start: {
@@ -102,7 +102,7 @@ export const createDefinition = (projects: string[], stadia: string[], postalCod
           props: {
             name: "settings.postal_code_ranges_presets",
             options: postalCodeRangeOptions,
-            columnCount: { laptop: 6 },
+            columnCount: { mobileM: 2, tabletM: 4 },
             validate: isRequired()
           }
         }
@@ -119,7 +119,7 @@ export const createDefinition = (projects: string[], stadia: string[], postalCod
         name: "settings.projects",
         options: arrayToObject(projects),
         validate: isRequired(),
-        columnCount: { laptop: 3, laptopL: 5 }
+        columnCount: { tabletM: 3, laptop: 4, laptopM: 5 }
       }
     },
     divider4: {
@@ -141,7 +141,8 @@ export const createDefinition = (projects: string[], stadia: string[], postalCod
         label: "2. Aanvullen met",
         name: "settings.secondary_stadia",
         options: arrayToObject(stadia),
-        validate: isNotIntersectingWith("settings.exclude_stadia", "‘{item}’ is al geselecteerd bij ‘Uitsluiten’")
+        validate: isNotIntersectingWith("settings.exclude_stadia", "‘{item}’ is al geselecteerd bij ‘Uitsluiten’"),
+        columnCount: { laptopL: 2 }
       }
     },
     exclude_stadia: {
@@ -153,7 +154,8 @@ export const createDefinition = (projects: string[], stadia: string[], postalCod
         validate: combineValidators(
           isNotIntersectingWith("settings.primary_stadium", "‘{item}’ is al geselecteerd bij ‘Zo veel mogelijk’"),
           isNotIntersectingWith("settings.secondary_stadia", "‘{item}’ is al geselecteerd bij ‘Aanvullen met’")
-        )
+        ),
+        columnCount: { laptopL: 2 }
       }
     }
   }
@@ -161,31 +163,29 @@ export const createDefinition = (projects: string[], stadia: string[], postalCod
   // Align properties:
   return new FormPositioner(definition)
     .setVertical("mobileS")
-    .setGrid("laptop", "1fr 1fr 1fr", [
+    .setGrid("tabletM", "1fr 1fr 1fr", [
       [ "opening_date" ],
       [ "divider1", "divider1", "divider1" ],
       [ "sia_presedence" ],
       [ "divider2", "divider2", "divider2" ],
-      [ "geo_type" ],
-      [ "postal_codes", "postal_codes", "postal_codes" ],
-      [ "postalCodeRanges", "postalCodeRanges", "postalCodeRanges" ],
+      [ "geo_type", "postal_codes", "postal_codes" ],
+      [ "geo_type", "postalCodeRanges", "postalCodeRanges" ],
       [ "divider3", "divider3", "divider3" ],
       [ "projects", "projects", "projects" ],
       [ "divider4", "divider4", "divider4" ],
       [ "primary_stadium", "secondary_stadia", "exclude_stadia" ]
     ])
-    .setGrid("laptopL", "1fr 1fr 1fr 1fr 1fr", [
+    .setGrid("laptop", "1fr 1fr 1fr 1fr 1fr", [
       [ "opening_date" ],
       [ "divider1", "divider1", "divider1", "divider1", "divider1" ],
       [ "sia_presedence" ],
       [ "divider2", "divider2", "divider2", "divider2", "divider2" ],
-      [ "geo_type" ],
-      [ "postal_codes", "postal_codes", "postal_codes", "postal_codes", "postal_codes" ],
-      [ "postalCodeRanges", "postalCodeRanges", "postalCodeRanges", "postalCodeRanges", "postalCodeRanges" ],
+      [ "geo_type", "postal_codes", "postal_codes", "postal_codes", "postal_codes" ],
+      [ "geo_type", "postalCodeRanges", "postalCodeRanges", "postalCodeRanges", "postalCodeRanges" ],
       [ "divider3", "divider3", "divider3", "divider3", "divider3" ],
       [ "projects", "projects", "projects", "projects", "projects" ],
       [ "divider4", "divider4", "divider4", "divider4", "divider4" ],
-      [ "primary_stadium", "secondary_stadia", "exclude_stadia" ]
+      [ "primary_stadium", "secondary_stadia", "secondary_stadia", "exclude_stadia", "exclude_stadia" ]
     ])
     .getScaffoldProps()
 }
