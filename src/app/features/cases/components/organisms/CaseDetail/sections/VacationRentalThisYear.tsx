@@ -24,6 +24,11 @@ const Details = styled.details`
 
 const Summary = styled.summary`
   color: ${ themeColor("primary") };
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
 
   details[open] > & {
     margin-bottom: ${ themeSpacing(4) };
