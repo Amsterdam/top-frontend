@@ -37,7 +37,7 @@ const ListTeamSettingsOptionsPage: React.FC<RouteComponentProps> = () => {
 
   useEffect(() => {
     if (userHasTeamSettings) {
-      navigate(to("/lijst/nieuw"))
+      navigate(to("/lijst-instellingen"))
     }
   }, [ userHasTeamSettings, loggedInUser ])
 
