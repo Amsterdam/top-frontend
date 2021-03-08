@@ -127,7 +127,10 @@ const mapLogbookItemToDetailComponents = (observationTranslations: Components.Sc
 
   return [
     !isNullish(source) && [ "Bron", source ],
-    [ "Door", <strong className="anonymous">{ toezichthouders && toezichthouders.length > 0 ? toezichthouders.join(", ") : name }</strong> ],
+    [
+      (toezichthouders.length === 1) ? "Toezichthouder" : "Toezichthouders",
+      <strong className="anonymous">{ toezichthouders ? toezichthouders.join(", ") : name }</strong>
+    ],
     [ "Handhaver", <strong className="anonymous">{ handhaver }</strong> ],
     [ "Starttijd", `${ time } uur` ],
     [ "Datum", date ],
@@ -137,7 +140,7 @@ const mapLogbookItemToDetailComponents = (observationTranslations: Components.Sc
     !isNullish(suggest_next_visit) && [ "Volgend bezoek", translateSuggestNextVisits(suggest_next_visit) ],
     !isNullish(suggest_next_visit_description) &&
     <Purified className="anonymous" text={ suggest_next_visit_description } />,
-    !isNullish(can_next_visit_go_ahead) && [ "Vervolg actie", can_next_visit_go_ahead ? "Ja, doorlaten" : "Nee, tegenhouden ⚠️" ],
+    !isNullish(can_next_visit_go_ahead) && [ "Vervolgactie", can_next_visit_go_ahead ? "Ja, doorlaten" : "Nee, tegenhouden ⚠️" ],
     !isNullish(can_next_visit_go_ahead_description) &&
     <Purified className="anonymous" text={ can_next_visit_go_ahead_description } />,
     !isNullish(text) && <Purified className="anonymous" text={ highlightedText } />,
