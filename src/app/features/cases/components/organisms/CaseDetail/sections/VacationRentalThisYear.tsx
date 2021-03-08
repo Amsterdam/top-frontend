@@ -70,13 +70,13 @@ const VacationRentalThisYear: FC<Props> = ({ caseId }) => {
             <Summary>Alle meldingen</Summary>
             <Grid>
               {
-                verhuur.meldingen.map((melding: Components.Schemas.VakantieverhuurMelding) => {
+                verhuur.meldingen.map((melding: Components.Schemas.VakantieverhuurMelding, index: number) => {
                   const checkIn = new Date(melding.check_in_date)
                   const checkOut = new Date(melding.check_out_date)
                   const nightsRented = (checkOut.getTime() - checkIn.getTime()) / 8.64e+7
 
                   return (
-                    <>
+                    <React.Fragment key={ index }>
                       <TwoColumns>
                         <strong>
                           { melding.is_afmelding ? "Afmelding " : "Melding " }
@@ -87,7 +87,7 @@ const VacationRentalThisYear: FC<Props> = ({ caseId }) => {
                       <Value value={ formatDate(melding.check_in_date) } />
                       <Label>Check out</Label>
                       <Value value={ formatDate(melding.check_out_date) } />
-                    </>
+                    </React.Fragment>
                   )
                 })
               }
