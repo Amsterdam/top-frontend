@@ -17,7 +17,7 @@ const routes = {
   "/lijst/:itineraryId/issuemeldingen": OpenIssuesPage,
   "/lijst/:itineraryId/suggesties": SuggestionsPage,
   "/lijst/:itineraryId/zoeken": SearchPage,
-  "/lijst/nieuw": CreateItineraryPage,
+  "/lijst/nieuw": ListTeamSettingsOptionsPage,
   "/lijst/nieuw/:teamSettingsId": CreateItineraryPage,
   "/zoeken": SearchPage
 }
