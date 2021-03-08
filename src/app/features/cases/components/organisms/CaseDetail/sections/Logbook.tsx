@@ -140,7 +140,7 @@ const mapLogbookItemToDetailComponents = (observationTranslations: Components.Sc
     !isNullish(suggest_next_visit) && [ "Volgend bezoek", translateSuggestNextVisits(suggest_next_visit) ],
     !isNullish(suggest_next_visit_description) &&
     <Purified className="anonymous" text={ suggest_next_visit_description } />,
-    !isNullish(can_next_visit_go_ahead) && [ "Vervolg actie", can_next_visit_go_ahead ? "Ja, doorlaten" : "Nee, tegenhouden ⚠️" ],
+    !isNullish(can_next_visit_go_ahead) && [ "Vervolgactie", can_next_visit_go_ahead ? "Ja, doorlaten" : "Nee, tegenhouden ⚠️" ],
     !isNullish(can_next_visit_go_ahead_description) &&
     <Purified className="anonymous" text={ can_next_visit_go_ahead_description } />,
     !isNullish(text) && <Purified className="anonymous" text={ highlightedText } />,
