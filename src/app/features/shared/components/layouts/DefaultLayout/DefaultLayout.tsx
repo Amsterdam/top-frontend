@@ -10,13 +10,6 @@ import to from "app/features/shared/routing/to"
 import ErrorDisplay from "../../organisms/ErrorDisplay/ErrorDisplay"
 import Navigation from "../../organisms/Navigation/Navigation"
 
-const envs = {
-  acceptance: "ACC",
-  development: "DEV",
-  production: undefined,
-  test: "TST"
-}
-
 const Main = styled.main`
   display: flex;
   flex-direction: column;
@@ -48,7 +41,7 @@ const DefaultLayout: React.FC<Props> = ({ children }) => {
       <HeaderWrap>
         <ErrorDisplay />
         <Header
-          title={ [ "Toezicht op pad", envs[process.env.NODE_ENV] ].join(" ") }
+          title={ [ "Toezicht op pad", process.env.REACT_APP_ENV_ABBR ].join(" ") }
           homeLink={ to("/") }
           fullWidth={ true }
           navigation={
