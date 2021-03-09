@@ -24,34 +24,34 @@ export const Example: React.FC = () => {
   const { ref, node } = useNodeByReference<HTMLDivElement>()
   const dimensions = useNodeDimensions(node)
 
-  return <>
-    <p>
-      Please change the content using the knobs below.
-    </p>
-    <div>
-      <Card ref={ ref }>
-        <Heading forwardedAs="h4">Content</Heading>
-        { text("content", "Lorem") }
-      </Card>
-    </div>
-    <div>
-      <pre>{ "// Dimensions:" }</pre>
-      <pre>
+  return (
+    <>
+      <p>Please change the content using the knobs below.</p>
+      <div>
+        <Card ref={ ref }>
+          <Heading forwardedAs="h4">Content</Heading>
+          { text("content", "Lorem") }
+        </Card>
+      </div>
+      <div>
+        <pre>{ "// Dimensions:" }</pre>
+        <pre>
         {/*
-          IE11 cant seem to stringify the dimensions object.
-          That's why we unpack it manually here.
-        */ }
-        { JSON.stringify({
-          x: dimensions?.x,
-          y: dimensions?.y,
-          width: dimensions?.width,
-          height: dimensions?.height,
-          top: dimensions?.top,
-          bottom: dimensions?.bottom
-        }, null, 2) }
+         IE11 cant seem to stringify the dimensions object.
+         That's why we unpack it manually here.
+         */ }
+          { JSON.stringify({
+            x: dimensions?.x,
+            y: dimensions?.y,
+            width: dimensions?.width,
+            height: dimensions?.height,
+            top: dimensions?.top,
+            bottom: dimensions?.bottom
+          }, null, 2) }
       </pre>
-    </div>
-  </>
+      </div>
+    </>
+  )
 }
 
 

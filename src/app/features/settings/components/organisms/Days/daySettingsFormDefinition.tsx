@@ -9,6 +9,7 @@ import { arrayToObject } from "app/features/shared/utils/arrayToObject"
 /**
  * Creates form definition for planningSettings
  */
+
 export const createDefinition = (projects: string[], stadia: string[], postalCodeRangeOptions: any) => {
   // @TODO: Move to config
   const postalCodeMin = 1000

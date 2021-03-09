@@ -7,4 +7,5 @@ const CheckmarkIcon: FC = () => (
     <Checkmark />
   </Icon>
 )
+
 export default CheckmarkIcon

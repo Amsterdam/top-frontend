@@ -6,6 +6,7 @@ import { queryString } from "./queryString"
  *
  * @see `useQueryStringProp`
  */
+
 export const queryStringProp = (qs: ReturnType<typeof queryString>, param: string) => {
   const get = () => qs.getParameter(param)
 

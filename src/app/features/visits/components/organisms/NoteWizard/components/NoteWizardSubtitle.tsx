@@ -35,15 +35,14 @@ const Time = styled.div`
 const NodeWizardSubtitle: React.FC<Props> = ({ itineraryItem }) => {
   const { values: { start_time } } = useFormState<FormValues>()
 
-  const address =
-    itineraryItem ?
-    displayAddress(
+  const address = itineraryItem
+    ? displayAddress(
       itineraryItem.case.bwv_data.street_name,
       itineraryItem.case.bwv_data.street_number,
       itineraryItem.case.bwv_data.suffix_letter,
       itineraryItem.case.bwv_data.suffix
-    ) :
-    undefined
+    )
+    : undefined
 
   return (
     <Wrap>

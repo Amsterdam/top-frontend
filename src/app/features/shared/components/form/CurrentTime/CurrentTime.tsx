@@ -1,6 +1,13 @@
 import React, { useCallback, useMemo, useState } from "react"
 import { useField } from "react-final-form"
-import { Dimensions, Responsive, UnboundSelectField, ComposedField, isRequired, UnboundTextField } from "@amsterdam/amsterdam-react-final-form"
+import {
+  ComposedField,
+  Dimensions,
+  isRequired,
+  Responsive,
+  UnboundSelectField,
+  UnboundTextField
+} from "@amsterdam/amsterdam-react-final-form"
 import { getCurrentTime } from "app/features/visits/components/organisms/NoteWizard/utils/getCurrentTime"
 import styled from "styled-components"
 import { themeSpacing } from "@amsterdam/asc-ui"
@@ -17,7 +24,7 @@ const Wrap = styled.div`
 `
 
 const CurrentTime: React.FC<CurrentTimeProps> = ({ position, name, label, initialValue }) => {
-  const [ choice, setChoice ] = useState<string|undefined>()
+  const [ choice, setChoice ] = useState<string | undefined>()
   const { input } = useField(name, { initialValue: initialValue, validate: isRequired() })
 
   const handleChoice = useCallback((e: React.FormEvent<HTMLSelectElement>) => {
@@ -42,11 +49,12 @@ const CurrentTime: React.FC<CurrentTimeProps> = ({ position, name, label, initia
       : undefined
 
   return (
-    <ComposedField position={position} label={label}>
+    <ComposedField position={ position } label={ label }>
       <Wrap>
-        <UnboundSelectField onChange={handleChoice} withEmptyOption={true} options={options} value={selectValue} />
+        <UnboundSelectField onChange={ handleChoice } withEmptyOption={ true } options={ options }
+                            value={ selectValue } />
         { (choice === "other" || (input.value && input.value !== getCurrentTime())) &&
-          <UnboundTextField type="time" onChange={handleTextFieldChange} value={input.value} autoFocus={ true } />
+        <UnboundTextField type="time" onChange={ handleTextFieldChange } value={ input.value } autoFocus={ true } />
         }
       </Wrap>
     </ComposedField>

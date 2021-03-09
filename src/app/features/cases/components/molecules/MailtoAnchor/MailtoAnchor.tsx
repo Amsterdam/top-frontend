@@ -36,6 +36,12 @@ const MailtoAnchor: FC<Props> = (
 ) => {
   const href = `mailto:${ email }?subject=${ subject }&body=${ body(isWoonboot, address, postalCode, gebruiksdoel, gebruik, aantalBouwlagen, etage, aantalKamers, oppervlak, woonbootStatus, woonbootIndicatie, woonbootAanduiding) }`
   const text = "Meld BAG afwijkingen"
-  return <StyledLink href={ href }>{ text }</StyledLink>
+
+  return (
+    <StyledLink href={ href }>
+      { text }
+    </StyledLink>
+  )
 }
+
 export default MailtoAnchor

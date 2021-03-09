@@ -14,6 +14,7 @@ import { useQueryString } from "./useQueryString"
  * // (or use '.navigateToUrl()' to directly navigate to it.)
  * ```
  */
+
 export const useQueryStringProp = (prop: string) => {
   const editor = useQueryString()
   return queryStringProp(editor, prop)

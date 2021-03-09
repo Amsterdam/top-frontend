@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useEffect, useState } from "react"
 
 import { keycloak, Keycloak } from "./keycloak"
 import options from "./options"
@@ -8,15 +8,16 @@ export type Context = {
   isAuthenticated: boolean
   keycloak: Keycloak
 }
-export const KeycloakContext = React.createContext<Context|undefined>(undefined)
+
+export const KeycloakContext = React.createContext<Context | undefined>(undefined)
 
 type Props = {
   initializedCallback?: (keycloak: Keycloak, isAuthenticated: boolean) => Promise<void>
 }
 
 const KeycloakProvider: React.FC<Props> = ({ initializedCallback, children }) => {
-  const [isInitialized, setIsInitialized] = useState(false)
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [ isInitialized, setIsInitialized ] = useState(false)
+  const [ isAuthenticated, setIsAuthenticated ] = useState(false)
 
   useEffect(() => {
     (async () => {
@@ -29,7 +30,7 @@ const KeycloakProvider: React.FC<Props> = ({ initializedCallback, children }) =>
         console.error("Keycloak failed to initialize")
       }
     })()
-  }, [initializedCallback])
+  }, [ initializedCallback ])
 
   const value = {
     isInitialized,
@@ -43,4 +44,5 @@ const KeycloakProvider: React.FC<Props> = ({ initializedCallback, children }) =>
     </KeycloakContext.Provider>
   )
 }
+
 export default KeycloakProvider

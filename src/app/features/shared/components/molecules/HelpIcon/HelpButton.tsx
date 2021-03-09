@@ -8,7 +8,6 @@ import useNodeDimensions from "app/features/shared/hooks/useNodeDimensions/useNo
 import useNodeByReference from "app/features/shared/hooks/useNodeByReference/useNodeByReference"
 import styled from "styled-components"
 
-
 const GUTTER = 8
 const HELP_TEXT_WIDTH = 320
 
@@ -67,13 +66,13 @@ const HelpButton: React.FC = ({ children }) => {
 
   return (
     <Wrap>
-      <ButtonWrap ref={buttonRef}>
-        <StyledButton size={18} variant="blank" onClick={handleClick}><InfoIcon /></StyledButton>
+      <ButtonWrap ref={ buttonRef }>
+        <StyledButton size={ 18 } variant="blank" onClick={ handleClick }><InfoIcon /></StyledButton>
       </ButtonWrap>
       { isOpen && (
         <>
-          <Overlay onClick={handleClick} />
-          <HelpText onClick={handleClick} top={buttonDimensions?.bottom} leftOffset={ buttonDimensions?.right}>
+          <Overlay onClick={ handleClick } />
+          <HelpText onClick={ handleClick } top={ buttonDimensions?.bottom } leftOffset={ buttonDimensions?.right }>
             { children }
           </HelpText>
         </>

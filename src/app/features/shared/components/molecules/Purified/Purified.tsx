@@ -9,6 +9,8 @@ type Props = {
 
 const Purified: FC<Props> = ({ text, className = "" }) => {
   const purifiedText = DOMPurify.sanitize(text)
-  return <Paragraph className={ className } dangerouslySetInnerHTML={ { __html: purifiedText } }></Paragraph>
+
+  return <Paragraph className={ className } dangerouslySetInnerHTML={ { __html: purifiedText } } />
 }
+
 export default Purified

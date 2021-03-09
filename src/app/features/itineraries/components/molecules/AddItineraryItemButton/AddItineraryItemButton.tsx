@@ -12,7 +12,7 @@ type Props = {
 const AddItineraryItemButton: React.FC<Props> = ({ itinerary, caseId }) => {
   const { execPost } = useItineraryItems({ lazy: true })
   const handleClick = useCallback(() => execPost({ itinerary, case_id: caseId }), [ execPost, itinerary, caseId ])
-  return <StyledButton variant="blank" onClick={handleClick} icon={<Enlarge />} />
+  return <StyledButton variant="blank" onClick={ handleClick } icon={ <Enlarge /> } />
 }
 
 export default AddItineraryItemButton

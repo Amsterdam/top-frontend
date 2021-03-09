@@ -20,7 +20,7 @@ const ShowHide: React.FC<ShowHideProps> = ({ shouldShow, field, position }) => {
   })
 
   return shouldShow(formState)
-    ? <ScaffoldField field={positionedField} />
+    ? <ScaffoldField field={ positionedField } />
     : null
 }
 

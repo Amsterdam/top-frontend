@@ -35,48 +35,48 @@ export type Props = {
  * Example usage:
  *
  * ```
- *    <Box p={{ mobileS: 0, tabletM: 1 }} bgColor='level3' >
+ *    <Box p={{ mobileS: 0, tabletM: 1 }} bgColor="level3">
  *      Foo
  *    </Box>
  * ```
  *
  */
-const Box = styled.div`  
-    display:flex;
-    flex-wrap: wrap;
-    box-sizing: border-box;
-    width:100%;
+const Box = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+  width: 100%;
 
-    ${ (props: Props) => responsiveProps(props, {
-  "p": unit => css`padding: ${ themeSpacing(unit) };`,
-  "pt": unit => css`padding-top: ${ themeSpacing(unit) };`,
-  "pr": unit => css`padding-right: ${ themeSpacing(unit) };`,
-  "pb": unit => css`padding-bottom: ${ themeSpacing(unit) };`,
-  "pl": unit => css`padding-left: ${ themeSpacing(unit) };`,
+  ${ (props: Props) => responsiveProps(props, {
+    "p": unit => css`padding: ${ themeSpacing(unit) };`,
+    "pt": unit => css`padding-top: ${ themeSpacing(unit) };`,
+    "pr": unit => css`padding-right: ${ themeSpacing(unit) };`,
+    "pb": unit => css`padding-bottom: ${ themeSpacing(unit) };`,
+    "pl": unit => css`padding-left: ${ themeSpacing(unit) };`,
 
-  "m": unit => css`margin: ${ themeSpacing(unit) };`,
-  "mt": unit => css`margin-top: ${ themeSpacing(unit) };`,
-  "mr": unit => css`margin-right: ${ themeSpacing(unit) };`,
-  "mb": unit => css`margin-bottom: ${ themeSpacing(unit) };`,
-  "ml": unit => css`margin-left: ${ themeSpacing(unit) };`,
+    "m": unit => css`margin: ${ themeSpacing(unit) };`,
+    "mt": unit => css`margin-top: ${ themeSpacing(unit) };`,
+    "mr": unit => css`margin-right: ${ themeSpacing(unit) };`,
+    "mb": unit => css`margin-bottom: ${ themeSpacing(unit) };`,
+    "ml": unit => css`margin-left: ${ themeSpacing(unit) };`,
 
-  "bgColor": unit => css`background-color: ${ themeColor("tint", unit) };`,
+    "bgColor": unit => css`background-color: ${ themeColor("tint", unit) };`,
 
-  "width": unit => typeof unit === "number"
-    ? css`width: ${ (unit / 12) * 100 }%;`
-    : unit === "auto"
-      ? css`width: auto;`
-      : "",
+    "width": unit => typeof unit === "number"
+            ? css`width: ${ (unit / 12) * 100 }%;`
+            : unit === "auto"
+                    ? css`width: auto;`
+                    : "",
 
-  "hAlign": unit => css`justify-content: ${ unit };`,
-  "vAlign": unit => css`align-items: ${ unit };`,
+    "hAlign": unit => css`justify-content: ${ unit };`,
+    "vAlign": unit => css`align-items: ${ unit };`,
 
-  "stretch": unit => unit
-    ? css`flex: 1;`
-    : "" ,
+    "stretch": unit => unit
+            ? css`flex: 1;`
+            : "",
 
-  "direction": unit => css`flex-direction: ${ unit };`
-}) }
-  `
+    "direction": unit => css`flex-direction: ${ unit };`
+  }) }
+`
 
 export default Box

@@ -2,7 +2,7 @@ import React, { FC } from "react"
 import { Hidden } from "@amsterdam/asc-ui"
 
 type Props = {
-  text: [string, string]
+  text: [ string, string ]
 }
 
 const BREAKPOINT = "tabletS"

@@ -16,4 +16,5 @@ const ErrorMessage: FC<Props> = ({ text }) => (
     <P>{ text }</P>
   </div>
 )
+
 export default ErrorMessage

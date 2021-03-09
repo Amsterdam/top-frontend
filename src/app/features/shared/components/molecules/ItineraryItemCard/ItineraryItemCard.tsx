@@ -29,7 +29,7 @@ const Wrap = styled.div<WrapProps>`
   border-bottom: 1px solid ${ themeColor("tint", "level3") };
 `
 
-type LeftProps = {opacity?: number}
+type LeftProps = { opacity?: number }
 const Left = styled.div<LeftProps>`
   cursor: pointer;
   flex: 1;

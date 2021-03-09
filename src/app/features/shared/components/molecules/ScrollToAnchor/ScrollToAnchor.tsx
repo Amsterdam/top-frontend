@@ -20,4 +20,5 @@ const ScrollToAnchor: FC<Props> = ({ anchor, text }) => {
 
   return <StyledLink href={ `#${ anchor }` } onClick={ onClick }>{ text }</StyledLink>
 }
+
 export default ScrollToAnchor

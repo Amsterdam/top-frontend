@@ -58,4 +58,5 @@ const EyeButton: FC<Props> = ({ onClick, isOpen }) => {
     </Div>
   )
 }
+
 export default EyeButton

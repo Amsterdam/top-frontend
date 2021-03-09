@@ -16,13 +16,14 @@ const StyledButton = styled(Button)`
 `
 
 const ToggleCollapse: React.FC<Props> = (
-  { onClick, 
-    isCollapsed, 
-    variant = "textButton", 
-    textToOpen = "+ Toon alle", 
-    textToClose = "- Toon minder"  
+  {
+    onClick,
+    isCollapsed,
+    variant = "textButton",
+    textToOpen = "+ Toon alle",
+    textToClose = "- Toon minder"
   }) => (
-    <StyledButton onClick={ onClick } variant={variant} >{ isCollapsed ? textToOpen : textToClose }</StyledButton>
-  ) 
+  <StyledButton onClick={ onClick } variant={ variant }>{ isCollapsed ? textToOpen : textToClose }</StyledButton>
+)
 
 export default ToggleCollapse

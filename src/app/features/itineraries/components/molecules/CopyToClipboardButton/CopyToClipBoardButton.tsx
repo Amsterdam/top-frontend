@@ -1,4 +1,4 @@
-import React, { FC, useRef, MouseEvent, useCallback } from "react"
+import React, { FC, MouseEvent, useCallback, useRef } from "react"
 import { DocumentText } from "@amsterdam/asc-assets"
 import styled from "styled-components"
 
@@ -32,7 +32,8 @@ const CopyToClipboardButton: FC<Props> = ({ text, onClick }) => {
 
   return (
     <>
-      <StyledButton variant="blank" iconLeft={ <DocumentText /> } onClick={ handleOnClick }>Kopieer naar clipboard</StyledButton>
+      <StyledButton variant="blank" iconLeft={ <DocumentText /> } onClick={ handleOnClick }>Kopieer naar
+        clipboard</StyledButton>
       <TextArea ref={ ref } readOnly />
     </>
   )

@@ -15,7 +15,8 @@ const TeamMemberWarning: React.FC = () => {
   const included = values?.team_members?.map((_: Components.Schemas.User) => _.id)?.includes(loggedInUser?.id)
 
   return values && loggedInUser && !included
-    ? <Warning>Let op! Je bent zelf niet meer als teamlid geselecteerd. Wanneer je op ‘Bewaren’ klikt vervalt je toegang tot deze lijst.</Warning>
+    ? <Warning>Let op! Je bent zelf niet meer als teamlid geselecteerd. Wanneer je op ‘Bewaren’ klikt vervalt je toegang
+      tot deze lijst.</Warning>
     : null
 }
 

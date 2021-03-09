@@ -13,15 +13,15 @@ const Router: React.FC = () => (
       // Pages that do NOT match the allowList are protected
       Object
         .entries(routes)
-        .filter(([path]) => !path.match(allowList))
-        .map(([path, Page]) => <ProtectedRoute page={Page} key={path} path={path} />)
+        .filter(([ path ]) => !path.match(allowList))
+        .map(([ path, Page ]) => <ProtectedRoute page={ Page } key={ path } path={ path } />)
     }
     {
       // Pages that do match the allowList are NOT protected
       Object
         .entries(routes)
-        .filter(([path]) => path.match(allowList))
-        .map(([path, Page]) => <Page key={path} path={path} />)
+        .filter(([ path ]) => path.match(allowList))
+        .map(([ path, Page ]) => <Page key={ path } path={ path } />)
     }
     <NotFoundPage default />
   </ReachRouter>

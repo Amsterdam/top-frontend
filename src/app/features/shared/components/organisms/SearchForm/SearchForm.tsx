@@ -26,8 +26,8 @@ const SearchForm: FC = () => {
   )
 
   return (
-    <ScaffoldForm onSubmit={handleSubmit} initialValues={values}>
-      <Scaffold {...scaffoldProps} />
+    <ScaffoldForm onSubmit={ handleSubmit } initialValues={ values }>
+      <Scaffold { ...scaffoldProps } />
     </ScaffoldForm>
   )
 }

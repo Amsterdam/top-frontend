@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react"
+import { useEffect, useRef } from "react"
 
 /**
  * Returns a RefObject, the current value is true when the component is still mounted

@@ -12,4 +12,5 @@ const calculateNewPosition = (items: { position: number }[], index: number, newI
 
   return position
 }
+
 export default calculateNewPosition

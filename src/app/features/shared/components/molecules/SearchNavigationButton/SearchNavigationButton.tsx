@@ -13,7 +13,11 @@ const SearchNavigationButton: React.FC<Props> = ({ itineraryId }) => {
     ? to("/lijst/:itineraryId/zoeken", { itineraryId })
     : to("/zoeken")
 
-  return <Link to={ href }><Search width={ 24 } height={ 24 } /></Link>
+  return (
+    <Link to={ href }>
+      <Search width={ 24 } height={ 24 } />
+    </Link>
+  )
 }
 
 export default SearchNavigationButton

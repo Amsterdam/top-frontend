@@ -7,6 +7,7 @@ import { noopContext } from "./noopContext"
 import { ApiGroup } from "../index"
 
 type GroupedContext = Record<ApiGroup, ApiCache & RequestQueue>
+
 export const ApiContext = React.createContext<GroupedContext>({
   itineraries: noopContext,
   case: noopContext,
@@ -69,8 +70,8 @@ const ApiProvider: React.FC = ({ children }) => {
     }
   }
 
-  return <ApiContext.Provider value={value}>
-    {children}
+  return <ApiContext.Provider value={ value }>
+    { children }
   </ApiContext.Provider>
 }
 

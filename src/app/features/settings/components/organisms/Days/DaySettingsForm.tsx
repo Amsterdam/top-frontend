@@ -63,29 +63,31 @@ const DaySettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId, daySe
     return <CenteredSpinner explanation="Instellingen ophalen…" size={ 60 } />
   }
 
-  return <DefaultLayout>
-    <Wrap>
-      <Spacing pb={ 4 }>
-        <Link to={ to("/team-settings/:teamSettingsId", { teamSettingsId }) }>
-          Alle dagen
-        </Link>
-      </Spacing>
-      <p>Wijzig instellingen voor:</p>
-      <Heading>{ teamSettings.name }</Heading>
-      <Heading forwardedAs="h2">{ daySettings.name }</Heading>
-      <ScaffoldForm onSubmit={ handleSubmit } initialValues={ {
-        settings: {
-          ...daySettings,
-          postal_code_ranges_presets: (daySettings.postal_code_ranges_presets ?? []).map((pcp: any) => String(pcp))
-        },
-        postal_codes_type: (daySettings.postal_code_ranges_presets ?? []).length > 0 ? "stadsdeel" : "postcode",
-        name: teamSettings.name
-      } }>
-        <Scaffold { ...definition } />
-        <FixedSubmitButton errorMessage={ errorMessage } />
-      </ScaffoldForm>
-    </Wrap>
-  </DefaultLayout>
+  return (
+    <DefaultLayout>
+      <Wrap>
+        <Spacing pb={ 4 }>
+          <Link to={ to("/team-settings/:teamSettingsId", { teamSettingsId }) }>
+            Alle dagen
+          </Link>
+        </Spacing>
+        <p>Wijzig instellingen voor:</p>
+        <Heading>{ teamSettings.name }</Heading>
+        <Heading forwardedAs="h2">{ daySettings.name }</Heading>
+        <ScaffoldForm onSubmit={ handleSubmit } initialValues={ {
+          settings: {
+            ...daySettings,
+            postal_code_ranges_presets: (daySettings.postal_code_ranges_presets ?? []).map((pcp: any) => String(pcp))
+          },
+          postal_codes_type: (daySettings.postal_code_ranges_presets ?? []).length > 0 ? "stadsdeel" : "postcode",
+          name: teamSettings.name
+        } }>
+          <Scaffold { ...definition } />
+          <FixedSubmitButton errorMessage={ errorMessage } />
+        </ScaffoldForm>
+      </Wrap>
+    </DefaultLayout>
+  )
 }
 
 export default DaySettingsForm

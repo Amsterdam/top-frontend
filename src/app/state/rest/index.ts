@@ -25,6 +25,7 @@ export type Options = {
  * Please configure your endpoints here:
  */
 
+
 export const useItineraries = (options?: Options) => {
   const handleError = useErrorHandler()
   return useApiRequest<{ itineraries: Itinerary[] }>({
@@ -306,6 +307,7 @@ export const usePermitDetails = (bagId: string, options?: Options) => {
  * Please configure your endpoints here:
  * NOTE: For example "cases" and "cases/:id" share the same group config. Cache will be cleared for the whole group.
  */
+
 
 export const useIsAuthorized = (options?: Options) => {
   const handleError = useErrorHandler()

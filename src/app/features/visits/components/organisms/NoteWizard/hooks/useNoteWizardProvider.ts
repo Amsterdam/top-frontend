@@ -20,7 +20,7 @@ const reducer = produce((draft: State, action: Action) => {
     draft[action.caseId] = { steps: [], formValues: { start_time: "" } }
   }
 
-  switch(action.type) {
+  switch (action.type) {
     case "SET_VALUES":
       draft[action.caseId].formValues = action.formValues
       break
@@ -38,35 +38,35 @@ const reducer = produce((draft: State, action: Action) => {
 })
 
 export const useNoteWizardProvider = () => {
-  const [state, dispatch] = useReducer(reducer, {} as State)
+  const [ state, dispatch ] = useReducer(reducer, {} as State)
 
   const setValues = useCallback((caseId: string, formValues: FormValues) =>
       dispatch({ type: "SET_VALUES", caseId, formValues }),
     [ dispatch ]
   )
 
-  const getValues = useCallback((caseId: string): FormValues|undefined =>
+  const getValues = useCallback((caseId: string): FormValues | undefined =>
       state[caseId]?.formValues as FormValues,
     [ state ]
   )
 
   const pushStep = useCallback((caseId: string, step: WizardStep) =>
-    dispatch({ type: "PUSH_STEP", caseId, step }),
+      dispatch({ type: "PUSH_STEP", caseId, step }),
     [ dispatch ]
   )
 
   const popStep = useCallback((caseId: string) =>
-    dispatch({ type: "POP_STEP", caseId }),
+      dispatch({ type: "POP_STEP", caseId }),
     [ dispatch ]
   )
 
   const clearSteps = useCallback((caseId: string) =>
-    dispatch({ type: "CLEAR_STEPS", caseId }),
+      dispatch({ type: "CLEAR_STEPS", caseId }),
     [ dispatch ]
   )
 
-  const getCurrentStep = useCallback((caseId: string): WizardStep|undefined =>
-    state[caseId]?.steps[ state[caseId].steps.length - 1 ],
+  const getCurrentStep = useCallback((caseId: string): WizardStep | undefined =>
+      state[caseId]?.steps[state[caseId].steps.length - 1],
     [ state ]
   )
 

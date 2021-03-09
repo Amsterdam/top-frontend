@@ -6,6 +6,7 @@ import App from "./App"
 import * as serviceWorker from "./serviceWorker"
 
 import initSentry from "./sentry/init"
+
 initSentry()
 
 ReactDOM.render(

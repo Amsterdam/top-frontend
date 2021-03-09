@@ -14,6 +14,7 @@ const DEFAULT_ID: string = "1"
  *  } = useQueryStringModal('modal.foo')
  *  ```
  */
+
 export const useQueryStringModal = (prop: string) => {
   const queryStringProp = useQueryStringProp(prop)
 

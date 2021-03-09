@@ -4,8 +4,6 @@ import { useRequestQueue } from "./useRequestQueue"
 describe("useRequestQueue", () => {
   class Deferred {
     promise: Promise<any>
-    reject = () => {}
-    resolve = () => {}
 
     constructor () {
       this.promise = new Promise((resolve, reject) => {
@@ -13,6 +11,10 @@ describe("useRequestQueue", () => {
         this.resolve = resolve
       })
     }
+
+    reject = () => {}
+
+    resolve = () => {}
   }
 
   it("execute pushed requests in order", async () => {
@@ -41,7 +43,8 @@ describe("useRequestQueue", () => {
     })
 
     expect(execDeferred2).toHaveBeenCalled() // <- Also working on second request
-    expect(result.current.isRequestPendingInQueue("foo1", "GET")).toEqual(false) // <- First request is not pending anymore
+    expect(result.current.isRequestPendingInQueue("foo1", "GET")).toEqual(false) // <- First request is not pending
+                                                                                 // anymore
     expect(result.current.isRequestPendingInQueue("foo2", "GET")).toEqual(true) // <- Second request is.
 
     await act(() => {

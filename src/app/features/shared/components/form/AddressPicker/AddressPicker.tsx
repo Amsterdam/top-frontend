@@ -23,25 +23,25 @@ const AddressPicker: React.FC<AddressPickerProps> = ({ position, align, label, h
   const { input: { value, onChange } } = useField<string>(name, {})
 
   return (
-    <ComposedField position={position} align={align} label={label} hint={hint}>
+    <ComposedField position={ position } align={ align } label={ label } hint={ hint }>
       { value
         ? (<>
-          <StartAddress caseId={value}/>
-          <Box pt={2} pl={1}>
-            <Button type='button' variant='textButton' onClick={() => onChange(undefined)}>
+          <StartAddress caseId={ value } />
+          <Box pt={ 2 } pl={ 1 }>
+            <Button type="button" variant="textButton" onClick={ () => onChange(undefined) }>
               Verwijder startadres
             </Button>
           </Box>
         </>)
         : (
-          <Link to={getStartAddressUrl()}>
-            <Button type='button' variant="textButton">
+          <Link to={ getStartAddressUrl() }>
+            <Button type="button" variant="textButton">
               Kies een startadres
             </Button>
           </Link>
         )
       }
-      <AddStartAddressModal onAddStartAddress={(caseId: any) => { onChange(caseId) }} />
+      <AddStartAddressModal onAddStartAddress={ (caseId: any) => { onChange(caseId) } } />
       <CaseModal />
     </ComposedField>
   )

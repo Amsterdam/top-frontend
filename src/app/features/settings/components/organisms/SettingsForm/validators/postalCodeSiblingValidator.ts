@@ -1,9 +1,7 @@
-import {
-  isAboveOtherField,
-  isBelowOtherField
-} from "@amsterdam/amsterdam-react-final-form"
+import { isAboveOtherField, isBelowOtherField } from "@amsterdam/amsterdam-react-final-form"
 
-import type { FieldValidator, FieldState } from "final-form"
+import type { FieldState, FieldValidator } from "final-form"
+
 type Value = number | null | undefined
 
 const options = {
@@ -25,4 +23,5 @@ const postalCodeSiblingValidator = (name: keyof typeof options): FieldValidator<
   const otherField = meta.name.replace(new RegExp(`${ name }$`), replace)
   return validator(otherField, message)(value, allValues)
 }
+
 export default postalCodeSiblingValidator

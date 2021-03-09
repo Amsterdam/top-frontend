@@ -1,7 +1,9 @@
 import formatBoolean from "app/features/shared/utils/formatBoolean"
 
 export const email = "Terugmelding.Basisinformatie@amsterdam.nl"
+
 export const subject = "Terugmelding Basisinformatie"
+
 export const body = (
   isWoonboot: boolean,
   address: string,

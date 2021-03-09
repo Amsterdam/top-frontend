@@ -1,6 +1,7 @@
 import { ReactNode } from "react"
 
 export type BusinessRules = Record<string, number>
+
 export type ShapValues = Record<string, number>
 
 export type FraudPrediction = {
@@ -30,7 +31,7 @@ export type BagDataError = {
 
 export type BrkData = {
   bag_id: string | null
-  owners: {_display: string}[]
+  owners: { _display: string }[]
 }
 
 export type BrkDataError = {
@@ -91,7 +92,7 @@ type ImportStadia = {
 
 type VakantieVerhuur = {
   is_bnb_declared: "J" | "N"
-  notified_rentals: [ {check_in: string, check_out: string} ]
+  notified_rentals: [ { check_in: string, check_out: string } ]
   rented_days: number
   shortstay: "J" | "N"
 }
@@ -150,6 +151,7 @@ export type Itinerary = Omit<Components.Schemas.Itinerary, "items"> & {
 }
 
 type Value = string | ReactNode
+
 export type KeyValueDetail = Value | [ string, Value ]
 
 export type Severity = "INFO" | "WARNING" | "ERROR" | undefined

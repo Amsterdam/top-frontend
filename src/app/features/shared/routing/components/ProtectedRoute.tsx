@@ -13,7 +13,7 @@ const ProtectedRoute: React.FC<Props> = ({ page: Page, ...restProps }) => {
   const { token } = useKeycloak()
 
   return token
-    ? <Page {...restProps} />
+    ? <Page { ...restProps } />
     : null
 }
 

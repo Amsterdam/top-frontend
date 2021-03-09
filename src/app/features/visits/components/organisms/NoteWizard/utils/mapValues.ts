@@ -1,6 +1,6 @@
 import { FormValues } from "app/features/visits/components/organisms/NoteWizard/types"
 import { mapDateToTime, mapTimeToDate } from "./mapDateToTime"
-import { mapYesNoToBoolean, mapBooleanToYesNo } from "./mapYesNoToBoolean"
+import { mapBooleanToYesNo, mapYesNoToBoolean } from "./mapYesNoToBoolean"
 
 const fieldsNoAccess = {
   observations: null,
@@ -18,8 +18,8 @@ export const mapPostValues = (values: any, itinerary_item: number, case_id: numb
   const start_time = mapTimeToDate(values.start_time)
   const can_next_visit_go_ahead =
     values.can_next_visit_go_ahead !== undefined ?
-    mapYesNoToBoolean(values.can_next_visit_go_ahead) :
-    null
+      mapYesNoToBoolean(values.can_next_visit_go_ahead) :
+      null
 
   const postValues = {
     ...values,
