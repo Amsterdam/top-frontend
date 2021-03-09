@@ -1,5 +1,5 @@
-import React, { useEffect } from "react"
-import { navigate, RouteComponentProps } from "@reach/router"
+import React from "react"
+import { RouteComponentProps } from "@reach/router"
 import styled from "styled-components"
 
 import { ChevronRight } from "@amsterdam/asc-assets"
@@ -32,14 +32,6 @@ const Illustration = styled.div`
 const ListTeamSettingsOptionsPage: React.FC<RouteComponentProps> = () => {
   const { data } = useTeamSettingsList()
   const loggedInUser = useLoggedInUser()
-
-  const userHasTeamSettings = loggedInUser?.team_settings && loggedInUser?.team_settings.length > 0
-
-  useEffect(() => {
-    if (userHasTeamSettings) {
-      navigate(to("/lijst-instellingen"))
-    }
-  }, [ userHasTeamSettings, loggedInUser ])
 
   const teams = data?.results ?? []
   const sortedTeams = [ ...teams ].sort((a, b) => a.name > b.name ? 1 : -1) || []
