@@ -63,6 +63,10 @@ const DaySettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId, daySe
     return <CenteredSpinner explanation="Instellingen ophalen…" size={ 60 } />
   }
 
+  const default_postal_code_range = [
+    { range_end: 1109, range_start: 1000 }
+  ]
+
   return (
     <DefaultLayout>
       <Wrap>
@@ -77,7 +81,8 @@ const DaySettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId, daySe
         <ScaffoldForm onSubmit={ handleSubmit } initialValues={ {
           settings: {
             ...daySettings,
-            postal_code_ranges_presets: (daySettings.postal_code_ranges_presets ?? []).map((pcp: any) => String(pcp))
+            postal_code_ranges_presets: (daySettings.postal_code_ranges_presets ?? []).map((pcp: any) => String(pcp)),
+            postal_code_ranges: (daySettings.postal_code_ranges_presets ?? []).length > 0 ? default_postal_code_range : daySettings.postal_code_ranges
           },
           postal_codes_type: (daySettings.postal_code_ranges_presets ?? []).length > 0 ? "stadsdeel" : "postcode",
           name: teamSettings.name
