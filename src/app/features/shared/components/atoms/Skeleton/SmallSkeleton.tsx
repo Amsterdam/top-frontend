@@ -8,20 +8,26 @@ type StyledDivProps = {
 }
 
 const backgroundAnimation = keyframes`
-    0% { background-position:40%; }
-    50% { background-position:100%; }
-    100% { background-position:40%; }
+  0% {
+    background-position: 40%;
+  }
+  50% {
+    background-position: 100%;
+  }
+  100% {
+    background-position: 40%;
+  }
 `
 
-const StyledDiv = styled.div<StyledDivProps>`  
+const StyledDiv = styled.div<StyledDivProps>`
   height: ${ props => themeSpacing(props.height) };
-  width: ${ props => props.width }px;  
+  width: ${ props => props.width }px;
   max-width: 100%;
-  
-  background: linear-gradient(270deg, ${ themeColor("tint", "level3") }, ${ themeColor("tint", "level4") });    
+
+  background: linear-gradient(270deg, ${ themeColor("tint", "level3") }, ${ themeColor("tint", "level4") });
   background-size: 400% 400%;
-   
-  animation: ${ backgroundAnimation } 4s linear infinite;   
+
+  animation: ${ backgroundAnimation } 4s linear infinite;
 `
 
 type Props = {
@@ -30,8 +36,9 @@ type Props = {
 }
 
 const SmallSkeleton: React.FC<Props> = ({ maxRandomWidth = 100, height = 5 }) => {
-  const width = useMemo(() => Math.round(Math.random() * (maxRandomWidth - 50) ) + 50, [maxRandomWidth])
-  return <StyledDiv width={width} height={height} />
+  const width = useMemo(() => Math.round(Math.random() * (maxRandomWidth - 50)) + 50, [ maxRandomWidth ])
+
+  return <StyledDiv width={ width } height={ height } />
 }
 
 export default SmallSkeleton

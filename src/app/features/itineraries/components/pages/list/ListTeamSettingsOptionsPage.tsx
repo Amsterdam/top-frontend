@@ -36,34 +36,36 @@ const ListTeamSettingsOptionsPage: React.FC<RouteComponentProps> = () => {
   const teams = data?.results ?? []
   const sortedTeams = [ ...teams ].sort((a, b) => a.name > b.name ? 1 : -1) || []
 
-  return <DefaultLayout>
-    { data && data.results.length > 0 && (
-      <Illustration>
-        <Heading>Genereer looplijst</Heading>
-        <Heading forwardedAs="h2">Kies een team</Heading>
-        <Spacing pb={ 4 }>
-          <p>
-            <Greeting />{ " " }
-            <strong>{ loggedInUser?.first_name }</strong>,
-            welke zaken wil je vandaag in je looplijst?
-          </p>
-        </Spacing>
-        <Grid>
-          { sortedTeams.map(teamSettings => (
-            <Button
-              as="a"
-              href={ to("/lijst/nieuw/:teamSettingsId", { teamSettingsId: teamSettings.id }) }
-              iconRight={ <ChevronRight /> }
-              key={ teamSettings.id }
-              variant="primaryInverted"
-            >
-              { teamSettings.name }
-            </Button>
-          )) }
-        </Grid>
-      </Illustration>
-    ) }
-  </DefaultLayout>
+  return (
+    <DefaultLayout>
+      { data && data.results.length > 0 && (
+        <Illustration>
+          <Heading>Genereer looplijst</Heading>
+          <Heading forwardedAs="h2">Kies een team</Heading>
+          <Spacing pb={ 4 }>
+            <p>
+              <Greeting />{ " " }
+              <strong>{ loggedInUser?.first_name }</strong>,
+              welke zaken wil je vandaag in je looplijst?
+            </p>
+          </Spacing>
+          <Grid>
+            { sortedTeams.map(teamSettings => (
+              <Button
+                as="a"
+                href={ to("/lijst/nieuw/:teamSettingsId", { teamSettingsId: teamSettings.id }) }
+                iconRight={ <ChevronRight /> }
+                key={ teamSettings.id }
+                variant="primaryInverted"
+              >
+                { teamSettings.name }
+              </Button>
+            )) }
+          </Grid>
+        </Illustration>
+      ) }
+    </DefaultLayout>
+  )
 }
 
 export default ListTeamSettingsOptionsPage

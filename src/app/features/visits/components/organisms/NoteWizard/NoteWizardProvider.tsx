@@ -2,6 +2,7 @@ import React, { createContext } from "react"
 import { useNoteWizardProvider } from "./hooks/useNoteWizardProvider"
 
 const noop = () => undefined
+
 export const NoteWizardContext = createContext<ReturnType<typeof useNoteWizardProvider>>({
   state: {},
   setValues: noop,
@@ -14,7 +15,7 @@ export const NoteWizardContext = createContext<ReturnType<typeof useNoteWizardPr
 
 const NoteWizardProvider: React.FC = ({ children }) => {
   const value = useNoteWizardProvider()
-  return <NoteWizardContext.Provider value={value}>
+  return <NoteWizardContext.Provider value={ value }>
     { children }
   </NoteWizardContext.Provider>
 }

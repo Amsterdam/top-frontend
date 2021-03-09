@@ -15,6 +15,7 @@ const removeProp = (obj: ParsedQs, prop: string) => Object
  *
  * @see `useQueryString`
  */
+
 export const queryString = (path: string, parsedQs: ParsedQs) => {
   const getUrl = () => `${ path }${ stringify(parsedQs) }`
 

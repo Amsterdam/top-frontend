@@ -30,7 +30,7 @@ type Config = {
   lazy?: boolean
   url: string
   groupName: ApiGroup
-  handleError?: ( error: RequestError ) => void
+  handleError?: (error: RequestError) => void
   isProtected?: boolean
 }
 
@@ -64,7 +64,6 @@ const useApiRequest = <Schema, Payload = Partial<Schema>> (
         clearCache()
       }
 
-
       const requestMethod = isProtected ? protectedRequest : request
       const response = await requestMethod(options.method, url, payload)
 
@@ -76,8 +75,12 @@ const useApiRequest = <Schema, Payload = Partial<Schema>> (
     } catch (error) {
       if (isProtected) {
         switch (error?.response?.status) {
-          case 401: logout(); break
-          case 403: navigate(to("/auth")); break
+          case 401:
+            logout()
+            break
+          case 403:
+            navigate(to("/auth"))
+            break
         }
       }
       if (handleError && error) {

@@ -32,9 +32,10 @@ const MapsButton: FC<Props> = ({ cases }) => {
     window.open(href, "_blank")
   }
   return (
-    <StyledButton disabled={cases.length === 0} variant="blank" iconLeft={ <Location /> } onClick={ onClick }>
-      <ResponsiveText text={ ["Maps", "Bekijk op Google Maps"] } />
+    <StyledButton disabled={ cases.length === 0 } variant="blank" iconLeft={ <Location /> } onClick={ onClick }>
+      <ResponsiveText text={ [ "Maps", "Bekijk op Google Maps" ] } />
     </StyledButton>
   )
 }
+
 export default MapsButton

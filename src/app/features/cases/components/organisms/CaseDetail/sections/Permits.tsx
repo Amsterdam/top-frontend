@@ -75,7 +75,8 @@ const Permits: FC<Props> = ({ caseId }) => {
                   </> :
                   <>
                     <Label>Geldig tot</Label>
-                    <Value sensitive value={ formatDate(permit.details.DATE_VALID_TO ?? permit.details.DATE_VALID_UNTIL) } />
+                    <Value sensitive
+                           value={ formatDate(permit.details.DATE_VALID_TO ?? permit.details.DATE_VALID_UNTIL) } />
                   </>
                 }
               </>

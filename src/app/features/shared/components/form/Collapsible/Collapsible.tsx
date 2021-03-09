@@ -16,16 +16,15 @@ const Wrap = styled.div`
  * Renders a group of fields wrapped within a collapsible accordion
  */
 const Collapsible: React.FC<CollapsibleProps> = ({ position, align, isOpen, label, fields }) => (
-  <ComposedField position={position} align={align}>
+  <ComposedField position={ position } align={ align }>
     <Wrap>
       <AccordionWrapper>
-        <Accordion isOpen={isOpen} title={label} >
-          <Scaffold fields={fields} />
+        <Accordion isOpen={ isOpen } title={ label }>
+          <Scaffold fields={ fields } />
         </Accordion>
       </AccordionWrapper>
     </Wrap>
   </ComposedField>
 )
-
 
 export default Collapsible

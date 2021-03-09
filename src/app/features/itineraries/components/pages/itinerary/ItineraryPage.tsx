@@ -33,7 +33,7 @@ const TeamMemberWrap = styled.div`
   border-bottom: 1px solid ${ themeColor("tint", "level3") };
 `
 
-type ColumnWrapProps = {border: boolean}
+type ColumnWrapProps = { border: boolean }
 const ColumnWrap = styled.div<ColumnWrapProps>`
   padding: ${ themeSpacing(2) } 0;
   display: flex;
@@ -73,7 +73,9 @@ const ItineraryPage: React.FC<RouteComponentProps<Props>> = ({ itineraryId }) =>
   }, [ itineraries, itineraryId ])
 
   const { data: itinerary, isBusy } = useItinerary(parseInt(itineraryId!), { keepUsingInvalidCache: true })
-  const { execDelete } = useDeleteItinerary(itineraryId!, { lazy: true }) // <- NOTE: we need a extra hook here, because /itenaries/:id/ only allows a DELETE, no other methods
+  const { execDelete } = useDeleteItinerary(itineraryId!, { lazy: true }) // <- NOTE: we need a extra hook here,
+                                                                          // because /itenaries/:id/ only allows a
+                                                                          // DELETE, no other methods
 
   const [ showDialog, setShowDialog ] = useState(false)
   const [ isEditing, setIsEditing ] = useState(false)

@@ -30,13 +30,13 @@ const AddStartAddressModal: React.FC<Props> = ({ onAddStartAddress }) => {
   }
 
   return (
-    <DefaultModal title='Startadres' onClose={handleClose}>
+    <DefaultModal title="Startadres" onClose={ handleClose }>
       <Div>
         <b>Bij welk adres wil je beginnen?</b>
       </Div>
       <Div>
         <SearchForm />
-        { values && <StartAddressSearchResults handleAddButtonClick={handleAddAddress} {...values} /> }
+        { values && <StartAddressSearchResults handleAddButtonClick={ handleAddAddress } { ...values } /> }
       </Div>
     </DefaultModal>
   )

@@ -26,12 +26,12 @@ const P = styled.p`
 `
 
 const CenteredSpinner: FC<Props> = ({ size, explanation }) => (
-    <CenterInViewport>
-      <Spacing pb={ 4 }>
-        <Spinner size={ size } />
-      </Spacing>
-      { explanation && <P>{ explanation }</P> }
-    </CenterInViewport>
-  )
+  <CenterInViewport>
+    <Spacing pb={ 4 }>
+      <Spinner size={ size } />
+    </Spacing>
+    { explanation && <P>{ explanation }</P> }
+  </CenterInViewport>
+)
 
 export default CenteredSpinner

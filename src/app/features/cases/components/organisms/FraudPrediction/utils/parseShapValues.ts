@@ -173,4 +173,5 @@ export const parseShapValues = (shapValues: ShapValues, businessRules: BusinessR
 
 // @see https://stackoverflow.com/a/11832950
 // > to ensure things like 1.005 roundIfNecessary correctly, we use
+
 export const roundIfNecessary = (num: number) => Math.round((num + Number.EPSILON) * 100) / 100

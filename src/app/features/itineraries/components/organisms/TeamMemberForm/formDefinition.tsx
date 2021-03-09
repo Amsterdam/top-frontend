@@ -51,10 +51,10 @@ export const generateFormDefinition = (
 
   return new FormPositioner(definition)
     .setGrid("mobileS", "1fr 1fr", [
-      ["user0", "user0"],
-      ["user1", "user1"],
-      ["user2", "user2"],
-      ["reset", "submit"]
+      [ "user0", "user0" ],
+      [ "user1", "user1" ],
+      [ "user2", "user2" ],
+      [ "reset", "submit" ]
     ])
     .getFields()
 }

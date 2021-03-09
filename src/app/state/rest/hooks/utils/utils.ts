@@ -9,6 +9,7 @@ const isAxiosError = (error: any): error is AxiosError => !error || error.isAxio
 /**
  * Default error handler:
  */
+
 export const useErrorHandler = () => {
   const { setError } = useContext(ErrorContext)
 
@@ -24,6 +25,7 @@ export const useErrorHandler = () => {
 /**
  * Utility function to create a gateway URL.
  */
+
 export const makeGatewayUrl = (paths: Array<number | string | undefined>, queryStringParams?: Record<string, number | string | undefined>) => {
   const path = slashSandwich([ process.env.REACT_APP_GATEWAY, ...paths ])
 

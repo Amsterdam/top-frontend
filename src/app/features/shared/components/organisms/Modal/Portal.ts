@@ -14,7 +14,7 @@ const Portal: React.FC = ({ children }) => {
       // onUnmount: remove `el` from modal-root.
       document.getElementById(modalRoot)?.removeChild(element)
     }
-  }, [el, modalRoot])
+  }, [ el, modalRoot ])
 
   // The children of this component are rendered within `el`.
   return createPortal(children, el.current)

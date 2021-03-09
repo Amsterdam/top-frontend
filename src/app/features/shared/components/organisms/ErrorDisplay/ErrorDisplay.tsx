@@ -16,7 +16,7 @@ const Backdrop = styled.div`
   background-color: rgba(0, 0, 0, .7);
 `
 
-const Wrap = styled.div<{severity: Severity}>`
+const Wrap = styled.div<{ severity: Severity }>`
   position: fixed;
   top: 0;
   display: flex;

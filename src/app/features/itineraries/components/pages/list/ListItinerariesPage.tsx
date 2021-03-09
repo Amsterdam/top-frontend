@@ -25,28 +25,30 @@ const ListItinerariesPage: React.FC = () => {
     redirectToCorrectItineraryPage(data?.itineraries)
   }, [ data ])
 
-  return <DefaultLayout>
-    { data && data.itineraries.length > 0 && (
-      <>
-        <Spacing pb={ 6 }>
-          <Heading>Mijn looplijsten</Heading>
-        </Spacing>
-        <Paragraph>
-          Er zijn vandaag meerdere looplijsten voor je gegenereerd. Kies er één:
-        </Paragraph>
-        <ol>
-          { data.itineraries.map(itinerary => (
-            <Li key={ itinerary.id }>
-              <TeamName>{ itinerary.settings.day_settings.team_settings.name }</TeamName>
-              <Link to={ to("/lijst/:itineraryId", { itineraryId: itinerary.id.toString() }) }>
-                { itinerary.team_members.map(member => member.user.full_name).join(", ") }
-              </Link>
-            </Li>
-          )) }
-        </ol>
-      </>
-    ) }
-  </DefaultLayout>
+  return (
+    <DefaultLayout>
+      { data && data.itineraries.length > 0 && (
+        <>
+          <Spacing pb={ 6 }>
+            <Heading>Mijn looplijsten</Heading>
+          </Spacing>
+          <Paragraph>
+            Er zijn vandaag meerdere looplijsten voor je gegenereerd. Kies er één:
+          </Paragraph>
+          <ol>
+            { data.itineraries.map(itinerary => (
+              <Li key={ itinerary.id }>
+                <TeamName>{ itinerary.settings.day_settings.team_settings.name }</TeamName>
+                <Link to={ to("/lijst/:itineraryId", { itineraryId: itinerary.id.toString() }) }>
+                  { itinerary.team_members.map(member => member.user.full_name).join(", ") }
+                </Link>
+              </Li>
+            )) }
+          </ol>
+        </>
+      ) }
+    </DefaultLayout>
+  )
 }
 
 export default ListItinerariesPage

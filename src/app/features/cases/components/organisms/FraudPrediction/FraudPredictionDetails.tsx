@@ -25,18 +25,20 @@ export const FraudPredictionDetails: React.FC<Props> = ({ fraudPrediction }) => 
   const percentage = Math.round(fraudProbability * 100)
   const { positive, negative } = parseShapValues(shapValues, businessRules)
 
-  return <>
-    <Heading>Voorspelling</Heading>
-    <p>
-      <strong>{ percentage }%</strong> kans op illegaal vakantieverhuur.
-    </p>
-    <Heading forwardedAs="h2">Vergroten kans</Heading>
-    <Section>
-      { positive.map(value => (<ShapValue key={ value.title } { ...value } isPositive={ true } />)) }
-    </Section>
-    <Heading forwardedAs="h2">Verkleinen kans</Heading>
-    <Section>
-      { negative.map(value => (<ShapValue key={ value.title } { ...value } isPositive={ false } />)) }
-    </Section>
-  </>
+  return (
+    <>
+      <Heading>Voorspelling</Heading>
+      <p>
+        <strong>{ percentage }%</strong> kans op illegaal vakantieverhuur.
+      </p>
+      <Heading forwardedAs="h2">Vergroten kans</Heading>
+      <Section>
+        { positive.map(value => (<ShapValue key={ value.title } { ...value } isPositive={ true } />)) }
+      </Section>
+      <Heading forwardedAs="h2">Verkleinen kans</Heading>
+      <Section>
+        { negative.map(value => (<ShapValue key={ value.title } { ...value } isPositive={ false } />)) }
+      </Section>
+    </>
+  )
 }

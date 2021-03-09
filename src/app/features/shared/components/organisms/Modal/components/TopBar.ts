@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { constants, ascDefaultTheme } from "@amsterdam/asc-ui"
+import { ascDefaultTheme, constants } from "@amsterdam/asc-ui"
 
 export const TopBar = styled.div`
   box-sizing: border-box;

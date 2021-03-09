@@ -11,7 +11,7 @@ const SearchPage: React.FC = () => {
   return (
     <DefaultLayout>
       <SearchForm />
-      { values && Object.keys(values).length > 1 && <SearchResults {...values} /> }
+      { values && Object.keys(values).length > 1 && <SearchResults { ...values } /> }
     </DefaultLayout>
   )
 }

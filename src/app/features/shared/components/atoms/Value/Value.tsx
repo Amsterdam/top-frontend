@@ -19,7 +19,8 @@ const InvalidValue = styled.span`
 `
 
 /**
- * Displays a value or child components if the value is valid, a dash if it is undefined, or a red dash if it is invalid.
+ * Displays a value or child components if the value is valid, a dash if it is undefined, or a red dash if it is
+ * invalid.
  * @param sensitive Whether the value is personal and should be anonymisable.
  * @param valid A condition expressing the validity of the value. If omitted, the value is checked for undefined.
  * @param value The value to display.

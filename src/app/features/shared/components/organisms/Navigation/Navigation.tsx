@@ -33,7 +33,7 @@ const Ul = styled.ul`
 
 const Li = styled.li`
   border-bottom: 5px solid transparent;
-  border-bottom-color: ${ (props: {isActive?: boolean}) => props.isActive ? themeColor("secondary") : "transparent" };
+  border-bottom-color: ${ (props: { isActive?: boolean }) => props.isActive ? themeColor("secondary") : "transparent" };
   min-height: 33px;
 
   a {

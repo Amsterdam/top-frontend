@@ -15,7 +15,7 @@ import calculateNewPosition from "./calculateNewPosition"
 
 type Props = {
   itineraryId: string
-  items: Array<React.ComponentProps<typeof ItineraryItemCard> & {id: string, itemId: string, position: number}>
+  items: Array<React.ComponentProps<typeof ItineraryItemCard> & { id: string, itemId: string, position: number }>
 }
 
 const getItemStyle = (isDragging: boolean, draggableStyle?: DraggingStyle | NotDraggingStyle) => ({

@@ -13,18 +13,18 @@ const EditVisitPage: React.FC = () => {
   const { itineraryId, caseId, id } = useParams()
   const { data, execPut, isBusy } = useVisit(id)
 
-  const valuesFromApi = useMemo(() => data ? mapInitialValues(data) : undefined, [data])
+  const valuesFromApi = useMemo(() => data ? mapInitialValues(data) : undefined, [ data ])
 
   return (
-    <NoteWizardModal itineraryId={itineraryId}>
+    <NoteWizardModal itineraryId={ itineraryId }>
       { isBusy
-          ? <CenteredSpinner explanation="Bezoek ophalen…" size={60} />
-          : <NoteWizard
-              onSubmit={execPut}
-              itineraryId={itineraryId}
-              caseId={caseId}
-              visitId={id}
-              valuesFromApi={valuesFromApi} />
+        ? <CenteredSpinner explanation="Bezoek ophalen…" size={ 60 } />
+        : <NoteWizard
+          onSubmit={ execPut }
+          itineraryId={ itineraryId }
+          caseId={ caseId }
+          visitId={ id }
+          valuesFromApi={ valuesFromApi } />
       }
     </NoteWizardModal>
   )
