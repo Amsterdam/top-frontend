@@ -55,7 +55,7 @@ const General: FC<Props> = ({ caseId }) => {
 
   const address = getAddress(caseData.import_adres)
   const eigenaar = getEigenaar(caseData)
-  const fraudPrediction = !caseData.day_settings_id || (daySettings && daySettings.team_settings.fraud_predict) ? caseData.fraud_prediction : undefined
+  const fraudPrediction = !caseData.day_settings_id || (daySettings && daySettings.team_settings.fraud_prediction_model) ? caseData.fraud_prediction : undefined
   const isSia = (caseData.is_sia === "J")
   const postalCode = caseData.import_adres.postcode
   const residentCount = caseData.bwv_personen.filter(person => person.overlijdensdatum === null).length || 0
