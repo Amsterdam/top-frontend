@@ -2,18 +2,9 @@ import "react-app-polyfill/ie11"
 import "react-app-polyfill/stable"
 
 import React from "react"
-
-import styled from "styled-components"
 import { LocationProvider } from "@reach/router"
-import { addDecorator, addParameters, configure } from "@storybook/react"
-import { GlobalStyle, ThemeProvider, themeSpacing } from "@amsterdam/asc-ui"
-
-const Wrap = styled.div`
-  padding: ${themeSpacing(5)};
-`
-
-// automatically import all files ending in *.stories.js
-const req = require.context("../src", true, /\.stories\.(tsx)$/)
+import { addDecorator } from "@storybook/react"
+import { GlobalStyle, ThemeProvider } from "@amsterdam/asc-ui"
 
 const extendedTheme = {
   globalStyle: "",
@@ -23,21 +14,17 @@ function withGlobalStyles (storyFn) {
   return (
     <ThemeProvider overrides={extendedTheme}>
       <LocationProvider>
-        <>
-          <GlobalStyle />
-          <Wrap>
-            {storyFn()}
-          </Wrap>
-        </>
+        <GlobalStyle />
+        {storyFn()}
       </LocationProvider>
     </ThemeProvider>
   )
 }
 
 addDecorator(withGlobalStyles)
-configure(req, module)
 
-addParameters({
+export const parameters = {
+  viewMode: "docs",
   viewport: {
     viewports: {
       mobileS: {
@@ -112,4 +99,4 @@ addParameters({
       }
     }
   },
-});
+}
