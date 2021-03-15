@@ -141,8 +141,8 @@ export type Case = {
 }
 
 export type ItineraryItem = Omit<Components.Schemas.ItineraryItem, "case"> & {
-  case: Omit<Components.Schemas.ItineraryItem["case"], "bwv_data"> & {
-    bwv_data: BWVData
+  case: Omit<Components.Schemas.ItineraryItem["case"], "data"> & {
+    data: BWVData
   }
 }
 

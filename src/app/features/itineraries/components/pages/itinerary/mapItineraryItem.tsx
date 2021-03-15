@@ -12,7 +12,7 @@ import Notes from "../../molecules/Notes/Notes"
 export const mapItineraryItem = (itineraryId: string, daySettings: Components.Schemas.DaySettings) => (
   {
     case: {
-      bwv_data: {
+      data: {
         street_name, street_number, suffix_letter, suffix, postal_code, case_reason, stadium, is_sia
       },
       case_id,
