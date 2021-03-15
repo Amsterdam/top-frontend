@@ -3,19 +3,19 @@ import React, { FC } from "react"
 import StyledLink from "app/features/shared/components/atoms/StyledLink/StyledLink"
 import { body, email, subject } from "app/features/cases/email/basisInformatie"
 
-type Props = {
-  isWoonboot: boolean
+export type Props = {
   address: string
   postalCode: string
-  gebruiksdoel?: string
-  gebruik?: string
+  isWoonboot: boolean
   aantalBouwlagen?: number
-  etage?: number
   aantalKamers?: number
+  etage?: number
+  gebruik?: string
+  gebruiksdoel?: string
   oppervlak?: number
-  woonbootStatus?: string
-  woonbootIndicatie?: boolean
   woonbootAanduiding?: boolean
+  woonbootIndicatie?: boolean
+  woonbootStatus?: string
 }
 
 const MailtoAnchor: FC<Props> = (

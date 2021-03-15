@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import { themeColor, themeSpacing } from "@amsterdam/asc-ui"
 
-type Props = {
+export type Props = {
   variant?: "primary" | "secondary"
 }
 

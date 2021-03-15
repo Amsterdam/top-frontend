@@ -3,7 +3,7 @@ import styled from "styled-components"
 import { Spinner } from "@amsterdam/asc-ui"
 import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
 
-type Props = {
+export type Props = {
   explanation?: string
   size?: number
 }
@@ -25,6 +25,12 @@ const P = styled.p`
   font-weight: 500;
 `
 
+/**
+ * Blah blah
+ * @param size
+ * @param explanation
+ * @constructor
+ */
 const CenteredSpinner: FC<Props> = ({ size, explanation }) => (
   <CenterInViewport>
     <Spacing pb={ 4 }>

@@ -2,7 +2,7 @@ import React, { FC } from "react"
 import styled from "styled-components"
 import { themeColor } from "@amsterdam/asc-ui"
 
-type Props = {
+export type Props = {
   text: string
 }
 

@@ -7,7 +7,7 @@ import useNodeByReference from "../useNodeByReference/useNodeByReference"
 import useNodeDimensions from "./useNodeDimensions"
 
 const metadata = {
-  title: "Shared/Hooks/useNodeDimensions",
+  title: "Utils / useNodeDimensions",
   decorators: [ withKnobs ]
 }
 

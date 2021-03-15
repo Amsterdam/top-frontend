@@ -13,6 +13,9 @@ const animation = keyframes`
   }
 `
 
+/**
+ * A neutral rectangular box representing a value still being loaded.
+ */
 const InlineSkeleton = styled.span`
   display: inline-block;
   background-color: ${ backgroundColor };
