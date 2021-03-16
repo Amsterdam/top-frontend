@@ -98,7 +98,7 @@ export const useCase = (id: number | string, options?: Options) => {
   })
 }
 
-export const useSearch = (streetNumber: number, postalCode?: string, streetName?: string, suffix?: string, options?: Options) => {
+export const useSearch = (streetNumber: number, postalCode?: string, streetName?: string, suffix?: string, team?: string, options?: Options) => {
   const handleError = useErrorHandler()
 
   // Remove all spaces from postal code to match format requested by API.
@@ -107,12 +107,13 @@ export const useSearch = (streetNumber: number, postalCode?: string, streetName?
     postalCode: postalCode?.replace(/\s+/g, ""),
     streetName: streetName?.trim(),
     streetNumber,
-    suffix: suffix?.trim()
+    suffix: suffix?.trim(),
+    team: team?.trim()
   }
 
   return useApiRequest<{ cases: Case[] }>({
     ...options,
-    url: makeGatewayUrl([ "search" ], params),
+    url: makeGatewayUrl([ "search" ], params, options?.apiVersion),
     groupName: "itineraries",
     handleError,
     isProtected: true

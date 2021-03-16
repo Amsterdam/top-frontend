@@ -13,12 +13,20 @@ type Props = {
   streetName?: string
   streetNumber: number
   suffix?: string
+  team?: string
 }
 
-const SearchResults: React.FC<Props> = ({ postalCode, streetName, streetNumber, suffix }) => {
+const SearchResults: React.FC<Props> = ({ postalCode, streetName, streetNumber, suffix, team }) => {
   const { itineraryId } = useParams()
   const { data: itinerary } = useItinerary(itineraryId!)
-  const { data, isBusy } = useSearch(streetNumber, postalCode, streetName, suffix)
+  const { data, isBusy } = useSearch(
+    streetNumber, 
+    postalCode, 
+    streetName, 
+    suffix, 
+    itinerary?.settings.day_settings.team_settings.zaken_team_name || "", 
+    { apiVersion: itinerary?.settings.day_settings.team_settings.use_zaken_backend ? "v2" : "v1" }
+  )
 
   const items = useMemo(() => casesToCardCaseProps(data?.cases, itinerary), [ itinerary, data ])
 
