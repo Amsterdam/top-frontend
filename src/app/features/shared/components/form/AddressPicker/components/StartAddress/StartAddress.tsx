@@ -17,8 +17,8 @@ type Props = {
 
 const normalize = (object: any, href: string): React.ComponentProps<typeof ItineraryItemCard> => ({
   href,
-  address: displayAddress(object?.import_adres?.sttnaam, object?.import_adres?.hsnr, object?.import_adres?.hsltr, object?.import_adres?.toev),
-  postalCode: object?.import_adres?.postcode,
+  address: displayAddress(object?.address?.street_name, object?.address?.number, object?.address?.suffix_letter, object?.address?.suffix),
+  postalCode: object?.address?.postal_code,
   reason: object?.related_cases?.[0]?.case_reason,
   fraudProbability: <FraudProbability fraudProbability={ object?.fraud_prediction?.fraud_probability } />,
   badge: <StadiumBadge stadium={ object?.import_stadia?.[0]?.sta_oms } />
