@@ -19,7 +19,9 @@ export type ApiGroup =
 export type Options = {
   keepUsingInvalidCache?: boolean
   lazy?: boolean
+  apiVersion?: "v1" | "v2"
 }
+
 
 /**
  * Please configure your endpoints here:
@@ -30,7 +32,7 @@ export const useItineraries = (options?: Options) => {
   const handleError = useErrorHandler()
   return useApiRequest<{ itineraries: Itinerary[] }>({
     ...options,
-    url: makeGatewayUrl([ "itineraries" ], { created_at: currentDate() }),
+    url: makeGatewayUrl([ "itineraries" ], { created_at: currentDate() }, options?.apiVersion),
     groupName: "itineraries",
     handleError,
     isProtected: true

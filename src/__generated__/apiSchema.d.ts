@@ -36,6 +36,7 @@ declare namespace Components {
             exclude_stadia: number[]
             readonly team_settings: {
                 name: string
+                use_zaken_backend?: boolean
                 readonly observation_choices: Observation[]
                 readonly situation_choices: any[]
                 readonly suggest_next_visit_choices: SuggestNextVisit[]
@@ -52,6 +53,7 @@ declare namespace Components {
             readonly week_day: number
             readonly team_settings: {
                 name: string
+                use_zaken_backend?: boolean
                 readonly observation_choices: Observation[]
                 readonly situation_choices: any[]
                 readonly suggest_next_visit_choices: SuggestNextVisit[]
@@ -183,9 +185,6 @@ declare namespace Components {
             }
         }
         export type NullEnum = null;
-        export type OIDCAuthenticate = {
-            code: string
-        }
         export type Observation = {
             value: string
             verbose: string
@@ -368,6 +367,7 @@ declare namespace Components {
             exclude_stadia?: number[]
             readonly team_settings?: {
                 name: string
+                use_zaken_backend?: boolean
                 readonly observation_choices: Observation[]
                 readonly situation_choices: any[]
                 readonly suggest_next_visit_choices: SuggestNextVisit[]
@@ -430,6 +430,7 @@ declare namespace Components {
         export type PatchedTeamSettings = {
             readonly id?: number
             name?: string
+            use_zaken_backend?: boolean
             readonly observation_choices?: Observation[]
             readonly situation_choices?: any[]
             readonly suggest_next_visit_choices?: SuggestNextVisit[]
@@ -488,6 +489,7 @@ declare namespace Components {
         export type TeamSettings = {
             readonly id: number
             name: string
+            use_zaken_backend?: boolean
             readonly observation_choices: Observation[]
             readonly situation_choices: any[]
             readonly suggest_next_visit_choices: SuggestNextVisit[]
@@ -498,6 +500,7 @@ declare namespace Components {
         }
         export type TeamSettingsCompact = {
             name: string
+            use_zaken_backend?: boolean
             readonly observation_choices: Observation[]
             readonly situation_choices: any[]
             readonly suggest_next_visit_choices: SuggestNextVisit[]
@@ -680,12 +683,6 @@ declare namespace Paths {
         }
     }
     namespace FraudPredictionScoringCreate {
-        namespace Responses {
-            export type $200 = {
-            }
-        }
-    }
-    namespace IsAuthorizedRetrieve {
         namespace Responses {
             export type $200 = {
             }
@@ -915,12 +912,6 @@ declare namespace Paths {
             export type $200 = Components.Schemas.Observation;
         }
     }
-    namespace OidcAuthenticateCreate {
-        export type RequestBody = Components.Schemas.OIDCAuthenticate;
-        namespace Responses {
-            export type $200 = Components.Schemas.OIDCAuthenticate;
-        }
-    }
     namespace PermitsCheckmarksRetrieve {
         namespace Parameters {
             export type BagId = string;
@@ -1005,19 +996,6 @@ declare namespace Paths {
         export type RequestBody = Components.Schemas.PostalCodeRangePreset;
         namespace Responses {
             export type $200 = Components.Schemas.PostalCodeRangePreset;
-        }
-    }
-    namespace SchemaRetrieve {
-        namespace Parameters {
-            export type Format = "json" | "yaml";
-        }
-        export type QueryParameters = {
-            format?: Parameters.Format
-        }
-        namespace Responses {
-            export type $200 = {
-                [name: string]: any
-            }
         }
     }
     namespace SearchList {

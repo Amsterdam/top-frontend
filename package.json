@@ -54,7 +54,7 @@
     "lint:quiet": "npm run lint -- --quiet",
     "storybook": "start-storybook -p 9009 -s public",
     "storybook:build": "build-storybook -s public",
-    "swagger:generate-schema:local": "dtsgen -o ./src/__generated__/apiSchema.d.ts --url http://localhost:8000/api/v1/schema/",
+    "swagger:generate-schema:local": "dtsgen -o ./src/__generated__/apiSchema.d.ts --url http://localhost:8000/api/v1/schema/  --url http://localhost:8000/api/v2/schema/",
     "swagger:generate-schema:acc": "dtsgen -o ./src/__generated__/apiSchema.d.ts --url https://acc.api.top.amsterdam.nl/api/v1/schema/",
     "swagger:generate-schema": "dtsgen -o ./src/__generated__/apiSchema.d.ts --url https://api.top.amsterdam.nl/api/v1/schema/",
     "deploy:acc": "git push origin master",
