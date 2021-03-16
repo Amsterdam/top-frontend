@@ -34,14 +34,21 @@ const mapCaseToCardProps = (itineraryId: number | undefined, itineraryItemIds: R
     case_reason,
     stadium,
     fraud_prediction,
-    distance
+    distance,
+    address,
+    reason
   }: any): React.ComponentProps<typeof ItineraryItemCard> => ({
   href: to("/cases/:id", { id: case_id }),
   backgroundColor: "level2",
-  address: displayAddress(street_name, street_number, suffix_letter, suffix),
-  postalCode: postal_code,
-  reason: case_reason,
-  badge: <StadiumBadge stadium={ stadium } />,
+  address: displayAddress(
+    street_name || address?.street_name, 
+    street_number || address?.number, 
+    suffix_letter || address?.suffix_letter, 
+    suffix || address?.suffix
+  ),
+  postalCode: postal_code || address.postal_code,
+  reason: case_reason || reason.reason,
+  badge: stadium ? <StadiumBadge stadium={ stadium }/> : <StadiumBadge stadium={ reason.name }/>,
   fraudProbability: <FraudProbability fraudProbability={ fraud_prediction?.fraud_probability } />,
   buttons: (onDeleteButtonClick: () => void) => <>
     { addDistance && distance && itineraryId && Object.keys(itineraryItemIds).length > 0 &&

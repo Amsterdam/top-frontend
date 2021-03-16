@@ -39,11 +39,15 @@ export type BrkDataError = {
 }
 
 export type Address = {
+  bag_id: string | null
+  id: number | null
   suffix_letter: string | null
   number: string
   postal_code: string
   street_name: string
   suffix: string | null
+  lat: number | null
+  lng: number | null
 }
 
 export type BWVHotlineBevinding = {
@@ -123,6 +127,22 @@ export type BWVData = {
   teams?: Components.Schemas.ItineraryTeamMember[]
 }
 
+export type CaseStatus = {
+  id: number | null
+  case: number | null
+  status_name: string | null
+  status: number | null
+  start_date: string | null
+  end_date: string | null
+  users: string[]
+}
+
+export type CaseReason = {
+  id: number | null
+  name: string | null
+  team: number | null
+}
+
 export type Case = {
   bag_data: BagData | BagDataError
   brk_data: BrkData | BrkDataError
@@ -138,6 +158,9 @@ export type Case = {
   related_cases: RelatedCase[]
   statements: Statement[]
   vakantie_verhuur: VakantieVerhuur
+  case_status: CaseStatus[]
+  current_status: CaseStatus[]
+  reason: CaseReason
 }
 
 export type ItineraryItem = Omit<Components.Schemas.ItineraryItem, "case"> & {
