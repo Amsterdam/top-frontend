@@ -70,7 +70,7 @@ export const generateItineraryFormDefinition = (
     startAddress: {
       type: "AddressPicker",
       props: {
-        label: "Startadres",
+        label: "Startadres (optioneel)",
         name: "startAddress"
       }
     },
