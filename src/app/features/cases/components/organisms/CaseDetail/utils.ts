@@ -1,7 +1,7 @@
-import { BagData, BagDataError, BrkData, BrkDataError, Case, ImportAdres } from "app/features/types"
+import { BagData, BagDataError, BrkData, BrkDataError, Case, Address } from "app/features/types"
 import displayAddress from "app/features/shared/utils/displayAddress"
 
-export const getAddress = (address: ImportAdres) => displayAddress(address.sttnaam, address.hsnr, address.hsltr || undefined, address.toev || undefined)
+export const getAddress = (address: Address) => displayAddress(address.street_name, address.number, address.suffix_letter || undefined, address.suffix || undefined)
 
 export const getBagId = (caseData: Case) => {
   const hasBagData = (caseData?.bag_data as BagDataError).error === undefined

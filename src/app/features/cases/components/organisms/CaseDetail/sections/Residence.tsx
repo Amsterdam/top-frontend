@@ -41,9 +41,9 @@ const Residence: FC<Props> = ({ caseId }) => {
   const woonbootAanduiding = hasBagData && bagData.aanduiding_in_onderzoek !== undefined ? bagData.aanduiding_in_onderzoek : false
 
   // General
-  const address = getAddress(caseData.import_adres)
+  const address = getAddress(caseData.address)
   const eigenaar = getEigenaar(caseData)
-  const postalCode = caseData.import_adres.postcode
+  const postalCode = caseData.address.postal_code
 
   // Terugmeld email
   const mailtoAnchor = <MailtoAnchor

@@ -38,12 +38,12 @@ export type BrkDataError = {
   error: string
 }
 
-export type ImportAdres = {
-  hsltr: string | null
-  hsnr: string
-  postcode: string
-  sttnaam: string
-  toev: string | null
+export type Address = {
+  suffix_letter: string | null
+  number: string
+  postal_code: string
+  street_name: string
+  suffix: string | null
 }
 
 export type BWVHotlineBevinding = {
@@ -132,7 +132,7 @@ export type Case = {
   bwv_tmp: BWVTmp
   day_settings_id: number | null | undefined
   fraud_prediction: FraudPrediction | undefined
-  import_adres: ImportAdres
+  address: Address
   import_stadia: ImportStadia[]
   is_sia: string
   related_cases: RelatedCase[]

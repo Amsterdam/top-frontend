@@ -53,11 +53,11 @@ const General: FC<Props> = ({ caseId }) => {
   const caseOpening = caseData.bwv_tmp.openings_reden !== null ? caseData.bwv_tmp.openings_reden : undefined
   const openCaseCount = caseData.bwv_tmp.num_open_cases !== null ? caseData.bwv_tmp.num_open_cases : undefined
 
-  const address = getAddress(caseData.import_adres)
+  const address = getAddress(caseData.address)
   const eigenaar = getEigenaar(caseData)
   const fraudPrediction = !caseData.day_settings_id || (daySettings && daySettings.team_settings.fraud_prediction_model) ? caseData.fraud_prediction : undefined
   const isSia = (caseData.is_sia === "J")
-  const postalCode = caseData.import_adres.postcode
+  const postalCode = caseData.address.postal_code
   const residentCount = caseData.bwv_personen.filter(person => person.overlijdensdatum === null).length || 0
 
   const stadiaLabels = caseData.import_stadia.map(stadium => ({ description: stadium.sta_oms }))
