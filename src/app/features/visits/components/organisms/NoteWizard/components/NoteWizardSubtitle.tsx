@@ -37,10 +37,10 @@ const NodeWizardSubtitle: React.FC<Props> = ({ itineraryItem }) => {
 
   const address = itineraryItem
     ? displayAddress(
-      itineraryItem.case.bwv_data.street_name,
-      itineraryItem.case.bwv_data.street_number,
-      itineraryItem.case.bwv_data.suffix_letter,
-      itineraryItem.case.bwv_data.suffix
+      itineraryItem.case.data.street_name,
+      itineraryItem.case.data.street_number,
+      itineraryItem.case.data.suffix_letter,
+      itineraryItem.case.data.suffix
     )
     : undefined
 

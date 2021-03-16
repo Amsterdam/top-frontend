@@ -4,7 +4,7 @@ declare namespace Components {
         export type Case = {
             readonly id: number
             case_id?: string | null
-            readonly bwv_data: string
+            readonly data: string
             readonly fraud_prediction: {
                 fraud_probability: number // float
                 fraud_prediction: boolean
@@ -120,7 +120,7 @@ declare namespace Components {
             readonly case: {
                 readonly id: number
                 case_id?: string | null
-                readonly bwv_data: string
+                readonly data: string
                 readonly fraud_prediction: {
                     fraud_probability: number // float
                     fraud_prediction: boolean
@@ -385,7 +385,7 @@ declare namespace Components {
             readonly case?: {
                 readonly id: number
                 case_id?: string | null
-                readonly bwv_data: string
+                readonly data: string
                 readonly fraud_prediction: {
                     fraud_probability: number // float
                     fraud_prediction: boolean
