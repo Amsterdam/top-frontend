@@ -1,6 +1,6 @@
 import React, { FC } from "react"
 import { Spinner } from "@amsterdam/asc-ui"
 
-const S: FC = () => <Spinner size={ 40 } />
+const SmallSpinner: FC = () => <Spinner size={ 40 } />
 
-export default S
+export default SmallSpinner

@@ -18,14 +18,14 @@ import {
   TwoColumns
 } from "app/features/cases/components/organisms/CaseDetail/CaseDetailSectionStyles"
 
-type Props = {
+export type Props = {
   id?: string
   title?: string
   dataSource?: string
   data?: KeyValueDetail[]
   footer?: { title: string, link: string }
-  experimental?: Boolean | string
-  isBusy?: Boolean
+  experimental?: boolean | string
+  isBusy?: boolean
 }
 
 const WarningParagraph = styled(Paragraph)`
@@ -41,6 +41,9 @@ const WarningSubTitle = styled(Paragraph)`
   margin-bottom: ${ themeSpacing(3) };
 `
 
+/**
+ * Displays a set of case details in a table. Can show the source of the data, whether the data is experimental, and whether data is still loading.
+ */
 const CaseDetailSection: FC<Props> = ({ id, dataSource, title, data, footer, experimental, isBusy, children }) => {
   const hasTitle = title !== undefined
   const showFooter = footer !== undefined
@@ -92,16 +95,16 @@ const CaseDetailSection: FC<Props> = ({ id, dataSource, title, data, footer, exp
           }) }
         </Grid>
       </SectionRow>
+      { showFooter &&
+      <SectionRow>
+        <CenteredAnchor href={ footer!.link }>{ footer!.title }</CenteredAnchor>
+      </SectionRow>
+      }
       { typeof experimental === "string" &&
       <SectionRow>
         <WarningParagraph>
           { experimental }
         </WarningParagraph>
-      </SectionRow>
-      }
-      { showFooter &&
-      <SectionRow>
-        <CenteredAnchor href={ footer!.link }>{ footer!.title }</CenteredAnchor>
       </SectionRow>
       }
     </Section>

@@ -3,7 +3,7 @@ import ItineraryItemCardList from "./ItineraryItemCardList"
 import Badge from "app/features/shared/components/atoms/Badge/Badge"
 
 const metadata = {
-  title: "Shared/Organisms/ItineraryItemCardList"
+  title: "Domain / ItineraryItemCardList"
 }
 
 export default metadata

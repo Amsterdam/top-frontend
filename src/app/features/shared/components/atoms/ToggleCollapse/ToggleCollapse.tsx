@@ -3,7 +3,7 @@ import { Button, themeSpacing } from "@amsterdam/asc-ui"
 import { ButtonVariant } from "@amsterdam/asc-ui/lib/components/Button/Button"
 import styled from "styled-components"
 
-type Props = Omit<React.ComponentProps<typeof Button>, "onClick"> & {
+export type Props = Omit<React.ComponentProps<typeof Button>, "onClick"> & {
   onClick: () => void
   isCollapsed: boolean
   variant?: ButtonVariant

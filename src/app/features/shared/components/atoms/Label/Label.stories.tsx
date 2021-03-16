@@ -3,7 +3,7 @@ import React from "react"
 import Label from "./Label"
 
 const metadata = {
-  component: "Label",
+  component: Label,
   title: "Text / Label"
 }
 

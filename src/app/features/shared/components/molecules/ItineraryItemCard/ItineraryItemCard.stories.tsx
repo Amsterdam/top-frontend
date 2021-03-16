@@ -7,7 +7,7 @@ import Badge from "app/features/shared/components/atoms/Badge/Badge"
 import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
 
 const metadata = {
-  title: "Shared/Molecules/ItineraryItemCard"
+  title: "Domain / ItineraryItemCard"
 }
 
 export default metadata
@@ -20,7 +20,7 @@ export const Example = () =>
     reason="Hotline"
   />
 
-export const ExampleWithButtons = () =>
+export const WithButtons = () =>
   <ItineraryItemCard
     address="Kolksteeg 2D"
     buttons={ () => <>
@@ -36,7 +36,7 @@ export const ExampleWithButtons = () =>
     reason="Hotline"
   />
 
-export const ExampleWithFraudProbability = () =>
+export const WithFraudProbability = () =>
   <ItineraryItemCard
     address="Kolksteeg 2D"
     badge={ <Badge>Onderzoek buitendienst</Badge> }
