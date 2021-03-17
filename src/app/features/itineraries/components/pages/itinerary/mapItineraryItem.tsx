@@ -13,7 +13,14 @@ export const mapItineraryItem = (itineraryId: string, daySettings: Components.Sc
   {
     case: {
       data: {
-        street_name, street_number, suffix_letter, suffix, postal_code, case_reason, stadium, is_sia
+        case_reason,
+        stadium,
+        is_sia,
+        address: {
+          street_name, number, suffix_letter, suffix, postal_code
+        },
+        current_states,
+        reason
       },
       case_id,
       fraud_prediction
@@ -23,10 +30,10 @@ export const mapItineraryItem = (itineraryId: string, daySettings: Components.Sc
     visits
   }: ItineraryItem) =>
   ({
-    address: displayAddress(street_name, street_number, suffix_letter, suffix),
-    badge: <StadiumBadge stadium={ stadium } />,
+    address: displayAddress(street_name, number, suffix_letter, suffix),
+    badge: current_states?.length > 0 ? <StadiumBadge stadium={ current_states[0].status_name || "" } /> : <StadiumBadge stadium={ stadium } />,
     daySettings,
-    fraudProbability: <FraudProbability fraudProbability={ fraud_prediction?.fraud_probability } />,
+    fraudProbability: fraud_prediction && <FraudProbability fraudProbability={ fraud_prediction?.fraud_probability } />,
     href: to("/cases/:id", { id: case_id ?? "" }),
     id: case_id!,
     isSia: (is_sia === "J"),
@@ -37,7 +44,7 @@ export const mapItineraryItem = (itineraryId: string, daySettings: Components.Sc
       : undefined,
     position,
     postalCode: postal_code,
-    reason: case_reason,
+    reason: reason?.name || case_reason,
     buttons: (onDeleteButtonClicked: () => void) =>
       <ItineraryItemCardButtons
         caseId={ case_id }
