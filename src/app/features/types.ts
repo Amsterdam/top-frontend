@@ -125,6 +125,10 @@ export type BWVData = {
   suffix: string | null
   suffix_letter: string | null
   teams?: Components.Schemas.ItineraryTeamMember[]
+  address: Address
+  case_states: CaseStatus[]
+  current_states: CaseStatus[]
+  reason: CaseReason
 }
 
 export type CaseStatus = {
@@ -158,8 +162,8 @@ export type Case = {
   related_cases: RelatedCase[]
   statements: Statement[]
   vakantie_verhuur: VakantieVerhuur
-  case_status: CaseStatus[]
-  current_status: CaseStatus[]
+  case_states: CaseStatus[]
+  current_states: CaseStatus[]
   reason: CaseReason
 }
 
