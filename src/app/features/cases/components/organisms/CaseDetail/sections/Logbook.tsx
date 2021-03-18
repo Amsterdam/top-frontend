@@ -165,7 +165,7 @@ const Logbook: React.FC<Props> = ({ caseId }) => {
 
     // Map API data to LogbookItems
     const logbookItems: LogbookItem[] = [
-      ...caseData.bwv_hotline_bevinding.map(mapBWVToLogbookItem),
+      ...caseData.bwv_hotline_bevinding?.map(mapBWVToLogbookItem) || [],
       ...caseVisitsData.map(mapVisitToLogbookItem(users.results))
     ].sort((a, b) => a.sort > b.sort ? -1 : 1)
 

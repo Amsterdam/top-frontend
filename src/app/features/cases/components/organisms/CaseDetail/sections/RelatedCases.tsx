@@ -20,9 +20,9 @@ const RelatedCases: FC<Props> = ({ caseId }) => {
     return null
   }
 
-  const otherCases = caseData.related_cases.filter(relatedCase => relatedCase.case_id !== caseId)
+  const otherCases = caseData.related_cases?.filter(relatedCase => relatedCase.case_id !== caseId)
 
-  if (!otherCases.length) {
+  if (!otherCases?.length) {
     return null
   }
 

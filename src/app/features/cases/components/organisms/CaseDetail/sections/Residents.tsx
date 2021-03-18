@@ -46,7 +46,7 @@ const Residents: FC<Props> = ({ caseId }) => {
     return acc
   }, [])
 
-  const residentCount: number = caseData.bwv_personen.filter(person => person.overlijdensdatum === null).length
+  const residentCount: number = caseData.bwv_personen?.filter(person => person.overlijdensdatum === null).length
 
   if (!residentCount) {
     return null

@@ -11,11 +11,11 @@ export const getBagId = (caseData: Case) => {
 }
 
 export const getCaseCount = (caseData: Case) => {
-  if (caseData.bwv_tmp.num_cases === null) {
+  if (caseData?.bwv_tmp?.num_cases === null) {
     return undefined
   }
 
-  return parseInt(caseData.bwv_tmp.num_cases || "", 10)
+  return parseInt(caseData.bwv_tmp?.num_cases || "", 10)
 }
 
 export const getEigenaar = (caseData: Case) => {

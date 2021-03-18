@@ -16,7 +16,7 @@ type Props = {
 const CaseDetailScratchpad: FC<Props> = ({ caseId }) => {
   const { data: caseData } = useCase(caseId)
 
-  if (!caseData || !caseData.statements.length) {
+  if (!caseData || !caseData.statements?.length) {
     return null
   }
 
