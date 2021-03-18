@@ -26,25 +26,28 @@ type Props = {
 
 const mapResults = (handleAdd: HandleAddCallback, getUrl: (string: string) => string) => (
   {
+    id,
     case_id,
-    street_name,
-    street_number,
-    suffix_letter,
-    suffix,
-    postal_code,
+    address: {
+      street_name,
+      number,
+      suffix_letter,
+      suffix,
+      postal_code
+    },
     case_reason,
     stadium,
     fraud_prediction
   }: any
 ): React.ComponentProps<typeof ItineraryItemCard> => ({
-  href: getUrl(case_id),
+  href: getUrl(case_id || id),
   backgroundColor: "level2",
-  address: displayAddress(street_name, street_number, suffix_letter, suffix),
+  address: displayAddress(street_name, number, suffix_letter, suffix),
   postalCode: postal_code,
   reason: case_reason,
   badge: <StadiumBadge stadium={ stadium } />,
   fraudProbability: <FraudProbability fraudProbability={ fraud_prediction?.fraud_probability } />,
-  buttons: () => <StyledButton icon={ <Enlarge /> } onClick={ () => handleAdd(case_id) } />
+  buttons: () => <StyledButton icon={ <Enlarge /> } onClick={ () => handleAdd(case_id || id) } />
 })
 
 const StartAddressSearchResults: React.FC<Props> = (
