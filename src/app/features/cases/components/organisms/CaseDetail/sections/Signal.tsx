@@ -19,7 +19,7 @@ type Props = {
 const Signal: FC<Props> = ({ caseId }) => {
   const { data: caseData } = useCase(caseId)
 
-  if (!caseData || !caseData.bwv_hotline_melding.length) {
+  if (!caseData || !caseData?.bwv_hotline_melding?.length) {
     return null
   }
 

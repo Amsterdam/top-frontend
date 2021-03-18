@@ -49,19 +49,19 @@ const General: FC<Props> = ({ caseId }) => {
   }
 
   const caseCount = getCaseCount(caseData)
-  const caseNumber = caseData.bwv_tmp.case_number !== null ? parseInt(caseData.bwv_tmp.case_number || "", 10) : undefined
-  const caseOpening = caseData.bwv_tmp.openings_reden !== null ? caseData.bwv_tmp.openings_reden : undefined
-  const openCaseCount = caseData.bwv_tmp.num_open_cases !== null ? caseData.bwv_tmp.num_open_cases : undefined
+  const caseNumber = caseData.bwv_tmp?.case_number !== null ? parseInt(caseData.bwv_tmp?.case_number || "", 10) : undefined
+  const caseOpening = caseData.bwv_tmp?.openings_reden ? caseData.bwv_tmp?.openings_reden : caseData.reason?.name
+  const openCaseCount = caseData.bwv_tmp?.num_open_cases !== null ? caseData.bwv_tmp?.num_open_cases : undefined
 
   const address = getAddress(caseData.address)
   const eigenaar = getEigenaar(caseData)
   const fraudPrediction = !caseData.day_settings_id || (daySettings && daySettings.team_settings.fraud_prediction_model) ? caseData.fraud_prediction : undefined
   const isSia = (caseData.is_sia === "J")
   const postalCode = caseData.address.postal_code
-  const residentCount = caseData.bwv_personen.filter(person => person.overlijdensdatum === null).length || 0
+  const residentCount = caseData.bwv_personen?.filter(person => person.overlijdensdatum === null).length || 0
 
-  const stadiaLabels = caseData.import_stadia.map(stadium => ({ description: stadium.sta_oms }))
-  const lastStadiumLabel = stadiaLabels?.length ? stadiaLabels[0].description : undefined
+  const stadiaLabels = caseData.import_stadia?.map(stadium => ({ description: stadium.sta_oms }))
+  const lastStadiumLabel = stadiaLabels?.length ? stadiaLabels[0].description : caseData.current_states?.length > 0 ? caseData.current_states[0].status_name : undefined
 
   const residentsText =
     residentCount === 0 ? "Geen inschrijvingen" :

@@ -19,7 +19,7 @@ const Stadia: FC<Props> = ({ caseId }) => {
     return null
   }
 
-  const stadiums = caseData.import_stadia.map(stadium => ({
+  const stadiums = caseData.import_stadia?.map(stadium => ({
     description: stadium.sta_oms,
     dateStart: stadium.begindatum ? formatDate(stadium.begindatum, true)! : "–",
     dateEnd: stadium.einddatum ? formatDate(stadium.einddatum, true)! : "–",

@@ -30,7 +30,7 @@ const Permits: FC<Props> = ({ caseId }) => {
       title="Vergunningen"
       data={ [
         [ "Databron", "BWV" ],
-        [ "Shortstay", caseData?.vakantie_verhuur.shortstay === "J" ]
+        [ "Shortstay", caseData?.vakantie_verhuur?.shortstay === "J" ]
       ] }
       dataSource="Decos"
       experimental="Let op: we werken momenteel aan het ophalen en tonen van vergunningen. Controleer voorlopig zelf of deze overeenkomen met de gegevens in Decos."
