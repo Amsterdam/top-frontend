@@ -16,10 +16,12 @@ const MapsButton: FC<Props> = ({ cases }) => {
     event.preventDefault()
     const path = cases
       .map(caseItem => {
-        const {
-          street_name: streetName,
-          street_number: streetNumber,
-          postal_code: postalCode
+        const { 
+          address: {
+            street_name: streetName,
+            number: streetNumber,
+            postal_code: postalCode
+          }
         } = caseItem
         const address = displayAddress(streetName, streetNumber)
         const city = "Amsterdam"

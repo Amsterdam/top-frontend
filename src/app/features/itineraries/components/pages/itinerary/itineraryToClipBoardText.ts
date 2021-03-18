@@ -4,11 +4,13 @@ import { BWVData } from "app/features/types"
 
 const itineraryToClipboardText = (itinerary: BWVData) => {
   const {
-    street_name: streetName,
-    street_number: streetNumber,
-    suffix,
-    suffix_letter: suffixLetter,
-    postal_code: postalCode,
+    address: {
+      street_name: streetName,
+      number: streetNumber,
+      suffix,
+      suffix_letter: suffixLetter,
+      postal_code: postalCode
+    },
     stadium,
     case_reason: caseReason
   } = itinerary
