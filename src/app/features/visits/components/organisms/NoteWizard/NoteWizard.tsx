@@ -51,7 +51,7 @@ const NoteWizard: React.FC<Props> = ({ itineraryId, caseId, onSubmit, valuesFrom
   } = useNoteWizard(caseId)
   const user = useLoggedInUser()
 
-  const itineraryItem = itinerary?.items.find(item => item.case.case_id === caseId) as ItineraryItem
+  const itineraryItem = itinerary?.items.find(item => item.case.id.toString() === caseId) as ItineraryItem
   const wizardStep = getCurrentStep() ?? "stepOne"
 
   const handleBackButtonClick = useCallback((e: React.MouseEvent) => {
@@ -62,7 +62,7 @@ const NoteWizard: React.FC<Props> = ({ itineraryId, caseId, onSubmit, valuesFrom
   const handleSubmit = useCallback((values) => {
     setValues(values)
 
-    const submit = () => onSubmit(mapPostValues(values, itineraryItem.id, itineraryItem.case.id, user!.id))
+    const submit = () => onSubmit(mapPostValues(values, itineraryItem.id, Number(itineraryItem.case.id), user!.id))
       .then(() => {
         clearSteps()
         return navigate(to("/lijst/:itineraryId", { itineraryId }))

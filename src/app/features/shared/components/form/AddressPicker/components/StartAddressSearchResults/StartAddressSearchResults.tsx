@@ -1,7 +1,8 @@
 import React, { useMemo } from "react"
 import { Enlarge } from "@amsterdam/asc-assets"
+import { useParams } from "@reach/router"
 
-import { useSearch } from "app/state/rest"
+import { useSearch, useTeamSettings } from "app/state/rest"
 
 import StadiumBadge from "app/features/shared/components/molecules/StadiumBadge/StadiumBadge"
 import displayAddress from "app/features/shared/utils/displayAddress"
@@ -22,12 +23,12 @@ type Props = {
   streetName?: string
   streetNumber: number
   suffix?: string
+  team?: string
 }
 
 const mapResults = (handleAdd: HandleAddCallback, getUrl: (string: string) => string) => (
   {
     id,
-    case_id,
     address: {
       street_name,
       number,
@@ -40,14 +41,14 @@ const mapResults = (handleAdd: HandleAddCallback, getUrl: (string: string) => st
     fraud_prediction
   }: any
 ): React.ComponentProps<typeof ItineraryItemCard> => ({
-  href: getUrl(case_id || id),
+  href: getUrl(id),
   backgroundColor: "level2",
   address: displayAddress(street_name, number, suffix_letter, suffix),
   postalCode: postal_code,
   reason: case_reason,
   badge: <StadiumBadge stadium={ stadium } />,
   fraudProbability: <FraudProbability fraudProbability={ fraud_prediction?.fraud_probability } />,
-  buttons: () => <StyledButton icon={ <Enlarge /> } onClick={ () => handleAdd(case_id || id) } />
+  buttons: () => <StyledButton icon={ <Enlarge /> } onClick={ () => handleAdd(id) } />
 })
 
 const StartAddressSearchResults: React.FC<Props> = (
@@ -56,10 +57,20 @@ const StartAddressSearchResults: React.FC<Props> = (
     postalCode,
     streetName,
     streetNumber,
-    suffix
+    suffix,
+    team
   }
 ) => {
-  const { data, isBusy } = useSearch(streetNumber, postalCode, streetName, suffix)
+  const { teamSettingsId } = useParams()
+  const { data: teamSettings } = useTeamSettings(teamSettingsId!)
+  const { data, isBusy } = useSearch(
+    streetNumber, 
+    postalCode, 
+    streetName, 
+    suffix, 
+    teamSettings?.zaken_team_name || "", 
+    { apiVersion: teamSettings?.use_zaken_backend ? "v2" : "v1" }
+  )
   const { getUrl } = useCaseModal()
 
   const items = useMemo(
