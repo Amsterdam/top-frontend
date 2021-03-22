@@ -62,7 +62,7 @@ const NoteWizard: React.FC<Props> = ({ itineraryId, caseId, onSubmit, valuesFrom
   const handleSubmit = useCallback((values) => {
     setValues(values)
 
-    const submit = () => onSubmit(mapPostValues(values, itineraryItem.id, Number(itineraryItem.case.id), user!.id))
+    const submit = () => onSubmit(mapPostValues(values, itineraryItem.id, itineraryItem.case.id.toString(), user!.id))
       .then(() => {
         clearSteps()
         return navigate(to("/lijst/:itineraryId", { itineraryId }))

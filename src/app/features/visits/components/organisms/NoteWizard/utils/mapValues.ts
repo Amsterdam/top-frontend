@@ -14,7 +14,7 @@ const fieldsAccess = {
   description: null
 }
 
-export const mapPostValues = (values: any, itinerary_item: number, id: number, author: string): Components.Schemas.Visit => {
+export const mapPostValues = (values: any, itinerary_item: number, id: String, author: string): Components.Schemas.Visit => {
   const start_time = mapTimeToDate(values.start_time)
   const can_next_visit_go_ahead =
     values.can_next_visit_go_ahead !== undefined ?
@@ -26,7 +26,7 @@ export const mapPostValues = (values: any, itinerary_item: number, id: number, a
     start_time,
     can_next_visit_go_ahead,
     itinerary_item,
-    id,
+    case_id: id,
     author
   }
 
