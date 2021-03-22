@@ -55,6 +55,14 @@ export const createDefinition = (onResetButtonClick: () => void) => {
         tabIndex: 4
       }
     },
+    useZakenBackend: {
+      type: "Boolean",
+      props: {
+        label: "Zoek in Zaaksysteem",
+        name: "useZakenBackend",
+        style: { top: 2, left: 0 }
+      }
+    },
     reset: {
       type: "ResetButton",
       props: {
@@ -83,9 +91,10 @@ export const createDefinition = (onResetButtonClick: () => void) => {
       // Grid:
       [ "streetName", "streetName", "streetName" ],
       [ "postalCode", "streetNumber", "suffix" ],
+      [ "useZakenBackend", "useZakenBackend", "useZakenBackend" ],
       [ "reset", "submit", "submit" ]
     ])
     // From tablet and bigger we align horizontally:
-    .setHorizontal("tabletM", "2fr 1fr 1fr 1fr auto auto")
+    .setHorizontal("tabletM", "2fr 1fr 1fr 1fr auto auto auto")
     .getScaffoldProps()
 }
