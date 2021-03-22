@@ -24,7 +24,6 @@ const Wrap = styled.div<WrapProps>`
   background-color: ${ props => themeColor("tint", props.backgroundColor ?? "level1") };
   padding: ${ themeSpacing(3) } ${ themeSpacing(1) };
   display: flex;
-  flex: 1;
   border-top: 1px solid ${ themeColor("tint", "level3") };
   border-bottom: 1px solid ${ themeColor("tint", "level3") };
 `
