@@ -46,6 +46,12 @@ declare namespace Components {
                 show_vakantieverhuur?: boolean;
             };
             sia_presedence?: boolean;
+            readonly team_schedules: {
+                readonly actions: any[];
+                readonly day_segments: any[];
+                readonly priorities: any[];
+                readonly week_segments: any[];
+            } | null;
         }
         export interface DaySettingsCompact {
             readonly id: number;
@@ -363,6 +369,12 @@ declare namespace Components {
                 show_vakantieverhuur?: boolean;
             };
             sia_presedence?: boolean;
+            readonly team_schedules?: {
+                readonly actions: any[];
+                readonly day_segments: any[];
+                readonly priorities: any[];
+                readonly week_segments: any[];
+            } | null;
         }
         export interface PatchedItineraryItem {
             readonly id?: number;
@@ -471,6 +483,12 @@ declare namespace Components {
         export interface SuggestNextVisit {
             value: string;
             verbose: string;
+        }
+        export interface TeamSchedules {
+            readonly actions: any[];
+            readonly day_segments: any[];
+            readonly priorities: any[];
+            readonly week_segments: any[];
         }
         export interface TeamSettings {
             readonly id: number;
