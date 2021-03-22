@@ -102,7 +102,7 @@ type VakantieVerhuur = {
 }
 
 export type RelatedCase = {
-  case_id: string
+  id: string
   case_number: string
   case_reason: string
 }
@@ -114,7 +114,7 @@ type Statement = {
 }
 
 export type BWVData = {
-  case_id: string
+  id: string
   case_reason: string
   distance?: number
   is_sia: string

@@ -20,13 +20,12 @@ export const casesToCardCaseProps = (cases?: Case[], itinerary?: Itinerary, addD
 }
 
 const getCaseIdMap = (items: ItineraryItem[]) =>
-  items.reduce((acc, item) => ({ ...acc, [item.case.case_id ?? ""]: item.id }), {}
+  items.reduce((acc, item) => ({ ...acc, [item.case.id ?? ""]: item.id }), {}
   )
 
 const mapCaseToCardProps = (itineraryId: number | undefined, itineraryItemIds: Record<string, number>, addDistance: boolean = false) => (
   {
     id,
-    case_id,
     case_reason,
     stadium,
     fraud_prediction,
@@ -35,7 +34,7 @@ const mapCaseToCardProps = (itineraryId: number | undefined, itineraryItemIds: R
     current_states,
     reason
   }: any): React.ComponentProps<typeof ItineraryItemCard> => ({
-  href: to("/cases/:id", { id: case_id || id }),
+  href: to("/cases/:id", { id: id }),
   backgroundColor: "level2",
   address: displayAddress(
     address?.street_name, 
@@ -50,9 +49,9 @@ const mapCaseToCardProps = (itineraryId: number | undefined, itineraryItemIds: R
   buttons: (onDeleteButtonClick: () => void) => <>
     { addDistance && distance && itineraryId && Object.keys(itineraryItemIds).length > 0 &&
     <p>{ Math.round(distance) }m</p> }
-    { itineraryItemIds[case_id || id]
-      ? <DeleteItineraryItemButton onDeleteButtonClicked={ onDeleteButtonClick } id={ itineraryItemIds[case_id || id]! } />
-      : itineraryId ? <AddItineraryItemButton caseId={ case_id || id } itinerary={ itineraryId } /> : null
+    { itineraryItemIds[id]
+      ? <DeleteItineraryItemButton onDeleteButtonClicked={ onDeleteButtonClick } id={ itineraryItemIds[id]! } />
+      : itineraryId ? <AddItineraryItemButton caseId={ id } itinerary={ itineraryId } /> : null
     }
   </>
 })

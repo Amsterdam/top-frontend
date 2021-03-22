@@ -2,8 +2,7 @@ declare namespace Components {
     namespace Schemas {
         export type BlankEnum = "";
         export interface Case {
-            readonly id: number;
-            case_id?: string | null;
+            id: string;
             readonly data: string;
             readonly fraud_prediction: {
                 fraud_probability: number; // float
@@ -16,15 +15,9 @@ declare namespace Components {
                 };
                 readonly sync_date: string; // date-time
             };
-            readonly address: {
-                bag_id: string;
-            };
-        }
-        export interface CaseAddress {
-            bag_id: string;
         }
         export interface CaseSimple {
-            case_id?: string | null;
+            id: string;
         }
         export interface DaySettings {
             readonly id: number;
@@ -126,8 +119,7 @@ declare namespace Components {
             position: number; // float
             readonly notes: Note[];
             readonly case: {
-                readonly id: number;
-                case_id?: string | null;
+                id: string;
                 readonly data: string;
                 readonly fraud_prediction: {
                     fraud_probability: number; // float
@@ -139,9 +131,6 @@ declare namespace Components {
                         [name: string]: any;
                     };
                     readonly sync_date: string; // date-time
-                };
-                readonly address: {
-                    bag_id: string;
                 };
             };
             readonly visits: Visit[];
@@ -380,8 +369,7 @@ declare namespace Components {
             position?: number; // float
             readonly notes?: Note[];
             readonly case?: {
-                readonly id: number;
-                case_id?: string | null;
+                id: string;
                 readonly data: string;
                 readonly fraud_prediction: {
                     fraud_probability: number; // float
@@ -393,9 +381,6 @@ declare namespace Components {
                         [name: string]: any;
                     };
                     readonly sync_date: string; // date-time
-                };
-                readonly address: {
-                    bag_id: string;
                 };
             };
             readonly visits?: Visit[];

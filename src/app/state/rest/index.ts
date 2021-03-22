@@ -41,7 +41,7 @@ export const useItineraries = (options?: Options) => {
 
 export const useItineraryItems = (options?: Options) => {
   const handleError = useErrorHandler()
-  return useApiRequest<{ itineraries: ItineraryItem[] }, { case_id: string, itinerary: number }>({
+  return useApiRequest<{ itineraries: ItineraryItem[] }, { id: string, itinerary: number }>({
     ...options,
     url: makeGatewayUrl([ "itinerary-items" ]),
     groupName: "itineraries",

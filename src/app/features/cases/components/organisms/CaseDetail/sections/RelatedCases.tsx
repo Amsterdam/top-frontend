@@ -20,7 +20,7 @@ const RelatedCases: FC<Props> = ({ caseId }) => {
     return null
   }
 
-  const otherCases = caseData.related_cases?.filter(relatedCase => relatedCase.case_id !== caseId)
+  const otherCases = caseData.related_cases?.filter(relatedCase => relatedCase.id !== caseId)
 
   if (!otherCases?.length) {
     return null
@@ -29,10 +29,10 @@ const RelatedCases: FC<Props> = ({ caseId }) => {
   const relatedCases = [ ...otherCases ]
     .sort((a, b) => parseInt(a.case_number, 10) - parseInt(b.case_number, 10))
     .reduce((acc: any, relatedCase: RelatedCase, index, arr) => {
-      const { case_id, case_number, case_reason } = relatedCase
+      const { id, case_number, case_reason } = relatedCase
 
       acc.push([ "Zaaknummer",
-        <Link to={ to("/cases/:id", { id: case_id }) }>{ `${ case_number } van ${ getCaseCount(caseData) }` }</Link> ])
+        <Link to={ to("/cases/:id", { id: id }) }>{ `${ case_number } van ${ getCaseCount(caseData) }` }</Link> ])
       acc.push([ "Openingsreden", case_reason ])
 
       if (index < arr.length - 1) acc.push(<Hr />)
