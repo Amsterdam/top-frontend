@@ -84,17 +84,12 @@ export const createDefinition = (onResetButtonClick: () => void) => {
     }
   }
 
-  // Align these fields in a grid using FormPositioner:
   return new FormPositioner(definition)
-    // From mobile and bigger we align using a custom grid:
     .setGrid("mobileS", "1fr 1fr 1fr", [
-      // Grid:
       [ "streetName", "streetName", "streetName" ],
       [ "postalCode", "streetNumber", "suffix" ],
       [ "useZakenBackend", "useZakenBackend", "useZakenBackend" ],
       [ "reset", "submit", "submit" ]
     ])
-    // From tablet and bigger we align horizontally:
-    .setHorizontal("tabletM", "2fr 1fr 1fr 1fr auto auto auto")
     .getScaffoldProps()
 }
