@@ -55,12 +55,16 @@ export const createDefinition = (onResetButtonClick: () => void) => {
         tabIndex: 4
       }
     },
-    useZakenBackend: {
-      type: "Boolean",
+    apiName: {
+      type: "RadioFields",
       props: {
-        label: "Zoek in Zaaksysteem",
-        name: "useZakenBackend",
-        style: { top: 2, left: 0 }
+        horizontal: true,
+        label: "Zoek in",
+        name: "apiName",
+        options: {
+          BWV: "BWV",
+          ZKS: "Zaaksysteem"
+        }
       }
     },
     reset: {
@@ -88,7 +92,7 @@ export const createDefinition = (onResetButtonClick: () => void) => {
     .setGrid("mobileS", "1fr 1fr 1fr", [
       [ "streetName", "streetName", "streetName" ],
       [ "postalCode", "streetNumber", "suffix" ],
-      [ "useZakenBackend", "useZakenBackend", "useZakenBackend" ],
+      [ "apiName", "apiName", "apiName" ],
       [ "reset", "submit", "submit" ]
     ])
     .getScaffoldProps()
