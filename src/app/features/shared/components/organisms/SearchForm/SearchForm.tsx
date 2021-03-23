@@ -10,6 +10,7 @@ export type FormValues = {
   streetName: string
   streetNumber: number
   suffix?: string
+  useZakenBackend: boolean
 }
 
 const Container = styled.div`
