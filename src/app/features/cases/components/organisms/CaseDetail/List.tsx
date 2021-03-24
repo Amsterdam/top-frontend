@@ -7,13 +7,11 @@ type Props = {
 }
 
 const Ul = styled.ul`
-  display: inline-block;
+  margin: 0;
   padding: 0;
-  margin: 0 0 ${ themeSpacing(3) };
 `
 
 const Li = styled.li`
-  list-style: none;
   margin: 0 0 ${ themeSpacing(2) };
 `
 
