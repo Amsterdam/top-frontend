@@ -29,6 +29,11 @@ declare namespace Components {
             };
             postal_code_ranges_presets?: number[];
             length_of_list?: number;
+            day_segments?: number[] | null;
+            week_segments?: number[] | null;
+            priorities?: number[] | null;
+            reasons?: number[] | null;
+            state_types?: number[] | null;
             projects: number[];
             primary_stadium?: null | number;
             secondary_stadia: number[];
@@ -46,6 +51,14 @@ declare namespace Components {
                 show_vakantieverhuur?: boolean;
             };
             sia_presedence?: boolean;
+            readonly team_schedule_options: {
+                readonly actions: any[];
+                readonly day_segments: any[];
+                readonly priorities: any[];
+                readonly week_segments: any[];
+            } | null;
+            readonly reason_options: TeamReasons[];
+            readonly state_type_options: TeamStateTypes[];
         }
         export interface DaySettingsCompact {
             readonly id: number;
@@ -346,6 +359,11 @@ declare namespace Components {
             };
             postal_code_ranges_presets?: number[];
             length_of_list?: number;
+            day_segments?: number[] | null;
+            week_segments?: number[] | null;
+            priorities?: number[] | null;
+            reasons?: number[] | null;
+            state_types?: number[] | null;
             projects?: number[];
             primary_stadium?: null | number;
             secondary_stadia?: number[];
@@ -363,6 +381,14 @@ declare namespace Components {
                 show_vakantieverhuur?: boolean;
             };
             sia_presedence?: boolean;
+            readonly team_schedule_options?: {
+                readonly actions: any[];
+                readonly day_segments: any[];
+                readonly priorities: any[];
+                readonly week_segments: any[];
+            } | null;
+            readonly reason_options?: TeamReasons[];
+            readonly state_type_options?: TeamStateTypes[];
         }
         export interface PatchedItineraryItem {
             readonly id?: number;
@@ -428,6 +454,7 @@ declare namespace Components {
         export interface PatchedVisit {
             readonly id?: number;
             readonly team_members?: VisitTeamMember[];
+            case_id?: string;
             situation?: string | null;
             observations?: string[] | null;
             start_time?: string; // date-time
@@ -437,7 +464,6 @@ declare namespace Components {
             suggest_next_visit?: string | null;
             suggest_next_visit_description?: string | null;
             personal_notes?: string | null;
-            case_id?: number;
             itinerary_item?: null | number;
             author?: string; // uuid
         }
@@ -472,6 +498,17 @@ declare namespace Components {
             value: string;
             verbose: string;
         }
+        export interface TeamReasons {
+            readonly id: number;
+            readonly name: string;
+            readonly team: number;
+        }
+        export interface TeamSchedules {
+            readonly actions: any[];
+            readonly day_segments: any[];
+            readonly priorities: any[];
+            readonly week_segments: any[];
+        }
         export interface TeamSettings {
             readonly id: number;
             name: string;
@@ -496,6 +533,11 @@ declare namespace Components {
             readonly marked_stadia: StadiumLabel[];
             show_issuemelding?: boolean;
             show_vakantieverhuur?: boolean;
+        }
+        export interface TeamStateTypes {
+            readonly id: number;
+            readonly name: string;
+            readonly team: number;
         }
         export interface User {
             id: string; // uuid
@@ -524,6 +566,7 @@ declare namespace Components {
         export interface Visit {
             readonly id: number;
             readonly team_members: VisitTeamMember[];
+            case_id: string;
             situation?: string | null;
             observations?: string[] | null;
             start_time: string; // date-time
@@ -533,7 +576,6 @@ declare namespace Components {
             suggest_next_visit?: string | null;
             suggest_next_visit_description?: string | null;
             personal_notes?: string | null;
-            case_id: number;
             itinerary_item?: null | number;
             author: string; // uuid
         }
