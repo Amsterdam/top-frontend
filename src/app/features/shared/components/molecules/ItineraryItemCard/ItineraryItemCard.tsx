@@ -22,7 +22,7 @@ type Props = {
 type WrapProps = Pick<Props, "backgroundColor">
 const Wrap = styled.div<WrapProps>`
   background-color: ${ props => themeColor("tint", props.backgroundColor ?? "level1") };
-  padding: ${ themeSpacing(3) } ${ themeSpacing(1) };
+  padding: ${ themeSpacing(3) } ${ themeSpacing(2) };
   display: flex;
   border-top: 1px solid ${ themeColor("tint", "level3") };
   border-bottom: 1px solid ${ themeColor("tint", "level3") };
@@ -55,7 +55,7 @@ const PostalCode = styled.p`
 const BadgeRow = styled.div`
   display: flex;
   margin-bottom: ${ themeSpacing(2) };
-  
+
   > :not(:last-child) {
     margin-right: ${ themeSpacing(2) };
   }
