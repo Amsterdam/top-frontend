@@ -32,26 +32,32 @@ const mapCaseToCardProps = (itineraryId: number | undefined, itineraryItemIds: R
     distance,
     address,
     current_states,
-    reason
+    reason,
+    teams
   }: any): React.ComponentProps<typeof ItineraryItemCard> => ({
   href: to("/cases/:id", { id: id }),
   backgroundColor: "level2",
   address: displayAddress(
-    address?.street_name, 
-    address?.number, 
-    address?.suffix_letter, 
+    address?.street_name,
+    address?.number,
+    address?.suffix_letter,
     address?.suffix
   ),
   postalCode: address.postal_code,
   reason: reason?.reason || case_reason,
   badge: current_states?.length > 0 ? <StadiumBadge stadium={ current_states[0].status_name || "" }/> : <StadiumBadge stadium={ stadium }/>,
   fraudProbability: <FraudProbability fraudProbability={ fraud_prediction?.fraud_probability } />,
+  team: teams[0]?.map((team: { user: { full_name: string } }) => team.user.full_name).join(", "),
   buttons: (onDeleteButtonClick: () => void) => <>
     { addDistance && distance && itineraryId && Object.keys(itineraryItemIds).length > 0 &&
     <p>{ Math.round(distance) }m</p> }
-    { itineraryItemIds[id]
+    { teams.length > 0
+      ? null
+      : itineraryItemIds[id]
       ? <DeleteItineraryItemButton onDeleteButtonClicked={ onDeleteButtonClick } id={ itineraryItemIds[id]! } />
-      : itineraryId ? <AddItineraryItemButton caseId={ id } itinerary={ itineraryId } /> : null
+      : itineraryId
+      ? <AddItineraryItemButton caseId={ id } itinerary={ itineraryId } />
+      : null
     }
   </>
 })
