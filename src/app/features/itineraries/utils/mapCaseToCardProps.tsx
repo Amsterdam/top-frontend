@@ -55,7 +55,9 @@ const mapCaseToCardProps = (itineraryId: number | undefined, itineraryItemIds: R
       ? null
       : itineraryItemIds[id]
       ? <DeleteItineraryItemButton onDeleteButtonClicked={ onDeleteButtonClick } id={ itineraryItemIds[id]! } />
-      : itineraryId ? <AddItineraryItemButton caseId={ id } itinerary={ itineraryId } /> : null
+      : itineraryId
+      ? <AddItineraryItemButton caseId={ id } itinerary={ itineraryId } />
+      : null
     }
   </>
 })
