@@ -51,7 +51,9 @@ const mapCaseToCardProps = (itineraryId: number | undefined, itineraryItemIds: R
   buttons: (onDeleteButtonClick: () => void) => <>
     { addDistance && distance && itineraryId && Object.keys(itineraryItemIds).length > 0 &&
     <p>{ Math.round(distance) }m</p> }
-    { itineraryItemIds[id]
+    { teams.length > 0
+      ? null
+      : itineraryItemIds[id]
       ? <DeleteItineraryItemButton onDeleteButtonClicked={ onDeleteButtonClick } id={ itineraryItemIds[id]! } />
       : itineraryId ? <AddItineraryItemButton caseId={ id } itinerary={ itineraryId } /> : null
     }
