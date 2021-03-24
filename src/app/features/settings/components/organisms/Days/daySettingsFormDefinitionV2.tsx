@@ -1,16 +1,21 @@
-import { combineValidators, isNotIntersectingWith, isRequired } from "@amsterdam/amsterdam-react-final-form"
+import { isRequired } from "@amsterdam/amsterdam-react-final-form"
 import { FormPositioner, FormPositionerFields } from "@amsterdam/scaffold-form/package"
 
 import { Field } from "app/features/shared/components/form/ScaffoldField"
 import postalCodeSiblingValidator from "../SettingsForm/validators/postalCodeSiblingValidator"
 
-import { arrayToObject } from "app/features/shared/utils/arrayToObject"
-
 /**
  * Creates form definition for planningSettings
  */
 
-export const createDefinition = (postalCodeRangeOptions: any, daySegmentsOptions: any, weekSegmentsOptions: any) => {
+export const createDefinition = (
+    postalCodeRangeOptions: any, 
+    daySegmentsOptions: any, 
+    weekSegmentsOptions: any, 
+    prioritiesOptions: any,
+    reasonsOptions: any,
+    stateTypeOptions: any
+  ) => {
   // @TODO: Move to config
   const postalCodeMin = 1000
   const postalCodeMax = 1109
@@ -20,7 +25,7 @@ export const createDefinition = (postalCodeRangeOptions: any, daySegmentsOptions
       type: "TextField",
       props: {
         label: "Begindatum van het meest recente stadium",
-        name: "settings.opening_date",
+        name: "opening_date",
         type: "date",
         validate: isRequired()
       }
@@ -48,7 +53,7 @@ export const createDefinition = (postalCodeRangeOptions: any, daySegmentsOptions
         field: {
           type: "ArrayField",
           props: {
-            name: "settings.postal_code_ranges",
+            name: "postal_code_ranges",
             allowAdd: true,
             allowRemove: true,
             minItems: 1,
@@ -89,7 +94,7 @@ export const createDefinition = (postalCodeRangeOptions: any, daySegmentsOptions
         field: {
           type: "CheckboxFields",
           props: {
-            name: "settings.postal_code_ranges_presets",
+            name: "postal_code_ranges_presets",
             options: postalCodeRangeOptions,
             columnCount: { mobileM: 2, tabletM: 4 },
             validate: isRequired()
@@ -101,33 +106,72 @@ export const createDefinition = (postalCodeRangeOptions: any, daySegmentsOptions
         type: "Divider",
         props: {}
     },
-    useDaySegments: {
-        type: "RadioFields",
-        props: {
-          isRequired: true,
-          label: "Wil je dat er op een specifiek dag deel gelopen wordt?",
-          name: "useDaySegments",
-          options: {
-            noDaySegements: "Geen dag instellingen",
-            stadsdeel: "Kies dag instellingen"
-          }
-        }
-    },
     daySegments: {
-        type: "ShowHide",
+      type: "CheckboxFields",
+      props: {
+        label: "Met welk deel van de dag wil je dat de looplijsten gegenereerd worden?",
+        name: "day_segments",
+        options: daySegmentsOptions,
+        columnCount: { mobileM: 2, tabletM: 4 },
+        validate: isRequired()
+      }
+    },
+    weekSegments: {
+        type: "CheckboxFields",
         props: {
-          shouldShow: ({ values: { postal_codes_type } }) => true,
-          field: {
-            type: "CheckboxFields",
-            props: {
-              name: "day_segments",
-              options: daySegmentsOptions,
-              columnCount: { mobileM: 2, tabletM: 4 },
-              validate: isRequired()
-            }
-          }
+          label: "Met welk deel van de week wil je dat de looplijsten gegenereerd worden?",
+          name: "week_segments",
+          options: weekSegmentsOptions,
+          columnCount: { mobileM: 2, tabletM: 4 },
+          validate: isRequired()
         }
-    }
+      },
+      divider3: {
+        type: "Divider",
+        props: {}
+      },
+      priorities: {
+          type: "CheckboxFields",
+          props: {
+            label: "Met welke prioriteit wil je dat de looplijsten gegenereerd worden?",
+            name: "priorities",
+            options: prioritiesOptions,
+            columnCount: { mobileM: 2, tabletM: 4 },
+            validate: isRequired()
+          }
+        },
+        divider4: {
+          type: "Divider",
+          props: {}
+        },
+        stateTypes: {
+          type: "CheckboxFields",
+          props: {
+            label: "Met welke status wil je dat de looplijsten gegenereerd worden?",
+            name: "state_types",
+            options: stateTypeOptions,
+            columnCount: { mobileM: 2, tabletM: 4 },
+            validate: isRequired()
+          }
+        },
+        divider6: {
+          type: "Divider",
+          props: {}
+        },
+      reasons: {
+        type: "CheckboxFields",
+        props: {
+          label: "Met welke openingsredenen wil je dat de looplijsten gegenereerd worden?",
+          name: "reasons",
+          options: reasonsOptions,
+          columnCount: { mobileM: 2, tabletM: 4 },
+          validate: isRequired()
+        }
+      },
+      divider5: {
+        type: "Divider",
+        props: {}
+      }
   }
 
   // Align properties:
@@ -139,7 +183,15 @@ export const createDefinition = (postalCodeRangeOptions: any, daySegmentsOptions
       [ "geo_type", "postal_codes", "postal_codes" ],
       [ "geo_type", "postalCodeRanges", "postalCodeRanges" ],
       [ "divider2", "divider2", "divider2" ],
-      [ "daySegments", "daySegments", "daySegments" ]
+      [ "reasons", "reasons", "reasons" ],
+      [ "divider3", "divider3", "divider3" ],
+      [ "stateTypes", "stateTypes", "stateTypes" ],
+      [ "divider6", "divider6", "divider6" ],
+      [ "daySegments", "daySegments", "daySegments" ],
+      [ "divider4", "divider4", "divider4" ],
+      [ "weekSegments", "weekSegments", "weekSegments" ],
+      [ "divider5", "divider5", "divider5" ],
+      [ "priorities", "priorities", "priorities" ]
     ])
     .setGrid("laptop", "1fr 1fr 1fr 1fr 1fr", [
       [ "opening_date" ],
@@ -147,7 +199,15 @@ export const createDefinition = (postalCodeRangeOptions: any, daySegmentsOptions
       [ "geo_type", "postal_codes", "postal_codes", "postal_codes", "postal_codes" ],
       [ "geo_type", "postalCodeRanges", "postalCodeRanges", "postalCodeRanges", "postalCodeRanges" ],
       [ "divider2", "divider2", "divider2", "divider2", "divider2" ],
-      [ "daySegments", "daySegments", "daySegments", "daySegments", "daySegments" ]
+      [ "reasons", "reasons", "reasons", "reasons", "reasons" ],
+      [ "divider3", "divider3", "divider3", "divider3", "divider3" ],
+      [ "stateTypes", "stateTypes", "stateTypes", "stateTypes", "stateTypes" ],
+      [ "divider6", "divider6", "divider6", "divider6", "divider6" ],
+      [ "daySegments", "daySegments", "daySegments", "daySegments", "daySegments" ],
+      [ "divider4", "divider4", "divider4", "divider4", "divider4" ],
+      [ "weekSegments", "weekSegments", "weekSegments", "weekSegments", "weekSegments" ],
+      [ "divider5", "divider5", "divider5", "divider5", "divider5" ],
+      [ "priorities", "priorities", "priorities", "priorities", "priorities" ]
     ])
     .getScaffoldProps()
 }
