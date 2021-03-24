@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { themeColor, themeSpacing } from "@amsterdam/asc-ui"
+import { themeColor } from "@amsterdam/asc-ui"
 
 export type Props = {
   variant?: "primary" | "secondary"
@@ -12,7 +12,6 @@ const Badge = styled.span<Props>`
   padding: 4px 8px;
   font-weight: 500;
   color: ${ themeColor("tint", "level1") };
-  margin-bottom: ${ themeSpacing(2) };
 `
 
 export default Badge
