@@ -102,7 +102,9 @@ const ItineraryPage: React.FC<RouteComponentProps<Props>> = ({ itineraryId }) =>
 
   const teamMemberUsers = useMemo(() => itinerary?.team_members.map(member => member.user) ?? [], [ itinerary ])
   const teamMemberNames = useMemo(() => teamMemberUsers?.map(user => user.full_name).join(", "), [ teamMemberUsers ])
-  const cases = useMemo(() => items?.filter(item => item.visits.length === 0).map(item => item.case.data) ?? [], [ items ])
+
+  const cases = useMemo(() => items?.map(item => item.case.data) ?? [], [ items ])
+  const casesWithoutVisits = useMemo(() => items?.filter(item => item.visits.length === 0).map(item => item.case.data) ?? [], [ items ])
 
   const clipboardText = cases.map(itineraryToClipboardText).join("\n")
   const onClickClipboard = () => setShowDialog(false)
@@ -144,7 +146,7 @@ const ItineraryPage: React.FC<RouteComponentProps<Props>> = ({ itineraryId }) =>
         </div>
         <ColumnWrap border={ true }>
           <Left>
-            <MapsButton cases={ cases } />
+            <MapsButton cases={ casesWithoutVisits } />
           </Left>
           <Right>
             <StyledButton onClick={ () => navigate(to("/lijst/:itineraryId/suggesties", { itineraryId })) }
