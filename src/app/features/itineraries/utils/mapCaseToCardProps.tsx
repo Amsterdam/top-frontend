@@ -45,13 +45,13 @@ const mapCaseToCardProps = (itineraryId: number | undefined, itineraryItemIds: R
   ),
   postalCode: address.postal_code,
   reason: reason?.reason || case_reason,
-  badge: current_states?.length > 0 ? <StadiumBadge stadium={ current_states[0].status_name || "" }/> : <StadiumBadge stadium={ stadium }/>,
+  badge: current_states && current_states.length > 0 ? <StadiumBadge stadium={ current_states[0].status_name || "" }/> : <StadiumBadge stadium={ stadium }/>,
   fraudProbability: <FraudProbability fraudProbability={ fraud_prediction?.fraud_probability } />,
-  team: teams[0]?.map((team: { user: { full_name: string } }) => team.user.full_name).join(", "),
+  team: teams && teams.length > 0 ? teams[0].map((team: { user: { full_name: string } }) => team.user.full_name).join(", ") : "",
   buttons: (onDeleteButtonClick: () => void) => <>
     { addDistance && distance && itineraryId && Object.keys(itineraryItemIds).length > 0 &&
     <p>{ Math.round(distance) }m</p> }
-    { teams.length > 0
+    { teams && teams.length > 0
       ? null
       : itineraryItemIds[id]
       ? <DeleteItineraryItemButton onDeleteButtonClicked={ onDeleteButtonClick } id={ itineraryItemIds[id]! } />
