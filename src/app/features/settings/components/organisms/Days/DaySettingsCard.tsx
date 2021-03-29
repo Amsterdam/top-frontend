@@ -66,7 +66,7 @@ type Props = {
   daySettingsId: number
 }
 
-const DaySettings: FC<RouteComponentProps<Props>> = ({ teamSettings, postCodeRangesPresets, daySettingsId }) => {
+const DaySettingsCard: FC<RouteComponentProps<Props>> = ({ teamSettings, postCodeRangesPresets, daySettingsId }) => {
   const { data: daySettings, isBusy } = useDaySettings(daySettingsId!)
 
   if (!teamSettings || !daySettings || isBusy) {
@@ -162,4 +162,4 @@ const DaySettings: FC<RouteComponentProps<Props>> = ({ teamSettings, postCodeRan
   )
 }
 
-export default DaySettings
+export default DaySettingsCard
