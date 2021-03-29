@@ -28,17 +28,21 @@ const SearchForm: FC = () => {
     return Promise.resolve(true)
   }, [ setValues ])
 
-  const scaffoldProps = useMemo(() => createDefinition(
-    // @ts-ignore
-    () => setValues({}),
-    itineraryId
+  const scaffoldProps = useMemo(
+    () => createDefinition(
+      // @ts-ignore
+      () => setValues({}),
+      itineraryId
     ),
-    [ setValues ]
+    [ itineraryId, setValues ]
   )
 
   return (
     <Container>
-      <ScaffoldForm onSubmit={ handleSubmit } initialValues={ { apiName: "BWV", itineraryId, ...values } }>
+      <ScaffoldForm
+        initialValues={ { apiName: "BWV", isApiNameKnown: !!itineraryId, ...values } }
+        onSubmit={ handleSubmit }
+      >
         <Scaffold { ...scaffoldProps } />
       </ScaffoldForm>
     </Container>

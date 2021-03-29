@@ -9,7 +9,7 @@ import {
 import { FormPositioner, FormPositionerFields } from "@amsterdam/scaffold-form/package"
 import isRequiredWhenEmpty from "./validators/isRequiredWhenEmpty"
 
-export const createDefinition = (onResetButtonClick: () => void, itineraryId: string) => {
+export const createDefinition = (onResetButtonClick: () => void, isApiNameKnown: boolean) => {
   const definition: FormPositionerFields<ScaffoldAvailableFields> = {
     streetName: {
       type: "TextField",
@@ -88,7 +88,7 @@ export const createDefinition = (onResetButtonClick: () => void, itineraryId: st
     }
   }
 
-  if (!!itineraryId) {
+  if (isApiNameKnown) {
     delete definition.apiName
   }
 
@@ -96,7 +96,7 @@ export const createDefinition = (onResetButtonClick: () => void, itineraryId: st
     .setGrid("mobileS", "1fr 1fr 1fr", [
       [ "streetName", "streetName", "streetName" ],
       [ "postalCode", "streetNumber", "suffix" ],
-      itineraryId ? [] : [ "apiName", "apiName", "apiName" ],
+      isApiNameKnown ? [] : [ "apiName", "apiName", "apiName" ],
       [ "reset", "submit", "submit" ]
     ])
     .getScaffoldProps()
