@@ -33,6 +33,10 @@ const DaySettingsCardV2: FC<RouteComponentProps<Props>> = ({ teamSettings, postC
     daySettingsId: daySettings?.id
   })
 
+  const formatObjects = (list: any[], prop: string) => list.map(item => item[prop]).join(", ")
+
+  const getNameById = (array: any[] | undefined, id: number) => array?.map((item) => (item.id === id) ? item.name : undefined)
+
   return (
     <Section>
       <Header>
@@ -46,8 +50,16 @@ const DaySettingsCardV2: FC<RouteComponentProps<Props>> = ({ teamSettings, postC
             <Dd>{ daySettings?.opening_date ? formatDate(daySettings.opening_date) : "–" }</Dd>
           </Dl>
           <Dl>
-            <Dt>Geef SIA meldingen voorrang</Dt>
-            <Dd>{ daySettings?.sia_presedence ? "Ja" : "Nee" }</Dd>
+            <Dt>{ daySettings?.reasons?.length === 1 ? "Openingsreden" : "Openingsredenen" }</Dt>
+            <Dd>
+              { daySettings?.reasons?.length ?
+                <Ul>
+                  { daySettings?.reasons.map((reason) => (
+                    <Li key={ `reason-${ reason }` }>{ getNameById(daySettings?.reason_options, reason) }</Li>
+                  )) }
+                </Ul>
+                : "–" }
+            </Dd>
           </Dl>
           <Dl>
             <Dt>{ (postalCodeRangesPresets?.length) ? (postalCodeRangesPresets.length === 1 ? "Stadsdeel" : "Stadsdelen") : "Postcodes" }</Dt>
@@ -62,12 +74,24 @@ const DaySettingsCardV2: FC<RouteComponentProps<Props>> = ({ teamSettings, postC
             }</Dd>
           </Dl>
           <Dl>
-            <Dt>Projecten</Dt>
+            <Dt>{ daySettings?.week_segments?.length === 1 ? "Weekdeel" : "Weekdelen" }</Dt>
             <Dd>
-              { daySettings?.projects.length ?
+              { daySettings?.week_segments?.length ?
                 <Ul>
-                  { daySettings?.projects.map(project => (
-                    <Li key={ project }>{ project }</Li>
+                  { daySettings?.week_segments.map((week_segment) => (
+                    <Li key={ `week_segment-${ week_segment }` }>{ getNameById(daySettings?.team_schedule_options?.week_segments, week_segment) }</Li>
+                  )) }
+                </Ul>
+                : "–" }
+            </Dd>
+          </Dl>
+          <Dl>
+            <Dt>{ daySettings?.day_segments?.length === 1 ? "Dagdeel" : "Dagdelen" }</Dt>
+            <Dd>
+              { daySettings?.day_segments?.length ?
+                <Ul>
+                  { daySettings?.day_segments.map((day_segment) => (
+                    <Li key={ `day_segment-${ day_segment }` }>{ getNameById(daySettings?.team_schedule_options?.day_segments, day_segment) }</Li>
                   )) }
                 </Ul>
                 : "–" }
@@ -76,30 +100,24 @@ const DaySettingsCardV2: FC<RouteComponentProps<Props>> = ({ teamSettings, postC
         </Column>
         <Column>
           <Dl>
-            <Dt>Zo veel mogelijk</Dt>
+            <Dt>{ daySettings?.state_types?.length === 1 ? "Status" : "Statussen" }</Dt>
             <Dd>
-              { daySettings?.primary_stadium || "–" }
-            </Dd>
-          </Dl>
-          <Dl>
-            <Dt>Aanvullen met</Dt>
-            <Dd>
-              { daySettings?.secondary_stadia.length ?
+              { daySettings?.state_types?.length ?
                 <Ul>
-                  { daySettings?.secondary_stadia.map(stadium => (
-                    <Li key={ stadium }>{ stadium }</Li>
+                  { daySettings?.state_types.map((state_type) => (
+                    <Li key={ `state_type-${ state_type }` }>{ getNameById(daySettings?.state_type_options, state_type) }</Li>
                   )) }
                 </Ul>
                 : "–" }
             </Dd>
           </Dl>
           <Dl>
-            <Dt>Uitsluiten</Dt>
+            <Dt>{ daySettings?.priorities?.length === 1 ? "Prioriteit" : "Prioriteiten" }</Dt>
             <Dd>
-              { daySettings?.exclude_stadia.length ?
+              { daySettings?.priorities?.length ?
                 <Ul>
-                  { daySettings?.exclude_stadia.map(stadium => (
-                    <Li key={ stadium }>{ stadium }</Li>
+                  { daySettings?.priorities.map((priority) => (
+                    <Li key={ `priority-${ priority }` }>{ getNameById(daySettings?.team_schedule_options?.priorities, priority) }</Li>
                   )) }
                 </Ul>
                 : "–" }
