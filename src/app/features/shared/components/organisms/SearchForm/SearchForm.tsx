@@ -5,6 +5,7 @@ import { Scaffold, ScaffoldForm } from "@amsterdam/amsterdam-react-final-form"
 import { ApiName } from "app/features/types"
 import { createDefinition } from "./formDefinition"
 import { SearchFormContext } from "./SearchFormProvider"
+import { useParams } from "@reach/router"
 
 export type FormValues = {
   postalCode: string
@@ -19,6 +20,7 @@ const Container = styled.div`
 `
 
 const SearchForm: FC = () => {
+  const { itineraryId } = useParams()
   const { values, setValues } = useContext(SearchFormContext)
 
   const handleSubmit = useCallback((values: FormValues) => {
@@ -26,16 +28,21 @@ const SearchForm: FC = () => {
     return Promise.resolve(true)
   }, [ setValues ])
 
-  const scaffoldProps = useMemo(() => createDefinition(() =>
+  const scaffoldProps = useMemo(
+    () => createDefinition(
       // @ts-ignore
-      setValues({})
+      () => setValues({}),
+      itineraryId
     ),
-    [ setValues ]
+    [ itineraryId, setValues ]
   )
 
   return (
     <Container>
-      <ScaffoldForm onSubmit={ handleSubmit } initialValues={ { apiName: "BWV", ...values } }>
+      <ScaffoldForm
+        initialValues={ { apiName: "BWV", isApiNameKnown: !!itineraryId, ...values } }
+        onSubmit={ handleSubmit }
+      >
         <Scaffold { ...scaffoldProps } />
       </ScaffoldForm>
     </Container>
