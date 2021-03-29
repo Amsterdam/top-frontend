@@ -15,7 +15,7 @@ type Props = {
   daySettingsId: number
 }
 
-const DaySettingsCard: FC<RouteComponentProps<Props>> = ({ teamSettings, postCodeRangesPresets, daySettingsId }) => {
+const DaySettingsCardV2: FC<RouteComponentProps<Props>> = ({ teamSettings, postCodeRangesPresets, daySettingsId }) => {
   const { data: daySettings, isBusy } = useDaySettings(daySettingsId!)
 
   if (!teamSettings || !daySettings || isBusy) {
@@ -36,7 +36,7 @@ const DaySettingsCard: FC<RouteComponentProps<Props>> = ({ teamSettings, postCod
   return (
     <Section>
       <Header>
-        <Heading forwardedAs="h2">{ daySettings?.name }</Heading>
+        <Heading forwardedAs="h2">{ daySettings?.name } V2</Heading>
         <Button variant="secondary" onClick={ () => navigate(toEditForm) }>Wijzig</Button>
       </Header>
       <Body>
@@ -111,4 +111,4 @@ const DaySettingsCard: FC<RouteComponentProps<Props>> = ({ teamSettings, postCod
   )
 }
 
-export default DaySettingsCard
+export default DaySettingsCardV2
