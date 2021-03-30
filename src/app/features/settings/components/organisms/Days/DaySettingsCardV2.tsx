@@ -33,9 +33,34 @@ const DaySettingsCardV2: FC<RouteComponentProps<Props>> = ({ teamSettings, postC
     daySettingsId: daySettings?.id
   })
 
-  const formatObjects = (list: any[], prop: string) => list.map(item => item[prop]).join(", ")
-
   const getNameById = (array: any[] | undefined, id: number) => array?.map((item) => (item.id === id) ? item.name : undefined)
+
+  type ValueListProps = {
+    labels: string[]
+    options?: any[] | null
+    values?: any[] | null
+  }
+
+  const ValueList: React.FC<ValueListProps> = (({ labels, options, values }) => {
+    if (!options) {
+      return null
+    }
+
+    return (
+      <Dl>
+        <Dt>{ values?.length === 1 ? labels[0] : labels[1] }</Dt>
+        <Dd>
+          { values?.length ?
+            <Ul>
+              { values.map((value) => (
+                <Li key={ `labels[0]-${ value }` }>{ getNameById(options, value) }</Li>
+              )) }
+            </Ul>
+            : "–" }
+        </Dd>
+      </Dl>
+    )
+  })
 
   return (
     <Section>
@@ -49,18 +74,11 @@ const DaySettingsCardV2: FC<RouteComponentProps<Props>> = ({ teamSettings, postC
             <Dt>Openingsdatum</Dt>
             <Dd>{ daySettings?.opening_date ? formatDate(daySettings.opening_date) : "–" }</Dd>
           </Dl>
-          <Dl>
-            <Dt>{ daySettings?.reasons?.length === 1 ? "Openingsreden" : "Openingsredenen" }</Dt>
-            <Dd>
-              { daySettings?.reasons?.length ?
-                <Ul>
-                  { daySettings?.reasons.map((reason) => (
-                    <Li key={ `reason-${ reason }` }>{ getNameById(daySettings?.reason_options, reason) }</Li>
-                  )) }
-                </Ul>
-                : "–" }
-            </Dd>
-          </Dl>
+          <ValueList
+            labels={ [ "Openingsreden", "Openingsredenen" ] }
+            options={ daySettings?.reason_options }
+            values={ daySettings?.reasons }
+          />
           <Dl>
             <Dt>{ (postalCodeRangesPresets?.length) ? (postalCodeRangesPresets.length === 1 ? "Stadsdeel" : "Stadsdelen") : "Postcodes" }</Dt>
             <Dd>{ (postalCodeRangesPresets?.length) ? postalCodeRangesPresets.join(", ") :
@@ -73,56 +91,28 @@ const DaySettingsCardV2: FC<RouteComponentProps<Props>> = ({ teamSettings, postC
               </Ul>
             }</Dd>
           </Dl>
-          <Dl>
-            <Dt>{ daySettings?.week_segments?.length === 1 ? "Weekdeel" : "Weekdelen" }</Dt>
-            <Dd>
-              { daySettings?.week_segments?.length ?
-                <Ul>
-                  { daySettings?.week_segments.map((week_segment) => (
-                    <Li key={ `week_segment-${ week_segment }` }>{ getNameById(daySettings?.team_schedule_options?.week_segments, week_segment) }</Li>
-                  )) }
-                </Ul>
-                : "–" }
-            </Dd>
-          </Dl>
-          <Dl>
-            <Dt>{ daySettings?.day_segments?.length === 1 ? "Dagdeel" : "Dagdelen" }</Dt>
-            <Dd>
-              { daySettings?.day_segments?.length ?
-                <Ul>
-                  { daySettings?.day_segments.map((day_segment) => (
-                    <Li key={ `day_segment-${ day_segment }` }>{ getNameById(daySettings?.team_schedule_options?.day_segments, day_segment) }</Li>
-                  )) }
-                </Ul>
-                : "–" }
-            </Dd>
-          </Dl>
+          <ValueList
+            labels={ [ "Dagdeel", "Dagdelen" ] }
+            options={ daySettings?.team_schedule_options?.day_segments }
+            values={ daySettings?.day_segments }
+          />
+          <ValueList
+            labels={ [ "Weekdeel", "Weekdelen" ] }
+            options={ daySettings?.team_schedule_options?.week_segments }
+            values={ daySettings?.week_segments }
+          />
         </Column>
         <Column>
-          <Dl>
-            <Dt>{ daySettings?.state_types?.length === 1 ? "Status" : "Statussen" }</Dt>
-            <Dd>
-              { daySettings?.state_types?.length ?
-                <Ul>
-                  { daySettings?.state_types.map((state_type) => (
-                    <Li key={ `state_type-${ state_type }` }>{ getNameById(daySettings?.state_type_options, state_type) }</Li>
-                  )) }
-                </Ul>
-                : "–" }
-            </Dd>
-          </Dl>
-          <Dl>
-            <Dt>{ daySettings?.priorities?.length === 1 ? "Prioriteit" : "Prioriteiten" }</Dt>
-            <Dd>
-              { daySettings?.priorities?.length ?
-                <Ul>
-                  { daySettings?.priorities.map((priority) => (
-                    <Li key={ `priority-${ priority }` }>{ getNameById(daySettings?.team_schedule_options?.priorities, priority) }</Li>
-                  )) }
-                </Ul>
-                : "–" }
-            </Dd>
-          </Dl>
+          <ValueList
+            labels={ [ "Status", "Statussen" ] }
+            options={ daySettings?.state_type_options }
+            values={ daySettings?.state_types }
+          />
+          <ValueList
+            labels={ [ "Prioriteit", "Prioriteiten" ] }
+            options={ daySettings?.team_schedule_options?.priorities }
+            values={ daySettings?.priorities }
+          />
         </Column>
       </Body>
     </Section>
