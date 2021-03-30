@@ -7,7 +7,8 @@ import to from "app/features/shared/routing/to"
 import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
 import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout"
 import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner"
-import DaySettings from "app/features/settings/components/organisms/Days/DaySettings"
+import DaySettingsCard from "app/features/settings/components/organisms/Days/DaySettingsCard"
+import DaySettingsCardV2 from "app/features/settings/components/organisms/Days/DaySettingsCardV2"
 
 const Grid = styled.div`
   display: grid;
@@ -38,14 +39,24 @@ const DaySettingsList: FC<RouteComponentProps<Props>> = ({ teamSettings, postCod
         <>
           <Paragraph>Momenteel zijn de dagen als volgt ingepland:</Paragraph>
           <Grid>
-            { teamSettings.day_settings_list.map(daySettings => (
-              <DaySettings
-                key={ daySettings.id }
-                teamSettings={ teamSettings }
-                daySettingsId={ daySettings.id }
-                postCodeRangesPresets={ postCodeRangesPresets }
-              />
-            )) }
+            { teamSettings.day_settings_list.map(daySettings => teamSettings?.use_zaken_backend
+              ? (
+                <DaySettingsCardV2
+                  key={ daySettings.id }
+                  teamSettings={ teamSettings }
+                  daySettingsId={ daySettings.id }
+                  postCodeRangesPresets={ postCodeRangesPresets }
+                />
+              )
+              : (
+                <DaySettingsCard
+                  key={ daySettings.id }
+                  teamSettings={ teamSettings }
+                  daySettingsId={ daySettings.id }
+                  postCodeRangesPresets={ postCodeRangesPresets }
+                />
+              )
+            ) }
           </Grid>
         </>
         : (

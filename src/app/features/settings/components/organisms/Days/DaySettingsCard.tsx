@@ -1,64 +1,13 @@
 import React, { FC } from "react"
 import { navigate, RouteComponentProps } from "@reach/router"
-import { Button, Heading, themeColor, themeSpacing } from "@amsterdam/asc-ui"
-import styled from "styled-components"
+import { Button, Heading } from "@amsterdam/asc-ui"
 
 import to from "app/features/shared/routing/to"
 import { useDaySettings } from "app/state/rest"
 
 import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner"
 import formatDate from "app/features/shared/utils/formatDate"
-
-const Section = styled.section`
-  background-color: ${ themeColor("tint", "level2") };
-  padding: ${ themeSpacing(4) };
-`
-
-const Header = styled.header`
-  display: flex;
-  justify-content: space-between;
-  align-content: baseline;
-`
-
-const Body = styled.div`
-  display: flex;
-`
-
-const Column = styled.div`
-  flex: 1;
-
-  &:not(:last-child) {
-    padding-right: ${ themeSpacing(4) };
-  }
-`
-
-const Dl = styled.dl`
-  margin: 0;
-
-  &:not(:last-child) {
-    margin-bottom: ${ themeSpacing(4) };
-  }
-`
-
-const Dt = styled.dt`
-  margin-bottom: ${ themeSpacing(1) };
-  font-weight: 500;
-  color: ${ themeColor("tint", "level5") };
-`
-
-const Dd = styled.dd`
-  margin: 0;
-`
-
-const Ul = styled.ul`
-  margin: 0;
-  padding: 0 0 0 ${ themeSpacing(5) };
-`
-
-const Li = styled.li`
-  margin: 0;
-  padding: 0 0 ${ themeSpacing(1) };
-`
+import { Body, Column, Dd, Dl, Dt, Header, Li, Section, Ul } from "./DaySettingsCardStyles"
 
 type Props = {
   teamSettings: Components.Schemas.TeamSettings
@@ -66,7 +15,7 @@ type Props = {
   daySettingsId: number
 }
 
-const DaySettings: FC<RouteComponentProps<Props>> = ({ teamSettings, postCodeRangesPresets, daySettingsId }) => {
+const DaySettingsCard: FC<RouteComponentProps<Props>> = ({ teamSettings, postCodeRangesPresets, daySettingsId }) => {
   const { data: daySettings, isBusy } = useDaySettings(daySettingsId!)
 
   if (!teamSettings || !daySettings || isBusy) {
@@ -162,4 +111,4 @@ const DaySettings: FC<RouteComponentProps<Props>> = ({ teamSettings, postCodeRan
   )
 }
 
-export default DaySettings
+export default DaySettingsCard

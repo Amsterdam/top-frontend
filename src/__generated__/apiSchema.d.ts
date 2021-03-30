@@ -16,6 +16,16 @@ declare namespace Components {
                 readonly sync_date: string; // date-time
             };
         }
+        export interface CaseEvent {
+            readonly id: number;
+            readonly date_created: string; // date-time
+            case: string;
+            readonly type: string;
+            readonly emitter_id: number;
+            readonly event_values: {
+                [name: string]: any;
+            };
+        }
         export interface CaseSimple {
             id: string;
         }
@@ -119,11 +129,16 @@ declare namespace Components {
                 opening_date: string; // date
                 day_settings: DaySettings;
                 target_length?: number;
+                start_case?: CaseSimple;
+                day_segments?: number[] | null;
+                week_segments?: number[] | null;
+                priorities?: number[] | null;
+                reasons?: number[] | null;
+                state_types?: number[] | null;
                 projects: Project[];
                 primary_stadium: Stadium;
                 secondary_stadia: Stadium[];
                 exclude_stadia: Stadium[];
-                start_case?: CaseSimple;
             };
             readonly postal_code_settings: PostalCodeSettings[];
         }
@@ -152,11 +167,16 @@ declare namespace Components {
             opening_date: string; // date
             day_settings: DaySettings;
             target_length?: number;
+            start_case?: CaseSimple;
+            day_segments?: number[] | null;
+            week_segments?: number[] | null;
+            priorities?: number[] | null;
+            reasons?: number[] | null;
+            state_types?: number[] | null;
             projects: Project[];
             primary_stadium: Stadium;
             secondary_stadia: Stadium[];
             exclude_stadia: Stadium[];
-            start_case?: CaseSimple;
         }
         export interface ItineraryTeamMember {
             readonly id: number;
@@ -594,6 +614,17 @@ declare namespace Components {
     }
 }
 declare namespace Paths {
+    namespace CasesEventsRetrieve {
+        namespace Parameters {
+            export type Id = string;
+        }
+        export interface PathParameters {
+            id: Parameters.Id;
+        }
+        namespace Responses {
+            export type $200 = Components.Schemas.CaseEvent;
+        }
+    }
     namespace CasesRetrieve {
         namespace Parameters {
             export type Id = string;
