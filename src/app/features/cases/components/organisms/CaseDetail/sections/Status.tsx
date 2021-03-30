@@ -1,5 +1,6 @@
 import React, { FC } from "react"
-import { useCase } from "app/state/rest"
+import { TimelineEvents } from "@amsterdam/wonen-ui"
+import useGroupedCaseEvents from "../hooks/useGroupedCaseEvents"
 import CaseDetailSection from "app/features/cases/components/organisms/CaseDetail/CaseDetailSection"
 
 type Props = {
@@ -7,15 +8,15 @@ type Props = {
 }
 
 const Status: FC<Props> = ({ caseId }) => {
-  const { data: caseData } = useCase(caseId)
-
-  console.log(caseData?.current_states)
+  // const { data } = useCaseEvents(caseId)
+  const [timelineEvents] = useGroupedCaseEvents(caseId)
+  console.log("useCaseEvents", timelineEvents)
 
   return (
     <CaseDetailSection
       title="Status"
       dataSource="Zaaksysteem">
-      <p>Timeline goes here.</p>
+      { timelineEvents !== undefined && <TimelineEvents items={ timelineEvents as any } />}
     </CaseDetailSection>
   )
 }
