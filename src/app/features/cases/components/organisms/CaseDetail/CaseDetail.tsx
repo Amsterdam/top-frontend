@@ -1,5 +1,8 @@
 import React, { FC } from "react"
+import { useParams } from "@reach/router"
 import styled from "styled-components"
+
+import { useItinerary } from "app/state/rest/custom/useItinerary"
 
 import General from "./sections/General"
 import Logbook from "./sections/Logbook"
@@ -9,7 +12,7 @@ import Residents from "./sections/Residents"
 import Scratchpad from "./sections/Scratchpad"
 import Signal from "./sections/Signal"
 import Stadia from "./sections/Stadia"
-import Status from "app/features/cases/components/organisms/CaseDetail/sections/Status"
+import Status from "./sections/Status"
 import Permits from "./sections/Permits"
 import VacationRentalThisYear from "./sections/VacationRentalThisYear"
 
@@ -35,20 +38,30 @@ const Article = styled.article`
   }
 `
 
-const CaseDetail: FC<Props> = ({ caseId }) => (
-  <Article>
-    <General caseId={ caseId } />
-    <Status caseId={ caseId } />
-    <RelatedCases caseId={ caseId } />
-    <Residence caseId={ caseId } />
-    <Signal caseId={ caseId } />
-    <Residents caseId={ caseId } />
-    <Permits caseId={ caseId } />
-    <VacationRentalThisYear caseId={ caseId } />
-    <Logbook caseId={ caseId } />
-    <Scratchpad caseId={ caseId } />
-    <Stadia caseId={ caseId } />
-  </Article>
-)
+const CaseDetail: FC<Props> = ({ caseId }) => {
+  const { itineraryId } = useParams()
+  const { data: itinerary } = useItinerary(itineraryId!)
+
+  const useZakenBackend = itinerary?.settings.day_settings.team_settings.use_zaken_backend
+
+  return (
+    <Article>
+      <General caseId={ caseId } />
+      {/* TODO Move to bottom when finished. */ }
+      { useZakenBackend
+        ? <Status caseId={ caseId } />
+        : <Stadia caseId={ caseId } />
+      }
+      <RelatedCases caseId={ caseId } />
+      <Residence caseId={ caseId } />
+      <Signal caseId={ caseId } />
+      <Residents caseId={ caseId } />
+      <Permits caseId={ caseId } />
+      <VacationRentalThisYear caseId={ caseId } />
+      <Logbook caseId={ caseId } />
+      <Scratchpad caseId={ caseId } />
+    </Article>
+  )
+}
 
 export default CaseDetail
