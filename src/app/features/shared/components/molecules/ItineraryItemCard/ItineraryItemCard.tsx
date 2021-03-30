@@ -97,6 +97,7 @@ const ItineraryItemCard: React.FC<Props> = (
       return navigate(href)
     }
   }, [ href ])
+
   return (
     <Wrap backgroundColor={ backgroundColor }>
       <Left onClick={ handleClick } opacity={ isVisited || isBeingDeleted ? 0.4 : 1 }>

@@ -20,8 +20,7 @@ export const casesToCardCaseProps = (cases?: Case[], itinerary?: Itinerary, addD
 }
 
 const getCaseIdMap = (items: ItineraryItem[]) =>
-  items.reduce((acc, item) => ({ ...acc, [item.case.id ?? ""]: item.id }), {}
-  )
+  items.reduce((acc, item) => ({ ...acc, [item.case.id ?? ""]: item.id }), {})
 
 const mapCaseToCardProps = (itineraryId: number | undefined, itineraryItemIds: Record<string, number>, addDistance: boolean = false) => (
   {
@@ -35,7 +34,7 @@ const mapCaseToCardProps = (itineraryId: number | undefined, itineraryItemIds: R
     reason,
     teams
   }: any): React.ComponentProps<typeof ItineraryItemCard> => ({
-  href: to("/cases/:id", { id: id }),
+  href: to("/cases/:id", { id }),
   backgroundColor: "level2",
   address: displayAddress(
     address?.street_name,
@@ -45,7 +44,8 @@ const mapCaseToCardProps = (itineraryId: number | undefined, itineraryItemIds: R
   ),
   postalCode: address.postal_code,
   reason: reason?.reason || case_reason,
-  badge: current_states && current_states.length > 0 ? <StadiumBadge stadium={ current_states[0].status_name || "" }/> : <StadiumBadge stadium={ stadium }/>,
+  badge: current_states && current_states.length > 0 ?
+    <StadiumBadge stadium={ current_states[0].status_name || "" } /> : <StadiumBadge stadium={ stadium } />,
   fraudProbability: <FraudProbability fraudProbability={ fraud_prediction?.fraud_probability } />,
   team: teams && teams.length > 0 ? teams[0].map((team: { user: { full_name: string } }) => team.user.full_name).join(", ") : "",
   buttons: (onDeleteButtonClick: () => void) => <>
@@ -54,10 +54,10 @@ const mapCaseToCardProps = (itineraryId: number | undefined, itineraryItemIds: R
     { teams && teams.length > 0
       ? null
       : itineraryItemIds[id]
-      ? <DeleteItineraryItemButton onDeleteButtonClicked={ onDeleteButtonClick } id={ itineraryItemIds[id]! } />
-      : itineraryId
-      ? <AddItineraryItemButton caseId={ id } itinerary={ itineraryId } />
-      : null
+        ? <DeleteItineraryItemButton onDeleteButtonClicked={ onDeleteButtonClick } id={ itineraryItemIds[id]! } />
+        : itineraryId
+          ? <AddItineraryItemButton caseId={ id } itinerary={ itineraryId } />
+          : null
     }
   </>
 })
