@@ -59,7 +59,8 @@
     "swagger:generate-schema:acc": "dtsgen -o ./src/__generated__/apiSchema.d.ts --url https://acc.api.top.amsterdam.nl/api/v1/schema/",
     "swagger:generate-schema": "dtsgen -o ./src/__generated__/apiSchema.d.ts --url https://api.top.amsterdam.nl/api/v1/schema/",
     "deploy:acc": "git push origin master",
-    "deploy:prod": "npm version patch && git push origin HEAD --follow-tags"
+    "deploy:prod": "npm version patch && git push origin HEAD --follow-tags",
+    "prepare": "husky install"
   },
   "eslintConfig": {
     "extends": "react-app",
@@ -102,16 +103,5 @@
     "lint-staged": "^10.5.4",
     "nock": "^13.0.11",
     "storybook": "^6.2.3"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "pre-push": "npm test"
-    }
-  },
-  "lint-staged": {
-    "**/*.ts?(x)": [
-      "npm run lint:fix"
-    ]
   }
 }
