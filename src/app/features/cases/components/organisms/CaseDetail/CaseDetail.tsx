@@ -40,18 +40,20 @@ const Article = styled.article`
 
 const CaseDetail: FC<Props> = ({ caseId }) => {
   const { itineraryId } = useParams()
-  const { data: itinerary } = useItinerary(itineraryId!)
+  const { data: itinerary } = useItinerary(itineraryId)
 
   const useZakenBackend = itinerary?.settings.day_settings.team_settings.use_zaken_backend
 
   return (
     <Article>
       <General caseId={ caseId } />
-      {/* TODO Move to bottom when finished. */ }
-      { useZakenBackend
+      {/* TODO Move to bottom when finished. */}
+       { useZakenBackend
         ? <Status caseId={ caseId } />
         : <Stadia caseId={ caseId } />
       }
+      {/* TODO Remove when switch is working */}
+      <Status caseId={ caseId } />
       <RelatedCases caseId={ caseId } />
       <Residence caseId={ caseId } />
       <Signal caseId={ caseId } />

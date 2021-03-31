@@ -11,7 +11,6 @@ const shouldBeGrouped = (item: CaseEvent) => item.type !== "GENERIC_TASK"
 const equalItems = (i: TimelineEventItem | undefined, ii: CaseEvent) => i !== undefined && i.type === ii.type
 export default (caseId: string) => {
   const { data } = useCaseEvents(caseId)
-  console.log("DATA", data)
   return [
     data?.reduce((acc, item) => {
       const last = acc[acc.length - 1]
