@@ -10,13 +10,14 @@ type Props = {
 }
 
 const Div = styled.div`
-  >div[role="button"] {
+  > div[role="button"] {
     position: relative;
     margin: 0 -${ themeSpacing(3) } ${ themeSpacing(5) };
     padding: 0 ${ themeSpacing(3) };
+
     &:last-child {
-      >div:nth-child(2) {
-        >div:first-child {
+      > div:nth-child(2) {
+        > div:first-child {
           &:after {
             display: none;
           }
@@ -31,13 +32,13 @@ const Div = styled.div`
 `
 
 const Status: FC<Props> = ({ caseId }) => {
-  const [timelineEvents] = useGroupedCaseEvents(caseId)
+  const [ timelineEvents ] = useGroupedCaseEvents(caseId)
 
   return (
     <CaseDetailSection
       title="Status"
       dataSource="Zaaksysteem">
-      { timelineEvents !== undefined && 
+      { timelineEvents !== undefined &&
       <Div>
         <TimelineEvents items={ timelineEvents as any } />
       </Div>
