@@ -65,7 +65,7 @@ const DaySettingsCardV2: FC<RouteComponentProps<Props>> = ({ teamSettings, postC
   return (
     <Section>
       <Header>
-        <Heading forwardedAs="h2">{ daySettings?.name } V2</Heading>
+        <Heading forwardedAs="h2">{ daySettings?.name }</Heading>
         <Button variant="secondary" onClick={ () => navigate(toEditForm) }>Wijzig</Button>
       </Header>
       <Body>
