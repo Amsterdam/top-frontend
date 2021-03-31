@@ -24,7 +24,9 @@ const SearchForm: FC = () => {
   const { itineraryId } = useParams()
   const { data: itinerary } = useItinerary(itineraryId)
 
-  const apiName = itinerary?.settings.day_settings.team_settings.use_zaken_backend ? "ZKS" : "BWV"
+  const teamSettings = itinerary?.settings.day_settings.team_settings
+  const teamName = teamSettings?.zaken_team_name || ""
+  const apiName = teamSettings?.use_zaken_backend ? "ZKS" : "BWV"
   const { values, setValues } = useContext(SearchFormContext)
 
   const handleSubmit = useCallback((values: FormValues) => {
@@ -44,7 +46,7 @@ const SearchForm: FC = () => {
   return (
     <Container>
       <ScaffoldForm
-        initialValues={ { apiName, ...values } }
+        initialValues={ { apiName, teamName, ...values } }
         onSubmit={ handleSubmit }
       >
         <Scaffold { ...scaffoldProps } />

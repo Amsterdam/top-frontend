@@ -14,15 +14,12 @@ type Props = {
   streetName?: string
   streetNumber: number
   suffix?: string
-  team?: string
+  teamName?: string
 }
 
-const SearchResults: React.FC<Props> = ({ apiName, postalCode, streetName, streetNumber, suffix, team }) => {
+const SearchResults: React.FC<Props> = ({ apiName, postalCode, streetName, streetNumber, suffix, teamName }) => {
   const { itineraryId } = useParams()
   const { data: itinerary } = useItinerary(itineraryId!)
-
-  const teamSettings = itinerary?.settings.day_settings.team_settings
-  const teamName = teamSettings?.zaken_team_name || ""
   const apiVersion = (apiName === "ZKS") ? "v2" : "v1"
 
   const { data, isBusy } = useSearch(streetNumber, postalCode, streetName, suffix, teamName, { apiVersion })
