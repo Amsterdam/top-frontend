@@ -6,6 +6,7 @@ import { ApiName } from "app/features/types"
 import { createDefinition } from "./formDefinition"
 import { SearchFormContext } from "./SearchFormProvider"
 import { useParams } from "@reach/router"
+import { useItinerary } from "app/state/rest/custom/useItinerary"
 
 export type FormValues = {
   postalCode: string
@@ -21,6 +22,11 @@ const Container = styled.div`
 
 const SearchForm: FC = () => {
   const { itineraryId } = useParams()
+  const { data: itinerary } = useItinerary(itineraryId)
+
+  const teamSettings = itinerary?.settings.day_settings.team_settings
+  const teamName = teamSettings?.zaken_team_name || ""
+  const apiName = teamSettings?.use_zaken_backend ? "ZKS" : "BWV"
   const { values, setValues } = useContext(SearchFormContext)
 
   const handleSubmit = useCallback((values: FormValues) => {
@@ -40,7 +46,7 @@ const SearchForm: FC = () => {
   return (
     <Container>
       <ScaffoldForm
-        initialValues={ { apiName: "BWV", isApiNameKnown: !!itineraryId, ...values } }
+        initialValues={ { apiName, teamName, ...values } }
         onSubmit={ handleSubmit }
       >
         <Scaffold { ...scaffoldProps } />
