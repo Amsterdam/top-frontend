@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from "react"
 import { navigate } from "@reach/router"
-import { themeColor, themeSpacing } from "@amsterdam/asc-ui"
 import styled from "styled-components"
+import { themeColor, themeSpacing } from "@amsterdam/asc-ui"
 import StadiumBadge from "app/features/shared/components/molecules/StadiumBadge/StadiumBadge"
 
 type Props = {
@@ -73,6 +73,10 @@ const FraudProbability = styled.p`
   color: ${ themeColor("tint", "level4") };
 `
 
+const P = styled.p`
+  margin-bottom: 0;
+`
+
 const ItineraryItemCard: React.FC<Props> = (
   {
     address,
@@ -111,7 +115,7 @@ const ItineraryItemCard: React.FC<Props> = (
           { isSia && <StadiumBadge stadium="SIA" /> }
         </BadgeRow>
         { notes }
-        { team && `In lijst: ${ team }` }
+        { team && <P>In looplijst van { team }.</P> }
       </Left>
       <Right>
         { buttons && buttons(setBeingDeleted) }
