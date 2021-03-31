@@ -22,42 +22,56 @@ export const casesToCardCaseProps = (cases?: Case[], itinerary?: Itinerary, addD
 const getCaseIdMap = (items: ItineraryItem[]) =>
   items.reduce((acc, item) => ({ ...acc, [item.case.id ?? ""]: item.id }), {})
 
-const mapCaseToCardProps = (itineraryId: number | undefined, itineraryItemIds: Record<string, number>, addDistance: boolean = false) => (
+const mapCaseToCardProps = (itineraryId: number | undefined, itineraryItemIds: Record<string, number>, addDistance: boolean = false) =>
+  ({
+     address,
+     case_reason,
+     current_states,
+     distance,
+     fraud_prediction,
+     id,
+     reason,
+     stadium,
+     teams
+   }: any): React.ComponentProps<typeof ItineraryItemCard> =>
   {
-    id,
-    case_reason,
-    stadium,
-    fraud_prediction,
-    distance,
-    address,
-    current_states,
-    reason,
-    teams
-  }: any): React.ComponentProps<typeof ItineraryItemCard> => ({
-  href: to("/cases/:id", { id }),
-  backgroundColor: "level2",
-  address: displayAddress(
-    address?.street_name,
-    address?.number,
-    address?.suffix_letter,
-    address?.suffix
-  ),
-  postalCode: address.postal_code,
-  reason: reason?.reason || case_reason,
-  badge: current_states && current_states.length > 0 ?
-    <StadiumBadge stadium={ current_states[0].status_name || "" } /> : <StadiumBadge stadium={ stadium } />,
-  fraudProbability: <FraudProbability fraudProbability={ fraud_prediction?.fraud_probability } />,
-  team: teams && teams.length > 0 ? teams[0].map((team: { user: { full_name: string } }) => team.user.full_name).join(", ") : "",
-  buttons: (onDeleteButtonClick: () => void) => <>
-    { addDistance && distance && itineraryId && Object.keys(itineraryItemIds).length > 0 &&
-    <p>{ Math.round(distance) }m</p> }
-    { teams && teams.length > 0
-      ? null
-      : itineraryItemIds[id]
-        ? <DeleteItineraryItemButton onDeleteButtonClicked={ onDeleteButtonClick } id={ itineraryItemIds[id]! } />
-        : itineraryId
-          ? <AddItineraryItemButton caseId={ id } itinerary={ itineraryId } />
-          : null
+    const addressObject = displayAddress(
+      address?.street_name,
+      address?.number,
+      address?.suffix_letter,
+      address?.suffix
+    )
+
+    const badge = current_states && current_states.length > 0
+      ? <StadiumBadge stadium={ current_states[0].status_name || "" } />
+      : <StadiumBadge stadium={ stadium } />
+
+    const team = teams && teams.length ? teams[0].map((team: { user: { full_name: string } }) => team.user.full_name).join(", ") : ""
+
+    const buttons = (onDeleteButtonClick: () => void) => (
+      <>
+        { addDistance && distance && itineraryId && Object.keys(itineraryItemIds).length &&
+        <p>{ Math.round(distance) }m</p> }
+        { teams && teams.length > 0
+          ? null
+          : itineraryItemIds[id]
+            ? <DeleteItineraryItemButton onDeleteButtonClicked={ onDeleteButtonClick } id={ itineraryItemIds[id]! } />
+            : itineraryId
+              ? <AddItineraryItemButton caseId={ id } itinerary={ itineraryId } />
+              : null
+        }
+      </>
+    )
+
+    return {
+      address: addressObject,
+      backgroundColor: "level2",
+      badge,
+      buttons,
+      fraudProbability: <FraudProbability fraudProbability={ fraud_prediction?.fraud_probability } />,
+      href: to("/cases/:id", { id }),
+      postalCode: address.postal_code,
+      reason: reason?.reason || case_reason,
+      team
     }
-  </>
-})
+  }
