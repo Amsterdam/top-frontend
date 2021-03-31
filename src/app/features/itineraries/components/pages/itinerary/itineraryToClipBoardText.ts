@@ -12,10 +12,14 @@ const itineraryToClipboardText = (itinerary: BWVData) => {
       postal_code: postalCode
     },
     stadium,
-    case_reason: caseReason
+    current_states,
+    case_reason,
+    reason
   } = itinerary
   const address = displayAddress(streetName, streetNumber, suffixLetter, suffix)
-  return `${ address } ${ postalCode } ${ stadium } ${ caseReason }`
+  const state = current_states && current_states.length > 0 ? current_states[0].status_name : stadium
+  const caseReason = reason ? reason.name : case_reason
+  return `${ address } ${ postalCode } ${ state } ${ caseReason }`
 }
 
 export default itineraryToClipboardText
