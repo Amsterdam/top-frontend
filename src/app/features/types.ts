@@ -148,23 +148,24 @@ export type CaseReason = {
 }
 
 export type Case = {
+  address: Address
   bag_data: BagData | BagDataError
   brk_data: BrkData | BrkDataError
   bwv_hotline_bevinding: BWVHotlineBevinding[]
   bwv_hotline_melding: BWVHotlineMelding[]
   bwv_personen: BWVPersoon[]
   bwv_tmp: BWVTmp
+  case_states: CaseStatus[]
+  current_states: CaseStatus[]
   day_settings_id: number | null | undefined
   fraud_prediction: FraudPrediction | undefined
-  address: Address
+  id: number | string
   import_stadia: ImportStadia[]
   is_sia: string
+  reason: CaseReason
   related_cases: RelatedCase[]
   statements: Statement[]
   vakantie_verhuur: VakantieVerhuur
-  case_states: CaseStatus[]
-  current_states: CaseStatus[]
-  reason: CaseReason
 }
 
 export type ItineraryItem = Omit<Components.Schemas.ItineraryItem, "case"> & {

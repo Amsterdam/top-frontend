@@ -2,6 +2,7 @@ import React, { FC } from "react"
 import styled from "styled-components"
 import { Link } from "@reach/router"
 import { Heading, themeSpacing } from "@amsterdam/asc-ui"
+import { CaseIdDisplay } from "@amsterdam/wonen-ui"
 
 import { useCase, useDaySettings } from "app/state/rest"
 import { Case } from "app/features/types"
@@ -102,6 +103,12 @@ const General: FC<Props> = ({ caseId, isZksCase }) => {
           { isSia && <StadiumBadge stadium="SIA" /> }
         </BadgesRow>
         <Grid>
+          { isZksCase &&
+          <>
+            <Label>Zaak ID</Label>
+            <Value><CaseIdDisplay id={ caseData.id } /></Value>
+          </>
+          }
           { !isZksCase && <BwvDetails caseData={ caseData } /> }
           <Label>Eigenaar</Label>
           <Value sensitive value={ eigenaar } />
