@@ -1,8 +1,7 @@
 import React, { FC } from "react"
-import { useParams } from "@reach/router"
 import styled from "styled-components"
 
-import { useItinerary } from "app/state/rest/custom/useItinerary"
+import { useCase } from "app/state/rest"
 
 import General from "./sections/General"
 import Logbook from "./sections/Logbook"
@@ -39,21 +38,17 @@ const Article = styled.article`
 `
 
 const CaseDetail: FC<Props> = ({ caseId }) => {
-  const { itineraryId } = useParams()
-  const { data: itinerary } = useItinerary(itineraryId)
+  const { data: caseData } = useCase(caseId)
 
-  const useZakenBackend = itinerary?.settings.day_settings.team_settings.use_zaken_backend
+  const isZksCase = caseData?.case_states
 
   return (
     <Article>
       <General caseId={ caseId } />
-      {/* TODO Move to bottom when finished. */}
-       { useZakenBackend
+      { isZksCase
         ? <Status caseId={ caseId } />
         : <Stadia caseId={ caseId } />
       }
-      {/* TODO Remove when switch is working */}
-      <Status caseId={ caseId } />
       <RelatedCases caseId={ caseId } />
       <Residence caseId={ caseId } />
       <Signal caseId={ caseId } />
