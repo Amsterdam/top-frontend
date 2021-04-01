@@ -4,6 +4,8 @@ import { Link } from "@reach/router"
 import { Heading, themeSpacing } from "@amsterdam/asc-ui"
 
 import { useCase, useDaySettings } from "app/state/rest"
+import { Case } from "app/features/types"
+
 import FraudProbability from "app/features/shared/components/atoms/FraudProbability/FraudProbability"
 import Label from "app/features/shared/components/atoms/Label/Label"
 import Value from "app/features/shared/components/atoms/Value/Value"
@@ -23,6 +25,7 @@ import {
 
 type Props = {
   caseId: string
+  isZksCase: boolean
 }
 
 const PostalCode = styled.p`
@@ -39,7 +42,38 @@ const BadgesRow = styled.div`
   }
 `
 
-const General: FC<Props> = ({ caseId }) => {
+const BwvDetails: FC<{ caseData: Case }> = ({ caseData }) => {
+  const residentCount = caseData.bwv_personen?.filter(person => person.overlijdensdatum === null).length || 0
+  const residentsText =
+    residentCount === 0 ? "Geen inschrijvingen" :
+      residentCount === 1 ? "1 persoon" :
+        `${ residentCount } personen`
+
+  const caseCount = getCaseCount(caseData)
+  const caseNumber = caseData.bwv_tmp?.case_number !== null ? parseInt(caseData.bwv_tmp?.case_number || "", 10) : undefined
+  const caseOpening = caseData.bwv_tmp?.openings_reden ? caseData.bwv_tmp?.openings_reden : caseData.reason?.name
+  const openCaseCount = caseData.bwv_tmp?.num_open_cases !== null ? caseData.bwv_tmp?.num_open_cases : undefined
+
+  return (
+    <>
+      <Label>Ingeschreven</Label>
+      <span>{ residentCount > 0
+        ? <ScrollToAnchor anchor="inschrijvingen" text={ residentsText } />
+        : residentsText
+      }</span>
+      <Label>Zaaknummer</Label>
+      <Value>
+        <span><strong>{ caseNumber }</strong> van { caseCount }</span>
+      </Value>
+      <Label>Open zaken</Label>
+      <Value value={ openCaseCount } />
+      <Label>Openingsreden</Label>
+      <Value value={ caseOpening } />
+    </>
+  )
+}
+
+const General: FC<Props> = ({ caseId, isZksCase }) => {
   const { data: caseData } = useCase(caseId)
   const { data: daySettings } = useDaySettings(caseData?.day_settings_id!)
   const { getUrl: getToFraudPredictionModalUrl } = useFraudPredictionModal()
@@ -48,25 +82,15 @@ const General: FC<Props> = ({ caseId }) => {
     return null
   }
 
-  const caseCount = getCaseCount(caseData)
-  const caseNumber = caseData.bwv_tmp?.case_number !== null ? parseInt(caseData.bwv_tmp?.case_number || "", 10) : undefined
-  const caseOpening = caseData.bwv_tmp?.openings_reden ? caseData.bwv_tmp?.openings_reden : caseData.reason?.name
-  const openCaseCount = caseData.bwv_tmp?.num_open_cases !== null ? caseData.bwv_tmp?.num_open_cases : undefined
-
   const address = getAddress(caseData.address)
-  const eigenaar = getEigenaar(caseData)
-  const fraudPrediction = !caseData.day_settings_id || (daySettings && daySettings.team_settings.fraud_prediction_model) ? caseData.fraud_prediction : undefined
-  const isSia = (caseData.is_sia === "J")
   const postalCode = caseData.address.postal_code
-  const residentCount = caseData.bwv_personen?.filter(person => person.overlijdensdatum === null).length || 0
+  const eigenaar = getEigenaar(caseData)
 
+  const isSia = (caseData.is_sia === "J")
   const stadiaLabels = caseData.import_stadia?.map(stadium => ({ description: stadium.sta_oms }))
   const lastStadiumLabel = stadiaLabels?.length ? stadiaLabels[0].description : caseData.current_states?.length > 0 ? caseData.current_states[0].status_name : undefined
 
-  const residentsText =
-    residentCount === 0 ? "Geen inschrijvingen" :
-      residentCount === 1 ? "1 persoon" :
-        `${ residentCount } personen`
+  const fraudPrediction = !caseData.day_settings_id || (daySettings && daySettings.team_settings.fraud_prediction_model) ? caseData.fraud_prediction : undefined
 
   return (
     <Section>
@@ -78,19 +102,7 @@ const General: FC<Props> = ({ caseId }) => {
           { isSia && <StadiumBadge stadium="SIA" /> }
         </BadgesRow>
         <Grid>
-          <Label>Ingeschreven</Label>
-          <span>{ residentCount > 0
-            ? <ScrollToAnchor anchor="inschrijvingen" text={ residentsText } />
-            : residentsText
-          }</span>
-          <Label>Zaaknummer</Label>
-          <Value valid={ caseNumber !== undefined && caseCount !== undefined }>
-            <span><strong>{ caseNumber }</strong> van { caseCount }</span>
-          </Value>
-          <Label>Open zaken</Label>
-          <Value value={ openCaseCount } />
-          <Label>Openingsreden</Label>
-          <Value value={ caseOpening } />
+          { !isZksCase && <BwvDetails caseData={ caseData } /> }
           <Label>Eigenaar</Label>
           <Value sensitive value={ eigenaar } />
           { fraudPrediction &&
