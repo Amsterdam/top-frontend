@@ -1,6 +1,8 @@
 import React, { FC } from "react"
 import styled from "styled-components"
 
+import { useCase } from "app/state/rest"
+
 import General from "./sections/General"
 import Logbook from "./sections/Logbook"
 import RelatedCases from "./sections/RelatedCases"
@@ -9,6 +11,7 @@ import Residents from "./sections/Residents"
 import Scratchpad from "./sections/Scratchpad"
 import Signal from "./sections/Signal"
 import Stadia from "./sections/Stadia"
+import Status from "./sections/Status"
 import Permits from "./sections/Permits"
 import VacationRentalThisYear from "./sections/VacationRentalThisYear"
 
@@ -34,19 +37,28 @@ const Article = styled.article`
   }
 `
 
-const CaseDetail: FC<Props> = ({ caseId }) => (
-  <Article>
-    <General caseId={ caseId } />
-    <RelatedCases caseId={ caseId } />
-    <Residence caseId={ caseId } />
-    <Signal caseId={ caseId } />
-    <Residents caseId={ caseId } />
-    <Permits caseId={ caseId } />
-    <VacationRentalThisYear caseId={ caseId } />
-    <Logbook caseId={ caseId } />
-    <Scratchpad caseId={ caseId } />
-    <Stadia caseId={ caseId } />
-  </Article>
-)
+const CaseDetail: FC<Props> = ({ caseId }) => {
+  const { data: caseData } = useCase(caseId)
+
+  const isZksCase = caseData?.case_states
+
+  return (
+    <Article>
+      <General caseId={ caseId } />
+      { isZksCase
+        ? <Status caseId={ caseId } />
+        : <Stadia caseId={ caseId } />
+      }
+      <RelatedCases caseId={ caseId } />
+      <Residence caseId={ caseId } />
+      <Signal caseId={ caseId } />
+      <Residents caseId={ caseId } />
+      <Permits caseId={ caseId } />
+      <VacationRentalThisYear caseId={ caseId } />
+      <Logbook caseId={ caseId } />
+      <Scratchpad caseId={ caseId } />
+    </Article>
+  )
+}
 
 export default CaseDetail

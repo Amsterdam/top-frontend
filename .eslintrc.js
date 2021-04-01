@@ -6,6 +6,7 @@ module.exports = {
     "arrow-body-style": [ "error", "as-needed" ],
     "block-spacing": [ "error", "always" ],
     "comma-dangle": [ "error", "never" ],
+    "import/no-anonymous-default-export": "off",
     "no-multi-spaces": [ "error" ],
     "no-multiple-empty-lines": [ "error" ],
     "object-curly-spacing": [ "error", "always", { "arraysInObjects": false } ],
