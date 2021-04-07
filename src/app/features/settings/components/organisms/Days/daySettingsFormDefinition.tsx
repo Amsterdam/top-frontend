@@ -5,6 +5,7 @@ import { Field } from "app/features/shared/components/form/ScaffoldField"
 import postalCodeSiblingValidator from "../SettingsForm/validators/postalCodeSiblingValidator"
 
 import { arrayToObject } from "app/features/shared/utils/arrayToObject"
+import { daysOfTheWeek } from "../../../utils/daysOfTheWeek"
 
 /**
  * Creates form definition for planningSettings
@@ -15,7 +16,17 @@ export const createDefinition = (projects: string[], stadia: string[], postalCod
   const postalCodeMin = 1000
   const postalCodeMax = 1109
 
+
   const definition: FormPositionerFields<Field> = {
+    name: {
+      type: "TextField",
+      props: {
+        label: "Kies een titel voor deze dag instelling",
+        name: "settings.name",
+        type: "text",
+        validate: isRequired()
+      }
+    },
     opening_date: {
       type: "TextField",
       props: {
@@ -23,6 +34,15 @@ export const createDefinition = (projects: string[], stadia: string[], postalCod
         name: "settings.opening_date",
         type: "date",
         validate: isRequired()
+      }
+    },
+    week_days: {
+      type: "CheckboxFields",
+      props: {
+        label: "Op welke dag moet deze instelling gebruikt worden?",
+        name: "settings.week_days",
+        options: daysOfTheWeek,
+        columnCount: { mobileM: 2, tabletM: 4 }
       }
     },
     divider1: {
@@ -165,7 +185,9 @@ export const createDefinition = (projects: string[], stadia: string[], postalCod
   return new FormPositioner(definition)
     .setVertical("mobileS")
     .setGrid("tabletM", "1fr 1fr 1fr", [
+      [ "name" ],
       [ "opening_date" ],
+      [ "week_days", "week_days", "week_days" ],
       [ "divider1", "divider1", "divider1" ],
       [ "sia_presedence" ],
       [ "divider2", "divider2", "divider2" ],
@@ -177,7 +199,9 @@ export const createDefinition = (projects: string[], stadia: string[], postalCod
       [ "primary_stadium", "secondary_stadia", "exclude_stadia" ]
     ])
     .setGrid("laptop", "1fr 1fr 1fr 1fr 1fr", [
+      [ "name" ],
       [ "opening_date" ],
+      [ "week_days", "week_days", "week_days", "week_days", "week_days" ],
       [ "divider1", "divider1", "divider1", "divider1", "divider1" ],
       [ "sia_presedence" ],
       [ "divider2", "divider2", "divider2", "divider2", "divider2" ],

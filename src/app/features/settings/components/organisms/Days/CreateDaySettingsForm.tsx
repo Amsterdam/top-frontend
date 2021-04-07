@@ -5,14 +5,13 @@ import { ScaffoldForm } from "@amsterdam/amsterdam-react-final-form"
 import { Heading } from "@amsterdam/asc-ui"
 
 import to from "app/features/shared/routing/to"
-import { useDaySettings, usePostCodeRanges, useTeamSettings } from "app/state/rest"
+import { useDaySettingsList, usePostCodeRanges, useTeamSettings } from "app/state/rest"
 
 import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
 import Scaffold from "app/features/shared/components/form/Scaffold"
 import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout"
 
 import { createDefinition } from "./daySettingsFormDefinition"
-import DeleteDaySettingsButton from "../..//molecules/DeleteDaySettingsButton/DeleteDaySettingsButton"
 import FixedSubmitButton from "../SettingsForm/components/FixedSubmitButton"
 import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner"
 import { filterEmptyPostalCodes } from "app/features/settings/utils/filterEmptyPostalCodes"
@@ -31,9 +30,9 @@ type Props = {
   daySettingsId: number
 }
 
-const DaySettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId, daySettingsId }) => {
+const CreateDaySettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId, daySettingsId }) => {
   const { data: teamSettings, isBusy: isBusySettings } = useTeamSettings(teamSettingsId!)
-  const { data: daySettings, execPut, isBusy: isBusyDaySettings } = useDaySettings(daySettingsId!)
+  const { execPost } = useDaySettingsList({ lazy: true, apiVersion: "v2" })
   const { data: postalCodeRangesPresets, isBusy: isBusyPostalCodeRangesPresets } = usePostCodeRanges()
   const [ errorMessage, setErrorMessage ] = useState("")
 
@@ -52,21 +51,30 @@ const DaySettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId, daySe
       values.postal_code_ranges_presets = []
     }
     try {
-      await execPut(values, { skipCacheClear: false, useResponseAsCache: false })
+      await execPost(values, { skipCacheClear: false, useResponseAsCache: false })
       navigate(to("/team-settings/:teamSettingsId", { teamSettingsId }))
     } catch (error) {
       setErrorMessage(error.response.data.message)
       return error
     }
-  }, [ execPut, setErrorMessage, teamSettingsId ])
+  }, [ execPost, setErrorMessage, teamSettingsId ])
 
-  if (!daySettings || isBusyDaySettings || !teamSettings || isBusySettings || !postalCodeRangesPresets || isBusyPostalCodeRangesPresets) {
+  if (!teamSettings || isBusySettings || !postalCodeRangesPresets || isBusyPostalCodeRangesPresets) {
     return <CenteredSpinner explanation="Instellingen ophalen…" size={ 60 } />
   }
 
   const default_postal_code_range = [
     { range_end: 1109, range_start: 1000 }
   ]
+
+  const initialValues = {
+      settings: {
+        team_settings: teamSettingsId,
+        postal_code_ranges: default_postal_code_range,
+        opening_date: Date.now()
+      },
+      postal_codes_type: "postcode"
+  }
 
   return (
     <DefaultLayout>
@@ -76,21 +84,8 @@ const DaySettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId, daySe
             Alle dagen
           </Link>
         </Spacing>
-        <p>Wijzig instellingen voor:</p>
-        <DeleteDaySettingsButton teamSettingsId={ teamSettingsId! } daySettingsId={ daySettingsId! } />
-        <Heading>{ teamSettings.name }</Heading>
-        <Heading forwardedAs="h2">{ daySettings.name }</Heading>
-        <ScaffoldForm onSubmit={ handleSubmit } initialValues={ {
-          settings: {
-            ...daySettings,
-            postal_code_ranges_presets: (daySettings.postal_code_ranges_presets ?? []).map((pcp: any) => String(pcp)),
-            postal_code_ranges: (daySettings.postal_code_ranges_presets ?? []).length > 0 ? default_postal_code_range : daySettings.postal_code_ranges,
-            team_settings: teamSettingsId,
-            week_days: daySettings?.week_days?.map((wd: number) => wd.toString())
-          },
-          postal_codes_type: (daySettings.postal_code_ranges_presets ?? []).length > 0 ? "stadsdeel" : "postcode",
-          name: teamSettings.name
-        } }>
+        <Heading>Nieuwe dag instelling aanmaken</Heading>
+        <ScaffoldForm onSubmit={ handleSubmit } initialValues={ initialValues }>
           <Scaffold { ...definition } />
           <FixedSubmitButton errorMessage={ errorMessage } />
         </ScaffoldForm>
@@ -99,4 +94,4 @@ const DaySettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId, daySe
   )
 }
 
-export default DaySettingsForm
+export default CreateDaySettingsForm

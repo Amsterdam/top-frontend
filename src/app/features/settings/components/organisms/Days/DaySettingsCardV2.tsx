@@ -13,10 +13,20 @@ type Props = {
   teamSettings: Components.Schemas.TeamSettings
   postCodeRangesPresets: Components.Schemas.PostalCodeRangePreset[]
   daySettingsId: number
+  caseReasons: Components.Schemas.CaseReason[]
+  teamScheduleTypes: Components.Schemas.TeamScheduleTypes
+  caseStateTypes: Components.Schemas.CaseStateType[]
 }
 
-const DaySettingsCardV2: FC<RouteComponentProps<Props>> = ({ teamSettings, postCodeRangesPresets, daySettingsId }) => {
-  const { data: daySettings, isBusy } = useDaySettings(daySettingsId!)
+const DaySettingsCardV2: FC<RouteComponentProps<Props>> = ({ 
+  teamSettings, 
+  postCodeRangesPresets, 
+  daySettingsId,
+  caseReasons,
+  teamScheduleTypes,
+  caseStateTypes
+}) => {
+  const { data: daySettings, isBusy } = useDaySettings(daySettingsId!, { apiVersion: "v2" })
 
   if (!teamSettings || !daySettings || isBusy) {
     return <CenteredSpinner explanation="Instellingen ophalen…" size={ 60 } />
@@ -76,7 +86,7 @@ const DaySettingsCardV2: FC<RouteComponentProps<Props>> = ({ teamSettings, postC
           </Dl>
           <ValueList
             labels={ [ "Openingsreden", "Openingsredenen" ] }
-            options={ daySettings?.reason_options }
+            options={ caseReasons }
             values={ daySettings?.reasons }
           />
           <Dl>
@@ -93,24 +103,24 @@ const DaySettingsCardV2: FC<RouteComponentProps<Props>> = ({ teamSettings, postC
           </Dl>
           <ValueList
             labels={ [ "Dagdeel", "Dagdelen" ] }
-            options={ daySettings?.team_schedule_options?.day_segments }
+            options={ teamScheduleTypes?.day_segments }
             values={ daySettings?.day_segments }
           />
           <ValueList
             labels={ [ "Weekdeel", "Weekdelen" ] }
-            options={ daySettings?.team_schedule_options?.week_segments }
+            options={ teamScheduleTypes?.week_segments }
             values={ daySettings?.week_segments }
           />
         </Column>
         <Column>
           <ValueList
             labels={ [ "Status", "Statussen" ] }
-            options={ daySettings?.state_type_options }
+            options={ caseStateTypes }
             values={ daySettings?.state_types }
           />
           <ValueList
             labels={ [ "Prioriteit", "Prioriteiten" ] }
-            options={ daySettings?.team_schedule_options?.priorities }
+            options={ teamScheduleTypes?.priorities }
             values={ daySettings?.priorities }
           />
         </Column>

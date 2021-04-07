@@ -2,13 +2,14 @@ import React, { FC } from "react"
 import { Link, RouteComponentProps } from "@reach/router"
 import styled from "styled-components"
 import { Heading, Paragraph, themeSpacing } from "@amsterdam/asc-ui"
-
+import { useTeamSettingsReasons, useTeamSettingsScheduleTypes, useTeamSettingsStateTypes, useTeamSettings } from "app/state/rest"
 import to from "app/features/shared/routing/to"
 import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
 import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout"
 import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner"
 import DaySettingsCard from "app/features/settings/components/organisms/Days/DaySettingsCard"
 import DaySettingsCardV2 from "app/features/settings/components/organisms/Days/DaySettingsCardV2"
+import AddDaySettingsButton from "app/features/settings/components/molecules/AddDaySettingsButton/AddDaySettingsButton"
 
 const Grid = styled.div`
   display: grid;
@@ -17,12 +18,16 @@ const Grid = styled.div`
 `
 
 type Props = {
-  teamSettings: Components.Schemas.TeamSettings
+  teamSettingsId: number
   postCodeRangesPresets: Components.Schemas.PostalCodeRangePreset[]
 }
 
-const DaySettingsList: FC<RouteComponentProps<Props>> = ({ teamSettings, postCodeRangesPresets }) => {
-  if (!teamSettings || !postCodeRangesPresets) {
+const DaySettingsList: FC<RouteComponentProps<Props>> = ({ teamSettingsId, postCodeRangesPresets }) => {
+  const { data: teamSettings, isBusy: isBusySettings } = useTeamSettings(teamSettingsId!)
+  const { data: caseReasons } = useTeamSettingsReasons(teamSettingsId!)
+  const { data: teamScheduleTypes } = useTeamSettingsScheduleTypes(teamSettingsId!)
+  const { data: caseStateTypes } = useTeamSettingsStateTypes(teamSettingsId!)
+  if (!teamSettings || isBusySettings ) {
     return <CenteredSpinner explanation="Planning ophalen…" size={ 60 } />
   }
 
@@ -35,6 +40,9 @@ const DaySettingsList: FC<RouteComponentProps<Props>> = ({ teamSettings, postCod
           Kies een ander team
         </Link>
       </Spacing>
+      <Spacing pb={ 8 }>
+        <AddDaySettingsButton teamSettingsId={ teamSettingsId! }/>
+      </Spacing>
       { teamSettings.day_settings_list.length ?
         <>
           <Paragraph>Momenteel zijn de dagen als volgt ingepland:</Paragraph>
@@ -46,6 +54,9 @@ const DaySettingsList: FC<RouteComponentProps<Props>> = ({ teamSettings, postCod
                   teamSettings={ teamSettings }
                   daySettingsId={ daySettings.id }
                   postCodeRangesPresets={ postCodeRangesPresets }
+                  caseReasons={ caseReasons }
+                  teamScheduleTypes={ teamScheduleTypes }
+                  caseStateTypes={ caseStateTypes }
                 />
               )
               : (

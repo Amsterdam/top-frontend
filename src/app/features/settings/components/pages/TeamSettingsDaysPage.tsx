@@ -1,6 +1,6 @@
 import React from "react"
 import { RouteComponentProps } from "@reach/router"
-import { usePostCodeRanges, useTeamSettings } from "app/state/rest"
+import { usePostCodeRanges } from "app/state/rest"
 import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner"
 import DaySettingsList from "app/features/settings/components/organisms/Days/DaySettingsList"
 
@@ -9,14 +9,13 @@ type Props = {
 }
 
 const TeamSettingsDaysPage: React.FC<RouteComponentProps<Props>> = ({ teamSettingsId }) => {
-  const { data: teamSettings, isBusy: isBusySettings } = useTeamSettings(teamSettingsId!)
   const { data: postCodeRangesPresets, isBusy: isBusyPostalCodeRangesPresets } = usePostCodeRanges()
 
-  if (!teamSettings || isBusySettings || !postCodeRangesPresets || isBusyPostalCodeRangesPresets) {
+  if (!postCodeRangesPresets || isBusyPostalCodeRangesPresets) {
     return <CenteredSpinner explanation="Instellingen ophalen…" size={ 60 } />
   }
 
-  return <DaySettingsList teamSettings={ teamSettings } postCodeRangesPresets={ postCodeRangesPresets.results } />
+  return <DaySettingsList teamSettingsId={ teamSettingsId } postCodeRangesPresets={ postCodeRangesPresets.results } />
 }
 
 export default TeamSettingsDaysPage

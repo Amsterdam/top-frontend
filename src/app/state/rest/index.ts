@@ -179,10 +179,38 @@ export const useTeamSettings = (teamSettingsId: number, options?: Options) => us
   isProtected: true
 })
 
+export const useTeamSettingsReasons = (teamSettingsId: number, options?: Options) => useApiRequest<Components.Schemas.CaseReason[]>({
+  ...options,
+  url: makeGatewayUrl([ "team-settings", teamSettingsId, "reasons" ]),
+  groupName: "teamSettings",
+  isProtected: true
+})
+
+export const useTeamSettingsScheduleTypes = (teamSettingsId: number, options?: Options) => useApiRequest<Components.Schemas.TeamScheduleTypes>({
+  ...options,
+  url: makeGatewayUrl([ "team-settings", teamSettingsId, "schedule-types" ]),
+  groupName: "teamSettings",
+  isProtected: true
+})
+
+export const useTeamSettingsStateTypes = (teamSettingsId: number, options?: Options) => useApiRequest<Components.Schemas.CaseStateType[]>({
+  ...options,
+  url: makeGatewayUrl([ "team-settings", teamSettingsId, "state-types" ]),
+  groupName: "teamSettings",
+  isProtected: true
+})
+
+export const useDaySettingsList = (options?: Options) => useApiRequest<Components.Schemas.DaySettings[]>({
+  ...options,
+  url: makeGatewayUrl([ "day-settings" ], {}, options?.apiVersion),
+  groupName: "teamSettings",
+  isProtected: true
+})
+
 export const useDaySettings = (daySettingsId: number, options?: Options) => useApiRequest<Components.Schemas.DaySettings>({
   ...options,
-  url: makeGatewayUrl([ "day-settings", daySettingsId ]),
-  groupName: "daySettings",
+  url: makeGatewayUrl([ "day-settings", daySettingsId ], {}, options?.apiVersion),
+  groupName: "teamSettings",
   isProtected: true
 })
 
