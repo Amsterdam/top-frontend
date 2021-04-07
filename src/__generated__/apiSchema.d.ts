@@ -19,20 +19,31 @@ declare namespace Components {
         export interface CaseEvent {
             readonly id: number;
             readonly date_created: string; // date-time
-            case: string;
+            readonly case: number;
             readonly type: string;
             readonly emitter_id: number;
             readonly event_values: {
                 [name: string]: any;
             };
         }
+        export interface CaseReason {
+            readonly id: number;
+            readonly name: string;
+            readonly team: number;
+        }
         export interface CaseSimple {
             id: string;
+        }
+        export interface CaseStateType {
+            readonly id: number;
+            readonly name: string;
+            readonly team: number;
         }
         export interface DaySettings {
             readonly id: number;
             name: string;
-            readonly week_day: null | number;
+            week_day?: WeekDayEnum | NullEnum;
+            week_days?: number[] | null;
             opening_date?: string; // date
             postal_code_ranges?: {
                 [name: string]: any;
@@ -44,11 +55,12 @@ declare namespace Components {
             priorities?: number[] | null;
             reasons?: number[] | null;
             state_types?: number[] | null;
-            projects: number[];
+            projects?: number[];
             primary_stadium?: null | number;
-            secondary_stadia: number[];
-            exclude_stadia: number[];
+            secondary_stadia?: number[];
+            exclude_stadia?: number[];
             readonly team_settings: {
+                readonly id: number;
                 name: string;
                 use_zaken_backend?: boolean;
                 zaken_team_name?: string | null;
@@ -61,20 +73,14 @@ declare namespace Components {
                 show_vakantieverhuur?: boolean;
             };
             sia_presedence?: boolean;
-            readonly team_schedule_options: {
-                readonly actions: any[];
-                readonly day_segments: any[];
-                readonly priorities: any[];
-                readonly week_segments: any[];
-            } | null;
-            readonly reason_options: TeamReasons[];
-            readonly state_type_options: TeamStateTypes[];
         }
         export interface DaySettingsCompact {
             readonly id: number;
             name: string;
             readonly week_day: number;
+            readonly week_days: number[];
             readonly team_settings: {
+                readonly id: number;
                 name: string;
                 use_zaken_backend?: boolean;
                 zaken_team_name?: string | null;
@@ -261,6 +267,24 @@ declare namespace Components {
             previous?: string | null; // uri
             results?: Itinerary[];
         }
+        export interface PaginatedListList {
+            /**
+             * example:
+             * 123
+             */
+            count?: number;
+            /**
+             * example:
+             * http://api.example.org/accounts/?page=4
+             */
+            next?: string | null; // uri
+            /**
+             * example:
+             * http://api.example.org/accounts/?page=2
+             */
+            previous?: string | null; // uri
+            results?: CaseStateType[];
+        }
         export interface PaginatedObservationList {
             /**
              * example:
@@ -372,7 +396,8 @@ declare namespace Components {
         export interface PatchedDaySettings {
             readonly id?: number;
             name?: string;
-            readonly week_day?: null | number;
+            week_day?: WeekDayEnum | NullEnum;
+            week_days?: number[] | null;
             opening_date?: string; // date
             postal_code_ranges?: {
                 [name: string]: any;
@@ -389,6 +414,7 @@ declare namespace Components {
             secondary_stadia?: number[];
             exclude_stadia?: number[];
             readonly team_settings?: {
+                readonly id: number;
                 name: string;
                 use_zaken_backend?: boolean;
                 zaken_team_name?: string | null;
@@ -401,14 +427,6 @@ declare namespace Components {
                 show_vakantieverhuur?: boolean;
             };
             sia_presedence?: boolean;
-            readonly team_schedule_options?: {
-                readonly actions: any[];
-                readonly day_segments: any[];
-                readonly priorities: any[];
-                readonly week_segments: any[];
-            } | null;
-            readonly reason_options?: TeamReasons[];
-            readonly state_type_options?: TeamStateTypes[];
         }
         export interface PatchedItineraryItem {
             readonly id?: number;
@@ -470,6 +488,7 @@ declare namespace Components {
             readonly stadia_choices?: string[];
             readonly marked_stadia?: StadiumLabel[];
             readonly day_settings_list?: DaySettingsCompact[];
+            fraud_prediction_model?: FraudPredictionModelEnum | BlankEnum | NullEnum;
         }
         export interface PatchedVisit {
             readonly id?: number;
@@ -518,12 +537,7 @@ declare namespace Components {
             value: string;
             verbose: string;
         }
-        export interface TeamReasons {
-            readonly id: number;
-            readonly name: string;
-            readonly team: number;
-        }
-        export interface TeamSchedules {
+        export interface TeamScheduleTypes {
             readonly actions: any[];
             readonly day_segments: any[];
             readonly priorities: any[];
@@ -541,8 +555,10 @@ declare namespace Components {
             readonly stadia_choices: string[];
             readonly marked_stadia: StadiumLabel[];
             readonly day_settings_list: DaySettingsCompact[];
+            fraud_prediction_model?: FraudPredictionModelEnum | BlankEnum | NullEnum;
         }
         export interface TeamSettingsCompact {
+            readonly id: number;
             name: string;
             use_zaken_backend?: boolean;
             zaken_team_name?: string | null;
@@ -553,11 +569,6 @@ declare namespace Components {
             readonly marked_stadia: StadiumLabel[];
             show_issuemelding?: boolean;
             show_vakantieverhuur?: boolean;
-        }
-        export interface TeamStateTypes {
-            readonly id: number;
-            readonly name: string;
-            readonly team: number;
         }
         export interface User {
             id: string; // uuid
@@ -611,6 +622,7 @@ declare namespace Components {
                 team_settings: UserTeamSettingsId[];
             };
         }
+        export type WeekDayEnum = 1 | 2 | 3 | 4 | 5 | 6;
     }
 }
 declare namespace Paths {
@@ -1194,6 +1206,21 @@ declare namespace Paths {
             export type $200 = Components.Schemas.TeamSettings;
         }
     }
+    namespace TeamSettingsReasonsList {
+        namespace Parameters {
+            export type Id = number;
+            export type Page = number;
+        }
+        export interface PathParameters {
+            id: Parameters.Id;
+        }
+        export interface QueryParameters {
+            page?: Parameters.Page;
+        }
+        namespace Responses {
+            export type $200 = Components.Schemas.PaginatedListList;
+        }
+    }
     namespace TeamSettingsRetrieve {
         namespace Parameters {
             export type Id = number;
@@ -1203,6 +1230,32 @@ declare namespace Paths {
         }
         namespace Responses {
             export type $200 = Components.Schemas.TeamSettings;
+        }
+    }
+    namespace TeamSettingsScheduleTypesRetrieve {
+        namespace Parameters {
+            export type Id = number;
+        }
+        export interface PathParameters {
+            id: Parameters.Id;
+        }
+        namespace Responses {
+            export type $200 = Components.Schemas.TeamScheduleTypes;
+        }
+    }
+    namespace TeamSettingsStateTypesList {
+        namespace Parameters {
+            export type Id = number;
+            export type Page = number;
+        }
+        export interface PathParameters {
+            id: Parameters.Id;
+        }
+        export interface QueryParameters {
+            page?: Parameters.Page;
+        }
+        namespace Responses {
+            export type $200 = Components.Schemas.PaginatedListList;
         }
     }
     namespace TeamSettingsUpdate {

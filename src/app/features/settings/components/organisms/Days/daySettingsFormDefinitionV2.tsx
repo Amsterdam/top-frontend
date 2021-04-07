@@ -3,6 +3,8 @@ import { FormPositioner, FormPositionerFields } from "@amsterdam/scaffold-form/p
 
 import { Field } from "app/features/shared/components/form/ScaffoldField"
 import postalCodeSiblingValidator from "../SettingsForm/validators/postalCodeSiblingValidator"
+import { daysOfTheWeek } from "../../../utils/daysOfTheWeek"
+
 
 /**
  * Creates form definition for planningSettings
@@ -21,6 +23,15 @@ export const createDefinition = (
   const postalCodeMax = 1109
 
   const definition: FormPositionerFields<Field> = {
+    name: {
+      type: "TextField",
+      props: {
+        label: "Kies een titel voor deze dag instelling",
+        name: "name",
+        type: "text",
+        validate: isRequired()
+      }
+    },
     opening_date: {
       type: "TextField",
       props: {
@@ -28,6 +39,15 @@ export const createDefinition = (
         name: "opening_date",
         type: "date",
         validate: isRequired()
+      }
+    },
+    week_days: {
+      type: "CheckboxFields",
+      props: {
+        label: "Op welke dag moet deze instelling gebruikt worden?",
+        name: "week_days",
+        options: daysOfTheWeek,
+        columnCount: { mobileM: 2, tabletM: 4 }
       }
     },
     divider1: {
@@ -102,6 +122,34 @@ export const createDefinition = (
         }
       }
     },
+    divider6: {
+      type: "Divider",
+      props: {}
+    },
+  reasons: {
+    type: "CheckboxFields",
+    props: {
+      label: "Met welke openingsredenen wil je dat de looplijsten gegenereerd worden?",
+      name: "reasons",
+      options: reasonsOptions,
+      columnCount: { mobileM: 2, tabletM: 4 },
+      validate: isRequired()
+    }
+  },
+  divider4: {
+    type: "Divider",
+    props: {}
+  },
+  stateTypes: {
+    type: "CheckboxFields",
+    props: {
+      label: "Met welke status wil je dat de looplijsten gegenereerd worden?",
+      name: "state_types",
+      options: stateTypeOptions,
+      columnCount: { mobileM: 2, tabletM: 4 },
+      validate: isRequired()
+    }
+  },
     divider2: {
         type: "Divider",
         props: {}
@@ -140,34 +188,6 @@ export const createDefinition = (
             validate: isRequired()
           }
         },
-        divider4: {
-          type: "Divider",
-          props: {}
-        },
-        stateTypes: {
-          type: "CheckboxFields",
-          props: {
-            label: "Met welke status wil je dat de looplijsten gegenereerd worden?",
-            name: "state_types",
-            options: stateTypeOptions,
-            columnCount: { mobileM: 2, tabletM: 4 },
-            validate: isRequired()
-          }
-        },
-        divider6: {
-          type: "Divider",
-          props: {}
-        },
-      reasons: {
-        type: "CheckboxFields",
-        props: {
-          label: "Met welke openingsredenen wil je dat de looplijsten gegenereerd worden?",
-          name: "reasons",
-          options: reasonsOptions,
-          columnCount: { mobileM: 2, tabletM: 4 },
-          validate: isRequired()
-        }
-      },
       divider5: {
         type: "Divider",
         props: {}
@@ -178,7 +198,9 @@ export const createDefinition = (
   return new FormPositioner(definition)
     .setVertical("mobileS")
     .setGrid("tabletM", "1fr 1fr 1fr", [
+      [ "name" ],
       [ "opening_date" ],
+      [ "week_days", "week_days", "week_days" ],
       [ "divider1", "divider1", "divider1" ],
       [ "geo_type", "postal_codes", "postal_codes" ],
       [ "geo_type", "postalCodeRanges", "postalCodeRanges" ],
@@ -194,7 +216,9 @@ export const createDefinition = (
       [ "priorities", "priorities", "priorities" ]
     ])
     .setGrid("laptop", "1fr 1fr 1fr 1fr 1fr", [
+      [ "name" ],
       [ "opening_date" ],
+      [ "week_days", "week_days", "week_days", "week_days", "week_days" ],
       [ "divider1", "divider1", "divider1", "divider1", "divider1" ],
       [ "geo_type", "postal_codes", "postal_codes", "postal_codes", "postal_codes" ],
       [ "geo_type", "postalCodeRanges", "postalCodeRanges", "postalCodeRanges", "postalCodeRanges" ],

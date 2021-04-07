@@ -64,7 +64,7 @@ const DaySettingsCard: FC<RouteComponentProps<Props>> = ({ teamSettings, postCod
           <Dl>
             <Dt>Projecten</Dt>
             <Dd>
-              { daySettings?.projects.length ?
+              { daySettings?.projects?.length ?
                 <Ul>
                   { daySettings?.projects.map(project => (
                     <Li key={ project }>{ project }</Li>
@@ -84,7 +84,7 @@ const DaySettingsCard: FC<RouteComponentProps<Props>> = ({ teamSettings, postCod
           <Dl>
             <Dt>Aanvullen met</Dt>
             <Dd>
-              { daySettings?.secondary_stadia.length ?
+              { daySettings?.secondary_stadia?.length ?
                 <Ul>
                   { daySettings?.secondary_stadia.map(stadium => (
                     <Li key={ stadium }>{ stadium }</Li>
@@ -96,7 +96,7 @@ const DaySettingsCard: FC<RouteComponentProps<Props>> = ({ teamSettings, postCod
           <Dl>
             <Dt>Uitsluiten</Dt>
             <Dd>
-              { daySettings?.exclude_stadia.length ?
+              { daySettings?.exclude_stadia?.length ?
                 <Ul>
                   { daySettings?.exclude_stadia.map(stadium => (
                     <Li key={ stadium }>{ stadium }</Li>

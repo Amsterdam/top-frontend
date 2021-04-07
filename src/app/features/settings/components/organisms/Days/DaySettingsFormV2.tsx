@@ -5,13 +5,14 @@ import { ScaffoldForm } from "@amsterdam/amsterdam-react-final-form"
 import { Heading } from "@amsterdam/asc-ui"
 
 import to from "app/features/shared/routing/to"
-import { useDaySettings, usePostCodeRanges } from "app/state/rest"
+import { useTeamSettingsReasons, useTeamSettingsScheduleTypes, useTeamSettingsStateTypes, useDaySettings, usePostCodeRanges } from "app/state/rest"
 
 import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
 import Scaffold from "app/features/shared/components/form/Scaffold"
 import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout"
 
 import { createDefinition } from "./daySettingsFormDefinitionV2"
+import DeleteDaySettingsButton from "../..//molecules/DeleteDaySettingsButton/DeleteDaySettingsButton"
 import FixedSubmitButton from "../SettingsForm/components/FixedSubmitButton"
 import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner"
 import { filterEmptyPostalCodes } from "app/features/settings/utils/filterEmptyPostalCodes"
@@ -31,8 +32,11 @@ type Props = {
 }
 
 const DaySettingsFormV2: FC<RouteComponentProps<Props>> = ({ teamSettingsId, daySettingsId }) => {
-  let { data: daySettings, execPut, isBusy: isBusyDaySettings } = useDaySettings(daySettingsId!)
+  let { data: daySettings, execPut, isBusy: isBusyDaySettings } = useDaySettings(daySettingsId!, { apiVersion: "v2" })
   const { data: postalCodeRangesPresets, isBusy: isBusyPostalCodeRangesPresets } = usePostCodeRanges()
+  const { data: caseReasons, isBusy: isBusyCaseReasons } = useTeamSettingsReasons(teamSettingsId!)
+  const { data: teamScheduleTypes, isBusy: isBusyTeamScheduleTypes } = useTeamSettingsScheduleTypes(teamSettingsId!)
+  const { data: caseStateTypes, isBusy: isBusyCaseStateTypes } = useTeamSettingsStateTypes(teamSettingsId!)
   const [ errorMessage, setErrorMessage ] = useState("")
 
   const prepareDefinition = (definitionEntry: any) => definitionEntry?.reduce((t: any, c: any) => {
@@ -42,13 +46,13 @@ const DaySettingsFormV2: FC<RouteComponentProps<Props>> = ({ teamSettingsId, day
   const definition = useMemo(
     () => createDefinition(
         prepareDefinition(postalCodeRangesPresets?.results), 
-        prepareDefinition(daySettings?.team_schedule_options?.day_segments), 
-        prepareDefinition(daySettings?.team_schedule_options?.week_segments), 
-        prepareDefinition(daySettings?.team_schedule_options?.priorities),
-        prepareDefinition(daySettings?.reason_options),
-        prepareDefinition(daySettings?.state_type_options)
+        prepareDefinition(teamScheduleTypes?.day_segments), 
+        prepareDefinition(teamScheduleTypes?.week_segments), 
+        prepareDefinition(teamScheduleTypes?.priorities),
+        prepareDefinition(caseReasons),
+        prepareDefinition(caseStateTypes)
     ),
-    [ daySettings, postalCodeRangesPresets ]
+    [ postalCodeRangesPresets, teamScheduleTypes, caseReasons, caseStateTypes ]
   )
 
   
@@ -59,14 +63,8 @@ const DaySettingsFormV2: FC<RouteComponentProps<Props>> = ({ teamSettingsId, day
     if (data.postal_codes_type === "postcode") {
       values.postal_code_ranges_presets = []
     }
-    [["enable_day_segments", "day_segments"], ["enable_week_segments", "week_segments"], ["enable_priorities", "priorities"]].map((k: string[]) => {
-        if (values[k[0]] === "no") {
-            values[k[1]] = []
-        }
-        return 0
-    })
     try {
-      await execPut(values, { skipCacheClear: true, useResponseAsCache: true })
+      await execPut(values, { skipCacheClear: false, useResponseAsCache: false })
       navigate(to("/team-settings/:teamSettingsId", { teamSettingsId }))
     } catch (error) {
       setErrorMessage(error.response.data.message)
@@ -74,26 +72,27 @@ const DaySettingsFormV2: FC<RouteComponentProps<Props>> = ({ teamSettingsId, day
     }
   }, [ execPut, setErrorMessage, teamSettingsId ])
 
-  if (!daySettings || isBusyDaySettings || !postalCodeRangesPresets || isBusyPostalCodeRangesPresets) {
+  if (!caseStateTypes || isBusyCaseStateTypes || !caseReasons || isBusyCaseReasons || !teamScheduleTypes || isBusyTeamScheduleTypes || !teamSettingsId || !daySettingsId || !daySettings || isBusyDaySettings || !postalCodeRangesPresets || isBusyPostalCodeRangesPresets) {
     return <CenteredSpinner explanation="Instellingen ophalen…" size={ 60 } />
   }
 
   const default_postal_code_range = [
     { range_end: 1109, range_start: 1000 }
   ]
-
   const prepareInitialValues = (settings: any) => {
     const removeUnknownIds = (seg: any, v: number[] ) => v ? v.filter((n: number, i: number) => seg.map((s: any) => s.id).includes(n) && v?.indexOf(n) === i).map((i: number) => i.toString()) : seg.map((s: any) => s.id).map((i: number) => i.toString())
     return {
         ...settings,
-        day_segments: removeUnknownIds(settings.team_schedule_options.day_segments, settings.day_segments),
-        week_segments: removeUnknownIds(settings.team_schedule_options.week_segments, settings.week_segments),
-        priorities: removeUnknownIds(settings.team_schedule_options.priorities, settings.priorities),
-        reasons: removeUnknownIds(settings.reason_options, settings.reasons),
-        state_types: removeUnknownIds(settings.state_type_options, settings.state_types),
+        day_segments: removeUnknownIds(teamScheduleTypes.day_segments, settings.day_segments),
+        week_segments: removeUnknownIds(teamScheduleTypes.week_segments, settings.week_segments),
+        priorities: removeUnknownIds(teamScheduleTypes.priorities, settings.priorities),
+        reasons: removeUnknownIds(caseReasons, settings.reasons),
+        state_types: removeUnknownIds(caseStateTypes, settings.state_types),
         postal_code_ranges_presets: (settings.postal_code_ranges_presets ?? []).map((pcp: any) => String(pcp)),
         postal_codes_type: (settings.postal_code_ranges_presets ?? []).length > 0 ? "stadsdeel" : "postcode",
-        postal_code_ranges: (settings.postal_code_ranges_presets ?? []).length > 0 ? default_postal_code_range : settings.postal_code_ranges
+        postal_code_ranges: (settings.postal_code_ranges_presets ?? []).length > 0 ? default_postal_code_range : settings.postal_code_ranges,
+        team_settings: teamSettingsId,
+        week_days: settings.week_days?.map((wd: number) => wd.toString())
     }
   }
 
@@ -106,6 +105,7 @@ const DaySettingsFormV2: FC<RouteComponentProps<Props>> = ({ teamSettingsId, day
           </Link>
         </Spacing>
         <p>Wijzig instellingen voor:</p>
+        <DeleteDaySettingsButton teamSettingsId={ teamSettingsId } daySettingsId={ daySettingsId } />
         <Heading>{ daySettings.team_settings.name }</Heading>
         <Heading forwardedAs="h2">{ daySettings.name }</Heading>
         <ScaffoldForm onSubmit={ handleSubmit } initialValues={ prepareInitialValues(daySettings) }>
