@@ -4,6 +4,7 @@ import styled from "styled-components"
 import { ScaffoldForm } from "@amsterdam/amsterdam-react-final-form"
 import { Heading } from "@amsterdam/asc-ui"
 
+import config from "app/config/config"
 import to from "app/features/shared/routing/to"
 import { useDaySettings, usePostCodeRanges, useTeamSettings } from "app/state/rest"
 
@@ -64,7 +65,10 @@ const DaySettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId, daySe
   }
 
   const default_postal_code_range = [
-    { range_end: 1109, range_start: 1000 }
+    {
+      range_start: config.settings.postalCodeMin,
+      range_end: config.settings.postalCodeMax
+    }
   ]
 
   return (

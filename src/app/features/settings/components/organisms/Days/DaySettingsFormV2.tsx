@@ -4,13 +4,14 @@ import styled from "styled-components"
 import { ScaffoldForm } from "@amsterdam/amsterdam-react-final-form"
 import { Heading } from "@amsterdam/asc-ui"
 
+import config from "app/config/config"
 import to from "app/features/shared/routing/to"
-import { useDaySettings, usePostCodeRanges } from "app/state/rest"
 
+import { useDaySettings, usePostCodeRanges } from "app/state/rest"
 import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
 import Scaffold from "app/features/shared/components/form/Scaffold"
-import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout"
 
+import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout"
 import { createDefinition } from "./daySettingsFormDefinitionV2"
 import FixedSubmitButton from "../SettingsForm/components/FixedSubmitButton"
 import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner"
@@ -41,17 +42,16 @@ const DaySettingsFormV2: FC<RouteComponentProps<Props>> = ({ teamSettingsId, day
   }, {}) || []
   const definition = useMemo(
     () => createDefinition(
-        prepareDefinition(postalCodeRangesPresets?.results), 
-        prepareDefinition(daySettings?.team_schedule_options?.day_segments), 
-        prepareDefinition(daySettings?.team_schedule_options?.week_segments), 
-        prepareDefinition(daySettings?.team_schedule_options?.priorities),
-        prepareDefinition(daySettings?.reason_options),
-        prepareDefinition(daySettings?.state_type_options)
+      prepareDefinition(postalCodeRangesPresets?.results),
+      prepareDefinition(daySettings?.team_schedule_options?.day_segments),
+      prepareDefinition(daySettings?.team_schedule_options?.week_segments),
+      prepareDefinition(daySettings?.team_schedule_options?.priorities),
+      prepareDefinition(daySettings?.reason_options),
+      prepareDefinition(daySettings?.state_type_options)
     ),
     [ daySettings, postalCodeRangesPresets ]
   )
 
-  
   const handleSubmit = useCallback(async (data: any) => {
     const values = filterEmptyPostalCodes(data)
     setErrorMessage("")
@@ -59,11 +59,11 @@ const DaySettingsFormV2: FC<RouteComponentProps<Props>> = ({ teamSettingsId, day
     if (data.postal_codes_type === "postcode") {
       values.postal_code_ranges_presets = []
     }
-    [["enable_day_segments", "day_segments"], ["enable_week_segments", "week_segments"], ["enable_priorities", "priorities"]].map((k: string[]) => {
-        if (values[k[0]] === "no") {
-            values[k[1]] = []
-        }
-        return 0
+    [ [ "enable_day_segments", "day_segments" ], [ "enable_week_segments", "week_segments" ], [ "enable_priorities", "priorities" ] ].map((k: string[]) => {
+      if (values[k[0]] === "no") {
+        values[k[1]] = []
+      }
+      return 0
     })
     try {
       await execPut(values, { skipCacheClear: true, useResponseAsCache: true })
@@ -79,21 +79,24 @@ const DaySettingsFormV2: FC<RouteComponentProps<Props>> = ({ teamSettingsId, day
   }
 
   const default_postal_code_range = [
-    { range_end: 1109, range_start: 1000 }
+    {
+      range_start: config.settings.postalCodeMin,
+      range_end: config.settings.postalCodeMax
+    }
   ]
 
   const prepareInitialValues = (settings: any) => {
-    const removeUnknownIds = (seg: any, v: number[] ) => v ? v.filter((n: number, i: number) => seg.map((s: any) => s.id).includes(n) && v?.indexOf(n) === i).map((i: number) => i.toString()) : seg.map((s: any) => s.id).map((i: number) => i.toString())
+    const removeUnknownIds = (seg: any, v: number[]) => v ? v.filter((n: number, i: number) => seg.map((s: any) => s.id).includes(n) && v?.indexOf(n) === i).map((i: number) => i.toString()) : seg.map((s: any) => s.id).map((i: number) => i.toString())
     return {
-        ...settings,
-        day_segments: removeUnknownIds(settings.team_schedule_options.day_segments, settings.day_segments),
-        week_segments: removeUnknownIds(settings.team_schedule_options.week_segments, settings.week_segments),
-        priorities: removeUnknownIds(settings.team_schedule_options.priorities, settings.priorities),
-        reasons: removeUnknownIds(settings.reason_options, settings.reasons),
-        state_types: removeUnknownIds(settings.state_type_options, settings.state_types),
-        postal_code_ranges_presets: (settings.postal_code_ranges_presets ?? []).map((pcp: any) => String(pcp)),
-        postal_codes_type: (settings.postal_code_ranges_presets ?? []).length > 0 ? "stadsdeel" : "postcode",
-        postal_code_ranges: (settings.postal_code_ranges_presets ?? []).length > 0 ? default_postal_code_range : settings.postal_code_ranges
+      ...settings,
+      day_segments: removeUnknownIds(settings.team_schedule_options.day_segments, settings.day_segments),
+      week_segments: removeUnknownIds(settings.team_schedule_options.week_segments, settings.week_segments),
+      priorities: removeUnknownIds(settings.team_schedule_options.priorities, settings.priorities),
+      reasons: removeUnknownIds(settings.reason_options, settings.reasons),
+      state_types: removeUnknownIds(settings.state_type_options, settings.state_types),
+      postal_code_ranges_presets: (settings.postal_code_ranges_presets ?? []).map((pcp: any) => String(pcp)),
+      postal_codes_type: (settings.postal_code_ranges_presets ?? []).length > 0 ? "stadsdeel" : "postcode",
+      postal_code_ranges: (settings.postal_code_ranges_presets ?? []).length > 0 ? default_postal_code_range : settings.postal_code_ranges
     }
   }
 

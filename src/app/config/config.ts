@@ -1,5 +1,5 @@
 const config = {
-  settingsPage: {
+  settings: {
     postalCodeMin: 1000,
     postalCodeMax: 1109
   }
