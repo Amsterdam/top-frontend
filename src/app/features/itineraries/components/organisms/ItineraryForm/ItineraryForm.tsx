@@ -40,7 +40,7 @@ const ItineraryForm: FC<Props> = ({ teamSettings }) => {
     return (
       <Alert level="info">
       <Paragraph>
-        Er zijn voor dit team nog geen active dag instellingen aangemaakt!
+        Er zijn voor dit team nog geen actieve daginstellingen aangemaakt!
         Vraag je planner om deze voor je aan te maken.
       </Paragraph>
       <Link to={ "/lijst" }>Terug naar het overzicht</Link>
