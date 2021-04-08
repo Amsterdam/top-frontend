@@ -1,6 +1,8 @@
 import React, { FC, useCallback } from "react"
 import { navigate } from "@reach/router"
 import { ScaffoldForm } from "@amsterdam/amsterdam-react-final-form"
+import { Alert, Paragraph } from "@amsterdam/asc-ui"
+import { Link } from "@reach/router"
 
 import { useItineraries, useUsers } from "app/state/rest"
 import { useLoggedInUser } from "app/state/rest/custom/useLoggedInUser"
@@ -33,6 +35,18 @@ const ItineraryForm: FC<Props> = ({ teamSettings }) => {
 
   const daySettingsOptions = getDaySettingsOptions(teamSettings)
   const fields = generateItineraryFormDefinition(users.results, daySettingsOptions)
+
+  if (daySettingsOptions.length === 0) {
+    return (
+      <Alert level="info">
+      <Paragraph>
+        Er zijn voor dit team nog geen active dag instellingen aangemaakt!
+        Vraag je planner om deze voor je aan te maken.
+      </Paragraph>
+      <Link to={ "/lijst" }>Terug naar het overzicht</Link>
+      </Alert>     
+    )
+  }
 
   return (
     <ScaffoldForm
