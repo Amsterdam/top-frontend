@@ -4,8 +4,15 @@ import styled from "styled-components"
 import { ScaffoldForm } from "@amsterdam/amsterdam-react-final-form"
 import { Heading } from "@amsterdam/asc-ui"
 
+import config from "app/config/config"
 import to from "app/features/shared/routing/to"
-import { useTeamSettingsReasons, useTeamSettingsScheduleTypes, useTeamSettingsStateTypes, useDaySettings, usePostCodeRanges } from "app/state/rest"
+import {
+  useDaySettings,
+  usePostCodeRanges,
+  useTeamSettingsReasons,
+  useTeamSettingsScheduleTypes,
+  useTeamSettingsStateTypes
+} from "app/state/rest"
 
 import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
 import Scaffold from "app/features/shared/components/form/Scaffold"
@@ -45,17 +52,16 @@ const DaySettingsFormV2: FC<RouteComponentProps<Props>> = ({ teamSettingsId, day
   }, {}) || []
   const definition = useMemo(
     () => createDefinition(
-        prepareDefinition(postalCodeRangesPresets?.results), 
-        prepareDefinition(teamScheduleTypes?.day_segments), 
-        prepareDefinition(teamScheduleTypes?.week_segments), 
-        prepareDefinition(teamScheduleTypes?.priorities),
-        prepareDefinition(caseReasons),
-        prepareDefinition(caseStateTypes)
+      prepareDefinition(postalCodeRangesPresets?.results),
+      prepareDefinition(teamScheduleTypes?.day_segments),
+      prepareDefinition(teamScheduleTypes?.week_segments),
+      prepareDefinition(teamScheduleTypes?.priorities),
+      prepareDefinition(caseReasons),
+      prepareDefinition(caseStateTypes)
     ),
     [ postalCodeRangesPresets, teamScheduleTypes, caseReasons, caseStateTypes ]
   )
 
-  
   const handleSubmit = useCallback(async (data: any) => {
     const values = filterEmptyPostalCodes(data)
     setErrorMessage("")
@@ -77,22 +83,26 @@ const DaySettingsFormV2: FC<RouteComponentProps<Props>> = ({ teamSettingsId, day
   }
 
   const default_postal_code_range = [
-    { range_end: 1109, range_start: 1000 }
+    {
+      range_start: config.settings.postalCodeMin,
+      range_end: config.settings.postalCodeMax
+    }
   ]
+
   const prepareInitialValues = (settings: any) => {
-    const removeUnknownIds = (seg: any, v: number[] ) => v ? v.filter((n: number, i: number) => seg.map((s: any) => s.id).includes(n) && v?.indexOf(n) === i).map((i: number) => i.toString()) : seg.map((s: any) => s.id).map((i: number) => i.toString())
+    const removeUnknownIds = (seg: any, v: number[]) => v ? v.filter((n: number, i: number) => seg.map((s: any) => s.id).includes(n) && v?.indexOf(n) === i).map((i: number) => i.toString()) : seg.map((s: any) => s.id).map((i: number) => i.toString())
     return {
-        ...settings,
-        day_segments: removeUnknownIds(teamScheduleTypes.day_segments, settings.day_segments),
-        week_segments: removeUnknownIds(teamScheduleTypes.week_segments, settings.week_segments),
-        priorities: removeUnknownIds(teamScheduleTypes.priorities, settings.priorities),
-        reasons: removeUnknownIds(caseReasons, settings.reasons),
-        state_types: removeUnknownIds(caseStateTypes, settings.state_types),
-        postal_code_ranges_presets: (settings.postal_code_ranges_presets ?? []).map((pcp: any) => String(pcp)),
-        postal_codes_type: (settings.postal_code_ranges_presets ?? []).length > 0 ? "stadsdeel" : "postcode",
-        postal_code_ranges: (settings.postal_code_ranges_presets ?? []).length > 0 ? default_postal_code_range : settings.postal_code_ranges,
-        team_settings: teamSettingsId,
-        week_days: settings.week_days?.map((wd: number) => wd.toString())
+      ...settings,
+      day_segments: removeUnknownIds(teamScheduleTypes.day_segments, settings.day_segments),
+      week_segments: removeUnknownIds(teamScheduleTypes.week_segments, settings.week_segments),
+      priorities: removeUnknownIds(teamScheduleTypes.priorities, settings.priorities),
+      reasons: removeUnknownIds(caseReasons, settings.reasons),
+      state_types: removeUnknownIds(caseStateTypes, settings.state_types),
+      postal_code_ranges_presets: (settings.postal_code_ranges_presets ?? []).map((pcp: any) => String(pcp)),
+      postal_codes_type: (settings.postal_code_ranges_presets ?? []).length > 0 ? "stadsdeel" : "postcode",
+      postal_code_ranges: (settings.postal_code_ranges_presets ?? []).length > 0 ? default_postal_code_range : settings.postal_code_ranges,
+      team_settings: teamSettingsId,
+      week_days: settings.week_days?.map((wd: number) => wd.toString())
     }
   }
 
