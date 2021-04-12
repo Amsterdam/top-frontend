@@ -3,8 +3,6 @@ import React from "react"
 import StadiumBadge from "app/features/shared/components/molecules/StadiumBadge/StadiumBadge"
 import ItineraryItemCard from "app/features/shared/components/molecules/ItineraryItemCard/ItineraryItemCard"
 import displayAddress from "app/features/shared/utils/displayAddress"
-
-import DeleteItineraryItemButton from "../components/molecules/DeleteItineraryItemButton/DeleteItineraryItemButton"
 import AddItineraryItemButton from "../components/molecules/AddItineraryItemButton/AddItineraryItemButton"
 import FraudProbability from "app//features/shared/components/atoms/FraudProbability/FraudProbability"
 import { Case, Itinerary, ItineraryItem } from "app/features/types"
@@ -52,13 +50,9 @@ const mapCaseToCardProps = (itineraryId: number | undefined, itineraryItemIds: R
       <>
         { addDistance && distance && itineraryId && Object.keys(itineraryItemIds).length &&
         <p>{ Math.round(distance) }m</p> }
-        { teams && teams.length > 0
-          ? null
-          : itineraryItemIds[id]
-            ? <DeleteItineraryItemButton onDeleteButtonClicked={ onDeleteButtonClick } id={ itineraryItemIds[id]! } />
-            : itineraryId
-              ? <AddItineraryItemButton caseId={ id } itinerary={ itineraryId } />
-              : null
+        { teams && !teams.length && itineraryId
+          ? <AddItineraryItemButton caseId={ id } itinerary={ itineraryId } />
+          : null
         }
       </>
     )
