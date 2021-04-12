@@ -10,50 +10,50 @@ import OpenIssuesNavigationButton from "../../molecules/OpenIssuesNavigationButt
 import SearchNavigationButton from "../../molecules/SearchNavigationButton/SearchNavigationButton"
 
 const NavWrap = styled.div`
-  position: fixed;
-  width: 100%;
-  top: 50px;
-  left: 0;
-  z-index: 99;
+	position: fixed;
+	width: 100%;
+	top: 50px;
+	left: 0;
+	z-index: 99;
 `
 
 const Nav = styled.nav`
-  background-color: ${ themeColor("tint", "level3") };
-  padding: 15px 15px 0;
-  margin-bottom: 15px;
+	background-color: ${ themeColor("tint", "level3") };
+	padding: 15px 15px 0;
+	margin-bottom: 15px;
 `
 
 const Ul = styled.ul`
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: space-between;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	justify-content: space-between;
 `
 
 const Li = styled.li`
-  border-bottom: 5px solid transparent;
-  border-bottom-color: ${ (props: { isActive?: boolean }) => props.isActive ? themeColor("secondary") : "transparent" };
-  min-height: 33px;
+	border-bottom: 5px solid transparent;
+	border-bottom-color: ${ (props: { isActive?: boolean }) => props.isActive ? themeColor("secondary") : "transparent" };
+	min-height: 33px;
 
-  a {
-    color: ${ themeColor("tint", "level7") };
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 18px;
-    display: block;
-    margin: 0;
-    padding: 0 10px;
-  }
+	a {
+		color: ${ themeColor("tint", "level7") };
+		text-decoration: none;
+		font-weight: 500;
+		font-size: 18px;
+		display: block;
+		margin: 0;
+		padding: 0 10px;
+	}
 `
 
 const SpacedLi = styled(Li)`
-  margin-left: auto;
+	margin-left: auto;
 `
 
 // this empty element is used to correct scroll position under fixed header, navigation
 const FocusSpacer = styled.div`
-  height: 100px;
+	height: 100px;
 `
 
 const Navigation: FC = () => {

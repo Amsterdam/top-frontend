@@ -23,7 +23,7 @@ const OpenIssuesNavigationButton: React.FC<Props> = ({ itineraryId }) => {
 
   return (
     <Link to={ href }>
-      <ResponsiveText text={ [ `Issues ${ numOpenIssues }`, `Open issuemeldingen ${ numOpenIssues }` ] } />
+      <ResponsiveText text={ [`Issues ${ numOpenIssues }`, `Open issuemeldingen ${ numOpenIssues }`] } />
     </Link>
   )
 }
