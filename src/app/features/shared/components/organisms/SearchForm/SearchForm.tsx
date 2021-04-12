@@ -21,7 +21,7 @@ const Container = styled.div`
 `
 
 const SearchForm: FC = () => {
-  const { itineraryId } = useParams()
+  const { itineraryId, teamSettingsId } = useParams()
   const { data: itinerary } = useItinerary(itineraryId)
 
   const teamSettings = itinerary?.settings.day_settings.team_settings
@@ -38,15 +38,16 @@ const SearchForm: FC = () => {
     () => createDefinition(
       // @ts-ignore
       () => setValues({}),
-      itineraryId
+      itineraryId,
+      teamSettingsId
     ),
-    [ itineraryId, setValues ]
+    [ itineraryId, teamSettingsId, setValues ]
   )
 
   return (
     <Container>
       <ScaffoldForm
-        initialValues={ { apiName, teamName, ...values } }
+        initialValues={ { apiName, teamName, teamSettingsId, ...values } }
         onSubmit={ handleSubmit }
       >
         <Scaffold { ...scaffoldProps } />
