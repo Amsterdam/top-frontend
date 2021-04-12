@@ -1,26 +1,24 @@
 import { isRequired } from "@amsterdam/amsterdam-react-final-form"
 import { FormPositioner, FormPositionerFields } from "@amsterdam/scaffold-form/package"
 
+import config from "app/config/config"
 import { Field } from "app/features/shared/components/form/ScaffoldField"
 import postalCodeSiblingValidator from "../SettingsForm/validators/postalCodeSiblingValidator"
 import { daysOfTheWeek } from "../../../utils/daysOfTheWeek"
-
 
 /**
  * Creates form definition for planningSettings
  */
 
 export const createDefinition = (
-    postalCodeRangeOptions: any, 
-    daySegmentsOptions: any, 
-    weekSegmentsOptions: any, 
-    prioritiesOptions: any,
-    reasonsOptions: any,
-    stateTypeOptions: any
-  ) => {
-  // @TODO: Move to config
-  const postalCodeMin = 1000
-  const postalCodeMax = 1109
+  postalCodeRangeOptions: any,
+  daySegmentsOptions: any,
+  weekSegmentsOptions: any,
+  prioritiesOptions: any,
+  reasonsOptions: any,
+  stateTypeOptions: any
+) => {
+  const { postalCodeMin, postalCodeMax } = config.settings
 
   const definition: FormPositionerFields<Field> = {
     name: {
@@ -126,33 +124,33 @@ export const createDefinition = (
       type: "Divider",
       props: {}
     },
-  reasons: {
-    type: "CheckboxFields",
-    props: {
-      label: "Met welke openingsredenen wil je dat de looplijsten gegenereerd worden?",
-      name: "reasons",
-      options: reasonsOptions,
-      columnCount: { mobileM: 2, tabletM: 4 },
-      validate: isRequired()
-    }
-  },
-  divider4: {
-    type: "Divider",
-    props: {}
-  },
-  stateTypes: {
-    type: "CheckboxFields",
-    props: {
-      label: "Met welke status wil je dat de looplijsten gegenereerd worden?",
-      name: "state_types",
-      options: stateTypeOptions,
-      columnCount: { mobileM: 2, tabletM: 4 },
-      validate: isRequired()
-    }
-  },
+    reasons: {
+      type: "CheckboxFields",
+      props: {
+        label: "Met welke openingsredenen wil je dat de looplijsten gegenereerd worden?",
+        name: "reasons",
+        options: reasonsOptions,
+        columnCount: { mobileM: 2, tabletM: 4 },
+        validate: isRequired()
+      }
+    },
+    divider4: {
+      type: "Divider",
+      props: {}
+    },
+    stateTypes: {
+      type: "CheckboxFields",
+      props: {
+        label: "Met welke status wil je dat de looplijsten gegenereerd worden?",
+        name: "state_types",
+        options: stateTypeOptions,
+        columnCount: { mobileM: 2, tabletM: 4 },
+        validate: isRequired()
+      }
+    },
     divider2: {
-        type: "Divider",
-        props: {}
+      type: "Divider",
+      props: {}
     },
     daySegments: {
       type: "CheckboxFields",
@@ -165,33 +163,33 @@ export const createDefinition = (
       }
     },
     weekSegments: {
-        type: "CheckboxFields",
-        props: {
-          label: "Met welk deel van de week wil je dat de looplijsten gegenereerd worden?",
-          name: "week_segments",
-          options: weekSegmentsOptions,
-          columnCount: { mobileM: 2, tabletM: 4 },
-          validate: isRequired()
-        }
-      },
-      divider3: {
-        type: "Divider",
-        props: {}
-      },
-      priorities: {
-          type: "CheckboxFields",
-          props: {
-            label: "Met welke prioriteit wil je dat de looplijsten gegenereerd worden?",
-            name: "priorities",
-            options: prioritiesOptions,
-            columnCount: { mobileM: 2, tabletM: 4 },
-            validate: isRequired()
-          }
-        },
-      divider5: {
-        type: "Divider",
-        props: {}
+      type: "CheckboxFields",
+      props: {
+        label: "Met welk deel van de week wil je dat de looplijsten gegenereerd worden?",
+        name: "week_segments",
+        options: weekSegmentsOptions,
+        columnCount: { mobileM: 2, tabletM: 4 },
+        validate: isRequired()
       }
+    },
+    divider3: {
+      type: "Divider",
+      props: {}
+    },
+    priorities: {
+      type: "CheckboxFields",
+      props: {
+        label: "Met welke prioriteit wil je dat de looplijsten gegenereerd worden?",
+        name: "priorities",
+        options: prioritiesOptions,
+        columnCount: { mobileM: 2, tabletM: 4 },
+        validate: isRequired()
+      }
+    },
+    divider5: {
+      type: "Divider",
+      props: {}
+    }
   }
 
   // Align properties:

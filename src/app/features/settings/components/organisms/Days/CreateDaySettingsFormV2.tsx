@@ -4,8 +4,15 @@ import styled from "styled-components"
 import { ScaffoldForm } from "@amsterdam/amsterdam-react-final-form"
 import { Heading } from "@amsterdam/asc-ui"
 
+import config from "app/config/config"
 import to from "app/features/shared/routing/to"
-import { useTeamSettingsReasons, useTeamSettingsScheduleTypes, useTeamSettingsStateTypes, usePostCodeRanges, useDaySettingsList } from "app/state/rest"
+import {
+  useDaySettingsList,
+  usePostCodeRanges,
+  useTeamSettingsReasons,
+  useTeamSettingsScheduleTypes,
+  useTeamSettingsStateTypes
+} from "app/state/rest"
 
 import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
 import Scaffold from "app/features/shared/components/form/Scaffold"
@@ -19,7 +26,7 @@ import { filterEmptyPostalCodes } from "app/features/settings/utils/filterEmptyP
 const Wrap = styled.div`
   margin: 0 8px 100px 8px;
 
-  // Awful hack to indent values for Postcodes or Stadsdelen 
+  // Awful hack to indent values for Postcodes or Stadsdelen
   div:nth-child(5):nth-last-child(9) {
     padding-left: 32px;
   }
@@ -43,17 +50,16 @@ const CreateDaySettingsFormV2: FC<RouteComponentProps<Props>> = ({ teamSettingsI
   }, {}) || []
   const definition = useMemo(
     () => createDefinition(
-        prepareDefinition(postalCodeRangesPresets?.results), 
-        prepareDefinition(teamScheduleTypes?.day_segments),
-        prepareDefinition(teamScheduleTypes?.week_segments),
-        prepareDefinition(teamScheduleTypes?.priorities),
-        prepareDefinition(caseReasons),
-        prepareDefinition(caseStateTypes)
+      prepareDefinition(postalCodeRangesPresets?.results),
+      prepareDefinition(teamScheduleTypes?.day_segments),
+      prepareDefinition(teamScheduleTypes?.week_segments),
+      prepareDefinition(teamScheduleTypes?.priorities),
+      prepareDefinition(caseReasons),
+      prepareDefinition(caseStateTypes)
     ),
     [ teamScheduleTypes, caseReasons, caseStateTypes, postalCodeRangesPresets ]
   )
 
-  
   const handleSubmit = useCallback(async (data: any) => {
     const values = filterEmptyPostalCodes(data)
     setErrorMessage("")
@@ -75,7 +81,10 @@ const CreateDaySettingsFormV2: FC<RouteComponentProps<Props>> = ({ teamSettingsI
   }
 
   const default_postal_code_range = [
-    { range_end: 1109, range_start: 1000 }
+    {
+      range_start: config.settings.postalCodeMin,
+      range_end: config.settings.postalCodeMax
+    }
   ]
 
   const initialValues = {

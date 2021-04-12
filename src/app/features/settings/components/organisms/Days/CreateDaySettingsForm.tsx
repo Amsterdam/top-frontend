@@ -4,13 +4,14 @@ import styled from "styled-components"
 import { ScaffoldForm } from "@amsterdam/amsterdam-react-final-form"
 import { Heading } from "@amsterdam/asc-ui"
 
+import config from "app/config/config"
 import to from "app/features/shared/routing/to"
-import { useDaySettingsList, usePostCodeRanges, useTeamSettings } from "app/state/rest"
 
+import { useDaySettingsList, usePostCodeRanges, useTeamSettings } from "app/state/rest"
 import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
 import Scaffold from "app/features/shared/components/form/Scaffold"
-import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout"
 
+import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout"
 import { createDefinition } from "./daySettingsFormDefinition"
 import FixedSubmitButton from "../SettingsForm/components/FixedSubmitButton"
 import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner"
@@ -64,16 +65,19 @@ const CreateDaySettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId,
   }
 
   const default_postal_code_range = [
-    { range_end: 1109, range_start: 1000 }
+    {
+      range_start: config.settings.postalCodeMin,
+      range_end: config.settings.postalCodeMax
+    }
   ]
 
   const initialValues = {
-      settings: {
-        team_settings: teamSettingsId,
-        postal_code_ranges: default_postal_code_range,
-        opening_date: Date.now()
-      },
-      postal_codes_type: "postcode"
+    settings: {
+      team_settings: teamSettingsId,
+      postal_code_ranges: default_postal_code_range,
+      opening_date: Date.now()
+    },
+    postal_codes_type: "postcode"
   }
 
   return (
