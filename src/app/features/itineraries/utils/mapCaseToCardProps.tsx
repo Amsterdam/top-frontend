@@ -44,7 +44,7 @@ const mapCaseToCardProps = (itineraryId: number | undefined, itineraryItemIds: R
       ? <StadiumBadge stadium={ current_states[0].status_name || "" } />
       : <StadiumBadge stadium={ stadium } />
 
-    const team = teams && teams.length ? teams[0].map((team: { user: { full_name: string } }) => team.user.full_name).join(", ") : ""
+    const teamMembersList = teams && teams.length ? teams[0].map((team: { user: { full_name: string } }) => team.user.full_name).join(", ") : ""
 
     const buttons = (onDeleteButtonClick: () => void) => (
       <>
@@ -66,6 +66,6 @@ const mapCaseToCardProps = (itineraryId: number | undefined, itineraryItemIds: R
       href: to("/cases/:id", { id }),
       postalCode: address.postal_code,
       reason: reason?.reason || case_reason,
-      team
+      teamMembersList
     }
   }

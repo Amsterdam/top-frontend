@@ -17,7 +17,7 @@ type Props = {
   notes?: JSX.Element
   postalCode: string | JSX.Element
   reason?: string | JSX.Element
-  team?: string
+  teamMembersList?: string
 }
 
 type WrapProps = Pick<Props, "backgroundColor">
@@ -91,7 +91,7 @@ const ItineraryItemCard: React.FC<Props> = (
     notes,
     postalCode,
     reason,
-    team
+    teamMembersList
   }) => {
   const [ isBeingDeleted, setIsBeingDeleted ] = useState(false)
   const setBeingDeleted = useCallback(() => setIsBeingDeleted(true), [ setIsBeingDeleted ])
@@ -115,7 +115,7 @@ const ItineraryItemCard: React.FC<Props> = (
           { isSia && <StadiumBadge stadium="SIA" /> }
         </BadgeRow>
         { notes }
-        { team && <P>In looplijst van { team }.</P> }
+        { teamMembersList && <P>In looplijst van { teamMembersList }.</P> }
       </Left>
       <Right>
         { buttons && buttons(setBeingDeleted) }
