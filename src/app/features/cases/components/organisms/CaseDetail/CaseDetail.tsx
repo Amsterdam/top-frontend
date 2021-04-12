@@ -5,6 +5,7 @@ import { useCase } from "app/state/rest"
 
 import General from "./sections/General"
 import Logbook from "./sections/Logbook"
+import Permits from "./sections/Permits"
 import RelatedCases from "./sections/RelatedCases"
 import Residence from "./sections/Residence"
 import Residents from "./sections/Residents"
@@ -12,7 +13,6 @@ import Scratchpad from "./sections/Scratchpad"
 import Signal from "./sections/Signal"
 import Stadia from "./sections/Stadia"
 import Status from "./sections/Status"
-import Permits from "./sections/Permits"
 import VacationRentalThisYear from "./sections/VacationRentalThisYear"
 
 type Props = {
@@ -45,10 +45,6 @@ const CaseDetail: FC<Props> = ({ caseId }) => {
   return (
     <Article>
       <General caseId={ caseId } isZksCase={ isZksCase } />
-      { isZksCase
-        ? <Status caseId={ caseId } />
-        : <Stadia caseId={ caseId } />
-      }
       <RelatedCases caseId={ caseId } />
       <Residence caseId={ caseId } />
       <Signal caseId={ caseId } />
@@ -57,6 +53,10 @@ const CaseDetail: FC<Props> = ({ caseId }) => {
       <VacationRentalThisYear caseId={ caseId } />
       <Logbook caseId={ caseId } />
       <Scratchpad caseId={ caseId } />
+      { isZksCase
+        ? <Status caseId={ caseId } />
+        : <Stadia caseId={ caseId } />
+      }
     </Article>
   )
 }
