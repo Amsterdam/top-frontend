@@ -41,7 +41,7 @@ const SearchForm: FC = () => {
       itineraryId,
       teamSettingsId
     ),
-    [ itineraryId, setValues ]
+    [ itineraryId, teamSettingsId, setValues ]
   )
 
   return (
