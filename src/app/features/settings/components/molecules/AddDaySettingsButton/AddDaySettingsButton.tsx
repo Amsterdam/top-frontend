@@ -16,7 +16,7 @@ const AddDaySettingsButton: React.FC<Props> = ({ teamSettingsId, dayOfTheWeekId 
     [ teamSettingsId, dayOfTheWeekId ]
   )
 
-  return <Button variant="primaryInverted" onClick={ handleClick }>Voeg toe</Button>
+  return <Button variant="primaryInverted" onClick={ handleClick }>Toevoegen</Button>
 }
 
 export default AddDaySettingsButton

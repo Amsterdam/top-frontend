@@ -1,15 +1,13 @@
 import React, { useCallback } from "react"
 import { navigate } from "@reach/router"
-import { TrashBin } from "@amsterdam/asc-assets"
-
-import StyledButton from "app/features/shared/components/atoms/StyledButton/StyledButton"
 import { useDaySettings } from "app/state/rest"
 
 import to from "app/features/shared/routing/to"
+import { Button } from "@amsterdam/asc-ui"
 
 type Props = {
-    teamSettingsId: number
-    daySettingsId: number
+  teamSettingsId: number
+  daySettingsId: number
 }
 
 const DeleteDaySettingsButton: React.FC<Props> = ({ teamSettingsId, daySettingsId }) => {
@@ -22,7 +20,7 @@ const DeleteDaySettingsButton: React.FC<Props> = ({ teamSettingsId, daySettingsI
     }
   }, [ execDelete, teamSettingsId ])
 
-  return <StyledButton variant="blank" onClick={ handleClick } icon={ <TrashBin /> } />
+  return <Button variant="primaryInverted" onClick={ handleClick }>Verwijderen</Button>
 }
 
 export default DeleteDaySettingsButton
