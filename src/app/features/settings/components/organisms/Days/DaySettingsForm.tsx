@@ -82,8 +82,7 @@ const DaySettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId, daySe
           </Link>
         </Spacing>
         <p>Wijzig instellingen voor:</p>
-        <DeleteDaySettingsButton teamSettingsId={ teamSettingsId! } daySettingsId={ daySettingsId! } />
-        <Heading>{ daySettings.team_settings.name } { daySettings.week_days?.length === 1 ? "op de " + daysOfTheWeek[Number(daySettings.week_days[0])] : "" }</Heading>
+        <Heading>{ daySettings.team_settings.name } { daySettings.week_days?.length === 1 ? "op de " + daysOfTheWeek[Number(daySettings.week_days[0])].toLowerCase() : "" }</Heading>
         <Heading forwardedAs="h2">{ daySettings.name }</Heading>
         <ScaffoldForm onSubmit={ handleSubmit } initialValues={ {
           settings: {
@@ -99,6 +98,7 @@ const DaySettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId, daySe
           <Scaffold { ...definition } />
           <FixedSubmitButton errorMessage={ errorMessage } />
         </ScaffoldForm>
+        <DeleteDaySettingsButton teamSettingsId={ teamSettingsId! } daySettingsId={ daySettingsId! } />
       </Wrap>
     </DefaultLayout>
   )

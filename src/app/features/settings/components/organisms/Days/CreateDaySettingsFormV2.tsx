@@ -106,7 +106,7 @@ const CreateDaySettingsFormV2: FC<RouteComponentProps<Props>> = ({ teamSettingsI
             Alle dagen
           </Link>
         </Spacing>
-        <Heading>Nieuwe dag instelling aanmaken { dayOfTheWeek.exists() ? "voor de " + daysOfTheWeek[Number(dayOfTheWeek.get())] : "" }</Heading>
+        <Heading>Nieuwe daginstelling aanmaken { dayOfTheWeek.exists() ? "voor de " + daysOfTheWeek[Number(dayOfTheWeek.get())].toLowerCase() : "" }</Heading>
         <ScaffoldForm onSubmit={ handleSubmit } initialValues={ initialValues }>
           <Scaffold { ...definition } />
           <FixedSubmitButton errorMessage={ errorMessage } />

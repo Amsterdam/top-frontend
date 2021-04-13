@@ -18,7 +18,7 @@ export const createDefinition = (projects: string[], stadia: string[], postalCod
     name: {
       type: "TextField",
       props: {
-        label: "Kies een titel voor deze dag instelling",
+        label: "Kies een titel voor deze daginstelling",
         name: "settings.name",
         type: "text",
         validate: isRequired()

@@ -18,14 +18,16 @@ type Props = {
   caseStateTypes: Components.Schemas.CaseStateType[]
 }
 
-const DaySettingsCardV2: FC<RouteComponentProps<Props>> = ({ 
-  teamSettings, 
-  postCodeRangesPresets, 
-  daySettingsId,
-  caseReasons,
-  teamScheduleTypes,
-  caseStateTypes
-}) => {
+const DaySettingsCardV2: FC<RouteComponentProps<Props>> = (
+  {
+    teamSettings,
+    postCodeRangesPresets,
+    daySettingsId,
+    caseReasons,
+    teamScheduleTypes,
+    caseStateTypes
+  }
+) => {
   const { data: daySettings, isBusy } = useDaySettings(daySettingsId!, { apiVersion: "v2" })
 
   if (!teamSettings || !daySettings || isBusy) {
@@ -75,8 +77,8 @@ const DaySettingsCardV2: FC<RouteComponentProps<Props>> = ({
   return (
     <Section>
       <Header>
-        <Heading forwardedAs="h2">{ daySettings?.name }</Heading>
-        <Button variant="secondary" onClick={ () => navigate(toEditForm) }>Wijzig</Button>
+        <Heading forwardedAs="h3">{ daySettings?.name }</Heading>
+        <Button variant="primaryInverted" onClick={ () => navigate(toEditForm) }>Wijzigen</Button>
       </Header>
       <Body>
         <Column>
