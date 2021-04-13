@@ -21,12 +21,13 @@ type Props = {
 }
 
 type WrapProps = Pick<Props, "backgroundColor">
-const Wrap = styled.div<WrapProps>`
+const Wrap = styled.article<WrapProps>`
   background-color: ${ props => themeColor("tint", props.backgroundColor ?? "level1") };
   padding: ${ themeSpacing(3) } ${ themeSpacing(2) };
   display: flex;
   border-top: 1px solid ${ themeColor("tint", "level3") };
   border-bottom: 1px solid ${ themeColor("tint", "level3") };
+  flex: auto;
 `
 
 type LeftProps = { opacity?: number }
