@@ -19,15 +19,22 @@ import AddDaySettingsButton from "app/features/settings/components/molecules/Add
 import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout"
 import { daysOfTheWeek } from "../../../utils/daysOfTheWeek"
 
-const Div = styled.div`
+const Day = styled.div`
+  display: flex;
+  gap: ${ themeSpacing( 6 ) };
+`
+
+const Left = styled.div`
+  flex-basis: 160px;
   padding: ${ themeSpacing(4) } 0;
 `
 
 const Grid = styled.div`
+  flex: auto;
   display: grid;
-  grid-template-columns: 160px repeat(auto-fill, minmax(512px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(512px, 1fr));
   gap: ${ themeSpacing(4) };
-  align-items: baseline;
+  align-items: start;
 `
 
 const Hr = styled.hr`
@@ -68,36 +75,38 @@ const DaySettingsList: FC<RouteComponentProps<Props>> = ({ teamSettingsId, postC
           { Object.entries(daysOfTheWeek).map((dayOfTheWeek: any[]) =>
             <React.Fragment key={ dayOfTheWeek[0] }>
               <Hr />
-              <Grid>
-                <Div>
+              <Day>
+                <Left>
                   <Heading forwardedAs="h2">{ dayOfTheWeek[1] }</Heading>
                   <AddDaySettingsButton
                     teamSettingsId={ teamSettingsId! }
                     dayOfTheWeekId={ parseInt(dayOfTheWeek[0]) }
                   />
-                </Div>
-                { teamSettings.day_settings_list.filter(ds => ds.week_days?.includes(parseInt(dayOfTheWeek[0]))).map(daySettings => teamSettings?.use_zaken_backend
-                  ? (
-                    <DaySettingsCardV2
-                      key={ daySettings.id }
-                      teamSettings={ teamSettings }
-                      daySettingsId={ daySettings.id }
-                      postCodeRangesPresets={ postCodeRangesPresets }
-                      caseReasons={ caseReasons }
-                      teamScheduleTypes={ teamScheduleTypes }
-                      caseStateTypes={ caseStateTypes }
-                    />
-                  )
-                  : (
-                    <DaySettingsCard
-                      key={ daySettings.id }
-                      teamSettings={ teamSettings }
-                      daySettingsId={ daySettings.id }
-                      postCodeRangesPresets={ postCodeRangesPresets }
-                    />
-                  )
-                ) }
-              </Grid>
+                </Left>
+                <Grid>
+                  { teamSettings.day_settings_list.filter(ds => ds.week_days?.includes(parseInt(dayOfTheWeek[0]))).map(daySettings => teamSettings?.use_zaken_backend
+                    ? (
+                      <DaySettingsCardV2
+                        key={ daySettings.id }
+                        teamSettings={ teamSettings }
+                        daySettingsId={ daySettings.id }
+                        postCodeRangesPresets={ postCodeRangesPresets }
+                        caseReasons={ caseReasons }
+                        teamScheduleTypes={ teamScheduleTypes }
+                        caseStateTypes={ caseStateTypes }
+                      />
+                    )
+                    : (
+                      <DaySettingsCard
+                        key={ daySettings.id }
+                        teamSettings={ teamSettings }
+                        daySettingsId={ daySettings.id }
+                        postCodeRangesPresets={ postCodeRangesPresets }
+                      />
+                    )
+                  ) }
+                </Grid>
+              </Day>
             </React.Fragment>
           ) }
         </>
