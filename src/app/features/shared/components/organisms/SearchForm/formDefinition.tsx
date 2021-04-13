@@ -1,5 +1,4 @@
 import React from "react"
-import { Close, Search } from "@amsterdam/asc-assets"
 import {
   combineValidators,
   isMatchingRegex,
@@ -74,7 +73,7 @@ export const createDefinition = (onResetButtonClick: () => void, apiName: ApiNam
       type: "ResetButton",
       props: {
         alignedHorizontally: { tabletM: true },
-        icon: <Close />,
+        label: "Wis",
         onClick: onResetButtonClick,
         style: { minWidth: "initial" } // Override ASC
       }
@@ -84,7 +83,7 @@ export const createDefinition = (onResetButtonClick: () => void, apiName: ApiNam
       props: {
         align: "right",
         alignedHorizontally: { tabletM: true },
-        icon: <Search />,
+        label: "Zoek",
         style: { minWidth: "initial" }, // Override ASC
         tabIndex: 5
       }
