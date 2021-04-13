@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from "react"
 import { navigate } from "@reach/router"
-import { themeColor, themeSpacing } from "@amsterdam/asc-ui"
 import styled from "styled-components"
+import { themeColor, themeSpacing } from "@amsterdam/asc-ui"
 import StadiumBadge from "app/features/shared/components/molecules/StadiumBadge/StadiumBadge"
 
 type Props = {
@@ -17,7 +17,7 @@ type Props = {
   notes?: JSX.Element
   postalCode: string | JSX.Element
   reason?: string | JSX.Element
-  team?: string
+  teamMembersList?: string
 }
 
 type WrapProps = Pick<Props, "backgroundColor">
@@ -73,6 +73,10 @@ const FraudProbability = styled.p`
   color: ${ themeColor("tint", "level4") };
 `
 
+const P = styled.p`
+  margin-bottom: 0;
+`
+
 const ItineraryItemCard: React.FC<Props> = (
   {
     address,
@@ -87,7 +91,7 @@ const ItineraryItemCard: React.FC<Props> = (
     notes,
     postalCode,
     reason,
-    team
+    teamMembersList
   }) => {
   const [ isBeingDeleted, setIsBeingDeleted ] = useState(false)
   const setBeingDeleted = useCallback(() => setIsBeingDeleted(true), [ setIsBeingDeleted ])
@@ -97,6 +101,7 @@ const ItineraryItemCard: React.FC<Props> = (
       return navigate(href)
     }
   }, [ href ])
+
   return (
     <Wrap backgroundColor={ backgroundColor }>
       <Left onClick={ handleClick } opacity={ isVisited || isBeingDeleted ? 0.4 : 1 }>
@@ -110,7 +115,7 @@ const ItineraryItemCard: React.FC<Props> = (
           { isSia && <StadiumBadge stadium="SIA" /> }
         </BadgeRow>
         { notes }
-        { team && `In lijst: ${ team }` }
+        { teamMembersList && <P>In looplijst van { teamMembersList }.</P> }
       </Left>
       <Right>
         { buttons && buttons(setBeingDeleted) }
