@@ -22,6 +22,8 @@ import { createDefinition } from "./daySettingsFormDefinitionV2"
 import FixedSubmitButton from "../SettingsForm/components/FixedSubmitButton"
 import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner"
 import { filterEmptyPostalCodes } from "app/features/settings/utils/filterEmptyPostalCodes"
+import { useQueryStringProp } from "app/features/shared/hooks/queryString/useQueryStringProp"
+import { daysOfTheWeek } from "app/features/settings/utils/daysOfTheWeek"
 
 const Wrap = styled.div`
   margin: 0 8px 100px 8px;
@@ -43,6 +45,7 @@ const CreateDaySettingsFormV2: FC<RouteComponentProps<Props>> = ({ teamSettingsI
   const { data: caseStateTypes } = useTeamSettingsStateTypes(teamSettingsId!)
   const { data: postalCodeRangesPresets, isBusy: isBusyPostalCodeRangesPresets } = usePostCodeRanges()
   const [ errorMessage, setErrorMessage ] = useState("")
+  const dayOfTheWeek = useQueryStringProp("d")
 
   const prepareDefinition = (definitionEntry: any) => definitionEntry?.reduce((t: any, c: any) => {
     t[String(c.id)] = c.name
@@ -91,6 +94,7 @@ const CreateDaySettingsFormV2: FC<RouteComponentProps<Props>> = ({ teamSettingsI
     team_settings: teamSettingsId,
     postal_code_ranges: default_postal_code_range,
     postal_codes_type: "postcode",
+    week_days: dayOfTheWeek.exists() ? [dayOfTheWeek.get()] : Object.keys(daysOfTheWeek).map(d => d.toString()),
     opening_date: Date.now()
   }
 
@@ -102,7 +106,7 @@ const CreateDaySettingsFormV2: FC<RouteComponentProps<Props>> = ({ teamSettingsI
             Alle dagen
           </Link>
         </Spacing>
-        <Heading>Nieuwe dag instelling aanmaken</Heading>
+        <Heading>Nieuwe dag instelling aanmaken { dayOfTheWeek.exists() ? "voor de " + daysOfTheWeek[Number(dayOfTheWeek.get())] : "" }</Heading>
         <ScaffoldForm onSubmit={ handleSubmit } initialValues={ initialValues }>
           <Scaffold { ...definition } />
           <FixedSubmitButton errorMessage={ errorMessage } />

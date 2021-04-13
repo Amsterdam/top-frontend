@@ -4,7 +4,6 @@ import { FormPositioner, FormPositionerFields } from "@amsterdam/scaffold-form/p
 import config from "app/config/config"
 import { Field } from "app/features/shared/components/form/ScaffoldField"
 import postalCodeSiblingValidator from "../SettingsForm/validators/postalCodeSiblingValidator"
-import { daysOfTheWeek } from "../../../utils/daysOfTheWeek"
 
 /**
  * Creates form definition for planningSettings
@@ -37,15 +36,6 @@ export const createDefinition = (
         name: "opening_date",
         type: "date",
         validate: isRequired()
-      }
-    },
-    week_days: {
-      type: "CheckboxFields",
-      props: {
-        label: "Op welke dag moet deze instelling gebruikt worden?",
-        name: "week_days",
-        options: daysOfTheWeek,
-        columnCount: { mobileM: 2, tabletM: 4 }
       }
     },
     divider1: {
@@ -198,7 +188,6 @@ export const createDefinition = (
     .setGrid("tabletM", "1fr 1fr 1fr", [
       [ "name" ],
       [ "opening_date" ],
-      [ "week_days", "week_days", "week_days" ],
       [ "divider1", "divider1", "divider1" ],
       [ "geo_type", "postal_codes", "postal_codes" ],
       [ "geo_type", "postalCodeRanges", "postalCodeRanges" ],
@@ -216,7 +205,6 @@ export const createDefinition = (
     .setGrid("laptop", "1fr 1fr 1fr 1fr 1fr", [
       [ "name" ],
       [ "opening_date" ],
-      [ "week_days", "week_days", "week_days", "week_days", "week_days" ],
       [ "divider1", "divider1", "divider1", "divider1", "divider1" ],
       [ "geo_type", "postal_codes", "postal_codes", "postal_codes", "postal_codes" ],
       [ "geo_type", "postalCodeRanges", "postalCodeRanges", "postalCodeRanges", "postalCodeRanges" ],

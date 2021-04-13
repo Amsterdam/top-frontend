@@ -23,6 +23,7 @@ import DeleteDaySettingsButton from "../..//molecules/DeleteDaySettingsButton/De
 import FixedSubmitButton from "../SettingsForm/components/FixedSubmitButton"
 import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner"
 import { filterEmptyPostalCodes } from "app/features/settings/utils/filterEmptyPostalCodes"
+import { daysOfTheWeek } from "app/features/settings/utils/daysOfTheWeek"
 
 const Wrap = styled.div`
   margin: 0 8px 100px 8px;
@@ -116,7 +117,7 @@ const DaySettingsFormV2: FC<RouteComponentProps<Props>> = ({ teamSettingsId, day
         </Spacing>
         <p>Wijzig instellingen voor:</p>
         <DeleteDaySettingsButton teamSettingsId={ teamSettingsId } daySettingsId={ daySettingsId } />
-        <Heading>{ daySettings.team_settings.name }</Heading>
+        <Heading>{ daySettings.team_settings.name } { daySettings.week_days?.length === 1 ? "op de " + daysOfTheWeek[Number(daySettings.week_days[0])] : "" }</Heading>
         <Heading forwardedAs="h2">{ daySettings.name }</Heading>
         <ScaffoldForm onSubmit={ handleSubmit } initialValues={ prepareInitialValues(daySettings) }>
           <Scaffold { ...definition } />
