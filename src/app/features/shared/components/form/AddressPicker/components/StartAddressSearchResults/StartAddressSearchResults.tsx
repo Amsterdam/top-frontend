@@ -57,18 +57,17 @@ const StartAddressSearchResults: React.FC<Props> = (
     postalCode,
     streetName,
     streetNumber,
-    suffix,
-    team
+    suffix
   }
 ) => {
   const { teamSettingsId } = useParams()
   const { data: teamSettings } = useTeamSettings(teamSettingsId!)
   const { data, isBusy } = useSearch(
-    streetNumber, 
-    postalCode, 
-    streetName, 
-    suffix, 
-    teamSettings?.zaken_team_name || "", 
+    streetNumber,
+    postalCode,
+    streetName,
+    suffix,
+    teamSettings?.zaken_team_name || "",
     { apiVersion: teamSettings?.use_zaken_backend ? "v2" : "v1" }
   )
   const { getUrl } = useCaseModal()
