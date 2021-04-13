@@ -3,7 +3,7 @@ import styled from "styled-components"
 import { Scaffold, ScaffoldForm } from "@amsterdam/amsterdam-react-final-form"
 
 import { ApiName } from "app/features/types"
-import { createDefinition } from "./formDefinition"
+import { createDefinition } from "./SearchFormDefinition"
 import { SearchFormContext } from "./SearchFormProvider"
 import { useParams } from "@reach/router"
 import { useItinerary } from "app/state/rest/custom/useItinerary"
