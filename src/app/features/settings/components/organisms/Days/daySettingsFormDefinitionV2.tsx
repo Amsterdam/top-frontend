@@ -23,7 +23,7 @@ export const createDefinition = (
     name: {
       type: "TextField",
       props: {
-        label: "Kies een titel voor deze dag instelling",
+        label: "Kies een titel voor deze daginstelling",
         name: "name",
         type: "text",
         validate: isRequired()

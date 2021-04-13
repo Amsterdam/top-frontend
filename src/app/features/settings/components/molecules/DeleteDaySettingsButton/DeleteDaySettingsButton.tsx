@@ -16,7 +16,7 @@ const DeleteDaySettingsButton: React.FC<Props> = ({ teamSettingsId, daySettingsI
   const { execDelete } = useDaySettings(daySettingsId, { lazy: true })
 
   const handleClick = useCallback(async () => {
-    if (window.confirm("Weet je zeker dat je deze dag instelling wilt verwijderen?")) {
+    if (window.confirm("Weet je zeker dat je deze daginstelling wilt verwijderen?")) {
       await navigate(to("/team-settings/:teamSettingsId", { teamSettingsId }))
       return execDelete()
     }
