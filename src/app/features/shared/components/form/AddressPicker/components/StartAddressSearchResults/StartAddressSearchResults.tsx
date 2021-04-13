@@ -38,18 +38,24 @@ const mapResults = (handleAdd: HandleAddCallback, getUrl: (string: string) => st
     },
     case_reason,
     stadium,
-    fraud_prediction
+    fraud_prediction,
+    teams
   }: any
-): React.ComponentProps<typeof ItineraryItemCard> => ({
-  href: getUrl(id),
-  backgroundColor: "level2",
-  address: displayAddress(street_name, number, suffix_letter, suffix),
-  postalCode: postal_code,
-  reason: case_reason,
-  badge: <StadiumBadge stadium={ stadium } />,
-  fraudProbability: <FraudProbability fraudProbability={ fraud_prediction?.fraud_probability } />,
-  buttons: () => <StyledButton icon={ <Enlarge /> } onClick={ () => handleAdd(id) } />
-})
+): React.ComponentProps<typeof ItineraryItemCard> => {
+  const teamMembersList = teams && teams.length ? teams[0].map((team: { user: { full_name: string } }) => team.user.full_name).join(", ") : ""
+
+  return {
+    href: getUrl(id),
+    backgroundColor: "level2",
+    address: displayAddress(street_name, number, suffix_letter, suffix),
+    postalCode: postal_code,
+    reason: case_reason,
+    badge: <StadiumBadge stadium={ stadium } />,
+    fraudProbability: <FraudProbability fraudProbability={ fraud_prediction?.fraud_probability } />,
+    buttons: teamMembersList ? undefined : (() => <StyledButton icon={ <Enlarge /> } onClick={ () => handleAdd(id) } />),
+    teamMembersList
+  }
+}
 
 const StartAddressSearchResults: React.FC<Props> = (
   {
