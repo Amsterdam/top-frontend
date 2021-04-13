@@ -36,8 +36,8 @@ const DaySettingsCard: FC<RouteComponentProps<Props>> = ({ teamSettings, postCod
   return (
     <Section>
       <Header>
-        <Heading forwardedAs="h2">{ daySettings?.name }</Heading>
-        <Button variant="secondary" onClick={ () => navigate(toEditForm) }>Wijzig</Button>
+        <Heading forwardedAs="h3">{ daySettings?.name }</Heading>
+        <Button variant="primaryInverted" onClick={ () => navigate(toEditForm) }>Wijzig</Button>
       </Header>
       <Body>
         <Column>
