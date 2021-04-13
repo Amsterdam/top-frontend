@@ -37,7 +37,7 @@ const SearchForm: FC = () => {
   const scaffoldProps = useMemo(
     () => createDefinition(
       // @ts-ignore
-      () => setValues({}),
+      () => setValues(undefined),
       itineraryId,
       teamSettingsId
     ),
