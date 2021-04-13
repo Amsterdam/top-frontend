@@ -1,4 +1,4 @@
-import { FC } from "react"
+import React, { FC } from "react"
 import { TimelineEvents } from "@amsterdam/wonen-ui"
 import useGroupedCaseEvents from "../hooks/useGroupedCaseEvents"
 import CaseDetailSection from "app/features/cases/components/organisms/CaseDetail/CaseDetailSection"
