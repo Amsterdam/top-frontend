@@ -10,6 +10,7 @@ import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinne
 import DaySettingsCard from "app/features/settings/components/organisms/Days/DaySettingsCard"
 import DaySettingsCardV2 from "app/features/settings/components/organisms/Days/DaySettingsCardV2"
 import AddDaySettingsButton from "app/features/settings/components/molecules/AddDaySettingsButton/AddDaySettingsButton"
+import { daysOfTheWeek } from "../../../utils/daysOfTheWeek"
 
 const Grid = styled.div`
   display: grid;
@@ -40,14 +41,18 @@ const DaySettingsList: FC<RouteComponentProps<Props>> = ({ teamSettingsId, postC
           Kies een ander team
         </Link>
       </Spacing>
-      <Spacing pb={ 8 }>
-        <AddDaySettingsButton teamSettingsId={ teamSettingsId! }/>
-      </Spacing>
+
       { teamSettings.day_settings_list.length ?
         <>
           <Paragraph>Momenteel zijn de dagen als volgt ingepland:</Paragraph>
+          { Object.entries(daysOfTheWeek).map((dayOfTheWeek: any[]) => 
+          <Spacing key={ dayOfTheWeek[0] }>
+          <Heading forwardedAs="h2">{ dayOfTheWeek[1] }</Heading>
+          <Spacing pb={ 8 }>
+            <AddDaySettingsButton teamSettingsId={ teamSettingsId! } dayOfTheWeekId={ parseInt(dayOfTheWeek[0]) }/>
+          </Spacing>
           <Grid>
-            { teamSettings.day_settings_list.map(daySettings => teamSettings?.use_zaken_backend
+            { teamSettings.day_settings_list.filter(ds => ds.week_days?.includes(parseInt(dayOfTheWeek[0]))).map(daySettings => teamSettings?.use_zaken_backend
               ? (
                 <DaySettingsCardV2
                   key={ daySettings.id }
@@ -69,6 +74,10 @@ const DaySettingsList: FC<RouteComponentProps<Props>> = ({ teamSettingsId, postC
               )
             ) }
           </Grid>
+          <Spacing pb={ 20 }></Spacing>
+          </Spacing>
+          )
+          }
         </>
         : (
           <Paragraph>

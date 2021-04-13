@@ -6,10 +6,11 @@ import StyledButton from "app/features/shared/components/atoms/StyledButton/Styl
 
 type Props = {
   teamSettingsId: number
+  dayOfTheWeekId: number
 }
 
-const AddDaySettingsButton: React.FC<Props> = ({ teamSettingsId }) => {
-  const handleClick = useCallback(() => navigate(to("/team-settings/:teamSettingsId/nieuw", { teamSettingsId })), [ teamSettingsId ])
+const AddDaySettingsButton: React.FC<Props> = ({ teamSettingsId, dayOfTheWeekId }) => {
+  const handleClick = useCallback(() => navigate(to("/team-settings/:teamSettingsId/nieuw", { teamSettingsId }) + "?d=" + dayOfTheWeekId), [ teamSettingsId, dayOfTheWeekId ])
   return <StyledButton variant="blank" onClick={ handleClick } icon={ <Enlarge /> } />
 }
 
