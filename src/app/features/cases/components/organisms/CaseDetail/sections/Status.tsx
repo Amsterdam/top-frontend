@@ -15,9 +15,7 @@ const Status: FC<Props> = ({ caseId }) => {
       title="Status"
       dataSource="Zaaksysteem">
       { timelineEvents !== undefined &&
-      <div>
-        <TimelineEvents items={ timelineEvents as any } spacingHorizontal={3} />
-      </div>
+        <TimelineEvents items={ timelineEvents as any } spacingHorizontal={3} useTransparentBackground={true} />
       }
     </CaseDetailSection>
   )
