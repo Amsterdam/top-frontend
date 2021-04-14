@@ -32,7 +32,7 @@ const DaySettingsCardV2: FC<RouteComponentProps<Props>> = (
   const { data: daySettings, isBusy } = useDaySettings(daySettingsId!, { apiVersion: "v2" })
 
   if (!teamSettings || !daySettings || isBusy) {
-    return <CenteredSpinner explanation="Instellingen ophalen…" size={ 60 } />
+    return <CenteredSpinner explanation="Daginstellingen ophalen…" size={ 60 } />
   }
 
   const postalCodeRangesPresetsDict = postCodeRangesPresets?.reduce((t: any, c) => {
