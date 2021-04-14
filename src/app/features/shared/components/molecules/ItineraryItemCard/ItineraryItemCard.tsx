@@ -27,7 +27,6 @@ const Wrap = styled.article<WrapProps>`
   display: flex;
   border-top: 1px solid ${ themeColor("tint", "level3") };
   border-bottom: 1px solid ${ themeColor("tint", "level3") };
-  flex: auto;
 `
 
 type LeftProps = { opacity?: number }
