@@ -22,6 +22,7 @@ import { daysOfTheWeek } from "../../../utils/daysOfTheWeek"
 const Day = styled.div`
   display: flex;
   gap: ${ themeSpacing( 6 ) };
+  position: relative; /* Positioning context for CenteredSpinner */ 
 `
 
 const Left = styled.div`
@@ -34,7 +35,6 @@ const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(512px, 1fr));
   gap: ${ themeSpacing(4) };
-  align-items: start;
 `
 
 const Hr = styled.hr`

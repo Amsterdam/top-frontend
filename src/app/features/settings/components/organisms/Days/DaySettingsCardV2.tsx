@@ -7,6 +7,7 @@ import { useDaySettings } from "app/state/rest"
 
 import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner"
 import formatDate from "app/features/shared/utils/formatDate"
+import ValueList from "../../atoms/ValueList/ValueList"
 import { Body, Column, Dd, Dl, Dt, Header, Li, Section, Ul } from "./DaySettingsCardStyles"
 
 type Props = {
@@ -31,7 +32,7 @@ const DaySettingsCardV2: FC<RouteComponentProps<Props>> = (
   const { data: daySettings, isBusy } = useDaySettings(daySettingsId!, { apiVersion: "v2" })
 
   if (!teamSettings || !daySettings || isBusy) {
-    return <CenteredSpinner explanation="Instellingen ophalen…" size={ 60 } />
+    return <CenteredSpinner explanation="Daginstellingen ophalen…" size={ 60 } />
   }
 
   const postalCodeRangesPresetsDict = postCodeRangesPresets?.reduce((t: any, c) => {
@@ -43,35 +44,6 @@ const DaySettingsCardV2: FC<RouteComponentProps<Props>> = (
   const toEditForm = to("/team-settings/:teamSettingsId/:daySettingsId", {
     teamSettingsId: teamSettings.id,
     daySettingsId: daySettings?.id
-  })
-
-  const getNameById = (array: any[] | undefined, id: number) => array?.map((item) => (item.id === id) ? item.name : undefined)
-
-  type ValueListProps = {
-    labels: string[]
-    options?: any[] | null
-    values?: any[] | null
-  }
-
-  const ValueList: React.FC<ValueListProps> = (({ labels, options, values }) => {
-    if (!options) {
-      return null
-    }
-
-    return (
-      <Dl>
-        <Dt>{ values?.length === 1 ? labels[0] : labels[1] }</Dt>
-        <Dd>
-          { values?.length ?
-            <Ul>
-              { values.map((value) => (
-                <Li key={ `labels[0]-${ value }` }>{ getNameById(options, value) }</Li>
-              )) }
-            </Ul>
-            : "–" }
-        </Dd>
-      </Dl>
-    )
   })
 
   return (
