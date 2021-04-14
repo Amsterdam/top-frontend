@@ -34,7 +34,6 @@ const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(512px, 1fr));
   gap: ${ themeSpacing(4) };
-  align-items: start;
 `
 
 const Hr = styled.hr`
