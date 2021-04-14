@@ -1,9 +1,8 @@
 import React from "react"
-import { Spinner } from "@amsterdam/asc-ui"
+import styled from "styled-components"
+import { Spinner, themeColor, themeSpacing } from "@amsterdam/asc-ui"
 
 import { useCase } from "app/state/rest"
-
-import Box from "app/features/shared/components/atoms/Box/Box"
 import displayAddress from "app/features/shared/utils/displayAddress"
 import StadiumBadge from "app/features/shared/components/molecules/StadiumBadge/StadiumBadge"
 
@@ -14,6 +13,11 @@ import { useCaseModal } from "../../hooks/useCaseModal"
 type Props = {
   caseId: string
 }
+
+const Card = styled.div`
+  padding: ${ themeSpacing(3) } ${ themeSpacing(2) };
+  background-color: ${ themeColor("tint", "level2") };
+`
 
 const normalize = (object: any, href: string): React.ComponentProps<typeof ItineraryItemCard> => ({
   href,
@@ -29,12 +33,12 @@ const StartAddress: React.FC<Props> = ({ caseId }) => {
   const { getUrl } = useCaseModal()
 
   return (
-    <Box pt={ 3 } pb={ 3 } pl={ 2 } pr={ 2 } bgColor="level2">
+    <Card>
       { isBusy
         ? <Spinner />
         : <ItineraryItemCard { ...normalize(data, getUrl(caseId)) } />
       }
-    </Box>
+    </Card>
   )
 }
 
