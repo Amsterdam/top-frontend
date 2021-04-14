@@ -17,15 +17,16 @@ export type ShowHideProps = {
 const ShowHide: React.FC<ShowHideProps> = ({ shouldShow, field, position, name }) => {
   const form = useForm()
   const formState = useFormState()
+  const fieldName = name ?? field.props.name
 
   const positionedField = produce(field, draft => {
     draft.props.position = position
   })
 
-  const isShown = shouldShow(formState)
+  const isShown = shouldShow(formState) ?? false
 
-  if (!isShown && name !== undefined) {
-    form.change(name, undefined)
+  if (!isShown && fieldName !== undefined) {
+    form.change(fieldName, undefined)
   }
 
   return isShown

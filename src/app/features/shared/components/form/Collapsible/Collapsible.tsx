@@ -6,6 +6,7 @@ import { ComposedField, Scaffold, ScaffoldFields } from "@amsterdam/amsterdam-re
 export type CollapsibleProps = React.ComponentProps<typeof ComposedField> & {
   isOpen?: boolean
   fields: ScaffoldFields
+  name?: string
 }
 
 const Wrap = styled.div`

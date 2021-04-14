@@ -5,6 +5,7 @@ import { themeColor, themeSpacing } from "@amsterdam/asc-ui"
 import { ComposedField, Dimensions, Responsive } from "@amsterdam/amsterdam-react-final-form"
 
 export type DividerProps = {
+  name?: string
   position?: Responsive<Dimensions>
 }
 
