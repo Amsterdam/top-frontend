@@ -22,6 +22,7 @@ import { daysOfTheWeek } from "../../../utils/daysOfTheWeek"
 const Day = styled.div`
   display: flex;
   gap: ${ themeSpacing( 6 ) };
+  position: relative; /* Positioning context for CenteredSpinner */ 
 `
 
 const Left = styled.div`
