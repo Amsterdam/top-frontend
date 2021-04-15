@@ -4,7 +4,7 @@ import { useFormState } from "react-final-form"
 import Scaffold from "app/features/shared/components/form/Scaffold"
 import translation from "app/features/visits/lang/nl_nl"
 
-import * as formDefinitions from "./formDefinitions"
+import * as formDefinitions from "./NoteWizardFormDefinitions"
 import { OnBackButtonClick, WizardStep } from "app/features/visits/components/organisms/NoteWizard/types"
 
 type Props = {
