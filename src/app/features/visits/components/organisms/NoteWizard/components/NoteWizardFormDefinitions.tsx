@@ -42,7 +42,7 @@ export const stepOne = (handleBack: OnBackButtonClick, situation: string, observ
     .getScaffoldProps()
 }
 
-export const notableThings = (handleBack: OnBackButtonClick, situation: string, observationChoices: {}, suggestNextVisitChoices: {}, situationChoices: {}) => {
+export const notableThings = (handleBack: OnBackButtonClick, situation: string, observationChoices: {}) => {
   const fields: Fields = ({
     observations: {
       type: "CheckboxFields",
@@ -84,7 +84,7 @@ export const notableThings = (handleBack: OnBackButtonClick, situation: string, 
     .getScaffoldProps()
 }
 
-export const suggestion = (handleBack: OnBackButtonClick, situation: string, observationChoices: {}, suggestNextVisitChoices: {}, situationChoices: {}) => {
+export const suggestion = (handleBack: OnBackButtonClick, situation: string, observationChoices: {}, suggestNextVisitChoices: {}) => {
   const fields: Fields = ({
     suggest_next_visit: {
       type: "RadioFields",
@@ -141,7 +141,7 @@ export const suggestion = (handleBack: OnBackButtonClick, situation: string, obs
     .getScaffoldProps()
 }
 
-export const nextVisit = (handleBack: OnBackButtonClick, situation: string, observationChoices: {}, suggestNextVisitChoices: {}, situationChoices: {}) => {
+export const nextVisit = (handleBack: OnBackButtonClick) => {
   const fields: Fields = {
     next_visit: {
       type: "RadioFields",
@@ -219,7 +219,7 @@ export const nextVisit = (handleBack: OnBackButtonClick, situation: string, obse
     .getScaffoldProps()
 }
 
-export const accessGranted = (handleBack: OnBackButtonClick, situation: string, observationChoices: {}, suggestNextVisitChoices: {}, situationChoices: {}) => {
+export const accessGranted = (handleBack: OnBackButtonClick) => {
   const fields: Fields = {
     notes: {
       type: "TextAreaField",
