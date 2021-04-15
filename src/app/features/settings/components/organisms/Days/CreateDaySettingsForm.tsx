@@ -78,7 +78,7 @@ const CreateDaySettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId,
     settings: {
       team_settings: teamSettingsId,
       postal_code_ranges: default_postal_code_range,
-      week_days: dayOfTheWeek.exists() ? [dayOfTheWeek.get()] : Object.keys(daysOfTheWeek).map(d => d.toString())
+      week_days: dayOfTheWeek.exists() ? [ dayOfTheWeek.get() ] : Object.keys(daysOfTheWeek).map(d => d.toString())
     },
     postal_codes_type: "postcode"
   }
