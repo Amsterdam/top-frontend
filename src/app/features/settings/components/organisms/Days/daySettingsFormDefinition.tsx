@@ -18,7 +18,7 @@ export const createDefinition = (projects: string[], stadia: string[], postalCod
     name: {
       type: "TextField",
       props: {
-        label: "Kies een titel voor deze daginstelling",
+        label: "Geef deze daginstelling een naam",
         name: "settings.name",
         type: "text",
         validate: isRequired()
@@ -33,21 +33,13 @@ export const createDefinition = (projects: string[], stadia: string[], postalCod
         validate: isRequired()
       }
     },
-    divider1: {
-      type: "Divider",
-      props: {}
-    },
     sia_presedence: {
       type: "Boolean",
       props: {
-        label: "Geef SIA meldingen voorrang",
+        label: "Voorrang voor SIA-meldingen",
         name: "settings.sia_presedence",
         style: { top: 2, left: 0 }
       }
-    },
-    divider2: {
-      type: "Divider",
-      props: {}
     },
     geo_type: {
       type: "RadioFields",
@@ -117,10 +109,6 @@ export const createDefinition = (projects: string[], stadia: string[], postalCod
         }
       }
     },
-    divider3: {
-      type: "Divider",
-      props: {}
-    },
     projects: {
       type: "CheckboxFields",
       props: {
@@ -130,10 +118,6 @@ export const createDefinition = (projects: string[], stadia: string[], postalCod
         validate: isRequired(),
         columnCount: { tabletM: 3, laptop: 4, laptopM: 5 }
       }
-    },
-    divider4: {
-      type: "Divider",
-      props: {}
     },
     primary_stadium: {
       type: "SelectField",
@@ -166,6 +150,26 @@ export const createDefinition = (projects: string[], stadia: string[], postalCod
         ),
         columnCount: { laptopL: 2 }
       }
+    },
+    divider1: {
+      type: "Divider",
+      props: {}
+    },
+    divider2: {
+      type: "Divider",
+      props: {}
+    },
+    divider3: {
+      type: "Divider",
+      props: {}
+    },
+    divider4: {
+      type: "Divider",
+      props: {}
+    },
+    divider5: {
+      type: "Divider",
+      props: {}
     }
   }
 
@@ -173,30 +177,32 @@ export const createDefinition = (projects: string[], stadia: string[], postalCod
   return new FormPositioner(definition)
     .setVertical("mobileS")
     .setGrid("tabletM", "1fr 1fr 1fr", [
-      [ "name" ],
-      [ "opening_date" ],
       [ "divider1", "divider1", "divider1" ],
-      [ "sia_presedence" ],
+      [ "name", "name" ],
+      [ "opening_date", "opening_date" ],
+      [ "sia_presedence", "sia_presedence" ],
       [ "divider2", "divider2", "divider2" ],
       [ "geo_type", "postal_codes", "postal_codes" ],
       [ "geo_type", "postalCodeRanges", "postalCodeRanges" ],
       [ "divider3", "divider3", "divider3" ],
       [ "projects", "projects", "projects" ],
       [ "divider4", "divider4", "divider4" ],
-      [ "primary_stadium", "secondary_stadia", "exclude_stadia" ]
+      [ "primary_stadium", "secondary_stadia", "exclude_stadia" ],
+      [ "divider5", "divider5", "divider5" ]
     ])
     .setGrid("laptop", "1fr 1fr 1fr 1fr 1fr", [
-      [ "name" ],
-      [ "opening_date" ],
       [ "divider1", "divider1", "divider1", "divider1", "divider1" ],
-      [ "sia_presedence" ],
+      [ "name", "name" ],
+      [ "opening_date", "opening_date" ],
+      [ "sia_presedence", "sia_presedence" ],
       [ "divider2", "divider2", "divider2", "divider2", "divider2" ],
       [ "geo_type", "postal_codes", "postal_codes", "postal_codes", "postal_codes" ],
       [ "geo_type", "postalCodeRanges", "postalCodeRanges", "postalCodeRanges", "postalCodeRanges" ],
       [ "divider3", "divider3", "divider3", "divider3", "divider3" ],
       [ "projects", "projects", "projects", "projects", "projects" ],
       [ "divider4", "divider4", "divider4", "divider4", "divider4" ],
-      [ "primary_stadium", "secondary_stadia", "secondary_stadia", "exclude_stadia", "exclude_stadia" ]
+      [ "primary_stadium", "secondary_stadia", "secondary_stadia", "exclude_stadia", "exclude_stadia" ],
+      [ "divider5", "divider5", "divider5", "divider5", "divider5" ]
     ])
     .getScaffoldProps()
 }

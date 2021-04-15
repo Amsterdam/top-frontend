@@ -78,7 +78,7 @@ const CreateDaySettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId,
     settings: {
       team_settings: teamSettingsId,
       postal_code_ranges: default_postal_code_range,
-      week_days: dayOfTheWeek.exists() ? [dayOfTheWeek.get()] : Object.keys(daysOfTheWeek).map(d => d.toString())
+      week_days: dayOfTheWeek.exists() ? [ dayOfTheWeek.get() ] : Object.keys(daysOfTheWeek).map(d => d.toString())
     },
     postal_codes_type: "postcode"
   }
@@ -91,7 +91,9 @@ const CreateDaySettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId,
             Alle dagen
           </Link>
         </Spacing>
-        <Heading>Nieuwe daginstelling aanmaken { dayOfTheWeek.exists() ? "voor de " + daysOfTheWeek[Number(dayOfTheWeek.get())].toLowerCase() : "" }</Heading>
+        <Heading>Toevoegen daginstelling</Heading>
+        <Heading forwardedAs="h2">{ teamSettings.name }</Heading>
+        { dayOfTheWeek.exists() && <Heading forwardedAs="h3">{ daysOfTheWeek[Number(dayOfTheWeek.get())] }</Heading> }
         <ScaffoldForm onSubmit={ handleSubmit } initialValues={ initialValues }>
           <Scaffold { ...definition } />
           <FixedSubmitButton errorMessage={ errorMessage } />
