@@ -18,6 +18,7 @@ import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinne
 import { filterEmptyPostalCodes } from "app/features/settings/utils/filterEmptyPostalCodes"
 import { useQueryStringProp } from "app/features/shared/hooks/queryString/useQueryStringProp"
 import { daysOfTheWeek } from "app/features/settings/utils/daysOfTheWeek"
+import { fixDateFormat } from "app/features/settings/utils/fixDateFormat"
 
 const Wrap = styled.div`
   margin: 0 8px 100px 8px;
@@ -54,6 +55,7 @@ const CreateDaySettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId,
     if (data.postal_codes_type === "postcode") {
       values.postal_code_ranges_presets = []
     }
+    values.opening_date = fixDateFormat(values.opening_date)
     try {
       await execPost(values, { skipCacheClear: false, useResponseAsCache: false })
       navigate(to("/team-settings/:teamSettingsId", { teamSettingsId }))
