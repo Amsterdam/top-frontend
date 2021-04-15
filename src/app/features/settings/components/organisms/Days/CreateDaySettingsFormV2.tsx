@@ -9,6 +9,7 @@ import to from "app/features/shared/routing/to"
 import {
   useDaySettingsList,
   usePostCodeRanges,
+  useTeamSettings,
   useTeamSettingsReasons,
   useTeamSettingsScheduleTypes,
   useTeamSettingsStateTypes
@@ -39,6 +40,7 @@ type Props = {
 }
 
 const CreateDaySettingsFormV2: FC<RouteComponentProps<Props>> = ({ teamSettingsId }) => {
+  const { data: teamSettings } = useTeamSettings(teamSettingsId!)
   const { execPost } = useDaySettingsList({ lazy: true, apiVersion: "v2" })
   const { data: caseReasons } = useTeamSettingsReasons(teamSettingsId!)
   const { data: teamScheduleTypes } = useTeamSettingsScheduleTypes(teamSettingsId!)
@@ -105,7 +107,9 @@ const CreateDaySettingsFormV2: FC<RouteComponentProps<Props>> = ({ teamSettingsI
             Alle dagen
           </Link>
         </Spacing>
-        <Heading>Nieuwe daginstelling aanmaken { dayOfTheWeek.exists() ? "voor de " + daysOfTheWeek[Number(dayOfTheWeek.get())].toLowerCase() : "" }</Heading>
+        <Heading>Toevoegen daginstelling</Heading>
+        <Heading forwardedAs="h2">{ teamSettings?.name }</Heading>
+        { dayOfTheWeek.exists() && <Heading forwardedAs="h3">{ daysOfTheWeek[Number(dayOfTheWeek.get())] }</Heading> }
         <ScaffoldForm onSubmit={ handleSubmit } initialValues={ initialValues }>
           <Scaffold { ...definition } />
           <FixedSubmitButton errorMessage={ errorMessage } />

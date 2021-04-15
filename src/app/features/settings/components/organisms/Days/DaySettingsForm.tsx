@@ -81,9 +81,10 @@ const DaySettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId, daySe
             Alle dagen
           </Link>
         </Spacing>
-        <p>Wijzig instellingen voor:</p>
-        <Heading>{ daySettings.team_settings.name } { daySettings.week_days?.length === 1 ? "op de " + daysOfTheWeek[Number(daySettings.week_days[0])].toLowerCase() : "" }</Heading>
-        <Heading forwardedAs="h2">{ daySettings.name }</Heading>
+        <Heading>Wijzigen daginstelling</Heading>
+        <Heading forwardedAs="h2">{ daySettings.team_settings.name }</Heading>
+        { daySettings.week_days?.length === 1 &&
+        <Heading forwardedAs="h3">{ daysOfTheWeek[Number(daySettings.week_days[0])] }</Heading> }
         <ScaffoldForm onSubmit={ handleSubmit } initialValues={ {
           settings: {
             ...daySettings,
