@@ -11,7 +11,7 @@ import Scaffold from "app/features/shared/components/form/Scaffold"
 import to from "app/features/shared/routing/to"
 
 import { getDaySettingsOptions } from "app/features/itineraries/components/organisms/ItineraryForm/getDaySettingsOptions"
-import { generateItineraryFormDefinition } from "./formDefinition"
+import { generateItineraryFormDefinition } from "./ItineraryFormDefinition"
 import { mapPostValues } from "./mapPostValues"
 
 type Props = {
@@ -44,7 +44,7 @@ const ItineraryForm: FC<Props> = ({ teamSettings }) => {
         Vraag je planner om deze voor je aan te maken.
       </Paragraph>
       <Link to={ "/lijst" }>Terug naar het overzicht</Link>
-      </Alert>     
+      </Alert>
     )
   }
 
