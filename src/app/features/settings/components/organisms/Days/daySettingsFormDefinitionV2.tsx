@@ -23,7 +23,7 @@ export const createDefinition = (
     name: {
       type: "TextField",
       props: {
-        label: "Kies een titel voor deze daginstelling",
+        label: "Geef deze daginstelling een naam",
         name: "name",
         type: "text",
         validate: isRequired()
@@ -37,10 +37,6 @@ export const createDefinition = (
         type: "date",
         validate: isRequired()
       }
-    },
-    divider1: {
-      type: "Divider",
-      props: {}
     },
     geo_type: {
       type: "RadioFields",
@@ -110,10 +106,6 @@ export const createDefinition = (
         }
       }
     },
-    divider6: {
-      type: "Divider",
-      props: {}
-    },
     reasons: {
       type: "CheckboxFields",
       props: {
@@ -124,10 +116,6 @@ export const createDefinition = (
         validate: isRequired()
       }
     },
-    divider4: {
-      type: "Divider",
-      props: {}
-    },
     stateTypes: {
       type: "CheckboxFields",
       props: {
@@ -137,10 +125,6 @@ export const createDefinition = (
         columnCount: { mobileM: 2, tabletM: 4 },
         validate: isRequired()
       }
-    },
-    divider2: {
-      type: "Divider",
-      props: {}
     },
     daySegments: {
       type: "CheckboxFields",
@@ -162,10 +146,6 @@ export const createDefinition = (
         validate: isRequired()
       }
     },
-    divider3: {
-      type: "Divider",
-      props: {}
-    },
     priorities: {
       type: "CheckboxFields",
       props: {
@@ -176,7 +156,35 @@ export const createDefinition = (
         validate: isRequired()
       }
     },
+    divider1: {
+      type: "Divider",
+      props: {}
+    },
+    divider2: {
+      type: "Divider",
+      props: {}
+    },
+    divider3: {
+      type: "Divider",
+      props: {}
+    },
+    divider4: {
+      type: "Divider",
+      props: {}
+    },
     divider5: {
+      type: "Divider",
+      props: {}
+    },
+    divider6: {
+      type: "Divider",
+      props: {}
+    },
+    divider7: {
+      type: "Divider",
+      props: {}
+    },
+    divider8: {
       type: "Divider",
       props: {}
     }
@@ -186,38 +194,42 @@ export const createDefinition = (
   return new FormPositioner(definition)
     .setVertical("mobileS")
     .setGrid("tabletM", "1fr 1fr 1fr", [
+      [ "divider1", "divider1", "divider1" ],
       [ "name" ],
       [ "opening_date" ],
-      [ "divider1", "divider1", "divider1" ],
+      [ "divider2", "divider2", "divider2" ],
       [ "geo_type", "postal_codes", "postal_codes" ],
       [ "geo_type", "postalCodeRanges", "postalCodeRanges" ],
-      [ "divider2", "divider2", "divider2" ],
-      [ "reasons", "reasons", "reasons" ],
       [ "divider3", "divider3", "divider3" ],
-      [ "stateTypes", "stateTypes", "stateTypes" ],
-      [ "divider6", "divider6", "divider6" ],
-      [ "daySegments", "daySegments", "daySegments" ],
+      [ "reasons", "reasons", "reasons" ],
       [ "divider4", "divider4", "divider4" ],
-      [ "weekSegments", "weekSegments", "weekSegments" ],
+      [ "stateTypes", "stateTypes", "stateTypes" ],
       [ "divider5", "divider5", "divider5" ],
-      [ "priorities", "priorities", "priorities" ]
+      [ "daySegments", "daySegments", "daySegments" ],
+      [ "divider6", "divider6", "divider6" ],
+      [ "weekSegments", "weekSegments", "weekSegments" ],
+      [ "divider7", "divider7", "divider7" ],
+      [ "priorities", "priorities", "priorities" ],
+      [ "divider8", "divider8", "divider8" ]
     ])
     .setGrid("laptop", "1fr 1fr 1fr 1fr 1fr", [
-      [ "name" ],
-      [ "opening_date" ],
       [ "divider1", "divider1", "divider1", "divider1", "divider1" ],
+      [ "name", "name" ],
+      [ "opening_date", "opening_date" ],
+      [ "divider2", "divider2", "divider2", "divider2", "divider2" ],
       [ "geo_type", "postal_codes", "postal_codes", "postal_codes", "postal_codes" ],
       [ "geo_type", "postalCodeRanges", "postalCodeRanges", "postalCodeRanges", "postalCodeRanges" ],
-      [ "divider2", "divider2", "divider2", "divider2", "divider2" ],
-      [ "reasons", "reasons", "reasons", "reasons", "reasons" ],
       [ "divider3", "divider3", "divider3", "divider3", "divider3" ],
-      [ "stateTypes", "stateTypes", "stateTypes", "stateTypes", "stateTypes" ],
-      [ "divider6", "divider6", "divider6", "divider6", "divider6" ],
-      [ "daySegments", "daySegments", "daySegments", "daySegments", "daySegments" ],
+      [ "reasons", "reasons", "reasons", "reasons", "reasons" ],
       [ "divider4", "divider4", "divider4", "divider4", "divider4" ],
-      [ "weekSegments", "weekSegments", "weekSegments", "weekSegments", "weekSegments" ],
+      [ "stateTypes", "stateTypes", "stateTypes", "stateTypes", "stateTypes" ],
       [ "divider5", "divider5", "divider5", "divider5", "divider5" ],
-      [ "priorities", "priorities", "priorities", "priorities", "priorities" ]
+      [ "daySegments", "daySegments", "daySegments", "daySegments", "daySegments" ],
+      [ "divider6", "divider6", "divider6", "divider6", "divider6" ],
+      [ "weekSegments", "weekSegments", "weekSegments", "weekSegments", "weekSegments" ],
+      [ "divider7", "divider7", "divider7", "divider7", "divider7" ],
+      [ "priorities", "priorities", "priorities", "priorities", "priorities" ],
+      [ "divider8", "divider8", "divider8", "divider8", "divider8" ]
     ])
     .getScaffoldProps()
 }

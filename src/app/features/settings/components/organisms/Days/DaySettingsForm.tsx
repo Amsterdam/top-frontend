@@ -98,7 +98,9 @@ const DaySettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId, daySe
           <Scaffold { ...definition } />
           <FixedSubmitButton errorMessage={ errorMessage } />
         </ScaffoldForm>
-        <DeleteDaySettingsButton teamSettingsId={ teamSettingsId! } daySettingsId={ daySettingsId! } />
+        <Spacing pt={ 4 }>
+          <DeleteDaySettingsButton teamSettingsId={ teamSettingsId! } daySettingsId={ daySettingsId! } />
+        </Spacing>
       </Wrap>
     </DefaultLayout>
   )
