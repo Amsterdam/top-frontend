@@ -73,12 +73,13 @@ declare namespace Components {
                 show_vakantieverhuur?: boolean;
             };
             sia_presedence?: boolean;
+            readonly used_today_count: number;
         }
         export interface DaySettingsCompact {
             readonly id: number;
             name: string;
-            readonly week_day: number;
             readonly week_days: number[];
+            readonly used_today_count: number;
             readonly team_settings: {
                 readonly id: number;
                 name: string;
@@ -427,6 +428,7 @@ declare namespace Components {
                 show_vakantieverhuur?: boolean;
             };
             sia_presedence?: boolean;
+            readonly used_today_count?: number;
         }
         export interface PatchedItineraryItem {
             readonly id?: number;

@@ -3,11 +3,12 @@ import styled from "styled-components"
 
 import { themeColor, themeSpacing } from "@amsterdam/asc-ui"
 
-import Badge from "app/features/shared/components/atoms/Badge/Badge"
+import Badge, { Props as BadgeProps } from "app/features/shared/components/atoms/Badge/Badge"
 
 type Props = {
   stadium: string
   stadiaLabels?: Components.Schemas.StadiumLabel[]
+  variant?: BadgeProps["variant"]
 }
 
 const Column = styled.div`
@@ -34,7 +35,7 @@ const BadgeMark = styled.div`
   }
 `
 
-const StadiumBadge: React.FC<Props> = ({ stadium, stadiaLabels }) => {
+const StadiumBadge: React.FC<Props> = ({ stadium, stadiaLabels, variant }) => {
   const isIssueMelding = stadium?.toLowerCase() === "issuemelding"
   const isMarked = (stadiaLabels || []).map(label => label.stadium).includes(stadium)
   const isSia = (stadium === "SIA")
@@ -48,7 +49,7 @@ const StadiumBadge: React.FC<Props> = ({ stadium, stadiaLabels }) => {
 
   return (
     <Column>
-      <Badge variant={ isSia || isIssueMelding ? "secondary" : "primary" }>
+      <Badge variant={ variant ?? (isSia || isIssueMelding ? "secondary" : "primary") }>
         { stadium }
       </Badge>
       {
