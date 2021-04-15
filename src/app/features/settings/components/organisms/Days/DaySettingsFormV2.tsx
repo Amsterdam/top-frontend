@@ -19,7 +19,7 @@ import Scaffold from "app/features/shared/components/form/Scaffold"
 import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout"
 
 import { createDefinition } from "./DaySettingsFormDefinitionV2"
-import DeleteDaySettingsButton from "../..//molecules/DeleteDaySettingsButton/DeleteDaySettingsButton"
+import DeleteDaySettingsButton from "../../molecules/DeleteDaySettingsButton/DeleteDaySettingsButton"
 import FixedSubmitButton from "../SettingsForm/components/FixedSubmitButton"
 import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner"
 import { filterEmptyPostalCodes } from "app/features/settings/utils/filterEmptyPostalCodes"
