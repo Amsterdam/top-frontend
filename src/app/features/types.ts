@@ -129,6 +129,7 @@ export type BWVData = {
   case_states: CaseStatus[]
   current_states: CaseStatus[]
   reason: CaseReason
+  schedules: any
 }
 
 export type CaseStatus = {
@@ -164,6 +165,7 @@ export type Case = {
   is_sia: string
   reason: CaseReason
   related_cases: RelatedCase[]
+  schedules: any
   statements: Statement[]
   vakantie_verhuur: VakantieVerhuur
 }

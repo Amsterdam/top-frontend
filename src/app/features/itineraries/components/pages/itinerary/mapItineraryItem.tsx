@@ -20,7 +20,8 @@ export const mapItineraryItem = (itineraryId: string, daySettings: Components.Sc
           street_name, number, suffix_letter, suffix, postal_code
         },
         current_states,
-        reason
+        reason,
+        schedules
       },
       id: caseId,
       fraud_prediction
@@ -29,9 +30,14 @@ export const mapItineraryItem = (itineraryId: string, daySettings: Components.Sc
     position,
     visits
   }: ItineraryItem) =>
-  ({
+{
+  const badge = current_states?.length > 0
+    ? <StadiumBadge stadium={ current_states[0].status_name || "" } />
+    : <StadiumBadge stadium={ stadium } />
+
+  return {
     address: displayAddress(street_name, number, suffix_letter, suffix),
-    badge: current_states?.length > 0 ? <StadiumBadge stadium={ current_states[0].status_name || "" } /> : <StadiumBadge stadium={ stadium } />,
+    badge,
     daySettings,
     fraudProbability: fraud_prediction && <FraudProbability fraudProbability={ fraud_prediction?.fraud_probability } />,
     href: to("/cases/:id", { id: caseId.toString() ?? "" }),
@@ -45,6 +51,7 @@ export const mapItineraryItem = (itineraryId: string, daySettings: Components.Sc
     position,
     postalCode: postal_code,
     reason: reason?.name || case_reason,
+    hasPriority: (schedules && schedules[0]?.priority?.weight >= 0.5) ?? false,
     buttons: (onDeleteButtonClicked: () => void) =>
       <ItineraryItemCardButtons
         caseId={ caseId.toString() }
@@ -53,4 +60,5 @@ export const mapItineraryItem = (itineraryId: string, daySettings: Components.Sc
         onDeleteButtonClicked={ onDeleteButtonClicked }
         visits={ visits }
       />
-  })
+  }
+}

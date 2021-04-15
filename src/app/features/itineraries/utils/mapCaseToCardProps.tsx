@@ -29,6 +29,7 @@ const mapCaseToCardProps = (itineraryId: number | undefined, itineraryItemIds: R
      fraud_prediction,
      id,
      reason,
+     schedules,
      stadium,
      teams
    }: any): React.ComponentProps<typeof ItineraryItemCard> =>
@@ -63,6 +64,7 @@ const mapCaseToCardProps = (itineraryId: number | undefined, itineraryItemIds: R
       badge,
       buttons,
       fraudProbability: <FraudProbability fraudProbability={ fraud_prediction?.fraud_probability } />,
+      hasPriority: (schedules && schedules[0]?.priority?.weight >= 0.5) ?? false,
       href: to("/cases/:id", { id }),
       postalCode: address.postal_code,
       reason: reason?.reason || case_reason,
