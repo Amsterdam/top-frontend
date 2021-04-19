@@ -1,4 +1,4 @@
-import { isRequired } from "@amsterdam/amsterdam-react-final-form"
+import { isRequired, isMatchingRegex, combineValidators } from "@amsterdam/amsterdam-react-final-form"
 import { FormPositioner, FormPositionerFields } from "@amsterdam/scaffold-form/package"
 
 import config from "app/config/config"
@@ -36,6 +36,17 @@ export const createDefinition = (
         name: "opening_date",
         type: "date",
         validate: isRequired()
+      }
+    },
+    max_use_limit: {
+      type: "NumberField",
+      props: {
+        label: "Hoe vaak mag deze instelling gebruikt worden op een dag",
+        name: "max_use_limit",
+        style: { top: 2, left: 0 },
+        validate: combineValidators(
+          isMatchingRegex(/^\d+$/, "Alleen hele getallen kunnen worden gebruikt.")
+        )
       }
     },
     geo_type: {
@@ -195,8 +206,8 @@ export const createDefinition = (
     .setVertical("mobileS")
     .setGrid("tabletM", "1fr 1fr 1fr", [
       [ "divider1", "divider1", "divider1" ],
-      [ "name" ],
-      [ "opening_date" ],
+      [ "name", "max_use_limit" ],
+      [ "opening_date", "opening_date"],
       [ "divider2", "divider2", "divider2" ],
       [ "geo_type", "postal_codes", "postal_codes" ],
       [ "geo_type", "postalCodeRanges", "postalCodeRanges" ],
@@ -214,7 +225,7 @@ export const createDefinition = (
     ])
     .setGrid("laptop", "1fr 1fr 1fr 1fr 1fr", [
       [ "divider1", "divider1", "divider1", "divider1", "divider1" ],
-      [ "name", "name" ],
+      [ "name", "name", "max_use_limit" ],
       [ "opening_date", "opening_date" ],
       [ "divider2", "divider2", "divider2", "divider2", "divider2" ],
       [ "geo_type", "postal_codes", "postal_codes", "postal_codes", "postal_codes" ],
