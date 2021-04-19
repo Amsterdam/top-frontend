@@ -151,7 +151,7 @@ const ItineraryPage: React.FC<RouteComponentProps<Props>> = ({ itineraryId }) =>
           <Right>
             <StyledButton onClick={ () => navigate(to("/lijst/:itineraryId/suggesties", { itineraryId })) }
                           variant="blank" iconLeft={ <Enlarge /> }>
-              Voeg adres toe
+              Voeg zaak toe
             </StyledButton>
           </Right>
         </ColumnWrap>

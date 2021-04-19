@@ -92,7 +92,7 @@ export const suggestion = (handleBack: OnBackButtonClick, situation: string, obs
         isRequired: true,
         name: "suggest_next_visit",
         label: "Suggestie nieuw bezoek",
-        hint: "Wanneer kan dit adres het beste opnieuw bezocht worden?",
+        hint: "Wanneer kan deze zaak het beste opnieuw belopen worden?",
         options: suggestNextVisitChoices || {
           daytime: "Overdag",
           weekend: "Weekend",
@@ -148,14 +148,14 @@ export const nextVisit = (handleBack: OnBackButtonClick) => {
       props: {
         isRequired: true,
         name: "can_next_visit_go_ahead",
-        label: "Kan het adres direct worden uitgezet?",
+        label: "Kan de zaak direct worden uitgezet?",
         extraLabel: <HelpButton>
           <strong>Tegenhouden of doorlaten?</strong>
           <p>
-            Doorlaten (ja): adres komt zonder tussenkomst weer in een looplijst terecht.
+            Doorlaten (ja): de zaak komt zonder tussenkomst weer in een looplijst terecht.
           </p>
           <p>
-            Tegenhouden (nee): het adres kan niet direct worden uitgezet. <em>Voorbeeld: machtiging vereist.</em>
+            Tegenhouden (nee): de zaak kan niet direct worden uitgezet. <em>Voorbeeld: machtiging vereist.</em>
           </p>
         </HelpButton>,
         options: {

@@ -23,7 +23,7 @@ const SuggestionsPage: React.FC<RouteComponentProps<Props>> = ({ itineraryId }) 
 
   return (
     <DefaultLayout>
-      <Heading>Voeg een adres toe</Heading>
+      <Heading>Voeg een zaak toe aan je looplijst</Heading>
       { isBusy && <CenteredSpinner explanation="Zaken ophalen…" size={ 60 } /> }
       { items.length > 0
         ? <ItineraryItemCardList items={ items } title="Zaken rondom de adressen in je lijst:" />
