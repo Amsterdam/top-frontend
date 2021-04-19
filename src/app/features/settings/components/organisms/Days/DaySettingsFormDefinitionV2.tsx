@@ -157,16 +157,6 @@ export const createDefinition = (
         validate: isRequired()
       }
     },
-    priorities: {
-      type: "CheckboxFields",
-      props: {
-        label: "Met welke prioriteit wil je dat de looplijsten gegenereerd worden?",
-        name: "priorities",
-        options: prioritiesOptions,
-        columnCount: { mobileM: 2, tabletM: 4 },
-        validate: isRequired()
-      }
-    },
     divider1: {
       type: "Divider",
       props: {}
@@ -194,10 +184,6 @@ export const createDefinition = (
     divider7: {
       type: "Divider",
       props: {}
-    },
-    divider8: {
-      type: "Divider",
-      props: {}
     }
   }
 
@@ -219,9 +205,7 @@ export const createDefinition = (
       [ "daySegments", "daySegments", "daySegments" ],
       [ "divider6", "divider6", "divider6" ],
       [ "weekSegments", "weekSegments", "weekSegments" ],
-      [ "divider7", "divider7", "divider7" ],
-      [ "priorities", "priorities", "priorities" ],
-      [ "divider8", "divider8", "divider8" ]
+      [ "divider7", "divider7", "divider7" ]
     ])
     .setGrid("laptop", "1fr 1fr 1fr 1fr 1fr", [
       [ "divider1", "divider1", "divider1", "divider1", "divider1" ],
@@ -238,9 +222,7 @@ export const createDefinition = (
       [ "daySegments", "daySegments", "daySegments", "daySegments", "daySegments" ],
       [ "divider6", "divider6", "divider6", "divider6", "divider6" ],
       [ "weekSegments", "weekSegments", "weekSegments", "weekSegments", "weekSegments" ],
-      [ "divider7", "divider7", "divider7", "divider7", "divider7" ],
-      [ "priorities", "priorities", "priorities", "priorities", "priorities" ],
-      [ "divider8", "divider8", "divider8", "divider8", "divider8" ]
+      [ "divider7", "divider7", "divider7", "divider7", "divider7" ]
     ])
     .getScaffoldProps()
 }
