@@ -92,11 +92,6 @@ const DaySettingsCardV2: FC<RouteComponentProps<Props>> = (
             options={ caseStateTypes }
             values={ daySettings?.state_types }
           />
-          <ValueList
-            labels={ [ "Prioriteit", "Prioriteiten" ] }
-            options={ teamScheduleTypes?.priorities }
-            values={ daySettings?.priorities }
-          />
         </Column>
       </Body>
     </Section>
