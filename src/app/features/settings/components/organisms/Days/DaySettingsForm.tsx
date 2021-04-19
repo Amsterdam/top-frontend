@@ -18,6 +18,7 @@ import FixedSubmitButton from "../SettingsForm/components/FixedSubmitButton"
 import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner"
 import { filterEmptyPostalCodes } from "app/features/settings/utils/filterEmptyPostalCodes"
 import { daysOfTheWeek } from "app/features/settings/utils/daysOfTheWeek"
+import { fixDateFormat } from "app/features/settings/utils/fixDateFormat"
 
 const Wrap = styled.div`
   margin: 0 8px 100px 8px;
@@ -53,6 +54,7 @@ const DaySettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId, daySe
     if (data.postal_codes_type === "postcode") {
       values.postal_code_ranges_presets = []
     }
+    values.opening_date = fixDateFormat(values.opening_date)
     try {
       await execPut(values, { skipCacheClear: false, useResponseAsCache: false })
       navigate(to("/team-settings/:teamSettingsId", { teamSettingsId }))
