@@ -60,7 +60,7 @@ export const generateItineraryFormDefinition = (
     numAddresses: {
       type: "NumberField",
       props: {
-        label: "Hoeveel adressen wil je in je looplijst? (Max. 20)",
+        label: "Hoeveel zaken wil je in je looplijst? (Max. 20)",
         name: "numAddresses",
         min: 1,
         max: 20,

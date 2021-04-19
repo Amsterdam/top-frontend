@@ -13,7 +13,7 @@ const DeleteItineraryItemButton: React.FC<Props> = ({ id, onDeleteButtonClicked 
   const { execDelete } = useItineraryItem(id, { lazy: true })
 
   const handleClick = useCallback(() => {
-    if (window.confirm("Weet je zeker dat je dit adres uit je lijst wilt verwijderen?")) {
+    if (window.confirm("Weet je zeker dat je deze zaak uit je lijst wilt verwijderen?")) {
       onDeleteButtonClicked()
       return execDelete()
     }
