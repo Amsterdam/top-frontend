@@ -28,11 +28,7 @@ import { fixDateFormat } from "app/features/settings/utils/fixDateFormat"
 
 const Wrap = styled.div`
   margin: 0 8px 100px 8px;
-
-  // Awful hack to indent values for Postcodes or Stadsdelen 
-  div:nth-child(5):nth-last-child(9) {
-    padding-left: 32px;
-  }
+}
 `
 
 type Props = {
