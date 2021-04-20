@@ -1,5 +1,6 @@
 export const getDaySettingsOptions = (teamSettings: Components.Schemas.TeamSettings) => {
-  const weekDay = new Date().getDay() === 0 ? 6 : new Date().getDay() - 1
+  // Map day number from JS (Sunday = 0) to Python (Monday = 0)
+  const weekDay = (new Date().getDay() + 6) % 7
   const daySettingsListSpecific = teamSettings.day_settings_list.filter(ds => ds.week_days?.includes(weekDay))
   const daySettingsListGeneral = teamSettings.day_settings_list.filter(ds => ds.week_days === null || ds.week_days.length === 0)
 
