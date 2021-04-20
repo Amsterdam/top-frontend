@@ -1,8 +1,7 @@
 import React, { FC, useCallback } from "react"
-import { navigate } from "@reach/router"
+import { Link, navigate } from "@reach/router"
 import { ScaffoldForm } from "@amsterdam/amsterdam-react-final-form"
 import { Alert, Paragraph } from "@amsterdam/asc-ui"
-import { Link } from "@reach/router"
 
 import { useItineraries, useUsers } from "app/state/rest"
 import { useLoggedInUser } from "app/state/rest/custom/useLoggedInUser"
@@ -39,11 +38,11 @@ const ItineraryForm: FC<Props> = ({ teamSettings }) => {
   if (daySettingsOptions.length === 0) {
     return (
       <Alert level="info">
-      <Paragraph>
-        Er zijn voor dit team nog geen actieve daginstellingen aangemaakt!
-        Vraag je planner om deze voor je aan te maken.
-      </Paragraph>
-      <Link to={ "/lijst" }>Terug naar het overzicht</Link>
+        <Paragraph>
+          Dit team heeft nog geen daginstellingen voor vandaag!
+          Vraag eerst aan je planner om die voor je aan te maken.
+        </Paragraph>
+        <Link to={ "/lijst" }>Terug naar het overzicht</Link>
       </Alert>
     )
   }
@@ -53,9 +52,9 @@ const ItineraryForm: FC<Props> = ({ teamSettings }) => {
       keepDirtyOnReinitialize={ true }
       onSubmit={ handleSubmit }
       initialValues={ {
-        teamSettings,
-        numAddresses: 8,
         daySettings: daySettingsOptions[0],
+        numAddresses: 8,
+        teamSettings,
         team_members: [ loggedInUser ]
       } }
     >
