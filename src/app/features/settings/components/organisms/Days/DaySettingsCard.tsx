@@ -105,6 +105,12 @@ const DaySettingsCard: FC<RouteComponentProps<Props>> = ({ teamSettings, postCod
                 : "–" }
             </Dd>
           </Dl>
+          <Dl>
+            <Dt>Actieve looplijsten</Dt>
+            <Dd>
+              { daySettings?.used_today_count } van { daySettings?.max_use_limit }
+            </Dd>
+          </Dl>
         </Column>
       </Body>
     </Section>

@@ -74,12 +74,14 @@ declare namespace Components {
             };
             sia_presedence?: boolean;
             readonly used_today_count: number;
+            max_use_limit?: number;
         }
         export interface DaySettingsCompact {
             readonly id: number;
             name: string;
             readonly week_days: number[];
             readonly used_today_count: number;
+            max_use_limit?: number;
             readonly team_settings: {
                 readonly id: number;
                 name: string;
@@ -429,6 +431,7 @@ declare namespace Components {
             };
             sia_presedence?: boolean;
             readonly used_today_count?: number;
+            max_use_limit?: number;
         }
         export interface PatchedItineraryItem {
             readonly id?: number;
