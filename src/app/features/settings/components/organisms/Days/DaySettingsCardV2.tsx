@@ -92,6 +92,12 @@ const DaySettingsCardV2: FC<RouteComponentProps<Props>> = (
             options={ caseStateTypes }
             values={ daySettings?.state_types }
           />
+          <Dl>
+            <Dt>Actieve looplijsten</Dt>
+            <Dd>
+              { daySettings?.used_today_count } van { daySettings?.max_use_limit }
+            </Dd>
+          </Dl>
         </Column>
       </Body>
     </Section>
