@@ -5,6 +5,7 @@ declare namespace Components {
             id: string;
             readonly data: string;
             readonly fraud_prediction: {
+                fraud_prediction_model?: FraudPredictionModelEnum | BlankEnum | NullEnum;
                 fraud_probability: number; // float
                 fraud_prediction: boolean;
                 business_rules: {
@@ -74,12 +75,14 @@ declare namespace Components {
             };
             sia_presedence?: boolean;
             readonly used_today_count: number;
+            max_use_limit?: number;
         }
         export interface DaySettingsCompact {
             readonly id: number;
             name: string;
             readonly week_days: number[];
             readonly used_today_count: number;
+            max_use_limit?: number;
             readonly team_settings: {
                 readonly id: number;
                 name: string;
@@ -115,6 +118,7 @@ declare namespace Components {
             } | null;
         }
         export interface FraudPrediction {
+            fraud_prediction_model?: FraudPredictionModelEnum | BlankEnum | NullEnum;
             fraud_probability: number; // float
             fraud_prediction: boolean;
             business_rules: {
@@ -157,6 +161,7 @@ declare namespace Components {
                 id: string;
                 readonly data: string;
                 readonly fraud_prediction: {
+                    fraud_prediction_model?: FraudPredictionModelEnum | BlankEnum | NullEnum;
                     fraud_probability: number; // float
                     fraud_prediction: boolean;
                     business_rules: {
@@ -429,6 +434,7 @@ declare namespace Components {
             };
             sia_presedence?: boolean;
             readonly used_today_count?: number;
+            max_use_limit?: number;
         }
         export interface PatchedItineraryItem {
             readonly id?: number;
@@ -438,6 +444,7 @@ declare namespace Components {
                 id: string;
                 readonly data: string;
                 readonly fraud_prediction: {
+                    fraud_prediction_model?: FraudPredictionModelEnum | BlankEnum | NullEnum;
                     fraud_probability: number; // float
                     fraud_prediction: boolean;
                     business_rules: {

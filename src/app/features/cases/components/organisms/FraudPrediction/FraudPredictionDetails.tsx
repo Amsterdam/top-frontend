@@ -22,6 +22,11 @@ export const FraudPredictionDetails: React.FC<Props> = ({ fraudPrediction }) => 
     shap_values: shapValues
   } = fraudPrediction
 
+  const translationMap: { [translation: string]: string } = {
+    "vakantieverhuur": " kans op illegaal vakantieverhuur.",
+    "onderhuur": " kans op illegale onderhuur"
+  }
+
   const percentage = Math.round(fraudProbability * 100)
   const { positive, negative } = parseShapValues(shapValues, businessRules)
 
@@ -29,7 +34,7 @@ export const FraudPredictionDetails: React.FC<Props> = ({ fraudPrediction }) => 
     <>
       <Heading>Voorspelling</Heading>
       <p>
-        <strong>{ percentage }%</strong> kans op illegaal vakantieverhuur.
+        <strong>{ percentage }%</strong>{ translationMap[fraudPrediction.fraud_prediction_model] ? translationMap[fraudPrediction.fraud_prediction_model] : translationMap["vakantieverhuur"] }
       </p>
       <Heading forwardedAs="h2">Vergroten kans</Heading>
       <Section>
