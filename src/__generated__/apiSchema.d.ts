@@ -5,6 +5,7 @@ declare namespace Components {
             id: string;
             readonly data: string;
             readonly fraud_prediction: {
+                fraud_prediction_model?: FraudPredictionModelEnum | BlankEnum | NullEnum;
                 fraud_probability: number; // float
                 fraud_prediction: boolean;
                 business_rules: {
@@ -117,6 +118,7 @@ declare namespace Components {
             } | null;
         }
         export interface FraudPrediction {
+            fraud_prediction_model?: FraudPredictionModelEnum | BlankEnum | NullEnum;
             fraud_probability: number; // float
             fraud_prediction: boolean;
             business_rules: {
@@ -159,6 +161,7 @@ declare namespace Components {
                 id: string;
                 readonly data: string;
                 readonly fraud_prediction: {
+                    fraud_prediction_model?: FraudPredictionModelEnum | BlankEnum | NullEnum;
                     fraud_probability: number; // float
                     fraud_prediction: boolean;
                     business_rules: {
@@ -441,6 +444,7 @@ declare namespace Components {
                 id: string;
                 readonly data: string;
                 readonly fraud_prediction: {
+                    fraud_prediction_model?: FraudPredictionModelEnum | BlankEnum | NullEnum;
                     fraud_probability: number; // float
                     fraud_prediction: boolean;
                     business_rules: {
