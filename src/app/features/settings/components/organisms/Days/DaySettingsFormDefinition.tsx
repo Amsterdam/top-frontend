@@ -1,4 +1,4 @@
-import { combineValidators, isNotIntersectingWith, isRequired, isMatchingRegex } from "@amsterdam/amsterdam-react-final-form"
+import { combineValidators, isNotIntersectingWith, isRequired } from "@amsterdam/amsterdam-react-final-form"
 import { FormPositioner, FormPositionerFields } from "@amsterdam/scaffold-form/package"
 
 import config from "app/config/config"
@@ -34,14 +34,11 @@ export const createDefinition = (projects: string[], stadia: string[], postalCod
       }
     },
     max_use_limit: {
-      type: "NumberField",
+      type: "SelectField",
       props: {
-        label: "Hoe vaak mag deze instelling gebruikt worden op een dag",
-        name: "settings.max_use_limit",
-        style: { top: 2, left: 0 },
-        validate: combineValidators(
-          isMatchingRegex(/^\d+$/, "Alleen hele getallen kunnen worden gebruikt.")
-        )
+        label: "Hoeveel looplijsten mogen deze instelling gebruiken?",
+        name: "max_use_limit",
+        options: { 0: "Onbeperkt", 1: "1", 2: "2", 3: "3", 4: "4", 5: "5" }
       }
     },
     sia_presedence: {
@@ -190,7 +187,7 @@ export const createDefinition = (projects: string[], stadia: string[], postalCod
     .setGrid("tabletM", "1fr 1fr 1fr", [
       [ "divider1", "divider1", "divider1" ],
       [ "name", "name", "max_use_limit" ],
-      [ "opening_date", "opening_date"],
+      [ "opening_date", "opening_date" ],
       [ "sia_presedence", "sia_presedence" ],
       [ "divider2", "divider2", "divider2" ],
       [ "geo_type", "postal_codes", "postal_codes" ],

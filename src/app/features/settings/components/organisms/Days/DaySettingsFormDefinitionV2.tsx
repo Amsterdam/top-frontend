@@ -1,4 +1,4 @@
-import { isRequired, isMatchingRegex, combineValidators } from "@amsterdam/amsterdam-react-final-form"
+import { isRequired } from "@amsterdam/amsterdam-react-final-form"
 import { FormPositioner, FormPositionerFields } from "@amsterdam/scaffold-form/package"
 
 import config from "app/config/config"
@@ -39,14 +39,11 @@ export const createDefinition = (
       }
     },
     max_use_limit: {
-      type: "NumberField",
+      type: "SelectField",
       props: {
-        label: "Hoe vaak mag deze instelling gebruikt worden op een dag",
+        label: "Hoeveel looplijsten mogen deze instelling gebruiken?",
         name: "max_use_limit",
-        style: { top: 2, left: 0 },
-        validate: combineValidators(
-          isMatchingRegex(/^\d+$/, "Alleen hele getallen kunnen worden gebruikt.")
-        )
+        options: { 0: "Onbeperkt", 1: "1", 2: "2", 3: "3", 4: "4", 5: "5" }
       }
     },
     geo_type: {
@@ -193,7 +190,7 @@ export const createDefinition = (
     .setGrid("tabletM", "1fr 1fr 1fr", [
       [ "divider1", "divider1", "divider1" ],
       [ "name", "max_use_limit" ],
-      [ "opening_date", "opening_date"],
+      [ "opening_date", "opening_date" ],
       [ "divider2", "divider2", "divider2" ],
       [ "geo_type", "postal_codes", "postal_codes" ],
       [ "geo_type", "postalCodeRanges", "postalCodeRanges" ],
