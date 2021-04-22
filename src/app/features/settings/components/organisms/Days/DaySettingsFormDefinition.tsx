@@ -37,7 +37,7 @@ export const createDefinition = (projects: string[], stadia: string[], postalCod
       type: "SelectField",
       props: {
         label: "Hoeveel looplijsten mogen deze instelling gebruiken?",
-        name: "max_use_limit",
+        name: "settings.max_use_limit",
         options: { "0": "Onbeperkt", "1": "1", "2": "2", "3": "3", "4": "4", "5": "5" }
       }
     },
