@@ -4,9 +4,13 @@ export const getDaySettingsOptions = (teamSettings: Components.Schemas.TeamSetti
   const daySettingsListSpecific = teamSettings.day_settings_list.filter(ds => ds.week_days?.includes(weekDay))
   const daySettingsListGeneral = teamSettings.day_settings_list.filter(ds => ds.week_days === null || ds.week_days.length === 0)
 
-  return (daySettingsListSpecific.length > 0 ? daySettingsListSpecific : daySettingsListGeneral).map(ds => ({
-      label: `${ ds.name } (${ (ds.max_use_limit ?? 0) - ds.used_today_count } van ${ ds.max_use_limit } beschikbaar)`,
+  return (daySettingsListSpecific.length > 0 ? daySettingsListSpecific : daySettingsListGeneral).map(ds => {
+    const availability = ds.max_use_limit ? (ds.max_use_limit - ds.used_today_count) : 0
+    const availabilityText = availability ? `${ availability } van ${ ds.max_use_limit } beschikbaar` : "niet meer beschikbaar"
+
+    return {
+      label: ds.max_use_limit ? `${ ds.name } (${ availabilityText })` : ds.name,
       daySettingsId: ds.id
-    })
-  )
+    }
+  })
 }
