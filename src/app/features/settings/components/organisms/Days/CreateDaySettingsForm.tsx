@@ -74,6 +74,7 @@ const CreateDaySettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId,
   const initialValues = {
     settings: {
       team_settings: teamSettingsId,
+      opening_date: "2019-01-01",
       postal_code_ranges: default_postal_code_range,
       week_days: dayOfTheWeek.exists() ? [ dayOfTheWeek.get() ] : Object.keys(daysOfTheWeek).map(d => d.toString())
     },
