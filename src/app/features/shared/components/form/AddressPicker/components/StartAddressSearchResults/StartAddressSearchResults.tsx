@@ -42,7 +42,7 @@ const mapResults = (handleAdd: HandleAddCallback, getUrl: (string: string) => st
     teams
   }: any
 ): React.ComponentProps<typeof ItineraryItemCard> => {
-  const teamMembersList = teams && teams.length ? teams[0].map((team: { user: { full_name: string } }) => team.user.full_name).join(", ") : ""
+  const teamMembersList = teams?.length ? teams[0].map((team: { user: { full_name: string } }) => team.user.full_name).join(", ") : ""
 
   return {
     href: getUrl(id),
@@ -52,7 +52,8 @@ const mapResults = (handleAdd: HandleAddCallback, getUrl: (string: string) => st
     reason: case_reason,
     badge: <StadiumBadge stadium={ stadium } />,
     fraudProbability: <FraudProbability fraudProbability={ fraud_prediction?.fraud_probability } />,
-    buttons: teamMembersList ? undefined : (() => <StyledButton icon={ <Enlarge /> } onClick={ () => handleAdd(id) } />),
+    buttons: teamMembersList ? undefined : (() => <StyledButton icon={ <Enlarge /> }
+                                                                onClick={ () => handleAdd(id) } />),
     teamMembersList
   }
 }

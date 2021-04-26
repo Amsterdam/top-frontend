@@ -45,13 +45,13 @@ const mapCaseToCardProps = (itineraryId: number | undefined, itineraryItemIds: R
       ? <StadiumBadge stadium={ current_states[0].status_name || "" } />
       : <StadiumBadge stadium={ stadium } />
 
-    const teamMembersList = teams && teams.length ? teams[0].map((team: { user: { full_name: string } }) => team.user.full_name).join(", ") : ""
+    const teamMembersList = teams?.length ? teams[0].map((team: { user: { full_name: string } }) => team.user.full_name).join(", ") : ""
 
     const buttons = (onDeleteButtonClick: () => void) => (
       <>
         { addDistance && distance && itineraryId && Object.keys(itineraryItemIds).length &&
         <p>{ Math.round(distance) }m</p> }
-        { teams && !teams.length && itineraryId
+        { !teams?.length && itineraryId
           ? <AddItineraryItemButton caseId={ id } itinerary={ itineraryId } />
           : null
         }
