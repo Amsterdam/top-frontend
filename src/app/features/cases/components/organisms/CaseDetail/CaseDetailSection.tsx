@@ -1,6 +1,5 @@
 import React, { FC } from "react"
-import styled from "styled-components"
-import { Heading, Paragraph, themeColor, themeSpacing } from "@amsterdam/asc-ui"
+import { Heading } from "@amsterdam/asc-ui"
 
 import { KeyValueDetail } from "app/features/types"
 import InlineSkeleton from "app/features/shared/components/atoms/InlineSkeleton/InlineSkeleton"
@@ -24,27 +23,13 @@ export type Props = {
   dataSource?: string
   data?: KeyValueDetail[]
   footer?: { title: string, link: string }
-  experimental?: boolean | string
   isBusy?: boolean
 }
 
-const WarningParagraph = styled(Paragraph)`
-  font-size: 14px;
-  line-height: ${ 18 / 14 };
-  color: ${ themeColor("error") };
-  margin-bottom: 0;
-`
-
-const WarningSubTitle = styled(Paragraph)`
-  color: ${ themeColor("error") };
-  margin-top: -${ themeSpacing(2) };
-  margin-bottom: ${ themeSpacing(3) };
-`
-
 /**
- * Displays a set of case details in a table. Can show the source of the data, whether the data is experimental, and whether data is still loading.
+ * Displays a set of case details in a table. Can show the source of the data and whether data is still loading.
  */
-const CaseDetailSection: FC<Props> = ({ id, dataSource, title, data, footer, experimental, isBusy, children }) => {
+const CaseDetailSection: FC<Props> = ({ id, dataSource, title, data, footer, isBusy, children }) => {
   const hasTitle = title !== undefined
   const showFooter = footer !== undefined
 
@@ -53,7 +38,6 @@ const CaseDetailSection: FC<Props> = ({ id, dataSource, title, data, footer, exp
       { hasTitle &&
       <Heading forwardedAs="h2">{ title }</Heading>
       }
-      { experimental && <WarningSubTitle className="warning">experimenteel</WarningSubTitle> }
       <SectionRow>
         { dataSource &&
         <>
@@ -98,13 +82,6 @@ const CaseDetailSection: FC<Props> = ({ id, dataSource, title, data, footer, exp
       { showFooter &&
       <SectionRow>
         <CenteredAnchor href={ footer!.link }>{ footer!.title }</CenteredAnchor>
-      </SectionRow>
-      }
-      { typeof experimental === "string" &&
-      <SectionRow>
-        <WarningParagraph>
-          { experimental }
-        </WarningParagraph>
       </SectionRow>
       }
     </Section>

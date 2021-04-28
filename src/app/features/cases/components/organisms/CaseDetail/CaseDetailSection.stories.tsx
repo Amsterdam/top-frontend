@@ -3,10 +3,7 @@ import CaseDetailSection, { Props as CaseDetailSectionProps } from "app/features
 
 const metadata = {
   title: "Domain / CaseDetailSection",
-  component: CaseDetailSection,
-  argTypes: {
-    experimental: { description: "Whether the section contains experimental data. Will add a subtitle if truthy, and a footer message in red if text." }
-  }
+  component: CaseDetailSection
 }
 
 export default metadata
