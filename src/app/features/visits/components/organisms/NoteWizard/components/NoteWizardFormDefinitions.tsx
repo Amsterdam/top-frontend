@@ -101,16 +101,44 @@ export const suggestion = (handleBack: OnBackButtonClick, situation: string, obs
         }
       }
     },
-    suggest_next_visit_description: {
+    suggest_next_visit_description_evening: {
       type: "ShowHide",
       props: {
-        shouldShow: ({ values: { suggest_next_visit } }) => suggest_next_visit && suggest_next_visit !== "daytime",
+        shouldShow: ({ values: { suggest_next_visit } }) => suggest_next_visit === "evening",
         field: {
           type: "TextAreaField",
           props: {
             isRequired: true,
             label: "Geef toelichting",
-            name: "suggest_next_visit_description"
+            name: "suggest_next_visit_description_evening"
+          }
+        }
+      }
+    },
+    suggest_next_visit_description_unknown: {
+      type: "ShowHide",
+      props: {
+        shouldShow: ({ values: { suggest_next_visit } }) => suggest_next_visit === "unknown",
+        field: {
+          type: "TextAreaField",
+          props: {
+            isRequired: true,
+            label: "Geef toelichting",
+            name: "suggest_next_visit_description_unknown"
+          }
+        }
+      }
+    },
+    suggest_next_visit_description_weekend: {
+      type: "ShowHide",
+      props: {
+        shouldShow: ({ values: { suggest_next_visit } }) => suggest_next_visit === "weekend",
+        field: {
+          type: "TextAreaField",
+          props: {
+            isRequired: true,
+            label: "Geef toelichting",
+            name: "suggest_next_visit_description_weekend"
           }
         }
       }
@@ -135,7 +163,9 @@ export const suggestion = (handleBack: OnBackButtonClick, situation: string, obs
   return new FormPositioner(fields)
     .setGrid("mobileS", "1fr 1fr", [
       [ "suggest_next_visit", "suggest_next_visit" ],
-      [ "suggest_next_visit_description", "suggest_next_visit_description" ],
+      [ "suggest_next_visit_description_weekend", "suggest_next_visit_description_weekend" ],
+      [ "suggest_next_visit_description_evening", "suggest_next_visit_description_evening" ],
+      [ "suggest_next_visit_description_unknown", "suggest_next_visit_description_unknown" ],
       [ "back", "submit" ]
     ])
     .getScaffoldProps()

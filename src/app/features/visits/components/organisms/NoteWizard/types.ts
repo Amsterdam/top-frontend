@@ -12,7 +12,9 @@ export type FormValuesNoAccess = FormValuesBase & {
   situation: "nobody_present" | "no_cooperation"
   observations: string[] | null
   suggest_next_visit: "weekend" | "daytime" | "evening" | "unknown"
-  suggest_next_visit_description: string | null
+  suggest_next_visit_description_evening: string | null
+  suggest_next_visit_description_unknown: string | null
+  suggest_next_visit_description_weekend: string | null
   can_next_visit_go_ahead: "yes" | "no"
   can_next_visit_go_ahead_description: string | null
 }

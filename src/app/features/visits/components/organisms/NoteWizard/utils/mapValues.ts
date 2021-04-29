@@ -9,6 +9,7 @@ const fieldsNoAccess = {
   can_next_visit_go_ahead: null,
   can_next_visit_go_ahead_description: null
 }
+
 const fieldsAccess = {
   personal_notes: null,
   description: null
@@ -30,8 +31,20 @@ export const mapPostValues = (values: any, itinerary_item: number, id: String, a
     author
   }
 
-  if (postValues.suggest_next_visit === "unknown") {
-    postValues.can_next_visit_go_ahead = false
+  switch (postValues.suggest_next_visit) {
+    case "daytime":
+      postValues.suggest_next_visit_description = undefined
+      break
+    case "evening":
+      postValues.suggest_next_visit_description = values.suggest_next_visit_description_evening
+      break
+    case "unknown":
+      postValues.suggest_next_visit_description = values.suggest_next_visit_description_unknown
+      postValues.can_next_visit_go_ahead = false
+      break
+    case "weekend":
+      postValues.suggest_next_visit_description = values.suggest_next_visit_description_weekend
+      break
   }
 
   return postValues.situation === "access_granted" ?
@@ -41,6 +54,19 @@ export const mapPostValues = (values: any, itinerary_item: number, id: String, a
 
 export const mapInitialValues = (values: Components.Schemas.Visit): FormValues => {
   const start_time = mapDateToTime(values.start_time)
+
+  const suggest_next_visit_description_evening = values.suggest_next_visit === "evening" ? values.suggest_next_visit_description : undefined
+  const suggest_next_visit_description_unknown = values.suggest_next_visit === "unknown" ? values.suggest_next_visit_description : undefined
+  const suggest_next_visit_description_weekend = values.suggest_next_visit === "weekend" ? values.suggest_next_visit_description : undefined
+
   const can_next_visit_go_ahead = mapBooleanToYesNo(values.can_next_visit_go_ahead)
-  return { ...values, start_time, can_next_visit_go_ahead }
+
+  return {
+    ...values,
+    start_time,
+    suggest_next_visit_description_evening,
+    suggest_next_visit_description_unknown,
+    suggest_next_visit_description_weekend,
+    can_next_visit_go_ahead
+  }
 }
