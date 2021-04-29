@@ -101,16 +101,44 @@ export const suggestion = (handleBack: OnBackButtonClick, situation: string, obs
         }
       }
     },
-    suggest_next_visit_description: {
+    suggest_next_visit_description_evening: {
       type: "ShowHide",
       props: {
-        shouldShow: ({ values: { suggest_next_visit } }) => suggest_next_visit && suggest_next_visit !== "daytime",
+        shouldShow: ({ values: { suggest_next_visit } }) => suggest_next_visit === "evening",
         field: {
           type: "TextAreaField",
           props: {
             isRequired: true,
             label: "Geef toelichting",
-            name: "suggest_next_visit_description"
+            name: "suggest_next_visit_description_evening"
+          }
+        }
+      }
+    },
+    suggest_next_visit_description_unknown: {
+      type: "ShowHide",
+      props: {
+        shouldShow: ({ values: { suggest_next_visit } }) => suggest_next_visit === "unknown",
+        field: {
+          type: "TextAreaField",
+          props: {
+            isRequired: true,
+            label: "Geef toelichting",
+            name: "suggest_next_visit_description_unknown"
+          }
+        }
+      }
+    },
+    suggest_next_visit_description_weekend: {
+      type: "ShowHide",
+      props: {
+        shouldShow: ({ values: { suggest_next_visit } }) => suggest_next_visit === "weekend",
+        field: {
+          type: "TextAreaField",
+          props: {
+            isRequired: true,
+            label: "Geef toelichting",
+            name: "suggest_next_visit_description_weekend"
           }
         }
       }
@@ -135,7 +163,9 @@ export const suggestion = (handleBack: OnBackButtonClick, situation: string, obs
   return new FormPositioner(fields)
     .setGrid("mobileS", "1fr 1fr", [
       [ "suggest_next_visit", "suggest_next_visit" ],
-      [ "suggest_next_visit_description", "suggest_next_visit_description" ],
+      [ "suggest_next_visit_description_weekend", "suggest_next_visit_description_weekend" ],
+      [ "suggest_next_visit_description_evening", "suggest_next_visit_description_evening" ],
+      [ "suggest_next_visit_description_unknown", "suggest_next_visit_description_unknown" ],
       [ "back", "submit" ]
     ])
     .getScaffoldProps()
@@ -164,7 +194,7 @@ export const nextVisit = (handleBack: OnBackButtonClick) => {
         }
       }
     },
-    next_visit_no_description: {
+    next_visit_description_no: {
       type: "ShowHide",
       props: {
         shouldShow: ({ values: { can_next_visit_go_ahead } }) => can_next_visit_go_ahead === "no",
@@ -172,20 +202,20 @@ export const nextVisit = (handleBack: OnBackButtonClick) => {
           type: "TextAreaField",
           props: {
             isRequired: true,
-            name: "can_next_visit_go_ahead_description",
+            name: "can_next_visit_go_ahead_description_no",
             label: "Waarom niet?"
           }
         }
       }
     },
-    next_visit_yes_description: {
+    next_visit_description_yes: {
       type: "ShowHide",
       props: {
         shouldShow: ({ values: { can_next_visit_go_ahead } }) => can_next_visit_go_ahead === "yes",
         field: {
           type: "TextAreaField",
           props: {
-            name: "can_next_visit_go_ahead_description",
+            name: "can_next_visit_go_ahead_description_yes",
             label: "Aanvullende informatie (optioneel)",
             hint: "Zijn er nog noemenswaardigheden?"
           }
@@ -212,8 +242,8 @@ export const nextVisit = (handleBack: OnBackButtonClick) => {
   return new FormPositioner(fields)
     .setGrid("mobileS", "1fr 1fr", [
       [ "next_visit", "next_visit" ],
-      [ "next_visit_no_description", "next_visit_no_description" ],
-      [ "next_visit_yes_description", "next_visit_yes_description" ],
+      [ "next_visit_description_no", "next_visit_description_no" ],
+      [ "next_visit_description_yes", "next_visit_description_yes" ],
       [ "back", "submit" ]
     ])
     .getScaffoldProps()
