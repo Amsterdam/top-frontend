@@ -3,7 +3,7 @@ import styled from "styled-components"
 
 import { themeColor, themeSpacing } from "@amsterdam/asc-ui"
 
-import { useAllPermitCheckmarks, useCase } from "app/state/rest"
+import { useAllPermitCheckmarks, useCase, useDaySettings } from "app/state/rest"
 import formatBoolean from "app/features/shared/utils/formatBoolean"
 import formatDate from "app/features/shared/utils/formatDate"
 import Label from "app/features/shared/components/atoms/Label/Label"
@@ -37,11 +37,12 @@ const Summary = styled.summary`
 
 const VacationRentalThisYear: FC<Props> = ({ caseId }) => {
   const { data: caseData } = useCase(caseId)
+  const { data: daySettings } = useDaySettings(caseData?.day_settings_id!)
   const bagId = getBagId(caseData!)
   const { data: decos, isBusy } = useAllPermitCheckmarks(bagId!, { lazy: !bagId })
   const verhuur = decos?.vakantieverhuur_meldingen ?? []
 
-  if (!caseData) {
+  if (!caseData || !daySettings?.team_settings?.show_vakantieverhuur) {
     return null
   }
 
