@@ -47,6 +47,8 @@ export const mapPostValues = (values: any, itinerary_item: number, id: String, a
       break
   }
 
+  postValues.can_next_visit_go_ahead_description = postValues.can_next_visit_go_ahead ? values.can_next_visit_go_ahead_description_yes : values.can_next_visit_go_ahead_description_no
+
   return postValues.situation === "access_granted" ?
     { ...postValues, ...fieldsNoAccess } :
     { ...postValues, ...fieldsAccess }
@@ -60,6 +62,8 @@ export const mapInitialValues = (values: Components.Schemas.Visit): FormValues =
   const suggest_next_visit_description_weekend = values.suggest_next_visit === "weekend" ? values.suggest_next_visit_description : undefined
 
   const can_next_visit_go_ahead = mapBooleanToYesNo(values.can_next_visit_go_ahead)
+  const can_next_visit_go_ahead_description_no = !values.can_next_visit_go_ahead ? values.can_next_visit_go_ahead_description : undefined
+  const can_next_visit_go_ahead_description_yes = values.can_next_visit_go_ahead ? values.can_next_visit_go_ahead_description : undefined
 
   return {
     ...values,
@@ -67,6 +71,8 @@ export const mapInitialValues = (values: Components.Schemas.Visit): FormValues =
     suggest_next_visit_description_evening,
     suggest_next_visit_description_unknown,
     suggest_next_visit_description_weekend,
-    can_next_visit_go_ahead
+    can_next_visit_go_ahead,
+    can_next_visit_go_ahead_description_no,
+    can_next_visit_go_ahead_description_yes
   }
 }

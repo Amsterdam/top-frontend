@@ -16,7 +16,8 @@ export type FormValuesNoAccess = FormValuesBase & {
   suggest_next_visit_description_unknown: string | null
   suggest_next_visit_description_weekend: string | null
   can_next_visit_go_ahead: "yes" | "no"
-  can_next_visit_go_ahead_description: string | null
+  can_next_visit_go_ahead_description_no: string | null
+  can_next_visit_go_ahead_description_yes: string | null
 }
 
 export type FormValuesAccess = FormValuesBase & {

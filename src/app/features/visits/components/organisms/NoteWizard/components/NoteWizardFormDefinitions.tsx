@@ -194,7 +194,7 @@ export const nextVisit = (handleBack: OnBackButtonClick) => {
         }
       }
     },
-    next_visit_no_description: {
+    next_visit_description_no: {
       type: "ShowHide",
       props: {
         shouldShow: ({ values: { can_next_visit_go_ahead } }) => can_next_visit_go_ahead === "no",
@@ -202,20 +202,20 @@ export const nextVisit = (handleBack: OnBackButtonClick) => {
           type: "TextAreaField",
           props: {
             isRequired: true,
-            name: "can_next_visit_go_ahead_description",
+            name: "can_next_visit_go_ahead_description_no",
             label: "Waarom niet?"
           }
         }
       }
     },
-    next_visit_yes_description: {
+    next_visit_description_yes: {
       type: "ShowHide",
       props: {
         shouldShow: ({ values: { can_next_visit_go_ahead } }) => can_next_visit_go_ahead === "yes",
         field: {
           type: "TextAreaField",
           props: {
-            name: "can_next_visit_go_ahead_description",
+            name: "can_next_visit_go_ahead_description_yes",
             label: "Aanvullende informatie (optioneel)",
             hint: "Zijn er nog noemenswaardigheden?"
           }
@@ -242,8 +242,8 @@ export const nextVisit = (handleBack: OnBackButtonClick) => {
   return new FormPositioner(fields)
     .setGrid("mobileS", "1fr 1fr", [
       [ "next_visit", "next_visit" ],
-      [ "next_visit_no_description", "next_visit_no_description" ],
-      [ "next_visit_yes_description", "next_visit_yes_description" ],
+      [ "next_visit_description_no", "next_visit_description_no" ],
+      [ "next_visit_description_yes", "next_visit_description_yes" ],
       [ "back", "submit" ]
     ])
     .getScaffoldProps()
