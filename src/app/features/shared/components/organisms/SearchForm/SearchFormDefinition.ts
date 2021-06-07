@@ -64,7 +64,7 @@ export const createDefinition = (onResetButtonClick: () => void, apiName: ApiNam
         name: "apiName",
         options: {
           BWV: "BWV",
-          ZKS: "Zaaksysteem"
+          AZA: "AZA"
         }
       }
     },
