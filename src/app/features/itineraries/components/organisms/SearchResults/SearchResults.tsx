@@ -20,19 +20,18 @@ type Props = {
 const SearchResults: React.FC<Props> = ({ apiName, postalCode, streetName, streetNumber, suffix, teamName }) => {
   const { itineraryId } = useParams()
   const { data: itinerary } = useItinerary(itineraryId!)
-  const apiVersion = (apiName === "ZKS") ? "v2" : "v1"
+  const apiVersion = (apiName === "AZA") ? "v2" : "v1"
 
   const { data, isBusy } = useSearch(streetNumber, postalCode, streetName, suffix, teamName, { apiVersion })
   const items = useMemo(() => casesToCardCaseProps(data?.cases, itinerary), [ itinerary, data ])
 
-  const backendName = (apiName === "ZKS") ? "het Zaaksysteem" : "BWV"
-  const title = `Zaken gevonden in ${ backendName }:`
+  const title = `Zaken gevonden in ${ apiName }:`
 
   return (items.length > 0)
     ? <ItineraryItemCardList items={ items } title={ title } />
     : isBusy
       ? null
-      : <p>Geen resultaten in { backendName }.</p>
+      : <p>Geen resultaten in { apiName }.</p>
 }
 
 export default SearchResults
