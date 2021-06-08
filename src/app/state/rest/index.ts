@@ -119,7 +119,7 @@ export const useSearch = (streetNumber: number, postalCode?: string, streetName?
     streetName: streetName?.trim(),
     streetNumber,
     suffix: suffix?.trim(),
-    team: team?.trim()
+    theme: team?.trim()
   }
 
   return useApiRequest<{ cases: Case[] }>({
