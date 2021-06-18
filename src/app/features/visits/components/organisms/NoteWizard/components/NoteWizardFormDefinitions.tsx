@@ -255,7 +255,7 @@ export const accessGranted = (handleBack: OnBackButtonClick) => {
       type: "TextAreaField",
       props: {
         label: "Eigen notitie voor rapportage",
-        hint: "(wordt niet zichtbaar in logboek)",
+        hint: "(wordt niet zichtbaar in logboek en Zaakhistorie AZA)",
         name: "personal_notes",
         rows: 12,
         extraLabel: <HelpButton>
