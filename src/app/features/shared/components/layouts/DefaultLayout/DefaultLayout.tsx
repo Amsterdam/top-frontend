@@ -45,7 +45,7 @@ const DefaultLayout: React.FC<Props> = ({ children }) => {
           homeLink={ to("/") }
           fullWidth={ true }
           navigation={
-            <StyledLink as="a" onClick={ logout }>
+            <StyledLink onClick={ logout } to={ window.location.pathname }>
               <Button
                 as="span"
                 variant="blank"
