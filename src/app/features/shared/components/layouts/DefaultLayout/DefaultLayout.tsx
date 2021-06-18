@@ -36,6 +36,11 @@ type Props = {}
 const DefaultLayout: React.FC<Props> = ({ children }) => {
   const { logout } = useKeycloak()
 
+  const onClick = (e: React.MouseEvent) => {
+    e.preventDefault()
+    logout()
+  }
+
   return (
     <>
       <HeaderWrap>
@@ -45,7 +50,7 @@ const DefaultLayout: React.FC<Props> = ({ children }) => {
           homeLink={ to("/") }
           fullWidth={ true }
           navigation={
-            <StyledLink onClick={ logout } to={ window.location.pathname }>
+            <StyledLink onClick={ onClick } to={ window.location.pathname }>
               <Button
                 as="span"
                 variant="blank"
