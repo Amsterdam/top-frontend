@@ -3,8 +3,8 @@ declare namespace Components {
         export type BlankEnum = "";
         export interface Case {
             id: string;
-            readonly data: string;
-            readonly fraud_prediction: {
+            data: string;
+            fraud_prediction: {
                 fraud_prediction_model?: FraudPredictionModelEnum | BlankEnum | NullEnum;
                 fraud_probability: number; // float
                 fraud_prediction: boolean;
@@ -14,34 +14,34 @@ declare namespace Components {
                 shap_values: {
                     [name: string]: any;
                 };
-                readonly sync_date: string; // date-time
+                sync_date: string; // date-time
             };
         }
         export interface CaseEvent {
-            readonly id: number;
-            readonly date_created: string; // date-time
-            readonly case: number;
-            readonly type: string;
-            readonly emitter_id: number;
-            readonly event_values: {
+            id: number;
+            date_created: string; // date-time
+            case: number;
+            type: string;
+            emitter_id: number;
+            event_values: {
                 [name: string]: any;
             };
         }
         export interface CaseReason {
-            readonly id: number;
-            readonly name: string;
-            readonly team: number;
+            id: number;
+            name: string;
+            team: number;
         }
         export interface CaseSimple {
             id: string;
         }
         export interface CaseStateType {
-            readonly id: number;
-            readonly name: string;
-            readonly team: number;
+            id: number;
+            name: string;
+            team: number;
         }
         export interface DaySettings {
-            readonly id: number;
+            id: number;
             name: string;
             week_day?: WeekDayEnum | NullEnum;
             week_days?: number[] | null;
@@ -60,39 +60,39 @@ declare namespace Components {
             primary_stadium?: null | number;
             secondary_stadia?: number[];
             exclude_stadia?: number[];
-            readonly team_settings: {
-                readonly id: number;
+            team_settings: {
+                id: number;
                 name: string;
                 use_zaken_backend?: boolean;
                 zaken_team_name?: string | null;
-                readonly observation_choices: Observation[];
-                readonly situation_choices: any[];
-                readonly suggest_next_visit_choices: SuggestNextVisit[];
+                observation_choices: Observation[];
+                situation_choices: any[];
+                suggest_next_visit_choices: SuggestNextVisit[];
                 fraud_prediction_model?: FraudPredictionModelEnum | BlankEnum | NullEnum;
-                readonly marked_stadia: StadiumLabel[];
+                marked_stadia: StadiumLabel[];
                 show_issuemelding?: boolean;
                 show_vakantieverhuur?: boolean;
             };
             sia_presedence?: boolean;
-            readonly used_today_count: number;
+            used_today_count: number;
             max_use_limit?: number;
         }
         export interface DaySettingsCompact {
-            readonly id: number;
+            id: number;
             name: string;
-            readonly week_days: number[];
-            readonly used_today_count: number;
+            week_days: number[];
+            used_today_count: number;
             max_use_limit?: number;
-            readonly team_settings: {
-                readonly id: number;
+            team_settings: {
+                id: number;
                 name: string;
                 use_zaken_backend?: boolean;
                 zaken_team_name?: string | null;
-                readonly observation_choices: Observation[];
-                readonly situation_choices: any[];
-                readonly suggest_next_visit_choices: SuggestNextVisit[];
+                observation_choices: Observation[];
+                situation_choices: any[];
+                suggest_next_visit_choices: SuggestNextVisit[];
                 fraud_prediction_model?: FraudPredictionModelEnum | BlankEnum | NullEnum;
-                readonly marked_stadia: StadiumLabel[];
+                marked_stadia: StadiumLabel[];
                 show_issuemelding?: boolean;
                 show_vakantieverhuur?: boolean;
             };
@@ -109,7 +109,7 @@ declare namespace Components {
         export interface DecosPermit {
             permit_granted: HasVacationRentalPermitEnum;
             permit_type: string;
-            decos_join_web_url?: string; // uri ^(?:[a-z0-9.+-]*)://(?:[^\s:@/]+(?::[^\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\d|[0-1]?\d?\d)(?:\.(?:25[0-5]|2[0-4]\d|[0-1]?\d?\d)){3}|\[[0-9a-f:.]+\]|([a-z¡-￿0-9](?:[a-z¡-￿0-9-]{0,61}[a-z¡-￿0-9])?(?:\.(?!-)[a-z¡-￿0-9-]{1,63}(?<!-))*\.(?!-)(?:[a-z¡-￿-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\.?|localhost))(?::\d{2,5})?(?:[/?#][^\s]*)?\Z
+            decos_join_web_url?: string; // uri
             raw_data?: {
                 [name: string]: any;
             } | null;
@@ -127,16 +127,16 @@ declare namespace Components {
             shap_values: {
                 [name: string]: any;
             };
-            readonly sync_date: string; // date-time
+            sync_date: string; // date-time
         }
         export type FraudPredictionModelEnum = "vakantieverhuur" | "onderhuur";
         export type HasVacationRentalPermitEnum = "True" | "False" | "UNKNOWN";
         export interface Itinerary {
-            readonly id: number;
-            readonly created_at: string; // date
+            id: number;
+            created_at: string; // date
             team_members: ItineraryTeamMember[];
-            readonly items: ItineraryItem[];
-            readonly settings: {
+            items: ItineraryItem[];
+            settings: {
                 opening_date: string; // date
                 day_settings: DaySettings;
                 target_length?: number;
@@ -151,16 +151,16 @@ declare namespace Components {
                 secondary_stadia: Stadium[];
                 exclude_stadia: Stadium[];
             };
-            readonly postal_code_settings: PostalCodeSettings[];
+            postal_code_settings: PostalCodeSettings[];
         }
         export interface ItineraryItem {
-            readonly id: number;
+            id: number;
             position: number; // float
-            readonly notes: Note[];
-            readonly case: {
+            notes: Note[];
+            case: {
                 id: string;
-                readonly data: string;
-                readonly fraud_prediction: {
+                data: string;
+                fraud_prediction: {
                     fraud_prediction_model?: FraudPredictionModelEnum | BlankEnum | NullEnum;
                     fraud_probability: number; // float
                     fraud_prediction: boolean;
@@ -170,10 +170,10 @@ declare namespace Components {
                     shap_values: {
                         [name: string]: any;
                     };
-                    readonly sync_date: string; // date-time
+                    sync_date: string; // date-time
                 };
             };
-            readonly visits: Visit[];
+            visits: Visit[];
         }
         export interface ItinerarySettings {
             opening_date: string; // date
@@ -191,8 +191,8 @@ declare namespace Components {
             exclude_stadia: Stadium[];
         }
         export interface ItineraryTeamMember {
-            readonly id: number;
-            readonly user: {
+            id: number;
+            user: {
                 id: string; // uuid
                 email: string; // email
                 username: string;
@@ -203,9 +203,9 @@ declare namespace Components {
             };
         }
         export interface Note {
-            readonly id: number;
+            id: number;
             text: string;
-            readonly author: {
+            author: {
                 id: string; // uuid
                 email: string; // email
                 username: string;
@@ -216,10 +216,10 @@ declare namespace Components {
             };
         }
         export interface NoteCrud {
-            readonly id: number;
+            id: number;
             text: string;
             itinerary_item: number;
-            readonly author: {
+            author: {
                 id: string; // uuid
                 email: string; // email
                 username: string;
@@ -236,6 +236,42 @@ declare namespace Components {
         export interface Observation {
             value: string;
             verbose: string;
+        }
+        export interface PaginatedCaseReasonList {
+            /**
+             * example:
+             * 123
+             */
+            count?: number;
+            /**
+             * example:
+             * http://api.example.org/accounts/?page=4
+             */
+            next?: string | null; // uri
+            /**
+             * example:
+             * http://api.example.org/accounts/?page=2
+             */
+            previous?: string | null; // uri
+            results?: CaseReason[];
+        }
+        export interface PaginatedCaseStateTypeList {
+            /**
+             * example:
+             * 123
+             */
+            count?: number;
+            /**
+             * example:
+             * http://api.example.org/accounts/?page=4
+             */
+            next?: string | null; // uri
+            /**
+             * example:
+             * http://api.example.org/accounts/?page=2
+             */
+            previous?: string | null; // uri
+            results?: CaseStateType[];
         }
         export interface PaginatedDaySettingsList {
             /**
@@ -272,24 +308,6 @@ declare namespace Components {
              */
             previous?: string | null; // uri
             results?: Itinerary[];
-        }
-        export interface PaginatedListList {
-            /**
-             * example:
-             * 123
-             */
-            count?: number;
-            /**
-             * example:
-             * http://api.example.org/accounts/?page=4
-             */
-            next?: string | null; // uri
-            /**
-             * example:
-             * http://api.example.org/accounts/?page=2
-             */
-            previous?: string | null; // uri
-            results?: CaseStateType[];
         }
         export interface PaginatedObservationList {
             /**
@@ -400,7 +418,7 @@ declare namespace Components {
             results?: Visit[];
         }
         export interface PatchedDaySettings {
-            readonly id?: number;
+            id?: number;
             name?: string;
             week_day?: WeekDayEnum | NullEnum;
             week_days?: number[] | null;
@@ -419,31 +437,31 @@ declare namespace Components {
             primary_stadium?: null | number;
             secondary_stadia?: number[];
             exclude_stadia?: number[];
-            readonly team_settings?: {
-                readonly id: number;
+            team_settings?: {
+                id: number;
                 name: string;
                 use_zaken_backend?: boolean;
                 zaken_team_name?: string | null;
-                readonly observation_choices: Observation[];
-                readonly situation_choices: any[];
-                readonly suggest_next_visit_choices: SuggestNextVisit[];
+                observation_choices: Observation[];
+                situation_choices: any[];
+                suggest_next_visit_choices: SuggestNextVisit[];
                 fraud_prediction_model?: FraudPredictionModelEnum | BlankEnum | NullEnum;
-                readonly marked_stadia: StadiumLabel[];
+                marked_stadia: StadiumLabel[];
                 show_issuemelding?: boolean;
                 show_vakantieverhuur?: boolean;
             };
             sia_presedence?: boolean;
-            readonly used_today_count?: number;
+            used_today_count?: number;
             max_use_limit?: number;
         }
         export interface PatchedItineraryItem {
-            readonly id?: number;
+            id?: number;
             position?: number; // float
-            readonly notes?: Note[];
-            readonly case?: {
+            notes?: Note[];
+            case?: {
                 id: string;
-                readonly data: string;
-                readonly fraud_prediction: {
+                data: string;
+                fraud_prediction: {
                     fraud_prediction_model?: FraudPredictionModelEnum | BlankEnum | NullEnum;
                     fraud_probability: number; // float
                     fraud_prediction: boolean;
@@ -453,16 +471,16 @@ declare namespace Components {
                     shap_values: {
                         [name: string]: any;
                     };
-                    readonly sync_date: string; // date-time
+                    sync_date: string; // date-time
                 };
             };
-            readonly visits?: Visit[];
+            visits?: Visit[];
         }
         export interface PatchedNoteCrud {
-            readonly id?: number;
+            id?: number;
             text?: string;
             itinerary_item?: number;
-            readonly author?: {
+            author?: {
                 id: string; // uuid
                 email: string; // email
                 username: string;
@@ -477,31 +495,31 @@ declare namespace Components {
             verbose?: string;
         }
         export interface PatchedPostalCodeRangePreset {
-            readonly id?: number;
+            id?: number;
             name?: string;
-            readonly postal_code_ranges_presets?: PostalCodeRange[];
+            postal_code_ranges_presets?: PostalCodeRange[];
         }
         export interface PatchedSuggestNextVisit {
             value?: string;
             verbose?: string;
         }
         export interface PatchedTeamSettings {
-            readonly id?: number;
+            id?: number;
             name?: string;
             use_zaken_backend?: boolean;
             zaken_team_name?: string | null;
-            readonly observation_choices?: Observation[];
-            readonly situation_choices?: any[];
-            readonly suggest_next_visit_choices?: SuggestNextVisit[];
-            readonly project_choices?: string[];
-            readonly stadia_choices?: string[];
-            readonly marked_stadia?: StadiumLabel[];
-            readonly day_settings_list?: DaySettingsCompact[];
+            observation_choices?: Observation[];
+            situation_choices?: any[];
+            suggest_next_visit_choices?: SuggestNextVisit[];
+            project_choices?: string[];
+            stadia_choices?: string[];
+            marked_stadia?: StadiumLabel[];
+            day_settings_list?: DaySettingsCompact[];
             fraud_prediction_model?: FraudPredictionModelEnum | BlankEnum | NullEnum;
         }
         export interface PatchedVisit {
-            readonly id?: number;
-            readonly team_members?: VisitTeamMember[];
+            id?: number;
+            team_members?: VisitTeamMember[];
             case_id?: string;
             situation?: string | null;
             observations?: string[] | null;
@@ -524,9 +542,9 @@ declare namespace Components {
             range_end?: number;
         }
         export interface PostalCodeRangePreset {
-            readonly id: number;
+            id: number;
             name: string;
-            readonly postal_code_ranges_presets: PostalCodeRange[];
+            postal_code_ranges_presets: PostalCodeRange[];
         }
         export interface PostalCodeSettings {
             range_start: number;
@@ -539,7 +557,7 @@ declare namespace Components {
             name: string;
         }
         export interface StadiumLabel {
-            readonly stadium: string;
+            stadium: string;
             label?: string;
         }
         export interface SuggestNextVisit {
@@ -547,35 +565,35 @@ declare namespace Components {
             verbose: string;
         }
         export interface TeamScheduleTypes {
-            readonly actions: any[];
-            readonly day_segments: any[];
-            readonly priorities: any[];
-            readonly week_segments: any[];
+            actions: any[];
+            day_segments: any[];
+            priorities: any[];
+            week_segments: any[];
         }
         export interface TeamSettings {
-            readonly id: number;
+            id: number;
             name: string;
             use_zaken_backend?: boolean;
             zaken_team_name?: string | null;
-            readonly observation_choices: Observation[];
-            readonly situation_choices: any[];
-            readonly suggest_next_visit_choices: SuggestNextVisit[];
-            readonly project_choices: string[];
-            readonly stadia_choices: string[];
-            readonly marked_stadia: StadiumLabel[];
-            readonly day_settings_list: DaySettingsCompact[];
+            observation_choices: Observation[];
+            situation_choices: any[];
+            suggest_next_visit_choices: SuggestNextVisit[];
+            project_choices: string[];
+            stadia_choices: string[];
+            marked_stadia: StadiumLabel[];
+            day_settings_list: DaySettingsCompact[];
             fraud_prediction_model?: FraudPredictionModelEnum | BlankEnum | NullEnum;
         }
         export interface TeamSettingsCompact {
-            readonly id: number;
+            id: number;
             name: string;
             use_zaken_backend?: boolean;
             zaken_team_name?: string | null;
-            readonly observation_choices: Observation[];
-            readonly situation_choices: any[];
-            readonly suggest_next_visit_choices: SuggestNextVisit[];
+            observation_choices: Observation[];
+            situation_choices: any[];
+            suggest_next_visit_choices: SuggestNextVisit[];
             fraud_prediction_model?: FraudPredictionModelEnum | BlankEnum | NullEnum;
-            readonly marked_stadia: StadiumLabel[];
+            marked_stadia: StadiumLabel[];
             show_issuemelding?: boolean;
             show_vakantieverhuur?: boolean;
         }
@@ -589,7 +607,7 @@ declare namespace Components {
             team_settings: UserTeamSettingsId[];
         }
         export interface UserTeamSettingsId {
-            readonly id: number;
+            id: number;
         }
         export interface VakantieverhuurMelding {
             is_afmelding: boolean;
@@ -604,8 +622,8 @@ declare namespace Components {
             meldingen: VakantieverhuurMelding[];
         }
         export interface Visit {
-            readonly id: number;
-            readonly team_members: VisitTeamMember[];
+            id: number;
+            team_members: VisitTeamMember[];
             case_id: string;
             situation?: string | null;
             observations?: string[] | null;
@@ -620,8 +638,8 @@ declare namespace Components {
             author: string; // uuid
         }
         export interface VisitTeamMember {
-            readonly id: number;
-            readonly user: {
+            id: number;
+            user: {
                 id: string; // uuid
                 email: string; // email
                 username: string;
@@ -631,7 +649,7 @@ declare namespace Components {
                 team_settings: UserTeamSettingsId[];
             };
         }
-        export type WeekDayEnum = 1 | 2 | 3 | 4 | 5 | 6;
+        export type WeekDayEnum = 0 | 1 | 2 | 3 | 4 | 5 | 6;
     }
 }
 declare namespace Paths {
@@ -686,7 +704,7 @@ declare namespace Paths {
     namespace DaySettingsCreate {
         export type RequestBody = Components.Schemas.DaySettings;
         namespace Responses {
-            export type $200 = Components.Schemas.DaySettings;
+            export type $201 = Components.Schemas.DaySettings;
         }
     }
     namespace DaySettingsDestroy {
@@ -766,7 +784,7 @@ declare namespace Paths {
     }
     namespace FraudPredictionScoringCreate {
         namespace Responses {
-            export interface $200 {
+            export interface $201 {
             }
         }
     }
@@ -779,7 +797,7 @@ declare namespace Paths {
     namespace ItinerariesCreate {
         export type RequestBody = Components.Schemas.Itinerary;
         namespace Responses {
-            export type $200 = Components.Schemas.Itinerary;
+            export type $201 = Components.Schemas.Itinerary;
         }
     }
     namespace ItinerariesDestroy {
@@ -796,11 +814,11 @@ declare namespace Paths {
     }
     namespace ItinerariesList {
         namespace Parameters {
-            export type CreatedAt = string;
+            export type CreatedAt = string; // date
             export type Page = number;
         }
         export interface QueryParameters {
-            created_at?: Parameters.CreatedAt;
+            created_at?: Parameters.CreatedAt /* date */;
             page?: Parameters.Page;
         }
         namespace Responses {
@@ -844,7 +862,7 @@ declare namespace Paths {
     namespace ItineraryItemsCreate {
         export type RequestBody = Components.Schemas.ItineraryItem;
         namespace Responses {
-            export type $200 = Components.Schemas.ItineraryItem;
+            export type $201 = Components.Schemas.ItineraryItem;
         }
     }
     namespace ItineraryItemsDestroy {
@@ -886,7 +904,7 @@ declare namespace Paths {
     namespace NotesCreate {
         export type RequestBody = Components.Schemas.NoteCrud;
         namespace Responses {
-            export type $200 = Components.Schemas.NoteCrud;
+            export type $201 = Components.Schemas.NoteCrud;
         }
     }
     namespace NotesDestroy {
@@ -939,7 +957,7 @@ declare namespace Paths {
     namespace ObservationsCreate {
         export type RequestBody = Components.Schemas.Observation;
         namespace Responses {
-            export type $200 = Components.Schemas.Observation;
+            export type $201 = Components.Schemas.Observation;
         }
     }
     namespace ObservationsDestroy {
@@ -1031,7 +1049,7 @@ declare namespace Paths {
     namespace PostalCodeRangesPresetsCreate {
         export type RequestBody = Components.Schemas.PostalCodeRangePreset;
         namespace Responses {
-            export type $200 = Components.Schemas.PostalCodeRangePreset;
+            export type $201 = Components.Schemas.PostalCodeRangePreset;
         }
     }
     namespace PostalCodeRangesPresetsDestroy {
@@ -1113,7 +1131,7 @@ declare namespace Paths {
     namespace SuggestNextVisitCreate {
         export type RequestBody = Components.Schemas.SuggestNextVisit;
         namespace Responses {
-            export type $200 = Components.Schemas.SuggestNextVisit;
+            export type $201 = Components.Schemas.SuggestNextVisit;
         }
     }
     namespace SuggestNextVisitDestroy {
@@ -1177,7 +1195,7 @@ declare namespace Paths {
     namespace TeamSettingsCreate {
         export type RequestBody = Components.Schemas.TeamSettings;
         namespace Responses {
-            export type $200 = Components.Schemas.TeamSettings;
+            export type $201 = Components.Schemas.TeamSettings;
         }
     }
     namespace TeamSettingsDestroy {
@@ -1227,7 +1245,7 @@ declare namespace Paths {
             page?: Parameters.Page;
         }
         namespace Responses {
-            export type $200 = Components.Schemas.PaginatedListList;
+            export type $200 = Components.Schemas.PaginatedCaseReasonList;
         }
     }
     namespace TeamSettingsRetrieve {
@@ -1264,7 +1282,7 @@ declare namespace Paths {
             page?: Parameters.Page;
         }
         namespace Responses {
-            export type $200 = Components.Schemas.PaginatedListList;
+            export type $200 = Components.Schemas.PaginatedCaseStateTypeList;
         }
     }
     namespace TeamSettingsUpdate {
@@ -1293,7 +1311,7 @@ declare namespace Paths {
     namespace VisitsCreate {
         export type RequestBody = Components.Schemas.Visit;
         namespace Responses {
-            export type $200 = Components.Schemas.Visit;
+            export type $201 = Components.Schemas.Visit;
         }
     }
     namespace VisitsDestroy {
