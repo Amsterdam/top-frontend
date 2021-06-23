@@ -4,16 +4,13 @@ import { Button, themeColor, themeSpacing } from "@amsterdam/asc-ui"
 import InfoIcon from "app/features/shared/components/atoms/InfoIcon/InfoIcon"
 
 import { useToggle } from "app/features/shared/hooks/useToggle/useToggle"
-import useNodeDimensions from "app/features/shared/hooks/useNodeDimensions/useNodeDimensions"
-import useNodeByReference from "app/features/shared/hooks/useNodeByReference/useNodeByReference"
 import styled from "styled-components"
 
 const GUTTER = 8
 const HELP_TEXT_WIDTH = 320
 
-const DIM = 28
+const DIM = 20
 const Wrap = styled.div`
-  position: relative;
   width: ${ DIM }px;
   height: ${ DIM }px;
 `
@@ -28,15 +25,7 @@ const Overlay = styled.div`
   background-color: rgba(0,0,0,.4);
 `
 
-const ButtonWrap = styled.div`
-  position: absolute;
-`
-
-type HelpTextProps = {
-  top?: number
-  leftOffset?: number
-}
-const HelpText = styled.div<HelpTextProps>`
+const HelpText = styled.div`
   padding: ${ themeSpacing(3) };
   position: absolute;
   border: 1px solid ${ themeColor("tint", "level2") };
@@ -44,8 +33,12 @@ const HelpText = styled.div<HelpTextProps>`
   z-index: 500;
 
   width: ${ HELP_TEXT_WIDTH }px;
-  left: ${ props => props?.leftOffset !== undefined ? -HELP_TEXT_WIDTH + props.leftOffset : -HELP_TEXT_WIDTH }px;
-  ${ props => props.top !== undefined && `top: ${ props.top + GUTTER }px;` }
+  left: 0;
+  margin-top: ${ GUTTER }px;
+
+  p {
+    white-space: normal;
+  }
 `
 
 const StyledButton = styled(Button)`
@@ -56,9 +49,6 @@ const StyledButton = styled(Button)`
 const HelpButton: React.FC = ({ children }) => {
   const [ isOpen, toggleOpen ] = useToggle(false)
 
-  const { ref: buttonRef, node: buttonNode } = useNodeByReference<HTMLDivElement>()
-  const buttonDimensions = useNodeDimensions(buttonNode)
-
   const handleClick = useCallback((e: React.MouseEvent) => {
     e.preventDefault()
     toggleOpen()
@@ -66,13 +56,13 @@ const HelpButton: React.FC = ({ children }) => {
 
   return (
     <Wrap>
-      <ButtonWrap ref={ buttonRef }>
+      <div>
         <StyledButton size={ 18 } variant="blank" onClick={ handleClick }><InfoIcon /></StyledButton>
-      </ButtonWrap>
+      </div>
       { isOpen && (
         <>
           <Overlay onClick={ handleClick } />
-          <HelpText onClick={ handleClick } top={ buttonDimensions?.bottom } leftOffset={ buttonDimensions?.right }>
+          <HelpText onClick={ handleClick }>
             { children }
           </HelpText>
         </>
