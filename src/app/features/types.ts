@@ -130,6 +130,7 @@ export type BWVData = {
   current_states: CaseStatus[]
   reason: CaseReason
   schedules: any
+  deleted: boolean
 }
 
 export type CaseStatus = {

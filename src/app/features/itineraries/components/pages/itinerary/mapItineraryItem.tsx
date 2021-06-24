@@ -21,7 +21,8 @@ export const mapItineraryItem = (itineraryId: string, daySettings: Components.Sc
         },
         current_states,
         reason,
-        schedules
+        schedules,
+        deleted
       },
       id: caseId,
       fraud_prediction
@@ -32,7 +33,7 @@ export const mapItineraryItem = (itineraryId: string, daySettings: Components.Sc
   }: ItineraryItem) =>
 {
   const badge = current_states?.length > 0
-    ? <StadiumBadge stadium={ current_states[0].status_name || "" } />
+    ? <StadiumBadge stadium={ current_states[0].status_name ?? "" } />
     : <StadiumBadge stadium={ stadium } />
 
   return {
@@ -41,7 +42,7 @@ export const mapItineraryItem = (itineraryId: string, daySettings: Components.Sc
     daySettings,
     fraudProbability: fraud_prediction && <FraudProbability fraudProbability={ fraud_prediction?.fraud_probability } />,
     href: to("/cases/:id", { id: caseId.toString() ?? "" }),
-    id: id!.toString(),
+    id: id.toString(),
     isSia: (is_sia === "J"),
     isVisited: visits.length > 0,
     itemId: id.toString(),
@@ -59,6 +60,7 @@ export const mapItineraryItem = (itineraryId: string, daySettings: Components.Sc
         itineraryItemId={ id }
         onDeleteButtonClicked={ onDeleteButtonClicked }
         visits={ visits }
-      />
+      />,
+    deleted
   }
 }
