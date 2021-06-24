@@ -19,10 +19,12 @@ type Props = {
   reason?: string | JSX.Element
   teamMembersList?: string
   hasPriority?: boolean
+  deleted?: boolean
 }
 
-type WrapProps = Pick<Props, "backgroundColor">
+type WrapProps = Pick<Props, "backgroundColor" | "deleted">
 const Wrap = styled.article<WrapProps>`
+  opacity: ${ ({ deleted }) => deleted ? 0.4 : 1 };
   background-color: ${ props => themeColor("tint", props.backgroundColor ?? "level1") };
   padding: ${ themeSpacing(3) } ${ themeSpacing(2) };
   display: flex;
@@ -93,7 +95,8 @@ const ItineraryItemCard: React.FC<Props> = (
     postalCode,
     reason,
     teamMembersList,
-    hasPriority
+    hasPriority,
+    deleted = false
   }) => {
   const [ isBeingDeleted, setIsBeingDeleted ] = useState(false)
   const setBeingDeleted = useCallback(() => setIsBeingDeleted(true), [ setIsBeingDeleted ])
@@ -105,7 +108,7 @@ const ItineraryItemCard: React.FC<Props> = (
   }, [ href ])
 
   return (
-    <Wrap backgroundColor={ backgroundColor }>
+    <Wrap backgroundColor={ backgroundColor } deleted={ deleted }>
       <Left onClick={ handleClick } opacity={ isVisited || isBeingDeleted ? 0.4 : 1 }>
         <Address>{ address }</Address>
         <PostalCode>{ postalCode }</PostalCode>
