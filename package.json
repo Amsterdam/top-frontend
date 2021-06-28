@@ -6,7 +6,7 @@
     "@amsterdam/amsterdam-react-final-form": "^0.1.126",
     "@amsterdam/asc-assets": "^0.30.0",
     "@amsterdam/asc-ui": "^0.30.0",
-    "@amsterdam/wonen-ui": "^0.0.45",
+    "@amsterdam/wonen-ui": "^0.0.48",
     "@reach/router": "^1.3.4",
     "@sentry/browser": "^6.7.2",
     "@testing-library/jest-dom": "^5.14.1",
