@@ -4,7 +4,7 @@ import {
   isRequired,
   ScaffoldAvailableFields
 } from "@amsterdam/amsterdam-react-final-form"
-import { FormPositioner, FormPositionerFields } from "@amsterdam/scaffold-form/package"
+import { FormPositioner, FormPositionerFields } from "@amsterdam/amsterdam-react-final-form"
 import { ApiName } from "app/features/types"
 import isRequiredWhenEmpty from "./validators/isRequiredWhenEmpty"
 

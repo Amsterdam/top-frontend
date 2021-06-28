@@ -1,7 +1,7 @@
 import React from "react"
 
 import { isRequired } from "@amsterdam/amsterdam-react-final-form"
-import { FormPositioner } from "@amsterdam/scaffold-form/package"
+import { FormPositioner } from "@amsterdam/amsterdam-react-final-form"
 
 import { ChevronLeft } from "@amsterdam/asc-assets"
 
