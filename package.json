@@ -101,7 +101,7 @@
     "@types/enzyme-adapter-react-16": "^1.0.6",
     "dtsgenerator": "^3.12.1",
     "enzyme": "^3.11.0",
-    "husky": "^6.0.0",
+    "husky": "^7.0.0",
     "lint-staged": "^11.0.0",
     "nock": "^13.1.0",
     "storybook": "^6.3.2"
