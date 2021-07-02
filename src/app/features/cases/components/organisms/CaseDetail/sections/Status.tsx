@@ -10,10 +10,7 @@ const Status: React.FC<Props> = ({ caseId }) => {
   const [timelineEvents] = useGroupedCaseEvents(caseId)
 
   return (
-    <CaseDetailSection
-      title="Status"
-      dataSource="AZA"
-      >
+    <CaseDetailSection title="Status" dataSource="AZA">
       { timelineEvents !== undefined &&
         <EventsTimeline
           items={ timelineEvents as any }
