@@ -1,21 +1,21 @@
-import { EventsTimeline } from "@amsterdam/wonen-ui"
-import useGroupedCaseEvents from "../hooks/useGroupedCaseEvents"
+import { EventsTimeline, CaseEvent } from "@amsterdam/wonen-ui"
 import CaseDetailSection from "app/features/cases/components/organisms/CaseDetail/CaseDetailSection"
+import { useCaseEvents } from "app/state/rest"
 
 type Props = {
   caseId: string
 }
 
 const Status: React.FC<Props> = ({ caseId }) => {
-  const [timelineEvents] = useGroupedCaseEvents(caseId)
+  const { data } = useCaseEvents(caseId)
 
   return (
     <CaseDetailSection title="Status" dataSource="AZA">
-      { timelineEvents !== undefined &&
+      { data !== undefined &&
         <EventsTimeline
-          items={ timelineEvents as any }
+          events={ data as CaseEvent[] }
           spacingHorizontal={ 3 }
-          useTransparentBackground={ true }
+          hasTransparentBackground={ true }
         />
       }
     </CaseDetailSection>
