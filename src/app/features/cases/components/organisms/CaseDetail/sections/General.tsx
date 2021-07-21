@@ -12,9 +12,9 @@ import Label from "app/features/shared/components/atoms/Label/Label"
 import Value from "app/features/shared/components/atoms/Value/Value"
 import ScrollToAnchor from "app/features/shared/components/molecules/ScrollToAnchor/ScrollToAnchor"
 import StadiumBadge from "app/features/shared/components/molecules/StadiumBadge/StadiumBadge"
-import FraudPredictionDetailsModal
-  from "app/features/cases/components/organisms/FraudPrediction/FraudPredictionDetailsModal"
+import FraudPredictionDetailsModal from "app/features/cases/components/organisms/FraudPrediction/FraudPredictionDetailsModal"
 import { useFraudPredictionModal } from "app/features/cases/components/organisms/FraudPrediction/hooks/useFraudPredictionModal"
+import { hideFraudProbability } from "app/features/shared/utils/fraudPredictionPilot"
 
 import { getAddress, getCaseCount, getEigenaar } from "../utils"
 import {
@@ -114,7 +114,7 @@ const General: FC<Props> = ({ caseId, isZksCase }) => {
           { !isZksCase && <BwvDetails caseData={ caseData } /> }
           <Label>Eigenaar</Label>
           <Value sensitive value={ eigenaar } />
-          { fraudPrediction &&
+          { fraudPrediction && !hideFraudProbability(caseId, daySettings?.team_settings?.fraudprediction_pilot_enabled) &&
           <>
             <Label>Voorspelling (bèta)</Label>
             <Link to={ getToFraudPredictionModalUrl() }>
