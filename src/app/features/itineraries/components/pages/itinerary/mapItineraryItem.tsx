@@ -8,6 +8,7 @@ import to from "app/features/shared/routing/to"
 import { ItineraryItem } from "app/features/types"
 import ItineraryItemCardButtons from "../../molecules/ItineraryItemCardButtons/ItineraryItemCardButtons"
 import Notes from "../../molecules/Notes/Notes"
+import { hideFraudProbability } from "app/features/shared/utils/fraudPredictionPilot"
 
 export const mapItineraryItem = (itineraryId: string, daySettings: Components.Schemas.DaySettings) => (
   {
@@ -40,7 +41,7 @@ export const mapItineraryItem = (itineraryId: string, daySettings: Components.Sc
     address: displayAddress(street_name, number, suffix_letter, suffix),
     badge,
     daySettings,
-    fraudProbability: fraud_prediction && <FraudProbability fraudProbability={ fraud_prediction?.fraud_probability } />,
+    fraudProbability: (fraud_prediction && !hideFraudProbability(caseId, daySettings?.team_settings?.fraudprediction_pilot_enabled)) ? <FraudProbability fraudProbability={ fraud_prediction?.fraud_probability } /> : "",
     href: to("/cases/:id", { id: caseId.toString() ?? "" }),
     id: id.toString(),
     isSia: (is_sia === "J"),

@@ -62,8 +62,7 @@
     "swagger:generate-schema:acc": "dtsgen -o ./src/__generated__/apiSchema.d.ts --url https://acc.api.top.amsterdam.nl/api/v1/schema/",
     "swagger:generate-schema": "dtsgen -o ./src/__generated__/apiSchema.d.ts --url https://api.top.amsterdam.nl/api/v1/schema/",
     "deploy:acc": "git push origin master",
-    "deploy:prod": "npm version patch && git push origin HEAD --follow-tags",
-    "prepare": "husky install"
+    "deploy:prod": "npm version patch && git push origin HEAD --follow-tags"
   },
   "eslintConfig": {
     "extends": "react-app",
@@ -101,7 +100,6 @@
     "@types/enzyme-adapter-react-16": "^1.0.6",
     "dtsgenerator": "^3.12.1",
     "enzyme": "^3.11.0",
-    "husky": "^7.0.0",
     "lint-staged": "^11.0.0",
     "nock": "^13.1.0",
     "storybook": "^6.3.2"

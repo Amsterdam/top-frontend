@@ -64,6 +64,10 @@ declare namespace Components {
                 id: number;
                 name: string;
                 use_zaken_backend?: boolean;
+                /**
+                 * enables fraudprediction A/B testing for this theme on AZA cases
+                 */
+                fraudprediction_pilot_enabled?: boolean;
                 zaken_team_name?: string | null;
                 observation_choices: Observation[];
                 situation_choices: any[];
@@ -87,6 +91,10 @@ declare namespace Components {
                 id: number;
                 name: string;
                 use_zaken_backend?: boolean;
+                /**
+                 * enables fraudprediction A/B testing for this theme on AZA cases
+                 */
+                fraudprediction_pilot_enabled?: boolean;
                 zaken_team_name?: string | null;
                 observation_choices: Observation[];
                 situation_choices: any[];
@@ -441,6 +449,10 @@ declare namespace Components {
                 id: number;
                 name: string;
                 use_zaken_backend?: boolean;
+                /**
+                 * enables fraudprediction A/B testing for this theme on AZA cases
+                 */
+                fraudprediction_pilot_enabled?: boolean;
                 zaken_team_name?: string | null;
                 observation_choices: Observation[];
                 situation_choices: any[];
@@ -507,6 +519,10 @@ declare namespace Components {
             id?: number;
             name?: string;
             use_zaken_backend?: boolean;
+            /**
+             * enables fraudprediction A/B testing for this theme on AZA cases
+             */
+            fraudprediction_pilot_enabled?: boolean;
             zaken_team_name?: string | null;
             observation_choices?: Observation[];
             situation_choices?: any[];
@@ -574,6 +590,10 @@ declare namespace Components {
             id: number;
             name: string;
             use_zaken_backend?: boolean;
+            /**
+             * enables fraudprediction A/B testing for this theme on AZA cases
+             */
+            fraudprediction_pilot_enabled?: boolean;
             zaken_team_name?: string | null;
             observation_choices: Observation[];
             situation_choices: any[];
@@ -588,6 +608,10 @@ declare namespace Components {
             id: number;
             name: string;
             use_zaken_backend?: boolean;
+            /**
+             * enables fraudprediction A/B testing for this theme on AZA cases
+             */
+            fraudprediction_pilot_enabled?: boolean;
             zaken_team_name?: string | null;
             observation_choices: Observation[];
             situation_choices: any[];
