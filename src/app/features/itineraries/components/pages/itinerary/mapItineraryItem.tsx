@@ -37,8 +37,6 @@ export const mapItineraryItem = (itineraryId: string, daySettings: Components.Sc
     ? <StadiumBadge stadium={ current_states[0].status_name ?? "" } />
     : <StadiumBadge stadium={ stadium } />
 
-    console.log(`fraud_prediction: ${ fraud_prediction }, fraudPredictionPilotEnabled: ${ daySettings?.team_settings?.fraudprediction_pilot_enabled }`)
-
   return {
     address: displayAddress(street_name, number, suffix_letter, suffix),
     badge,
