@@ -51,6 +51,14 @@
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
+    <div id="root">
+      <p id="chunk-js-loading-failure" style="display:none;">Het lijkt erop dat onderdelen van deze website niet correct kunnen worden geladen. <a href="">Probeer te herladen</a></p>
+    </div>
+    <script>
+      window.setTimeout(function () {
+        var elem = document.querySelector("#chunk-js-loading-failure");
+        if (elem != null) elem.style.display = "block";
+      }, 2000);
+    </script>
   </body>
 </html>
