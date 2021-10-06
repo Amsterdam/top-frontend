@@ -141,6 +141,7 @@ export type CaseStatus = {
   start_date: string | null
   end_date: string | null
   users: string[]
+  tasks: any[] | null
 }
 
 export type CaseReason = {
