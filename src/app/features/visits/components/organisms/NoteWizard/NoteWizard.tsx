@@ -22,7 +22,6 @@ import DeleteVisitButton from "app/features/visits/components/molecules/DeleteVi
 
 import { mapPostValues } from "./utils/mapValues"
 import { FormValues } from "app/features/visits/components/organisms/NoteWizard/types"
-import { Schema } from "inspector"
 
 type Props = {
   valuesFromApi?: FormValues
