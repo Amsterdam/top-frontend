@@ -54,6 +54,7 @@ export const mapItineraryItem = (itineraryId: string, daySettings: Components.Sc
     postalCode: postal_code,
     reason: reason?.name || case_reason,
     hasPriority: (schedules && schedules[0]?.priority?.weight >= 0.5) ?? false,
+    hasWarrant: (schedules && schedules[0]?.priority?.weight >= 1.0) ?? false,
     buttons: (onDeleteButtonClicked: () => void) =>
       <ItineraryItemCardButtons
         caseId={ caseId.toString() }
