@@ -72,7 +72,7 @@ const useApiRequest = <Schema, Payload = Partial<Schema>> (
       }
 
       return response
-    } catch (error) {
+    } catch (error: any) {
       if (isProtected) {
         switch (error?.response?.status) {
           case 401:

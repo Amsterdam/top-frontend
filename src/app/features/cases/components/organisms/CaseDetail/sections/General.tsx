@@ -88,6 +88,7 @@ const General: FC<Props> = ({ caseId, isZksCase }) => {
   const eigenaar = getEigenaar(caseData)
 
   const hasPriority = (caseData.schedules && caseData.schedules[0]?.priority?.weight >= 0.5) ?? false
+  const hasWarrant = (caseData.schedules && caseData.schedules[0]?.priority?.weight >= 1.0) ?? false
   const isSia = (caseData.is_sia === "J")
   const stadiaLabels = caseData.import_stadia?.map(stadium => ({ description: stadium.sta_oms }))
   const lastStadiumLabel = stadiaLabels?.length ? stadiaLabels[0].description : caseData.current_states?.length > 0 ? caseData.current_states[0].status_name : undefined
@@ -103,6 +104,7 @@ const General: FC<Props> = ({ caseId, isZksCase }) => {
           { lastStadiumLabel && <StadiumBadge stadium={ lastStadiumLabel! } /> }
           { isSia && <StadiumBadge stadium="SIA" /> }
           { hasPriority && <StadiumBadge stadium="Prio" variant="secondary" /> }
+          { hasWarrant && <StadiumBadge stadium="Machtiging" variant="tint" /> }
         </BadgesRow>
         <Grid>
           { isZksCase &&

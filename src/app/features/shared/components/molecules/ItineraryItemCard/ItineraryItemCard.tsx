@@ -19,21 +19,31 @@ type Props = {
   reason?: string | JSX.Element
   teamMembersList?: string
   hasPriority?: boolean
+  hasWarrant?: boolean
   deleted?: boolean
 }
 
 type WrapProps = Pick<Props, "backgroundColor" | "deleted">
+
 const Wrap = styled.article<WrapProps>`
   opacity: ${ ({ deleted }) => deleted ? 0.4 : 1 };
   background-color: ${ props => themeColor("tint", props.backgroundColor ?? "level1") };
   padding: ${ themeSpacing(3) } ${ themeSpacing(2) };
-  display: flex;
   border-top: 1px solid ${ themeColor("tint", "level3") };
   border-bottom: 1px solid ${ themeColor("tint", "level3") };
 `
 
-type LeftProps = { opacity?: number }
-const Left = styled.div<LeftProps>`
+const WrapLeftRight = styled.div`
+  display: flex;
+`
+
+type VisibilityProps = { opacity?: number }
+const Left = styled.div<VisibilityProps>`
+  cursor: pointer;
+  flex: 1;
+  opacity: ${ props => props.opacity ?? 1 };
+`
+const Bottom = styled.div<VisibilityProps>`
   cursor: pointer;
   flex: 1;
   opacity: ${ props => props.opacity ?? 1 };
@@ -96,6 +106,7 @@ const ItineraryItemCard: React.FC<Props> = (
     reason,
     teamMembersList,
     hasPriority,
+    hasWarrant,
     deleted = false
   }) => {
   const [ isBeingDeleted, setIsBeingDeleted ] = useState(false)
@@ -109,23 +120,28 @@ const ItineraryItemCard: React.FC<Props> = (
 
   return (
     <Wrap backgroundColor={ backgroundColor } deleted={ deleted }>
-      <Left onClick={ handleClick } opacity={ isVisited || isBeingDeleted ? 0.4 : 1 }>
-        <Address>{ address }</Address>
-        <PostalCode>{ postalCode }</PostalCode>
-        { fraudProbability && daySettings?.team_settings.fraud_prediction_model &&
-        <FraudProbability>{ fraudProbability }</FraudProbability> }
-        { reason && <Reason>{ reason }</Reason> }
+      <WrapLeftRight>
+        <Left onClick={ handleClick } opacity={ isVisited || isBeingDeleted ? 0.4 : 1 }>
+          <Address>{ address }</Address>
+          <PostalCode>{ postalCode }</PostalCode>
+          { fraudProbability && daySettings?.team_settings.fraud_prediction_model &&
+          <FraudProbability>{ fraudProbability }</FraudProbability> }
+          { reason && <Reason>{ reason }</Reason> }
+        </Left>
+        <Right>
+          { buttons && buttons(setBeingDeleted) }
+        </Right>
+      </WrapLeftRight>
+      <Bottom>
         <BadgeRow>
           { badge }
           { isSia && <StadiumBadge stadium="SIA" /> }
           { hasPriority && <StadiumBadge stadium="Prio" variant="secondary" /> }
+          { hasWarrant && <StadiumBadge stadium="Machtiging" variant="tint" /> }
         </BadgeRow>
         { notes }
         { teamMembersList && <P>In looplijst van { teamMembersList }.</P> }
-      </Left>
-      <Right>
-        { buttons && buttons(setBeingDeleted) }
-      </Right>
+      </Bottom>
     </Wrap>
   )
 }
