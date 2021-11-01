@@ -62,7 +62,7 @@ const NoteWizard: React.FC<Props> = ({ itineraryId, caseId, onSubmit, valuesFrom
   const handleSubmit = useCallback((values) => {
     setValues(values)
 
-    const task_ids = itineraryItem.case.data.current_states.filter((cs: CaseStatus) => ["Huisbezoek", "Hercontrole"].includes(cs.status_name!)).map((cs: CaseStatus) => cs.tasks?.map(t => t.id)).flat()
+    const task_ids = itineraryItem.case.data.current_states?.filter((cs: CaseStatus) => ["Huisbezoek", "Hercontrole"].includes(cs.status_name!)).map((cs: CaseStatus) => cs.tasks?.map(t => t.id)).flat()
 
     const submit = () => onSubmit(mapPostValues(values, itineraryItem.id, itineraryItem.case.id.toString(), user!.id, task_ids))
       .then(() => {
