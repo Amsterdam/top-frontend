@@ -40,7 +40,7 @@ const Article = styled.article`
 const CaseDetail: FC<Props> = ({ caseId }) => {
   const { data: caseData } = useCase(caseId)
 
-  const isZksCase = !!caseData?.case_states
+  const isZksCase = !!caseData?.current_states
 
   return (
     <Article>
