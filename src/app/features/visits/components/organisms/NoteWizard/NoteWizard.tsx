@@ -4,7 +4,7 @@ import { themeColor, themeSpacing } from "@amsterdam/asc-ui"
 import { ScaffoldForm } from "@amsterdam/amsterdam-react-final-form"
 import styled from "styled-components"
 
-import { ItineraryItem, CaseStatus } from "app/features/types"
+import { ItineraryItem } from "app/features/types"
 
 import { useLoggedInUser } from "app/state/rest/custom/useLoggedInUser"
 import { useItinerary } from "app/state/rest/custom/useItinerary"
@@ -62,9 +62,7 @@ const NoteWizard: React.FC<Props> = ({ itineraryId, caseId, onSubmit, valuesFrom
   const handleSubmit = useCallback((values) => {
     setValues(values)
 
-    const task_ids = itineraryItem.case.data.current_states?.filter((cs: CaseStatus) => ["Huisbezoek", "Hercontrole"].includes(cs.status_name!)).map((cs: CaseStatus) => cs.tasks?.map(t => t.id)).flat()
-
-    const submit = () => onSubmit(mapPostValues(values, itineraryItem.id, itineraryItem.case.id.toString(), user!.id, task_ids))
+    const submit = () => onSubmit(mapPostValues(values, itineraryItem.id, itineraryItem.case.id.toString(), user!.id))
       .then(() => {
         clearSteps()
         return navigate(to("/lijst/:itineraryId", { itineraryId }))
