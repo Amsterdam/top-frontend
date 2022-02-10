@@ -1,3 +1,4 @@
+import type { VakantieverhuurReportInformation, Permit } from "@amsterdam/wonen-ui"
 import useApiRequest from "./hooks/useApiRequest"
 import { makeGatewayUrl, useErrorHandler } from "./hooks/utils/utils"
 import currentDate from "../../features/shared/utils/currentDate"
@@ -300,27 +301,9 @@ export const usePermitCheckmarks = (bagId: string, options?: Options) => {
 
 export type booleanString = "True" | "False" | "UNKNOWN"
 
-export type allPermitCheckmarks = {
-  has_b_and_b_permit: booleanString
-  has_ligplaats_permit: booleanString
-  has_omzettings_permit: booleanString
-  has_splitsing_permit: booleanString
-  has_vacation_rental_permit: booleanString
-  has_ontrekking_vorming_samenvoeging_permit: booleanString
-}
-
-export type permitType = {
-  permit_granted: booleanString
-  permit_type: string
-  date_from: string
-  decos_join_web_url: string
-  raw_data: any
-  details: any
-}
-
 export type decosType = {
-  permits: permitType[]
-  vakantieverhuur_meldingen: any
+  permits: Permit[]
+  vakantieverhuur_reports: VakantieverhuurReportInformation[] | null
 }
 
 export const useAllPermitCheckmarks = (bagId: string, options?: Options) => {
