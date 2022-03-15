@@ -201,6 +201,13 @@ export const useTeamSettingsStateTypes = (teamSettingsId: number, options?: Opti
   isProtected: true
 })
 
+export const useTeamSettingsProjects = (teamSettingsId: number, options?: Options) => useApiRequest<Components.Schemas.CaseReason[]>({
+  ...options,
+  url: makeGatewayUrl([ "team-settings", teamSettingsId, "case-projects" ]),
+  groupName: "teamSettings",
+  isProtected: true
+})
+
 export const useDaySettingsList = (options?: Options) => useApiRequest<Components.Schemas.DaySettings[]>({
   ...options,
   url: makeGatewayUrl([ "day-settings" ], {}, options?.apiVersion),

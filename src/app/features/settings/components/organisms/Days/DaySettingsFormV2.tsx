@@ -11,7 +11,8 @@ import {
   usePostCodeRanges,
   useTeamSettingsReasons,
   useTeamSettingsScheduleTypes,
-  useTeamSettingsStateTypes
+  useTeamSettingsStateTypes,
+  useTeamSettingsProjects
 } from "app/state/rest"
 
 import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
@@ -42,6 +43,7 @@ const DaySettingsFormV2: FC<RouteComponentProps<Props>> = ({ teamSettingsId, day
   const { data: caseReasons, isBusy: isBusyCaseReasons } = useTeamSettingsReasons(teamSettingsId!)
   const { data: teamScheduleTypes, isBusy: isBusyTeamScheduleTypes } = useTeamSettingsScheduleTypes(teamSettingsId!)
   const { data: caseStateTypes, isBusy: isBusyCaseStateTypes } = useTeamSettingsStateTypes(teamSettingsId!)
+  const { data: caseProjects, isBusy: isBusyCaseProjects } = useTeamSettingsProjects(teamSettingsId!)
   const [ errorMessage, setErrorMessage ] = useState("")
 
   const prepareDefinition = (definitionEntry: any) => definitionEntry?.reduce((t: any, c: any) => {
@@ -55,9 +57,10 @@ const DaySettingsFormV2: FC<RouteComponentProps<Props>> = ({ teamSettingsId, day
       prepareDefinition(teamScheduleTypes?.week_segments),
       prepareDefinition(teamScheduleTypes?.priorities),
       prepareDefinition(caseReasons),
-      prepareDefinition(caseStateTypes)
+      prepareDefinition(caseStateTypes),
+      prepareDefinition(caseProjects)
     ),
-    [ postalCodeRangesPresets, teamScheduleTypes, caseReasons, caseStateTypes ]
+    [ postalCodeRangesPresets, teamScheduleTypes, caseReasons, caseStateTypes, caseProjects ]
   )
 
   const handleSubmit = useCallback(async (data: any) => {
@@ -77,7 +80,7 @@ const DaySettingsFormV2: FC<RouteComponentProps<Props>> = ({ teamSettingsId, day
     }
   }, [ execPut, setErrorMessage, teamSettingsId ])
 
-  if (!caseStateTypes || isBusyCaseStateTypes || !caseReasons || isBusyCaseReasons || !teamScheduleTypes || isBusyTeamScheduleTypes || !teamSettingsId || !daySettingsId || !daySettings || isBusyDaySettings || !postalCodeRangesPresets || isBusyPostalCodeRangesPresets) {
+  if (!caseProjects || isBusyCaseProjects || !caseStateTypes || isBusyCaseStateTypes || !caseReasons || isBusyCaseReasons || !teamScheduleTypes || isBusyTeamScheduleTypes || !teamSettingsId || !daySettingsId || !daySettings || isBusyDaySettings || !postalCodeRangesPresets || isBusyPostalCodeRangesPresets) {
     return <CenteredSpinner explanation="Instellingen ophalen…" size={ 60 } />
   }
 
