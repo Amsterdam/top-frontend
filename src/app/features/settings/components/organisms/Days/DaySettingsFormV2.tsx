@@ -50,6 +50,7 @@ const DaySettingsFormV2: FC<RouteComponentProps<Props>> = ({ teamSettingsId, day
     t[String(c.id)] = c.name
     return t
   }, {}) || []
+
   const definition = useMemo(
     () => createDefinition(
       prepareDefinition(postalCodeRangesPresets?.results),
@@ -99,6 +100,7 @@ const DaySettingsFormV2: FC<RouteComponentProps<Props>> = ({ teamSettingsId, day
       week_segments: removeUnknownIds(teamScheduleTypes.week_segments, settings.week_segments),
       priorities: removeUnknownIds(teamScheduleTypes.priorities, settings.priorities),
       reasons: removeUnknownIds(caseReasons, settings.reasons),
+      project_ids: removeUnknownIds(caseProjects, settings.project_ids),
       state_types: removeUnknownIds(caseStateTypes, settings.state_types),
       postal_code_ranges_presets: (settings.postal_code_ranges_presets ?? []).map((pcp: any) => String(pcp)),
       postal_codes_type: (settings.postal_code_ranges_presets ?? []).length > 0 ? "stadsdeel" : "postcode",

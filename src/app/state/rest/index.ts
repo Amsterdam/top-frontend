@@ -101,7 +101,7 @@ export const useCase = (id: number | string, options?: Options) => {
 
 export const useCaseEvents = (caseId: Components.Schemas.Case["id"], options?: Options) => {
   const handleError = useErrorHandler()
-  return useApiRequest<Components.Schemas.CaseEvent[]>({
+  return useApiRequest<Components.Schemas.PaginatedCaseProjectList>({
     ...options,
     url: makeGatewayUrl(["cases", caseId, "events"]),
     groupName: "case",

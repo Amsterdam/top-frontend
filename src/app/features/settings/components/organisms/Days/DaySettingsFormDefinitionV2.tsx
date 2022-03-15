@@ -125,20 +125,13 @@ export const createDefinition = (
         validate: isRequired()
       }
     },
-    filtered_projects: {
-      type: "ShowHide",
+    filteredProjects: {
+      type: "CheckboxFields",
       props: {
-        shouldShow: ({ values: { reasons } }) => reasons === 2,
-        field: {
-          type: "CheckboxFields",
-          props: {
-            label: "Met welk project of welke projecten wil je dat de looplijsten gegenereerd worden?",
-            name: "projects",
-            options: projectOptions,
-            columnCount: { mobileM: 2, tabletM: 4 },
-            validate: isRequired()
-          }
-        }
+        label: "Met welke projecten wil je dat de looplijsten gegenereerd worden?",
+        name: "project_ids",
+        options: projectOptions,
+        columnCount: { mobileM: 2, tabletM: 4 }
       }
     },
     stateTypes: {
@@ -198,6 +191,10 @@ export const createDefinition = (
     divider7: {
       type: "Divider",
       props: {}
+    },
+    divider8: {
+      type: "Divider",
+      props: {}
     }
   }
 
@@ -213,7 +210,8 @@ export const createDefinition = (
       [ "geo_type", "postalCodeRanges", "postalCodeRanges" ],
       [ "divider3", "divider3", "divider3" ],
       [ "reasons", "reasons", "reasons" ],
-      [ "filtered_projects", "filtered_projects", "filtered_projects" ],
+      [ "divider8", "divider8", "divider8" ],
+      [ "filteredProjects", "filteredProjects", "filteredProjects" ],
       [ "divider4", "divider4", "divider4" ],
       [ "stateTypes", "stateTypes", "stateTypes" ],
       [ "divider5", "divider5", "divider5" ],
@@ -231,7 +229,8 @@ export const createDefinition = (
       [ "geo_type", "postalCodeRanges", "postalCodeRanges", "postalCodeRanges", "postalCodeRanges" ],
       [ "divider3", "divider3", "divider3", "divider3", "divider3" ],
       [ "reasons", "reasons", "reasons", "reasons", "reasons" ],
-      [ "filtered_projects", "filtered_projects", "filtered_projects", "filtered_projects", "filtered_projects" ],
+      [ "divider8", "divider8", "divider8", "divider8", "divider8" ],
+      [ "filteredProjects", "filteredProjects", "filteredProjects", "filteredProjects", "filteredProjects" ],
       [ "divider4", "divider4", "divider4", "divider4", "divider4" ],
       [ "stateTypes", "stateTypes", "stateTypes", "stateTypes", "stateTypes" ],
       [ "divider5", "divider5", "divider5", "divider5", "divider5" ],
