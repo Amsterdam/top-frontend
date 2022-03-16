@@ -3,7 +3,9 @@ declare namespace Components {
         export type BlankEnum = "";
         export interface Case {
             id: string;
-            data: string;
+            data: {
+                [name: string]: any;
+            };
             fraud_prediction: {
                 fraud_prediction_model?: FraudPredictionModelEnum | BlankEnum | NullEnum;
                 fraud_probability: number; // float
@@ -17,15 +19,10 @@ declare namespace Components {
                 sync_date: string; // date-time
             };
         }
-        export interface CaseEvent {
+        export interface CaseProject {
             id: number;
-            date_created: string; // date-time
-            case: number;
-            type: string;
-            emitter_id: number;
-            event_values: {
-                [name: string]: any;
-            };
+            name: string;
+            team: number;
         }
         export interface CaseReason {
             id: number;
@@ -56,6 +53,7 @@ declare namespace Components {
             priorities?: number[] | null;
             reasons?: number[] | null;
             state_types?: number[] | null;
+            project_ids?: number[] | null;
             projects?: number[];
             primary_stadium?: null | number;
             secondary_stadia?: number[];
@@ -139,6 +137,10 @@ declare namespace Components {
         }
         export type FraudPredictionModelEnum = "vakantieverhuur" | "onderhuur";
         export type HasVacationRentalPermitEnum = "True" | "False" | "UNKNOWN";
+        export interface HousingCorporation {
+            id: number;
+            name: string;
+        }
         export interface Itinerary {
             id: number;
             created_at: string; // date
@@ -154,6 +156,8 @@ declare namespace Components {
                 priorities?: number[] | null;
                 reasons?: number[] | null;
                 state_types?: number[] | null;
+                project_ids?: number[] | null;
+                housing_corporations?: number[] | null;
                 projects: Project[];
                 primary_stadium: Stadium;
                 secondary_stadia: Stadium[];
@@ -167,7 +171,9 @@ declare namespace Components {
             notes: Note[];
             case: {
                 id: string;
-                data: string;
+                data: {
+                    [name: string]: any;
+                };
                 fraud_prediction: {
                     fraud_prediction_model?: FraudPredictionModelEnum | BlankEnum | NullEnum;
                     fraud_probability: number; // float
@@ -193,6 +199,8 @@ declare namespace Components {
             priorities?: number[] | null;
             reasons?: number[] | null;
             state_types?: number[] | null;
+            project_ids?: number[] | null;
+            housing_corporations?: number[] | null;
             projects: Project[];
             primary_stadium: Stadium;
             secondary_stadia: Stadium[];
@@ -244,6 +252,24 @@ declare namespace Components {
         export interface Observation {
             value: string;
             verbose: string;
+        }
+        export interface PaginatedCaseProjectList {
+            /**
+             * example:
+             * 123
+             */
+            count?: number;
+            /**
+             * example:
+             * http://api.example.org/accounts/?page=4
+             */
+            next?: string | null; // uri
+            /**
+             * example:
+             * http://api.example.org/accounts/?page=2
+             */
+            previous?: string | null; // uri
+            results?: CaseProject[];
         }
         export interface PaginatedCaseReasonList {
             /**
@@ -441,6 +467,7 @@ declare namespace Components {
             priorities?: number[] | null;
             reasons?: number[] | null;
             state_types?: number[] | null;
+            project_ids?: number[] | null;
             projects?: number[];
             primary_stadium?: null | number;
             secondary_stadia?: number[];
@@ -472,7 +499,9 @@ declare namespace Components {
             notes?: Note[];
             case?: {
                 id: string;
-                data: string;
+                data: {
+                    [name: string]: any;
+                };
                 fraud_prediction: {
                     fraud_prediction_model?: FraudPredictionModelEnum | BlankEnum | NullEnum;
                     fraud_probability: number; // float
@@ -677,7 +706,24 @@ declare namespace Components {
     }
 }
 declare namespace Paths {
-    namespace CasesEventsRetrieve {
+    namespace AddressesHousingCorporationsList {
+        namespace Responses {
+            export type $200 = Components.Schemas.HousingCorporation[];
+        }
+    }
+    namespace AddressesPermitsRetrieve {
+        namespace Parameters {
+            export type BagId = string;
+        }
+        export interface PathParameters {
+            bag_id: Parameters.BagId;
+        }
+        namespace Responses {
+            export interface $200 {
+            }
+        }
+    }
+    namespace CasesEventsList {
         namespace Parameters {
             export type Id = string;
         }
@@ -685,7 +731,9 @@ declare namespace Paths {
             id: Parameters.Id;
         }
         namespace Responses {
-            export type $200 = Components.Schemas.CaseEvent;
+            export type $200 = {
+                [name: string]: any;
+            }[];
         }
     }
     namespace CasesRetrieve {
@@ -723,6 +771,22 @@ declare namespace Paths {
         }
         namespace Responses {
             export type $200 = Components.Schemas.Visit[];
+        }
+    }
+    namespace DaySettingsCaseCountRetrieve {
+        namespace Parameters {
+            export type Id = number;
+        }
+        export interface PathParameters {
+            id: Parameters.Id;
+        }
+        namespace Responses {
+            /**
+             * Unspecified response body
+             */
+            export interface $200 {
+                [name: string]: any;
+            }
         }
     }
     namespace DaySettingsCreate {
@@ -1214,6 +1278,21 @@ declare namespace Paths {
         export type RequestBody = Components.Schemas.SuggestNextVisit;
         namespace Responses {
             export type $200 = Components.Schemas.SuggestNextVisit;
+        }
+    }
+    namespace TeamSettingsCaseProjectsList {
+        namespace Parameters {
+            export type Id = number;
+            export type Page = number;
+        }
+        export interface PathParameters {
+            id: Parameters.Id;
+        }
+        export interface QueryParameters {
+            page?: Parameters.Page;
+        }
+        namespace Responses {
+            export type $200 = Components.Schemas.PaginatedCaseProjectList;
         }
     }
     namespace TeamSettingsCreate {

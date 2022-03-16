@@ -12,7 +12,8 @@ import {
   useTeamSettings,
   useTeamSettingsReasons,
   useTeamSettingsScheduleTypes,
-  useTeamSettingsStateTypes
+  useTeamSettingsStateTypes,
+  useTeamSettingsProjects
 } from "app/state/rest"
 
 import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
@@ -41,6 +42,7 @@ const CreateDaySettingsFormV2: FC<RouteComponentProps<Props>> = ({ teamSettingsI
   const { data: caseReasons } = useTeamSettingsReasons(teamSettingsId!)
   const { data: teamScheduleTypes } = useTeamSettingsScheduleTypes(teamSettingsId!)
   const { data: caseStateTypes } = useTeamSettingsStateTypes(teamSettingsId!)
+  const { data: caseProjects } = useTeamSettingsProjects(teamSettingsId!)
   const { data: postalCodeRangesPresets, isBusy: isBusyPostalCodeRangesPresets } = usePostCodeRanges()
   const [ errorMessage, setErrorMessage ] = useState("")
   const dayOfTheWeek = useQueryStringProp("d")
@@ -56,9 +58,10 @@ const CreateDaySettingsFormV2: FC<RouteComponentProps<Props>> = ({ teamSettingsI
       prepareDefinition(teamScheduleTypes?.week_segments),
       prepareDefinition(teamScheduleTypes?.priorities),
       prepareDefinition(caseReasons),
-      prepareDefinition(caseStateTypes)
+      prepareDefinition(caseStateTypes),
+      prepareDefinition(caseProjects)
     ),
-    [ teamScheduleTypes, caseReasons, caseStateTypes, postalCodeRangesPresets ]
+    [ teamScheduleTypes, caseReasons, caseStateTypes, postalCodeRangesPresets, caseProjects ]
   )
 
   const handleSubmit = useCallback(async (data: any) => {

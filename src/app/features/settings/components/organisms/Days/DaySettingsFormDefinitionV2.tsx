@@ -15,7 +15,8 @@ export const createDefinition = (
   weekSegmentsOptions: any,
   prioritiesOptions: any,
   reasonsOptions: any,
-  stateTypeOptions: any
+  stateTypeOptions: any,
+  projectOptions: any
 ) => {
   const { postalCodeMin, postalCodeMax } = config.settings
 
@@ -124,6 +125,15 @@ export const createDefinition = (
         validate: isRequired()
       }
     },
+    filteredProjects: {
+      type: "CheckboxFields",
+      props: {
+        label: "Met welke projecten wil je dat de looplijsten gegenereerd worden?",
+        name: "project_ids",
+        options: projectOptions,
+        columnCount: { mobileM: 2, tabletM: 4 }
+      }
+    },
     stateTypes: {
       type: "CheckboxFields",
       props: {
@@ -181,6 +191,10 @@ export const createDefinition = (
     divider7: {
       type: "Divider",
       props: {}
+    },
+    divider8: {
+      type: "Divider",
+      props: {}
     }
   }
 
@@ -196,6 +210,8 @@ export const createDefinition = (
       [ "geo_type", "postalCodeRanges", "postalCodeRanges" ],
       [ "divider3", "divider3", "divider3" ],
       [ "reasons", "reasons", "reasons" ],
+      [ "divider8", "divider8", "divider8" ],
+      [ "filteredProjects", "filteredProjects", "filteredProjects" ],
       [ "divider4", "divider4", "divider4" ],
       [ "stateTypes", "stateTypes", "stateTypes" ],
       [ "divider5", "divider5", "divider5" ],
@@ -213,6 +229,8 @@ export const createDefinition = (
       [ "geo_type", "postalCodeRanges", "postalCodeRanges", "postalCodeRanges", "postalCodeRanges" ],
       [ "divider3", "divider3", "divider3", "divider3", "divider3" ],
       [ "reasons", "reasons", "reasons", "reasons", "reasons" ],
+      [ "divider8", "divider8", "divider8", "divider8", "divider8" ],
+      [ "filteredProjects", "filteredProjects", "filteredProjects", "filteredProjects", "filteredProjects" ],
       [ "divider4", "divider4", "divider4", "divider4", "divider4" ],
       [ "stateTypes", "stateTypes", "stateTypes", "stateTypes", "stateTypes" ],
       [ "divider5", "divider5", "divider5", "divider5", "divider5" ],

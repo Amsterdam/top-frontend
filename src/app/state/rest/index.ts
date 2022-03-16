@@ -101,7 +101,7 @@ export const useCase = (id: number | string, options?: Options) => {
 
 export const useCaseEvents = (caseId: Components.Schemas.Case["id"], options?: Options) => {
   const handleError = useErrorHandler()
-  return useApiRequest<Components.Schemas.CaseEvent[]>({
+  return useApiRequest<Components.Schemas.PaginatedCaseProjectList>({
     ...options,
     url: makeGatewayUrl(["cases", caseId, "events"]),
     groupName: "case",
@@ -197,6 +197,13 @@ export const useTeamSettingsScheduleTypes = (teamSettingsId: number, options?: O
 export const useTeamSettingsStateTypes = (teamSettingsId: number, options?: Options) => useApiRequest<Components.Schemas.CaseStateType[]>({
   ...options,
   url: makeGatewayUrl([ "team-settings", teamSettingsId, "state-types" ]),
+  groupName: "teamSettings",
+  isProtected: true
+})
+
+export const useTeamSettingsProjects = (teamSettingsId: number, options?: Options) => useApiRequest<Components.Schemas.CaseReason[]>({
+  ...options,
+  url: makeGatewayUrl([ "team-settings", teamSettingsId, "case-projects" ]),
   groupName: "teamSettings",
   isProtected: true
 })

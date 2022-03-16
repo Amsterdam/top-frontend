@@ -17,6 +17,7 @@ type Props = {
   caseReasons: Components.Schemas.CaseReason[]
   teamScheduleTypes: Components.Schemas.TeamScheduleTypes
   caseStateTypes: Components.Schemas.CaseStateType[]
+  caseProjects: Components.Schemas.Project[]
 }
 
 const DaySettingsCardV2: FC<RouteComponentProps<Props>> = (
@@ -26,7 +27,8 @@ const DaySettingsCardV2: FC<RouteComponentProps<Props>> = (
     daySettingsId,
     caseReasons,
     teamScheduleTypes,
-    caseStateTypes
+    caseStateTypes,
+    caseProjects
   }
 ) => {
   const { data: daySettings, isBusy } = useDaySettings(daySettingsId!, { apiVersion: "v2" })
@@ -62,6 +64,11 @@ const DaySettingsCardV2: FC<RouteComponentProps<Props>> = (
             labels={ [ "Openingsreden", "Openingsredenen" ] }
             options={ caseReasons }
             values={ daySettings?.reasons }
+          />
+          <ValueList
+            labels={ [ "Projecten", "Projecten" ] }
+            options={ caseProjects }
+            values={ daySettings?.project_ids }
           />
           <Dl>
             <Dt>{ (postalCodeRangesPresets?.length) ? (postalCodeRangesPresets.length === 1 ? "Stadsdeel" : "Stadsdelen") : "Postcodes" }</Dt>
