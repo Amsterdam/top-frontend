@@ -25,7 +25,7 @@
     "@types/react-dom": "^17.0.13",
     "@types/smoothscroll-polyfill": "^0.3.1",
     "@types/styled-components": "^5.1.24",
-    "@wojtekmaj/enzyme-adapter-react-17": "^0.6.6",
+    "@wojtekmaj/enzyme-adapter-react-17": "^0.6.7",
     "axios": "^0.26.1",
     "dompurify": "^2.3.6",
     "env-cmd": "^10.1.0",
