@@ -8,7 +8,8 @@ import {
   useTeamSettingsReasons,
   useTeamSettingsScheduleTypes,
   useTeamSettingsStateTypes,
-  useTeamSettingsProjects
+  useTeamSettingsProjects,
+  useCorporations
 } from "app/state/rest"
 
 import to from "app/features/shared/routing/to"
@@ -56,7 +57,7 @@ const DaySettingsList: FC<RouteComponentProps<Props>> = ({ teamSettingsId, postC
   const { data: teamScheduleTypes } = useTeamSettingsScheduleTypes(teamSettingsId!)
   const { data: caseStateTypes } = useTeamSettingsStateTypes(teamSettingsId!)
   const { data: caseProjects } = useTeamSettingsProjects(teamSettingsId!)
-
+  const { data: corporations } = useCorporations()
 
   if (!teamSettings || isBusySettings) {
     return <CenteredSpinner explanation="Planning ophalen…" size={ 60 } />
@@ -96,6 +97,7 @@ const DaySettingsList: FC<RouteComponentProps<Props>> = ({ teamSettingsId, postC
                     teamScheduleTypes={ teamScheduleTypes }
                     caseStateTypes={ caseStateTypes }
                     caseProjects={ caseProjects }
+                    corporations={ corporations }
                   />
                 )
                 : (

@@ -12,7 +12,8 @@ import {
   useTeamSettingsReasons,
   useTeamSettingsScheduleTypes,
   useTeamSettingsStateTypes,
-  useTeamSettingsProjects
+  useTeamSettingsProjects,
+  useCorporations
 } from "app/state/rest"
 
 import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
@@ -44,6 +45,7 @@ const DaySettingsFormV2: FC<RouteComponentProps<Props>> = ({ teamSettingsId, day
   const { data: teamScheduleTypes, isBusy: isBusyTeamScheduleTypes } = useTeamSettingsScheduleTypes(teamSettingsId!)
   const { data: caseStateTypes, isBusy: isBusyCaseStateTypes } = useTeamSettingsStateTypes(teamSettingsId!)
   const { data: caseProjects, isBusy: isBusyCaseProjects } = useTeamSettingsProjects(teamSettingsId!)
+  const { data: corporations, isBusy: isBusyCorporations } = useCorporations()
   const [ errorMessage, setErrorMessage ] = useState("")
 
   const prepareDefinition = (definitionEntry: any) => definitionEntry?.reduce((t: any, c: any) => {
@@ -60,9 +62,10 @@ const DaySettingsFormV2: FC<RouteComponentProps<Props>> = ({ teamSettingsId, day
       prepareDefinition(caseReasons),
       prepareDefinition(caseStateTypes),
       prepareDefinition(caseProjects),
+      prepareDefinition(corporations),
       daySettings?.team_settings
     ),
-    [ postalCodeRangesPresets, teamScheduleTypes, caseReasons, caseStateTypes, caseProjects, daySettings ]
+    [ postalCodeRangesPresets, teamScheduleTypes, caseReasons, caseStateTypes, caseProjects, daySettings, corporations ]
   )
 
   const handleSubmit = useCallback(async (data: any) => {
@@ -82,7 +85,11 @@ const DaySettingsFormV2: FC<RouteComponentProps<Props>> = ({ teamSettingsId, day
     }
   }, [ execPut, setErrorMessage, teamSettingsId ])
 
-  if (!caseProjects || isBusyCaseProjects || !caseStateTypes || isBusyCaseStateTypes || !caseReasons || isBusyCaseReasons || !teamScheduleTypes || isBusyTeamScheduleTypes || !teamSettingsId || !daySettingsId || !daySettings || isBusyDaySettings || !postalCodeRangesPresets || isBusyPostalCodeRangesPresets) {
+  if (!caseProjects || isBusyCaseProjects || !caseStateTypes || isBusyCaseStateTypes || !caseReasons
+      || isBusyCaseReasons || !teamScheduleTypes || isBusyTeamScheduleTypes || !teamSettingsId
+      || !daySettingsId || !daySettings || isBusyDaySettings || !postalCodeRangesPresets
+      || isBusyPostalCodeRangesPresets || !corporations || isBusyCorporations
+    ) {
     return <CenteredSpinner explanation="Instellingen ophalen…" size={ 60 } />
   }
 
@@ -103,6 +110,7 @@ const DaySettingsFormV2: FC<RouteComponentProps<Props>> = ({ teamSettingsId, day
       reasons: removeUnknownIds(caseReasons, settings.reasons),
       project_ids: removeUnknownIds(caseProjects, settings.project_ids),
       state_types: removeUnknownIds(caseStateTypes, settings.state_types),
+      housing_corporations: removeUnknownIds(corporations, settings.housing_corporations),
       postal_code_ranges_presets: (settings.postal_code_ranges_presets ?? []).map((pcp: any) => String(pcp)),
       postal_codes_type: (settings.postal_code_ranges_presets ?? []).length > 0 ? "stadsdeel" : "postcode",
       postal_code_ranges: (settings.postal_code_ranges_presets ?? []).length > 0 ? default_postal_code_range : settings.postal_code_ranges,

@@ -19,6 +19,7 @@ type Props = {
   teamScheduleTypes: Components.Schemas.TeamScheduleTypes
   caseStateTypes: Components.Schemas.CaseStateType[]
   caseProjects: Components.Schemas.Project[]
+  corporations: Components.Schemas.HousingCorporation[]
 }
 
 const DaySettingsCardV2: FC<RouteComponentProps<Props>> = (
@@ -29,7 +30,8 @@ const DaySettingsCardV2: FC<RouteComponentProps<Props>> = (
     caseReasons,
     teamScheduleTypes,
     caseStateTypes,
-    caseProjects
+    caseProjects,
+    corporations
   }
 ) => {
   const { data: daySettings, isBusy } = useDaySettings(daySettingsId!, { apiVersion: "v2" })
@@ -64,10 +66,17 @@ const DaySettingsCardV2: FC<RouteComponentProps<Props>> = (
             <Dd>{ daySettings?.opening_date ? formatDate(daySettings.opening_date) : "–" }</Dd>
           </Dl>
           {isSublet && (
-            <Dl>
-              <Dt>Samenlopen met een corporatie</Dt>
-              <Dd>{ daySettings?.housing_corporation_combiteam ? "Ja" : "Nee" }</Dd>
-            </Dl>
+            <>
+              <Dl>
+                <Dt>Samenlopen met een corporatie</Dt>
+                <Dd>{ daySettings?.housing_corporation_combiteam ? "Ja" : "Nee" }</Dd>
+              </Dl>
+              <ValueList
+                labels={ [ "Corporaties", "Corporaties" ] }
+                options={ corporations }
+                values={ daySettings?.housing_corporations }
+              />
+            </>
           )}
           <ValueList
             labels={ [ "Openingsreden", "Openingsredenen" ] }

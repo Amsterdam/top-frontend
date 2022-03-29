@@ -19,6 +19,7 @@ export const createDefinition = (
   reasonsOptions: any,
   stateTypeOptions: any,
   projectOptions: any,
+  corporationOptions: any,
   teamSettings?: Components.Schemas.TeamSettings | Components.Schemas.DaySettings["team_settings"]
 ) => {
   const { postalCodeMin, postalCodeMax } = config.settings
@@ -129,6 +130,21 @@ export const createDefinition = (
             label: "Wil je deze looplijst samenlopen met een corporatie?",
             name: "housing_corporation_combiteam",
             checkboxLabel: "Ja"
+          }
+        }
+      }
+    },
+    housingCorporations: {
+      type: "ShowHide",
+      props: {
+        shouldShow: () => isSublet, // Sublet use only.
+        field: {
+          type: "CheckboxFields",
+          props: {
+            label: "Met welke corporaties wil je dat de looplijsten gegenereerd worden?",
+            name: "housing_corporations",
+            options: corporationOptions,
+            columnCount: { mobileM: 2, tabletM: 4 }
           }
         }
       }
@@ -264,6 +280,7 @@ export const createDefinition = (
       [ "geo_type", "postalCodeRanges", "postalCodeRanges" ],
       [ "divider3", "divider3", "divider3" ],
       [ "housingCorporationCombiteam", "housingCorporationCombiteam", "housingCorporationCombiteam" ],
+      [ "housingCorporations", "housingCorporations", "housingCorporations" ],
       [ "divider10", "divider10", "divider10" ],
       [ "reasons", "reasons", "reasons" ],
       [ "divider9", "divider9", "divider9" ],
@@ -287,6 +304,7 @@ export const createDefinition = (
       [ "geo_type", "postalCodeRanges", "postalCodeRanges", "postalCodeRanges", "postalCodeRanges" ],
       [ "divider3", "divider3", "divider3", "divider3", "divider3" ],
       [ "housingCorporationCombiteam", "housingCorporationCombiteam", "housingCorporationCombiteam", "housingCorporationCombiteam", "housingCorporationCombiteam" ],
+      [ "housingCorporations", "housingCorporations", "housingCorporations", "housingCorporations", "housingCorporations" ],
       [ "divider10", "divider10", "divider10", "divider10", "divider10" ],
       [ "reasons", "reasons", "reasons", "reasons", "reasons" ],
       [ "divider9", "divider9", "divider9", "divider9", "divider9" ],
