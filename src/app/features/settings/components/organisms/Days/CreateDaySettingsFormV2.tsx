@@ -59,9 +59,10 @@ const CreateDaySettingsFormV2: FC<RouteComponentProps<Props>> = ({ teamSettingsI
       prepareDefinition(teamScheduleTypes?.priorities),
       prepareDefinition(caseReasons),
       prepareDefinition(caseStateTypes),
-      prepareDefinition(caseProjects)
+      prepareDefinition(caseProjects),
+      teamSettings
     ),
-    [ teamScheduleTypes, caseReasons, caseStateTypes, postalCodeRangesPresets, caseProjects ]
+    [ teamScheduleTypes, caseReasons, caseStateTypes, postalCodeRangesPresets, caseProjects, teamSettings ]
   )
 
   const handleSubmit = useCallback(async (data: any) => {
@@ -76,7 +77,7 @@ const CreateDaySettingsFormV2: FC<RouteComponentProps<Props>> = ({ teamSettingsI
     try {
       await execPost(values, { skipCacheClear: false, useResponseAsCache: false })
       navigate(to("/team-settings/:teamSettingsId", { teamSettingsId }))
-    } catch (error) {
+    } catch (error: any) {
       setErrorMessage(error.response.data.message)
       return error
     }

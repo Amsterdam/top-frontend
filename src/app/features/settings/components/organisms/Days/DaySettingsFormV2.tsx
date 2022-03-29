@@ -59,9 +59,10 @@ const DaySettingsFormV2: FC<RouteComponentProps<Props>> = ({ teamSettingsId, day
       prepareDefinition(teamScheduleTypes?.priorities),
       prepareDefinition(caseReasons),
       prepareDefinition(caseStateTypes),
-      prepareDefinition(caseProjects)
+      prepareDefinition(caseProjects),
+      daySettings?.team_settings
     ),
-    [ postalCodeRangesPresets, teamScheduleTypes, caseReasons, caseStateTypes, caseProjects ]
+    [ postalCodeRangesPresets, teamScheduleTypes, caseReasons, caseStateTypes, caseProjects, daySettings ]
   )
 
   const handleSubmit = useCallback(async (data: any) => {
@@ -75,7 +76,7 @@ const DaySettingsFormV2: FC<RouteComponentProps<Props>> = ({ teamSettingsId, day
     try {
       await execPut(values, { skipCacheClear: false, useResponseAsCache: false })
       navigate(to("/team-settings/:teamSettingsId", { teamSettingsId }))
-    } catch (error) {
+    } catch (error: any) {
       setErrorMessage(error.response.data.message)
       return error
     }
@@ -120,8 +121,9 @@ const DaySettingsFormV2: FC<RouteComponentProps<Props>> = ({ teamSettingsId, day
         </Spacing>
         <Heading>Wijzigen daginstelling</Heading>
         <Heading forwardedAs="h2">{ daySettings.team_settings.name } </Heading>
-        { daySettings.week_days?.length === 1 &&
-        <Heading forwardedAs="h3">{ daysOfTheWeek[Number(daySettings.week_days[0])] }</Heading> }
+        { daySettings.week_days?.length === 1 && (
+          <Heading forwardedAs="h3">{ daysOfTheWeek[Number(daySettings.week_days[0])] }</Heading>
+        )}
         <ScaffoldForm onSubmit={ handleSubmit } initialValues={ prepareInitialValues(daySettings) }>
           <Scaffold { ...definition } />
           <FixedSubmitButton errorMessage={ errorMessage } />

@@ -54,6 +54,8 @@ declare namespace Components {
             reasons?: number[] | null;
             state_types?: number[] | null;
             project_ids?: number[] | null;
+            housing_corporations?: number[] | null;
+            housing_corporation_combiteam?: boolean;
             projects?: number[];
             primary_stadium?: null | number;
             secondary_stadia?: number[];
@@ -78,6 +80,9 @@ declare namespace Components {
             sia_presedence?: boolean;
             used_today_count: number;
             max_use_limit?: number;
+            case_count: {
+                [name: string]: any;
+            };
         }
         export interface DaySettingsCompact {
             id: number;
@@ -468,6 +473,8 @@ declare namespace Components {
             reasons?: number[] | null;
             state_types?: number[] | null;
             project_ids?: number[] | null;
+            housing_corporations?: number[] | null;
+            housing_corporation_combiteam?: boolean;
             projects?: number[];
             primary_stadium?: null | number;
             secondary_stadia?: number[];
@@ -492,6 +499,9 @@ declare namespace Components {
             sia_presedence?: boolean;
             used_today_count?: number;
             max_use_limit?: number;
+            case_count?: {
+                [name: string]: any;
+            };
         }
         export interface PatchedItineraryItem {
             id?: number;
@@ -775,10 +785,14 @@ declare namespace Paths {
     }
     namespace DaySettingsCaseCountRetrieve {
         namespace Parameters {
+            export type CaseCount = string; // date
             export type Id = number;
         }
         export interface PathParameters {
             id: Parameters.Id;
+        }
+        export interface QueryParameters {
+            "case-count"?: Parameters.CaseCount /* date */;
         }
         namespace Responses {
             /**
@@ -790,6 +804,12 @@ declare namespace Paths {
         }
     }
     namespace DaySettingsCreate {
+        namespace Parameters {
+            export type CaseCount = string; // date
+        }
+        export interface QueryParameters {
+            "case-count"?: Parameters.CaseCount /* date */;
+        }
         export type RequestBody = Components.Schemas.DaySettings;
         namespace Responses {
             export type $201 = Components.Schemas.DaySettings;
@@ -797,10 +817,14 @@ declare namespace Paths {
     }
     namespace DaySettingsDestroy {
         namespace Parameters {
+            export type CaseCount = string; // date
             export type Id = number;
         }
         export interface PathParameters {
             id: Parameters.Id;
+        }
+        export interface QueryParameters {
+            "case-count"?: Parameters.CaseCount /* date */;
         }
         namespace Responses {
             export interface $204 {
@@ -809,9 +833,11 @@ declare namespace Paths {
     }
     namespace DaySettingsList {
         namespace Parameters {
+            export type CaseCount = string; // date
             export type Page = number;
         }
         export interface QueryParameters {
+            "case-count"?: Parameters.CaseCount /* date */;
             page?: Parameters.Page;
         }
         namespace Responses {
@@ -820,10 +846,14 @@ declare namespace Paths {
     }
     namespace DaySettingsPartialUpdate {
         namespace Parameters {
+            export type CaseCount = string; // date
             export type Id = number;
         }
         export interface PathParameters {
             id: Parameters.Id;
+        }
+        export interface QueryParameters {
+            "case-count"?: Parameters.CaseCount /* date */;
         }
         export type RequestBody = Components.Schemas.PatchedDaySettings;
         namespace Responses {
@@ -832,10 +862,14 @@ declare namespace Paths {
     }
     namespace DaySettingsRetrieve {
         namespace Parameters {
+            export type CaseCount = string; // date
             export type Id = number;
         }
         export interface PathParameters {
             id: Parameters.Id;
+        }
+        export interface QueryParameters {
+            "case-count"?: Parameters.CaseCount /* date */;
         }
         namespace Responses {
             export type $200 = Components.Schemas.DaySettings;
@@ -843,10 +877,14 @@ declare namespace Paths {
     }
     namespace DaySettingsUpdate {
         namespace Parameters {
+            export type CaseCount = string; // date
             export type Id = number;
         }
         export interface PathParameters {
             id: Parameters.Id;
+        }
+        export interface QueryParameters {
+            "case-count"?: Parameters.CaseCount /* date */;
         }
         export type RequestBody = Components.Schemas.DaySettings;
         namespace Responses {
