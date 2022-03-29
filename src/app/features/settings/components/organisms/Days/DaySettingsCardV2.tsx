@@ -92,6 +92,11 @@ const DaySettingsCardV2: FC<RouteComponentProps<Props>> = (
             options={ teamScheduleTypes?.week_segments }
             values={ daySettings?.week_segments }
           />
+          <ValueList
+            labels={ [ "Prioriteit", "Prioriteiten" ] }
+            options={ teamScheduleTypes?.priorities }
+            values={ daySettings?.priorities }
+          />
         </Column>
         <Column>
           <ValueList
