@@ -205,6 +205,10 @@ export const createDefinition = (
     divider8: {
       type: "Divider",
       props: {}
+    },
+    divider9: {
+      type: "Divider",
+      props: {}
     }
   }
 
@@ -220,7 +224,7 @@ export const createDefinition = (
       [ "geo_type", "postalCodeRanges", "postalCodeRanges" ],
       [ "divider3", "divider3", "divider3" ],
       [ "reasons", "reasons", "reasons" ],
-      [ "divider8", "divider8", "divider8" ],
+      [ "divider9", "divider9", "divider9" ],
       [ "filteredProjects", "filteredProjects", "filteredProjects" ],
       [ "divider4", "divider4", "divider4" ],
       [ "stateTypes", "stateTypes", "stateTypes" ],
@@ -241,7 +245,7 @@ export const createDefinition = (
       [ "geo_type", "postalCodeRanges", "postalCodeRanges", "postalCodeRanges", "postalCodeRanges" ],
       [ "divider3", "divider3", "divider3", "divider3", "divider3" ],
       [ "reasons", "reasons", "reasons", "reasons", "reasons" ],
-      [ "divider8", "divider8", "divider8", "divider8", "divider8" ],
+      [ "divider9", "divider9", "divider9", "divider9", "divider9" ],
       [ "filteredProjects", "filteredProjects", "filteredProjects", "filteredProjects", "filteredProjects" ],
       [ "divider4", "divider4", "divider4", "divider4", "divider4" ],
       [ "stateTypes", "stateTypes", "stateTypes", "stateTypes", "stateTypes" ],
