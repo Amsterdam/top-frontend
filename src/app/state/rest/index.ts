@@ -208,6 +208,14 @@ export const useTeamSettingsProjects = (teamSettingsId: number, options?: Option
   isProtected: true
 })
 
+
+export const useCorporations = (options?: Options) => useApiRequest<Components.Schemas.HousingCorporation[]>({
+  ...options,
+  url: makeGatewayUrl([ "addresses/housing-corporations" ], {}, "v2"),
+  groupName: "teamSettings",
+  isProtected: true
+})
+
 export const useDaySettingsList = (options?: Options) => useApiRequest<Components.Schemas.DaySettings[]>({
   ...options,
   url: makeGatewayUrl([ "day-settings" ], {}, options?.apiVersion),

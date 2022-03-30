@@ -9,6 +9,7 @@ import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinne
 import formatDate from "app/features/shared/utils/formatDate"
 import ValueList from "../../atoms/ValueList/ValueList"
 import { Body, Column, Dd, Dl, Dt, Header, Li, Section, Ul } from "./DaySettingsCardStyles"
+import isSubletting from "app/features/settings/utils/isSubletting"
 
 type Props = {
   teamSettings: Components.Schemas.TeamSettings
@@ -18,6 +19,7 @@ type Props = {
   teamScheduleTypes: Components.Schemas.TeamScheduleTypes
   caseStateTypes: Components.Schemas.CaseStateType[]
   caseProjects: Components.Schemas.Project[]
+  corporations: Components.Schemas.HousingCorporation[]
 }
 
 const DaySettingsCardV2: FC<RouteComponentProps<Props>> = (
@@ -28,7 +30,8 @@ const DaySettingsCardV2: FC<RouteComponentProps<Props>> = (
     caseReasons,
     teamScheduleTypes,
     caseStateTypes,
-    caseProjects
+    caseProjects,
+    corporations
   }
 ) => {
   const { data: daySettings, isBusy } = useDaySettings(daySettingsId!, { apiVersion: "v2" })
@@ -48,6 +51,8 @@ const DaySettingsCardV2: FC<RouteComponentProps<Props>> = (
     daySettingsId: daySettings?.id
   })
 
+  const isSublet = isSubletting(teamSettings) // Onderhuur
+
   return (
     <Section>
       <Header>
@@ -60,6 +65,19 @@ const DaySettingsCardV2: FC<RouteComponentProps<Props>> = (
             <Dt>Openingsdatum</Dt>
             <Dd>{ daySettings?.opening_date ? formatDate(daySettings.opening_date) : "–" }</Dd>
           </Dl>
+          {isSublet && (
+            <>
+              <Dl>
+                <Dt>Samenlopen met een corporatie</Dt>
+                <Dd>{ daySettings?.housing_corporation_combiteam ? "Ja" : "Nee" }</Dd>
+              </Dl>
+              <ValueList
+                labels={ [ "Corporaties", "Corporaties" ] }
+                options={ corporations }
+                values={ daySettings?.housing_corporations }
+              />
+            </>
+          )}
           <ValueList
             labels={ [ "Openingsreden", "Openingsredenen" ] }
             options={ caseReasons }
@@ -71,16 +89,18 @@ const DaySettingsCardV2: FC<RouteComponentProps<Props>> = (
             values={ daySettings?.project_ids }
           />
           <Dl>
-            <Dt>{ (postalCodeRangesPresets?.length) ? (postalCodeRangesPresets.length === 1 ? "Stadsdeel" : "Stadsdelen") : "Postcodes" }</Dt>
-            <Dd>{ (postalCodeRangesPresets?.length) ? postalCodeRangesPresets.join(", ") :
-              <Ul>
-                {
-                  daySettings?.postal_code_ranges?.map((range: any, index: number) =>
-                    <Li key={ "range-" + index }>{ range.range_start }–{ range.range_end }</Li>
-                  )
-                }
-              </Ul>
-            }</Dd>
+            <Dt>{ postalCodeRangesPresets?.length ? (postalCodeRangesPresets.length === 1 ? "Stadsdeel" : "Stadsdelen") : "Postcodes" }</Dt>
+            <Dd>
+              { postalCodeRangesPresets?.length ? postalCodeRangesPresets.join(", ") : (
+                <Ul>
+                  {
+                    daySettings?.postal_code_ranges?.map((range: any, index: number) =>
+                      <Li key={ "range-" + index }>{ range.range_start }–{ range.range_end }</Li>
+                    )
+                  }
+                </Ul>
+              )}
+            </Dd>
           </Dl>
           <ValueList
             labels={ [ "Dagdeel", "Dagdelen" ] }

@@ -1,9 +1,11 @@
 import { isRequired } from "@amsterdam/amsterdam-react-final-form"
 import { FormPositioner, FormPositionerFields } from "@amsterdam/amsterdam-react-final-form"
+import _isEmpty from "lodash/isEmpty"
 
 import config from "app/config/config"
 import { Field } from "app/features/shared/components/form/ScaffoldField"
 import postalCodeSiblingValidator from "../SettingsForm/validators/postalCodeSiblingValidator"
+import isSubletting from "app/features/settings/utils/isSubletting"
 
 /**
  * Creates form definition for planningSettings
@@ -16,9 +18,12 @@ export const createDefinition = (
   prioritiesOptions: any,
   reasonsOptions: any,
   stateTypeOptions: any,
-  projectOptions: any
+  projectOptions: any,
+  corporationOptions: any,
+  teamSettings?: Components.Schemas.TeamSettings | Components.Schemas.DaySettings["team_settings"]
 ) => {
   const { postalCodeMin, postalCodeMax } = config.settings
+  const isSublet = isSubletting(teamSettings) // Onderhuur
 
   const definition: FormPositionerFields<Field> = {
     name: {
@@ -115,6 +120,35 @@ export const createDefinition = (
         }
       }
     },
+    housingCorporationCombiteam: {
+      type: "ShowHide",
+      props: {
+        shouldShow: () => isSublet, // Sublet use only.
+        field: {
+          type: "Boolean",
+          props: {
+            label: "Wil je deze looplijst samenlopen met een corporatie?",
+            name: "housing_corporation_combiteam",
+            checkboxLabel: "Ja"
+          }
+        }
+      }
+    },
+    housingCorporations: {
+      type: "ShowHide",
+      props: {
+        shouldShow: () => isSublet, // Sublet use only.
+        field: {
+          type: "CheckboxFields",
+          props: {
+            label: "Met welke corporaties wil je dat de looplijsten gegenereerd worden?",
+            name: "housing_corporations",
+            options: corporationOptions,
+            columnCount: { mobileM: 2, tabletM: 4 }
+          }
+        }
+      }
+    },
     reasons: {
       type: "CheckboxFields",
       props: {
@@ -126,12 +160,18 @@ export const createDefinition = (
       }
     },
     filteredProjects: {
-      type: "CheckboxFields",
+      type: "ShowHide",
       props: {
-        label: "Met welke projecten wil je dat de looplijsten gegenereerd worden?",
-        name: "project_ids",
-        options: projectOptions,
-        columnCount: { mobileM: 2, tabletM: 4 }
+        shouldShow: () => !_isEmpty(projectOptions), // If there are no projects, remove question and divider.
+        field: {
+          type: "CheckboxFields",
+          props: {
+            label: "Met welke projecten wil je dat de looplijsten gegenereerd worden?",
+            name: "project_ids",
+            options: projectOptions,
+            columnCount: { mobileM: 2, tabletM: 4 }
+          }
+        }
       }
     },
     stateTypes: {
@@ -187,8 +227,14 @@ export const createDefinition = (
       props: {}
     },
     divider4: {
-      type: "Divider",
-      props: {}
+      type: "ShowHide",
+      props: {
+        shouldShow: () => !_isEmpty(projectOptions), // If there are no projects, remove question and divider.
+        field: {
+          type: "Divider",
+          props: {}
+        }
+      }
     },
     divider5: {
       type: "Divider",
@@ -209,6 +255,16 @@ export const createDefinition = (
     divider9: {
       type: "Divider",
       props: {}
+    },
+    divider10: {
+      type: "ShowHide",
+      props: {
+        shouldShow: () => isSublet, // Sublet use only.
+        field: {
+          type: "Divider",
+          props: {}
+        }
+      }
     }
   }
 
@@ -223,6 +279,9 @@ export const createDefinition = (
       [ "geo_type", "postal_codes", "postal_codes" ],
       [ "geo_type", "postalCodeRanges", "postalCodeRanges" ],
       [ "divider3", "divider3", "divider3" ],
+      [ "housingCorporationCombiteam", "housingCorporationCombiteam", "housingCorporationCombiteam" ],
+      [ "housingCorporations", "housingCorporations", "housingCorporations" ],
+      [ "divider10", "divider10", "divider10" ],
       [ "reasons", "reasons", "reasons" ],
       [ "divider9", "divider9", "divider9" ],
       [ "filteredProjects", "filteredProjects", "filteredProjects" ],
@@ -244,6 +303,9 @@ export const createDefinition = (
       [ "geo_type", "postal_codes", "postal_codes", "postal_codes", "postal_codes" ],
       [ "geo_type", "postalCodeRanges", "postalCodeRanges", "postalCodeRanges", "postalCodeRanges" ],
       [ "divider3", "divider3", "divider3", "divider3", "divider3" ],
+      [ "housingCorporationCombiteam", "housingCorporationCombiteam", "housingCorporationCombiteam", "housingCorporationCombiteam", "housingCorporationCombiteam" ],
+      [ "housingCorporations", "housingCorporations", "housingCorporations", "housingCorporations", "housingCorporations" ],
+      [ "divider10", "divider10", "divider10", "divider10", "divider10" ],
       [ "reasons", "reasons", "reasons", "reasons", "reasons" ],
       [ "divider9", "divider9", "divider9", "divider9", "divider9" ],
       [ "filteredProjects", "filteredProjects", "filteredProjects", "filteredProjects", "filteredProjects" ],
