@@ -1,6 +1,6 @@
 {
   "name": "react-fixxx-looplijsten-frontend",
-  "version": "3.4.5",
+  "version": "3.4.6",
   "private": true,
   "dependencies": {
     "@amsterdam/amsterdam-react-final-form": "^0.1.138",
