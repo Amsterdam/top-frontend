@@ -26,7 +26,7 @@ export const useErrorHandler = () => {
  * Utility function to create a gateway URL.
  */
 
-export const makeGatewayUrl = (paths: Array<number | string | undefined>, queryStringParams?: Record<string, number | string | undefined>, apiVersion?: "v1" | "v2") => {
+export const makeGatewayUrl = (paths: Array<number | string | undefined>, queryStringParams?: Record<string, number | string | boolean | undefined>, apiVersion?: "v1" | "v2") => {
   const path = slashSandwich([ process.env.REACT_APP_GATEWAY, apiVersion || "v1", ...paths ])
   const queryString = queryStringParams
     ? qs.stringify(queryStringParams, { addQueryPrefix: true })

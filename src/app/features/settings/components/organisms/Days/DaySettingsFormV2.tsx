@@ -1,5 +1,5 @@
 import React, { FC, useCallback, useMemo, useState } from "react"
-import { Link, navigate, RouteComponentProps } from "@reach/router"
+import { Link, RouteComponentProps } from "@reach/router"
 import styled from "styled-components"
 import { ScaffoldForm } from "@amsterdam/amsterdam-react-final-form"
 import { Heading } from "@amsterdam/asc-ui"
@@ -30,7 +30,6 @@ import { fixDateFormat } from "app/features/settings/utils/fixDateFormat"
 
 const Wrap = styled.div`
   margin: 0 8px 100px 8px;
-}
 `
 
 type Props = {
@@ -39,7 +38,7 @@ type Props = {
 }
 
 const DaySettingsFormV2: FC<RouteComponentProps<Props>> = ({ teamSettingsId, daySettingsId }) => {
-  let { data: daySettings, execPut, isBusy: isBusyDaySettings } = useDaySettings(daySettingsId!, { apiVersion: "v2" })
+  let { data: daySettings, execPut, isBusy: isBusyDaySettings } = useDaySettings(daySettingsId!, { apiVersion: "v2", caseCount: true })
   const { data: postalCodeRangesPresets, isBusy: isBusyPostalCodeRangesPresets } = usePostCodeRanges()
   const { data: caseReasons, isBusy: isBusyCaseReasons } = useTeamSettingsReasons(teamSettingsId!)
   const { data: teamScheduleTypes, isBusy: isBusyTeamScheduleTypes } = useTeamSettingsScheduleTypes(teamSettingsId!)
@@ -78,12 +77,12 @@ const DaySettingsFormV2: FC<RouteComponentProps<Props>> = ({ teamSettingsId, day
     values.opening_date = fixDateFormat(values.opening_date)
     try {
       await execPut(values, { skipCacheClear: false, useResponseAsCache: false })
-      navigate(to("/team-settings/:teamSettingsId", { teamSettingsId }))
+      // navigate(to("/team-settings/:teamSettingsId", { teamSettingsId }))
     } catch (error: any) {
       setErrorMessage(error.response.data.message)
       return error
     }
-  }, [ execPut, setErrorMessage, teamSettingsId ])
+  }, [ execPut, setErrorMessage ])
 
   if (!caseProjects || isBusyCaseProjects || !caseStateTypes || isBusyCaseStateTypes || !caseReasons
       || isBusyCaseReasons || !teamScheduleTypes || isBusyTeamScheduleTypes || !teamSettingsId
@@ -128,13 +127,13 @@ const DaySettingsFormV2: FC<RouteComponentProps<Props>> = ({ teamSettingsId, day
           </Link>
         </Spacing>
         <Heading>Wijzigen daginstelling</Heading>
-        <Heading forwardedAs="h2">{ daySettings.team_settings.name } </Heading>
-        { daySettings.week_days?.length === 1 && (
-          <Heading forwardedAs="h3">{ daysOfTheWeek[Number(daySettings.week_days[0])] }</Heading>
+        <Heading forwardedAs="h2">{ daySettings?.team_settings.name }</Heading>
+        { daySettings?.week_days?.length === 1 && (
+          <Heading forwardedAs="h3">{ daysOfTheWeek[Number(daySettings?.week_days[0])] }</Heading>
         )}
         <ScaffoldForm onSubmit={ handleSubmit } initialValues={ prepareInitialValues(daySettings) }>
           <Scaffold { ...definition } />
-          <FixedSubmitButton errorMessage={ errorMessage } />
+          <FixedSubmitButton teamSettingsId={ teamSettingsId } errorMessage={ errorMessage } caseCount={ daySettings?.case_count?.count } />
         </ScaffoldForm>
         <Spacing pt={ 4 }>
           <DeleteDaySettingsButton teamSettingsId={ teamSettingsId } daySettingsId={ daySettingsId } />

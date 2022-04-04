@@ -21,6 +21,7 @@ export type Options = {
   keepUsingInvalidCache?: boolean
   lazy?: boolean
   apiVersion?: "v1" | "v2"
+  caseCount?: boolean
 }
 
 
@@ -223,12 +224,18 @@ export const useDaySettingsList = (options?: Options) => useApiRequest<Component
   isProtected: true
 })
 
-export const useDaySettings = (daySettingsId: number, options?: Options) => useApiRequest<Components.Schemas.DaySettings>({
-  ...options,
-  url: makeGatewayUrl([ "day-settings", daySettingsId ], {}, options?.apiVersion),
-  groupName: "teamSettings",
-  isProtected: true
-})
+export const useDaySettings = (daySettingsId: number, options?: Options) => {
+  const params: any = {}
+  if (options?.caseCount) {
+    params["case-count"] = true
+  }
+  return useApiRequest<Components.Schemas.DaySettings>({
+    ...options,
+    url: makeGatewayUrl([ "day-settings", daySettingsId ], params, options?.apiVersion),
+    groupName: "teamSettings",
+    isProtected: true
+  })
+}
 
 export const usePostCodeRanges = (options?: Options) => useApiRequest<{ results: Components.Schemas.PostalCodeRangePreset[] }>({
   ...options,
