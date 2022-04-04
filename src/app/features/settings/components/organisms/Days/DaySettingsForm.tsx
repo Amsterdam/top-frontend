@@ -53,7 +53,7 @@ const DaySettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId, daySe
     try {
       await execPut(values, { skipCacheClear: false, useResponseAsCache: false })
       navigate(to("/team-settings/:teamSettingsId", { teamSettingsId }))
-    } catch (error) {
+    } catch (error: any) {
       setErrorMessage(error.response.data.message)
       return error
     }
@@ -80,8 +80,9 @@ const DaySettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId, daySe
         </Spacing>
         <Heading>Wijzigen daginstelling</Heading>
         <Heading forwardedAs="h2">{ daySettings.team_settings.name }</Heading>
-        { daySettings.week_days?.length === 1 &&
-        <Heading forwardedAs="h3">{ daysOfTheWeek[Number(daySettings.week_days[0])] }</Heading> }
+        { daySettings.week_days?.length === 1 && (
+          <Heading forwardedAs="h3">{ daysOfTheWeek[Number(daySettings.week_days[0])] }</Heading>
+        )}
         <ScaffoldForm onSubmit={ handleSubmit } initialValues={ {
           settings: {
             ...daySettings,
