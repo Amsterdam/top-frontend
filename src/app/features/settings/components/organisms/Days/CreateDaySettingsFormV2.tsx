@@ -79,7 +79,10 @@ const CreateDaySettingsFormV2: FC<RouteComponentProps<Props>> = ({ teamSettingsI
     values.opening_date = fixDateFormat(values.opening_date)
     try {
       await execPost(values, { skipCacheClear: false, useResponseAsCache: false })
-      navigate(to("/team-settings/:teamSettingsId", { teamSettingsId }))
+        .then((resp: any) => {
+          // Navigate to the update form to show the possible cases for these settings.
+          navigate(to("/team-settings/:teamSettingsId/:daySettingsId", { teamSettingsId, daySettingsId: resp.data.id }))
+        })
     } catch (error: any) {
       setErrorMessage(error.response.data.message)
       return error
