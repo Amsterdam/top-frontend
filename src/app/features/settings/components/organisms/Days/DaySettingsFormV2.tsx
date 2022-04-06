@@ -3,6 +3,7 @@ import { Link, RouteComponentProps } from "@reach/router"
 import styled from "styled-components"
 import { ScaffoldForm } from "@amsterdam/amsterdam-react-final-form"
 import { Heading } from "@amsterdam/asc-ui"
+import { navigate } from "@reach/router"
 
 import config from "app/config/config"
 import to from "app/features/shared/routing/to"
@@ -92,6 +93,10 @@ const DaySettingsFormV2: FC<RouteComponentProps<Props>> = ({ teamSettingsId, day
     return <CenteredSpinner explanation="Instellingen ophalen…" size={ 60 } />
   }
 
+  const onClose = () => {
+    navigate(to("/team-settings/:teamSettingsId", { teamSettingsId }))
+  }
+
   const default_postal_code_range = [
     {
       range_start: config.settings.postalCodeMin,
@@ -133,7 +138,7 @@ const DaySettingsFormV2: FC<RouteComponentProps<Props>> = ({ teamSettingsId, day
         )}
         <ScaffoldForm onSubmit={ handleSubmit } initialValues={ prepareInitialValues(daySettings) }>
           <Scaffold { ...definition } />
-          <FixedSubmitButton teamSettingsId={ teamSettingsId } errorMessage={ errorMessage } caseCount={ daySettings?.case_count?.count } />
+          <FixedSubmitButton onClose={ onClose } errorMessage={ errorMessage } caseCount={ daySettings?.case_count?.count } />
         </ScaffoldForm>
         <Spacing pt={ 4 }>
           <DeleteDaySettingsButton teamSettingsId={ teamSettingsId } daySettingsId={ daySettingsId } />
