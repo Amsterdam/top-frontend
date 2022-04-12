@@ -111,6 +111,17 @@ export const useCaseEvents = (caseId: Components.Schemas.Case["id"], options?: O
   })
 }
 
+export const useResidents = (bagId: string, options?: Options) => {
+  const handleError = useErrorHandler()
+  return useApiRequest<any>({
+    ...options,
+    url: makeGatewayUrl(["addresses", bagId, "residents"]),
+    groupName: "case",
+    handleError,
+    isProtected: true
+  })
+}
+
 export const useSearch = (streetNumber: number, postalCode?: string, streetName?: string, suffix?: string, team?: string, options?: Options) => {
   const handleError = useErrorHandler()
 

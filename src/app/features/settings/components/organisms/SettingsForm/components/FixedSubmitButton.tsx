@@ -41,7 +41,7 @@ const FixedSubmitButton: React.FC<Props> = ({ errorMessage, caseCount, onClose }
     <div>
       <FixedBox hAlign="flex-end" vAlign="center" p={ 4 } bgColor="level1">
         { errorMessage && !dirtySinceLastSubmit && <ErrorMessage text={ errorMessage! } /> }
-        { submitSucceeded && !submitting && !dirty && !errorMessage && <SuccessMessage text="Succesvol bewaard!" /> }
+        { submitSucceeded && !submitting && !dirty && !errorMessage && <SuccessMessage text="Succesvol bewaard" /> }
         { submitting && <SmallSpinner /> }
         { caseCount !== undefined && !submitting && !dirty && !errorMessage && (
           <StyledDiv>{`Met deze instellingen zijn er ${ caseCount } beschikbare bezoeken mogelijk!`}</StyledDiv>
