@@ -733,6 +733,18 @@ declare namespace Paths {
             }
         }
     }
+    namespace AddressesResidentsRetrieve {
+        namespace Parameters {
+            export type BagId = string;
+        }
+        export interface PathParameters {
+            bag_id: Parameters.BagId;
+        }
+        namespace Responses {
+            export interface $200 {
+            }
+        }
+    }
     namespace CasesEventsList {
         namespace Parameters {
             export type Id = string;

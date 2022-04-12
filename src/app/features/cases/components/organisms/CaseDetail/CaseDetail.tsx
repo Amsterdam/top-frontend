@@ -9,6 +9,7 @@ import Permits from "./sections/Permits"
 import RelatedCases from "./sections/RelatedCases"
 import Residence from "./sections/Residence"
 import Residents from "./sections/Residents"
+import ResidentsView from "./sections/ResidentsView"
 import Scratchpad from "./sections/Scratchpad"
 import Signal from "./sections/Signal"
 import Stadia from "./sections/Stadia"
@@ -41,6 +42,8 @@ const CaseDetail: FC<Props> = ({ caseId }) => {
   const { data: caseData } = useCase(caseId)
 
   const isZksCase = !!caseData?.current_states
+  const bagId = caseData?.address?.bag_id
+  const isBwvResidents = caseData?.bwv_personen
 
   return (
     <Article>
@@ -48,7 +51,8 @@ const CaseDetail: FC<Props> = ({ caseId }) => {
       <RelatedCases caseId={ caseId } />
       <Residence caseId={ caseId } />
       <Signal caseId={ caseId } />
-      <Residents caseId={ caseId } />
+      { isBwvResidents && <Residents caseId={ caseId } /> }
+      { !isBwvResidents && bagId && <ResidentsView bagId={ bagId } /> }
       <Permits caseId={ caseId } />
       <VacationRentalThisYear caseId={ caseId } />
       <Logbook caseId={ caseId } />
