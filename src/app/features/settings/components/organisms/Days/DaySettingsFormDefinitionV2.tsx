@@ -22,7 +22,7 @@ export const createDefinition = (
   corporationOptions: any,
   teamSettings?: Components.Schemas.TeamSettings | Components.Schemas.DaySettings["team_settings"]
 ) => {
-  const { postalCodeMin, postalCodeMax } = config.settings
+  const { allowedPostalCodes } = config.settings
   const isSublet = isSubletting(teamSettings) // Onderhuur
 
   const definition: FormPositionerFields<Field> = {
@@ -85,9 +85,7 @@ export const createDefinition = (
                 props: {
                   name: "range_start",
                   label: "Van",
-                  min: postalCodeMin,
-                  max: postalCodeMax,
-                  validate: postalCodeSiblingValidator("start")
+                  validate: postalCodeSiblingValidator("start", allowedPostalCodes)
                 }
               },
               postal_code_range_end: {
@@ -95,9 +93,7 @@ export const createDefinition = (
                 props: {
                   name: "range_end",
                   label: "Tot en met",
-                  min: postalCodeMin,
-                  max: postalCodeMax,
-                  validate: postalCodeSiblingValidator("end")
+                  validate: postalCodeSiblingValidator("end", allowedPostalCodes)
                 }
               }
             }

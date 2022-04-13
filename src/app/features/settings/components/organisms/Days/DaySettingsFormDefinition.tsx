@@ -11,7 +11,7 @@ import { arrayToObject } from "app/features/shared/utils/arrayToObject"
  */
 
 export const createDefinition = (projects: string[], stadia: string[], postalCodeRangeOptions: any) => {
-  const { postalCodeMin, postalCodeMax } = config.settings
+  const { allowedPostalCodes } = config.settings
 
   const definition: FormPositionerFields<Field> = {
     name: {
@@ -81,9 +81,7 @@ export const createDefinition = (projects: string[], stadia: string[], postalCod
                 props: {
                   name: "range_start",
                   label: "Van",
-                  min: postalCodeMin,
-                  max: postalCodeMax,
-                  validate: postalCodeSiblingValidator("start")
+                  validate: postalCodeSiblingValidator("start", allowedPostalCodes)
                 }
               },
               postal_code_range_end: {
@@ -91,9 +89,7 @@ export const createDefinition = (projects: string[], stadia: string[], postalCod
                 props: {
                   name: "range_end",
                   label: "Tot en met",
-                  min: postalCodeMin,
-                  max: postalCodeMax,
-                  validate: postalCodeSiblingValidator("end")
+                  validate: postalCodeSiblingValidator("end", allowedPostalCodes)
                 }
               }
             }

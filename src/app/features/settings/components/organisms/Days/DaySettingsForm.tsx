@@ -63,13 +63,6 @@ const DaySettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId, daySe
     return <CenteredSpinner explanation="Instellingen ophalen…" size={ 60 } />
   }
 
-  const default_postal_code_range = [
-    {
-      range_start: config.settings.postalCodeMin,
-      range_end: config.settings.postalCodeMax
-    }
-  ]
-
   return (
     <DefaultLayout>
       <Wrap>
@@ -87,7 +80,7 @@ const DaySettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId, daySe
           settings: {
             ...daySettings,
             postal_code_ranges_presets: (daySettings.postal_code_ranges_presets ?? []).map((pcp: any) => String(pcp)),
-            postal_code_ranges: (daySettings.postal_code_ranges_presets ?? []).length > 0 ? default_postal_code_range : daySettings.postal_code_ranges,
+            postal_code_ranges: (daySettings.postal_code_ranges_presets ?? []).length > 0 ? config.settings.defaultPostalCodeRanges : daySettings.postal_code_ranges,
             team_settings: teamSettingsId,
             week_days: daySettings?.week_days?.map((wd: number) => wd.toString())
           },
