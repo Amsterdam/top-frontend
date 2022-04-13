@@ -97,13 +97,6 @@ const DaySettingsFormV2: FC<RouteComponentProps<Props>> = ({ teamSettingsId, day
     navigate(to("/team-settings/:teamSettingsId", { teamSettingsId }))
   }
 
-  const default_postal_code_range = [
-    {
-      range_start: config.settings.postalCodeMin,
-      range_end: config.settings.postalCodeMax
-    }
-  ]
-
   const prepareInitialValues = (settings: any) => {
     const removeUnknownIds = (seg: any, v: number[]) => v ? v.filter((n: number, i: number) => seg.map((s: any) => s.id).includes(n) && v?.indexOf(n) === i).map((i: number) => i.toString()) : seg.map((s: any) => s.id).map((i: number) => i.toString())
     return {
@@ -117,7 +110,7 @@ const DaySettingsFormV2: FC<RouteComponentProps<Props>> = ({ teamSettingsId, day
       housing_corporations: removeUnknownIds(corporations, settings.housing_corporations),
       postal_code_ranges_presets: (settings.postal_code_ranges_presets ?? []).map((pcp: any) => String(pcp)),
       postal_codes_type: (settings.postal_code_ranges_presets ?? []).length > 0 ? "stadsdeel" : "postcode",
-      postal_code_ranges: (settings.postal_code_ranges_presets ?? []).length > 0 ? default_postal_code_range : settings.postal_code_ranges,
+      postal_code_ranges: (settings.postal_code_ranges_presets ?? []).length > 0 ? config.settings.defaultPostalCodeRanges : settings.postal_code_ranges,
       team_settings: teamSettingsId,
       week_days: settings.week_days?.map((wd: number) => wd.toString())
     }

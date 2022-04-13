@@ -8,10 +8,10 @@ export const filterEmptyPostalCodes = (settings: any) =>
         return false
       }
       if (!i.range_end) {
-        i.range_end = config.settings.postalCodeMax
+        i.range_end = config.settings.defaultPostalCodeRanges[0].range_end
       }
       if (!i.range_start) {
-        i.range_start = config.settings.postalCodeMin
+        i.range_start = config.settings.defaultPostalCodeRanges[0].range_start
       }
       Object.keys(i).filter(x => ![ "range_start", "range_end" ].includes(x)).map(d => delete i[d])
       return true

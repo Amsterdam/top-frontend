@@ -54,7 +54,7 @@ const CreateDaySettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId,
     try {
       await execPost(values, { skipCacheClear: false, useResponseAsCache: false })
       navigate(to("/team-settings/:teamSettingsId", { teamSettingsId }))
-    } catch (error) {
+    } catch (error: any) {
       setErrorMessage(error.response.data.message)
       return error
     }
@@ -64,18 +64,11 @@ const CreateDaySettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId,
     return <CenteredSpinner explanation="Instellingen ophalen…" size={ 60 } />
   }
 
-  const default_postal_code_range = [
-    {
-      range_start: config.settings.postalCodeMin,
-      range_end: config.settings.postalCodeMax
-    }
-  ]
-
   const initialValues = {
     settings: {
       team_settings: teamSettingsId,
       opening_date: "2019-01-01",
-      postal_code_ranges: default_postal_code_range,
+      postal_code_ranges: config.settings.defaultPostalCodeRanges,
       week_days: dayOfTheWeek.exists() ? [ dayOfTheWeek.get() ] : Object.keys(daysOfTheWeek).map(d => d.toString())
     },
     postal_codes_type: "postcode"
