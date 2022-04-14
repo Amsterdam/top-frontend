@@ -170,6 +170,8 @@ export type Case = {
   schedules: any
   statements: Statement[]
   vakantie_verhuur: VakantieVerhuur
+  project: any
+  subjects: any
 }
 
 export type ItineraryItem = Omit<Components.Schemas.ItineraryItem, "case"> & {

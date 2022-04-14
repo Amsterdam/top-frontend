@@ -7,9 +7,9 @@ import { AnonymousContext } from "../../../../../state/anonymous/AnonymousProvid
 const Div = styled.div`
   position: fixed;
   z-index: 9;
-  width: 100%;
+  width: 72px;
   bottom: 0;
-  left: 0;
+  right: 0;
   height: 84px;
   display: flex;
   justify-content: flex-end;
@@ -17,6 +17,8 @@ const Div = styled.div`
 `
 
 const Span = styled.span`
+  position: fixed;
+  right: 80px;
   display: inline-block;
   height: 28px;
   margin-top: 24px;

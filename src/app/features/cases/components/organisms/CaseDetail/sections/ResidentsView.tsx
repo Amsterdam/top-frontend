@@ -11,7 +11,9 @@ const ResidentsView: React.FC<Props> = ({ bagId }) => {
 
   return (
     <CaseDetailSection title="Ingeschreven personen" dataSource="BRP">
-      <Residents data={ data } loading={ isBusy } />
+      <div className="blur">
+        <Residents data={ data } loading={ isBusy } />
+      </div>
     </CaseDetailSection>
   )
 }

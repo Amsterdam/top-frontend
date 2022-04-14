@@ -6,7 +6,13 @@ import HelpButton from "app/features/shared/components/molecules/HelpIcon/HelpBu
 
 import { OnBackButtonClick } from "app/features/visits/components/organisms/NoteWizard/types"
 
-export const stepOne = (handleBack: OnBackButtonClick, situation: string, observationChoices: {}, suggestNextVisitChoices: {}, situationChoices: {}) => {
+export const stepOne = (
+    handleBack: OnBackButtonClick,
+    situation: string,
+    observationChoices: {},
+    suggestNextVisitChoices: {},
+    situationChoices: {}
+  ) => {
   const fields: Fields = {
     time: {
       type: "CurrentTime",
@@ -171,7 +177,21 @@ export const suggestion = (handleBack: OnBackButtonClick, situation: string, obs
     .getScaffoldProps()
 }
 
-export const nextVisit = (handleBack: OnBackButtonClick) => {
+export const nextVisit = (
+  handleBack: OnBackButtonClick,
+  situation: string,
+  observationChoices: {},
+  suggestNextVisitChoices: {},
+  situationChoices: {},
+  daySettings: Components.Schemas.DaySettings
+) => {
+  const options: any = {
+    yes: "Ja, doorlaten",
+    no: "Nee, tegenhouden"
+  }
+  if (daySettings?.team_settings?.name === "Ondermijning") {
+    delete options.yes
+  }
   const fields: Fields = {
     next_visit: {
       type: "RadioFields",
@@ -188,10 +208,7 @@ export const nextVisit = (handleBack: OnBackButtonClick) => {
             Tegenhouden (nee): de zaak kan niet direct worden uitgezet. <em>Voorbeeld: machtiging vereist.</em>
           </p>
         </HelpButton>,
-        options: {
-          yes: "Ja, doorlaten",
-          no: "Nee, tegenhouden"
-        }
+        options
       }
     },
     next_visit_description_no: {

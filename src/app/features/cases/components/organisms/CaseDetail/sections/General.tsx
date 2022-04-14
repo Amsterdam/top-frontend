@@ -45,10 +45,7 @@ const BadgesRow = styled.div`
 
 const BwvDetails: FC<{ caseData: Case }> = ({ caseData }) => {
   const residentCount = caseData.bwv_personen?.filter(person => person.overlijdensdatum === null).length || 0
-  const residentsText =
-    residentCount === 0 ? "Geen inschrijvingen" :
-      residentCount === 1 ? "1 persoon" :
-        `${ residentCount } personen`
+  const residentsText = residentCount === 0 ? "Geen inschrijvingen" : ( residentCount === 1 ? "1 persoon" : `${ residentCount } personen` )
 
   const caseCount = getCaseCount(caseData)
   const caseNumber = caseData.bwv_tmp?.case_number !== null ? parseInt(caseData.bwv_tmp?.case_number || "", 10) : undefined
@@ -94,6 +91,7 @@ const General: FC<Props> = ({ caseId, isZksCase }) => {
   const lastStadiumLabel = stadiaLabels?.length ? stadiaLabels[0].description : caseData.current_states?.length > 0 ? caseData.current_states[0].status_name : undefined
 
   const fraudPrediction = !caseData.day_settings_id || (daySettings && daySettings.team_settings.fraud_prediction_model) ? caseData.fraud_prediction : undefined
+  const hasProject = caseData?.project?.name !== undefined
 
   return (
     <Section>
@@ -107,27 +105,39 @@ const General: FC<Props> = ({ caseId, isZksCase }) => {
           { hasWarrant && <StadiumBadge stadium="Machtiging" variant="tint" /> }
         </BadgesRow>
         <Grid>
-          { isZksCase &&
-          <>
-            <Label>Zaak ID</Label>
-            <Value><CaseIdDisplay id={ caseData.id } /></Value>
-          </>
-          }
+          { isZksCase && (
+            <>
+              <Label>Zaak ID</Label>
+              <Value><CaseIdDisplay id={ caseData.id } /></Value>
+            </>
+          )}
+          { caseData?.reason && (
+            <>
+              <Label>Aanleiding</Label>
+              <Value>{ caseData?.reason?.name }{ hasProject ? ": " : "" }{ hasProject ? caseData?.project?.name : "" }</Value>
+            </>
+          )}
+          { caseData?.subjects && caseData?.subjects.length > 0 && (
+              <>
+                <Label>Onderwerpen</Label>
+                <Value>{ caseData?.subjects.map((subject: { name: string }) => subject.name).join(", ") }</Value>
+              </>
+          )}
           { !isZksCase && <BwvDetails caseData={ caseData } /> }
           <Label>Eigenaar</Label>
           <Value sensitive value={ eigenaar } />
-          { fraudPrediction && !hideFraudProbability(caseId, daySettings?.team_settings?.fraudprediction_pilot_enabled) &&
-          <>
-            <Label>Voorspelling (bèta)</Label>
-            <Link to={ getToFraudPredictionModalUrl() }>
-              <FraudProbability fraudProbability={ fraudPrediction?.fraud_probability } />
-            </Link>
-            <FraudPredictionDetailsModal
-              title={ address }
-              fraudPrediction={ fraudPrediction! }
-            />
-          </>
-          }
+          { fraudPrediction && !hideFraudProbability(caseId, daySettings?.team_settings?.fraudprediction_pilot_enabled) && (
+            <>
+              <Label>Voorspelling (bèta)</Label>
+              <Link to={ getToFraudPredictionModalUrl() }>
+                <FraudProbability fraudProbability={ fraudPrediction?.fraud_probability } />
+              </Link>
+              <FraudPredictionDetailsModal
+                title={ address }
+                fraudPrediction={ fraudPrediction! }
+              />
+            </>
+          )}
         </Grid>
       </SectionRow>
       <SectionRow>
