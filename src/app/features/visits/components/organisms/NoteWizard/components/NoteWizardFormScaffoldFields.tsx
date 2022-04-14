@@ -37,7 +37,19 @@ const NoteWizardFormScaffoldFields: React.FC<Props> = ({ step, onBackButtonClick
     return t
   }, {})
 
-  return <Scaffold { ...formDefinitions[step](onBackButtonClicked, friendlySituation, choices.observation_choices, choices.suggest_next_visit_choices, situation_choices) } />
+  return (
+    <Scaffold
+      { ...formDefinitions[step](
+          onBackButtonClicked,
+          friendlySituation,
+          choices.observation_choices,
+          choices.suggest_next_visit_choices,
+          situation_choices,
+          daySettings
+        )
+      }
+    />
+  )
 }
 
 export default NoteWizardFormScaffoldFields
