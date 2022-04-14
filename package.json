@@ -105,6 +105,6 @@
     "enzyme": "^3.11.0",
     "lint-staged": "^12.3.7",
     "nock": "^13.2.4",
-    "storybook": "^6.4.20"
+    "storybook": "^6.4.22"
   }
 }
