@@ -38,7 +38,7 @@ export const createDefinition = (
     opening_date: {
       type: "TextField",
       props: {
-        label: "Datum waarop/vanaf wanneer het bezoek is ingepland",
+        label: "Begindatum van ingeplande bezoeken",
         name: "opening_date",
         type: "date",
         validate: isRequired()
