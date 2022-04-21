@@ -52,7 +52,7 @@ const CaseDetail: FC<Props> = ({ caseId }) => {
       <Residence caseId={ caseId } />
       <Signal caseId={ caseId } />
       { isBwvResidents && <Residents caseId={ caseId } /> }
-      { process.env.NODE_ENV !== "production" && !isBwvResidents && bagId && <ResidentsView bagId={ bagId } /> }
+      { process.env.REACT_APP_SENTRY_ENV !== "production" && !isBwvResidents && bagId && <ResidentsView bagId={ bagId } /> }
       <Permits caseId={ caseId } />
       <VacationRentalThisYear caseId={ caseId } />
       <Logbook caseId={ caseId } />
