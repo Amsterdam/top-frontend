@@ -32,6 +32,7 @@ type Config = {
   groupName: ApiGroup
   handleError?: (error: RequestError) => void
   isProtected?: boolean
+  noForbiddenRedirect?: boolean
 }
 
 const useApiRequest = <Schema, Payload = Partial<Schema>> (
@@ -41,12 +42,14 @@ const useApiRequest = <Schema, Payload = Partial<Schema>> (
     handleError,
     isProtected,
     lazy,
-    keepUsingInvalidCache
+    keepUsingInvalidCache,
+    noForbiddenRedirect
   }: Config) => {
   const {
     getCacheItem,
     setCacheItem,
     updateCacheItem,
+    addErrorToCacheItem,
     clearCache,
     pushRequestInQueue,
     isRequestPendingInQueue
@@ -73,13 +76,16 @@ const useApiRequest = <Schema, Payload = Partial<Schema>> (
 
       return response
     } catch (error: any) {
+      addErrorToCacheItem(url, error?.response)
       if (isProtected) {
         switch (error?.response?.status) {
           case 401:
             logout()
             break
           case 403:
-            navigate(to("/auth"))
+            if (!noForbiddenRedirect) {
+              navigate(to("/auth"))
+            }
             break
         }
       }
@@ -89,7 +95,18 @@ const useApiRequest = <Schema, Payload = Partial<Schema>> (
         throw error
       }
     }
-  }, [ isProtected, request, protectedRequest, logout, url, clearCache, setCacheItem, handleError ])
+  }, [
+    isProtected,
+    request,
+    protectedRequest,
+    logout,
+    url,
+    clearCache,
+    setCacheItem,
+    handleError,
+    addErrorToCacheItem,
+    noForbiddenRedirect
+  ])
 
   /**
    * Queues an API request
@@ -132,6 +149,8 @@ const useApiRequest = <Schema, Payload = Partial<Schema>> (
     ? cacheItem.value as Schema
     : undefined
 
+  const errors = cacheItem?.errors ?? []
+
   useEffect(() => {
     if ((!cacheItem || !cacheItem.valid) && !lazy) {
       execGet()
@@ -146,7 +165,8 @@ const useApiRequest = <Schema, Payload = Partial<Schema>> (
     execPut,
     execPatch,
     execDelete,
-    updateCache
+    updateCache,
+    errors
   }
 }
 
