@@ -124,8 +124,9 @@ const ItineraryItemCard: React.FC<Props> = (
         <Left onClick={ handleClick } opacity={ isVisited || isBeingDeleted ? 0.4 : 1 }>
           <Address>{ address }</Address>
           <PostalCode>{ postalCode }</PostalCode>
-          { fraudProbability && daySettings?.team_settings.fraud_prediction_model &&
-          <FraudProbability>{ fraudProbability }</FraudProbability> }
+          { fraudProbability && daySettings?.team_settings.fraud_prediction_model && (
+            <FraudProbability>{ fraudProbability }</FraudProbability>
+          )}
           { reason && <Reason>{ reason }</Reason> }
         </Left>
         <Right>
