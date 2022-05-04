@@ -15,7 +15,6 @@ export const mapItineraryItem = (itineraryId: string, daySettings: Components.Sc
     case: {
       data: {
         case_reason,
-        stadium,
         is_sia,
         address: {
           street_name, number, suffix_letter, suffix, postal_code
@@ -35,7 +34,7 @@ export const mapItineraryItem = (itineraryId: string, daySettings: Components.Sc
 {
   const badge = current_states?.length > 0
     ? <StadiumBadge stadium={ current_states[0].status_name ?? "" } />
-    : <StadiumBadge stadium={ stadium } />
+    : undefined
 
   return {
     address: displayAddress(street_name, number, suffix_letter, suffix),

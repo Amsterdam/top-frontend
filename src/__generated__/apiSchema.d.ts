@@ -699,6 +699,7 @@ declare namespace Components {
             personal_notes?: string | null;
             itinerary_item?: null | number;
             author: string; // uuid
+            completed?: Boolean;
         }
         export interface VisitTeamMember {
             id: number;

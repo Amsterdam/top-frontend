@@ -134,14 +134,13 @@ const ItineraryPage: React.FC<RouteComponentProps<Props>> = ({ itineraryId }) =>
           </Heading>
           <TeamMemberWrap>
             <TeamName>{ itinerary?.settings.day_settings.team_settings.name } – { itinerary?.settings.day_settings.name }</TeamName>
-            { !isEditing
-              ? teamMemberNames
-              : <TeamMemberForm
+            { !isEditing ? teamMemberNames : (
+              <TeamMemberForm
                 itineraryId={ itinerary.id }
                 initialUsers={ teamMemberUsers }
                 toggleForm={ toggleIsEditing }
               />
-            }
+            )}
           </TeamMemberWrap>
         </div>
         <ColumnWrap border={ true }>
