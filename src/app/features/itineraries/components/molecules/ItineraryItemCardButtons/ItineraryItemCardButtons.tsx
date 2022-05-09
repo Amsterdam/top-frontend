@@ -21,6 +21,10 @@ type Props = {
   onDeleteButtonClicked: () => void
 }
 
+const StyledSpan = styled.span`
+  margin-left: ${ themeSpacing(3) };
+`
+
 const TextWithIcon = styled.div`
   display: flex;
   span {
@@ -40,12 +44,22 @@ const ItineraryItemCardButtons: React.FC<Props> = (
   const visit = visits?.find((e: any) => e.case_id.case_id === caseId)
   const isCompleted = visit?.completed
 
+  const deleteButton = (
+    <DeleteItineraryItemButton
+      onDeleteButtonClicked={ onDeleteButtonClicked }
+      id={ itineraryItemId }
+    />
+  )
+
   return visits[0] !== undefined ? (
     <>
       <Spacing pb={ 2 }>
         <TextWithIcon>
-          {visit?.completed ? (
-            <><CheckmarkIcon />Afgerond</>
+          {isCompleted ? (
+            <>
+              <CheckmarkIcon />
+              Afgerond
+            </>
           ) : "Gelopen"}
         </TextWithIcon>
       </Spacing>
@@ -60,6 +74,9 @@ const ItineraryItemCardButtons: React.FC<Props> = (
               variant="blank"
               icon={ <EditDocumentIcon /> }
             />
+            <StyledSpan>
+              { deleteButton }
+            </StyledSpan>
           </Spacing>
           {visit && <CompleteVisitButton visit={ visit }/>}
         </>
@@ -76,7 +93,7 @@ const ItineraryItemCardButtons: React.FC<Props> = (
         </Button>
       </Spacing>
       <Spacing pb={ 2 }>
-        <DeleteItineraryItemButton onDeleteButtonClicked={ onDeleteButtonClicked } id={ itineraryItemId } />
+        { deleteButton }
       </Spacing>
     </>
   )
