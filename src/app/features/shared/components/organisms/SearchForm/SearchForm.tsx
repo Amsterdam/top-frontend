@@ -26,7 +26,7 @@ const SearchForm: FC = () => {
 
   const teamSettings = itinerary?.settings.day_settings.team_settings
   const teamName = teamSettings?.zaken_team_name || ""
-  const apiName = teamSettings?.use_zaken_backend ? "AZA" : "BWV"
+  const apiName = "AZA"
   const { values, setValues } = useContext(SearchFormContext)
 
   const handleSubmit = useCallback((values: FormValues) => {

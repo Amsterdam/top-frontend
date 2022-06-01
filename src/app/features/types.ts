@@ -190,4 +190,4 @@ export type KeyValueDetail = Value | [ string, Value ]
 
 export type Severity = "INFO" | "WARNING" | "ERROR" | undefined
 
-export type ApiName = "BWV" | "AZA" | undefined
+export type ApiName = "AZA" | undefined
