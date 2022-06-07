@@ -16,42 +16,42 @@ export const Example = () => (
       badge: <Badge>Onderzoek buitendienst</Badge>,
       fraudProbability: "% onbekend",
       postalCode: "1234PT",
-      reason: {name: "hotline"} as CaseReason
+      reason: { name: "hotline" } as CaseReason
     },
     {
       address: "Lorem ipsum",
       badge: <Badge>Onderzoek buitendienst</Badge>,
       fraudProbability: "% onbekend",
       postalCode: "1234PT",
-      reason: {name: "hotline"} as CaseReason
+      reason: { name: "hotline" } as CaseReason
     },
     {
       address: "Lorem ipsum",
       badge: <Badge>Onderzoek buitendienst</Badge>,
       fraudProbability: "% onbekend",
       postalCode: "1234PT",
-      reason: {name: "hotline"} as CaseReason
+      reason: { name: "hotline" } as CaseReason
     },
     {
       address: "Lorem ipsum",
       badge: <Badge>Onderzoek buitendienst</Badge>,
       fraudProbability: "% onbekend",
       postalCode: "1234PT",
-      reason: {name: "hotline"} as CaseReason
+      reason: { name: "hotline" } as CaseReason
     },
     {
       address: "Lorem ipsum",
       badge: <Badge>Onderzoek buitendienst</Badge>,
       fraudProbability: "% onbekend",
       postalCode: "1234PT",
-      reason: {name: "hotline"} as CaseReason
+      reason: { name: "hotline" } as CaseReason
     },
     {
       address: "Lorem ipsum",
       badge: <Badge>Onderzoek buitendienst</Badge>,
       fraudProbability: "% onbekend",
       postalCode: "1234PT",      
-      reason: {name: "hotline"} as CaseReason
+      reason: { name: "hotline" } as CaseReason
     }
   ] } />
 )
