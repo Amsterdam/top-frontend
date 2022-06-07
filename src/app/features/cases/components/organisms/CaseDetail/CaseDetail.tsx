@@ -5,14 +5,9 @@ import { useCase } from "app/state/rest"
 
 import General from "./sections/General"
 import Logbook from "./sections/Logbook"
-import Permits from "./sections/Permits"
-import RelatedCases from "./sections/RelatedCases"
 import Residence from "./sections/Residence"
-import Residents from "./sections/Residents"
+import Permits from "./sections/Permits"
 import ResidentsView from "./sections/ResidentsView"
-import Scratchpad from "./sections/Scratchpad"
-import Signal from "./sections/Signal"
-import Stadia from "./sections/Stadia"
 import Status from "./sections/Status"
 import VacationRentalThisYear from "./sections/VacationRentalThisYear"
 
@@ -40,27 +35,17 @@ const Article = styled.article`
 
 const CaseDetail: FC<Props> = ({ caseId }) => {
   const { data: caseData } = useCase(caseId)
-
-  const isZksCase = !!caseData?.current_states
   const bagId = caseData?.address?.bag_id
-  const isBwvResidents = caseData?.bwv_personen
 
   return (
     <Article>
-      <General caseId={ caseId } isZksCase={ isZksCase } />
-      <RelatedCases caseId={ caseId } />
+      <General caseId={ caseId } />
       <Residence caseId={ caseId } />
-      <Signal caseId={ caseId } />
-      { isBwvResidents && <Residents caseId={ caseId } /> }
-      { !isBwvResidents && bagId && <ResidentsView bagId={ bagId } /> }
+      { bagId && <ResidentsView bagId={ bagId } /> }
       <Permits caseId={ caseId } />
       <VacationRentalThisYear caseId={ caseId } />
       <Logbook caseId={ caseId } />
-      <Scratchpad caseId={ caseId } />
-      { isZksCase
-        ? <Status caseId={ caseId } />
-        : <Stadia caseId={ caseId } />
-      }
+      <Status caseId={ caseId } />
     </Article>
   )
 }

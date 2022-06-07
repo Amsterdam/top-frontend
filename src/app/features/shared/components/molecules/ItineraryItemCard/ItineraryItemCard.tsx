@@ -3,6 +3,7 @@ import { navigate } from "@reach/router"
 import styled from "styled-components"
 import { themeColor, themeSpacing } from "@amsterdam/asc-ui"
 import StadiumBadge from "app/features/shared/components/molecules/StadiumBadge/StadiumBadge"
+import { CaseReason } from "app/features/types"
 
 type Props = {
   address: string | JSX.Element
@@ -16,7 +17,7 @@ type Props = {
   isVisited?: boolean
   notes?: JSX.Element
   postalCode: string | JSX.Element
-  reason?: string | JSX.Element
+  reason: CaseReason
   teamMembersList?: string
   hasPriority?: boolean
   hasWarrant?: boolean
@@ -99,7 +100,6 @@ const ItineraryItemCard: React.FC<Props> = (
     daySettings,
     fraudProbability,
     href,
-    isSia,
     isVisited,
     notes,
     postalCode,
@@ -127,7 +127,7 @@ const ItineraryItemCard: React.FC<Props> = (
           { fraudProbability && daySettings?.team_settings.fraud_prediction_model && (
             <FraudProbability>{ fraudProbability }</FraudProbability>
           )}
-          { reason && <Reason>{ reason }</Reason> }
+          <Reason>{ reason?.name }</Reason>
         </Left>
         <Right>
           { buttons && buttons(setBeingDeleted) }
@@ -136,7 +136,6 @@ const ItineraryItemCard: React.FC<Props> = (
       <Bottom>
         <BadgeRow>
           { badge }
-          { isSia && <StadiumBadge stadium="SIA" /> }
           { hasPriority && <StadiumBadge stadium="Prio" variant="secondary" /> }
           { hasWarrant && <StadiumBadge stadium="Machtiging" variant="tint" /> }
         </BadgeRow>

@@ -32,7 +32,6 @@ const Illustration = styled.div`
 const ListTeamSettingsOptionsPage: React.FC<RouteComponentProps> = () => {
   const { data } = useTeamSettingsList()
   const loggedInUser = useLoggedInUser()
-
   const teams = data?.results ?? []
   const sortedTeams = [ ...teams ].sort((a, b) => a.name > b.name ? 1 : -1) || []
 

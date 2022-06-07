@@ -2,8 +2,7 @@ import React, { useMemo } from "react"
 import { Spinner } from "@amsterdam/asc-ui"
 
 import { useCase, useCaseVisits, useObservations, useSuggestNextVisit, useUsers } from "app/state/rest"
-import { BWVHotlineBevinding, KeyValueDetail } from "app/features/types"
-
+import { KeyValueDetail } from "app/features/types"
 import formatDate from "app/features/shared/utils/formatDate"
 import { formatTime } from "app/features/shared/utils/formatTime"
 import highlightText from "app/features/shared/utils/highlightText"
@@ -37,30 +36,6 @@ type LogbookItem = {
   description?: string | null
   sort: Date
 }
-
-// Maps a BWVHotlineBevinding to a LogbookItem
-const mapBWVToLogbookItem = (
-  {
-    toez_hdr1_naam,
-    toez_hdr2_naam,
-    bevinding_datum,
-    bevinding_tijd,
-    hit,
-    opmerking
-  }: BWVHotlineBevinding
-): LogbookItem => (
-  {
-    source: "BWV",
-    name: null,
-    toezichthouders: [ toez_hdr1_naam, toez_hdr2_naam ].filter(i => i != null),
-    handhaver: null,
-    date: formatDate(bevinding_datum, true)!,
-    time: bevinding_tijd,
-    hit: hit === "J",
-    text: replaceNewLines((opmerking || "").trim(), "<br /><br />"),
-    sort: new Date(bevinding_datum)
-  }
-)
 
 // Maps a visit to a log book item
 const mapVisitToLogbookItem = (users: Components.Schemas.User[]) => (
@@ -166,7 +141,6 @@ const Logbook: React.FC<Props> = ({ caseId }) => {
 
     // Map API data to LogbookItems
     const logbookItems: LogbookItem[] = [
-      ...caseData.bwv_hotline_bevinding?.map(mapBWVToLogbookItem) || [],
       ...caseVisitsData.map(mapVisitToLogbookItem(users.results))
     ].sort((a, b) => a.sort > b.sort ? -1 : 1)
 

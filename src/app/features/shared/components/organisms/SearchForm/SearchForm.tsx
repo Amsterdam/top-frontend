@@ -2,18 +2,14 @@ import React, { FC, useCallback, useContext, useMemo } from "react"
 import styled from "styled-components"
 import { Scaffold, ScaffoldForm } from "@amsterdam/amsterdam-react-final-form"
 
-import { ApiName } from "app/features/types"
 import { createDefinition } from "./SearchFormDefinition"
 import { SearchFormContext } from "./SearchFormProvider"
-import { useParams } from "@reach/router"
-import { useItinerary } from "app/state/rest/custom/useItinerary"
 
 export type FormValues = {
   postalCode: string
   streetName: string
   streetNumber: number
   suffix?: string
-  apiName: ApiName
 }
 
 const Container = styled.div`
@@ -21,12 +17,6 @@ const Container = styled.div`
 `
 
 const SearchForm: FC = () => {
-  const { itineraryId, teamSettingsId } = useParams()
-  const { data: itinerary } = useItinerary(itineraryId)
-
-  const teamSettings = itinerary?.settings.day_settings.team_settings
-  const teamName = teamSettings?.zaken_team_name || ""
-  const apiName = "AZA"
   const { values, setValues } = useContext(SearchFormContext)
 
   const handleSubmit = useCallback((values: FormValues) => {
@@ -37,17 +27,15 @@ const SearchForm: FC = () => {
   const scaffoldProps = useMemo(
     () => createDefinition(
       // @ts-ignore
-      () => setValues(undefined),
-      itineraryId,
-      teamSettingsId
+      () => setValues(undefined)
     ),
-    [ itineraryId, teamSettingsId, setValues ]
+    [ setValues ]
   )
 
   return (
     <Container>
       <ScaffoldForm
-        initialValues={ { apiName, teamName, teamSettingsId, ...values } }
+        initialValues={ { ...values } }
         onSubmit={ handleSubmit }
       >
         <Scaffold { ...scaffoldProps } />

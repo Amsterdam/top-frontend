@@ -1,24 +1,36 @@
-import { combineValidators, isNotIntersectingWith, isRequired, FormPositioner, FormPositionerFields } from "@amsterdam/amsterdam-react-final-form"
+import { isRequired } from "@amsterdam/amsterdam-react-final-form"
+import { FormPositioner, FormPositionerFields } from "@amsterdam/amsterdam-react-final-form"
+import _isEmpty from "lodash/isEmpty"
 
 import config from "app/config/config"
 import { Field } from "app/features/shared/components/form/ScaffoldField"
-
 import postalCodeSiblingValidator from "../SettingsForm/validators/postalCodeSiblingValidator"
-import { arrayToObject } from "app/features/shared/utils/arrayToObject"
+import isSubletting from "app/features/settings/utils/isSubletting"
 
 /**
  * Creates form definition for planningSettings
  */
 
-export const createDefinition = (projects: string[], stadia: string[], postalCodeRangeOptions: any) => {
+export const createDefinition = (
+  postalCodeRangeOptions: any,
+  daySegmentsOptions: any,
+  weekSegmentsOptions: any,
+  prioritiesOptions: any,
+  reasonsOptions: any,
+  stateTypeOptions: any,
+  projectOptions: any,
+  corporationOptions: any,
+  teamSettings?: Components.Schemas.TeamSettings | Components.Schemas.DaySettings["team_settings"]
+) => {
   const { allowedPostalCodes } = config.settings
+  const isSublet = isSubletting(teamSettings) // Onderhuur
 
   const definition: FormPositionerFields<Field> = {
     name: {
       type: "TextField",
       props: {
         label: "Geef deze daginstelling een naam",
-        name: "settings.name",
+        name: "name",
         type: "text",
         validate: isRequired()
       }
@@ -26,8 +38,8 @@ export const createDefinition = (projects: string[], stadia: string[], postalCod
     opening_date: {
       type: "TextField",
       props: {
-        label: "Begindatum van het meest recente stadium",
-        name: "settings.opening_date",
+        label: "Begindatum van ingeplande bezoeken",
+        name: "opening_date",
         type: "date",
         validate: isRequired()
       }
@@ -36,16 +48,8 @@ export const createDefinition = (projects: string[], stadia: string[], postalCod
       type: "SelectField",
       props: {
         label: "Hoeveel looplijsten mogen deze instelling gebruiken?",
-        name: "settings.max_use_limit",
+        name: "max_use_limit",
         options: { "0": "Onbeperkt", "1": "1", "2": "2", "3": "3", "4": "4", "5": "5" }
-      }
-    },
-    sia_presedence: {
-      type: "Boolean",
-      props: {
-        label: "Voorrang voor SIA-meldingen",
-        name: "settings.sia_presedence",
-        style: { top: 2, left: 0 }
       }
     },
     geo_type: {
@@ -67,7 +71,7 @@ export const createDefinition = (projects: string[], stadia: string[], postalCod
         field: {
           type: "ArrayField",
           props: {
-            name: "settings.postal_code_ranges",
+            name: "postal_code_ranges",
             allowAdd: true,
             allowRemove: true,
             minItems: 1,
@@ -104,7 +108,7 @@ export const createDefinition = (projects: string[], stadia: string[], postalCod
         field: {
           type: "CheckboxFields",
           props: {
-            name: "settings.postal_code_ranges_presets",
+            name: "postal_code_ranges_presets",
             options: postalCodeRangeOptions,
             columnCount: { mobileM: 2, tabletM: 4 },
             validate: isRequired()
@@ -112,46 +116,98 @@ export const createDefinition = (projects: string[], stadia: string[], postalCod
         }
       }
     },
-    projects: {
-      type: "CheckboxFields",
+    housingCorporationCombiteam: {
+      type: "ShowHide",
       props: {
-        label: "Projecten",
-        name: "settings.projects",
-        options: arrayToObject(projects),
-        validate: isRequired(),
-        columnCount: { tabletM: 3, laptop: 4, laptopM: 5 }
+        shouldShow: () => isSublet, // Sublet use only.
+        field: {
+          type: "Boolean",
+          props: {
+            label: "Wil je deze looplijst samenlopen met een corporatie?",
+            name: "housing_corporation_combiteam",
+            checkboxLabel: "Ja"
+          }
+        }
       }
     },
-    primary_stadium: {
-      type: "SelectField",
+    housingCorporations: {
+      type: "ShowHide",
       props: {
-        label: "1. Zo veel mogelijk",
-        name: "settings.primary_stadium",
-        options: Object.assign({ "": "Geen voorkeur" }, arrayToObject(stadia)),
-        validate: isNotIntersectingWith("settings.exclude_stadia", "‘{item}’ is al geselecteerd bij ‘Uitsluiten’")
+        shouldShow: () => isSublet, // Sublet use only.
+        field: {
+          type: "CheckboxFields",
+          props: {
+            label: "Met welke corporaties wil je dat de looplijsten gegenereerd worden?",
+            name: "housing_corporations",
+            options: corporationOptions,
+            columnCount: { mobileM: 2, tabletM: 4 }
+          }
+        }
       }
     },
-    secondary_stadia: {
+    reasons: {
       type: "CheckboxFields",
       props: {
-        label: "2. Aanvullen met",
-        name: "settings.secondary_stadia",
-        options: arrayToObject(stadia),
-        validate: isNotIntersectingWith("settings.exclude_stadia", "‘{item}’ is al geselecteerd bij ‘Uitsluiten’"),
-        columnCount: { laptopL: 2 }
+        label: "Met welke openingsredenen wil je dat de looplijsten gegenereerd worden?",
+        name: "reasons",
+        options: reasonsOptions,
+        columnCount: { mobileM: 2, tabletM: 4 },
+        validate: isRequired()
       }
     },
-    exclude_stadia: {
+    filteredProjects: {
+      type: "ShowHide",
+      props: {
+        shouldShow: () => !_isEmpty(projectOptions), // If there are no projects, remove question and divider.
+        field: {
+          type: "CheckboxFields",
+          props: {
+            label: "Met welke projecten wil je dat de looplijsten gegenereerd worden?",
+            name: "project_ids",
+            options: projectOptions,
+            columnCount: { mobileM: 2, tabletM: 4 }
+          }
+        }
+      }
+    },
+    stateTypes: {
       type: "CheckboxFields",
       props: {
-        label: "3. Uitsluiten",
-        name: "settings.exclude_stadia",
-        options: arrayToObject(stadia),
-        validate: combineValidators(
-          isNotIntersectingWith("settings.primary_stadium", "‘{item}’ is al geselecteerd bij ‘Zo veel mogelijk’"),
-          isNotIntersectingWith("settings.secondary_stadia", "‘{item}’ is al geselecteerd bij ‘Aanvullen met’")
-        ),
-        columnCount: { laptopL: 2 }
+        label: "Met welke status wil je dat de looplijsten gegenereerd worden?",
+        name: "state_types",
+        options: stateTypeOptions,
+        columnCount: { mobileM: 2, tabletM: 4 },
+        validate: isRequired()
+      }
+    },
+    daySegments: {
+      type: "CheckboxFields",
+      props: {
+        label: "Met welk deel van de dag wil je dat de looplijsten gegenereerd worden?",
+        name: "day_segments",
+        options: daySegmentsOptions,
+        columnCount: { mobileM: 2, tabletM: 4 },
+        validate: isRequired()
+      }
+    },
+    weekSegments: {
+      type: "CheckboxFields",
+      props: {
+        label: "Met welk deel van de week wil je dat de looplijsten gegenereerd worden?",
+        name: "week_segments",
+        options: weekSegmentsOptions,
+        columnCount: { mobileM: 2, tabletM: 4 },
+        validate: isRequired()
+      }
+    },
+    priorities: {
+      type: "CheckboxFields",
+      props: {
+        label: "Met welke prioriteiten wil je dat de looplijsten gegenereerd worden?",
+        name: "priorities",
+        options: prioritiesOptions,
+        columnCount: { mobileM: 2, tabletM: 4 },
+        validate: isRequired()
       }
     },
     divider1: {
@@ -167,12 +223,44 @@ export const createDefinition = (projects: string[], stadia: string[], postalCod
       props: {}
     },
     divider4: {
-      type: "Divider",
-      props: {}
+      type: "ShowHide",
+      props: {
+        shouldShow: () => !_isEmpty(projectOptions), // If there are no projects, remove question and divider.
+        field: {
+          type: "Divider",
+          props: {}
+        }
+      }
     },
     divider5: {
       type: "Divider",
       props: {}
+    },
+    divider6: {
+      type: "Divider",
+      props: {}
+    },
+    divider7: {
+      type: "Divider",
+      props: {}
+    },
+    divider8: {
+      type: "Divider",
+      props: {}
+    },
+    divider9: {
+      type: "Divider",
+      props: {}
+    },
+    divider10: {
+      type: "ShowHide",
+      props: {
+        shouldShow: () => isSublet, // Sublet use only.
+        field: {
+          type: "Divider",
+          props: {}
+        }
+      }
     }
   }
 
@@ -181,31 +269,51 @@ export const createDefinition = (projects: string[], stadia: string[], postalCod
     .setVertical("mobileS")
     .setGrid("tabletM", "1fr 1fr 1fr", [
       [ "divider1", "divider1", "divider1" ],
-      [ "name", "name", "max_use_limit" ],
+      [ "name", "max_use_limit" ],
       [ "opening_date", "opening_date" ],
-      [ "sia_presedence", "sia_presedence" ],
       [ "divider2", "divider2", "divider2" ],
       [ "geo_type", "postal_codes", "postal_codes" ],
       [ "geo_type", "postalCodeRanges", "postalCodeRanges" ],
       [ "divider3", "divider3", "divider3" ],
-      [ "projects", "projects", "projects" ],
+      [ "housingCorporationCombiteam", "housingCorporationCombiteam", "housingCorporationCombiteam" ],
+      [ "housingCorporations", "housingCorporations", "housingCorporations" ],
+      [ "divider10", "divider10", "divider10" ],
+      [ "reasons", "reasons", "reasons" ],
+      [ "divider9", "divider9", "divider9" ],
+      [ "filteredProjects", "filteredProjects", "filteredProjects" ],
       [ "divider4", "divider4", "divider4" ],
-      [ "primary_stadium", "secondary_stadia", "exclude_stadia" ],
-      [ "divider5", "divider5", "divider5" ]
+      [ "stateTypes", "stateTypes", "stateTypes" ],
+      [ "divider5", "divider5", "divider5" ],
+      [ "daySegments", "daySegments", "daySegments" ],
+      [ "divider6", "divider6", "divider6" ],
+      [ "weekSegments", "weekSegments", "weekSegments" ],
+      [ "divider7", "divider7", "divider7" ],
+      [ "priorities", "priorities", "priorities" ],
+      [ "divider8", "divider8", "divider8" ]
     ])
     .setGrid("laptop", "1fr 1fr 1fr 1fr 1fr", [
       [ "divider1", "divider1", "divider1", "divider1", "divider1" ],
       [ "name", "name", "max_use_limit" ],
       [ "opening_date", "opening_date" ],
-      [ "sia_presedence", "sia_presedence" ],
       [ "divider2", "divider2", "divider2", "divider2", "divider2" ],
       [ "geo_type", "postal_codes", "postal_codes", "postal_codes", "postal_codes" ],
       [ "geo_type", "postalCodeRanges", "postalCodeRanges", "postalCodeRanges", "postalCodeRanges" ],
       [ "divider3", "divider3", "divider3", "divider3", "divider3" ],
-      [ "projects", "projects", "projects", "projects", "projects" ],
+      [ "housingCorporationCombiteam", "housingCorporationCombiteam", "housingCorporationCombiteam", "housingCorporationCombiteam", "housingCorporationCombiteam" ],
+      [ "housingCorporations", "housingCorporations", "housingCorporations", "housingCorporations", "housingCorporations" ],
+      [ "divider10", "divider10", "divider10", "divider10", "divider10" ],
+      [ "reasons", "reasons", "reasons", "reasons", "reasons" ],
+      [ "divider9", "divider9", "divider9", "divider9", "divider9" ],
+      [ "filteredProjects", "filteredProjects", "filteredProjects", "filteredProjects", "filteredProjects" ],
       [ "divider4", "divider4", "divider4", "divider4", "divider4" ],
-      [ "primary_stadium", "secondary_stadia", "secondary_stadia", "exclude_stadia", "exclude_stadia" ],
-      [ "divider5", "divider5", "divider5", "divider5", "divider5" ]
+      [ "stateTypes", "stateTypes", "stateTypes", "stateTypes", "stateTypes" ],
+      [ "divider5", "divider5", "divider5", "divider5", "divider5" ],
+      [ "daySegments", "daySegments", "daySegments", "daySegments", "daySegments" ],
+      [ "divider6", "divider6", "divider6", "divider6", "divider6" ],
+      [ "weekSegments", "weekSegments", "weekSegments", "weekSegments", "weekSegments" ],
+      [ "divider7", "divider7", "divider7", "divider7", "divider7" ],
+      [ "priorities", "priorities", "priorities", "priorities", "priorities" ],
+      [ "divider8", "divider8", "divider8", "divider8", "divider8" ]
     ])
     .getScaffoldProps()
 }

@@ -14,6 +14,7 @@ import ItineraryItemCardList
 import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner"
 import FraudProbability from "../../../../atoms/FraudProbability/FraudProbability"
 import { useCaseModal } from "../../hooks/useCaseModal"
+import { Case } from "app/features/types"
 
 type HandleAddCallback = (caseId: string) => void
 
@@ -36,24 +37,24 @@ const mapResults = (handleAdd: HandleAddCallback, getUrl: (string: string) => st
       suffix,
       postal_code
     },
-    case_reason,
-    stadium,
+    reason,
+    current_states,
     fraud_prediction,
     teams
-  }: any
+  }: Case
 ): React.ComponentProps<typeof ItineraryItemCard> => {
   const teamMembersList = teams?.length ? teams[0].map((team: { user: { full_name: string } }) => team.user.full_name).join(", ") : ""
-
+  const lastStadiumLabel = current_states?.length > 0 ? current_states[0].status_name : ""
   return {
-    href: getUrl(id),
+    href: getUrl(String(id)),
     backgroundColor: "level2",
     address: displayAddress(street_name, number, suffix_letter, suffix),
     postalCode: postal_code,
-    reason: case_reason,
-    badge: <StadiumBadge stadium={ stadium } />,
+    reason: reason,
+    badge: <StadiumBadge stadium={ lastStadiumLabel! } />,
     fraudProbability: <FraudProbability fraudProbability={ fraud_prediction?.fraud_probability } />,
     buttons: teamMembersList ? undefined : (() => <StyledButton icon={ <Enlarge /> }
-                                                                onClick={ () => handleAdd(id) } />),
+                                                                onClick={ () => handleAdd(String(id)) } />),
     teamMembersList
   }
 }
@@ -74,8 +75,7 @@ const StartAddressSearchResults: React.FC<Props> = (
     postalCode,
     streetName,
     suffix,
-    teamSettings?.zaken_team_name || "",
-    { apiVersion: teamSettings?.use_zaken_backend ? "v2" : "v1" }
+    teamSettings?.zaken_team_name || ""
   )
   const { getUrl } = useCaseModal()
 
@@ -83,7 +83,7 @@ const StartAddressSearchResults: React.FC<Props> = (
     () => data?.cases.map(mapResults(handleAddButtonClick, getUrl)),
     [ data, handleAddButtonClick, getUrl ]
   )
-
+  console.log(items)
   return isBusy || !items
     ? <CenteredSpinner explanation="Zaken ophalen…" size={ 60 } />
     : items && items.length > 0

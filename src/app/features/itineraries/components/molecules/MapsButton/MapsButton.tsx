@@ -5,10 +5,10 @@ import StyledButton from "app/features/shared/components/atoms/StyledButton/Styl
 import displayAddress from "app/features/shared/utils/displayAddress"
 import ResponsiveText from "app/features/shared/components/molecules/ResponsiveText/ResponsiveText"
 
-import { BWVData } from "app/features/types"
+import { Case } from "app/features/types"
 
 type Props = {
-  cases: BWVData[]
+  cases: Case[]
 }
 
 const MapsButton: FC<Props> = ({ cases }) => {

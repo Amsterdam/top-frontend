@@ -1,12 +1,10 @@
-import React, { FC } from "react"
+import { FC } from "react"
 import styled from "styled-components"
 import { useLocation, useParams } from "@reach/router"
 import { themeColor } from "@amsterdam/asc-ui"
-import { useItinerary } from "app/state/rest/custom/useItinerary"
 
 import { applyRouteParams } from "app/features/shared/routing/to"
 import ItineraryNavigationButton from "../../molecules/ItineraryNavigationButton/ItineraryNavigationButton"
-import OpenIssuesNavigationButton from "../../molecules/OpenIssuesNavigationButton/OpenIssuesNavigationButton"
 import SearchNavigationButton from "../../molecules/SearchNavigationButton/SearchNavigationButton"
 
 const NavWrap = styled.div`
@@ -58,7 +56,6 @@ const FocusSpacer = styled.div`
 
 const Navigation: FC = () => {
   const { itineraryId } = useParams() ?? {}
-  const { data: itinerary } = useItinerary(itineraryId)
   const { pathname } = useLocation()
 
   const showItineraryNavigationItems = (pathname.startsWith("/cases") || pathname.startsWith("/issuemeldingen") || (pathname.startsWith("/lijst") && itineraryId) || pathname.startsWith("/visits") || pathname.startsWith("/zoeken"))
@@ -72,11 +69,6 @@ const Navigation: FC = () => {
             <Li
               isActive={ pathname === "/" || pathname === ("/lijst") || pathname === applyRouteParams("/lijst/:itineraryId/", { itineraryId }) }>
               <ItineraryNavigationButton />
-            </Li>
-            }
-            { showItineraryNavigationItems && itinerary && itinerary?.settings.day_settings.team_settings.show_issuemelding &&
-            <Li isActive={ pathname.startsWith("/issuemeldingen") }>
-              <OpenIssuesNavigationButton itineraryId={ itineraryId } />
             </Li>
             }
             <SpacedLi isActive={ pathname.startsWith("/zoeken") }>

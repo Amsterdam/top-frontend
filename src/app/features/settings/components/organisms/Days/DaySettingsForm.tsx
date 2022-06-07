@@ -1,12 +1,21 @@
 import React, { FC, useCallback, useMemo, useState } from "react"
-import { Link, navigate, RouteComponentProps } from "@reach/router"
+import { Link, RouteComponentProps } from "@reach/router"
 import styled from "styled-components"
 import { ScaffoldForm } from "@amsterdam/amsterdam-react-final-form"
 import { Heading } from "@amsterdam/asc-ui"
+import { navigate } from "@reach/router"
 
 import config from "app/config/config"
 import to from "app/features/shared/routing/to"
-import { useDaySettings, usePostCodeRanges, useTeamSettings } from "app/state/rest"
+import {
+  useDaySettings,
+  usePostCodeRanges,
+  useTeamSettingsReasons,
+  useTeamSettingsScheduleTypes,
+  useTeamSettingsStateTypes,
+  useTeamSettingsProjects,
+  useCorporations
+} from "app/state/rest"
 
 import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
 import Scaffold from "app/features/shared/components/form/Scaffold"
@@ -30,37 +39,81 @@ type Props = {
 }
 
 const DaySettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId, daySettingsId }) => {
-  const { data: teamSettings, isBusy: isBusySettings } = useTeamSettings(teamSettingsId!)
-  const { data: daySettings, execPut, isBusy: isBusyDaySettings } = useDaySettings(daySettingsId!)
+  let { data: daySettings, execPut, isBusy: isBusyDaySettings } = useDaySettings(daySettingsId!, { caseCount: true })
   const { data: postalCodeRangesPresets, isBusy: isBusyPostalCodeRangesPresets } = usePostCodeRanges()
+  const { data: caseReasons, isBusy: isBusyCaseReasons } = useTeamSettingsReasons(teamSettingsId!)
+  const { data: teamScheduleTypes, isBusy: isBusyTeamScheduleTypes } = useTeamSettingsScheduleTypes(teamSettingsId!)
+  const { data: caseStateTypes, isBusy: isBusyCaseStateTypes } = useTeamSettingsStateTypes(teamSettingsId!)
+  const { data: caseProjects, isBusy: isBusyCaseProjects } = useTeamSettingsProjects(teamSettingsId!)
+  const { data: corporations, isBusy: isBusyCorporations } = useCorporations()
   const [ errorMessage, setErrorMessage ] = useState("")
 
+  const prepareDefinition = (definitionEntry: any) => definitionEntry?.reduce((t: any, c: any) => {
+    t[String(c.id)] = c.name
+    return t
+  }, {}) || []
+
   const definition = useMemo(
-    () => createDefinition(teamSettings?.project_choices ?? [], teamSettings?.stadia_choices ?? [], (postalCodeRangesPresets?.results ?? []).reduce((t: any, c) => {
-      t[String(c.id)] = c.name
-      return t
-    }, {}) ?? []),
-    [ teamSettings, postalCodeRangesPresets ]
+    () => createDefinition(
+      prepareDefinition(postalCodeRangesPresets?.results),
+      prepareDefinition(teamScheduleTypes?.day_segments),
+      prepareDefinition(teamScheduleTypes?.week_segments),
+      prepareDefinition(teamScheduleTypes?.priorities),
+      prepareDefinition(caseReasons),
+      prepareDefinition(caseStateTypes),
+      prepareDefinition(caseProjects),
+      prepareDefinition(corporations),
+      daySettings?.team_settings
+    ),
+    [ postalCodeRangesPresets, teamScheduleTypes, caseReasons, caseStateTypes, caseProjects, daySettings, corporations ]
   )
 
   const handleSubmit = useCallback(async (data: any) => {
-    const values = filterEmptyPostalCodes(data.settings)
+    const values = filterEmptyPostalCodes(data)
     setErrorMessage("")
+
     if (data.postal_codes_type === "postcode") {
       values.postal_code_ranges_presets = []
     }
     values.opening_date = fixDateFormat(values.opening_date)
     try {
       await execPut(values, { skipCacheClear: false, useResponseAsCache: false })
-      navigate(to("/team-settings/:teamSettingsId", { teamSettingsId }))
+      // navigate(to("/team-settings/:teamSettingsId", { teamSettingsId }))
     } catch (error: any) {
       setErrorMessage(error.response.data.message)
       return error
     }
-  }, [ execPut, setErrorMessage, teamSettingsId ])
+  }, [ execPut, setErrorMessage ])
 
-  if (!daySettings || isBusyDaySettings || !teamSettings || isBusySettings || !postalCodeRangesPresets || isBusyPostalCodeRangesPresets) {
+  if (!caseProjects || isBusyCaseProjects || !caseStateTypes || isBusyCaseStateTypes || !caseReasons
+      || isBusyCaseReasons || !teamScheduleTypes || isBusyTeamScheduleTypes || !teamSettingsId
+      || !daySettingsId || !daySettings || isBusyDaySettings || !postalCodeRangesPresets
+      || isBusyPostalCodeRangesPresets || !corporations || isBusyCorporations
+    ) {
     return <CenteredSpinner explanation="Instellingen ophalen…" size={ 60 } />
+  }
+
+  const onClose = () => {
+    navigate(to("/team-settings/:teamSettingsId", { teamSettingsId }))
+  }
+
+  const prepareInitialValues = (settings: any) => {
+    const removeUnknownIds = (seg: any, v: number[]) => v ? v.filter((n: number, i: number) => seg.map((s: any) => s.id).includes(n) && v?.indexOf(n) === i).map((i: number) => i.toString()) : []
+    return {
+      ...settings,
+      day_segments: removeUnknownIds(teamScheduleTypes.day_segments, settings.day_segments),
+      week_segments: removeUnknownIds(teamScheduleTypes.week_segments, settings.week_segments),
+      priorities: removeUnknownIds(teamScheduleTypes.priorities, settings.priorities),
+      reasons: removeUnknownIds(caseReasons, settings.reasons),
+      project_ids: removeUnknownIds(caseProjects, settings.project_ids),
+      state_types: removeUnknownIds(caseStateTypes, settings.state_types),
+      housing_corporations: removeUnknownIds(corporations, settings.housing_corporations),
+      postal_code_ranges_presets: (settings.postal_code_ranges_presets ?? []).map((pcp: any) => String(pcp)),
+      postal_codes_type: (settings.postal_code_ranges_presets ?? []).length > 0 ? "stadsdeel" : "postcode",
+      postal_code_ranges: (settings.postal_code_ranges_presets ?? []).length > 0 ? config.settings.defaultPostalCodeRanges : settings.postal_code_ranges,
+      team_settings: teamSettingsId,
+      week_days: settings.week_days?.map((wd: number) => wd.toString())
+    }
   }
 
   return (
@@ -72,26 +125,16 @@ const DaySettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId, daySe
           </Link>
         </Spacing>
         <Heading>Wijzigen daginstelling</Heading>
-        <Heading forwardedAs="h2">{ daySettings.team_settings.name }</Heading>
-        { daySettings.week_days?.length === 1 && (
-          <Heading forwardedAs="h3">{ daysOfTheWeek[Number(daySettings.week_days[0])] }</Heading>
+        <Heading forwardedAs="h2">{ daySettings?.team_settings.name }</Heading>
+        { daySettings?.week_days?.length === 1 && (
+          <Heading forwardedAs="h3">{ daysOfTheWeek[Number(daySettings?.week_days[0])] }</Heading>
         )}
-        <ScaffoldForm onSubmit={ handleSubmit } initialValues={ {
-          settings: {
-            ...daySettings,
-            postal_code_ranges_presets: (daySettings.postal_code_ranges_presets ?? []).map((pcp: any) => String(pcp)),
-            postal_code_ranges: (daySettings.postal_code_ranges_presets ?? []).length > 0 ? config.settings.defaultPostalCodeRanges : daySettings.postal_code_ranges,
-            team_settings: teamSettingsId,
-            week_days: daySettings?.week_days?.map((wd: number) => wd.toString())
-          },
-          postal_codes_type: (daySettings.postal_code_ranges_presets ?? []).length > 0 ? "stadsdeel" : "postcode",
-          name: teamSettings.name
-        } }>
+        <ScaffoldForm onSubmit={ handleSubmit } initialValues={ prepareInitialValues(daySettings) }>
           <Scaffold { ...definition } />
-          <FixedSubmitButton errorMessage={ errorMessage } />
+          <FixedSubmitButton onClose={ onClose } errorMessage={ errorMessage } caseCount={ daySettings?.case_count?.count } />
         </ScaffoldForm>
         <Spacing pt={ 4 }>
-          <DeleteDaySettingsButton teamSettingsId={ teamSettingsId! } daySettingsId={ daySettingsId! } />
+          <DeleteDaySettingsButton teamSettingsId={ teamSettingsId } daySettingsId={ daySettingsId } />
         </Spacing>
       </Wrap>
     </DefaultLayout>
