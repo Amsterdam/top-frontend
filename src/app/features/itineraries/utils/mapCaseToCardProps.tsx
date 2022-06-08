@@ -23,16 +23,14 @@ const getCaseIdMap = (items: ItineraryItem[]) =>
 const mapCaseToCardProps = (itineraryId: number | undefined, itineraryItemIds: Record<string, number>, addDistance: boolean = false) =>
   ({
      address,
-     case_reason,
      current_states,
      distance,
      fraud_prediction,
      id,
      reason,
      schedules,
-     stadium,
      teams
-   }: any): React.ComponentProps<typeof ItineraryItemCard> =>
+   }: Case): React.ComponentProps<typeof ItineraryItemCard> =>
   {
     const addressObject = displayAddress(
       address?.street_name,
@@ -40,10 +38,9 @@ const mapCaseToCardProps = (itineraryId: number | undefined, itineraryItemIds: R
       address?.suffix_letter,
       address?.suffix
     )
-
     const badge = current_states && current_states.length > 0
       ? <StadiumBadge stadium={ current_states[0].status_name || "" } />
-      : <StadiumBadge stadium={ stadium } />
+      : <StadiumBadge stadium={ "" } />
 
     const teamMembersList = teams?.length ? teams[0].map((team: { user: { full_name: string } }) => team.user.full_name).join(", ") : ""
 
@@ -65,9 +62,9 @@ const mapCaseToCardProps = (itineraryId: number | undefined, itineraryItemIds: R
       buttons,
       fraudProbability: <FraudProbability fraudProbability={ fraud_prediction?.fraud_probability } />,
       hasPriority: (schedules && schedules[0]?.priority?.weight >= 0.5) ?? false,
-      href: to("/cases/:id", { id }),
+      href: to("/cases/:id", { id: String(id) }),
       postalCode: address.postal_code,
-      reason: reason?.reason || case_reason,
+      reason: reason,
       teamMembersList
     }
   }

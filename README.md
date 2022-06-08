@@ -29,7 +29,7 @@ npm start
 ```
 
 To use a local backend, clone the [backend repository](https://github.com/Amsterdam/fixxx-looplijsten-backend) and run
-the Docker instances. Load data from BWV which can be gotten from Datapunt – consult the backend readme for more info.
+the Docker instances.
 
 ```
 npm run start:local

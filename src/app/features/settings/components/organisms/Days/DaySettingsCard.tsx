@@ -7,15 +7,33 @@ import { useDaySettings } from "app/state/rest"
 
 import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner"
 import formatDate from "app/features/shared/utils/formatDate"
+import ValueList from "../../atoms/ValueList/ValueList"
 import { Body, Column, Dd, Dl, Dt, Header, Li, Section, Ul } from "./DaySettingsCardStyles"
+import isSubletting from "app/features/settings/utils/isSubletting"
 
 type Props = {
   teamSettings: Components.Schemas.TeamSettings
   postCodeRangesPresets: Components.Schemas.PostalCodeRangePreset[]
   daySettingsId: number
+  caseReasons: Components.Schemas.CaseReason[]
+  teamScheduleTypes: Components.Schemas.TeamScheduleTypes
+  caseStateTypes: Components.Schemas.CaseStateType[]
+  caseProjects: Components.Schemas.Project[]
+  corporations: Components.Schemas.HousingCorporation[]
 }
 
-const DaySettingsCard: FC<RouteComponentProps<Props>> = ({ teamSettings, postCodeRangesPresets, daySettingsId }) => {
+const DaySettingsCard: FC<RouteComponentProps<Props>> = (
+  {
+    teamSettings,
+    postCodeRangesPresets,
+    daySettingsId,
+    caseReasons,
+    teamScheduleTypes,
+    caseStateTypes,
+    caseProjects,
+    corporations
+  }
+) => {
   const { data: daySettings, isBusy } = useDaySettings(daySettingsId!)
 
   if (!teamSettings || !daySettings || isBusy) {
@@ -33,6 +51,8 @@ const DaySettingsCard: FC<RouteComponentProps<Props>> = ({ teamSettings, postCod
     daySettingsId: daySettings?.id
   })
 
+  const isSublet = isSubletting(teamSettings) // Onderhuur
+
   return (
     <Section>
       <Header>
@@ -45,66 +65,65 @@ const DaySettingsCard: FC<RouteComponentProps<Props>> = ({ teamSettings, postCod
             <Dt>Openingsdatum</Dt>
             <Dd>{ daySettings?.opening_date ? formatDate(daySettings.opening_date) : "–" }</Dd>
           </Dl>
+          {isSublet && (
+            <>
+              <Dl>
+                <Dt>Samenlopen met een corporatie</Dt>
+                <Dd>{ daySettings?.housing_corporation_combiteam ? "Ja" : "Nee" }</Dd>
+              </Dl>
+              <ValueList
+                labels={ [ "Corporaties", "Corporaties" ] }
+                options={ corporations }
+                values={ daySettings?.housing_corporations }
+              />
+            </>
+          )}
+          <ValueList
+            labels={ [ "Openingsreden", "Openingsredenen" ] }
+            options={ caseReasons }
+            values={ daySettings?.reasons }
+          />
+          <ValueList
+            labels={ [ "Projecten", "Projecten" ] }
+            options={ caseProjects }
+            values={ daySettings?.project_ids }
+          />
           <Dl>
-            <Dt>Geef SIA meldingen voorrang</Dt>
-            <Dd>{ daySettings?.sia_presedence ? "Ja" : "Nee" }</Dd>
-          </Dl>
-          <Dl>
-            <Dt>{ (postalCodeRangesPresets?.length) ? (postalCodeRangesPresets.length === 1 ? "Stadsdeel" : "Stadsdelen") : "Postcodes" }</Dt>
-            <Dd>{ (postalCodeRangesPresets?.length) ? postalCodeRangesPresets.join(", ") :
-              <Ul>
-                {
-                  daySettings?.postal_code_ranges?.map((range: any, index: number) =>
-                    <Li key={ "range-" + index }>{ range.range_start }–{ range.range_end }</Li>
-                  )
-                }
-              </Ul>
-            }</Dd>
-          </Dl>
-          <Dl>
-            <Dt>Projecten</Dt>
+            <Dt>{ postalCodeRangesPresets?.length ? (postalCodeRangesPresets.length === 1 ? "Stadsdeel" : "Stadsdelen") : "Postcodes" }</Dt>
             <Dd>
-              { daySettings?.projects?.length ?
+              { postalCodeRangesPresets?.length ? postalCodeRangesPresets.join(", ") : (
                 <Ul>
-                  { daySettings?.projects.map(project => (
-                    <Li key={ project }>{ project }</Li>
-                  )) }
+                  {
+                    daySettings?.postal_code_ranges?.map((range: any, index: number) =>
+                      <Li key={ "range-" + index }>{ range.range_start }–{ range.range_end }</Li>
+                    )
+                  }
                 </Ul>
-                : "–" }
+              )}
             </Dd>
           </Dl>
+          <ValueList
+            labels={ [ "Dagdeel", "Dagdelen" ] }
+            options={ teamScheduleTypes?.day_segments }
+            values={ daySettings?.day_segments }
+          />
+          <ValueList
+            labels={ [ "Weekdeel", "Weekdelen" ] }
+            options={ teamScheduleTypes?.week_segments }
+            values={ daySettings?.week_segments }
+          />
+          <ValueList
+            labels={ [ "Prioriteit", "Prioriteiten" ] }
+            options={ teamScheduleTypes?.priorities }
+            values={ daySettings?.priorities }
+          />
         </Column>
         <Column>
-          <Dl>
-            <Dt>Zo veel mogelijk</Dt>
-            <Dd>
-              { daySettings?.primary_stadium || "–" }
-            </Dd>
-          </Dl>
-          <Dl>
-            <Dt>Aanvullen met</Dt>
-            <Dd>
-              { daySettings?.secondary_stadia?.length ?
-                <Ul>
-                  { daySettings?.secondary_stadia.map(stadium => (
-                    <Li key={ stadium }>{ stadium }</Li>
-                  )) }
-                </Ul>
-                : "–" }
-            </Dd>
-          </Dl>
-          <Dl>
-            <Dt>Uitsluiten</Dt>
-            <Dd>
-              { daySettings?.exclude_stadia?.length ?
-                <Ul>
-                  { daySettings?.exclude_stadia.map(stadium => (
-                    <Li key={ stadium }>{ stadium }</Li>
-                  )) }
-                </Ul>
-                : "–" }
-            </Dd>
-          </Dl>
+          <ValueList
+            labels={ [ "Status", "Statussen" ] }
+            options={ caseStateTypes }
+            values={ daySettings?.state_types }
+          />
           <Dl>
             <Dt>Actief in looplijsten</Dt>
             <Dd>

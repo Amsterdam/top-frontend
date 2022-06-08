@@ -16,7 +16,6 @@ import to from "app/features/shared/routing/to"
 import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
 import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner"
 import DaySettingsCard from "app/features/settings/components/organisms/Days/DaySettingsCard"
-import DaySettingsCardV2 from "app/features/settings/components/organisms/Days/DaySettingsCardV2"
 import AddDaySettingsButton from "app/features/settings/components/molecules/AddDaySettingsButton/AddDaySettingsButton"
 import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout"
 import { daysOfTheWeek } from "../../../utils/daysOfTheWeek"
@@ -86,9 +85,8 @@ const DaySettingsList: FC<RouteComponentProps<Props>> = ({ teamSettingsId, postC
               />
             </Left>
             <Grid>
-              { teamSettings.day_settings_list.filter(ds => ds.week_days?.includes(parseInt(dayOfTheWeek[0]))).map(daySettings => teamSettings?.use_zaken_backend
-                ? (
-                  <DaySettingsCardV2
+              { teamSettings.day_settings_list.filter(ds => ds.week_days?.includes(parseInt(dayOfTheWeek[0]))).map(daySettings => 
+                  <DaySettingsCard
                     key={ daySettings.id }
                     teamSettings={ teamSettings }
                     daySettingsId={ daySettings.id }
@@ -99,15 +97,6 @@ const DaySettingsList: FC<RouteComponentProps<Props>> = ({ teamSettingsId, postC
                     caseProjects={ caseProjects }
                     corporations={ corporations }
                   />
-                )
-                : (
-                  <DaySettingsCard
-                    key={ daySettings.id }
-                    teamSettings={ teamSettings }
-                    daySettingsId={ daySettings.id }
-                    postCodeRangesPresets={ postCodeRangesPresets }
-                  />
-                )
               ) }
             </Grid>
           </Day>

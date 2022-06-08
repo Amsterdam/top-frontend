@@ -5,7 +5,7 @@ import StyledButton from "app/features/shared/components/atoms/StyledButton/Styl
 import { useItineraryItems } from "app/state/rest"
 
 type Props = {
-  caseId: string
+  caseId: number | string
   itinerary: number
 }
 

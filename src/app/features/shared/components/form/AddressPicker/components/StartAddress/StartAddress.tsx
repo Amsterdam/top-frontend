@@ -4,11 +4,12 @@ import { Spinner, themeColor, themeSpacing } from "@amsterdam/asc-ui"
 
 import { useCase } from "app/state/rest"
 import displayAddress from "app/features/shared/utils/displayAddress"
-import StadiumBadge from "app/features/shared/components/molecules/StadiumBadge/StadiumBadge"
 
+import StadiumBadge from "app/features/shared/components/molecules/StadiumBadge/StadiumBadge"
 import ItineraryItemCard from "app/features/shared/components/molecules/ItineraryItemCard/ItineraryItemCard"
 import FraudProbability from "app/features/shared/components/atoms/FraudProbability/FraudProbability"
 import { useCaseModal } from "../../hooks/useCaseModal"
+import { Case } from "app/features/types"
 
 type Props = {
   caseId: string
@@ -19,13 +20,15 @@ const Card = styled.div`
   background-color: ${ themeColor("tint", "level2") };
 `
 
-const normalize = (object: any, href: string): React.ComponentProps<typeof ItineraryItemCard> => ({
+const normalize = (object: Case, href: string): React.ComponentProps<typeof ItineraryItemCard> => ({
   href,
   address: displayAddress(object?.address?.street_name, object?.address?.number, object?.address?.suffix_letter, object?.address?.suffix),
   postalCode: object?.address?.postal_code,
-  reason: object?.related_cases?.[0]?.case_reason,
   fraudProbability: <FraudProbability fraudProbability={ object?.fraud_prediction?.fraud_probability } />,
-  badge: <StadiumBadge stadium={ object?.import_stadia?.[0]?.sta_oms } />
+  reason: object?.reason,
+  badge: (object?.current_states && object?.current_states.length > 0
+  ? <StadiumBadge stadium={ object?.current_states[0].status_name || "" } />
+  : <StadiumBadge stadium={ "" } />)
 })
 
 const StartAddress: React.FC<Props> = ({ caseId }) => {
@@ -36,7 +39,7 @@ const StartAddress: React.FC<Props> = ({ caseId }) => {
     <Card>
       { isBusy
         ? <Spinner />
-        : <ItineraryItemCard { ...normalize(data, getUrl(caseId)) } />
+        : <ItineraryItemCard { ...normalize(data!, getUrl(String(caseId))) } />
       }
     </Card>
   )

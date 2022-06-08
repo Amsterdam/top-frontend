@@ -10,14 +10,6 @@ export const getBagId = (caseData: Case) => {
   return hasBagData ? (bagData.verblijfsobjectidentificatie ?? bagData.ligplaatsidentificatie) : undefined
 }
 
-export const getCaseCount = (caseData: Case) => {
-  if (caseData?.bwv_tmp?.num_cases === null) {
-    return undefined
-  }
-
-  return parseInt(caseData.bwv_tmp?.num_cases || "", 10)
-}
-
 export const getEigenaar = (caseData: Case) => {
   const hasBrkData = (caseData.brk_data as BrkDataError).error === undefined
 

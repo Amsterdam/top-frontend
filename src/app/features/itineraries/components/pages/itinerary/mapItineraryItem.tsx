@@ -14,8 +14,6 @@ export const mapItineraryItem = (itineraryId: string, daySettings: Components.Sc
   {
     case: {
       data: {
-        case_reason,
-        is_sia,
         address: {
           street_name, number, suffix_letter, suffix, postal_code
         },
@@ -43,7 +41,6 @@ export const mapItineraryItem = (itineraryId: string, daySettings: Components.Sc
     fraudProbability: (fraud_prediction && !hideFraudProbability(caseId, daySettings?.team_settings?.fraudprediction_pilot_enabled)) ? <FraudProbability fraudProbability={ fraud_prediction?.fraud_probability } /> : "",
     href: to("/cases/:id", { id: caseId.toString() ?? "" }),
     id: id.toString(),
-    isSia: (is_sia === "J"),
     isVisited: visits.length > 0,
     itemId: id.toString(),
     notes: visits[0]?.personal_notes
@@ -51,7 +48,7 @@ export const mapItineraryItem = (itineraryId: string, daySettings: Components.Sc
       : undefined,
     position,
     postalCode: postal_code,
-    reason: reason?.name || case_reason,
+    reason: reason,
     hasPriority: (schedules && schedules[0]?.priority?.weight >= 0.5) ?? false,
     hasWarrant: (schedules && schedules[0]?.priority?.weight >= 1.0) ?? false,
     buttons: (onDeleteButtonClicked: () => void) =>
