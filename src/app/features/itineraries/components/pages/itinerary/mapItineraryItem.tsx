@@ -30,8 +30,10 @@ export const mapItineraryItem = (itineraryId: string, daySettings: Components.Sc
     visits
   }: ItineraryItem) =>
 {
-  const badge = current_states?.length > 0
-    ? <StadiumBadge stadium={ current_states[0].status_name ?? "" } />
+  const statusName = current_states?.length > 0 ? current_states[0].status_name ?? "" : undefined
+  const isVisitStatus = ["Huisbezoek", "Hercontrole"].includes(statusName!)
+  const badge = statusName
+    ? <StadiumBadge stadium={ statusName } />
     : undefined
 
   return {
@@ -56,6 +58,7 @@ export const mapItineraryItem = (itineraryId: string, daySettings: Components.Sc
         caseId={ caseId.toString() }
         itineraryId={ itineraryId }
         itineraryItemId={ id }
+        isVisitStatus={ isVisitStatus }
         onDeleteButtonClicked={ onDeleteButtonClicked }
         visits={ visits }
       />,

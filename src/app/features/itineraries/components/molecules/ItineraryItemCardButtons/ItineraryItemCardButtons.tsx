@@ -17,6 +17,7 @@ type Props = {
   itineraryId: string
   itineraryItemId: number
   caseId?: string | null
+  isVisitStatus: boolean
   visits: Components.Schemas.Visit[]
   onDeleteButtonClicked: () => void
 }
@@ -37,6 +38,7 @@ const ItineraryItemCardButtons: React.FC<Props> = (
     itineraryId,
     itineraryItemId,
     caseId,
+    isVisitStatus,
     visits,
     onDeleteButtonClicked
   }
@@ -84,14 +86,18 @@ const ItineraryItemCardButtons: React.FC<Props> = (
     </>
   ) : (
     <>
-      <Spacing pb={ 2 }>
-        <Button
-          variant="secondary"
-          onClick={ () => navigate(to("/visit/:itineraryId/:caseId", { caseId, itineraryId })) }
-        >
-          Bezoek
-        </Button>
-      </Spacing>
+      {isVisitStatus ? (
+      <>
+        <Spacing pb={ 2 }>
+          <Button
+            variant="secondary"
+            onClick={ () => navigate(to("/visit/:itineraryId/:caseId", { caseId, itineraryId })) }
+          >
+            Bezoek
+          </Button>
+        </Spacing>
+      </>
+      ) : <></>}
       <Spacing pb={ 2 }>
         { deleteButton }
       </Spacing>
