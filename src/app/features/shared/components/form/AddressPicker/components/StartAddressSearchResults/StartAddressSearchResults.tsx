@@ -83,7 +83,6 @@ const StartAddressSearchResults: React.FC<Props> = (
     () => data?.cases.map(mapResults(handleAddButtonClick, getUrl)),
     [ data, handleAddButtonClick, getUrl ]
   )
-  console.log(items)
   return isBusy || !items
     ? <CenteredSpinner explanation="Zaken ophalen…" size={ 60 } />
     : items && items.length > 0

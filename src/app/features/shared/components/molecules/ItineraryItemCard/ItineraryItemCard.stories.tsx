@@ -13,7 +13,7 @@ const metadata = {
 
 export default metadata
 
-const reason = { name: "jyhgj" } as CaseReason
+const reason = { name: "hotline" } as CaseReason
 
 export const Example = () =>
   <ItineraryItemCard
