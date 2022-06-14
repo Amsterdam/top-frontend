@@ -38,13 +38,13 @@ const mapResults = (handleAdd: HandleAddCallback, getUrl: (string: string) => st
       postal_code
     },
     reason,
-    current_states,
+    workflows,
     fraud_prediction,
     teams
   }: Case
 ): React.ComponentProps<typeof ItineraryItemCard> => {
   const teamMembersList = teams?.length ? teams[0].map((team: { user: { full_name: string } }) => team.user.full_name).join(", ") : ""
-  const lastStadiumLabel = current_states?.length > 0 ? current_states[0].status_name : ""
+  const lastStadiumLabel = workflows?.length > 0 ? workflows[0].state.name : ""
   return {
     href: getUrl(String(id)),
     backgroundColor: "level2",

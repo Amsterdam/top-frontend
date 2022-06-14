@@ -17,7 +17,7 @@ export const mapItineraryItem = (itineraryId: string, daySettings: Components.Sc
         address: {
           street_name, number, suffix_letter, suffix, postal_code
         },
-        current_states,
+        workflows,
         reason,
         schedules,
         deleted
@@ -30,7 +30,7 @@ export const mapItineraryItem = (itineraryId: string, daySettings: Components.Sc
     visits
   }: ItineraryItem) =>
 {
-  const statusName = current_states?.length > 0 ? current_states[0].status_name ?? "" : undefined
+  const statusName = workflows?.length > 0 ? workflows[0].state.name ?? "" : undefined
   const isVisitStatus = ["Huisbezoek", "Hercontrole"].includes(statusName!)
   const badge = statusName
     ? <StadiumBadge stadium={ statusName } />

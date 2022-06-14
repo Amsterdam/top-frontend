@@ -26,8 +26,8 @@ const normalize = (object: Case, href: string): React.ComponentProps<typeof Itin
   postalCode: object?.address?.postal_code,
   fraudProbability: <FraudProbability fraudProbability={ object?.fraud_prediction?.fraud_probability } />,
   reason: object?.reason,
-  badge: (object?.current_states && object?.current_states.length > 0
-  ? <StadiumBadge stadium={ object?.current_states[0].status_name || "" } />
+  badge: (object?.workflows && object?.workflows.length > 0
+  ? <StadiumBadge stadium={ object?.workflows[0].state.name || "" } />
   : <StadiumBadge stadium={ "" } />)
 })
 
