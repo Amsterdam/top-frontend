@@ -50,15 +50,12 @@ export type Address = {
   lng: number | null
 }
 
-export type CaseStatus = {
-  id: number | null
-  case: number | null
-  status_name: string | null
-  status: number | null
-  start_date: string | null
-  end_date: string | null
-  users: string[]
-  tasks: any[] | null
+export type CaseWorkflowState = {
+  name: string
+}
+
+export type CaseWorkflow = {
+  state: CaseWorkflowState
 }
 
 export type CaseReason = {
@@ -71,7 +68,7 @@ export type Case = {
   address: Address
   bag_data: BagData | BagDataError
   brk_data: BrkData | BrkDataError
-  current_states: CaseStatus[]
+  workflows: CaseWorkflow[]
   day_settings_id: number | null | undefined
   fraud_prediction: FraudPrediction | undefined
   id: number | string

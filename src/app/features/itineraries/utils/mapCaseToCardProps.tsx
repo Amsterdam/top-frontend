@@ -23,7 +23,7 @@ const getCaseIdMap = (items: ItineraryItem[]) =>
 const mapCaseToCardProps = (itineraryId: number | undefined, itineraryItemIds: Record<string, number>, addDistance: boolean = false) =>
   ({
      address,
-     current_states,
+     workflows,
      distance,
      fraud_prediction,
      id,
@@ -38,8 +38,8 @@ const mapCaseToCardProps = (itineraryId: number | undefined, itineraryItemIds: R
       address?.suffix_letter,
       address?.suffix
     )
-    const badge = current_states && current_states.length > 0
-      ? <StadiumBadge stadium={ current_states[0].status_name || "" } />
+    const badge = workflows && workflows.length > 0
+      ? <StadiumBadge stadium={ workflows[0].state.name || "" } />
       : <StadiumBadge stadium={ "" } />
 
     const teamMembersList = teams?.length ? teams[0].map((team: { user: { full_name: string } }) => team.user.full_name).join(", ") : ""

@@ -55,7 +55,7 @@ const General: FC<Props> = ({ caseId }) => {
 
   const hasPriority = (caseData.schedules && caseData.schedules[0]?.priority?.weight >= 0.5) ?? false
   const hasWarrant = (caseData.schedules && caseData.schedules[0]?.priority?.weight >= 1.0) ?? false
-  const lastStadiumLabel = caseData.current_states?.length > 0 ? caseData.current_states[0].status_name : undefined
+  const lastStadiumLabel = caseData.workflows?.length > 0 ? caseData.workflows[0].state.name : undefined
 
   const fraudPrediction = !caseData.day_settings_id || (daySettings && daySettings.team_settings.fraud_prediction_model) ? caseData.fraud_prediction : undefined
   const hasProject = caseData?.project?.name !== undefined

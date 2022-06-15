@@ -11,11 +11,11 @@ const itineraryToClipboardText = (itinerary: Case) => {
       suffix_letter: suffixLetter,
       postal_code: postalCode
     },
-    current_states,
+    workflows,
     reason
   } = itinerary
   const address = displayAddress(streetName, streetNumber, suffixLetter, suffix)
-  const state = current_states && current_states.length > 0 ? current_states[0].status_name : undefined
+  const state = workflows && workflows.length > 0 ? workflows[0].state.name : undefined
   return `${ address } ${ postalCode } ${ state } ${ reason.name }`
 }
 
