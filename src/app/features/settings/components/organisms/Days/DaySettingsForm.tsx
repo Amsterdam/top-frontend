@@ -9,12 +9,12 @@ import config from "app/config/config"
 import to from "app/features/shared/routing/to"
 import {
   useDaySettings,
-  usePostCodeRanges,
   useTeamSettingsReasons,
   useTeamSettingsScheduleTypes,
   useTeamSettingsStateTypes,
   useTeamSettingsProjects,
-  useCorporations
+  useCorporations,
+  useDistricts
 } from "app/state/rest"
 
 import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
@@ -40,12 +40,12 @@ type Props = {
 
 const DaySettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId, daySettingsId }) => {
   let { data: daySettings, execPut, isBusy: isBusyDaySettings } = useDaySettings(daySettingsId!, { caseCount: true })
-  const { data: postalCodeRangesPresets, isBusy: isBusyPostalCodeRangesPresets } = usePostCodeRanges()
   const { data: caseReasons, isBusy: isBusyCaseReasons } = useTeamSettingsReasons(teamSettingsId!)
   const { data: teamScheduleTypes, isBusy: isBusyTeamScheduleTypes } = useTeamSettingsScheduleTypes(teamSettingsId!)
   const { data: caseStateTypes, isBusy: isBusyCaseStateTypes } = useTeamSettingsStateTypes(teamSettingsId!)
   const { data: caseProjects, isBusy: isBusyCaseProjects } = useTeamSettingsProjects(teamSettingsId!)
   const { data: corporations, isBusy: isBusyCorporations } = useCorporations()
+  const { data: districts, isBusy: isBusyDistricts } = useDistricts()
   const [ errorMessage, setErrorMessage ] = useState("")
 
   const prepareDefinition = (definitionEntry: any) => definitionEntry?.reduce((t: any, c: any) => {
@@ -55,7 +55,6 @@ const DaySettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId, daySe
 
   const definition = useMemo(
     () => createDefinition(
-      prepareDefinition(postalCodeRangesPresets?.results),
       prepareDefinition(teamScheduleTypes?.day_segments),
       prepareDefinition(teamScheduleTypes?.week_segments),
       prepareDefinition(teamScheduleTypes?.priorities),
@@ -63,9 +62,10 @@ const DaySettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId, daySe
       prepareDefinition(caseStateTypes),
       prepareDefinition(caseProjects),
       prepareDefinition(corporations),
+      prepareDefinition(districts),
       daySettings?.team_settings
     ),
-    [ postalCodeRangesPresets, teamScheduleTypes, caseReasons, caseStateTypes, caseProjects, daySettings, corporations ]
+    [ districts, teamScheduleTypes, caseReasons, caseStateTypes, caseProjects, daySettings, corporations ]
   )
 
   const handleSubmit = useCallback(async (data: any) => {
@@ -73,7 +73,9 @@ const DaySettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId, daySe
     setErrorMessage("")
 
     if (data.postal_codes_type === "postcode") {
-      values.postal_code_ranges_presets = []
+      values.districts = []
+    } else if (data.postal_codes_type === "stadsdeel") {
+      values.postal_code_ranges = []
     }
     values.opening_date = fixDateFormat(values.opening_date)
     try {
@@ -86,8 +88,8 @@ const DaySettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId, daySe
 
   if (!caseProjects || isBusyCaseProjects || !caseStateTypes || isBusyCaseStateTypes || !caseReasons
       || isBusyCaseReasons || !teamScheduleTypes || isBusyTeamScheduleTypes || !teamSettingsId
-      || !daySettingsId || !daySettings || isBusyDaySettings || !postalCodeRangesPresets
-      || isBusyPostalCodeRangesPresets || !corporations || isBusyCorporations
+      || !daySettingsId || !daySettings || isBusyDaySettings || !districts
+      || isBusyDistricts || !corporations || isBusyCorporations
     ) {
     return <CenteredSpinner explanation="Instellingen ophalen…" size={ 60 } />
   }
@@ -95,6 +97,8 @@ const DaySettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId, daySe
   const onClose = () => {
     navigate(to("/team-settings/:teamSettingsId", { teamSettingsId }))
   }
+  // console.log(districts)
+  // console.log(corporations)
 
   const prepareInitialValues = (settings: any) => {
     const removeUnknownIds = (seg: any, v: number[]) => v ? v.filter((n: number, i: number) => seg.map((s: any) => s.id).includes(n) && v?.indexOf(n) === i).map((i: number) => i.toString()) : []
@@ -107,9 +111,9 @@ const DaySettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId, daySe
       project_ids: removeUnknownIds(caseProjects, settings.project_ids),
       state_types: removeUnknownIds(caseStateTypes, settings.state_types),
       housing_corporations: removeUnknownIds(corporations, settings.housing_corporations),
-      postal_code_ranges_presets: (settings.postal_code_ranges_presets ?? []).map((pcp: any) => String(pcp)),
-      postal_codes_type: (settings.postal_code_ranges_presets ?? []).length > 0 ? "stadsdeel" : "postcode",
-      postal_code_ranges: (settings.postal_code_ranges_presets ?? []).length > 0 ? config.settings.defaultPostalCodeRanges : settings.postal_code_ranges,
+      districts: removeUnknownIds(districts, settings.districts),
+      postal_codes_type: (settings.districts ?? []).length > 0 ? "stadsdeel" : "postcode",
+      postal_code_ranges: (settings.districts ?? []).length > 0 ? config.settings.defaultPostalCodeRanges : settings.postal_code_ranges,
       team_settings: teamSettingsId,
       week_days: settings.week_days?.map((wd: number) => wd.toString())
     }

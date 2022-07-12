@@ -75,7 +75,7 @@ const StartAddressSearchResults: React.FC<Props> = (
     postalCode,
     streetName,
     suffix,
-    teamSettings?.zaken_team_name || ""
+    teamSettings?.zaken_team_id || 0
   )
   const { getUrl } = useCaseModal()
 

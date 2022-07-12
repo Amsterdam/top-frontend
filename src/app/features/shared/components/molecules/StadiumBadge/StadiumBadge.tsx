@@ -5,7 +5,6 @@ import Badge, { Props as BadgeProps } from "app/features/shared/components/atoms
 
 type Props = {
   stadium: string
-  stadiaLabels?: Components.Schemas.StadiumLabel[]
   variant?: BadgeProps["variant"]
 }
 

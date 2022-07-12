@@ -2,7 +2,7 @@ import type { VakantieverhuurReportInformation, Permit } from "@amsterdam/wonen-
 import useApiRequest from "./hooks/useApiRequest"
 import { makeGatewayUrl, useErrorHandler } from "./hooks/utils/utils"
 import currentDate from "../../features/shared/utils/currentDate"
-import { Case, Itinerary, ItineraryItem } from "app/features/types"
+import { Case, Itinerary, ItineraryItem, District } from "app/features/types"
 
 export type ApiGroup =
   | "itineraries"
@@ -92,7 +92,7 @@ export const useResidents = (bagId: string, options?: Options) => useApiRequest<
     noForbiddenRedirect: true
   })
 
-export const useSearch = (streetNumber: number, postalCode?: string, streetName?: string, suffix?: string, team?: string, options?: Options) => {
+export const useSearch = (streetNumber: number, postalCode?: string, streetName?: string, suffix?: string, team?: number, options?: Options) => {
   const handleError = useErrorHandler()
 
   // Remove all spaces from postal code to match format requested by API.
@@ -102,7 +102,7 @@ export const useSearch = (streetNumber: number, postalCode?: string, streetName?
     streetName: streetName?.trim(),
     streetNumber,
     suffix: suffix?.trim(),
-    theme: team?.trim()
+    theme: team
   }
 
   return useApiRequest<{ cases: Case[] }>({
@@ -218,10 +218,10 @@ export const useDaySettings = (daySettingsId: number, options?: Options) => {
   })
 }
 
-export const usePostCodeRanges = (options?: Options) => useApiRequest<{ results: Components.Schemas.PostalCodeRangePreset[] }>({
+export const useDistricts = (options?: Options) => useApiRequest<District[]>({
   ...options,
-  url: makeGatewayUrl([ "postal-code-ranges-presets" ]),
-  groupName: "postCodeRangesPresets",
+  url: makeGatewayUrl([ "addresses", "districts" ]),
+  groupName: "teamSettings",
   isProtected: true
 })
 
@@ -286,17 +286,6 @@ export const useCaseVisits = (caseId: string | number, options?: Options) => {
     ...options,
     url: makeGatewayUrl([ "cases", caseId, "visits" ]),
     groupName: "itineraries",
-    handleError,
-    isProtected: true
-  })
-}
-
-export const usePermitCheckmarks = (bagId: string, options?: Options) => {
-  const handleError = useErrorHandler()
-  return useApiRequest<Components.Schemas.PermitCheckmark>({
-    ...options,
-    url: makeGatewayUrl([ "permits", "checkmarks" ], { bag_id: bagId }),
-    groupName: "permits",
     handleError,
     isProtected: true
   })

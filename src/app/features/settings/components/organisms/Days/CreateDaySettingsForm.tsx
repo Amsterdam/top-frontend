@@ -8,13 +8,13 @@ import config from "app/config/config"
 import to from "app/features/shared/routing/to"
 import {
   useDaySettingsList,
-  usePostCodeRanges,
   useTeamSettings,
   useTeamSettingsReasons,
   useTeamSettingsScheduleTypes,
   useTeamSettingsStateTypes,
   useTeamSettingsProjects,
-  useCorporations
+  useCorporations,
+  useDistricts
 } from "app/state/rest"
 
 import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
@@ -45,7 +45,7 @@ const CreateDaySettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId 
   const { data: caseStateTypes } = useTeamSettingsStateTypes(teamSettingsId!)
   const { data: caseProjects } = useTeamSettingsProjects(teamSettingsId!)
   const { data: corporations } = useCorporations()
-  const { data: postalCodeRangesPresets, isBusy: isBusyPostalCodeRangesPresets } = usePostCodeRanges()
+  const { data: districts, isBusy: isBusyDistricts } = useDistricts()
   const [ errorMessage, setErrorMessage ] = useState("")
   const dayOfTheWeek = useQueryStringProp("d")
 
@@ -55,7 +55,6 @@ const CreateDaySettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId 
   }, {}) || []
   const definition = useMemo(
     () => createDefinition(
-      prepareDefinition(postalCodeRangesPresets?.results),
       prepareDefinition(teamScheduleTypes?.day_segments),
       prepareDefinition(teamScheduleTypes?.week_segments),
       prepareDefinition(teamScheduleTypes?.priorities),
@@ -63,9 +62,10 @@ const CreateDaySettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId 
       prepareDefinition(caseStateTypes),
       prepareDefinition(caseProjects),
       prepareDefinition(corporations),
+      prepareDefinition(districts),
       teamSettings
     ),
-    [ teamScheduleTypes, caseReasons, caseStateTypes, postalCodeRangesPresets, caseProjects, teamSettings, corporations ]
+    [ teamScheduleTypes, caseReasons, caseStateTypes, districts, caseProjects, teamSettings, corporations ]
   )
 
   const handleSubmit = useCallback(async (data: any) => {
@@ -73,7 +73,9 @@ const CreateDaySettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId 
     setErrorMessage("")
 
     if (data.postal_codes_type === "postcode") {
-      values.postal_code_ranges_presets = []
+      values.districts = []
+    } else if (data.postal_codes_type === "stadsdeel") {
+      values.postal_code_ranges = []
     }
     // TODO: Fix safari bug in framework
     values.opening_date = fixDateFormat(values.opening_date)
@@ -89,7 +91,7 @@ const CreateDaySettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId 
     }
   }, [ execPost, setErrorMessage, teamSettingsId ])
 
-  if (!postalCodeRangesPresets || isBusyPostalCodeRangesPresets) {
+  if (!districts || isBusyDistricts) {
     return <CenteredSpinner explanation="Instellingen ophalen…" size={ 60 } />
   }
 
