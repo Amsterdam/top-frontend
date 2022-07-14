@@ -97,8 +97,6 @@ const DaySettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId, daySe
   const onClose = () => {
     navigate(to("/team-settings/:teamSettingsId", { teamSettingsId }))
   }
-  // console.log(districts)
-  // console.log(corporations)
 
   const prepareInitialValues = (settings: any) => {
     const removeUnknownIds = (seg: any, v: number[]) => v ? v.filter((n: number, i: number) => seg.map((s: any) => s.id).includes(n) && v?.indexOf(n) === i).map((i: number) => i.toString()) : []
