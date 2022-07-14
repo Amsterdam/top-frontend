@@ -12,7 +12,6 @@ import isSubletting from "app/features/settings/utils/isSubletting"
  */
 
 export const createDefinition = (
-  postalCodeRangeOptions: any,
   daySegmentsOptions: any,
   weekSegmentsOptions: any,
   prioritiesOptions: any,
@@ -20,6 +19,7 @@ export const createDefinition = (
   stateTypeOptions: any,
   projectOptions: any,
   corporationOptions: any,
+  districtOptions: any,
   teamSettings?: Components.Schemas.TeamSettings | Components.Schemas.DaySettings["team_settings"]
 ) => {
   const { allowedPostalCodes } = config.settings
@@ -101,15 +101,15 @@ export const createDefinition = (
         }
       }
     },
-    postalCodeRanges: {
+    districts: {
       type: "ShowHide",
       props: {
         shouldShow: ({ values: { postal_codes_type } }) => postal_codes_type === "stadsdeel",
         field: {
           type: "CheckboxFields",
           props: {
-            name: "postal_code_ranges_presets",
-            options: postalCodeRangeOptions,
+            name: "districts",
+            options: districtOptions,
             columnCount: { mobileM: 2, tabletM: 4 },
             validate: isRequired()
           }
@@ -273,7 +273,7 @@ export const createDefinition = (
       [ "opening_date", "opening_date" ],
       [ "divider2", "divider2", "divider2" ],
       [ "geo_type", "postal_codes", "postal_codes" ],
-      [ "geo_type", "postalCodeRanges", "postalCodeRanges" ],
+      [ "geo_type", "districts", "districts" ],
       [ "divider3", "divider3", "divider3" ],
       [ "housingCorporationCombiteam", "housingCorporationCombiteam", "housingCorporationCombiteam" ],
       [ "housingCorporations", "housingCorporations", "housingCorporations" ],
@@ -297,7 +297,7 @@ export const createDefinition = (
       [ "opening_date", "opening_date" ],
       [ "divider2", "divider2", "divider2", "divider2", "divider2" ],
       [ "geo_type", "postal_codes", "postal_codes", "postal_codes", "postal_codes" ],
-      [ "geo_type", "postalCodeRanges", "postalCodeRanges", "postalCodeRanges", "postalCodeRanges" ],
+      [ "geo_type", "districts", "districts", "districts", "districts" ],
       [ "divider3", "divider3", "divider3", "divider3", "divider3" ],
       [ "housingCorporationCombiteam", "housingCorporationCombiteam", "housingCorporationCombiteam", "housingCorporationCombiteam", "housingCorporationCombiteam" ],
       [ "housingCorporations", "housingCorporations", "housingCorporations", "housingCorporations", "housingCorporations" ],

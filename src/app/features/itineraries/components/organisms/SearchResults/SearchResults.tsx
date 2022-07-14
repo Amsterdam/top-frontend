@@ -12,7 +12,7 @@ type Props = {
   streetName?: string
   streetNumber: number
   suffix?: string
-  teamName?: string
+  teamName?: number
 }
 
 const SearchResults: React.FC<Props> = ({ postalCode, streetName, streetNumber, suffix, teamName }) => {

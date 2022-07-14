@@ -64,6 +64,11 @@ export type CaseReason = {
   team: number | null
 }
 
+export type District = {
+  id: number
+  name: string
+}
+
 export type Case = {
   address: Address
   bag_data: BagData | BagDataError

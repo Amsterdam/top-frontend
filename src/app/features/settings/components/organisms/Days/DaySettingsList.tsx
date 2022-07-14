@@ -9,7 +9,8 @@ import {
   useTeamSettingsScheduleTypes,
   useTeamSettingsStateTypes,
   useTeamSettingsProjects,
-  useCorporations
+  useCorporations,
+  useDistricts
 } from "app/state/rest"
 
 import to from "app/features/shared/routing/to"
@@ -47,18 +48,18 @@ const Hr = styled.hr`
 
 type Props = {
   teamSettingsId: number
-  postCodeRangesPresets: Components.Schemas.PostalCodeRangePreset[]
 }
 
-const DaySettingsList: FC<RouteComponentProps<Props>> = ({ teamSettingsId, postCodeRangesPresets }) => {
+const DaySettingsList: FC<RouteComponentProps<Props>> = ({ teamSettingsId }) => {
   const { data: teamSettings, isBusy: isBusySettings } = useTeamSettings(teamSettingsId!)
   const { data: caseReasons } = useTeamSettingsReasons(teamSettingsId!)
   const { data: teamScheduleTypes } = useTeamSettingsScheduleTypes(teamSettingsId!)
   const { data: caseStateTypes } = useTeamSettingsStateTypes(teamSettingsId!)
   const { data: caseProjects } = useTeamSettingsProjects(teamSettingsId!)
   const { data: corporations } = useCorporations()
+  const { data: districts, isBusy: isBusyDistricts } = useDistricts()
 
-  if (!teamSettings || isBusySettings) {
+  if (!teamSettings || isBusySettings || !districts || isBusyDistricts) {
     return <CenteredSpinner explanation="Planning ophalen…" size={ 60 } />
   }
 
@@ -90,12 +91,12 @@ const DaySettingsList: FC<RouteComponentProps<Props>> = ({ teamSettingsId, postC
                     key={ daySettings.id }
                     teamSettings={ teamSettings }
                     daySettingsId={ daySettings.id }
-                    postCodeRangesPresets={ postCodeRangesPresets }
                     caseReasons={ caseReasons }
                     teamScheduleTypes={ teamScheduleTypes }
                     caseStateTypes={ caseStateTypes }
                     caseProjects={ caseProjects }
                     corporations={ corporations }
+                    districts={ districts }
                   />
               ) }
             </Grid>

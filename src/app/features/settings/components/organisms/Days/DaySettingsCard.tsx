@@ -10,28 +10,29 @@ import formatDate from "app/features/shared/utils/formatDate"
 import ValueList from "../../atoms/ValueList/ValueList"
 import { Body, Column, Dd, Dl, Dt, Header, Li, Section, Ul } from "./DaySettingsCardStyles"
 import isSubletting from "app/features/settings/utils/isSubletting"
+import { District } from "app/features/types"
 
 type Props = {
   teamSettings: Components.Schemas.TeamSettings
-  postCodeRangesPresets: Components.Schemas.PostalCodeRangePreset[]
   daySettingsId: number
   caseReasons: Components.Schemas.CaseReason[]
   teamScheduleTypes: Components.Schemas.TeamScheduleTypes
   caseStateTypes: Components.Schemas.CaseStateType[]
-  caseProjects: Components.Schemas.Project[]
+  caseProjects: Components.Schemas.CaseProject[]
   corporations: Components.Schemas.HousingCorporation[]
+  districts: District[]
 }
 
 const DaySettingsCard: FC<RouteComponentProps<Props>> = (
   {
     teamSettings,
-    postCodeRangesPresets,
     daySettingsId,
     caseReasons,
     teamScheduleTypes,
     caseStateTypes,
     caseProjects,
-    corporations
+    corporations,
+    districts
   }
 ) => {
   const { data: daySettings, isBusy } = useDaySettings(daySettingsId!)
@@ -39,12 +40,6 @@ const DaySettingsCard: FC<RouteComponentProps<Props>> = (
   if (!teamSettings || !daySettings || isBusy) {
     return <CenteredSpinner explanation="Daginstellingen ophalen…" size={ 60 } />
   }
-
-  const postalCodeRangesPresetsDict = postCodeRangesPresets?.reduce((t: any, c) => {
-    t[c.id] = c.name
-    return t
-  }, {}) ?? {}
-  const postalCodeRangesPresets: string[] | undefined = daySettings?.postal_code_ranges_presets && daySettings?.postal_code_ranges_presets.map((pc: any) => postalCodeRangesPresetsDict[pc]) // Stadsdelen
 
   const toEditForm = to("/team-settings/:teamSettingsId/:daySettingsId", {
     teamSettingsId: teamSettings.id,
@@ -89,9 +84,9 @@ const DaySettingsCard: FC<RouteComponentProps<Props>> = (
             values={ daySettings?.project_ids }
           />
           <Dl>
-            <Dt>{ postalCodeRangesPresets?.length ? (postalCodeRangesPresets.length === 1 ? "Stadsdeel" : "Stadsdelen") : "Postcodes" }</Dt>
+            <Dt>Postcodes</Dt>
             <Dd>
-              { postalCodeRangesPresets?.length ? postalCodeRangesPresets.join(", ") : (
+              { daySettings?.postal_code_ranges?.length ?
                 <Ul>
                   {
                     daySettings?.postal_code_ranges?.map((range: any, index: number) =>
@@ -99,9 +94,14 @@ const DaySettingsCard: FC<RouteComponentProps<Props>> = (
                     )
                   }
                 </Ul>
-              )}
+                : "–" }
             </Dd>
           </Dl>
+          <ValueList
+            labels={ [ "Stadsdeel", "Stadsdelen" ] }
+            options={ districts }
+            values={ daySettings?.districts }
+          />
           <ValueList
             labels={ [ "Dagdeel", "Dagdelen" ] }
             options={ teamScheduleTypes?.day_segments }
