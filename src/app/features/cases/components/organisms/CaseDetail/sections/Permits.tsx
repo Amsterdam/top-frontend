@@ -24,7 +24,7 @@ const Permits: FC<Props> = ({ caseId }) => {
       <PermitsOverview
         permits={ decos?.permits || [] }
         loading={ isBusy }
-        hasRowsSeperated={ false }
+        horizontalBordered={ false }
       />
       <HrWide />
     </CaseDetailSection>
