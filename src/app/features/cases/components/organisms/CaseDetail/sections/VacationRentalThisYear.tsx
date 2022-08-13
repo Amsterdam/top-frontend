@@ -23,7 +23,7 @@ const VacationRentalThisYear: React.FC<Props> = ({ caseId }) => {
       <HolidayRental
         data={ decos?.vakantieverhuur_reports || [] }
         loading={ isBusy }
-        hasRowsSeperated={ false }
+        horizontalBordered={ false }
         showRecentYearOnly={ true }
       />
     </CaseDetailSection>
