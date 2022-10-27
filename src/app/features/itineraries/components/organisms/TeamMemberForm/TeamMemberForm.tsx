@@ -6,6 +6,7 @@ import Scaffold from "app/features/shared/components/form/Scaffold"
 
 import { generateFormDefinition } from "./TeamMemberFormDefinition"
 import TeamMemberWarning from "./TeamMemberWarning"
+import mapUsersToLabel from "app/features/itineraries/utils/mapUsersToLabel"
 
 type Props = {
   itineraryId: number
@@ -21,7 +22,8 @@ const TeamMemberForm: React.FC<Props> = ({ toggleForm, itineraryId, initialUsers
   const { data, isBusy } = useUsers()
   const { execPut } = useTeam(itineraryId, { lazy: true })
 
-  const fields = useMemo(() => generateFormDefinition(data?.results ?? [], toggleForm), [ data, toggleForm ])
+  const userOptions = mapUsersToLabel(data?.results ?? [])
+  const fields = useMemo(() => generateFormDefinition(userOptions, toggleForm), [ userOptions, toggleForm ])
 
   const handleSubmit = useCallback(async (values: FormValues) => {
     await execPut({ team_members: values.team_members.map(user => ({ user })) })

@@ -12,7 +12,7 @@ export const generateFormDefinition = (
         name: "team_members[0]",
         label: "Toezichthouder 1",
         options: users,
-        optionLabelField: "full_name"
+        optionLabelField: "label"
       }
     },
     user1: {
@@ -21,7 +21,7 @@ export const generateFormDefinition = (
         name: "team_members[1]",
         label: "Toezichthouder 2",
         options: users,
-        optionLabelField: "full_name"
+        optionLabelField: "label"
       }
     },
     user2: {
@@ -30,7 +30,7 @@ export const generateFormDefinition = (
         name: "team_members[2]",
         label: "Handhaver",
         options: users,
-        optionLabelField: "full_name"
+        optionLabelField: "label"
       }
     },
     reset: {

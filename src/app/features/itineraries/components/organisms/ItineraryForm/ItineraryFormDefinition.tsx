@@ -21,7 +21,7 @@ export const generateItineraryFormDefinition = (
         name: "team_members[0]",
         label: "Toezichthouder 1",
         options: users,
-        optionLabelField: "full_name",
+        optionLabelField: "label",
         withEmptyOption: true,
         validate: isRequired()
       }
@@ -32,7 +32,7 @@ export const generateItineraryFormDefinition = (
         name: "team_members[1]",
         label: "Toezichthouder 2",
         options: users,
-        optionLabelField: "full_name",
+        optionLabelField: "label",
         withEmptyOption: true,
         validate: isRequired()
       }
@@ -43,7 +43,7 @@ export const generateItineraryFormDefinition = (
         name: "team_members[2]",
         label: "Handhaver",
         options: users,
-        optionLabelField: "full_name",
+        optionLabelField: "label",
         withEmptyOption: true,
         validate: isRequired()
       }
