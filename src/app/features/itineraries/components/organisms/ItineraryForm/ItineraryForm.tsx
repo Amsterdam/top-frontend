@@ -12,6 +12,7 @@ import to from "app/features/shared/routing/to"
 import { getDaySettingsOptions } from "app/features/itineraries/components/organisms/ItineraryForm/getDaySettingsOptions"
 import { generateItineraryFormDefinition } from "./ItineraryFormDefinition"
 import { mapPostValues } from "./mapPostValues"
+import mapUsersToLabel from "app/features/itineraries/utils/mapUsersToLabel"
 
 type Props = {
   teamSettings: Components.Schemas.TeamSettings
@@ -32,8 +33,9 @@ const ItineraryForm: FC<Props> = ({ teamSettings }) => {
     return null
   }
 
+  const userOptions = mapUsersToLabel(users?.results)
   const daySettingsOptions = getDaySettingsOptions(teamSettings)
-  const fields = generateItineraryFormDefinition(users.results, daySettingsOptions)
+  const fields = generateItineraryFormDefinition(userOptions, daySettingsOptions)
 
   if (daySettingsOptions.length === 0) {
     return (
