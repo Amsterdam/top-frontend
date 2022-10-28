@@ -4,15 +4,13 @@ type User = Components.Schemas.User & {
 }
 
 const mapUsersToLabel = (users: Components.Schemas.User[]) => {
-  const userList: User[] = []
-  users.forEach((user: any) => {
+  const userList: User[] = users.map((user: any) => {
     const { last_name, first_name, full_name } = user
-    const newUser = { ...user }
+    const newUser: User = { ...user }
     newUser.label = last_name ? `${ last_name }, ${ first_name }` : full_name
-    userList.push(newUser)
-  })
-  const sortedUserList = userList.sort((a: User, b: User) => a.label.localeCompare(b.label))
-  return sortedUserList
+    return newUser
+})
+  return userList.sort((a: User, b: User) => a.label.localeCompare(b.label))
 }
 
 export default mapUsersToLabel
