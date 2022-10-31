@@ -90,10 +90,9 @@ const Residence: FC<Props> = ({ caseId }) => {
   const woningUrlBagType = isWoning ? "verblijfsobject" : "ligplaats"
   const woningUrlBagId = isWoning ? woningBagId : woonbootLigplaatsIndicatie
   const woningUrl = `https://data.amsterdam.nl/data/bag/${ woningUrlBagType }/id${ woningUrlBagId }/`
-  const woningFooter =
-    woningUrlBagId ?
-      { link: woningUrl, title: "Bekijk op Data en informatie" } :
-      undefined
+  const woningFooter = woningUrlBagId ? (
+      { link: woningUrl, title: "Bekijk op Data en informatie" }
+    ) : undefined
 
   return (
     <CaseDetailSection
