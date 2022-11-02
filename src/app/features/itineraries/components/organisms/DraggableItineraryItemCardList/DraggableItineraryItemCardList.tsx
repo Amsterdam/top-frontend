@@ -27,13 +27,15 @@ const getItemStyle = (isDragging: boolean, draggableStyle?: DraggingStyle | NotD
   ...draggableStyle
 })
 
+export const itemsPositionSorter = (a: any, b: any) => a.position > b.position ? 1 : -1
+
 const DraggableItineraryItemCardList: React.FC<Props> = ({ itineraryId, items }) => {
   const [ draggableId, setIsDragging ] = useState<string>()
 
   const { updateCache } = useItineraries({ lazy: true })
   const { execPatch } = useItineraryItem(draggableId ?? "", { lazy: true })
 
-  const sortedItems = useMemo(() => [ ...items ].sort((a, b) => a.position > b.position ? 1 : -1), [ items ])
+  const sortedItems = useMemo(() => [ ...items ].sort(itemsPositionSorter), [ items ])
 
   const handleDragStart = useCallback(({ draggableId }: DragStart) => {
     setIsDragging(draggableId)

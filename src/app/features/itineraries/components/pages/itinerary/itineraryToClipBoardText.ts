@@ -16,7 +16,7 @@ const itineraryToClipboardText = (itinerary: Case) => {
   } = itinerary
   const address = displayAddress(streetName, streetNumber, suffixLetter, suffix)
   const state = workflows && workflows.length > 0 ? workflows[0].state.name : undefined
-  return `${ address } ${ postalCode } ${ state } ${ reason.name }`
+  return `${ address } ${ postalCode } ${ state } ${ reason?.name }`
 }
 
 export default itineraryToClipboardText

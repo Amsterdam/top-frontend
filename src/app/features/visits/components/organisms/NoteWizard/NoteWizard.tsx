@@ -97,22 +97,27 @@ const NoteWizard: React.FC<Props> = ({ itineraryId, caseId, onSubmit, valuesFrom
   return (
     itinerary && itineraryItem && user
       ? (
-        <ScaffoldForm onSubmit={ handleSubmit } initialValues={ getUnsubmittedValues() ?? valuesFromApi }
-                      keepDirtyOnReinitialize={ true }>
+        <ScaffoldForm
+          onSubmit={ handleSubmit }
+          initialValues={ getUnsubmittedValues() ?? valuesFromApi }
+          keepDirtyOnReinitialize={ true }
+        >
           <NodeWizardSubtitle itineraryItem={ itineraryItem } />
-          { valuesFromApi && visitId &&
-          <ButtonWrap>
-            <DeleteVisitButton caseId={ caseId } itineraryId={ itineraryId } visitId={ visitId } />
-          </ButtonWrap>
-          }
+          { valuesFromApi && visitId && (
+            <ButtonWrap>
+              <DeleteVisitButton caseId={ caseId } itineraryId={ itineraryId } visitId={ visitId } />
+            </ButtonWrap>
+          )}
           <Spacing pt={ 2 }>
-            <NoteWizardFormScaffoldFields step={ wizardStep } onBackButtonClicked={ handleBackButtonClick }
-                                          daySettings={ itinerary.settings.day_settings } />
+            <NoteWizardFormScaffoldFields
+              step={ wizardStep }
+              onBackButtonClicked={ handleBackButtonClick }
+              daySettings={ itinerary.settings.day_settings }
+            />
             <NoteWizardManager caseID={ caseId } />
           </Spacing>
         </ScaffoldForm>
-      )
-      : <CenteredSpinner size={ 60 } />
+      ) : <CenteredSpinner size={ 60 } />
   )
 }
 
