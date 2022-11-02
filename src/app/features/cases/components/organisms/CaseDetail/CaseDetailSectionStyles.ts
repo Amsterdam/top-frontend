@@ -21,7 +21,7 @@ export const HrWide = styled(Hr)`
   margin: 12px -16px;
 `
 
-export const CenteredAnchor = styled(StyledLink)`
+export const StyledAnchor = styled(StyledLink)`
   display: block;
   text-align: center;
 `

@@ -38,7 +38,7 @@ const MailtoAnchor: FC<Props> = (
   const text = "Meld BAG afwijkingen"
 
   return (
-    <StyledLink href={ href }>
+    <StyledLink href={ href } target="_blank" rel="noopener noreferrer">
       { text }
     </StyledLink>
   )

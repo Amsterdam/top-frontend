@@ -16,7 +16,7 @@ import { hideFraudProbability } from "app/features/shared/utils/fraudPredictionP
 
 import { getAddress, getEigenaar } from "../utils"
 import {
-  CenteredAnchor,
+  StyledAnchor,
   Grid,
   Section,
   SectionRow
@@ -102,9 +102,13 @@ const General: FC<Props> = ({ caseId }) => {
         </Grid>
       </SectionRow>
       <SectionRow>
-        <CenteredAnchor href={ `https://www.google.com/maps/place/${ address }, Amsterdam` }>
+        <StyledAnchor
+          href={ `https://www.google.com/maps/place/${ address }, Amsterdam` }
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           Bekijk op Google Maps
-        </CenteredAnchor>
+        </StyledAnchor>
       </SectionRow>
     </Section>
   )

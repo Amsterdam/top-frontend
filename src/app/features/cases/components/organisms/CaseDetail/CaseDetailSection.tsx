@@ -8,7 +8,7 @@ import Value from "app/features/shared/components/atoms/Value/Value"
 import formatBoolean from "app/features/shared/utils/formatBoolean"
 
 import {
-  CenteredAnchor,
+  StyledAnchor,
   Grid,
   HrWide,
   Section,
@@ -35,16 +35,14 @@ const CaseDetailSection: FC<Props> = ({ id, dataSource, title, data, footer, isB
 
   return (
     <Section id={ id !== undefined ? id : "" }>
-      { hasTitle &&
-      <Heading forwardedAs="h2">{ title }</Heading>
-      }
+      { hasTitle && <Heading forwardedAs="h2">{ title }</Heading> }
       <SectionRow>
-        { dataSource &&
-        <>
-          <SourceInfo>Bron: { dataSource }</SourceInfo>
-          <HrWide />
-        </>
-        }
+        { dataSource && (
+          <>
+            <SourceInfo>Bron: { dataSource }</SourceInfo>
+            <HrWide />
+          </>
+        )}
         { children }
         <Grid>
           { data?.map((keyValue, index) => {
@@ -58,13 +56,14 @@ const CaseDetailSection: FC<Props> = ({ id, dataSource, title, data, footer, isB
             }
 
             const keyValuePair = <React.Fragment key={ String(key) + index }>
-              { hasLabel ?
-                <>
-                  <Label>{ key }</Label>
-                  { isBusy ? <InlineSkeleton /> : (value == null) ? <Value valid={ false } /> : <span>{ value }</span> }
-                </>
-                :
-                <TwoColumns key={ String(key) + index }>{ value }</TwoColumns>
+              { hasLabel ? (
+                  <>
+                    <Label>{ key }</Label>
+                    { isBusy ? <InlineSkeleton /> : (value == null) ? <Value valid={ false } /> : <span>{ value }</span> }
+                  </>
+                ) : (
+                  <TwoColumns key={ String(key) + index }>{ value }</TwoColumns>
+                )
               }
             </React.Fragment>
 
@@ -79,11 +78,13 @@ const CaseDetailSection: FC<Props> = ({ id, dataSource, title, data, footer, isB
           }) }
         </Grid>
       </SectionRow>
-      { showFooter &&
-      <SectionRow>
-        <CenteredAnchor href={ footer!.link }>{ footer!.title }</CenteredAnchor>
-      </SectionRow>
-      }
+      { showFooter && (
+        <SectionRow>
+          <StyledAnchor href={ footer!.link } target="_blank" rel="noopener noreferrer">
+            { footer!.title }
+          </StyledAnchor>
+        </SectionRow>
+      )}
     </Section>
   )
 }
