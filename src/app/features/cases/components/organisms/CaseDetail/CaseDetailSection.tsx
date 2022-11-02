@@ -8,7 +8,7 @@ import Value from "app/features/shared/components/atoms/Value/Value"
 import formatBoolean from "app/features/shared/utils/formatBoolean"
 
 import {
-  CenteredAnchor,
+  StyledAnchor,
   Grid,
   HrWide,
   Section,
@@ -80,9 +80,9 @@ const CaseDetailSection: FC<Props> = ({ id, dataSource, title, data, footer, isB
       </SectionRow>
       { showFooter && (
         <SectionRow>
-          <CenteredAnchor href={ footer!.link } target="_blank" rel="noopener noreferrer">
+          <StyledAnchor href={ footer!.link } target="_blank" rel="noopener noreferrer">
             { footer!.title }
-          </CenteredAnchor>
+          </StyledAnchor>
         </SectionRow>
       )}
     </Section>
