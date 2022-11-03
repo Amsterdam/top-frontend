@@ -68,7 +68,7 @@ const ItineraryItemCardButtons: React.FC<Props> = (
       <Spacing pb={ 2 }>
         <TextWithIcon><ClockIcon />{ mapDateToTime(visits[0].start_time) }</TextWithIcon>
       </Spacing>
-      {!isCompleted && (
+      { !isCompleted && (
         <>
           <Spacing pb={ 2 }>
             <StyledButton
@@ -80,24 +80,22 @@ const ItineraryItemCardButtons: React.FC<Props> = (
               { deleteButton }
             </StyledSpan>
           </Spacing>
-          {visit && <CompleteVisitButton visit={ visit }/>}
+          { visit && <CompleteVisitButton visit={ visit } itineraryId={ itineraryId } /> }
         </>
       )}
     </>
   ) : (
     <>
-      {isVisitStatus ? (
-      <>
-        <Spacing pb={ 2 }>
-          <Button
-            variant="secondary"
-            onClick={ () => navigate(to("/visit/:itineraryId/:caseId", { caseId, itineraryId })) }
-          >
-            Bezoek
-          </Button>
-        </Spacing>
-      </>
-      ) : <></>}
+      { isVisitStatus && (
+          <Spacing pb={ 2 }>
+            <Button
+              variant="secondary"
+              onClick={ () => navigate(to("/visit/:itineraryId/:caseId", { caseId, itineraryId })) }
+            >
+              Bezoek
+            </Button>
+          </Spacing>
+      )}
       <Spacing pb={ 2 }>
         { deleteButton }
       </Spacing>

@@ -358,24 +358,6 @@ declare namespace Components {
             previous?: string | null; // uri
             results?: Observation[];
         }
-        export interface PaginatedPostalCodeRangePresetList {
-            /**
-             * example:
-             * 123
-             */
-            count?: number;
-            /**
-             * example:
-             * http://api.example.org/accounts/?page=4
-             */
-            next?: string | null; // uri
-            /**
-             * example:
-             * http://api.example.org/accounts/?page=2
-             */
-            previous?: string | null; // uri
-            results?: PostalCodeRangePreset[];
-        }
         export interface PaginatedSuggestNextVisitList {
             /**
              * example:
@@ -509,11 +491,6 @@ declare namespace Components {
             value?: string;
             verbose?: string;
         }
-        export interface PatchedPostalCodeRangePreset {
-            id?: number;
-            name?: string;
-            postal_code_ranges_presets?: PostalCodeRange[];
-        }
         export interface PatchedSuggestNextVisit {
             value?: string;
             verbose?: string;
@@ -548,15 +525,6 @@ declare namespace Components {
             personal_notes?: string | null;
             itinerary_item?: number | null;
             author?: string; // uuid
-        }
-        export interface PostalCodeRange {
-            range_start?: number;
-            range_end?: number;
-        }
-        export interface PostalCodeRangePreset {
-            id: number;
-            name: string;
-            postal_code_ranges_presets: PostalCodeRange[];
         }
         export interface PostalCodeSettings {
             range_start: number;
@@ -614,7 +582,7 @@ declare namespace Components {
         export interface Visit {
             id: number;
             team_members: VisitTeamMember[];
-            case_id: string;
+            case_id: any;
             completed?: boolean;
             situation?: string | null;
             observations?: string[] | null;
@@ -651,6 +619,12 @@ declare namespace Paths {
         export interface PathParameters {
             bag_id: Parameters.BagId;
         }
+        namespace Responses {
+            export interface $200 {
+            }
+        }
+    }
+    namespace AddressesDistrictsRetrieve {
         namespace Responses {
             export interface $200 {
             }
@@ -1051,70 +1025,6 @@ declare namespace Paths {
         export type RequestBody = Components.Schemas.OIDCAuthenticate;
         namespace Responses {
             export type $200 = Components.Schemas.OIDCAuthenticate;
-        }
-    }
-    namespace PostalCodeRangesPresetsCreate {
-        export type RequestBody = Components.Schemas.PostalCodeRangePreset;
-        namespace Responses {
-            export type $201 = Components.Schemas.PostalCodeRangePreset;
-        }
-    }
-    namespace PostalCodeRangesPresetsDestroy {
-        namespace Parameters {
-            export type Id = number;
-        }
-        export interface PathParameters {
-            id: Parameters.Id;
-        }
-        namespace Responses {
-            export interface $204 {
-            }
-        }
-    }
-    namespace PostalCodeRangesPresetsList {
-        namespace Parameters {
-            export type Page = number;
-        }
-        export interface QueryParameters {
-            page?: Parameters.Page;
-        }
-        namespace Responses {
-            export type $200 = Components.Schemas.PaginatedPostalCodeRangePresetList;
-        }
-    }
-    namespace PostalCodeRangesPresetsPartialUpdate {
-        namespace Parameters {
-            export type Id = number;
-        }
-        export interface PathParameters {
-            id: Parameters.Id;
-        }
-        export type RequestBody = Components.Schemas.PatchedPostalCodeRangePreset;
-        namespace Responses {
-            export type $200 = Components.Schemas.PostalCodeRangePreset;
-        }
-    }
-    namespace PostalCodeRangesPresetsRetrieve {
-        namespace Parameters {
-            export type Id = number;
-        }
-        export interface PathParameters {
-            id: Parameters.Id;
-        }
-        namespace Responses {
-            export type $200 = Components.Schemas.PostalCodeRangePreset;
-        }
-    }
-    namespace PostalCodeRangesPresetsUpdate {
-        namespace Parameters {
-            export type Id = number;
-        }
-        export interface PathParameters {
-            id: Parameters.Id;
-        }
-        export type RequestBody = Components.Schemas.PostalCodeRangePreset;
-        namespace Responses {
-            export type $200 = Components.Schemas.PostalCodeRangePreset;
         }
     }
     namespace SearchRetrieve {
