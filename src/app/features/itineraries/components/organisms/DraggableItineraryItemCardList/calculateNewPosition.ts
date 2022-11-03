@@ -7,7 +7,7 @@ const calculateNewPosition = (items: { position: number }[], index: number, newI
   const length = items.length
   const succeedingPosition = i <= length - 1 ? items[i].position : undefined
   const position = succeedingPosition ? (
-    precedingPosition + ((succeedingPosition - precedingPosition) / 2)
+      precedingPosition + ((succeedingPosition - precedingPosition) / 2)
     ) : items[length - 1].position + 10
 
   return position
