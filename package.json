@@ -103,7 +103,7 @@
     "@types/enzyme-adapter-react-16": "^1.0.6",
     "dtsgenerator": "^3.16.1",
     "enzyme": "^3.11.0",
-    "lint-staged": "^13.0.3",
+    "lint-staged": "^13.0.4",
     "nock": "^13.2.9",
     "storybook": "^6.5.13"
   }
