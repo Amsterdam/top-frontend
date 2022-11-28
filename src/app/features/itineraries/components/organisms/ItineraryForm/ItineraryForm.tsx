@@ -12,7 +12,7 @@ import to from "app/features/shared/routing/to"
 import { getDaySettingsOptions } from "app/features/itineraries/components/organisms/ItineraryForm/getDaySettingsOptions"
 import { generateItineraryFormDefinition } from "./ItineraryFormDefinition"
 import { mapPostValues } from "./mapPostValues"
-import mapUsersToLabel from "app/features/itineraries/utils/mapUsersToLabel"
+import mapUsersToLabel, { createUserWithLabel } from "app/features/itineraries/utils/mapUsersToLabel"
 
 type Props = {
   teamSettings: Components.Schemas.TeamSettings
@@ -49,6 +49,8 @@ const ItineraryForm: FC<Props> = ({ teamSettings }) => {
     )
   }
 
+  const loggedInUserWithLabel = loggedInUser ? createUserWithLabel(loggedInUser) : loggedInUser
+
   return (
     <ScaffoldForm
       keepDirtyOnReinitialize={ true }
@@ -57,7 +59,7 @@ const ItineraryForm: FC<Props> = ({ teamSettings }) => {
         daySettings: daySettingsOptions[0],
         numAddresses: 8,
         teamSettings,
-        team_members: [ loggedInUser ]
+        team_members: [ loggedInUserWithLabel ]
       } }
     >
       <Scaffold fields={ fields } />

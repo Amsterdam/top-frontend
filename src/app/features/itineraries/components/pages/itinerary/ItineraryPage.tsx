@@ -26,6 +26,7 @@ import TeamMemberForm from "app/features/itineraries/components/organisms/TeamMe
 import itineraryToClipboardText from "./itineraryToClipBoardText"
 import { mapItineraryItem } from "./mapItineraryItem"
 import { redirectToCorrectItineraryPage } from "app/features/itineraries/utils/redirectToCorrectItineraryPage"
+import { createUserWithLabel } from "app/features/itineraries/utils/mapUsersToLabel"
 
 const TeamMemberWrap = styled.div`
   padding-top: ${ themeSpacing(2) };
@@ -100,7 +101,7 @@ const ItineraryPage: React.FC<RouteComponentProps<Props>> = ({ itineraryId }) =>
 
   const cardListItems = useMemo(() => items?.map(mapItineraryItem(itineraryId!, itinerary?.settings.day_settings!)) ?? [], [ items, itineraryId, itinerary ])
 
-  const teamMemberUsers = useMemo(() => itinerary?.team_members.map(member => member.user) ?? [], [ itinerary ])
+  const teamMemberUsers = useMemo(() => itinerary?.team_members.map(member => createUserWithLabel(member.user)) ?? [], [ itinerary ])
   const teamMemberNames = useMemo(() => teamMemberUsers?.map(user => user.full_name).join(", "), [ teamMemberUsers ])
 
   const cases = useMemo(() => items?.map(item => item.case.data) ?? [], [ items ])
