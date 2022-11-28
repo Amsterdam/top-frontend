@@ -4,9 +4,19 @@ type User = Components.Schemas.User & {
 }
 
 export const createUserWithLabel = (user: Components.Schemas.User) => {
-  const { last_name, first_name, full_name } = user
+  const { first_name, full_name } = user
   const newUser: User = { ...user }
-  newUser.label = first_name && last_name ? `${ first_name } ${ last_name }` : full_name
+  let label = full_name
+  if (first_name) {
+    if (full_name.charAt(1) === "." && full_name.charAt(0) === first_name.charAt(0)) {
+      const initials = full_name.substring(0, full_name.lastIndexOf(".") + 1)
+      label = full_name.replace(initials, first_name)
+    }
+  }
+  if (label.charAt(0) === " ") {
+    label = label.slice(1)
+  }
+  newUser.label = label
   return newUser
 }
 
