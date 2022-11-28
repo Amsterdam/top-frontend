@@ -23,6 +23,10 @@ import DeleteVisitButton from "app/features/visits/components/molecules/DeleteVi
 import { mapPostValues } from "./utils/mapValues"
 import { FormValues } from "app/features/visits/components/organisms/NoteWizard/types"
 
+import { useItineraries, useItineraryItem } from "app/state/rest"
+import calculateNewPosition from "app/features/itineraries/components/organisms/DraggableItineraryItemCardList/calculateNewPosition"
+import { itemsPositionSorter } from "app/features/itineraries/components/organisms/DraggableItineraryItemCardList/DraggableItineraryItemCardList"
+
 type Props = {
   valuesFromApi?: FormValues
   onSubmit: (values: Components.Schemas.Visit) => Promise<any>
@@ -50,8 +54,10 @@ const NoteWizard: React.FC<Props> = ({ itineraryId, caseId, onSubmit, valuesFrom
     getValues: getUnsubmittedValues
   } = useNoteWizard(caseId)
   const user = useLoggedInUser()
-
+  const { data } = useItineraries({ lazy: true })
   const itineraryItem = itinerary?.items.find(item => item.case.id.toString() === caseId) as ItineraryItem
+  const { execPatch: execPatchItineraryItem } = useItineraryItem(itineraryItem?.id ?? "", { lazy: true })
+
   const wizardStep = getCurrentStep() ?? "stepOne"
 
   const handleBackButtonClick = useCallback((e: React.MouseEvent) => {
@@ -59,14 +65,29 @@ const NoteWizard: React.FC<Props> = ({ itineraryId, caseId, onSubmit, valuesFrom
     popStep()
   }, [ popStep ])
 
+  const moveItemToBottomList = useCallback(() => {
+    // Get all items from the Itinerary list.
+    const items = data?.itineraries.find(_ => _.id.toString() === itineraryId)?.items ?? []
+    // Sort for position like the DraggableItineraryItemCardList.
+    const sortedItems = [ ...items ].sort(itemsPositionSorter)
+    // Find the current index.
+    const sourceIndex = sortedItems.findIndex((_) => _.case.id === itineraryItem.case.id)
+    // Destination index will be the bottom of the list
+    const destinationIndex = sortedItems.length - 1
+    // Calculate new position with the current index and the destination index.
+    const position = calculateNewPosition(sortedItems, sourceIndex, destinationIndex)
+    execPatchItineraryItem({ position })
+  },[data?.itineraries, execPatchItineraryItem, itineraryId, itineraryItem?.case?.id])
+
   const handleSubmit = useCallback((values) => {
     setValues(values)
 
     const submit = () => onSubmit(mapPostValues(values, itineraryItem.id, itineraryItem.case.id.toString(), user!.id))
       .then(() => {
         clearSteps()
-        return navigate(to("/lijst/:itineraryId", { itineraryId }))
+        moveItemToBottomList()
       })
+      .finally(() => navigate(to("/lijst/:itineraryId", { itineraryId })))
 
     switch (wizardStep) {
       case "stepOne":
@@ -92,7 +113,7 @@ const NoteWizard: React.FC<Props> = ({ itineraryId, caseId, onSubmit, valuesFrom
     }
 
     return Promise.resolve(true)
-  }, [ pushStep, clearSteps, setValues, wizardStep, onSubmit, itineraryId, itineraryItem, user ])
+  }, [ pushStep, clearSteps, setValues, wizardStep, onSubmit, itineraryId, itineraryItem, user, moveItemToBottomList ])
 
   return (
     itinerary && itineraryItem && user
