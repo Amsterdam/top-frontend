@@ -93,7 +93,7 @@
     ]
   },
   "devDependencies": {
-    "@babel/core": "^7.20.2",
+    "@babel/core": "^7.20.5",
     "@storybook/addon-essentials": "^6.5.13",
     "@storybook/addon-knobs": "^6.4.0",
     "@storybook/preset-create-react-app": "^4.1.0",
