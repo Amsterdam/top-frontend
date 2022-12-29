@@ -191,6 +191,20 @@ declare namespace Components {
                 team_settings: UserTeamSettingsId[];
             };
         }
+        export interface Meldingen {
+            pageNumber: number;
+            pageSize: number;
+            totalPages: number;
+            totalRecords: number;
+            data: {
+                startDatum: string;
+                eindDatum: string;
+                nachten: number;
+                gasten: number;
+                isAangepast: Boolean;
+                isVerwijderd: Boolean;
+            }[];
+        }
         export interface NewDaySettings {
             id: number;
             name: string;
@@ -633,6 +647,27 @@ declare namespace Paths {
     namespace AddressesHousingCorporationsList {
         namespace Responses {
             export type $200 = Components.Schemas.HousingCorporation[];
+        }
+    }
+    namespace AddressesMeldingenList {
+        namespace Parameters {
+            export type BagId = string;
+            export type EndDate = string; // date
+            export type Limit = number;
+            export type Offset = number;
+            export type StartDate = string; // date
+        }
+        export interface PathParameters {
+            bag_id: Parameters.BagId;
+        }
+        export interface QueryParameters {
+            end_date?: Parameters.EndDate /* date */;
+            limit?: Parameters.Limit;
+            offset?: Parameters.Offset;
+            start_date?: Parameters.StartDate /* date */;
+        }
+        namespace Responses {
+            export type $200 = Components.Schemas.Meldingen[];
         }
     }
     namespace AddressesResidentsRetrieve {

@@ -1,3 +1,4 @@
+import moment from "moment"
 import type { VakantieverhuurReportInformation, Permit } from "@amsterdam/wonen-ui"
 import useApiRequest from "./hooks/useApiRequest"
 import { makeGatewayUrl, useErrorHandler } from "./hooks/utils/utils"
@@ -16,6 +17,7 @@ export type ApiGroup =
   | "permits"
   | "decos"
   | "auth"
+  | "meldingen"
 
 export type Options = {
   keepUsingInvalidCache?: boolean
@@ -304,6 +306,20 @@ export const useDecos = (bagId: string, options?: Options) => {
     ...options,
     url: makeGatewayUrl([ "addresses", bagId, "decos" ]),
     groupName: "permits",
+    handleError,
+    isProtected: true
+  })
+}
+
+export const useMeldingen = (bagId: string, options?: Options) => {
+  const params: any = {
+    start_date: moment().subtract(1, "years").startOf("year").format()
+  }
+  const handleError = useErrorHandler()
+  return useApiRequest<Components.Schemas.Meldingen>({
+    ...options,
+    url: makeGatewayUrl([ "addresses", bagId, "meldingen" ], params),
+    groupName: "meldingen",
     handleError,
     isProtected: true
   })
