@@ -1,6 +1,6 @@
 import React from "react"
-import { HolidayRental } from "@amsterdam/wonen-ui"
-import { useDecos, useCase } from "app/state/rest"
+import { HolidayRentalReports } from "@amsterdam/wonen-ui"
+import { useCase, useMeldingen } from "app/state/rest"
 import { getBagId } from "../utils"
 import CaseDetailSection from "../CaseDetailSection"
 
@@ -11,20 +11,18 @@ type Props = {
 const VacationRentalThisYear: React.FC<Props> = ({ caseId }) => {
   const { data: caseData } = useCase(caseId)
   const bagId = getBagId(caseData!)
-  const { data: decos, isBusy } = useDecos(bagId!, { lazy: !bagId })
+  const { data: meldingen, isBusy } = useMeldingen(bagId!, { lazy: !bagId })
 
   return (
     <CaseDetailSection
       id="vakantieverhuur"
       title="Vakantieverhuur dit jaar"
-      dataSource="Decos"
+      dataSource="Toeristischeverhuur.nl"
       isBusy={ isBusy }
     >
-      <HolidayRental
-        data={ decos?.vakantieverhuur_reports || [] }
+      <HolidayRentalReports
+        data={ meldingen?.data || [] }
         loading={ isBusy }
-        horizontalBordered={ false }
-        showRecentYearOnly={ true }
       />
     </CaseDetailSection>
   )
