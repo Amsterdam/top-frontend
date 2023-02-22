@@ -30,7 +30,7 @@
     "dompurify": "^3.0.0",
     "env-cmd": "^10.1.0",
     "final-form": "^4.20.9",
-    "final-form-arrays": "^3.0.2",
+    "final-form-arrays": "^3.1.0",
     "immer": "^9.0.19",
     "jwt-decode": "^3.1.2",
     "keycloak-js": "^16.1.1",
