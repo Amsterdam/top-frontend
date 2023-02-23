@@ -3,11 +3,12 @@ import { useCallback, useContext, useEffect } from "react"
 import { ApiContext } from "../provider/ApiProvider"
 import { ApiGroup } from "../index"
 import useProtectedRequest from "./useProtectedRequest"
-import useRequest, { RequestError } from "./useRequest"
+import useRequest from "./useRequest"
 import useKeycloak from "app/state/auth/keycloak/useKeycloak"
 
 import { navigate } from "@reach/router"
 import to from "app/features/shared/routing/to"
+import type { HandleError } from "./utils/utils"
 
 type GetOptions = {
   method: "get"
@@ -30,7 +31,7 @@ type Config = {
   lazy?: boolean
   url: string
   groupName: ApiGroup
-  handleError?: (error: RequestError) => void
+  handleError?: HandleError
   isProtected?: boolean
   noForbiddenRedirect?: boolean
 }
