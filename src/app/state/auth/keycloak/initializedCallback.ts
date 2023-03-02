@@ -1,7 +1,6 @@
 import { navigate } from "@reach/router"
+import Keycloak from "keycloak-js"
 import to from "app/features/shared/routing/to"
-import { Keycloak } from "./keycloak"
-
 import { makeGatewayUrl } from "app/state/rest/hooks/utils/utils"
 import createAuthHeaders from "app/state/rest/hooks/utils/createAuthHeaders"
 

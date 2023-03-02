@@ -6,6 +6,6 @@ export const useLoggedInUser = () => {
   const token = useKeycloak()
   const { data } = useUsers()
   return useMemo(() => data?.results.find(_ => (
-    _.username.toLowerCase() === token.tokenParsed.email.toLowerCase()
+    _.username.toLowerCase() === token?.tokenParsed?.email.toLowerCase()
   )), [ data, token ])
 }

@@ -1,4 +1,4 @@
-const keycloakMock = {
+const keycloakMock: any = {
   init: async () => {},
   updateToken: async () => {},
   logout: () => {},
