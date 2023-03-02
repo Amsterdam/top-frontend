@@ -50,6 +50,21 @@
     "styled-components": "^5.3.6",
     "typescript": "^4.9.5"
   },
+  "devDependencies": {
+    "@babel/core": "^7.21.0",
+    "@storybook/addon-essentials": "^6.5.16",
+    "@storybook/addon-knobs": "^6.4.0",
+    "@storybook/preset-create-react-app": "^4.1.0",
+    "@storybook/react": "^6.5.16",
+    "@testing-library/react-hooks": "^8.0.1",
+    "@types/enzyme": "^3.10.12",
+    "@types/enzyme-adapter-react-16": "^1.0.6",
+    "dtsgenerator": "^3.16.1",
+    "enzyme": "^3.11.0",
+    "lint-staged": "^13.1.2",
+    "nock": "^13.3.0",
+    "storybook": "^6.5.16"
+  },
   "scripts": {
     "start": "GENERATE_SOURCEMAP=false react-scripts start",
     "start:local": "env-cmd -f .env.development_local react-scripts start",
@@ -67,6 +82,12 @@
     "swagger:generate-schema": "dtsgen -o ./src/__generated__/apiSchema.d.ts --url https://api.top.amsterdam.nl/api/v1/schema/",
     "deploy:acc": "git push origin master",
     "deploy:prod": "npm version patch && git push origin HEAD --follow-tags"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.[t|j]sx?$": "babel-jest"
+    },
+    "transformIgnorePatterns": ["node_modules/(?!axios)/"]
   },
   "eslintConfig": {
     "extends": "react-app",
@@ -92,20 +113,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@babel/core": "^7.20.2",
-    "@storybook/addon-essentials": "^6.5.16",
-    "@storybook/addon-knobs": "^6.4.0",
-    "@storybook/preset-create-react-app": "^4.1.0",
-    "@storybook/react": "^6.5.16",
-    "@testing-library/react-hooks": "^8.0.1",
-    "@types/enzyme": "^3.10.12",
-    "@types/enzyme-adapter-react-16": "^1.0.6",
-    "dtsgenerator": "^3.16.1",
-    "enzyme": "^3.11.0",
-    "lint-staged": "^13.1.2",
-    "nock": "^13.3.0",
-    "storybook": "^6.5.16"
   }
 }
