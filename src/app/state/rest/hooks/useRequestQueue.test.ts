@@ -14,7 +14,7 @@ describe("useRequestQueue", () => {
 
     reject = () => {}
 
-    resolve = () => {}
+    resolve = (value?: any) => {}
   }
 
   it("execute pushed requests in order", async () => {
