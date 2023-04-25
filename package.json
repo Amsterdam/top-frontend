@@ -63,7 +63,7 @@
     "enzyme": "^3.11.0",
     "lint-staged": "^13.1.2",
     "nock": "^13.3.0",
-    "storybook": "^6.5.16"
+    "storybook": "^7.0.7"
   },
   "scripts": {
     "start": "GENERATE_SOURCEMAP=false react-scripts start",
