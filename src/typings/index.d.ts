@@ -1,2 +1,2 @@
-declare module '@testing-library/react-hooks';
-declare module 'nock';
+declare module "@testing-library/react-hooks";
+declare module "nock";
