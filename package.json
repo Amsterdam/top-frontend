@@ -33,7 +33,7 @@
     "final-form-arrays": "^3.1.0",
     "immer": "^9.0.19",
     "jwt-decode": "^3.1.2",
-    "keycloak-js": "^21.0.1",
+    "keycloak-js": "^21.0.2",
     "lodash.difference": "^4.5.0",
     "lodash.isempty": "^4.4.0",
     "lodash.isequal": "^4.5.0",
