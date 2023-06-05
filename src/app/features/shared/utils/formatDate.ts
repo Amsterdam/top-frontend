@@ -30,7 +30,7 @@ const formatDate = (date: string | Date, includeWeekDay = false, includeYear = t
     return undefined
   }
 
-  let formattedDate = []
+  let formattedDate: any[] = []
 
   if (includeWeekDay) {
     formattedDate.push(days[dateObj.getDay()])
