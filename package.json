@@ -46,7 +46,7 @@
     "react-scripts": "^5.0.1",
     "slash-sandwich": "^1.0.12",
     "smoothscroll-polyfill": "^0.4.4",
-    "styled-components": "^5.3.8",
+    "styled-components": "^5.3.11",
     "typescript": "^4.9.5"
   },
   "devDependencies": {
