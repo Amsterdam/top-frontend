@@ -85,8 +85,6 @@ const General: FC<Props> = ({ caseId }) => {
                 <Value>{ caseData?.subjects.map((subject: { name: string }) => subject.name).join(", ") }</Value>
               </>
           )}
-          <Label>Eigenaar</Label>
-          <Value sensitive value={ eigenaar } />
           { fraudPrediction && !hideFraudProbability(caseId, daySettings?.team_settings?.fraudprediction_pilot_enabled) && (
             <>
               <Label>Voorspelling (bèta)</Label>
