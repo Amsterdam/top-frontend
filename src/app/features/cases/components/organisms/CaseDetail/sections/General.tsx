@@ -14,7 +14,7 @@ import FraudPredictionDetailsModal from "app/features/cases/components/organisms
 import { useFraudPredictionModal } from "app/features/cases/components/organisms/FraudPrediction/hooks/useFraudPredictionModal"
 import { hideFraudProbability } from "app/features/shared/utils/fraudPredictionPilot"
 
-import { getAddress, getEigenaar } from "../utils"
+import { getAddress } from "../utils"
 import {
   StyledAnchor,
   Grid,
@@ -51,7 +51,6 @@ const General: FC<Props> = ({ caseId }) => {
 
   const address = getAddress(caseData.address)
   const postalCode = caseData.address.postal_code
-  const eigenaar = getEigenaar(caseData)
 
   const hasPriority = (caseData.schedules && caseData.schedules[0]?.priority?.weight >= 0.5) ?? false
   const hasWarrant = (caseData.schedules && caseData.schedules[0]?.priority?.weight >= 1.0) ?? false
