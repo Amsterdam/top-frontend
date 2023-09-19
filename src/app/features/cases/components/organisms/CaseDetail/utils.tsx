@@ -19,10 +19,17 @@ export const getEigenaar = (caseData: Case) => {
 
   const brkData = caseData.brk_data as BrkData
 
-  if (brkData.owners.length) {
-    return brkData.owners.map(owner => owner._display).join(", ")
+  if (brkData.results.length) {
+    const rechten = brkData.results.map(result => (
+      <>
+        { result?.cultuurcode_bebouwd?.omschrijving && (
+          <b>{ result?.cultuurcode_bebouwd?.omschrijving }</b>
+        )}
+        <ul>{result?.rechten?.map(recht => <li>{ recht._display}</li>)}</ul>
+      </>
+    ))
+    return rechten
   }
-
   return undefined
 }
 

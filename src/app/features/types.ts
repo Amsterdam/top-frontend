@@ -30,8 +30,15 @@ export type BagDataError = {
 }
 
 export type BrkData = {
+  results: {
+    cultuurcode_bebouwd?: {
+      omschrijving?: string
+    }
+    rechten?: {
+      _display: string
+    }[]
+  }[]
   bag_id: string | null
-  owners: { _display: string }[]
 }
 
 export type BrkDataError = {
