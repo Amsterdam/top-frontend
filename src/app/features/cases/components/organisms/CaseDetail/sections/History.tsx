@@ -6,11 +6,11 @@ type Props = {
   caseId: string
 }
 
-const Status: React.FC<Props> = ({ caseId }) => {
+const History: React.FC<Props> = ({ caseId }) => {
   const { data } = useCaseEvents(caseId)
 
   return (
-    <CaseDetailSection title="Status" dataSource="AZA">
+    <CaseDetailSection title="Zaakhistorie" dataSource="AZA">
       { data !== undefined &&
         <EventsTimeline
           events={ data as CaseEvent[] }
@@ -22,4 +22,4 @@ const Status: React.FC<Props> = ({ caseId }) => {
   )
 }
 
-export default Status
+export default History

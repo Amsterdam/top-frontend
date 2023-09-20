@@ -31,10 +31,12 @@ export type BagDataError = {
 
 export type BrkData = {
   results: {
+    id: string
     cultuurcode_bebouwd?: {
       omschrijving?: string
     }
     rechten?: {
+      id: string
       _display: string
     }[]
   }[]
