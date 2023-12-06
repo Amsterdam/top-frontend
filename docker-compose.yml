@@ -2,8 +2,8 @@ version: '2'
 
 services:
   frontend:
-    image: frontend
     build: .
+    image: ${REGISTRY:-127.0.0.1:5001}/${REPOSITORY:-salmagundi/top-frontend}:${VERSION:-latest}
     ports:
       - "7000:7000"
   lint:

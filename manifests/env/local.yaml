@@ -1,0 +1,29 @@
+image:
+  registry: 127.0.0.1:5001
+  imagePullPolicy: Always
+
+host: top-frontend.localhost
+
+secrets:
+  certificate:
+    enabled: false
+
+deployments:
+  top-frontend:
+    env:
+      NODE_ENV: development
+services:
+  top-frontend:
+    selector:
+      component: top-frontend
+    ports:
+      - port: 7000
+        targetPort: http
+
+ingress:
+  top-frontend-internal:
+    className: nginx
+
+jobs:
+  certificate-init:
+    enabled: false
