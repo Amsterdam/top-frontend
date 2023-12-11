@@ -59,7 +59,7 @@ const CaseDetailSection: FC<Props> = ({ id, dataSource, title, data, footer, isB
               { hasLabel ? (
                   <>
                     <Label>{ key }</Label>
-                    { isBusy ? <InlineSkeleton /> : (value == null) ? <Value valid={ false } /> : <span>{ value }</span> }
+                    { isBusy ? <InlineSkeleton /> : (value == null) ? <Value valid={ false } /> : <span style={{ overflow: "hidden" }}>{ value }</span> }
                   </>
                 ) : (
                   <TwoColumns key={ String(key) + index }>{ value }</TwoColumns>
