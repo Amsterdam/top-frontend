@@ -1,5 +1,5 @@
 import moment from "moment"
-import type { VakantieverhuurReportInformation, Permit } from "@amsterdam/wonen-ui"
+import type { VakantieverhuurReportInformation, Permit, PermitType } from "@amsterdam/wonen-ui"
 import useApiRequest from "./hooks/useApiRequest"
 import { makeGatewayUrl, useErrorHandler } from "./hooks/utils/utils"
 import currentDate from "../../features/shared/utils/currentDate"
@@ -305,6 +305,18 @@ export const useDecos = (bagId: string, options?: Options) => {
   return useApiRequest<decosType>({
     ...options,
     url: makeGatewayUrl([ "addresses", bagId, "decos" ]),
+    groupName: "permits",
+    handleError,
+    isProtected: true
+  })
+}
+
+// PowerBrowser permits for B&B
+export const usePowerBrowser = (bagId: string, options?: Options) => {
+  const handleError = useErrorHandler()
+  return useApiRequest<PermitType[]>({
+    ...options,
+    url: makeGatewayUrl([ "addresses", bagId, "permits-powerbrowser" ]),
     groupName: "permits",
     handleError,
     isProtected: true
