@@ -80,7 +80,7 @@
     "swagger:generate-schema:local": "dtsgen -o ./src/__generated__/apiSchema.d.ts --url http://localhost:8000/api/v1/schema/",
     "swagger:generate-schema:acc": "dtsgen -o ./src/__generated__/apiSchema.d.ts --url https://acc.api.top.amsterdam.nl/api/v1/schema/",
     "swagger:generate-schema": "dtsgen -o ./src/__generated__/apiSchema.d.ts --url https://api.top.amsterdam.nl/api/v1/schema/",
-    "deploy:acc": "git push origin master",
+    "deploy:acc": "git push origin main",
     "deploy:prod": "npm version patch && git push origin HEAD --follow-tags"
   },
   "jest": {
