@@ -14,7 +14,7 @@ RUN ls -la $DIR
 RUN mkdir -p $DIR/builds/application
 
 WORKDIR $DIR
-
+COPY package*.json $DIR/
 RUN npm ci --production --unsafe-perm --ignore-scripts .
 
 # global variables
