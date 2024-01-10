@@ -28,7 +28,6 @@ RUN npm run build
 RUN mv $DIR/build/* $DIR/builds/application/
 
 FROM nginx:stable-alpine
-RUN apk add --update nodejs npm
 
 ADD nginx.conf /etc/nginx/nginx.conf
 COPY --from=builder /var/www/builds /var/www
