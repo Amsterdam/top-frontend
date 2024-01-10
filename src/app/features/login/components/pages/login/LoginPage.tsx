@@ -1,13 +1,14 @@
 import React from "react"
 import styled from "styled-components"
 import { Button, themeSpacing } from "@amsterdam/asc-ui"
+import { env } from "app/config/env"
 
 const CenterWrap = styled.div`
   margin-top: ${ themeSpacing(50) };
   text-align: center;
 `
 
-const authUrl = process.env.REACT_APP_AUTH_URL ?? ""
+const authUrl = env.REACT_APP_AUTH_URL ?? ""
 
 const LoginPage: React.FC = () => (
   <CenterWrap>

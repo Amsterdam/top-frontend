@@ -1,11 +1,12 @@
 import * as Sentry from "@sentry/browser"
+import { env } from "app/config/env"
 
 const initSentry = () => {
-  if (process.env.REACT_APP_SENTRY_ENV && process.env.REACT_APP_SENTRY_ENV !== "development") {
+  if (env.REACT_APP_SENTRY_ENV && env.REACT_APP_SENTRY_ENV !== "development") {
     Sentry.init({
-      dsn: "https://83c49254f21cb1218d39607987208f87@sentry.data.amsterdam.nl/12",
-      environment: process.env.REACT_APP_SENTRY_ENV,
-      release: process.env.REACT_APP_GIT_COMMIT_HASH,
+      dsn: "https://889f135ead3a4523aa463e38e87e6a92@sentry-new.data.amsterdam.nl/47",
+      environment: env.REACT_APP_SENTRY_ENV,
+      release: env.REACT_APP_GIT_COMMIT_HASH,
       autoSessionTracking: false
     })
   }

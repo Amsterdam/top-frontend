@@ -1,3 +1,4 @@
+import { env } from "app/config/env"
 import React, { FC, FormEvent } from "react"
 import styled from "styled-components"
 
@@ -6,7 +7,7 @@ type Props = {
   isOpen: boolean
 }
 
-const basePath = process.env.REACT_APP_BASEPATH ?? "/"
+const basePath = env.REACT_APP_BASEPATH ?? "/"
 
 const Div = styled.div`
   display: block;

@@ -8,8 +8,9 @@ import Greeting from "app/features/shared/components/atoms/Greeting/Greeting"
 import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
 import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout"
 import useNavigation from "app/features/shared/routing/useNavigation"
+import { env } from "app/config/env"
 
-const basePath = process.env.REACT_APP_BASEPATH ?? "/"
+const basePath = env.REACT_APP_BASEPATH ?? "/"
 
 const Grid = styled.div`
   display: grid;
