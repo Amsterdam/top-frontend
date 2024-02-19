@@ -8,7 +8,7 @@ import Logbook from "./sections/Logbook"
 import Residence from "./sections/Residence"
 import Permits from "./sections/Permits"
 import ResidentsView from "./sections/ResidentsView"
-import Status from "./sections/Status"
+import History from "./sections/History"
 import VacationRentalThisYear from "./sections/VacationRentalThisYear"
 
 type Props = {
@@ -45,7 +45,7 @@ const CaseDetail: FC<Props> = ({ caseId }) => {
       <Permits caseId={ caseId } />
       <VacationRentalThisYear caseId={ caseId } />
       <Logbook caseId={ caseId } />
-      <Status caseId={ caseId } />
+      <History caseId={ caseId } />
     </Article>
   )
 }

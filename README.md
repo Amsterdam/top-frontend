@@ -9,8 +9,8 @@ klaargezet.
 Clone this repository and install its dependencies:
 
 ```bash
-git clone https://github.com/Amsterdam/fixxx-looplijsten-frontend.git
-cd fixxx-looplijsten-frontend
+git clone https://github.com/Amsterdam/top-frontend.git
+cd top-frontend
 npm install
 ```
 
@@ -28,7 +28,7 @@ Using the acceptance backend is easiest:
 npm start
 ```
 
-To use a local backend, clone the [backend repository](https://github.com/Amsterdam/fixxx-looplijsten-backend) and run
+To use a local backend, clone the [backend repository](https://github.com/Amsterdam/top-backend) and run
 the Docker instances.
 
 ```
@@ -37,9 +37,9 @@ npm run start:local
 
 ## Deploying
 
-The `master` branch is automatically deployed to [acceptance](https://acc.top.amsterdam.nl/).
+The `main` branch is automatically deployed to [acceptance](https://acc.top.amsterdam.nl/).
 
-Tag any branch, but preferably master, with a tag like `v1.0.0` to deploy that specific commit
+Tag any branch, but preferably main, with a tag like `v1.0.0` to deploy that specific commit
 to [production](https://top.amsterdam.nl/).
 
 ## Storybook

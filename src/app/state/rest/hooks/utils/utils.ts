@@ -25,8 +25,8 @@ export const useErrorHandler = () => {
 
   return useCallback(async (error: AxiosError<ErrorResponse>) => {
     let errorMessage: ErrorResponse["message"] = error?.message
-    let errorSeverity = undefined
-    let errorTitle = undefined
+    let errorSeverity: any = undefined
+    let errorTitle: any = undefined
     if (isAxiosError(error)) {
       errorMessage = error?.response?.data.message
       errorSeverity = error?.response?.data?.severity

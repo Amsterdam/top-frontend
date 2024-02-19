@@ -82,19 +82,19 @@ describe("useApiRequest", () => {
 
   test.each([
     [ "POST",
-      (scope: nock.Scope) => scope.post("/pet").reply(200),
+      (scope: any) => scope.post("/pet").reply(200),
       (hook: any) => hook.execPost({ name: "popo" })
     ],
     [ "PUT",
-      (scope: nock.Scope) => scope.put("/pet").reply(200),
+      (scope: any) => scope.put("/pet").reply(200),
       (hook: any) => hook.execPut({ name: "popo" })
     ],
     [ "PATCH",
-      (scope: nock.Scope) => scope.patch("/pet").reply(200),
+      (scope: any) => scope.patch("/pet").reply(200),
       (hook: any) => hook.execPatch({ name: "popo" })
     ],
     [ "DELETE",
-      (scope: nock.Scope) => scope.delete("/pet").reply(200),
+      (scope: any) => scope.delete("/pet").reply(200),
       (hook: any) => hook.execDelete()
     ]
   ])("should re-execute a GET after a %s", async (method, prepareScope, exec) => {

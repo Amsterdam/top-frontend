@@ -4,8 +4,9 @@ import { useCase } from "app/state/rest"
 import { BagData, BagDataError } from "app/features/types"
 import MailtoAnchor from "app/features/cases/components/molecules/MailtoAnchor/MailtoAnchor"
 
-import { getAddress, getBagId, getEigenaar } from "../utils"
+import { getAddress, getBagId } from "../utils"
 import CaseDetailSection from "../CaseDetailSection"
+import Owner from "./Owner"
 
 type Props = {
   caseId: string
@@ -42,7 +43,6 @@ const Residence: FC<Props> = ({ caseId }) => {
 
   // General
   const address = getAddress(caseData.address)
-  const eigenaar = getEigenaar(caseData)
   const postalCode = caseData.address.postal_code
 
   // Terugmeld email
@@ -61,11 +61,9 @@ const Residence: FC<Props> = ({ caseId }) => {
     woonbootAanduiding={ woonbootAanduiding }
   />
 
-  const ownerField = [ "Eigenaar", <span className="anonymous">{ eigenaar }</span> ]
-
   const woningFields = [
     [ "Databron", "BRK" ],
-    ownerField,
+    <Owner caseData={ caseData } />,
     [ "Databron", "BAG" ],
     [ "Gebruiksdoel", woningBestemming ],
     [ "Soort object (feitelijk gebruik)", woningGebruik ],
@@ -80,7 +78,7 @@ const Residence: FC<Props> = ({ caseId }) => {
     [ "Status", woonbootStatus || "–" ],
     [ "Indicatie geconstateerd", woonbootIndicatie ],
     [ "Aanduiding in onderzoek", woonbootAanduiding ],
-    ownerField,
+    <Owner caseData={ caseData } />,
     mailtoAnchor
   ]
 
@@ -89,7 +87,7 @@ const Residence: FC<Props> = ({ caseId }) => {
   // Footer
   const woningUrlBagType = isWoning ? "verblijfsobject" : "ligplaats"
   const woningUrlBagId = isWoning ? woningBagId : woonbootLigplaatsIndicatie
-  const woningUrl = `https://data.amsterdam.nl/data/bag/${ woningUrlBagType }/id${ woningUrlBagId }/`
+  const woningUrl = `https://data.amsterdam.nl/data/bag/${ woningUrlBagType }/${ woningUrlBagId }/`
   const woningFooter = woningUrlBagId ? (
       { link: woningUrl, title: "Bekijk op Data en informatie" }
     ) : undefined

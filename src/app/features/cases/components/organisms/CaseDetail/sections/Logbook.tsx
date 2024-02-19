@@ -149,7 +149,7 @@ const Logbook: React.FC<Props> = ({ caseId }) => {
       .map(mapLogbookItemToDetailComponents(observations?.results!, suggestNextVisits?.results!))
       .flat()
 
-    return details.length ? details : [ "Geen notities." ]
+    return details.length ? details : [ "Geen notities" ]
   }, [ caseData, caseVisitsData, users, observations, suggestNextVisits ])
 
   return (
