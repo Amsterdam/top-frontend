@@ -40,13 +40,6 @@ The `main` branch is automatically deployed to [acceptance](https://acc.top.amst
 Tag any branch, but preferably main, with a tag like `v1.0.0` to deploy that specific commit
 to [production](https://top.amsterdam.nl/).
 
-## Storybook
-
-Component documentation is in progress.
-
-```
-npm run storybook
-```
 
 ## About
 

@@ -51,10 +51,6 @@
   },
   "devDependencies": {
     "@babel/core": "^7.22.1",
-    "@storybook/addon-essentials": "^6.5.16",
-    "@storybook/addon-knobs": "^6.4.0",
-    "@storybook/preset-create-react-app": "^7.0.18",
-    "@storybook/react": "^6.5.16",
     "@testing-library/react": "^12.1.5",
     "@testing-library/react-hooks": "^8.0.1",
     "@types/enzyme": "^3.10.13",
@@ -62,8 +58,7 @@
     "dtsgenerator": "^3.18.0",
     "enzyme": "^3.11.0",
     "lint-staged": "^15.2.2",
-    "nock": "^13.5.3",
-    "storybook": "^7.6.16"
+    "nock": "^13.5.3"
   },
   "scripts": {
     "start": "GENERATE_SOURCEMAP=false react-scripts start",
@@ -75,8 +70,6 @@
     "lint": "eslint --cache --ext .ts,.tsx src",
     "lint:fix": "npm run lint -- --fix",
     "lint:quiet": "npm run lint -- --quiet",
-    "storybook": "start-storybook -p 9009 -s public",
-    "storybook:build": "build-storybook -s public",
     "swagger:generate-schema:local": "dtsgen -o ./src/__generated__/apiSchema.d.ts --url http://localhost:8000/api/v1/schema/",
     "swagger:generate-schema:acc": "dtsgen -o ./src/__generated__/apiSchema.d.ts --url https://acc.api.top.amsterdam.nl/api/v1/schema/",
     "swagger:generate-schema": "dtsgen -o ./src/__generated__/apiSchema.d.ts --url https://api.top.amsterdam.nl/api/v1/schema/",
