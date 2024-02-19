@@ -1,10 +1,8 @@
 # TOP app (Toezicht op pad)
 
-Dankzij de TOP app hebben toezichthouders Wonen veel informatie over zaken, adressen en bewoners bij de hand als zij op
-straat hun werk doen. Ook kunnen zij hun eigen looplijst samenstellen, op basis van instellingen die planners hebben
-klaargezet.
+De TOP app verzorgt de informatievoorziening voor toezichthouders op pad. Door middel van een variabele configuratie kunnen zij een looplijst van adressen samenstellen.
 
-## Installing
+## Install
 
 Clone this repository and install its dependencies:
 
@@ -42,13 +40,6 @@ The `main` branch is automatically deployed to [acceptance](https://acc.top.amst
 Tag any branch, but preferably main, with a tag like `v1.0.0` to deploy that specific commit
 to [production](https://top.amsterdam.nl/).
 
-## Storybook
-
-Component documentation is in progress.
-
-```
-npm run storybook
-```
 
 ## About
 

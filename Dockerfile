@@ -1,4 +1,8 @@
-FROM node:16-alpine AS builder
+ARG NODE_VERSION=20
+# Use the official Node.js image as the builder stage.
+# "alpine" refers to a lightweight Linux distribution based on musl libc and BusyBox,
+# known for its small size and efficiency.
+FROM node:$NODE_VERSION-alpine AS builder
 
 ARG COMMIT_HASH
 
@@ -17,9 +21,6 @@ RUN npm ci --production --unsafe-perm --ignore-scripts .
 
 # global variables
 RUN echo "REACT_APP_GIT_COMMIT_HASH=$COMMIT_HASH" > .env.local
-
-# remove storybook files
-RUN find src -type f -name "*.stories.tsx" -delete
 
 # build production
 RUN npm run build
