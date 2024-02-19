@@ -1,7 +1,7 @@
 import { useCallback, useContext } from "react"
 import { AxiosError } from "axios"
 import qs from "qs"
-import slashSandwich from "slash-sandwich"
+import slashSandwich from "./slashSandwich"
 import { ErrorContext } from "../../../error/ErrorProvider"
 import { Severity } from "app/features/types"
 

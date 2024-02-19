@@ -4,7 +4,7 @@ import { Alert, Heading, Paragraph } from "@amsterdam/asc-ui"
 import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout"
 import DefinitionList from "app/features/shared/components/molecules/DefinitionList/DefinitionList"
 import useKeycloak from "app/state/auth/keycloak/useKeycloak"
-import { useIsAuthorized } from "app/state/rest/"
+import { useIsAuthorized } from "app/state/rest"
 import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
 
 const AuthPage: React.FC = () => {
