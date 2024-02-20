@@ -1,9 +1,8 @@
 import React, { FC, useCallback, useMemo, useState } from "react"
-import { Link, navigate, RouteComponentProps } from "@reach/router"
+import { Link } from "react-router-dom"
 import styled from "styled-components"
 import { ScaffoldForm } from "@amsterdam/amsterdam-react-final-form"
 import { Heading } from "@amsterdam/asc-ui"
-
 import config from "app/config/config"
 import to from "app/features/shared/routing/to"
 import {
@@ -16,11 +15,10 @@ import {
   useCorporations,
   useDistricts
 } from "app/state/rest"
-
+import useNavigation from "app/features/shared/routing/useNavigation"
 import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
 import Scaffold from "app/features/shared/components/form/Scaffold"
 import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout"
-
 import { createDefinition } from "./DaySettingsFormDefinition"
 import FixedSubmitButton from "../SettingsForm/components/FixedSubmitButton"
 import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner"
@@ -34,10 +32,10 @@ const Wrap = styled.div`
 `
 
 type Props = {
-  teamSettingsId: number
+  teamSettingsId: string
 }
 
-const CreateDaySettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId }) => {
+const CreateDaySettingsForm: React.FC<Props> = ({ teamSettingsId }) => {
   const { data: teamSettings } = useTeamSettings(teamSettingsId!)
   const { execPost } = useDaySettingsList({ lazy: true })
   const { data: caseReasons } = useTeamSettingsReasons(teamSettingsId!)
@@ -46,6 +44,7 @@ const CreateDaySettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId 
   const { data: caseProjects } = useTeamSettingsProjects(teamSettingsId!)
   const { data: corporations } = useCorporations()
   const { data: districts, isBusy: isBusyDistricts } = useDistricts()
+  const { navigateTo } = useNavigation()
   const [ errorMessage, setErrorMessage ] = useState("")
   const dayOfTheWeek = useQueryStringProp("d")
 
@@ -83,7 +82,7 @@ const CreateDaySettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId 
       await execPost(values, { skipCacheClear: false, useResponseAsCache: false })
         .then((resp: any) => {
           // Navigate to the update form to show the possible cases for these settings.
-          navigate(to("/team-settings/:teamSettingsId/:daySettingsId", { teamSettingsId, daySettingsId: resp.data.id }))
+          navigateTo("/team-settings/:teamSettingsId/:daySettingsId", { teamSettingsId, daySettingsId: resp.data.id })
         })
     } catch (error: any) {
       setErrorMessage(error.response.data.message)

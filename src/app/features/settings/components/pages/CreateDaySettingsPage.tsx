@@ -1,11 +1,15 @@
 import React from "react"
-import { RouteComponentProps } from "@reach/router"
+import { useParams } from "react-router-dom"
 import CreateDaySettingsForm from "app/features/settings/components/organisms/Days/CreateDaySettingsForm"
 
 type Props = {
-  teamSettingsId: number
+  teamSettingsId: string
 }
 
-const CreateDaySettingsPage: React.FC<RouteComponentProps<Props>> = ({ teamSettingsId }) => <CreateDaySettingsForm teamSettingsId={ teamSettingsId } />
-
+const CreateDaySettingsPage: React.FC = () => {
+  const { teamSettingsId } = useParams<Props>()
+  return (
+    <CreateDaySettingsForm teamSettingsId={ teamSettingsId } />
+  )
+}
 export default CreateDaySettingsPage

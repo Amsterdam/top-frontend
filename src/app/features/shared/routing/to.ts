@@ -1,13 +1,11 @@
 import { ComponentProps, ComponentType } from "react"
 import { Routes } from "app/config/routes"
-import { RouteComponentProps } from "@reach/router"
 
 // RouteParams for given K in Routes
-type RouteParams<T extends Routes, K extends keyof T> =
+export type RouteParams<T extends Routes, K extends keyof T> =
 // ... value for K should be a Component:
   T[K] extends ComponentType
-    // Omit default RouteComponentProps, we're not interested in those. (E.g location, navigate, etc)
-    ? Omit<ComponentProps<T[K]>, keyof RouteComponentProps | "children">
+    ? Omit<ComponentProps<T[K]>, "children">
     // Don't allow anything else than Components. As we cannot safely extract component-props on anything other than a
     // Component
     : never
@@ -39,10 +37,12 @@ export const applyRouteParams = <T extends Routes, K extends keyof T>
  * NOTE: Type-errors will occur when "/foo/:id" does not exit, or when the related Page-component does not accept an
  * `id` property
  */
-const to = <T extends Routes, K extends keyof T>
-(path: K, params?: RouteParams<T, K>) =>
-  params !== undefined
-    ? applyRouteParams(path.toString(), params)
-    : path
+export const to = <T extends Routes, K extends keyof T>
+(path: K, params?: RouteParams<T, K>) => {
+  const str = path.toString()
+    return params !== undefined
+    ? applyRouteParams(str, params)
+    : str
+}
 
 export default to

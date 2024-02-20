@@ -1,5 +1,5 @@
 import React, { useMemo } from "react"
-import { useParams } from "@reach/router"
+import { useParams } from "react-router-dom"
 import { useVisit } from "app/state/rest"
 import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner"
 import NoteWizard from "app/features/visits/components/organisms/NoteWizard/NoteWizard"

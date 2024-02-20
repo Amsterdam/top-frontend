@@ -1,9 +1,9 @@
 import React, { FC, useCallback, useMemo, useState } from "react"
-import { Link, RouteComponentProps } from "@reach/router"
+import { Link } from "react-router-dom"
 import styled from "styled-components"
 import { ScaffoldForm } from "@amsterdam/amsterdam-react-final-form"
 import { Heading } from "@amsterdam/asc-ui"
-import { navigate } from "@reach/router"
+import useNavigation from "app/features/shared/routing/useNavigation"
 
 import config from "app/config/config"
 import to from "app/features/shared/routing/to"
@@ -34,11 +34,11 @@ const Wrap = styled.div`
 `
 
 type Props = {
-  teamSettingsId: number
-  daySettingsId: number
+  teamSettingsId: string
+  daySettingsId: string
 }
 
-const DaySettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId, daySettingsId }) => {
+const DaySettingsForm: FC<Props> = ({ teamSettingsId, daySettingsId }) => {
   let { data: daySettings, execPut, isBusy: isBusyDaySettings } = useDaySettings(daySettingsId!, { caseCount: true })
   const { data: caseReasons, isBusy: isBusyCaseReasons } = useTeamSettingsReasons(teamSettingsId!)
   const { data: teamScheduleTypes, isBusy: isBusyTeamScheduleTypes } = useTeamSettingsScheduleTypes(teamSettingsId!)
@@ -46,6 +46,7 @@ const DaySettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId, daySe
   const { data: caseProjects, isBusy: isBusyCaseProjects } = useTeamSettingsProjects(teamSettingsId!)
   const { data: corporations, isBusy: isBusyCorporations } = useCorporations()
   const { data: districts, isBusy: isBusyDistricts } = useDistricts()
+  const { navigateTo } = useNavigation()
   const [ errorMessage, setErrorMessage ] = useState("")
 
   const prepareDefinition = (definitionEntry: any) => definitionEntry?.reduce((t: any, c: any) => {
@@ -95,7 +96,7 @@ const DaySettingsForm: FC<RouteComponentProps<Props>> = ({ teamSettingsId, daySe
   }
 
   const onClose = () => {
-    navigate(to("/team-settings/:teamSettingsId", { teamSettingsId }))
+    navigateTo("/team-settings/:teamSettingsId", { teamSettingsId })
   }
 
   const prepareInitialValues = (settings: any) => {

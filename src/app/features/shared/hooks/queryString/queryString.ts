@@ -1,5 +1,5 @@
 import qs, { ParsedQs } from "qs"
-import { navigate } from "@reach/router"
+import { useNavigate } from "react-router-dom"
 
 export const parse = (search: string) => qs.parse(search, { ignoreQueryPrefix: true })
 const stringify = (parsed: ParsedQs) => qs.stringify(parsed, { addQueryPrefix: true })
@@ -17,6 +17,8 @@ const removeProp = (obj: ParsedQs, prop: string) => Object
  */
 
 export const queryString = (path: string, parsedQs: ParsedQs) => {
+  const navigate = useNavigate()
+
   const getUrl = () => `${ path }${ stringify(parsedQs) }`
 
   const navigateToUrl = () => navigate(getUrl())

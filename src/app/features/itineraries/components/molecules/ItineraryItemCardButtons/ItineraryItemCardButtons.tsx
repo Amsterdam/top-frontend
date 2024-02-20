@@ -1,5 +1,5 @@
 import React from "react"
-import { navigate } from "@reach/router"
+import useNavigation from "app/features/shared/routing/useNavigation"
 import { Button, themeSpacing } from "@amsterdam/asc-ui"
 import styled from "styled-components"
 
@@ -43,6 +43,7 @@ const ItineraryItemCardButtons: React.FC<Props> = (
     onDeleteButtonClicked
   }
 ) => {
+  const { navigateTo } = useNavigation()
   const visit = visits?.find((e: any) => e.case_id.case_id === caseId)
   const isCompleted = visit?.completed
 
@@ -72,7 +73,7 @@ const ItineraryItemCardButtons: React.FC<Props> = (
         <>
           <Spacing pb={ 2 }>
             <StyledButton
-              onClick={ () => navigate(to("/visit/:itineraryId/:caseId/:id", { caseId, itineraryId, id: visits[0].id })) }
+              onClick={ () => navigateTo("/visit/:itineraryId/:caseId/:id", { caseId, itineraryId, id: visits[0].id }) }
               variant="blank"
               icon={ <EditDocumentIcon /> }
             />
@@ -90,7 +91,7 @@ const ItineraryItemCardButtons: React.FC<Props> = (
           <Spacing pb={ 2 }>
             <Button
               variant="secondary"
-              onClick={ () => navigate(to("/visit/:itineraryId/:caseId", { caseId, itineraryId })) }
+              onClick={ () => navigateTo("/visit/:itineraryId/:caseId", { caseId, itineraryId }) }
             >
               Bezoek
             </Button>

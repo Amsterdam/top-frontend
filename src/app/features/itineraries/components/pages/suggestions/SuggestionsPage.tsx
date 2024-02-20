@@ -1,10 +1,8 @@
 import React, { useMemo } from "react"
-import { RouteComponentProps } from "@reach/router"
+import { useParams } from "react-router-dom"
 import { Heading } from "@amsterdam/asc-ui"
-
 import { useSuggestions } from "app/state/rest"
 import { useItinerary } from "app/state/rest/custom/useItinerary"
-
 import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout"
 import ItineraryItemCardList
   from "app/features/itineraries/components/organisms/ItineraryItemCardList/ItineraryItemCardList"
@@ -15,7 +13,8 @@ type Props = {
   itineraryId: string
 }
 
-const SuggestionsPage: React.FC<RouteComponentProps<Props>> = ({ itineraryId }) => {
+const SuggestionsPage: React.FC = () => {
+  const { itineraryId } = useParams<Props>()
   const { data: itinerary } = useItinerary(parseInt(itineraryId!))
   const { data, isBusy } = useSuggestions(parseInt(itineraryId!))
 

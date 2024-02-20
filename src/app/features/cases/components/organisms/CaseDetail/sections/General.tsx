@@ -1,6 +1,6 @@
 import React, { FC } from "react"
 import styled from "styled-components"
-import { Link } from "@reach/router"
+import { Link } from "react-router-dom"
 import { Heading, themeSpacing } from "@amsterdam/asc-ui"
 import { CaseIdDisplay } from "@amsterdam/wonen-ui"
 

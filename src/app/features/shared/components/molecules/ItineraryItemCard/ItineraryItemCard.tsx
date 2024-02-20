@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react"
-import { navigate } from "@reach/router"
+import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import { themeColor, themeSpacing } from "@amsterdam/asc-ui"
 import StadiumBadge from "app/features/shared/components/molecules/StadiumBadge/StadiumBadge"
@@ -109,10 +109,13 @@ const ItineraryItemCard: React.FC<Props> = (
     hasWarrant,
     deleted = false
   }) => {
+  const navigate = useNavigate()
   const [ isBeingDeleted, setIsBeingDeleted ] = useState(false)
+
   const setBeingDeleted = useCallback(() => setIsBeingDeleted(true), [ setIsBeingDeleted ])
 
   const handleClick = useCallback(() => {
+    console.log("sddsd")
     if (href) {
       return navigate(href)
     }

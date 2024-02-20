@@ -1,28 +1,20 @@
 import React, { useCallback } from "react"
-import { navigate } from "@reach/router"
 import { themeColor, themeSpacing } from "@amsterdam/asc-ui"
 import { ScaffoldForm } from "@amsterdam/amsterdam-react-final-form"
 import styled from "styled-components"
-
 import { ItineraryItem } from "app/features/types"
-
 import { useLoggedInUser } from "app/state/rest/custom/useLoggedInUser"
 import { useItinerary } from "app/state/rest/custom/useItinerary"
-
-import to from "app/features/shared/routing/to"
+import useNavigation from "app/features/shared/routing/useNavigation"
 import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner"
 import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
-
 import { useNoteWizard } from "./hooks/useNoteWizard"
 import NoteWizardManager from "app/features/visits/components/organisms/NoteWizard/components/NoteWizardManager"
 import NoteWizardFormScaffoldFields from "./components/NoteWizardFormScaffoldFields"
 import NodeWizardSubtitle from "./components/NoteWizardSubtitle"
-
 import DeleteVisitButton from "app/features/visits/components/molecules/DeleteVisitButton/DeleteVisitButton"
-
 import { mapPostValues } from "./utils/mapValues"
 import { FormValues } from "app/features/visits/components/organisms/NoteWizard/types"
-
 import { useItineraries, useItineraryItem } from "app/state/rest"
 import calculateNewPosition from "app/features/itineraries/components/organisms/DraggableItineraryItemCardList/calculateNewPosition"
 import { itemsPositionSorter } from "app/features/itineraries/components/organisms/DraggableItineraryItemCardList/DraggableItineraryItemCardList"
@@ -53,6 +45,7 @@ const NoteWizard: React.FC<Props> = ({ itineraryId, caseId, onSubmit, valuesFrom
     setValues,
     getValues: getUnsubmittedValues
   } = useNoteWizard(caseId)
+  const { navigateTo } = useNavigation()
   const user = useLoggedInUser()
   const { data } = useItineraries({ lazy: true })
   const itineraryItem = itinerary?.items.find(item => item.case.id.toString() === caseId) as ItineraryItem
@@ -87,7 +80,7 @@ const NoteWizard: React.FC<Props> = ({ itineraryId, caseId, onSubmit, valuesFrom
         clearSteps()
         moveItemToBottomList()
       })
-      .finally(() => navigate(to("/lijst/:itineraryId", { itineraryId })))
+      .finally(() => navigateTo("/lijst/:itineraryId", { itineraryId }))
 
     switch (wizardStep) {
       case "stepOne":

@@ -1,6 +1,4 @@
-import { navigate } from "@reach/router"
 import Keycloak from "keycloak-js"
-import to from "app/features/shared/routing/to"
 import { makeGatewayUrl } from "app/state/rest/hooks/utils/utils"
 import createAuthHeaders from "app/state/rest/hooks/utils/createAuthHeaders"
 
@@ -19,7 +17,8 @@ const initializedCallback = async (keycloak: Keycloak, isAuthenticated: boolean)
   const { is_authorized } = await response.json()
 
   if (is_authorized === false) {
-    navigate(to("/auth"))
+    // This is not working outside the routing wrapper.
+    // navigateTo("/auth")
   }
 }
 

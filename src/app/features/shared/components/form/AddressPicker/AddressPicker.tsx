@@ -1,7 +1,7 @@
 import React from "react"
 import { ComposedField } from "@amsterdam/amsterdam-react-final-form"
 import { Button } from "@amsterdam/asc-ui"
-import { Link } from "@reach/router"
+import { Link } from "react-router-dom"
 import { useField } from "react-final-form"
 
 import Box from "app/features/shared/components/atoms/Box/Box"

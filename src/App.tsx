@@ -1,7 +1,6 @@
 import React from "react"
-
 import { GlobalStyle, ThemeProvider } from "@amsterdam/asc-ui"
-import { LocationProvider } from "@reach/router"
+import { BrowserRouter } from "react-router-dom"
 import Router from "./app/features/shared/routing/Router"
 import ApiProvider from "./app/state/rest/provider/ApiProvider"
 import KeycloakProvider from "app/state/auth/keycloak/KeycloakProvider"
@@ -17,9 +16,9 @@ function App () {
     <ThemeProvider>
       <GlobalStyle />
       <KeycloakProvider initializedCallback={ initializedCallback }>
-        <ErrorProvider>
-          <ApiProvider>
-            <LocationProvider>
+        <BrowserRouter>
+          <ErrorProvider>
+            <ApiProvider>
               <AnonymousProvider>
                 <NoteWizardProvider>
                   <SearchFormProvider>
@@ -29,9 +28,9 @@ function App () {
                   </SearchFormProvider>
                 </NoteWizardProvider>
               </AnonymousProvider>
-            </LocationProvider>
-          </ApiProvider>
-        </ErrorProvider>
+            </ApiProvider>
+          </ErrorProvider>
+        </BrowserRouter>
       </KeycloakProvider>
     </ThemeProvider>
   )
