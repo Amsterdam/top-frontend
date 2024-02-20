@@ -4,7 +4,7 @@ import { FormPositioner } from "@amsterdam/amsterdam-react-final-form"
 import { ChevronLeft } from "@amsterdam/asc-assets"
 import { Fields } from "app/features/shared/components/form/Scaffold"
 import { getDaySettingsOptions } from "app/features/itineraries/components/organisms/ItineraryForm/getDaySettingsOptions"
-import { NavigateToFunction }  from "app/features/shared/routing/useNavigation"
+import { NavigateToFunction } from "app/features/shared/routing/useNavigation"
 
 export const generateItineraryFormDefinition = (
   users: Components.Schemas.User[],

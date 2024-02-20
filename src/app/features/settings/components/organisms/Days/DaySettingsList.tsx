@@ -1,4 +1,4 @@
-import React, { FC } from "react"
+import React from "react"
 import styled from "styled-components"
 import { Link } from "react-router-dom"
 import { Heading, Paragraph, themeColor, themeSpacing } from "@amsterdam/asc-ui"

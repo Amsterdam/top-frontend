@@ -3,7 +3,6 @@ import { TrashBin } from "@amsterdam/asc-assets"
 import useNavigation from "app/features/shared/routing/useNavigation"
 import StyledButton from "app/features/shared/components/atoms/StyledButton/StyledButton"
 import { useVisit } from "app/state/rest"
-import to from "app/features/shared/routing/to"
 import { useNoteWizard } from "../../organisms/NoteWizard/hooks/useNoteWizard"
 
 type Props = {

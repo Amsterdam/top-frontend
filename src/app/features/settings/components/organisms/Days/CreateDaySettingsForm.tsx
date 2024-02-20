@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useMemo, useState } from "react"
+import React, { useCallback, useMemo, useState } from "react"
 import { Link } from "react-router-dom"
 import styled from "styled-components"
 import { ScaffoldForm } from "@amsterdam/amsterdam-react-final-form"

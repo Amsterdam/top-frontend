@@ -2,8 +2,6 @@ import React from "react"
 import useNavigation from "app/features/shared/routing/useNavigation"
 import { Button, themeSpacing } from "@amsterdam/asc-ui"
 import styled from "styled-components"
-
-import to from "app/features/shared/routing/to"
 import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
 import DeleteItineraryItemButton from "app/features/itineraries/components/molecules/DeleteItineraryItemButton/DeleteItineraryItemButton"
 import CheckmarkIcon from "app/features/itineraries/components/atoms/CheckmarkIcon/CheckmarkIcon"

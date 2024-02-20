@@ -10,6 +10,6 @@ const TeamSettingsDaysPage: React.FC = () => {
   const { teamSettingsId } = useParams<Props>()
   return (
     <DaySettingsList teamSettingsId={ teamSettingsId } />
-  )}
+  ) }
 
 export default TeamSettingsDaysPage

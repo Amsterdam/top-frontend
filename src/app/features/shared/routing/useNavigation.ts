@@ -15,7 +15,7 @@ const useNavigation = () => {
     params?: RouteParams<T, K>
   ) => {
     navigate(to(path, params))
-  };
+  }
 
   return { navigateTo }
 }
