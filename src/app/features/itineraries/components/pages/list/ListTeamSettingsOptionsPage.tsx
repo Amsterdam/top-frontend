@@ -1,13 +1,9 @@
 import React from "react"
-import { RouteComponentProps } from "@reach/router"
 import styled from "styled-components"
-
 import { ChevronRight } from "@amsterdam/asc-assets"
 import { Button, Heading, themeSpacing } from "@amsterdam/asc-ui"
-
 import { useTeamSettingsList } from "app/state/rest"
 import { useLoggedInUser } from "app/state/rest/custom/useLoggedInUser"
-
 import Greeting from "app/features/shared/components/atoms/Greeting/Greeting"
 import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
 import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout"
@@ -29,7 +25,7 @@ const Illustration = styled.div`
   background-size: contain;
 `
 
-const ListTeamSettingsOptionsPage: React.FC<RouteComponentProps> = () => {
+const ListTeamSettingsOptionsPage: React.FC = () => {
   const { data } = useTeamSettingsList()
   const loggedInUser = useLoggedInUser()
   const teams = data?.results ?? []

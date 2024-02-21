@@ -1,18 +1,15 @@
 import React from "react"
-
 import { isRequired } from "@amsterdam/amsterdam-react-final-form"
 import { FormPositioner } from "@amsterdam/amsterdam-react-final-form"
-
 import { ChevronLeft } from "@amsterdam/asc-assets"
-
 import { Fields } from "app/features/shared/components/form/Scaffold"
 import { getDaySettingsOptions } from "app/features/itineraries/components/organisms/ItineraryForm/getDaySettingsOptions"
-import { navigate } from "@reach/router"
-import to from "../../../../shared/routing/to"
+import { NavigateToFunction } from "app/features/shared/routing/useNavigation"
 
 export const generateItineraryFormDefinition = (
   users: Components.Schemas.User[],
-  daySettingsOptions: ReturnType<typeof getDaySettingsOptions>
+  daySettingsOptions: ReturnType<typeof getDaySettingsOptions>,
+  navigateTo: NavigateToFunction
 ) => {
   const definition: Fields = {
     user0: {
@@ -79,7 +76,7 @@ export const generateItineraryFormDefinition = (
       props: {
         iconLeft: <ChevronLeft />,
         label: "Vorige",
-        onClick: () => navigate(to("/lijst-instellingen")),
+        onClick: () => navigateTo("/lijst-instellingen"),
         style: { marginTop: "16px" },
         variant: "textButton"
       }

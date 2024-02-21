@@ -1,6 +1,6 @@
 import React, { useMemo } from "react"
 import { Enlarge } from "@amsterdam/asc-assets"
-import { useParams } from "@reach/router"
+import { useParams } from "react-router-dom"
 
 import { useSearch, useTeamSettings } from "app/state/rest"
 

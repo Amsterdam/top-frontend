@@ -1,13 +1,12 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react"
 import { Heading, themeColor, themeSpacing } from "@amsterdam/asc-ui"
-import { navigate, RouteComponentProps } from "@reach/router"
+import { useParams } from "react-router-dom"
 import { Card, ChevronDown, Enlarge, TrashBin } from "@amsterdam/asc-assets"
 import styled from "styled-components"
-
 import { ItineraryItem } from "app/features/types"
 import { useDeleteItinerary, useItineraries } from "app/state/rest"
 import { useItinerary } from "app/state/rest/custom/useItinerary"
-
+import useNavigation from "app/features/shared/routing/useNavigation"
 import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner"
 import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout"
 import DraggableItineraryItemCardList
@@ -15,7 +14,6 @@ import DraggableItineraryItemCardList
 import formatDate from "app/features/shared/utils/formatDate"
 import ResponsiveText from "app/features/shared/components/molecules/ResponsiveText/ResponsiveText"
 import StyledButton from "app/features/shared/components/atoms/StyledButton/StyledButton"
-import to from "app/features/shared/routing/to"
 
 import ButtonMenu from "app/features/itineraries/components/molecules/ButtonMenu/ButtonMenu"
 import CopyToClipboardButton
@@ -25,8 +23,9 @@ import TeamMemberForm from "app/features/itineraries/components/organisms/TeamMe
 
 import itineraryToClipboardText from "./itineraryToClipBoardText"
 import { mapItineraryItem } from "./mapItineraryItem"
-import { redirectToCorrectItineraryPage } from "app/features/itineraries/utils/redirectToCorrectItineraryPage"
+import { useRedirectToCorrectItineraryPage } from "app/features/itineraries/utils/useRedirectToCorrectItineraryPage"
 import { createUserWithLabel } from "app/features/itineraries/utils/mapUsersToLabel"
+
 
 const TeamMemberWrap = styled.div`
   padding-top: ${ themeSpacing(2) };
@@ -66,8 +65,11 @@ type Props = {
   itineraryId: string
 }
 
-const ItineraryPage: React.FC<RouteComponentProps<Props>> = ({ itineraryId }) => {
+const ItineraryPage: React.FC = () => {
+  const { itineraryId } = useParams<Props>()
   const { data: itineraries } = useItineraries()
+  const { navigateTo } = useNavigation()
+  const { redirectToCorrectItineraryPage } = useRedirectToCorrectItineraryPage()
 
   useEffect(() => {
     redirectToCorrectItineraryPage(itineraries?.itineraries, itineraryId)
@@ -93,7 +95,7 @@ const ItineraryPage: React.FC<RouteComponentProps<Props>> = ({ itineraryId }) =>
   const deleteItinerary = useCallback(async () => {
     if (window.confirm("Weet je zeker dat je de hele looplijst wilt verwijderen?")) {
       await execDelete()
-      await navigate(to("/lijst"))
+      await navigateTo("/lijst")
     }
   }, [ execDelete ])
 
@@ -149,7 +151,7 @@ const ItineraryPage: React.FC<RouteComponentProps<Props>> = ({ itineraryId }) =>
             <MapsButton cases={ casesWithoutVisits } />
           </Left>
           <Right>
-            <StyledButton onClick={ () => navigate(to("/lijst/:itineraryId/suggesties", { itineraryId })) }
+            <StyledButton onClick={ () => navigateTo("/lijst/:itineraryId/suggesties", { itineraryId }) }
                           variant="blank" iconLeft={ <Enlarge /> }>
               Voeg zaak toe
             </StyledButton>

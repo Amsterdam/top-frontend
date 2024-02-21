@@ -1,4 +1,4 @@
-import { useLocation } from "@reach/router"
+import { useLocation, useNavigate } from "react-router-dom"
 import { parse, queryString } from "./queryString"
 
 /**
@@ -20,5 +20,6 @@ import { parse, queryString } from "./queryString"
 
 export const useQueryString = () => {
   const { pathname, search } = useLocation()
-  return queryString(pathname, parse(search))
+  const navigate = useNavigate()
+  return queryString(pathname, parse(search), navigate)
 }

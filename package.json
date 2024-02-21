@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start": "vite",
-    "start:local": "env-cmd -f .env.development_local vite",
+    "acc": "env-cmd -f .env.acceptance vite",
     "build": "vite build",
     "build:acc": "env-cmd -f .env.acceptance vite build",
     "test": "jest --watchAll=false",
@@ -21,7 +21,8 @@
     "swagger:generate-schema": "dtsgen -o ./src/__generated__/apiSchema.d.ts --url https://api.top.amsterdam.nl/api/v1/schema/",
     "deploy:acc": "git push origin main",
     "deploy:prod": "npm version patch && git push origin HEAD --follow-tags",
-    "dev": "vite"
+    "dev": "vite",
+    "preview": "vite preview"
   },
   "dependencies": {
     "@amsterdam/amsterdam-react-final-form": "^0.1.141",
@@ -30,7 +31,6 @@
     "@amsterdam/wonen-ui": "^1.0.50",
     "@material-ui/core": "^4.12.4",
     "@material-ui/icons": "^4.11.3",
-    "@reach/router": "^1.3.4",
     "@sentry/browser": "^7.101.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/user-event": "^14.4.3",
@@ -38,7 +38,6 @@
     "@types/lodash": "^4.14.191",
     "@types/node": "^20.11.19",
     "@types/qs": "^6.9.7",
-    "@types/reach__router": "^1.3.11",
     "@types/react": "^17.0.43",
     "@types/react-beautiful-dnd": "^13.1.4",
     "@types/react-dom": "^18.0.3",
@@ -59,10 +58,12 @@
     "moment": "^2.29.4",
     "qs": "^6.11.2",
     "react": "^17.0.2",
+    "react-app-polyfill": "^3.0.0",
     "react-beautiful-dnd": "^13.1.1",
     "react-dom": "^17.0.2",
     "react-final-form": "^6.5.9",
     "react-final-form-arrays": "^3.1.4",
+    "react-router-dom": "^6.22.1",
     "styled-components": "^5.3.11",
     "typescript": "^4.9.5",
     "vite": "^5.1.1",

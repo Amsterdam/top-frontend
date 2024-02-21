@@ -1,5 +1,5 @@
 import React, { useMemo } from "react"
-import { useParams } from "@reach/router"
+import { useParams } from "react-router-dom"
 
 import { useSearch } from "app/state/rest"
 import { useItinerary } from "app/state/rest/custom/useItinerary"

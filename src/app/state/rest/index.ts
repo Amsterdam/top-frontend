@@ -157,35 +157,35 @@ export const useTeamSettingsList = (options?: Options) => useApiRequest<{ result
   isProtected: true
 })
 
-export const useTeamSettings = (teamSettingsId: number, options?: Options) => useApiRequest<Components.Schemas.TeamSettings>({
+export const useTeamSettings = (teamSettingsId: string, options?: Options) => useApiRequest<Components.Schemas.TeamSettings>({
   ...options,
   url: makeGatewayUrl([ "team-settings", teamSettingsId ]),
   groupName: "teamSettings",
   isProtected: true
 })
 
-export const useTeamSettingsReasons = (teamSettingsId: number, options?: Options) => useApiRequest<Components.Schemas.CaseReason[]>({
+export const useTeamSettingsReasons = (teamSettingsId: string, options?: Options) => useApiRequest<Components.Schemas.CaseReason[]>({
   ...options,
   url: makeGatewayUrl([ "team-settings", teamSettingsId, "reasons" ]),
   groupName: "teamSettings",
   isProtected: true
 })
 
-export const useTeamSettingsScheduleTypes = (teamSettingsId: number, options?: Options) => useApiRequest<Components.Schemas.TeamScheduleTypes>({
+export const useTeamSettingsScheduleTypes = (teamSettingsId: string, options?: Options) => useApiRequest<Components.Schemas.TeamScheduleTypes>({
   ...options,
   url: makeGatewayUrl([ "team-settings", teamSettingsId, "schedule-types" ]),
   groupName: "teamSettings",
   isProtected: true
 })
 
-export const useTeamSettingsStateTypes = (teamSettingsId: number, options?: Options) => useApiRequest<Components.Schemas.CaseStateType[]>({
+export const useTeamSettingsStateTypes = (teamSettingsId: string, options?: Options) => useApiRequest<Components.Schemas.CaseStateType[]>({
   ...options,
   url: makeGatewayUrl([ "team-settings", teamSettingsId, "state-types" ]),
   groupName: "teamSettings",
   isProtected: true
 })
 
-export const useTeamSettingsProjects = (teamSettingsId: number, options?: Options) => useApiRequest<Components.Schemas.CaseReason[]>({
+export const useTeamSettingsProjects = (teamSettingsId: string, options?: Options) => useApiRequest<Components.Schemas.CaseReason[]>({
   ...options,
   url: makeGatewayUrl([ "team-settings", teamSettingsId, "case-projects" ]),
   groupName: "teamSettings",
@@ -207,7 +207,7 @@ export const useDaySettingsList = (options?: Options) => useApiRequest<Component
   isProtected: true
 })
 
-export const useDaySettings = (daySettingsId: number, options?: Options) => {
+export const useDaySettings = (daySettingsId: string, options?: Options) => {
   const params: any = {}
   if (options?.caseCount) {
     params["case-count"] = true
@@ -271,7 +271,7 @@ export const useObservations = (options?: Options) => {
   })
 }
 
-export const useVisit = (id: string | number, options?: Options) => {
+export const useVisit = (id: string, options?: Options) => {
   const handleError = useErrorHandler()
   return useApiRequest<Components.Schemas.Visit>({
     ...options,

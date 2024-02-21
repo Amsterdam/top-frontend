@@ -1,20 +1,17 @@
-import React, { FC } from "react"
-import { navigate, RouteComponentProps } from "@reach/router"
+import React from "react"
 import { Button, Heading } from "@amsterdam/asc-ui"
-
-import to from "app/features/shared/routing/to"
 import { useDaySettings } from "app/state/rest"
-
 import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner"
 import formatDate from "app/features/shared/utils/formatDate"
 import ValueList from "../../atoms/ValueList/ValueList"
 import { Body, Column, Dd, Dl, Dt, Header, Li, Section, Ul } from "./DaySettingsCardStyles"
 import isSubletting from "app/features/settings/utils/isSubletting"
 import { District } from "app/features/types"
+import useNavigation from "app/features/shared/routing/useNavigation"
 
 type Props = {
   teamSettings: Components.Schemas.TeamSettings
-  daySettingsId: number
+  daySettingsId: string
   caseReasons: Components.Schemas.CaseReason[]
   teamScheduleTypes: Components.Schemas.TeamScheduleTypes
   caseStateTypes: Components.Schemas.CaseStateType[]
@@ -23,7 +20,7 @@ type Props = {
   districts: District[]
 }
 
-const DaySettingsCard: FC<RouteComponentProps<Props>> = (
+const DaySettingsCard: React.FC<Props> = (
   {
     teamSettings,
     daySettingsId,
@@ -36,12 +33,13 @@ const DaySettingsCard: FC<RouteComponentProps<Props>> = (
   }
 ) => {
   const { data: daySettings, isBusy } = useDaySettings(daySettingsId!)
+  const { navigateTo } = useNavigation()
 
   if (!teamSettings || !daySettings || isBusy) {
     return <CenteredSpinner explanation="Daginstellingen ophalen…" size={ 60 } />
   }
 
-  const toEditForm = to("/team-settings/:teamSettingsId/:daySettingsId", {
+  const goToEditForm = () => navigateTo("/team-settings/:teamSettingsId/:daySettingsId", {
     teamSettingsId: teamSettings.id,
     daySettingsId: daySettings?.id
   })
@@ -52,7 +50,7 @@ const DaySettingsCard: FC<RouteComponentProps<Props>> = (
     <Section>
       <Header>
         <Heading forwardedAs="h3">{ daySettings?.name }</Heading>
-        <Button variant="primaryInverted" onClick={ () => navigate(toEditForm) }>Wijzigen</Button>
+        <Button variant="primaryInverted" onClick={ () => goToEditForm() }>Wijzigen</Button>
       </Header>
       <Body>
         <Column>

@@ -1,5 +1,5 @@
 import React from "react"
-import { RouteComponentProps } from "@reach/router"
+import { useParams } from "react-router-dom"
 
 import { useCase } from "app/state/rest"
 
@@ -13,7 +13,8 @@ type Props = {
   id: string
 }
 
-const CaseDetailPage: React.FC<RouteComponentProps<Props>> = ({ id }) => {
+const CaseDetailPage: React.FC = () => {
+  const { id } = useParams<Props>()
   const { data, isBusy } = useCase(id!)
 
   return (

@@ -1,6 +1,6 @@
-import React, { FC } from "react"
+import React from "react"
 import styled from "styled-components"
-import { Link, RouteComponentProps } from "@reach/router"
+import { Link } from "react-router-dom"
 import { Heading, Paragraph, themeColor, themeSpacing } from "@amsterdam/asc-ui"
 
 import {
@@ -47,10 +47,10 @@ const Hr = styled.hr`
 `
 
 type Props = {
-  teamSettingsId: number
+  teamSettingsId: string
 }
 
-const DaySettingsList: FC<RouteComponentProps<Props>> = ({ teamSettingsId }) => {
+const DaySettingsList: React.FC<Props> = ({ teamSettingsId }) => {
   const { data: teamSettings, isBusy: isBusySettings } = useTeamSettings(teamSettingsId!)
   const { data: caseReasons } = useTeamSettingsReasons(teamSettingsId!)
   const { data: teamScheduleTypes } = useTeamSettingsScheduleTypes(teamSettingsId!)
@@ -86,7 +86,7 @@ const DaySettingsList: FC<RouteComponentProps<Props>> = ({ teamSettingsId }) => 
               />
             </Left>
             <Grid>
-              { teamSettings.day_settings_list.filter(ds => ds.week_days?.includes(parseInt(dayOfTheWeek[0]))).map(daySettings => 
+              { teamSettings.day_settings_list.filter(ds => ds.week_days?.includes(parseInt(dayOfTheWeek[0]))).map(daySettings =>
                   <DaySettingsCard
                     key={ daySettings.id }
                     teamSettings={ teamSettings }

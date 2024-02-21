@@ -1,6 +1,6 @@
 import { FC } from "react"
 import styled from "styled-components"
-import { useLocation, useParams } from "@reach/router"
+import { useLocation, useParams } from "react-router-dom"
 import { themeColor } from "@amsterdam/asc-ui"
 
 import { applyRouteParams } from "app/features/shared/routing/to"

@@ -1,5 +1,4 @@
 import qs, { ParsedQs } from "qs"
-import { navigate } from "@reach/router"
 
 export const parse = (search: string) => qs.parse(search, { ignoreQueryPrefix: true })
 const stringify = (parsed: ParsedQs) => qs.stringify(parsed, { addQueryPrefix: true })
@@ -16,7 +15,7 @@ const removeProp = (obj: ParsedQs, prop: string) => Object
  * @see `useQueryString`
  */
 
-export const queryString = (path: string, parsedQs: ParsedQs) => {
+export const queryString = (path: string, parsedQs: ParsedQs, navigate: any) => {
   const getUrl = () => `${ path }${ stringify(parsedQs) }`
 
   const navigateToUrl = () => navigate(getUrl())
@@ -25,9 +24,9 @@ export const queryString = (path: string, parsedQs: ParsedQs) => {
 
   const hasParameter = (param: string) => parsedQs[param] !== undefined
 
-  const setParameter = (param: string, value: string) => queryString(path, { ...parsedQs, [param]: value })
+  const setParameter = (param: string, value: string) => queryString(path, { ...parsedQs, [param]: value }, navigate)
 
-  const deleteParameter = (param: string) => queryString(path, removeProp(parsedQs, param))
+  const deleteParameter = (param: string) => queryString(path, removeProp(parsedQs, param), navigate)
 
   return {
     getUrl,
