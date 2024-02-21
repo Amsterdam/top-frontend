@@ -1,6 +1,6 @@
 import React from "react"
 import nock from "nock"
-
+import { BrowserRouter } from "react-router-dom"
 import { act, renderHook } from "@testing-library/react-hooks"
 import useApiRequest from "./useApiRequest"
 import ApiProvider from "../provider/ApiProvider"
@@ -13,9 +13,11 @@ type Pet = {
 
 const Wrapper: React.FC = ({ children }) => (
   <KeycloakProvider>
-    <ApiProvider>
-      { children }
-    </ApiProvider>
+    <BrowserRouter>
+      <ApiProvider>
+        { children }
+      </ApiProvider>
+    </BrowserRouter>
   </KeycloakProvider>
 )
 
