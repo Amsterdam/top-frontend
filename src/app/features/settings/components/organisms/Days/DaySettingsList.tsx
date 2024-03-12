@@ -13,7 +13,6 @@ import {
   useDistricts
 } from "app/state/rest"
 
-import to from "app/features/shared/routing/to"
 import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
 import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner"
 import DaySettingsCard from "app/features/settings/components/organisms/Days/DaySettingsCard"
@@ -68,7 +67,7 @@ const DaySettingsList: React.FC<Props> = ({ teamSettingsId }) => {
       <Heading>Looplijstinstellingen voor planner</Heading>
       <Heading forwardedAs="h2">{ teamSettings.name }</Heading>
       <Spacing pb={ 8 }>
-        <Link to={ to("/team-settings") }>
+        <Link to="/team-settings">
           Kies een ander team
         </Link>
       </Spacing>

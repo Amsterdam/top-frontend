@@ -2,12 +2,12 @@ import React from "react"
 import styled from "styled-components"
 import { ChevronRight } from "@amsterdam/asc-assets"
 import { Button, Heading, themeSpacing } from "@amsterdam/asc-ui"
-import { useTeamSettingsList } from "app/state/rest"
+import { useThemes } from "app/state/rest"
 import { useLoggedInUser } from "app/state/rest/custom/useLoggedInUser"
 import Greeting from "app/features/shared/components/atoms/Greeting/Greeting"
 import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
 import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout"
-import to from "app/features/shared/routing/to"
+import useNavigation from "app/features/shared/routing/useNavigation"
 
 const basePath = process.env.REACT_APP_BASEPATH ?? "/"
 
@@ -26,10 +26,11 @@ const Illustration = styled.div`
 `
 
 const ListTeamSettingsOptionsPage: React.FC = () => {
-  const { data } = useTeamSettingsList()
+  const { data } = useThemes()
   const loggedInUser = useLoggedInUser()
-  const teams = data?.results ?? []
-  const sortedTeams = [ ...teams ].sort((a, b) => a.name > b.name ? 1 : -1) || []
+  const { navigateTo } = useNavigation()
+
+  const themes = data?.results ?? []
 
   return (
     <DefaultLayout>
@@ -45,15 +46,14 @@ const ListTeamSettingsOptionsPage: React.FC = () => {
             </p>
           </Spacing>
           <Grid>
-            { sortedTeams.map(teamSettings => (
+            { themes.map(theme => (
               <Button
-                as="a"
-                href={ to("/lijst/nieuw/:teamSettingsId", { teamSettingsId: teamSettings.id }) }
+                onClick={ () => navigateTo("/lijst/nieuw/:teamSettingsId", { teamSettingsId: theme.id }) }
                 iconRight={ <ChevronRight /> }
-                key={ teamSettings.id }
+                key={ theme.id }
                 variant="primaryInverted"
               >
-                { teamSettings.name }
+                { theme.name }
               </Button>
             )) }
           </Grid>
