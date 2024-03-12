@@ -108,7 +108,7 @@ declare namespace Components {
             };
             sync_date: string; // date-time
         }
-        export type FraudPredictionModelEnum = "vakantieverhuur" | "onderhuur";
+        export type FraudPredictionModelEnum = "onderhuur";
         export interface HousingCorporation {
             id: number;
             name: string;
@@ -197,12 +197,7 @@ declare namespace Components {
             totalPages: number;
             totalRecords: number;
             data: {
-                startDatum: string;
-                eindDatum: string;
-                nachten: number;
-                gasten: number;
-                isAangepast: Boolean;
-                isVerwijderd: Boolean;
+                [name: string]: any;
             }[];
         }
         export interface NewDaySettings {
@@ -408,6 +403,24 @@ declare namespace Components {
             previous?: string | null; // uri
             results?: TeamSettings[];
         }
+        export interface PaginatedTeamSettingsThemeList {
+            /**
+             * example:
+             * 123
+             */
+            count?: number;
+            /**
+             * example:
+             * http://api.example.org/accounts/?page=4
+             */
+            next?: string | null; // uri
+            /**
+             * example:
+             * http://api.example.org/accounts/?page=2
+             */
+            previous?: string | null; // uri
+            results?: TeamSettingsTheme[];
+        }
         export interface PaginatedUserList {
             /**
              * example:
@@ -544,6 +557,19 @@ declare namespace Components {
             range_start: number;
             range_end: number;
         }
+        export interface Powerbrowser {
+            baG_ID: string;
+            product: string;
+            kenmerk: string | null;
+            muT_DAT: string; // date-time
+            status: string;
+            resultaat: string | null;
+            startdatum: string; // date-time
+            einddatum: string | null; // date-time
+            vergunninghouder: string | null;
+            initator: string | null;
+            datuM_TOT: string | null; // date-time
+        }
         export interface SuggestNextVisit {
             value: string;
             verbose: string;
@@ -581,6 +607,10 @@ declare namespace Components {
             suggest_next_visit_choices: SuggestNextVisit[];
             fraud_prediction_model?: null & (FraudPredictionModelEnum | BlankEnum | NullEnum);
         }
+        export interface TeamSettingsTheme {
+            id: number;
+            name: string;
+        }
         export interface User {
             id: string; // uuid
             email: string; // email
@@ -596,7 +626,7 @@ declare namespace Components {
         export interface Visit {
             id: number;
             team_members: VisitTeamMember[];
-            case_id: any;
+            case_id: string;
             completed?: boolean;
             situation?: string | null;
             observations?: string[] | null;
@@ -668,6 +698,17 @@ declare namespace Paths {
         }
         namespace Responses {
             export type $200 = Components.Schemas.Meldingen[];
+        }
+    }
+    namespace AddressesPermitsPowerbrowserList {
+        namespace Parameters {
+            export type BagId = string;
+        }
+        export interface PathParameters {
+            bag_id: Parameters.BagId;
+        }
+        namespace Responses {
+            export type $200 = Components.Schemas.Powerbrowser[];
         }
     }
     namespace AddressesResidentsRetrieve {
@@ -1262,6 +1303,28 @@ declare namespace Paths {
         export type RequestBody = Components.Schemas.TeamSettings;
         namespace Responses {
             export type $200 = Components.Schemas.TeamSettings;
+        }
+    }
+    namespace ThemesList {
+        namespace Parameters {
+            export type Page = number;
+        }
+        export interface QueryParameters {
+            page?: Parameters.Page;
+        }
+        namespace Responses {
+            export type $200 = Components.Schemas.PaginatedTeamSettingsThemeList;
+        }
+    }
+    namespace ThemesRetrieve {
+        namespace Parameters {
+            export type Id = number;
+        }
+        export interface PathParameters {
+            id: Parameters.Id;
+        }
+        namespace Responses {
+            export type $200 = Components.Schemas.TeamSettingsTheme;
         }
     }
     namespace UsersList {

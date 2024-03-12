@@ -1,16 +1,13 @@
 import React from "react"
 import styled from "styled-components"
-
-import { useTeamSettingsList } from "app/state/rest"
+import { useThemes } from "app/state/rest"
 import { useLoggedInUser } from "app/state/rest/custom/useLoggedInUser"
-
 import { ChevronRight } from "@amsterdam/asc-assets"
 import { Button, Heading, themeSpacing } from "@amsterdam/asc-ui"
-
 import Greeting from "app/features/shared/components/atoms/Greeting/Greeting"
 import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
 import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout"
-import to from "app/features/shared/routing/to"
+import useNavigation from "app/features/shared/routing/useNavigation"
 
 const ButtonsLayout = styled.div`
   display: grid;
@@ -19,11 +16,11 @@ const ButtonsLayout = styled.div`
 `
 
 const TeamSettingsListPage: React.FC = () => {
-  const { data } = useTeamSettingsList()
+  const { data } = useThemes()
   const loggedInUser = useLoggedInUser()
+  const { navigateTo } = useNavigation()
 
-  const teams = data?.results ?? []
-  const sortedTeams = [ ...teams ].sort((a, b) => a.name > b.name ? 1 : -1) || []
+  const themes = data?.results ?? []
 
   return (
     <DefaultLayout>
@@ -39,15 +36,14 @@ const TeamSettingsListPage: React.FC = () => {
             </p>
           </Spacing>
           <ButtonsLayout>
-            { sortedTeams.map(teamSettings => (
+            { themes.map(theme => (
               <Button
-                as="a"
-                href={ to("/team-settings/:teamSettingsId", { teamSettingsId: teamSettings.id }) }
+                onClick={ () => navigateTo("/team-settings/:teamSettingsId", { teamSettingsId: theme.id }) }
                 iconRight={ <ChevronRight /> }
-                key={ teamSettings.id }
+                key={ theme.id }
                 variant="primaryInverted"
               >
-                { teamSettings.name }
+                { theme.name }
               </Button>
             )) }
           </ButtonsLayout>

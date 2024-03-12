@@ -11,7 +11,7 @@ export type ApiGroup =
   | "settings"
   | "daySettings"
   | "teamSettings"
-  | "teamSettingsList"
+  | "themes"
   | "postCodeRangesPresets"
   | "case"
   | "permits"
@@ -150,12 +150,14 @@ export const useTeam = (itineraryId: number, options?: Options) => {
   })
 }
 
-export const useTeamSettingsList = (options?: Options) => useApiRequest<{ results: Components.Schemas.TeamSettings[] }>({
-  ...options,
-  url: makeGatewayUrl([ "team-settings" ]),
-  groupName: "teamSettingsList",
-  isProtected: true
-})
+export const useThemes = (options?: Options) => (
+  useApiRequest<{ results: Components.Schemas.TeamSettingsTheme[] }>({
+    ...options,
+    url: makeGatewayUrl([ "themes" ]),
+    groupName: "themes",
+    isProtected: true
+  })
+)
 
 export const useTeamSettings = (teamSettingsId: string, options?: Options) => useApiRequest<Components.Schemas.TeamSettings>({
   ...options,
@@ -191,7 +193,6 @@ export const useTeamSettingsProjects = (teamSettingsId: string, options?: Option
   groupName: "teamSettings",
   isProtected: true
 })
-
 
 export const useCorporations = (options?: Options) => useApiRequest<Components.Schemas.HousingCorporation[]>({
   ...options,
