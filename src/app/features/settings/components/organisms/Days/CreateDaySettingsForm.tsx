@@ -32,7 +32,7 @@ const Wrap = styled.div`
 `
 
 type Props = {
-  teamSettingsId: string
+  teamSettingsId?: string
 }
 
 const CreateDaySettingsForm: React.FC<Props> = ({ teamSettingsId }) => {
@@ -94,6 +94,7 @@ const CreateDaySettingsForm: React.FC<Props> = ({ teamSettingsId }) => {
     return <CenteredSpinner explanation="Instellingen ophalen…" size={ 60 } />
   }
 
+
   const initialValues = {
     team_settings: teamSettingsId,
     opening_date: "2019-01-01",
@@ -101,7 +102,8 @@ const CreateDaySettingsForm: React.FC<Props> = ({ teamSettingsId }) => {
     postal_codes_type: "postcode",
     week_days: dayOfTheWeek.exists() ? [ dayOfTheWeek.get() ] : Object.keys(daysOfTheWeek).map(d => d.toString())
   }
-
+  console.log("dayOfTheWeek.exists()", dayOfTheWeek.exists())
+  console.log("initialValues", initialValues)
   return (
     <DefaultLayout>
       <Wrap>
