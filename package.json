@@ -1,6 +1,6 @@
 {
   "name": "top-frontend",
-  "version": "3.4.32",
+  "version": "3.4.33",
   "private": true,
   "engines": {
     "node": ">=20",
