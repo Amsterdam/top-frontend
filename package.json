@@ -49,7 +49,7 @@
     "eslint-config-react-app": "^7.0.1",
     "final-form": "^4.20.10",
     "final-form-arrays": "^3.1.0",
-    "immer": "^9.0.19",
+    "immer": "^10.0.4",
     "jwt-decode": "^3.1.2",
     "keycloak-js": "^24.0.1",
     "lodash.difference": "^4.5.0",
