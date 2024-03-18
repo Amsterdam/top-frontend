@@ -102,8 +102,7 @@ const CreateDaySettingsForm: React.FC<Props> = ({ teamSettingsId }) => {
     postal_codes_type: "postcode",
     week_days: dayOfTheWeek.exists() ? [ dayOfTheWeek.get() ] : Object.keys(daysOfTheWeek).map(d => d.toString())
   }
-  console.log("dayOfTheWeek.exists()", dayOfTheWeek.exists())
-  console.log("initialValues", initialValues)
+
   return (
     <DefaultLayout>
       <Wrap>
