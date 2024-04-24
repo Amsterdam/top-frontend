@@ -6,9 +6,6 @@ import App from "./App"
 import * as serviceWorker from "./serviceWorker"
 import { env } from "app/config/env"
 
-import initSentry from "./sentry/init"
-
-initSentry()
 
 ReactDOM.render(
   <React.StrictMode>

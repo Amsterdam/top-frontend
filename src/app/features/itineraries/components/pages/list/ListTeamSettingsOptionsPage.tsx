@@ -8,9 +8,7 @@ import Greeting from "app/features/shared/components/atoms/Greeting/Greeting"
 import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
 import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout"
 import useNavigation from "app/features/shared/routing/useNavigation"
-import { env } from "app/config/env"
 
-const basePath = env.REACT_APP_BASEPATH ?? "/"
 
 const Grid = styled.div`
   display: grid;
@@ -22,7 +20,7 @@ const Illustration = styled.div`
   max-width: 30em;
   flex: auto;
   // https://pixabay.com/vectors/amsterdam-netherlands-houses-street-4167026/
-  background: url('${ basePath }images/background-2.png') no-repeat bottom;
+  background: url('/images/background-2.png') no-repeat bottom;
   background-size: contain;
 `
 

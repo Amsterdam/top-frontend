@@ -1,4 +1,3 @@
-import { env } from "app/config/env"
 import React, { FC, FormEvent } from "react"
 import styled from "styled-components"
 
@@ -6,8 +5,6 @@ type Props = {
   onClick: (e: FormEvent) => void
   isOpen: boolean
 }
-
-const basePath = env.REACT_APP_BASEPATH ?? "/"
 
 const Div = styled.div`
   display: block;
@@ -39,7 +36,7 @@ const Img = styled.span`
   width: 36px;
   height: 24px;
   margin: 24px 18px;
-  background-image: url('${ basePath }icons/eye@2x.png');
+  background-image: url('/icons/eye@2x.png');
   background-repeat: no-repeat;
   background-size: contain;
 `
@@ -47,7 +44,7 @@ const Img = styled.span`
 const ImgDisabled = styled(Img)`
   height: 36px;
   margin: 18px;
-  background-image: url('${ basePath }icons/eye-disabled@2x.png');
+  background-image: url('/icons/eye-disabled@2x.png');
 `
 
 /**
