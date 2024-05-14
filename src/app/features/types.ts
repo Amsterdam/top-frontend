@@ -90,6 +90,7 @@ export type Case = {
   schedules: any
   project: any
   subjects: any
+  tags: any
   deleted: boolean
   teams?: Components.Schemas.ItineraryTeamMember[][]
   distance?: number
