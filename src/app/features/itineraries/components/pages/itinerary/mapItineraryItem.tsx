@@ -20,6 +20,7 @@ export const mapItineraryItem = (itineraryId: string, daySettings: Components.Sc
         workflows,
         reason,
         schedules,
+        tags,
         deleted
       },
       id: caseId,
@@ -50,7 +51,8 @@ export const mapItineraryItem = (itineraryId: string, daySettings: Components.Sc
       : undefined,
     position,
     postalCode: postal_code,
-    reason: reason,
+    reason,
+    tags,
     hasPriority: (schedules && schedules[0]?.priority?.weight >= 0.5) ?? false,
     hasWarrant: (schedules && schedules[0]?.priority?.weight >= 1.0) ?? false,
     buttons: (onDeleteButtonClicked: () => void) =>

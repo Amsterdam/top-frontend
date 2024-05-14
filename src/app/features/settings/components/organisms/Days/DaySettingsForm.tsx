@@ -13,6 +13,8 @@ import {
   useTeamSettingsScheduleTypes,
   useTeamSettingsStateTypes,
   useTeamSettingsProjects,
+  useTeamSettingsSubjects,
+  useTeamSettingsTags,
   useCorporations,
   useDistricts
 } from "app/state/rest"
@@ -34,9 +36,16 @@ const Wrap = styled.div`
 `
 
 type Props = {
-  teamSettingsId: string
-  daySettingsId: string
+  teamSettingsId?: string
+  daySettingsId?: string
 }
+
+const prepareDefinition = (definitionEntry: any) => (
+  definitionEntry?.reduce((t: any, c: any) => {
+    t[String(c.id)] = c.name
+    return t
+  }, {}) || []
+)
 
 const DaySettingsForm: FC<Props> = ({ teamSettingsId, daySettingsId }) => {
   let { data: daySettings, execPut, isBusy: isBusyDaySettings } = useDaySettings(daySettingsId!, { caseCount: true })
@@ -44,15 +53,12 @@ const DaySettingsForm: FC<Props> = ({ teamSettingsId, daySettingsId }) => {
   const { data: teamScheduleTypes, isBusy: isBusyTeamScheduleTypes } = useTeamSettingsScheduleTypes(teamSettingsId!)
   const { data: caseStateTypes, isBusy: isBusyCaseStateTypes } = useTeamSettingsStateTypes(teamSettingsId!)
   const { data: caseProjects, isBusy: isBusyCaseProjects } = useTeamSettingsProjects(teamSettingsId!)
+  const { data: caseSubjects, isBusy: isCaseBusySubjects } = useTeamSettingsSubjects(teamSettingsId!)
+  const { data: caseTags, isBusy: isCaseBusyTags } = useTeamSettingsTags(teamSettingsId!)
   const { data: corporations, isBusy: isBusyCorporations } = useCorporations()
   const { data: districts, isBusy: isBusyDistricts } = useDistricts()
   const { navigateTo } = useNavigation()
   const [ errorMessage, setErrorMessage ] = useState("")
-
-  const prepareDefinition = (definitionEntry: any) => definitionEntry?.reduce((t: any, c: any) => {
-    t[String(c.id)] = c.name
-    return t
-  }, {}) || []
 
   const definition = useMemo(
     () => createDefinition(
@@ -62,11 +68,16 @@ const DaySettingsForm: FC<Props> = ({ teamSettingsId, daySettingsId }) => {
       prepareDefinition(caseReasons),
       prepareDefinition(caseStateTypes),
       prepareDefinition(caseProjects),
+      prepareDefinition(caseSubjects),
+      prepareDefinition(caseTags),
       prepareDefinition(corporations),
       prepareDefinition(districts),
       daySettings?.team_settings
     ),
-    [ districts, teamScheduleTypes, caseReasons, caseStateTypes, caseProjects, daySettings, corporations ]
+    [
+      districts, teamScheduleTypes, caseReasons, caseStateTypes,
+      caseProjects, caseSubjects, caseTags, daySettings, corporations
+    ]
   )
 
   const handleSubmit = useCallback(async (data: any) => {
@@ -90,7 +101,7 @@ const DaySettingsForm: FC<Props> = ({ teamSettingsId, daySettingsId }) => {
   if (!caseProjects || isBusyCaseProjects || !caseStateTypes || isBusyCaseStateTypes || !caseReasons
       || isBusyCaseReasons || !teamScheduleTypes || isBusyTeamScheduleTypes || !teamSettingsId
       || !daySettingsId || !daySettings || isBusyDaySettings || !districts
-      || isBusyDistricts || !corporations || isBusyCorporations
+      || isBusyDistricts || !corporations || isBusyCorporations || isCaseBusySubjects || isCaseBusyTags
     ) {
     return <CenteredSpinner explanation="Instellingen ophalen…" size={ 60 } />
   }
@@ -108,6 +119,8 @@ const DaySettingsForm: FC<Props> = ({ teamSettingsId, daySettingsId }) => {
       priorities: removeUnknownIds(teamScheduleTypes.priorities, settings.priorities),
       reasons: removeUnknownIds(caseReasons, settings.reasons),
       project_ids: removeUnknownIds(caseProjects, settings.project_ids),
+      subjects: removeUnknownIds(caseSubjects, settings.subjects),
+      tags: removeUnknownIds(caseTags, settings.tags),
       state_types: removeUnknownIds(caseStateTypes, settings.state_types),
       housing_corporations: removeUnknownIds(corporations, settings.housing_corporations),
       districts: removeUnknownIds(districts, settings.districts),

@@ -18,6 +18,8 @@ export const createDefinition = (
   reasonsOptions: any,
   stateTypeOptions: any,
   projectOptions: any,
+  subjectOptions: any,
+  tagOptions: any,
   corporationOptions: any,
   districtOptions: any,
   teamSettings?: Components.Schemas.TeamSettings | Components.Schemas.DaySettings["team_settings"]
@@ -162,9 +164,39 @@ export const createDefinition = (
         field: {
           type: "CheckboxFields",
           props: {
-            label: "Met welke projecten wil je dat de looplijsten gegenereerd worden?",
+            label: "Met welke projecten wil je dat de looplijsten gegenereerd worden? (niet verplicht)",
             name: "project_ids",
             options: projectOptions,
+            columnCount: { mobileM: 2, tabletM: 4 }
+          }
+        }
+      }
+    },
+    subjects: {
+      type: "ShowHide",
+      props: {
+        shouldShow: () => !_isEmpty(subjectOptions), // If there are no subjects, remove question and divider.
+        field: {
+          type: "CheckboxFields",
+          props: {
+            label: "Met welke onderwerpen wil je dat de looplijsten gegenereerd worden? (niet verplicht)",
+            name: "subjects",
+            options: subjectOptions,
+            columnCount: { mobileM: 2, tabletM: 4 }
+          }
+        }
+      }
+    },
+    tags: {
+      type: "ShowHide",
+      props: {
+        shouldShow: () => !_isEmpty(tagOptions), // If there are no subjects, remove question and divider.
+        field: {
+          type: "CheckboxFields",
+          props: {
+            label: "Met welke tags wil je dat de looplijsten gegenereerd worden? (niet verplicht)",
+            name: "tags",
+            options: tagOptions,
             columnCount: { mobileM: 2, tabletM: 4 }
           }
         }
@@ -261,7 +293,27 @@ export const createDefinition = (
           props: {}
         }
       }
-    }
+    },
+    divider11: {
+      type: "ShowHide",
+      props: {
+        shouldShow: () => !_isEmpty(subjectOptions), // If there are no subjects, remove question and divider.
+        field: {
+          type: "Divider",
+          props: {}
+        }
+      }
+    },
+    divider12: {
+      type: "ShowHide",
+      props: {
+        shouldShow: () => !_isEmpty(tagOptions), // If there are no subjects, remove question and divider.
+        field: {
+          type: "Divider",
+          props: {}
+        }
+      }
+    },
   }
 
   // Align properties:
@@ -282,6 +334,10 @@ export const createDefinition = (
       [ "divider9", "divider9", "divider9" ],
       [ "filteredProjects", "filteredProjects", "filteredProjects" ],
       [ "divider4", "divider4", "divider4" ],
+      [ "subjects", "subjects", "subjects" ],
+      [ "divider11", "divider11", "divider11" ],
+      [ "tags", "tags", "tags" ],
+      [ "divider12", "divider12", "divider12" ],
       [ "stateTypes", "stateTypes", "stateTypes" ],
       [ "divider5", "divider5", "divider5" ],
       [ "daySegments", "daySegments", "daySegments" ],
@@ -306,6 +362,10 @@ export const createDefinition = (
       [ "divider9", "divider9", "divider9", "divider9", "divider9" ],
       [ "filteredProjects", "filteredProjects", "filteredProjects", "filteredProjects", "filteredProjects" ],
       [ "divider4", "divider4", "divider4", "divider4", "divider4" ],
+      [ "subjects", "subjects", "subjects", "subjects", "subjects" ],
+      [ "divider11", "divider11", "divider11", "divider11", "divider11" ],
+      [ "tags", "tags", "tags", "tags", "tags" ],
+      [ "divider12", "divider12", "divider12", "divider12", "divider12" ],
       [ "stateTypes", "stateTypes", "stateTypes", "stateTypes", "stateTypes" ],
       [ "divider5", "divider5", "divider5", "divider5", "divider5" ],
       [ "daySegments", "daySegments", "daySegments", "daySegments", "daySegments" ],

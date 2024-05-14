@@ -194,6 +194,24 @@ export const useTeamSettingsProjects = (teamSettingsId: string, options?: Option
   isProtected: true
 })
 
+export const useTeamSettingsSubjects = (teamSettingsId: string, options?: Options) => (
+  useApiRequest<Components.Schemas.CaseSubject[]>({
+    ...options,
+    url: makeGatewayUrl([ "team-settings", teamSettingsId, "subjects" ]),
+    groupName: "teamSettings",
+    isProtected: true
+  })
+)
+
+export const useTeamSettingsTags = (teamSettingsId: string, options?: Options) => (
+  useApiRequest<Components.Schemas.CaseTag[]>({
+    ...options,
+    url: makeGatewayUrl([ "team-settings", teamSettingsId, "tags" ]),
+    groupName: "teamSettings",
+    isProtected: true
+  })
+)
+
 export const useCorporations = (options?: Options) => useApiRequest<Components.Schemas.HousingCorporation[]>({
   ...options,
   url: makeGatewayUrl([ "addresses/housing-corporations" ], {}),
