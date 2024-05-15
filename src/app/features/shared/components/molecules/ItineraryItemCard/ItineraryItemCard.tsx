@@ -107,7 +107,7 @@ const ItineraryItemCard: React.FC<Props> = (
     notes,
     postalCode,
     reason,
-    tags,
+    tags = [],
     teamMembersList,
     hasPriority,
     hasWarrant,
