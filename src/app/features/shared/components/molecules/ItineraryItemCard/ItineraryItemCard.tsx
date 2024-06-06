@@ -4,6 +4,8 @@ import styled from "styled-components"
 import { themeColor, themeSpacing } from "@amsterdam/asc-ui"
 import StadiumBadge from "app/features/shared/components/molecules/StadiumBadge/StadiumBadge"
 import { CaseReason } from "app/features/types"
+import Tag from "app/features/shared/components/atoms/Tag/Tag"
+
 
 type Props = {
   address: string | JSX.Element
@@ -18,6 +20,7 @@ type Props = {
   notes?: JSX.Element
   postalCode: string | JSX.Element
   reason: CaseReason
+  tags: Components.Schemas.CaseTag[]
   teamMembersList?: string
   hasPriority?: boolean
   hasWarrant?: boolean
@@ -104,6 +107,7 @@ const ItineraryItemCard: React.FC<Props> = (
     notes,
     postalCode,
     reason,
+    tags = [],
     teamMembersList,
     hasPriority,
     hasWarrant,
@@ -115,7 +119,6 @@ const ItineraryItemCard: React.FC<Props> = (
   const setBeingDeleted = useCallback(() => setIsBeingDeleted(true), [ setIsBeingDeleted ])
 
   const handleClick = useCallback(() => {
-    console.log("sddsd")
     if (href) {
       return navigate(href)
     }
@@ -141,6 +144,7 @@ const ItineraryItemCard: React.FC<Props> = (
           { badge }
           { hasPriority && <StadiumBadge stadium="Prio" variant="secondary" /> }
           { hasWarrant && <StadiumBadge stadium="Machtiging" variant="tint" /> }
+          { tags.map((tag)=> <Tag key={ tag.id } color="rgb(255, 145, 0)">{ tag.name }</Tag>)}
         </BadgeRow>
         { notes }
         { teamMembersList && <P>In looplijst van { teamMembersList }.</P> }

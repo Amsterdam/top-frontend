@@ -9,6 +9,7 @@ import useKeycloak from "app/state/auth/keycloak/useKeycloak"
 import to from "app/features/shared/routing/to"
 import ErrorDisplay from "../../organisms/ErrorDisplay/ErrorDisplay"
 import Navigation from "../../organisms/Navigation/Navigation"
+import { env } from "app/config/env"
 
 const Main = styled.main`
   display: flex;
@@ -46,7 +47,7 @@ const DefaultLayout: React.FC<Props> = ({ children }) => {
       <HeaderWrap>
         <ErrorDisplay />
         <Header
-          title={ [ "Toezicht op pad", process.env.REACT_APP_ENV_ABBR ].join(" ") }
+          title={ [ "Toezicht op pad", env.REACT_APP_ENV_ABBR ].join(" ") }
           homeLink={ to("/") }
           fullWidth={ true }
           navigation={

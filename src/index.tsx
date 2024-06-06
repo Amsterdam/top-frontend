@@ -4,10 +4,8 @@ import React from "react"
 import ReactDOM from "react-dom"
 import App from "./App"
 import * as serviceWorker from "./serviceWorker"
+import { env } from "app/config/env"
 
-import initSentry from "./sentry/init"
-
-initSentry()
 
 ReactDOM.render(
   <React.StrictMode>
@@ -21,4 +19,4 @@ ReactDOM.render(
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister()
 
-console.log("Commit hash:", process.env.REACT_APP_GIT_COMMIT_HASH ?? "n/a")
+console.log("Commit hash:", env.REACT_APP_GIT_COMMIT_HASH ?? "n/a")
