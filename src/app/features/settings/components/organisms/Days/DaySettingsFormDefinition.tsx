@@ -313,7 +313,7 @@ export const createDefinition = (
           props: {}
         }
       }
-    },
+    }
   }
 
   // Align properties:
