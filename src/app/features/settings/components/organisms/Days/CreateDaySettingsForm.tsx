@@ -32,7 +32,7 @@ const Wrap = styled.div`
 `
 
 type Props = {
-  teamSettingsId: string
+  teamSettingsId?: string
 }
 
 const CreateDaySettingsForm: React.FC<Props> = ({ teamSettingsId }) => {
@@ -93,6 +93,7 @@ const CreateDaySettingsForm: React.FC<Props> = ({ teamSettingsId }) => {
   if (!districts || isBusyDistricts) {
     return <CenteredSpinner explanation="Instellingen ophalen…" size={ 60 } />
   }
+
 
   const initialValues = {
     team_settings: teamSettingsId,

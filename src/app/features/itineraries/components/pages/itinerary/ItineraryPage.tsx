@@ -151,8 +151,11 @@ const ItineraryPage: React.FC = () => {
             <MapsButton cases={ casesWithoutVisits } />
           </Left>
           <Right>
-            <StyledButton onClick={ () => navigateTo("/lijst/:itineraryId/suggesties", { itineraryId }) }
-                          variant="blank" iconLeft={ <Enlarge /> }>
+            <StyledButton
+              onClick={ () => navigateTo("/lijst/:itineraryId/suggesties", { itineraryId }) }
+              variant="blank"
+              iconLeft={ <Enlarge /> }
+            >
               Voeg zaak toe
             </StyledButton>
           </Right>
