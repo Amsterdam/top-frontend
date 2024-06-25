@@ -27,7 +27,7 @@ const Residence: FC<Props> = ({ caseId }) => {
 
   // Woning
   const gebruiksdoel = hasBagData ? bagData.gebruiksdoel : undefined
-  const woningBestemming = gebruiksdoel && gebruiksdoel.length ? gebruiksdoel[0] : undefined
+  const woningBestemming = gebruiksdoel && gebruiksdoel.length ? gebruiksdoel.join(", ") : undefined
   const woningGebruik = hasBagData && bagData.gebruik ? bagData.gebruik : undefined
   const woningBouwlagen = hasBagData && bagData.bouwlagen ? bagData.bouwlagen : undefined
   const woningEtage = hasBagData && bagData.verdieping_toegang != null ? bagData.verdieping_toegang : undefined
