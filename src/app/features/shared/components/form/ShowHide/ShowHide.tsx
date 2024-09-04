@@ -1,5 +1,5 @@
 import React from "react"
-import produce from "immer"
+import { produce } from "immer"
 
 import ScaffoldField, { Field } from "../ScaffoldField"
 import { useForm, useFormState } from "react-final-form"

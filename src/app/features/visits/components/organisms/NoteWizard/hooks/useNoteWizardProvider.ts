@@ -1,5 +1,5 @@
 import { useCallback, useReducer } from "react"
-import produce from "immer"
+import { produce } from "immer"
 
 import { FormValues, WizardStep } from "app/features/visits/components/organisms/NoteWizard/types"
 
