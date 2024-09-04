@@ -122,7 +122,7 @@ const ItineraryItemCard: React.FC<Props> = (
     if (href) {
       return navigate(href)
     }
-  }, [ href ])
+  }, [href, navigate])
 
   return (
     <Wrap backgroundColor={ backgroundColor } deleted={ deleted }>

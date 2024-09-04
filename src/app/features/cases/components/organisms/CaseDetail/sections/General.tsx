@@ -57,7 +57,7 @@ const General: FC<Props> = ({ caseId }) => {
 
   const fraudPrediction = !caseData.day_settings_id || (daySettings && daySettings.team_settings.fraud_prediction_model) ? caseData.fraud_prediction : undefined
   const hasProject = caseData?.project?.name !== undefined
-  console.log("CASE DATA => ", caseData)
+
   return (
     <Section>
       <SectionRow>

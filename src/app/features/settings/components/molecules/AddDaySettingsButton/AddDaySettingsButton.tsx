@@ -12,7 +12,7 @@ const AddDaySettingsButton: React.FC<Props> = ({ teamSettingsId, dayOfTheWeekId 
 
   const handleClick = useCallback(
     () => navigate(`/team-settings/${ teamSettingsId }/nieuw?d=${ dayOfTheWeekId }`),
-    [ teamSettingsId, dayOfTheWeekId ]
+    [navigate, teamSettingsId, dayOfTheWeekId]
   )
 
   return <Button variant="primaryInverted" onClick={ handleClick }>Toevoegen</Button>

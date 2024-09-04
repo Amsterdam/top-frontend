@@ -25,7 +25,7 @@ const ItineraryForm: FC<Props> = ({ teamSettings }) => {
     // @ts-ignore
     await execPost(mapPostValues(values))
     await navigateTo("/lijst")
-  }, [ execPost ])
+  }, [execPost, navigateTo])
 
   if (!users) {
     return null
