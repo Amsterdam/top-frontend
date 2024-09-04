@@ -22,7 +22,7 @@ const DeleteVisitButton: React.FC<Props> = ({ visitId, itineraryId, caseId }) =>
       clearSteps()
       return execDelete()
     }
-  }, [ execDelete, itineraryId, clearSteps ])
+  }, [navigateTo, itineraryId, clearSteps, execDelete])
 
   return <StyledButton variant="blank" onClick={ handleClick } icon={ <TrashBin /> } />
 }

@@ -26,7 +26,7 @@ const CreateItineraryPage: React.FC = () => {
     if (redirectToExistingItinerary) {
       redirectToCorrectItineraryPage(data?.itineraries)
     }
-  }, [ redirectToExistingItinerary, data ])
+  }, [redirectToExistingItinerary, data, redirectToCorrectItineraryPage])
 
   if (!teamSettings) {
     return null

@@ -106,7 +106,7 @@ const NoteWizard: React.FC<Props> = ({ itineraryId, caseId, onSubmit, valuesFrom
     }
 
     return Promise.resolve(true)
-  }, [ pushStep, clearSteps, setValues, wizardStep, onSubmit, itineraryId, itineraryItem, user, moveItemToBottomList ])
+  }, [setValues, wizardStep, onSubmit, itineraryItem?.id, itineraryItem?.case?.id, user, clearSteps, moveItemToBottomList, navigateTo, itineraryId, pushStep])
 
   return (
     itinerary && itineraryItem && user

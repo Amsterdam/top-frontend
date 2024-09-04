@@ -17,7 +17,7 @@ const DeleteDaySettingsButton: React.FC<Props> = ({ teamSettingsId, daySettingsI
       await navigateTo("/team-settings/:teamSettingsId", { teamSettingsId })
       return execDelete()
     }
-  }, [ execDelete, teamSettingsId ])
+  }, [execDelete, navigateTo, teamSettingsId])
 
   return <Button variant="primaryInverted" onClick={ handleClick }>Verwijderen</Button>
 }

@@ -97,7 +97,7 @@ const CreateDaySettingsForm: React.FC<Props> = ({ teamSettingsId }) => {
       setErrorMessage(error.response.data.message)
       return error
     }
-  }, [ execPost, setErrorMessage, teamSettingsId ])
+  }, [execPost, navigateTo, teamSettingsId])
 
   if (!districts || isBusyDistricts) {
     return <CenteredSpinner explanation="Instellingen ophalen…" size={ 60 } />
