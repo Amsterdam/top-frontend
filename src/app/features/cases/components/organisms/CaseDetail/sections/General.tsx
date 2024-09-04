@@ -21,6 +21,7 @@ import {
   Section,
   SectionRow
 } from "app/features/cases/components/organisms/CaseDetail/CaseDetailSectionStyles"
+import Tag from "app/features/shared/components/atoms/Tag/Tag"
 
 type Props = {
   caseId: string
@@ -33,11 +34,9 @@ const PostalCode = styled.p`
 
 const BadgesRow = styled.div`
   display: flex;
+  flex-wrap: wrap;
   margin-bottom: ${ themeSpacing(2) };
-
-  > :not(:last-child) {
-    margin-right: ${ themeSpacing(2) };
-  }
+  gap: ${ themeSpacing(2) };
 `
 
 const General: FC<Props> = ({ caseId }) => {
@@ -68,6 +67,7 @@ const General: FC<Props> = ({ caseId }) => {
           { lastStadiumLabel && <StadiumBadge stadium={ lastStadiumLabel! } /> }
           { hasPriority && <StadiumBadge stadium="Prio" variant="secondary" /> }
           { hasWarrant && <StadiumBadge stadium="Machtiging" variant="tint" /> }
+          { caseData.tags.map((tag)=> <Tag key={ tag.id } color="rgb(255, 145, 0)">{ tag.name }</Tag>)}
         </BadgesRow>
         <Grid>
           <Label>Zaak ID</Label>

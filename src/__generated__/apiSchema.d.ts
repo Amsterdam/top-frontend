@@ -37,6 +37,16 @@ declare namespace Components {
             name: string;
             team: number;
         }
+        export interface CaseSubject {
+            id: number;
+            name: string;
+            team: number;
+        }
+        export interface CaseTag {
+            id: number;
+            name: string;
+            team: number;
+        }
         export interface DaySettings {
             id: number;
             name: string;
@@ -54,6 +64,8 @@ declare namespace Components {
             reasons?: number[] | null;
             state_types?: number[] | null;
             project_ids?: number[] | null;
+            subjects?: number[] | null;
+            tags?: number[] | null;
             districts?: number[] | null;
             housing_corporations?: number[] | null;
             housing_corporation_combiteam?: boolean;
@@ -217,6 +229,8 @@ declare namespace Components {
             reasons?: number[] | null;
             state_types?: number[] | null;
             project_ids?: number[] | null;
+            subjects?: number[] | null;
+            tags?: number[] | null;
             districts?: number[] | null;
             housing_corporations?: number[] | null;
             housing_corporation_combiteam?: boolean;
@@ -312,6 +326,42 @@ declare namespace Components {
              */
             previous?: string | null; // uri
             results?: CaseStateType[];
+        }
+        export interface PaginatedCaseSubjectList {
+            /**
+             * example:
+             * 123
+             */
+            count?: number;
+            /**
+             * example:
+             * http://api.example.org/accounts/?page=4
+             */
+            next?: string | null; // uri
+            /**
+             * example:
+             * http://api.example.org/accounts/?page=2
+             */
+            previous?: string | null; // uri
+            results?: CaseSubject[];
+        }
+        export interface PaginatedCaseTagList {
+            /**
+             * example:
+             * 123
+             */
+            count?: number;
+            /**
+             * example:
+             * http://api.example.org/accounts/?page=4
+             */
+            next?: string | null; // uri
+            /**
+             * example:
+             * http://api.example.org/accounts/?page=2
+             */
+            previous?: string | null; // uri
+            results?: CaseTag[];
         }
         export interface PaginatedDaySettingsList {
             /**
@@ -474,6 +524,8 @@ declare namespace Components {
             reasons?: number[] | null;
             state_types?: number[] | null;
             project_ids?: number[] | null;
+            subjects?: number[] | null;
+            tags?: number[] | null;
             districts?: number[] | null;
             housing_corporations?: number[] | null;
             housing_corporation_combiteam?: boolean;
@@ -1291,6 +1343,36 @@ declare namespace Paths {
         }
         namespace Responses {
             export type $200 = Components.Schemas.PaginatedCaseStateTypeList;
+        }
+    }
+    namespace TeamSettingsSubjectsList {
+        namespace Parameters {
+            export type Id = number;
+            export type Page = number;
+        }
+        export interface PathParameters {
+            id: Parameters.Id;
+        }
+        export interface QueryParameters {
+            page?: Parameters.Page;
+        }
+        namespace Responses {
+            export type $200 = Components.Schemas.PaginatedCaseSubjectList;
+        }
+    }
+    namespace TeamSettingsTagsList {
+        namespace Parameters {
+            export type Id = number;
+            export type Page = number;
+        }
+        export interface PathParameters {
+            id: Parameters.Id;
+        }
+        export interface QueryParameters {
+            page?: Parameters.Page;
+        }
+        namespace Responses {
+            export type $200 = Components.Schemas.PaginatedCaseTagList;
         }
     }
     namespace TeamSettingsUpdate {

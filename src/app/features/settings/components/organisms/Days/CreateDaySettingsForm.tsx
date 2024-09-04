@@ -12,6 +12,8 @@ import {
   useTeamSettingsScheduleTypes,
   useTeamSettingsStateTypes,
   useTeamSettingsProjects,
+  useTeamSettingsSubjects,
+  useTeamSettingsTags,
   useCorporations,
   useDistricts
 } from "app/state/rest"
@@ -32,7 +34,7 @@ const Wrap = styled.div`
 `
 
 type Props = {
-  teamSettingsId: string
+  teamSettingsId?: string
 }
 
 const CreateDaySettingsForm: React.FC<Props> = ({ teamSettingsId }) => {
@@ -42,6 +44,8 @@ const CreateDaySettingsForm: React.FC<Props> = ({ teamSettingsId }) => {
   const { data: teamScheduleTypes } = useTeamSettingsScheduleTypes(teamSettingsId!)
   const { data: caseStateTypes } = useTeamSettingsStateTypes(teamSettingsId!)
   const { data: caseProjects } = useTeamSettingsProjects(teamSettingsId!)
+  const { data: caseSubjects } = useTeamSettingsSubjects(teamSettingsId!)
+  const { data: caseTags } = useTeamSettingsTags(teamSettingsId!)
   const { data: corporations } = useCorporations()
   const { data: districts, isBusy: isBusyDistricts } = useDistricts()
   const { navigateTo } = useNavigation()
@@ -60,11 +64,16 @@ const CreateDaySettingsForm: React.FC<Props> = ({ teamSettingsId }) => {
       prepareDefinition(caseReasons),
       prepareDefinition(caseStateTypes),
       prepareDefinition(caseProjects),
+      prepareDefinition(caseSubjects),
+      prepareDefinition(caseTags),
       prepareDefinition(corporations),
       prepareDefinition(districts),
       teamSettings
     ),
-    [ teamScheduleTypes, caseReasons, caseStateTypes, districts, caseProjects, teamSettings, corporations ]
+    [
+      teamScheduleTypes, caseReasons, caseStateTypes, districts,
+      caseProjects, caseSubjects, caseTags, teamSettings, corporations
+    ]
   )
 
   const handleSubmit = useCallback(async (data: any) => {
@@ -88,11 +97,12 @@ const CreateDaySettingsForm: React.FC<Props> = ({ teamSettingsId }) => {
       setErrorMessage(error.response.data.message)
       return error
     }
-  }, [ execPost, setErrorMessage, teamSettingsId ])
+  }, [execPost, navigateTo, teamSettingsId])
 
   if (!districts || isBusyDistricts) {
     return <CenteredSpinner explanation="Instellingen ophalen…" size={ 60 } />
   }
+
 
   const initialValues = {
     team_settings: teamSettingsId,

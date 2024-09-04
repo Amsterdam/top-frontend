@@ -93,18 +93,7 @@ const useApiRequest = <Schema, Payload = Partial<Schema>> (
         throw error
       }
     }
-  }, [
-    isProtected,
-    request,
-    protectedRequest,
-    logout,
-    url,
-    clearCache,
-    setCacheItem,
-    handleError,
-    addErrorToCacheItem,
-    noForbiddenRedirect
-  ])
+  }, [isProtected, protectedRequest, request, url, clearCache, setCacheItem, addErrorToCacheItem, handleError, logout, noForbiddenRedirect, navigateTo])
 
   /**
    * Queues an API request

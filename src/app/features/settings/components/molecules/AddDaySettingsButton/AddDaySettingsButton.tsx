@@ -1,6 +1,6 @@
 import React, { useCallback } from "react"
 import { Button } from "@amsterdam/asc-ui"
-import useNavigation from "app/features/shared/routing/useNavigation"
+import { useNavigate } from "react-router-dom"
 
 type Props = {
   teamSettingsId: string
@@ -8,11 +8,11 @@ type Props = {
 }
 
 const AddDaySettingsButton: React.FC<Props> = ({ teamSettingsId, dayOfTheWeekId }) => {
-  const { navigateTo } = useNavigation()
+  const navigate = useNavigate()
 
   const handleClick = useCallback(
-    () => navigateTo("/team-settings/:teamSettingsId/nieuw", { teamSettingsId }) + "?d=" + dayOfTheWeekId,
-    [ teamSettingsId, dayOfTheWeekId ]
+    () => navigate(`/team-settings/${ teamSettingsId }/nieuw?d=${ dayOfTheWeekId }`),
+    [navigate, teamSettingsId, dayOfTheWeekId]
   )
 
   return <Button variant="primaryInverted" onClick={ handleClick }>Toevoegen</Button>

@@ -4,7 +4,7 @@ import qs from "qs"
 import slashSandwich from "./slashSandwich"
 import { ErrorContext } from "../../../error/ErrorProvider"
 import { Severity } from "app/features/types"
-
+import { env } from "app/config/env"
 
 type ErrorResponse = {
   message?: string
@@ -42,7 +42,7 @@ export const useErrorHandler = () => {
  */
 
 export const makeGatewayUrl = (paths: Array<number | string | undefined>, queryStringParams?: Record<string, number | string | boolean | undefined>) => {
-  const path = slashSandwich([ process.env.REACT_APP_GATEWAY, ...paths ])
+  const path = slashSandwich([ env.REACT_APP_GATEWAY, ...paths ])
   const queryString = queryStringParams
     ? qs.stringify(queryStringParams, { addQueryPrefix: true })
     : ""

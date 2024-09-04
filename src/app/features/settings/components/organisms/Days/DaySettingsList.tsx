@@ -9,6 +9,8 @@ import {
   useTeamSettingsScheduleTypes,
   useTeamSettingsStateTypes,
   useTeamSettingsProjects,
+  useTeamSettingsSubjects,
+  useTeamSettingsTags,
   useCorporations,
   useDistricts
 } from "app/state/rest"
@@ -55,6 +57,8 @@ const DaySettingsList: React.FC<Props> = ({ teamSettingsId }) => {
   const { data: teamScheduleTypes } = useTeamSettingsScheduleTypes(teamSettingsId!)
   const { data: caseStateTypes } = useTeamSettingsStateTypes(teamSettingsId!)
   const { data: caseProjects } = useTeamSettingsProjects(teamSettingsId!)
+  const { data: caseSubjects } = useTeamSettingsSubjects(teamSettingsId!)
+  const { data: caseTags } = useTeamSettingsTags(teamSettingsId!)
   const { data: corporations } = useCorporations()
   const { data: districts, isBusy: isBusyDistricts } = useDistricts()
 
@@ -89,11 +93,13 @@ const DaySettingsList: React.FC<Props> = ({ teamSettingsId }) => {
                   <DaySettingsCard
                     key={ daySettings.id }
                     teamSettings={ teamSettings }
-                    daySettingsId={ daySettings.id }
+                    daySettingsId={ daySettings.id.toString() }
                     caseReasons={ caseReasons }
                     teamScheduleTypes={ teamScheduleTypes }
                     caseStateTypes={ caseStateTypes }
                     caseProjects={ caseProjects }
+                    caseSubjects={ caseSubjects }
+                    caseTags={ caseTags }
                     corporations={ corporations }
                     districts={ districts }
                   />

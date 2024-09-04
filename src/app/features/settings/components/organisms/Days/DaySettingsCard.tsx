@@ -12,12 +12,14 @@ import useNavigation from "app/features/shared/routing/useNavigation"
 type Props = {
   teamSettings: Components.Schemas.TeamSettings
   daySettingsId: string
-  caseReasons: Components.Schemas.CaseReason[]
-  teamScheduleTypes: Components.Schemas.TeamScheduleTypes
-  caseStateTypes: Components.Schemas.CaseStateType[]
-  caseProjects: Components.Schemas.CaseProject[]
-  corporations: Components.Schemas.HousingCorporation[]
-  districts: District[]
+  caseReasons?: Components.Schemas.CaseReason[]
+  teamScheduleTypes?: Components.Schemas.TeamScheduleTypes
+  caseStateTypes?: Components.Schemas.CaseStateType[]
+  caseProjects?: Components.Schemas.CaseProject[]
+  caseSubjects?: Components.Schemas.CaseSubject[]
+  caseTags?: Components.Schemas.CaseTag[]
+  corporations?: Components.Schemas.HousingCorporation[]
+  districts?: District[]
 }
 
 const DaySettingsCard: React.FC<Props> = (
@@ -28,6 +30,8 @@ const DaySettingsCard: React.FC<Props> = (
     teamScheduleTypes,
     caseStateTypes,
     caseProjects,
+    caseSubjects,
+    caseTags,
     corporations,
     districts
   }
@@ -81,6 +85,18 @@ const DaySettingsCard: React.FC<Props> = (
             options={ caseProjects }
             values={ daySettings?.project_ids }
           />
+          <ValueList
+            labels={ [ "Onderwerpen", "Onderwerpen" ] }
+            options={ caseSubjects }
+            values={ daySettings?.subjects }
+          />
+          <ValueList
+            labels={ [ "Tags", "Tags" ] }
+            options={ caseTags }
+            values={ daySettings?.tags }
+          />
+        </Column>
+        <Column>
           <Dl>
             <Dt>Postcodes</Dt>
             <Dd>
@@ -115,8 +131,6 @@ const DaySettingsCard: React.FC<Props> = (
             options={ teamScheduleTypes?.priorities }
             values={ daySettings?.priorities }
           />
-        </Column>
-        <Column>
           <ValueList
             labels={ [ "Status", "Statussen" ] }
             options={ caseStateTypes }

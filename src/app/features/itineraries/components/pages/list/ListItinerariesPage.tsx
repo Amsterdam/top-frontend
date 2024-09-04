@@ -24,7 +24,7 @@ const ListItinerariesPage: React.FC = () => {
 
   useEffect(() => {
     redirectToCorrectItineraryPage(data?.itineraries)
-  }, [ data ])
+  }, [data, redirectToCorrectItineraryPage])
 
   return (
     <DefaultLayout>

@@ -73,7 +73,8 @@ const ItineraryPage: React.FC = () => {
 
   useEffect(() => {
     redirectToCorrectItineraryPage(itineraries?.itineraries, itineraryId)
-  }, [ itineraries, itineraryId ])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [itineraries, itineraryId])
 
   const { data: itinerary, isBusy } = useItinerary(parseInt(itineraryId!), { keepUsingInvalidCache: true })
   const { execDelete } = useDeleteItinerary(itineraryId!, { lazy: true }) // <- NOTE: we need a extra hook here,
@@ -97,7 +98,7 @@ const ItineraryPage: React.FC = () => {
       await execDelete()
       await navigateTo("/lijst")
     }
-  }, [ execDelete ])
+  }, [execDelete, navigateTo])
 
   const items = itinerary?.items as unknown as ItineraryItem[]
 
@@ -151,8 +152,11 @@ const ItineraryPage: React.FC = () => {
             <MapsButton cases={ casesWithoutVisits } />
           </Left>
           <Right>
-            <StyledButton onClick={ () => navigateTo("/lijst/:itineraryId/suggesties", { itineraryId }) }
-                          variant="blank" iconLeft={ <Enlarge /> }>
+            <StyledButton
+              onClick={ () => navigateTo("/lijst/:itineraryId/suggesties", { itineraryId }) }
+              variant="blank"
+              iconLeft={ <Enlarge /> }
+            >
               Voeg zaak toe
             </StyledButton>
           </Right>

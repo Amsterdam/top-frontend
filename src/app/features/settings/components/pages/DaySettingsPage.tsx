@@ -3,8 +3,8 @@ import { useParams } from "react-router-dom"
 import DaySettingsForm from "app/features/settings/components/organisms/Days/DaySettingsForm"
 
 type Props = {
-  teamSettingsId: string
-  daySettingsId: string
+  teamSettingsId?: string
+  daySettingsId?: string
 }
 
 const DaySettingsPage: React.FC = () => {

@@ -2,15 +2,17 @@ version: '2'
 
 services:
   frontend:
-    image: frontend
     build: .
+    image: ${REGISTRY:-127.0.0.1:5001}/${REPOSITORY:-salmagundi/top-frontend}:${VERSION:-latest}
     ports:
       - "7000:7000"
-  lint:
-    build:
-      context: .
-    command: npm run lint:quiet
-  test:
-    build:
-      context: .
-    command: npm run test:ci
+    environment:
+      - REACT_APP_TEST_ENV=ThisShouldBeSet
+      - REACT_APP_GATEWAY=https://acc.api.top.amsterdam.nl/api/v1/
+      - REACT_APP_KEYCLOAK_REALM=test_realm
+      - REACT_APP_AUTH_URL=https://iam.amsterdam.nl/auth/
+      - REACT_APP_CLIENT_ID=wonen-top-frontend
+      - REACT_APP_BASEPATH=/
+      - REACT_APP_SENTRY_ENV=development
+      - REACT_APP_ENV_ABBR=DEV/ACC
+

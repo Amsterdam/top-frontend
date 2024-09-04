@@ -8,7 +8,7 @@ const HomePage: React.FC = () => {
 
   useEffect(() => {
     redirectToCorrectItineraryPage(data?.itineraries)
-  }, [ data ])
+  }, [data, redirectToCorrectItineraryPage])
 
   return null
 }
