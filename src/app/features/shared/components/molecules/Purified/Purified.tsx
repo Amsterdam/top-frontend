@@ -1,16 +1,15 @@
-import React, { FC } from "react"
+import React from "react"
 import DOMPurify from "dompurify"
-import { Paragraph } from "@amsterdam/asc-ui"
 
 type Props = {
   text: string
   className?: string
 }
 
-const Purified: FC<Props> = ({ text, className = "" }) => {
+const Purified: React.FC<Props> = ({ text, className = "" }) => {
   const purifiedText = DOMPurify.sanitize(text)
 
-  return <Paragraph className={ className } dangerouslySetInnerHTML={ { __html: purifiedText } } />
+  return <div className={ className } dangerouslySetInnerHTML={ { __html: purifiedText } } />
 }
 
 export default Purified

@@ -13,6 +13,7 @@ import CaseDetailSection from "../CaseDetailSection"
 import { Hr } from "app/features/cases/components/organisms/CaseDetail/CaseDetailSectionStyles"
 import List from "../List"
 import { isNullish, mapLogbookValue } from "../utils"
+import styled from "styled-components"
 
 type Props = {
   caseId: string
@@ -36,6 +37,12 @@ type LogbookItem = {
   description?: string | null
   sort: Date
 }
+
+const LogbookDescription = styled.div`
+  background: #eee;
+  padding: 1em;
+  border-radius: 0.5em;
+`
 
 // Maps a visit to a log book item
 const mapVisitToLogbookItem = (users: Components.Schemas.User[]) => (
@@ -120,7 +127,7 @@ const mapLogbookItemToDetailComponents = (observationTranslations: Components.Sc
     !isNullish(can_next_visit_go_ahead_description) &&
     <Purified className="anonymous" text={ can_next_visit_go_ahead_description } />,
     !isNullish(text) && <Purified className="anonymous" text={ highlightedText } />,
-    !isNullish(description) && <Purified className="anonymous" text={ highlightedDescription } />,
+    !isNullish(description) && <LogbookDescription><Purified className="anonymous" text={ highlightedDescription } /></LogbookDescription>,
     index < allItems.length - 1 && <Hr />
   ].filter(_ => !!_)
 }
