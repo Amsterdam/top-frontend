@@ -62,8 +62,8 @@ const Residence: FC<Props> = ({ caseId }) => {
   />
 
   const woningFields = [
-    [ "Databron", "BRK" ],
-    <Owner caseData={ caseData } />,
+    // [ "Databron", "BRK" ],
+    // <Owner caseData={ caseData } />,
     [ "Databron", "BAG" ],
     [ "Gebruiksdoel", woningBestemming ],
     [ "Soort object (feitelijk gebruik)", woningGebruik ],

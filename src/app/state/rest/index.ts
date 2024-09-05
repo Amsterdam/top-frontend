@@ -1,5 +1,5 @@
-import moment from "moment"
-import type { VakantieverhuurReportInformation, Permit, PermitType } from "@amsterdam/wonen-ui"
+import dayjs from "dayjs"
+import type { Permit, PermitType } from "@amsterdam/wonen-ui"
 import useApiRequest from "./hooks/useApiRequest"
 import { makeGatewayUrl, useErrorHandler } from "./hooks/utils/utils"
 import currentDate from "../../features/shared/utils/currentDate"
@@ -316,7 +316,6 @@ export type booleanString = "True" | "False" | "UNKNOWN"
 
 export type decosType = {
   permits: Permit[]
-  vakantieverhuur_reports: VakantieverhuurReportInformation[] | null
 }
 
 export const useDecos = (bagId: string, options?: Options) => {
@@ -344,8 +343,9 @@ export const usePowerBrowser = (bagId: string, options?: Options) => {
 
 export const useMeldingen = (bagId: string, options?: Options) => {
   const params: any = {
-    start_date: moment().subtract(1, "years").startOf("year").format()
+    start_date: dayjs().subtract(1, "years").startOf("year").format()
   }
+  console.log("PARAMS", params)
   const handleError = useErrorHandler()
   return useApiRequest<Components.Schemas.Meldingen>({
     ...options,

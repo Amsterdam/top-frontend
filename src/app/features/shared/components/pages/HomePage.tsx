@@ -4,14 +4,16 @@ import { useRedirectToCorrectItineraryPage } from "app/features/itineraries/util
 import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner"
 
 const HomePage: React.FC = () => {
-  const { data } = useItineraries()
+  const { data, errors } = useItineraries()
   const { redirectToCorrectItineraryPage } = useRedirectToCorrectItineraryPage()
 
   useEffect(() => {
     redirectToCorrectItineraryPage(data?.itineraries)
   }, [data, redirectToCorrectItineraryPage])
 
-  return <CenteredSpinner explanation="Even geduld alstublieft…" size={ 60 } />
+  const explanation = errors.length > 0 ? "Sorry, de pagina kan niet worden geladen. Probeer het later opnieuw." : "Even geduld alstublieft…"
+
+  return <CenteredSpinner explanation={ explanation } size={ 60 } />
 }
 
 export default HomePage
