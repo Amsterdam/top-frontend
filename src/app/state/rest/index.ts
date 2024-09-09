@@ -345,7 +345,7 @@ export const useMeldingen = (bagId: string, options?: Options) => {
   const params: any = {
     start_date: dayjs().subtract(1, "years").startOf("year").format()
   }
-  console.log("PARAMS", params)
+
   const handleError = useErrorHandler()
   return useApiRequest<Components.Schemas.Meldingen>({
     ...options,

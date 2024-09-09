@@ -20,7 +20,7 @@ type Props = {
   notes?: JSX.Element
   postalCode: string | JSX.Element
   reason: CaseReason
-  tags: Components.Schemas.CaseTag[]
+  tags?: Components.Schemas.CaseTag[]
   teamMembersList?: string
   hasPriority?: boolean
   hasWarrant?: boolean
