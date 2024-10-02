@@ -1,10 +1,12 @@
-import CreateItineraryPage from "./components/pages/create/CreateItineraryPage"
-import HomePage from "app/features/shared/components/pages/HomePage"
-import ItineraryPage from "./components/pages/itinerary/ItineraryPage"
-import ListItinerariesPage from "./components/pages/list/ListItinerariesPage"
-import ListTeamSettingsOptionsPage from "./components/pages/list/ListTeamSettingsOptionsPage"
-import SearchPage from "./components/pages/search/SearchPage"
-import SuggestionsPage from "./components/pages/suggestions/SuggestionsPage"
+import { lazy } from "react"
+
+const HomePage = lazy(() => import("app/features/shared/components/pages/HomePage"))
+const ItineraryPage = lazy(() => import("./components/pages/itinerary/ItineraryPage"))
+const ListItinerariesPage = lazy(() => import("./components/pages/list/ListItinerariesPage"))
+const ListTeamSettingsOptionsPage = lazy(() => import("./components/pages/list/ListTeamSettingsOptionsPage"))
+const SearchPage = lazy(() => import("./components/pages/search/SearchPage"))
+const SuggestionsPage = lazy(() => import("./components/pages/suggestions/SuggestionsPage"))
+const CreateItineraryPage = lazy(() => import("./components/pages/create/CreateItineraryPage"))
 
 const routes = {
   "/": HomePage,

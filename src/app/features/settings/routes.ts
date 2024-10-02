@@ -1,7 +1,10 @@
-import TeamSettingsListPage from "./components/pages/TeamSettingsListPage"
-import TeamSettingsDaysPage from "./components/pages/TeamSettingsDaysPage"
-import DaySettingsPage from "./components/pages/DaySettingsPage"
-import CreateDaySettingsPage from "./components/pages/CreateDaySettingsPage"
+import { lazy } from "react"
+
+const TeamSettingsListPage = lazy(() => import("./components/pages/TeamSettingsListPage"))
+const TeamSettingsDaysPage = lazy(() => import("./components/pages/TeamSettingsDaysPage"))
+const DaySettingsPage = lazy(() => import("./components/pages/DaySettingsPage"))
+const CreateDaySettingsPage = lazy(() => import("./components/pages/CreateDaySettingsPage"))
+
 
 const routes = {
   "/team-settings": TeamSettingsListPage,

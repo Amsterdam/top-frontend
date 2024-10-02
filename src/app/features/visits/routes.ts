@@ -1,5 +1,8 @@
-import CreateVisitPage from "./components/pages/CreateVisitPage/CreateVisitPage"
-import EditVisitPage from "./components/pages/EditVisitPage/EditVisitPage"
+import { lazy } from "react"
+
+const CreateVisitPage = lazy(() => import("./components/pages/CreateVisitPage/CreateVisitPage"))
+const EditVisitPage = lazy(() => import("./components/pages/EditVisitPage/EditVisitPage"))
+
 
 const routes = {
   "/visit/:itineraryId/:caseId": CreateVisitPage,
