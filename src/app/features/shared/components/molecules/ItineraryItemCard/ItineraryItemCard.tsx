@@ -15,7 +15,6 @@ type Props = {
   daySettings?: Components.Schemas.DaySettings
   fraudProbability?: string | JSX.Element
   href?: string
-  isSia?: boolean
   isVisited?: boolean
   notes?: JSX.Element
   postalCode: string | JSX.Element

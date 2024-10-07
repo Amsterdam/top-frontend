@@ -19,8 +19,7 @@ const Grid = styled.div`
 const Illustration = styled.div`
   max-width: 30em;
   flex: auto;
-  // https://pixabay.com/vectors/amsterdam-netherlands-houses-street-4167026/
-  background: url('/images/background-2.png') no-repeat bottom;
+  background: url('/images/background.webp') no-repeat bottom;
   background-size: contain;
 `
 
