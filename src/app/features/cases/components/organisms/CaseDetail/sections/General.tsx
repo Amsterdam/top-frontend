@@ -55,7 +55,7 @@ const General: React.FC<Props> = ({ caseId }) => {
           { lastStadiumLabel && <StadiumBadge stadium={ lastStadiumLabel! } /> }
           { hasPriority && <StadiumBadge stadium="Prio" variant="secondary" /> }
           { hasWarrant && <StadiumBadge stadium="Machtiging" variant="tint" /> }
-          { caseData.tags.map((tag)=> <Tag key={ tag.id } color="rgb(255, 145, 0)">{ tag.name }</Tag>)}
+          { caseData?.tags?.map((tag)=> <Tag key={ tag.id } color="rgb(255, 145, 0)">{ tag.name }</Tag>)}
         </BadgesRow>
         <Grid>
           <Label>Zaak ID</Label>
