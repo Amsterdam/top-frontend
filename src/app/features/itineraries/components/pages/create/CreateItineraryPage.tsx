@@ -26,7 +26,8 @@ const CreateItineraryPage: React.FC = () => {
     if (redirectToExistingItinerary) {
       redirectToCorrectItineraryPage(data?.itineraries)
     }
-  }, [redirectToExistingItinerary, data, redirectToCorrectItineraryPage])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [redirectToExistingItinerary, data])
 
   if (!teamSettings) {
     return null
