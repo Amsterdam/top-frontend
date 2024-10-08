@@ -9,7 +9,8 @@ const HomePage: React.FC = () => {
 
   useEffect(() => {
     redirectToCorrectItineraryPage(data?.itineraries)
-  }, [data, redirectToCorrectItineraryPage])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data])
 
   const explanation = errors.length > 0 ? "Sorry, de pagina kan niet worden geladen. Probeer het later opnieuw." : "Even geduld alstublieft…"
 

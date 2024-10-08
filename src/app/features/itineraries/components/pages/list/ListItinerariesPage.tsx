@@ -8,6 +8,7 @@ import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
 import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout"
 import to from "app/features/shared/routing/to"
 import { useRedirectToCorrectItineraryPage } from "app/features/itineraries/utils/useRedirectToCorrectItineraryPage"
+import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner"
 
 const Li = styled.li`
   margin-bottom: ${ themeSpacing(4) };
@@ -19,15 +20,17 @@ const TeamName = styled.strong`
 `
 
 const ListItinerariesPage: React.FC = () => {
-  const { data } = useItineraries()
+  const { data, isBusy } = useItineraries()
   const { redirectToCorrectItineraryPage } = useRedirectToCorrectItineraryPage()
 
   useEffect(() => {
     redirectToCorrectItineraryPage(data?.itineraries)
-  }, [data, redirectToCorrectItineraryPage])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data])
 
   return (
     <DefaultLayout>
+      {isBusy && <CenteredSpinner explanation="Looplijsten ophalen…" size={60} />}
       { data && data.itineraries.length > 0 && (
         <>
           <Spacing pb={ 6 }>
