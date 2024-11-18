@@ -9,23 +9,23 @@ import { ApiGroup } from "../index"
 type GroupedContext = Record<ApiGroup, ApiCache & RequestQueue>
 
 export const ApiContext = React.createContext<GroupedContext>({
-  itineraries: noopContext,
+  auth: noopContext,
   case: noopContext,
-  users: noopContext,
-  settings: noopContext,
-  permits: noopContext,
-  decos: noopContext,
   daySettings: noopContext,
+  decos: noopContext,
+  itineraries: noopContext,
+  meldingen: noopContext,
+  permits: noopContext,
+  postCodeRangesPresets: noopContext,
+  settings: noopContext,
   teamSettings: noopContext,
   themes: noopContext,
-  postCodeRangesPresets: noopContext,
-  auth: noopContext,
-  meldingen: noopContext
+  users: noopContext
 })
 
 const ApiProvider: React.FC = ({ children }) => {
   const value: GroupedContext = {
-    itineraries: {
+    auth: {
       ...useApiCache(),
       ...useRequestQueue()
     },
@@ -33,15 +33,31 @@ const ApiProvider: React.FC = ({ children }) => {
       ...useApiCache(),
       ...useRequestQueue()
     },
-    users: {
+    daySettings: {
+      ...useApiCache(),
+      ...useRequestQueue()
+    },
+    decos: {
+      ...useApiCache(),
+      ...useRequestQueue()
+    },
+    itineraries: {
+      ...useApiCache(),
+      ...useRequestQueue()
+    },
+    meldingen: {
+      ...useApiCache(),
+      ...useRequestQueue()
+    },
+    permits: {
+      ...useApiCache(),
+      ...useRequestQueue()
+    },
+    postCodeRangesPresets: {
       ...useApiCache(),
       ...useRequestQueue()
     },
     settings: {
-      ...useApiCache(),
-      ...useRequestQueue()
-    },
-    daySettings: {
       ...useApiCache(),
       ...useRequestQueue()
     },
@@ -53,23 +69,7 @@ const ApiProvider: React.FC = ({ children }) => {
       ...useApiCache(),
       ...useRequestQueue()
     },
-    postCodeRangesPresets: {
-      ...useApiCache(),
-      ...useRequestQueue()
-    },
-    permits: {
-      ...useApiCache(),
-      ...useRequestQueue()
-    },
-    decos: {
-      ...useApiCache(),
-      ...useRequestQueue()
-    },
-    meldingen: {
-      ...useApiCache(),
-      ...useRequestQueue()
-    },
-    auth: {
+    users: {
       ...useApiCache(),
       ...useRequestQueue()
     }
