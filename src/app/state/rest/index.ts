@@ -6,18 +6,18 @@ import currentDate from "../../features/shared/utils/currentDate"
 import { Case, Itinerary, ItineraryItem, District } from "app/features/types"
 
 export type ApiGroup =
-  | "itineraries"
-  | "users"
-  | "settings"
+  | "auth"
+  | "case"
   | "daySettings"
+  | "decos"
+  | "itineraries"
+  | "meldingen"
+  | "permits"
+  | "postCodeRangesPresets"
+  | "settings"
   | "teamSettings"
   | "themes"
-  | "postCodeRangesPresets"
-  | "case"
-  | "permits"
-  | "decos"
-  | "auth"
-  | "meldingen"
+  | "users"
 
 export type Options = {
   keepUsingInvalidCache?: boolean
@@ -58,6 +58,17 @@ export const useItineraryItem = (id: number | string, options?: Options) => {
   return useApiRequest<{ itineraries: ItineraryItem }, Partial<ItineraryItem>>({
     ...options,
     url: makeGatewayUrl([ "itinerary-items", id ]),
+    groupName: "itineraries",
+    handleError,
+    isProtected: true
+  })
+}
+
+export const useSuggestions = (itineraryId: number, options?: Options) => {
+  const handleError = useErrorHandler()
+  return useApiRequest<{ cases: Case[] }>({
+    ...options,
+    url: makeGatewayUrl([ "itineraries", itineraryId, "suggestions" ]),
     groupName: "itineraries",
     handleError,
     isProtected: true
@@ -110,17 +121,6 @@ export const useSearch = (streetNumber: number, postalCode?: string, streetName?
   return useApiRequest<{ cases: Case[] }>({
     ...options,
     url: makeGatewayUrl([ "search" ], params),
-    groupName: "itineraries",
-    handleError,
-    isProtected: true
-  })
-}
-
-export const useSuggestions = (itineraryId: number, options?: Options) => {
-  const handleError = useErrorHandler()
-  return useApiRequest<{ cases: Case[] }>({
-    ...options,
-    url: makeGatewayUrl([ "itineraries", itineraryId, "suggestions" ]),
     groupName: "itineraries",
     handleError,
     isProtected: true
