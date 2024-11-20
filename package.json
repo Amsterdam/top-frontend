@@ -33,7 +33,7 @@
     "@material-ui/icons": "^4.11.3",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/user-event": "^14.4.3",
-    "@types/dompurify": "^3.0.5",
+    "@types/dompurify": "^3.2.0",
     "@types/lodash": "^4.17.13",
     "@types/node": "^22.9.0",
     "@types/qs": "^6.9.16",
