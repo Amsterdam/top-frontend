@@ -29,12 +29,10 @@ const MailtoAnchor: FC<Props> = (
     aantalKamers,
     oppervlak,
     isWoonboot,
-    woonbootStatus,
-    woonbootIndicatie,
-    woonbootAanduiding
+    woonbootStatus
   }
 ) => {
-  const href = `mailto:${ email }?subject=${ subject }&body=${ body(isWoonboot, address, postalCode, gebruiksdoel, gebruik, aantalBouwlagen, etage, aantalKamers, oppervlak, woonbootStatus, woonbootIndicatie, woonbootAanduiding) }`
+  const href = `mailto:${ email }?subject=${ subject }&body=${ body(isWoonboot, address, postalCode, gebruiksdoel, gebruik, aantalBouwlagen, etage, aantalKamers, oppervlak, woonbootStatus) }`
   const text = "Meld BAG afwijkingen"
 
   return (

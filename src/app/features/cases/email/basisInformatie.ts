@@ -14,9 +14,7 @@ export const body = (
   etage?: number,
   aantalKamers?: number,
   oppervlak?: number,
-  woonbootStatus?: string,
-  woonbootIndicatie?: boolean,
-  woonbootAanduiding?: boolean
+  woonbootStatus?: string
 ) =>
   `Beste collega,
 
@@ -36,9 +34,7 @@ Verdieping toegang: ${ etage !== undefined ? etage : "–" }
 Aantal kamers: ${ aantalKamers !== undefined ? aantalKamers : "–" }
 Woonoppervlak: ${ oppervlak !== undefined ? `${ oppervlak } m² ` : "–" }`
     :
-    `Status: ${ woonbootStatus || "–" }
-Indicatie geconstateerd: ${ formatBoolean(woonbootIndicatie) }
-Aanduiding in onderzoek: ${ formatBoolean(woonbootAanduiding) }`
+    `Status: ${ woonbootStatus || "–" }`
   }
 
 We hebben bij onze controle de volgende afwijkingen geconstateerd:
