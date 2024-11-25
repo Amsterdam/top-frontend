@@ -40,27 +40,36 @@ const Residence: React.FC<Props> = ({ caseId }) => {
     [ "Gebruiksdoel", woningBestemming ],
     [ "Soort object (feitelijk gebruik) volgens de WOZ", wozSoortObjectOmschrijving ],
     [ "Status", status ],
-    [ "Woonoppervlak", oppervlakte ? `${ oppervlakte } m²` : "–" ],
-    [ "Aantal kamers", aantalKamers ?? "–" ],
-    [ "Verdieping toegang", verdiepingToegang !== undefined ? verdiepingToegang : "–" ],
+    [ "Woonoppervlak", oppervlakte ? `${ oppervlakte } m²` : undefined ],
+    [ "Aantal kamers", aantalKamers ],
+    [ "Verdieping toegang", verdiepingToegang ],
     [ "Toegang", toegang ],
-    [ "Aantal bouwlagen", aantalBouwlagen !== undefined ? aantalBouwlagen : "–" ]
+    [ "Aantal bouwlagen", aantalBouwlagen ]
   ]
 
   // Woonboot
   const woonbootFields = [
-    [ "Status", bagData?.ligplaatsStatusOmschrijving || "–" ],
+    [ "Databron", "BAG" ],
+    [ "Status", bagData?.ligplaatsStatusOmschrijving ],
     <Owner caseData={ caseData } />
+  ]
+
+  const errorFields = [
+    [ "Foutmelding", "Er is iets fout gegaan bij het ophalen van de BAG-gegevens." ]
   ]
 
   // Footer
   const woningUrl = `https://data.amsterdam.nl/adressen/${ bagData?.identificatie }/`
 
+  const dataFields = isWoning ? woningFields : woonbootFields
+
+  const data = hasBagData ? dataFields : errorFields
+
   return (
     <CaseDetailSection
       title={ woningTitle }
-      data={ isWoning ? woningFields : woonbootFields }
-      footer={ { link: woningUrl, title: "Bekijk op Data en informatie" } }
+      data={ data }
+      footer={ bagData?.identificatie ? { link: woningUrl, title: "Bekijk op Data en informatie" } : undefined }
     />
   )
 }
