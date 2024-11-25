@@ -12,17 +12,16 @@ export type FraudPrediction = {
 }
 
 export type BagData = {
-  aanduiding_in_onderzoek?: boolean
-  aantal_kamers: number | null
-  bouwlagen: number | null
-  gebruik: string | null
-  gebruiksdoel: string[]
+  gebruiksdoelOmschrijvingen: string[]
   indicatie_geconstateerd?: boolean
-  ligplaatsidentificatie?: string
-  oppervlakte: number | null
-  status: string
-  verblijfsobjectidentificatie: string | null
-  verdieping_toegang: number | null
+  ligplaatsIdentificatie?: string
+  ligplaatsStatusOmschrijving?: string
+  verblijfsobjectAantalBouwlagen: number | null
+  verblijfsobjectAantalKamers: number | null
+  verblijfsobjectFeitelijkGebruikOmschrijving: string | null
+  verblijfsobjectIdentificatie: string | null
+  verblijfsobjectOppervlakte: number | null
+  verblijfsobjectVerdiepingToegang: number | null
 }
 
 export type BagDataError = {

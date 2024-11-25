@@ -21,45 +21,43 @@ const Residence: FC<Props> = ({ caseId }) => {
 
   const hasBagData = (caseData.bag_data as BagDataError).error === undefined
   const bagData = caseData.bag_data as BagData
-  const isWoonboot = hasBagData && bagData.ligplaatsidentificatie !== undefined
+  const isWoonboot = Boolean(hasBagData && bagData?.ligplaatsIdentificatie)
   const isWoning = !isWoonboot
   const woningTitle = isWoning ? "Woning" : "Ligplaats"
 
   // Woning
-  const gebruiksdoel = hasBagData ? bagData.gebruiksdoel : undefined
+  const gebruiksdoel = hasBagData ? bagData.gebruiksdoelOmschrijvingen : undefined
   const woningBestemming = gebruiksdoel && gebruiksdoel.length ? gebruiksdoel.join(", ") : undefined
-  const woningGebruik = hasBagData && bagData.gebruik ? bagData.gebruik : undefined
-  const woningBouwlagen = hasBagData && bagData.bouwlagen ? bagData.bouwlagen : undefined
-  const woningEtage = hasBagData && bagData.verdieping_toegang != null ? bagData.verdieping_toegang : undefined
-  const woningKamers = hasBagData && bagData.aantal_kamers ? bagData.aantal_kamers : 0
-  const woningOppervlak = hasBagData && bagData.oppervlakte && bagData.oppervlakte > 1 ? bagData.oppervlakte : 0
+  const woningGebruik = hasBagData && bagData.verblijfsobjectFeitelijkGebruikOmschrijving ? bagData.verblijfsobjectFeitelijkGebruikOmschrijving : undefined
+  const woningBouwlagen = hasBagData && bagData.verblijfsobjectAantalBouwlagen ? bagData.verblijfsobjectAantalBouwlagen : undefined
+  const woningEtage = hasBagData && bagData.verblijfsobjectVerdiepingToegang != null ? bagData.verblijfsobjectVerdiepingToegang : undefined
+  const woningKamers = hasBagData && bagData.verblijfsobjectAantalKamers ? bagData.verblijfsobjectAantalKamers : 0
+  const woningOppervlak = hasBagData && bagData.verblijfsobjectOppervlakte && bagData.verblijfsobjectOppervlakte > 1 ? bagData.verblijfsobjectOppervlakte : 0
   const woningBagId = getBagId(caseData!)
 
   // Woonboot
-  const woonbootLigplaatsIndicatie = hasBagData && bagData.ligplaatsidentificatie
-  const woonbootStatus = hasBagData && bagData.status ? bagData.status : undefined
-  const woonbootIndicatie = hasBagData && bagData.indicatie_geconstateerd !== undefined ? bagData.indicatie_geconstateerd : false
-  const woonbootAanduiding = hasBagData && bagData.aanduiding_in_onderzoek !== undefined ? bagData.aanduiding_in_onderzoek : false
+  const woonbootLigplaatsIndicatie = hasBagData && bagData.ligplaatsIdentificatie
+  const woonbootStatus = hasBagData && bagData.ligplaatsStatusOmschrijving ? bagData.ligplaatsStatusOmschrijving : undefined
 
   // General
   const address = getAddress(caseData.address)
   const postalCode = caseData.address.postal_code
 
   // Terugmeld email
-  const mailtoAnchor = <MailtoAnchor
-    address={ address }
-    postalCode={ postalCode }
-    gebruiksdoel={ woningBestemming }
-    gebruik={ woningGebruik }
-    aantalBouwlagen={ woningBouwlagen }
-    etage={ woningEtage }
-    aantalKamers={ woningKamers }
-    oppervlak={ woningOppervlak }
-    isWoonboot={ isWoonboot }
-    woonbootStatus={ woonbootStatus }
-    woonbootIndicatie={ woonbootIndicatie }
-    woonbootAanduiding={ woonbootAanduiding }
-  />
+  const mailtoAnchor = (
+    <MailtoAnchor
+      address={ address }
+      postalCode={ postalCode }
+      gebruiksdoel={ woningBestemming }
+      gebruik={ woningGebruik }
+      aantalBouwlagen={ woningBouwlagen }
+      etage={ woningEtage }
+      aantalKamers={ woningKamers }
+      oppervlak={ woningOppervlak }
+      isWoonboot={ isWoonboot }
+      woonbootStatus={ woonbootStatus }
+    />
+)
 
   const woningFields = [
     // [ "Databron", "BRK" ],
@@ -76,8 +74,6 @@ const Residence: FC<Props> = ({ caseId }) => {
 
   const woonbootFields = [
     [ "Status", woonbootStatus || "–" ],
-    [ "Indicatie geconstateerd", woonbootIndicatie ],
-    [ "Aanduiding in onderzoek", woonbootAanduiding ],
     <Owner caseData={ caseData } />,
     mailtoAnchor
   ]
