@@ -1,5 +1,5 @@
 import React, { ComponentType } from "react"
-import useKeycloak from "app/state/auth/keycloak/useKeycloak"
+import { useAuth } from "react-oidc-context"
 
 type Props = {
   page: ComponentType
@@ -9,7 +9,8 @@ type Props = {
  * The user needs to be logged on to visit this route
  */
 const ProtectedRoute: React.FC<Props> = ({ page: Page, ...restProps }) => {
-  const { token } = useKeycloak()
+  const auth = useAuth()
+  const token = auth.user?.id_token
 
   return token
     ? <Page { ...restProps } />

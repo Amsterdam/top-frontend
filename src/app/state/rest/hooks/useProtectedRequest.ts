@@ -1,18 +1,17 @@
 import { useCallback } from "react"
-import useKeycloak from "app/state/auth/keycloak/useKeycloak"
+import { useAuth } from "react-oidc-context"
 import useRequest from "./useRequest"
 
 type Method = "get" | "post" | "put" | "patch" | "delete"
 
 const useProtectedRequest = () => {
-  const keycloak = useKeycloak()
+  const auth = useAuth()
   const request = useRequest()
 
   return useCallback(async (method: Method, url: string, data?: unknown, additionalHeaders = {}) => {
-    const isUpdated = await keycloak.updateToken(30)
-    if (isUpdated) console.log("Keycloak token updated")
+    const token = auth.user?.id_token
     const headers = {
-      Authorization: `Bearer ${ keycloak.token }`,
+      Authorization: `Bearer ${ token }`,
       ...additionalHeaders
     }
     const response = await request(
@@ -22,7 +21,7 @@ const useProtectedRequest = () => {
       headers
     )
     return response
-  }, [ keycloak, request ])
+  }, [auth.user?.id_token, request])
 }
 
 export default useProtectedRequest

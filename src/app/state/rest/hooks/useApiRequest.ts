@@ -3,7 +3,6 @@ import { ApiContext } from "../provider/ApiProvider"
 import { ApiGroup } from "../index"
 import useProtectedRequest from "./useProtectedRequest"
 import useRequest from "./useRequest"
-import useKeycloak from "app/state/auth/keycloak/useKeycloak"
 import useNavigation from "app/features/shared/routing/useNavigation"
 import type { HandleError } from "./utils/utils"
 
@@ -55,7 +54,7 @@ const useApiRequest = <Schema, Payload = Partial<Schema>> (
   const { navigateTo } = useNavigation()
   const request = useRequest()
   const protectedRequest = useProtectedRequest()
-  const { logout } = useKeycloak()
+
   /**
    * Executes an API request
    */
@@ -78,7 +77,7 @@ const useApiRequest = <Schema, Payload = Partial<Schema>> (
       if (isProtected) {
         switch (error?.response?.status) {
           case 401:
-            logout()
+            // logout()
             break
           case 403:
             if (!noForbiddenRedirect) {
@@ -93,7 +92,7 @@ const useApiRequest = <Schema, Payload = Partial<Schema>> (
         throw error
       }
     }
-  }, [isProtected, protectedRequest, request, url, clearCache, setCacheItem, addErrorToCacheItem, handleError, logout, noForbiddenRedirect, navigateTo])
+  }, [isProtected, protectedRequest, request, url, clearCache, setCacheItem, addErrorToCacheItem, handleError, noForbiddenRedirect, navigateTo])
 
   /**
    * Queues an API request
