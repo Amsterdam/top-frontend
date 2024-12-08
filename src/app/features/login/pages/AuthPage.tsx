@@ -3,20 +3,19 @@ import { Alert, Heading, Paragraph } from "@amsterdam/asc-ui"
 
 import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout"
 import DefinitionList from "app/features/shared/components/molecules/DefinitionList/DefinitionList"
-import useKeycloak from "app/state/auth/keycloak/useKeycloak"
 import { useIsAuthorized } from "app/state/rest"
 import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
+import { useDecodedToken } from "app/state/auth/oidc/useDecodedToken"
 
 const AuthPage: React.FC = () => {
-  const keycloak = useKeycloak()
   const { data } = useIsAuthorized()
+  const decodedToken = useDecodedToken()
   const showUnauthorized = data?.isAuthorized === false
 
   const values = {
-    Naam: keycloak.tokenParsed?.name ?? "–",
-    "E-mail": keycloak.tokenParsed?.email ?? "–",
-    Gebruikersnaam: keycloak.tokenParsed?.preferred_username ?? "–",
-    Groepen: keycloak.realmAccess?.roles.join(", ") ?? "–"
+    "Voornaam": decodedToken?.given_name ?? "–",
+    "Achternaam": decodedToken?.family_name ?? "–",
+    "E-mail": decodedToken?.unique_name ?? "–"
   }
 
   return (
@@ -36,11 +35,11 @@ const AuthPage: React.FC = () => {
         </Paragraph>
         <Paragraph>
           Neem contact op met je teamleider of de afdeling Wonen om na te gaan of je toegang kunt krijgen.
-          De juiste Keycloak-groepen worden dan toegevoegd aan je ADW-account.
+          De juiste rollen worden dan toegevoegd aan je ADW-account.
         </Paragraph>
       </>
       }
-      <Heading forwardedAs="h2">Keycloak-account</Heading>
+      <Heading forwardedAs="h2">Micrososft Entra-ID account</Heading>
       <DefinitionList values={ values } />
     </DefaultLayout>
   )
