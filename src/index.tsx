@@ -12,8 +12,8 @@ ReactDOM.render(
   <React.StrictMode>
     <AuthProvider {...oidcConfig} >
       <ThemeProvider>
-      <GlobalStyle />
-      <App />
+        <GlobalStyle />
+        <App />
       </ThemeProvider>
     </AuthProvider>
   </React.StrictMode>,
