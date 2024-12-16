@@ -9,7 +9,7 @@ const useProtectedRequest = () => {
   const request = useRequest()
 
   return useCallback(async (method: Method, url: string, data?: unknown, additionalHeaders = {}) => {
-    const token = auth.user?.id_token
+    const token = auth.user?.access_token
     const headers = {
       Authorization: `Bearer ${ token }`,
       ...additionalHeaders
@@ -21,7 +21,7 @@ const useProtectedRequest = () => {
       headers
     )
     return response
-  }, [auth.user?.id_token, request])
+  }, [auth.user?.access_token, request])
 }
 
 export default useProtectedRequest

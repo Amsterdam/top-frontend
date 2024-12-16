@@ -10,7 +10,7 @@ type Props = {
  */
 const ProtectedRoute: React.FC<Props> = ({ page: Page, ...restProps }) => {
   const auth = useAuth()
-  const token = auth.user?.id_token
+  const token = auth.user?.access_token
 
   return token
     ? <Page { ...restProps } />
