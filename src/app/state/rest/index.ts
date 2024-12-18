@@ -14,6 +14,7 @@ export type ApiGroup =
   | "meldingen"
   | "permits"
   | "postCodeRangesPresets"
+  | "residents"
   | "settings"
   | "teamSettings"
   | "themes"
@@ -24,6 +25,8 @@ export type Options = {
   lazy?: boolean
   caseCount?: boolean
 }
+
+export * from "./residents"
 
 
 /**
@@ -96,14 +99,6 @@ export const useCaseEvents = (caseId: Components.Schemas.Case["id"], options?: O
     isProtected: true
   })
 }
-
-export const useResidents = (bagId: string, options?: Options) => useApiRequest<any>({
-    ...options,
-    url: makeGatewayUrl(["addresses", bagId, "residents"]),
-    groupName: "case",
-    isProtected: true,
-    noForbiddenRedirect: true
-  })
 
 export const useSearch = (streetNumber: number, postalCode?: string, streetName?: string, suffix?: string, team?: number, options?: Options) => {
   const handleError = useErrorHandler()

@@ -42,7 +42,7 @@ export const useErrorHandler = () => {
  */
 
 export const makeGatewayUrl = (paths: Array<number | string | undefined>, queryStringParams?: Record<string, number | string | boolean | undefined>) => {
-  const path = slashSandwich([ env.REACT_APP_GATEWAY, ...paths ])
+  const path = slashSandwich([ env.VITE_GATEWAY, ...paths ])
   const queryString = queryStringParams
     ? qs.stringify(queryStringParams, { addQueryPrefix: true })
     : ""

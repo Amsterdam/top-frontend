@@ -1,13 +1,21 @@
 import React from "react"
 import ReactDOM from "react-dom"
+import { AuthProvider } from "react-oidc-context"
 import App from "./App"
 import * as serviceWorker from "./serviceWorker"
 import { env } from "app/config/env"
+import { oidcConfig } from "app/state/auth/oidc/oidcConfig"
+import { GlobalStyle, ThemeProvider } from "@amsterdam/asc-ui"
 
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <AuthProvider {...oidcConfig} >
+      <ThemeProvider>
+        <GlobalStyle />
+        <App />
+      </ThemeProvider>
+    </AuthProvider>
   </React.StrictMode>,
   document.getElementById("root")
 )
