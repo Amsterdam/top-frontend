@@ -7,6 +7,6 @@ services:
     ports:
       - "7000:7000"
     environment:
-      - VITE_GATEWAY=https://acc.api.top.amsterdam.nl/api/v1/
-      - VITE_APP_ENV_SHORT=DEV/ACC
+      - VITE_API_URL=https://acc.api.top.amsterdam.nl/api/v1/
+      - VITE_ENVIRONMENT_SHORT=DEV/ACC
 

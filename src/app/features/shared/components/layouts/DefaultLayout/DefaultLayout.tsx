@@ -36,7 +36,7 @@ const DefaultLayout: React.FC<Props> = ({ children }) => {
       <HeaderWrap>
         <ErrorDisplay />
         <Header
-          title={`${ env.VITE_APP_TITLE ?? "Toezicht op pad" } ${ env.VITE_APP_ENV_SHORT }`}
+          title={`${ env.VITE_APP_TITLE ?? "Toezicht op pad" } ${ env.VITE_ENVIRONMENT_SHORT }`}
           homeLink={ to("/") }
           fullWidth={ true }
           navigation={
