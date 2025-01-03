@@ -1,5 +1,5 @@
 import dayjs from "dayjs"
-import type { Permit, PermitType } from "@amsterdam/wonen-ui"
+import type { HolidayRentalRegistration, Permit, PermitType } from "@amsterdam/wonen-ui"
 import useApiRequest from "./hooks/useApiRequest"
 import { makeGatewayUrl, useErrorHandler } from "./hooks/utils/utils"
 import currentDate from "../../features/shared/utils/currentDate"
@@ -11,7 +11,7 @@ export type ApiGroup =
   | "daySettings"
   | "decos"
   | "itineraries"
-  | "meldingen"
+  | "toeristischeverhuur"
   | "permits"
   | "postCodeRangesPresets"
   | "settings"
@@ -350,7 +350,18 @@ export const useMeldingen = (bagId: string, options?: Options) => {
   return useApiRequest<Components.Schemas.Meldingen>({
     ...options,
     url: makeGatewayUrl([ "addresses", bagId, "meldingen" ], params),
-    groupName: "meldingen",
+    groupName: "toeristischeverhuur",
+    handleError,
+    isProtected: true
+  })
+}
+
+export const useRegistrations = (bagId: string, options?: Options) => {
+  const handleError = useErrorHandler()
+  return useApiRequest<HolidayRentalRegistration[]>({
+    ...options,
+    url: makeGatewayUrl([ "addresses", bagId, "registrations" ]),
+    groupName: "toeristischeverhuur",
     handleError,
     isProtected: true
   })

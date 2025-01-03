@@ -7,15 +7,11 @@ declare namespace Components {
                 [name: string]: any;
             };
             fraud_prediction: {
-                fraud_prediction_model?: null & (FraudPredictionModelEnum | BlankEnum | NullEnum);
-                fraud_probability: number; // float
+                fraud_prediction_model?: null & (/* * `onderhuur` - onderhuur */ FraudPredictionModelEnum | BlankEnum | NullEnum);
+                fraud_probability: number; // double
                 fraud_prediction: boolean;
-                business_rules: {
-                    [name: string]: any;
-                };
-                shap_values: {
-                    [name: string]: any;
-                };
+                business_rules: any;
+                shap_values: any;
                 sync_date: string; // date-time
             };
         }
@@ -50,12 +46,19 @@ declare namespace Components {
         export interface DaySettings {
             id: number;
             name: string;
-            week_day?: null & (WeekDayEnum | NullEnum);
+            week_day?: null & (/**
+             * * `0` - zondag
+             * * `1` - maandag
+             * * `2` - dinsdag
+             * * `3` - woensdag
+             * * `4` - donderdag
+             * * `5` - vrijdag
+             * * `6` - zaterdag
+             */
+            WeekDayEnum | NullEnum);
             week_days?: number[] | null;
             opening_date?: string; // date
-            postal_code_ranges?: {
-                [name: string]: any;
-            };
+            postal_code_ranges?: any;
             postal_code_ranges_presets?: number[];
             length_of_list?: number;
             day_segments?: number[] | null;
@@ -80,7 +83,7 @@ declare namespace Components {
                 observation_choices: Observation[];
                 situation_choices: any[];
                 suggest_next_visit_choices: SuggestNextVisit[];
-                fraud_prediction_model?: null & (FraudPredictionModelEnum | BlankEnum | NullEnum);
+                fraud_prediction_model?: null & (/* * `onderhuur` - onderhuur */ FraudPredictionModelEnum | BlankEnum | NullEnum);
             };
             used_today_count: number;
             max_use_limit?: number;
@@ -105,21 +108,20 @@ declare namespace Components {
                 observation_choices: Observation[];
                 situation_choices: any[];
                 suggest_next_visit_choices: SuggestNextVisit[];
-                fraud_prediction_model?: null & (FraudPredictionModelEnum | BlankEnum | NullEnum);
+                fraud_prediction_model?: null & (/* * `onderhuur` - onderhuur */ FraudPredictionModelEnum | BlankEnum | NullEnum);
             };
         }
         export interface FraudPrediction {
-            fraud_prediction_model?: null & (FraudPredictionModelEnum | BlankEnum | NullEnum);
-            fraud_probability: number; // float
+            fraud_prediction_model?: null & (/* * `onderhuur` - onderhuur */ FraudPredictionModelEnum | BlankEnum | NullEnum);
+            fraud_probability: number; // double
             fraud_prediction: boolean;
-            business_rules: {
-                [name: string]: any;
-            };
-            shap_values: {
-                [name: string]: any;
-            };
+            business_rules: any;
+            shap_values: any;
             sync_date: string; // date-time
         }
+        /**
+         * * `onderhuur` - onderhuur
+         */
         export type FraudPredictionModelEnum = "onderhuur";
         export interface HousingCorporation {
             id: number;
@@ -141,13 +143,15 @@ declare namespace Components {
                 reasons?: number[] | null;
                 state_types?: number[] | null;
                 project_ids?: number[] | null;
+                subjects?: number[] | null;
+                tags?: number[] | null;
                 housing_corporations?: number[] | null;
             };
             postal_code_settings: PostalCodeSettings[];
         }
         export interface ItineraryItem {
             id: number;
-            position: number; // float
+            position: number; // double
             notes: Note[];
             case: {
                 id: string;
@@ -155,15 +159,11 @@ declare namespace Components {
                     [name: string]: any;
                 };
                 fraud_prediction: {
-                    fraud_prediction_model?: null & (FraudPredictionModelEnum | BlankEnum | NullEnum);
-                    fraud_probability: number; // float
+                    fraud_prediction_model?: null & (/* * `onderhuur` - onderhuur */ FraudPredictionModelEnum | BlankEnum | NullEnum);
+                    fraud_probability: number; // double
                     fraud_prediction: boolean;
-                    business_rules: {
-                        [name: string]: any;
-                    };
-                    shap_values: {
-                        [name: string]: any;
-                    };
+                    business_rules: any;
+                    shap_values: any;
                     sync_date: string; // date-time
                 };
             };
@@ -172,11 +172,11 @@ declare namespace Components {
         export interface ItineraryItemCreate {
             itinerary: number;
             id: string;
-            position?: number; // float
+            position?: number; // double
         }
         export interface ItineraryItemUpdate {
             id: number;
-            position?: number; // float
+            position?: number; // double
         }
         export interface ItinerarySettings {
             opening_date: string; // date
@@ -189,6 +189,8 @@ declare namespace Components {
             reasons?: number[] | null;
             state_types?: number[] | null;
             project_ids?: number[] | null;
+            subjects?: number[] | null;
+            tags?: number[] | null;
             housing_corporations?: number[] | null;
         }
         export interface ItineraryTeamMember {
@@ -203,6 +205,9 @@ declare namespace Components {
                 team_settings: UserTeamSettingsId[];
             };
         }
+        /**
+         * Specific serializer for Meldingen data.
+         */
         export interface Meldingen {
             pageNumber: number;
             pageSize: number;
@@ -215,12 +220,19 @@ declare namespace Components {
         export interface NewDaySettings {
             id: number;
             name: string;
-            week_day?: null & (WeekDayEnum | NullEnum);
+            week_day?: null & (/**
+             * * `0` - zondag
+             * * `1` - maandag
+             * * `2` - dinsdag
+             * * `3` - woensdag
+             * * `4` - donderdag
+             * * `5` - vrijdag
+             * * `6` - zaterdag
+             */
+            WeekDayEnum | NullEnum);
             week_days?: number[] | null;
             opening_date?: string; // date
-            postal_code_ranges?: {
-                [name: string]: any;
-            };
+            postal_code_ranges?: any;
             postal_code_ranges_presets?: number[];
             length_of_list?: number;
             day_segments?: number[] | null;
@@ -278,7 +290,7 @@ declare namespace Components {
              * example:
              * 123
              */
-            count?: number;
+            count: number;
             /**
              * example:
              * http://api.example.org/accounts/?page=4
@@ -289,14 +301,14 @@ declare namespace Components {
              * http://api.example.org/accounts/?page=2
              */
             previous?: string | null; // uri
-            results?: CaseProject[];
+            results: CaseProject[];
         }
         export interface PaginatedCaseReasonList {
             /**
              * example:
              * 123
              */
-            count?: number;
+            count: number;
             /**
              * example:
              * http://api.example.org/accounts/?page=4
@@ -307,14 +319,14 @@ declare namespace Components {
              * http://api.example.org/accounts/?page=2
              */
             previous?: string | null; // uri
-            results?: CaseReason[];
+            results: CaseReason[];
         }
         export interface PaginatedCaseStateTypeList {
             /**
              * example:
              * 123
              */
-            count?: number;
+            count: number;
             /**
              * example:
              * http://api.example.org/accounts/?page=4
@@ -325,14 +337,14 @@ declare namespace Components {
              * http://api.example.org/accounts/?page=2
              */
             previous?: string | null; // uri
-            results?: CaseStateType[];
+            results: CaseStateType[];
         }
         export interface PaginatedCaseSubjectList {
             /**
              * example:
              * 123
              */
-            count?: number;
+            count: number;
             /**
              * example:
              * http://api.example.org/accounts/?page=4
@@ -343,14 +355,14 @@ declare namespace Components {
              * http://api.example.org/accounts/?page=2
              */
             previous?: string | null; // uri
-            results?: CaseSubject[];
+            results: CaseSubject[];
         }
         export interface PaginatedCaseTagList {
             /**
              * example:
              * 123
              */
-            count?: number;
+            count: number;
             /**
              * example:
              * http://api.example.org/accounts/?page=4
@@ -361,14 +373,14 @@ declare namespace Components {
              * http://api.example.org/accounts/?page=2
              */
             previous?: string | null; // uri
-            results?: CaseTag[];
+            results: CaseTag[];
         }
         export interface PaginatedDaySettingsList {
             /**
              * example:
              * 123
              */
-            count?: number;
+            count: number;
             /**
              * example:
              * http://api.example.org/accounts/?page=4
@@ -379,14 +391,14 @@ declare namespace Components {
              * http://api.example.org/accounts/?page=2
              */
             previous?: string | null; // uri
-            results?: DaySettings[];
+            results: DaySettings[];
         }
         export interface PaginatedItineraryList {
             /**
              * example:
              * 123
              */
-            count?: number;
+            count: number;
             /**
              * example:
              * http://api.example.org/accounts/?page=4
@@ -397,14 +409,14 @@ declare namespace Components {
              * http://api.example.org/accounts/?page=2
              */
             previous?: string | null; // uri
-            results?: Itinerary[];
+            results: Itinerary[];
         }
         export interface PaginatedObservationList {
             /**
              * example:
              * 123
              */
-            count?: number;
+            count: number;
             /**
              * example:
              * http://api.example.org/accounts/?page=4
@@ -415,14 +427,14 @@ declare namespace Components {
              * http://api.example.org/accounts/?page=2
              */
             previous?: string | null; // uri
-            results?: Observation[];
+            results: Observation[];
         }
         export interface PaginatedSuggestNextVisitList {
             /**
              * example:
              * 123
              */
-            count?: number;
+            count: number;
             /**
              * example:
              * http://api.example.org/accounts/?page=4
@@ -433,14 +445,14 @@ declare namespace Components {
              * http://api.example.org/accounts/?page=2
              */
             previous?: string | null; // uri
-            results?: SuggestNextVisit[];
+            results: SuggestNextVisit[];
         }
         export interface PaginatedTeamSettingsList {
             /**
              * example:
              * 123
              */
-            count?: number;
+            count: number;
             /**
              * example:
              * http://api.example.org/accounts/?page=4
@@ -451,14 +463,14 @@ declare namespace Components {
              * http://api.example.org/accounts/?page=2
              */
             previous?: string | null; // uri
-            results?: TeamSettings[];
+            results: TeamSettings[];
         }
         export interface PaginatedTeamSettingsThemeList {
             /**
              * example:
              * 123
              */
-            count?: number;
+            count: number;
             /**
              * example:
              * http://api.example.org/accounts/?page=4
@@ -469,14 +481,14 @@ declare namespace Components {
              * http://api.example.org/accounts/?page=2
              */
             previous?: string | null; // uri
-            results?: TeamSettingsTheme[];
+            results: TeamSettingsTheme[];
         }
         export interface PaginatedUserList {
             /**
              * example:
              * 123
              */
-            count?: number;
+            count: number;
             /**
              * example:
              * http://api.example.org/accounts/?page=4
@@ -487,14 +499,14 @@ declare namespace Components {
              * http://api.example.org/accounts/?page=2
              */
             previous?: string | null; // uri
-            results?: User[];
+            results: User[];
         }
         export interface PaginatedVisitList {
             /**
              * example:
              * 123
              */
-            count?: number;
+            count: number;
             /**
              * example:
              * http://api.example.org/accounts/?page=4
@@ -505,17 +517,24 @@ declare namespace Components {
              * http://api.example.org/accounts/?page=2
              */
             previous?: string | null; // uri
-            results?: Visit[];
+            results: Visit[];
         }
         export interface PatchedDaySettings {
             id?: number;
             name?: string;
-            week_day?: null & (WeekDayEnum | NullEnum);
+            week_day?: null & (/**
+             * * `0` - zondag
+             * * `1` - maandag
+             * * `2` - dinsdag
+             * * `3` - woensdag
+             * * `4` - donderdag
+             * * `5` - vrijdag
+             * * `6` - zaterdag
+             */
+            WeekDayEnum | NullEnum);
             week_days?: number[] | null;
             opening_date?: string; // date
-            postal_code_ranges?: {
-                [name: string]: any;
-            };
+            postal_code_ranges?: any;
             postal_code_ranges_presets?: number[];
             length_of_list?: number;
             day_segments?: number[] | null;
@@ -540,7 +559,7 @@ declare namespace Components {
                 observation_choices: Observation[];
                 situation_choices: any[];
                 suggest_next_visit_choices: SuggestNextVisit[];
-                fraud_prediction_model?: null & (FraudPredictionModelEnum | BlankEnum | NullEnum);
+                fraud_prediction_model?: null & (/* * `onderhuur` - onderhuur */ FraudPredictionModelEnum | BlankEnum | NullEnum);
             };
             used_today_count?: number;
             max_use_limit?: number;
@@ -550,7 +569,7 @@ declare namespace Components {
         }
         export interface PatchedItineraryItemUpdate {
             id?: number;
-            position?: number; // float
+            position?: number; // double
         }
         export interface PatchedNoteCrud {
             id?: number;
@@ -586,7 +605,7 @@ declare namespace Components {
             situation_choices?: any[];
             suggest_next_visit_choices?: SuggestNextVisit[];
             day_settings_list?: DaySettingsCompact[];
-            fraud_prediction_model?: null & (FraudPredictionModelEnum | BlankEnum | NullEnum);
+            fraud_prediction_model?: null & (/* * `onderhuur` - onderhuur */ FraudPredictionModelEnum | BlankEnum | NullEnum);
         }
         export interface PatchedVisit {
             id?: number;
@@ -622,6 +641,18 @@ declare namespace Components {
             initator: string | null;
             datuM_TOT: string | null; // date-time
         }
+        /**
+         * Specific serializer for Registration Details.
+         */
+        export interface RegistrationDetails {
+            pageNumber: number;
+            pageSize: number;
+            totalPages: number;
+            totalRecords: number;
+            data: {
+                [name: string]: any;
+            }[];
+        }
         export interface SuggestNextVisit {
             value: string;
             verbose: string;
@@ -644,7 +675,7 @@ declare namespace Components {
             situation_choices: any[];
             suggest_next_visit_choices: SuggestNextVisit[];
             day_settings_list: DaySettingsCompact[];
-            fraud_prediction_model?: null & (FraudPredictionModelEnum | BlankEnum | NullEnum);
+            fraud_prediction_model?: null & (/* * `onderhuur` - onderhuur */ FraudPredictionModelEnum | BlankEnum | NullEnum);
         }
         export interface TeamSettingsCompact {
             id: number;
@@ -657,7 +688,7 @@ declare namespace Components {
             observation_choices: Observation[];
             situation_choices: any[];
             suggest_next_visit_choices: SuggestNextVisit[];
-            fraud_prediction_model?: null & (FraudPredictionModelEnum | BlankEnum | NullEnum);
+            fraud_prediction_model?: null & (/* * `onderhuur` - onderhuur */ FraudPredictionModelEnum | BlankEnum | NullEnum);
         }
         export interface TeamSettingsTheme {
             id: number;
@@ -704,6 +735,15 @@ declare namespace Components {
                 team_settings: UserTeamSettingsId[];
             };
         }
+        /**
+         * * `0` - zondag
+         * * `1` - maandag
+         * * `2` - dinsdag
+         * * `3` - woensdag
+         * * `4` - donderdag
+         * * `5` - vrijdag
+         * * `6` - zaterdag
+         */
         export type WeekDayEnum = 0 | 1 | 2 | 3 | 4 | 5 | 6;
     }
 }
@@ -749,7 +789,7 @@ declare namespace Paths {
             start_date?: Parameters.StartDate /* date */;
         }
         namespace Responses {
-            export type $200 = Components.Schemas.Meldingen[];
+            export type $200 = /* Specific serializer for Meldingen data. */ Components.Schemas.Meldingen[];
         }
     }
     namespace AddressesPermitsPowerbrowserList {
@@ -761,6 +801,17 @@ declare namespace Paths {
         }
         namespace Responses {
             export type $200 = Components.Schemas.Powerbrowser[];
+        }
+    }
+    namespace AddressesRegistrationsList {
+        namespace Parameters {
+            export type BagId = string;
+        }
+        export interface PathParameters {
+            bag_id: Parameters.BagId;
+        }
+        namespace Responses {
+            export type $200 = /* Specific serializer for Registration Details. */ Components.Schemas.RegistrationDetails[];
         }
     }
     namespace AddressesResidentsRetrieve {
