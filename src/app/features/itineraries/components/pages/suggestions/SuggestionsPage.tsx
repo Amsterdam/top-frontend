@@ -1,35 +1,34 @@
-import React, { useMemo } from "react"
+import React from "react"
 import { useParams } from "react-router-dom"
 import { Heading } from "@amsterdam/asc-ui"
-import { useSuggestions } from "app/state/rest"
-import { useItinerary } from "app/state/rest/custom/useItinerary"
 import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout"
-import ItineraryItemCardList
-  from "app/features/itineraries/components/organisms/ItineraryItemCardList/ItineraryItemCardList"
-import { casesToCardCaseProps } from "app/features/itineraries/utils/mapCaseToCardProps"
 import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner"
+import Suggestions from "./Suggestions"
+import { useGeoLocation } from "app/features/shared/hooks/useGeoLocation/useGeoLocation" 
 
 type Props = {
   itineraryId: string
 }
 
+// const LAT = "52.3706866"
+// const LNG = "4.8939469"
+
 const SuggestionsPage: React.FC = () => {
   const { itineraryId } = useParams<Props>()
-  const { data: itinerary } = useItinerary(parseInt(itineraryId!))
-  const { data, isBusy } = useSuggestions(parseInt(itineraryId!))
-
-  const items = useMemo(() => casesToCardCaseProps(data?.cases, itinerary, true), [ itinerary, data ])
-
+  const { location, isBusy } = useGeoLocation()
+  console.log("BUSY", isBusy)
+  console.log("location", location)
   return (
     <DefaultLayout>
       <Heading>Voeg een zaak toe aan je looplijst</Heading>
       { isBusy && <CenteredSpinner explanation="Zaken ophalen…" size={ 60 } /> }
-      { items.length > 0
-        ? <ItineraryItemCardList items={ items } title="Zaken rondom de adressen in je lijst:" />
-        : !isBusy
-          ? <p>Geen resultaten gevonden.</p>
-          : null
-      }
+      { itineraryId && !isBusy && (
+        <Suggestions 
+          itineraryId={ parseInt(itineraryId) }
+          lat={ location?.latitude.toString() }
+          lng={ location?.longitude.toString() }
+        />
+      )}
     </DefaultLayout>
   )
 }

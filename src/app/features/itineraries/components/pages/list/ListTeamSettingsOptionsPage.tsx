@@ -9,7 +9,6 @@ import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
 import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout"
 import useNavigation from "app/features/shared/routing/useNavigation"
 
-import GeoLocator from "../../molecules/GeoLocator/GeoLocator"
 
 const Grid = styled.div`
   display: grid;
@@ -58,7 +57,6 @@ const ListTeamSettingsOptionsPage: React.FC = () => {
           </Grid>
         </Illustration>
       ) }
-      <GeoLocator/>
     </DefaultLayout>
   )
 }
