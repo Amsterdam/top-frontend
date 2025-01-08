@@ -21,8 +21,8 @@ const SuggestionsPage: React.FC = () => {
       { itineraryId && !isBusy && (
         <Suggestions 
           itineraryId={ parseInt(itineraryId) }
-          lat={ location?.latitude.toString() }
-          lng={ location?.longitude.toString() }
+          lat={ location?.latitude }
+          lng={ location?.longitude }
         />
       )}
     </DefaultLayout>

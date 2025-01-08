@@ -28,7 +28,7 @@ export const useGeoLocation = (): UseLocationReturn => {
         setLocation({ latitude, longitude })
       },
       (err) => {
-        console.log("TOP:", err.message)
+        console.log("TOP error geolocation:", err.message)
       },
       {
         enableHighAccuracy: true, // Use high accuracy if available

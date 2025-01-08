@@ -66,8 +66,8 @@ export const useItineraryItem = (id: number | string, options?: Options) => {
 
 export const useSuggestions = (
   itineraryId: number, 
-  lat?: string, 
-  lng?: string, 
+  lat?: number, 
+  lng?: number, 
   options?: Options
 ) => {
   const handleError = useErrorHandler()

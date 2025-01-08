@@ -7,11 +7,11 @@ import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinne
 
 type Props = {
   itineraryId: number
-  lat?: string
-  lng?: string
+  lat?: number
+  lng?: number
 }
 
-const Suggestions: React.FC<Props> = ({ itineraryId, lat = "", lng = "" }) => {
+const Suggestions: React.FC<Props> = ({ itineraryId, lat, lng }) => {
   const { data: itinerary } = useItinerary(itineraryId)
   const { data, isBusy } = useSuggestions(itineraryId, lat, lng)
 
