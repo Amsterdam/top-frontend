@@ -64,11 +64,16 @@ export const useItineraryItem = (id: number | string, options?: Options) => {
   })
 }
 
-export const useSuggestions = (itineraryId: number, options?: Options) => {
+export const useSuggestions = (
+  itineraryId: number, 
+  lat?: number, 
+  lng?: number, 
+  options?: Options
+) => {
   const handleError = useErrorHandler()
   return useApiRequest<{ cases: Case[] }>({
     ...options,
-    url: makeGatewayUrl([ "itineraries", itineraryId, "suggestions" ]),
+    url: makeGatewayUrl([ "itineraries", itineraryId, "suggestions" ], { lat, lng }),
     groupName: "itineraries",
     handleError,
     isProtected: true
