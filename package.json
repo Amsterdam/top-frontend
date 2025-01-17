@@ -78,7 +78,7 @@
     "dtsgenerator": "^3.19.2",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
-    "lint-staged": "^15.2.5",
+    "lint-staged": "^15.4.1",
     "nock": "^13.5.5"
   },
   "eslintConfig": {
