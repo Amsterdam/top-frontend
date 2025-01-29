@@ -21,7 +21,6 @@ const Residence: React.FC<Props> = ({ caseId }) => {
   const isWoning = !isWoonboot
   const woningTitle = isWoning ? "Woning" : "Ligplaats"
 
-  console.log("bagData", bagData?.identificatie)
   // Woning
   const woningBestemming = bagData?.gebruiksdoelOmschrijvingen && bagData?.gebruiksdoelOmschrijvingen.length ? bagData?.gebruiksdoelOmschrijvingen.join(", ") : undefined
   const wozSoortObjectOmschrijving = bagData?.wozSoortObjectOmschrijving

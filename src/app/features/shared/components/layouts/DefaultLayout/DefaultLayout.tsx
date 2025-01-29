@@ -5,11 +5,11 @@ import { Button, Header, themeColor, themeSpacing } from "@amsterdam/asc-ui"
 import { Logout } from "@amsterdam/asc-assets"
 import { Link } from "react-router-dom"
 
-import useKeycloak from "app/state/auth/keycloak/useKeycloak"
 import to from "app/features/shared/routing/to"
 import ErrorDisplay from "../../organisms/ErrorDisplay/ErrorDisplay"
 import Navigation from "../../organisms/Navigation/Navigation"
 import { env } from "app/config/env"
+import { useAuth } from "react-oidc-context"
 
 const Main = styled.main`
   display: flex;
@@ -26,38 +26,29 @@ const HeaderWrap = styled.div`
   z-index: 500;
 `
 
-const StyledLink = styled(Link)`
-  color ${ themeColor("tint", "level6") };
-  text-decoration: none;
-  margin-right: 8px
-`
-
 type Props = {}
 
 const DefaultLayout: React.FC<Props> = ({ children }) => {
-  const { logout } = useKeycloak()
-
-  const onClick = (e: React.MouseEvent) => {
-    e.preventDefault()
-    logout()
-  }
+  const auth = useAuth()
 
   return (
     <>
       <HeaderWrap>
         <ErrorDisplay />
         <Header
-          title={ [ "Toezicht op pad", env.REACT_APP_ENV_ABBR ].join(" ") }
+          title={`${ env.VITE_APP_TITLE ?? "Toezicht op pad" } ${ env.VITE_ENVIRONMENT_SHORT }`}
           homeLink={ to("/") }
           fullWidth={ true }
           navigation={
-            <StyledLink onClick={ onClick } to={ window.location.pathname }>
-              <Button
-                as="span"
-                variant="blank"
-                iconLeft={ <Logout /> }>Log uit
-              </Button>
-            </StyledLink>
+            <Button
+              onClick={ auth.signoutRedirect }
+              as="span"
+              variant="blank"
+              iconLeft={ <Logout /> }
+              style={{ marginRight: 8 }}
+            >
+              Uitloggen
+            </Button>
           }
         />
       </HeaderWrap>
