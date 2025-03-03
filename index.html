@@ -6,7 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="theme-color" content="#ffffff" />
     <meta name="mobile-web-app-capable" content="yes" />
-
+    <meta http-equiv="Content-Security-Policy" 
+    content="
+      script-src 'self';
+      form-action 'self';
+      upgrade-insecure-requests;
+      style-src 'self' 'unsafe-inline';
+      img-src data: 'self';
+    ">
     <!-- Favicon: Use one favicon.ico or a large PNG -->
     <link rel="icon" href="%PUBLIC_URL%/favicon-32x32.png" sizes="32x32" />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/apple-touch-icon-180x180.png" sizes="180x180" />
@@ -32,12 +39,7 @@
     <div id="root">
       <p id="chunk-js-loading-failure" style="display:none;">Het lijkt erop dat onderdelen van deze website niet correct kunnen worden geladen. <a href="">Probeer te herladen</a></p>
     </div>
-    <script>
-      window.setTimeout(function () {
-        var elem = document.querySelector("#chunk-js-loading-failure");
-        if (elem != null) elem.style.display = "block";
-      }, 4000);
-    </script>
+    <script src=%PUBLIC_URL%/load.js></script>
   </body>
 </html>
 
