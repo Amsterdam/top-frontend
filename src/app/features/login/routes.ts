@@ -1,6 +1,6 @@
 import { lazy } from "react"
 
-const AuthPage = lazy(() => import("./components/pages/login/AuthPage"))
+const AuthPage = lazy(() => import("./pages/AuthPage"))
 
 const routes = {
   "/auth": AuthPage

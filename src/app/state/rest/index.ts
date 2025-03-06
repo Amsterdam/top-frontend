@@ -1,5 +1,5 @@
 import dayjs from "dayjs"
-import type { Permit, PermitType } from "@amsterdam/wonen-ui"
+import type { HolidayRentalRegistration, Permit, PermitType } from "@amsterdam/wonen-ui"
 import useApiRequest from "./hooks/useApiRequest"
 import { makeGatewayUrl, useErrorHandler } from "./hooks/utils/utils"
 import currentDate from "../../features/shared/utils/currentDate"
@@ -11,9 +11,10 @@ export type ApiGroup =
   | "daySettings"
   | "decos"
   | "itineraries"
-  | "meldingen"
+  | "toeristischeverhuur"
   | "permits"
   | "postCodeRangesPresets"
+  | "residents"
   | "settings"
   | "teamSettings"
   | "themes"
@@ -24,6 +25,8 @@ export type Options = {
   lazy?: boolean
   caseCount?: boolean
 }
+
+export * from "./residents"
 
 
 /**
@@ -64,11 +67,16 @@ export const useItineraryItem = (id: number | string, options?: Options) => {
   })
 }
 
-export const useSuggestions = (itineraryId: number, options?: Options) => {
+export const useSuggestions = (
+  itineraryId: number, 
+  lat?: number, 
+  lng?: number, 
+  options?: Options
+) => {
   const handleError = useErrorHandler()
   return useApiRequest<{ cases: Case[] }>({
     ...options,
-    url: makeGatewayUrl([ "itineraries", itineraryId, "suggestions" ]),
+    url: makeGatewayUrl([ "itineraries", itineraryId, "suggestions" ], { lat, lng }),
     groupName: "itineraries",
     handleError,
     isProtected: true
@@ -96,14 +104,6 @@ export const useCaseEvents = (caseId: Components.Schemas.Case["id"], options?: O
     isProtected: true
   })
 }
-
-export const useResidents = (bagId: string, options?: Options) => useApiRequest<any>({
-    ...options,
-    url: makeGatewayUrl(["addresses", bagId, "residents"]),
-    groupName: "case",
-    isProtected: true,
-    noForbiddenRedirect: true
-  })
 
 export const useSearch = (streetNumber: number, postalCode?: string, streetName?: string, suffix?: string, team?: number, options?: Options) => {
   const handleError = useErrorHandler()
@@ -350,7 +350,18 @@ export const useMeldingen = (bagId: string, options?: Options) => {
   return useApiRequest<Components.Schemas.Meldingen>({
     ...options,
     url: makeGatewayUrl([ "addresses", bagId, "meldingen" ], params),
-    groupName: "meldingen",
+    groupName: "toeristischeverhuur",
+    handleError,
+    isProtected: true
+  })
+}
+
+export const useRegistrations = (bagId: string, options?: Options) => {
+  const handleError = useErrorHandler()
+  return useApiRequest<HolidayRentalRegistration[]>({
+    ...options,
+    url: makeGatewayUrl([ "addresses", bagId, "registrations" ]),
+    groupName: "toeristischeverhuur",
     handleError,
     isProtected: true
   })

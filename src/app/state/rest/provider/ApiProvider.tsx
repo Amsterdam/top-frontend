@@ -14,9 +14,10 @@ export const ApiContext = React.createContext<GroupedContext>({
   daySettings: noopContext,
   decos: noopContext,
   itineraries: noopContext,
-  meldingen: noopContext,
+  toeristischeverhuur: noopContext,
   permits: noopContext,
   postCodeRangesPresets: noopContext,
+  residents: noopContext,
   settings: noopContext,
   teamSettings: noopContext,
   themes: noopContext,
@@ -45,7 +46,7 @@ const ApiProvider: React.FC = ({ children }) => {
       ...useApiCache(),
       ...useRequestQueue()
     },
-    meldingen: {
+    toeristischeverhuur: {
       ...useApiCache(),
       ...useRequestQueue()
     },
@@ -54,6 +55,10 @@ const ApiProvider: React.FC = ({ children }) => {
       ...useRequestQueue()
     },
     postCodeRangesPresets: {
+      ...useApiCache(),
+      ...useRequestQueue()
+    },
+    residents: {
       ...useApiCache(),
       ...useRequestQueue()
     },

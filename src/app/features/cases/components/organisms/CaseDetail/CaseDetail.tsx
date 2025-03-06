@@ -9,7 +9,7 @@ import Residence from "./sections/Residence"
 import Permits from "./sections/Permits"
 import ResidentsView from "./sections/ResidentsView"
 import History from "./sections/History"
-import VacationRentalThisYear from "./sections/VacationRentalThisYear"
+import HolidayRental from "./sections/HolidayRental"
 
 type Props = {
   caseId: string
@@ -43,7 +43,7 @@ const CaseDetail: FC<Props> = ({ caseId }) => {
       <Residence caseId={ caseId } />
       { bagId && <ResidentsView bagId={ bagId } /> }
       <Permits caseId={ caseId } />
-      <VacationRentalThisYear caseId={ caseId } />
+      <HolidayRental caseId={ caseId } />
       <Logbook caseId={ caseId } />
       <History caseId={ caseId } />
     </Article>

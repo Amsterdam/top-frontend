@@ -1,18 +1,14 @@
-import React, { FC } from "react"
-
 import { useCase } from "app/state/rest"
 import { BagData, BagDataError } from "app/features/types"
-import MailtoAnchor from "app/features/cases/components/molecules/MailtoAnchor/MailtoAnchor"
-
-import { getAddress, getBagId } from "../utils"
 import CaseDetailSection from "../CaseDetailSection"
 import Owner from "./Owner"
+
 
 type Props = {
   caseId: string
 }
 
-const Residence: FC<Props> = ({ caseId }) => {
+const Residence: React.FC<Props> = ({ caseId }) => {
   const { data: caseData } = useCase(caseId)
 
   if (!caseData) {
@@ -20,83 +16,59 @@ const Residence: FC<Props> = ({ caseId }) => {
   }
 
   const hasBagData = (caseData.bag_data as BagDataError).error === undefined
-  const bagData = caseData.bag_data as BagData
-  const isWoonboot = hasBagData && bagData.ligplaatsidentificatie !== undefined
+  const bagData = (hasBagData ? caseData.bag_data : {}) as BagData
+  const isWoonboot = Boolean(hasBagData && bagData?.ligplaatsIdentificatie)
   const isWoning = !isWoonboot
   const woningTitle = isWoning ? "Woning" : "Ligplaats"
 
   // Woning
-  const gebruiksdoel = hasBagData ? bagData.gebruiksdoel : undefined
-  const woningBestemming = gebruiksdoel && gebruiksdoel.length ? gebruiksdoel.join(", ") : undefined
-  const woningGebruik = hasBagData && bagData.gebruik ? bagData.gebruik : undefined
-  const woningBouwlagen = hasBagData && bagData.bouwlagen ? bagData.bouwlagen : undefined
-  const woningEtage = hasBagData && bagData.verdieping_toegang != null ? bagData.verdieping_toegang : undefined
-  const woningKamers = hasBagData && bagData.aantal_kamers ? bagData.aantal_kamers : 0
-  const woningOppervlak = hasBagData && bagData.oppervlakte && bagData.oppervlakte > 1 ? bagData.oppervlakte : 0
-  const woningBagId = getBagId(caseData!)
-
-  // Woonboot
-  const woonbootLigplaatsIndicatie = hasBagData && bagData.ligplaatsidentificatie
-  const woonbootStatus = hasBagData && bagData.status ? bagData.status : undefined
-  const woonbootIndicatie = hasBagData && bagData.indicatie_geconstateerd !== undefined ? bagData.indicatie_geconstateerd : false
-  const woonbootAanduiding = hasBagData && bagData.aanduiding_in_onderzoek !== undefined ? bagData.aanduiding_in_onderzoek : false
-
-  // General
-  const address = getAddress(caseData.address)
-  const postalCode = caseData.address.postal_code
-
-  // Terugmeld email
-  const mailtoAnchor = <MailtoAnchor
-    address={ address }
-    postalCode={ postalCode }
-    gebruiksdoel={ woningBestemming }
-    gebruik={ woningGebruik }
-    aantalBouwlagen={ woningBouwlagen }
-    etage={ woningEtage }
-    aantalKamers={ woningKamers }
-    oppervlak={ woningOppervlak }
-    isWoonboot={ isWoonboot }
-    woonbootStatus={ woonbootStatus }
-    woonbootIndicatie={ woonbootIndicatie }
-    woonbootAanduiding={ woonbootAanduiding }
-  />
-
+  const woningBestemming = bagData?.gebruiksdoelOmschrijvingen && bagData?.gebruiksdoelOmschrijvingen.length ? bagData?.gebruiksdoelOmschrijvingen.join(", ") : undefined
+  const wozSoortObjectOmschrijving = bagData?.wozSoortObjectOmschrijving
+  const status = bagData?.verblijfsobjectStatusOmschrijving
+  const toegang = bagData?.toegangOmschrijvingen && bagData?.toegangOmschrijvingen.length ? bagData.toegangOmschrijvingen.join(", ") : undefined
+  const verdiepingToegang = bagData?.verblijfsobjectVerdiepingToegang
+  const aantalKamers = bagData?.verblijfsobjectAantalKamers 
+  const oppervlakte = bagData?.verblijfsobjectOppervlakte
+  const aantalBouwlagen = bagData?.verblijfsobjectAantalBouwlagen
+  
+  
   const woningFields = [
     // [ "Databron", "BRK" ],
     // <Owner caseData={ caseData } />,
     [ "Databron", "BAG" ],
     [ "Gebruiksdoel", woningBestemming ],
-    [ "Soort object (feitelijk gebruik)", woningGebruik ],
-    [ "Aantal bouwlagen", woningBouwlagen !== undefined ? woningBouwlagen : "–" ],
-    [ "Verdieping toegang", woningEtage !== undefined ? woningEtage : "–" ],
-    [ "Aantal kamers", woningKamers > 0 ? woningKamers : "–" ],
-    [ "Woonoppervlak", woningOppervlak > 0 ? woningOppervlak + " m²" : "–" ],
-    mailtoAnchor
+    [ "Soort object (feitelijk gebruik) volgens de WOZ", wozSoortObjectOmschrijving ],
+    [ "Status", status ],
+    [ "Woonoppervlak", oppervlakte ? `${ oppervlakte } m²` : undefined ],
+    [ "Aantal kamers", aantalKamers ],
+    [ "Verdieping toegang", verdiepingToegang ],
+    [ "Toegang", toegang ],
+    [ "Aantal bouwlagen", aantalBouwlagen ]
   ]
 
+  // Woonboot
   const woonbootFields = [
-    [ "Status", woonbootStatus || "–" ],
-    [ "Indicatie geconstateerd", woonbootIndicatie ],
-    [ "Aanduiding in onderzoek", woonbootAanduiding ],
-    <Owner caseData={ caseData } />,
-    mailtoAnchor
+    [ "Databron", "BAG" ],
+    [ "Status", bagData?.ligplaatsStatusOmschrijving ],
+    <Owner caseData={ caseData } />
   ]
 
-  const woningData = isWoning ? woningFields : woonbootFields
+  const errorFields = [
+    [ "Foutmelding", "Er is iets fout gegaan bij het ophalen van de BAG-gegevens." ]
+  ]
 
   // Footer
-  const woningUrlBagType = isWoning ? "verblijfsobject" : "ligplaats"
-  const woningUrlBagId = isWoning ? woningBagId : woonbootLigplaatsIndicatie
-  const woningUrl = `https://data.amsterdam.nl/data/bag/${ woningUrlBagType }/${ woningUrlBagId }/`
-  const woningFooter = woningUrlBagId ? (
-      { link: woningUrl, title: "Bekijk op Data en informatie" }
-    ) : undefined
+  const woningUrl = `https://data.amsterdam.nl/adressen/${ bagData?.identificatie }/`
+
+  const dataFields = isWoning ? woningFields : woonbootFields
+
+  const data = hasBagData ? dataFields : errorFields
 
   return (
     <CaseDetailSection
       title={ woningTitle }
-      data={ woningData }
-      footer={ woningFooter }
+      data={ data }
+      footer={ bagData?.identificatie ? { link: woningUrl, title: "Bekijk op Data en informatie" } : undefined }
     />
   )
 }

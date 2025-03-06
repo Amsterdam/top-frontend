@@ -7,7 +7,7 @@ export const getBagId = (caseData: Case) => {
   const hasBagData = (caseData?.bag_data as BagDataError).error === undefined
   const bagData = caseData?.bag_data as BagData
 
-  return hasBagData ? (bagData.verblijfsobjectidentificatie ?? bagData.ligplaatsidentificatie) : undefined
+  return hasBagData ? (bagData.verblijfsobjectIdentificatie ?? bagData.ligplaatsIdentificatie) : undefined
 }
 
 export const isNullish = (a: any): a is undefined | null => a === undefined || a === null || a === ""
