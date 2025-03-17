@@ -40,7 +40,7 @@
     "@types/react-dom": "^18.0.3",
     "@types/styled-components": "^5.1.26",
     "@vitejs/plugin-react": "^4.3.3",
-    "axios": "^1.7.2",
+    "axios": "^1.8.3",
     "dayjs": "^1.11.13",
     "dompurify": "^3.2.0",
     "env-cmd": "^10.1.0",
