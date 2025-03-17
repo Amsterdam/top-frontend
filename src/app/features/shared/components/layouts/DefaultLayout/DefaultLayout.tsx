@@ -3,7 +3,6 @@ import styled from "styled-components"
 
 import { Button, Header, themeColor, themeSpacing } from "@amsterdam/asc-ui"
 import { Logout } from "@amsterdam/asc-assets"
-import { Link } from "react-router-dom"
 
 import to from "app/features/shared/routing/to"
 import ErrorDisplay from "../../organisms/ErrorDisplay/ErrorDisplay"
