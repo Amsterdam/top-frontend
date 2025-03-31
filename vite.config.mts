@@ -19,7 +19,11 @@ export default defineConfig(({ mode }) => {
       basePlugin(),
       importPrefixPlugin(),
       htmlPlugin(mode),
-    ]
+    ],
+    test: {
+      globals: true, // Enables global API like `describe`, `it`, `expect`, etc.
+      environment: 'jsdom',
+    },
   };
 });
 
