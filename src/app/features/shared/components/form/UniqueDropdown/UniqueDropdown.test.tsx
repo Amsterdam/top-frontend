@@ -2,7 +2,7 @@ import React from "react"
 import { render, fireEvent } from "@testing-library/react"
 import { ScaffoldForm } from "@amsterdam/amsterdam-react-final-form"
 import UniqueDropdown from "./UniqueDropdown"
-import { vi, expect, describe, it } from "vitest"
+import { vi, expect } from "vitest"
 
 describe("UniqueDropdown", () => {
   it("should throw an error when given name is non array like", () => {
