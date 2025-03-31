@@ -8,60 +8,86 @@ import FraudProbability from "app//features/shared/components/atoms/FraudProbabi
 import { Case, Itinerary, ItineraryItem } from "app/features/types"
 import to from "../../shared/routing/to"
 
-export const casesToCardCaseProps = (cases?: Case[], itinerary?: Itinerary, addDistance: boolean = false) => {
+export const casesToCardCaseProps = (
+  cases?: Case[],
+  itinerary?: Itinerary,
+  addDistance: boolean = false
+) => {
   if (!cases) {
     return []
   }
 
-  const caseIdMap = getCaseIdMap((itinerary?.items ?? []) as unknown as ItineraryItem[])
+  const caseIdMap = getCaseIdMap(
+    (itinerary?.items ?? []) as unknown as ItineraryItem[]
+  )
   return cases.map(mapCaseToCardProps(itinerary?.id, caseIdMap, addDistance))
 }
 
 const getCaseIdMap = (items: ItineraryItem[]) =>
   items.reduce((acc, item) => ({ ...acc, [item.case.id ?? ""]: item.id }), {})
 
-const mapCaseToCardProps = (itineraryId: number | undefined, itineraryItemIds: Record<string, number>, addDistance: boolean = false) =>
+const mapCaseToCardProps =
+  (
+    itineraryId: number | undefined,
+    itineraryItemIds: Record<string, number>,
+    addDistance: boolean = false
+  ) =>
   ({
-     address,
-     workflows,
-     distance,
-     fraud_prediction,
-     id,
-     reason,
-     schedules,
-     teams
-   }: Case): React.ComponentProps<typeof ItineraryItemCard> =>
-  {
+    address,
+    workflows,
+    distance,
+    fraud_prediction,
+    id,
+    reason,
+    schedules,
+    teams
+  }: Case): React.ComponentProps<typeof ItineraryItemCard> => {
     const addressObject = displayAddress(
       address?.street_name,
       address?.number,
       address?.suffix_letter,
       address?.suffix
     )
-    const badge = workflows && workflows.length > 0
-      ? <StadiumBadge stadium={ workflows[0].state.name || "" } />
-      : <StadiumBadge stadium={ "" } />
+    
+    const badge =
+      workflows && workflows.length > 0 ? (
+        <StadiumBadge stadium={workflows[0].state.name || ""} />
+      ) : (
+        <StadiumBadge stadium={""} />
+      )
 
-    const teamMembersList = teams?.length ? teams[0].map((team: { user: { full_name: string } }) => team.user.full_name).join(", ") : ""
+    const teamMembersList = teams?.length
+      ? teams[0]
+          .map((team: { user: { full_name: string } }) => team.user.full_name)
+          .join(", ")
+      : ""
 
     const buttons = (onDeleteButtonClick: () => void) => (
       <>
-        { addDistance && distance && itineraryId && Object.keys(itineraryItemIds).length &&
-        <p>{ Math.round(distance) }m</p> }
-        { !teams?.length && itineraryId
-          ? <AddItineraryItemButton caseId={ id } itinerary={ itineraryId } />
-          : null
-        }
+        {addDistance &&
+          distance &&
+          itineraryId &&
+          Object.keys(itineraryItemIds).length && (
+            <p>{Math.round(distance)}m</p>
+          )}
+        {!teams?.length && itineraryId ? (
+          <AddItineraryItemButton caseId={id} itinerary={itineraryId} />
+        ) : null}
       </>
     )
 
     return {
       address: addressObject,
-      backgroundColor: "level2",
+      backgroundColor: "#F5F5F5",
       badge,
       buttons,
-      fraudProbability: <FraudProbability fraudProbability={ fraud_prediction?.fraud_probability } />,
-      hasPriority: (schedules && schedules[0]?.priority?.weight >= 0.5) ?? false,
+      fraudProbability: (
+        <FraudProbability
+          fraudProbability={fraud_prediction?.fraud_probability}
+        />
+      ),
+      hasPriority:
+        (schedules && schedules[0]?.priority?.weight >= 0.5) ?? false,
       href: to("/cases/:id", { id: String(id) }),
       postalCode: address.postal_code,
       reason: reason,

@@ -1,0 +1,51 @@
+.addressTitle {
+  font-size: 18px;
+  margin: 4px 0;
+}
+
+.card {
+  padding: 12px 8px;
+  border-top: 1px solid #E6E6E6;
+  border-bottom: 1px solid #E6E6E6;
+}
+
+.cardActions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.cardBadges {
+  display: flex;
+  gap: 8px;
+}
+
+.cardMain {
+  cursor: pointer;
+  flex: 1;
+}
+
+.cardText {
+  margin-bottom: 0;
+}
+
+.fraudProbability {
+  display: inline-block;
+  margin: 4px 0 4px 24px;
+  font-weight: 500;
+  color: #B4B4B4;
+}
+
+.postalCode {
+  display: inline-block;
+  font-weight: 500;
+  margin: 4px 0;
+}
+
+.reason {
+  margin: 8px 0;
+}
+
+.flex {
+  display: flex;
+}

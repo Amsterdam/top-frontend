@@ -1,83 +1,50 @@
-import { FC } from "react"
-import styled from "styled-components"
+import React from "react"
 import { useLocation, useParams } from "react-router-dom"
-import { themeColor } from "@amsterdam/asc-ui"
-
 import { applyRouteParams } from "app/features/shared/routing/to"
 import ItineraryNavigationButton from "../../molecules/ItineraryNavigationButton/ItineraryNavigationButton"
 import SearchNavigationButton from "../../molecules/SearchNavigationButton/SearchNavigationButton"
+import styles from "./Navigation.module.css"
 
-const NavWrap = styled.div`
-	position: fixed;
-	width: 100%;
-	top: 50px;
-	left: 0;
-	z-index: 99;
-`
-
-const Nav = styled.nav`
-	background-color: ${ themeColor("tint", "level3") };
-	padding: 15px 15px 0;
-	margin-bottom: 15px;
-`
-
-const Ul = styled.ul`
-	list-style: none;
-	margin: 0;
-	padding: 0;
-	display: flex;
-	justify-content: space-between;
-`
-
-const Li = styled.li`
-	border-bottom: 5px solid transparent;
-	border-bottom-color: ${ (props: { isActive?: boolean }) => props.isActive ? themeColor("secondary") : "transparent" };
-	min-height: 33px;
-
-	a {
-		color: ${ themeColor("tint", "level7") };
-		text-decoration: none;
-		font-weight: 500;
-		font-size: 18px;
-		display: block;
-		margin: 0;
-		padding: 0 10px;
-	}
-`
-
-const SpacedLi = styled(Li)`
-	margin-left: auto;
-`
-
-// this empty element is used to correct scroll position under fixed header, navigation
-const FocusSpacer = styled.div`
-	height: 100px;
-`
-
-const Navigation: FC = () => {
+const Navigation: React.FC = () => {
   const { itineraryId } = useParams() ?? {}
   const { pathname } = useLocation()
 
-  const showItineraryNavigationItems = (pathname.startsWith("/cases") || pathname.startsWith("/issuemeldingen") || (pathname.startsWith("/lijst") && itineraryId) || pathname.startsWith("/visits") || pathname.startsWith("/zoeken"))
+  const shouldShowItineraryNav =
+    pathname.startsWith("/cases") ||
+    pathname.startsWith("/issuemeldingen") ||
+    (pathname.startsWith("/lijst") && itineraryId) ||
+    pathname.startsWith("/visits") ||
+    pathname.startsWith("/zoeken")
+
+  // Determine if the current path should be active for the itinerary nav button
+  const getItineraryNavClass = () =>
+    pathname === "/" ||
+    pathname === "/lijst" ||
+    `${pathname}/` === applyRouteParams("/lijst/:itineraryId/", { itineraryId })
+      ? styles.navItemActive 
+      : ""
+
+  const isSearchActive = pathname.startsWith("/zoeken")
 
   return (
     <>
-      <NavWrap>
-        <Nav>
-          <Ul>
-            { showItineraryNavigationItems &&
-            <Li
-              isActive={ pathname === "/" || pathname === ("/lijst") || pathname === applyRouteParams("/lijst/:itineraryId/", { itineraryId }) }>
-              <ItineraryNavigationButton />
-            </Li>
-            }
-            <SpacedLi isActive={ pathname.startsWith("/zoeken") }>
-              <SearchNavigationButton itineraryId={ itineraryId } />
-            </SpacedLi>
-          </Ul>
-        </Nav>
-      </NavWrap>
-      <FocusSpacer />
+      <div className={styles.navigationWrapper}>
+        <nav className={styles.navigation }>
+          <ul className={styles.navList}>
+            {shouldShowItineraryNav && (
+              <li className={`${styles.navItemLink} ${getItineraryNavClass()}`}>
+                <ItineraryNavigationButton />
+              </li>
+            )}
+            <li
+              className={`${styles.navItemLink} ${styles.spacedNavItem} ${isSearchActive ? styles.navItemActive : ""}`}
+            >
+              <SearchNavigationButton itineraryId={itineraryId} />
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <div className={styles.focusSpacer} />
     </>
   )
 }

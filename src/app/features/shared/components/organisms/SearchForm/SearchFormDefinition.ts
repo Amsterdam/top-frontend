@@ -14,7 +14,7 @@ export const createDefinition = (onResetButtonClick: () => void) => {
       props: {
         label: "Straatnaam",
         name: "streetName",
-        validate: isRequiredWhenEmpty("postalCode", "Vul een straatnaam óf postcode in"),
+        validate: isRequiredWhenEmpty("postalCode", "Vul een straatnaam of postcode in"),
         autoFocus: true,
         tabIndex: 1
       }
@@ -25,7 +25,7 @@ export const createDefinition = (onResetButtonClick: () => void) => {
         label: "Postcode",
         name: "postalCode",
         validate: combineValidators(
-          isRequiredWhenEmpty("streetName", "Vul een postcode óf straatnaam in"),
+          isRequiredWhenEmpty("streetName", "Vul een postcode of straatnaam in"),
           isMatchingRegex(/\s*[1-9][0-9]{3}\s?[a-zA-Z]{2}\s*/, "Geldige postcodes zijn: 1234AA of 1234 aa")
         ),
         tabIndex: 2

@@ -8,8 +8,10 @@ type Props = {
 
 const ItineraryItemCardList: React.FC<Props> = ({ items, title }) => (
   <>
-    { title && <p>{ title }</p> }
-    { items.map((item, i) => <ItineraryItemCard key={ i } { ...item } />) }
+    {title && <p>{title}</p>}
+    {items.map((item, i) => (
+      <ItineraryItemCard key={i} {...item} />
+    ))}
   </>
 )
 
