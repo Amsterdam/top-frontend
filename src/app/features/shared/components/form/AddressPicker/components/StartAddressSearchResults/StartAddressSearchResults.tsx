@@ -47,7 +47,7 @@ const mapResults = (handleAdd: HandleAddCallback, getUrl: (string: string) => st
   const lastStadiumLabel = workflows?.length > 0 ? workflows[0].state.name : ""
   return {
     href: getUrl(String(id)),
-    backgroundColor: "level2",
+    backgroundColor: "#F5F5F5",
     address: displayAddress(street_name, number, suffix_letter, suffix),
     postalCode: postal_code,
     reason: reason,

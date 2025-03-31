@@ -1,7 +1,6 @@
 import styled, { keyframes } from "styled-components"
-import { themeColor } from "@amsterdam/asc-ui"
 
-const backgroundColor = themeColor("tint", "level3")
+const backgroundColor = "#E6E6E6"
 const backgroundWidth = "256px"
 
 const animation = keyframes`
@@ -19,7 +18,12 @@ const animation = keyframes`
 const InlineSkeleton = styled.span`
   display: inline-block;
   background-color: ${ backgroundColor };
-  background-image: linear-gradient(90deg, ${ backgroundColor }, rgba(0, 0, 0, .125), ${ backgroundColor });
+  background-image: linear-gradient(
+    90deg,
+    ${ backgroundColor },
+    rgba(0, 0, 0, 0.125),
+    ${ backgroundColor }
+  );
   background-size: ${ backgroundWidth } 100%;
   background-repeat: no-repeat;
   animation: ${ animation } 2s linear infinite;

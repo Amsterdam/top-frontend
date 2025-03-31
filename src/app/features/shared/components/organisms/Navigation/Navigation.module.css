@@ -1,0 +1,47 @@
+.navigationWrapper {
+  position: fixed;
+  width: 100%;
+  top: 50px;
+  left: 0;
+  z-index: 99;
+}
+
+.navigation {
+  background-color: #e6e6e6;
+  padding: 15px 15px 0;
+  margin-bottom: 15px;
+}
+
+.navList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.navItemLink {
+  border-bottom: 5px solid transparent;
+  min-height: 33px;
+  a {
+    color: #000000;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 18px;
+    display: block;
+    margin: 0;
+    padding: 0 10px;
+  }
+}
+
+.navItemActive {
+  border-bottom-color: #ec0000;
+}
+
+.spacedNavItem {
+  margin-left: auto;
+}
+
+.focusSpacer {
+  height: 100px;
+}
