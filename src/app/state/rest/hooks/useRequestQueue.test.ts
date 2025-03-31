@@ -1,11 +1,12 @@
 import { act, renderHook } from "@testing-library/react-hooks"
 import { useRequestQueue } from "./useRequestQueue"
+import { vi, expect } from "vitest"
 
 describe("useRequestQueue", () => {
   class Deferred {
     promise: Promise<any>
 
-    constructor () {
+    constructor() {
       this.promise = new Promise((resolve, reject) => {
         this.reject = reject
         this.resolve = resolve
@@ -21,9 +22,9 @@ describe("useRequestQueue", () => {
     const { result, waitForNextUpdate } = renderHook(() => useRequestQueue())
 
     const deferred1 = new Deferred()
-    const execDeferred1 = jest.fn(() => deferred1.promise)
+    const execDeferred1 = vi.fn(() => deferred1.promise)
     const deferred2 = new Deferred()
-    const execDeferred2 = jest.fn(() => deferred2.promise)
+    const execDeferred2 = vi.fn(() => deferred2.promise)
 
     act(() => {
       // Pushing two requests:
@@ -60,9 +61,9 @@ describe("useRequestQueue", () => {
     const { result, waitForNextUpdate } = renderHook(() => useRequestQueue())
 
     const deferred1 = new Deferred()
-    const execDeferred1 = jest.fn(() => deferred1.promise)
+    const execDeferred1 = vi.fn(() => deferred1.promise)
     const deferred2 = new Deferred()
-    const execDeferred2 = jest.fn(() => deferred2.promise)
+    const execDeferred2 = vi.fn(() => deferred2.promise)
 
     await act(() => {
       // Pushing two requests:

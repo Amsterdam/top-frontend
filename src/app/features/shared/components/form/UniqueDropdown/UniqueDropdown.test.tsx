@@ -2,14 +2,15 @@ import React from "react"
 import { render, fireEvent } from "@testing-library/react"
 import { ScaffoldForm } from "@amsterdam/amsterdam-react-final-form"
 import UniqueDropdown from "./UniqueDropdown"
+import { vi, expect, describe, it } from "vitest"
 
 describe("UniqueDropdown", () => {
   it("should throw an error when given name is non array like", () => {
-    jest.spyOn(console, "error").mockImplementation(() => {})
+    vi.spyOn(console, "error").mockImplementation(() => {})
 
     expect(() =>
       render(
-        <ScaffoldForm onSubmit={jest.fn()}>
+        <ScaffoldForm onSubmit={vi.fn()}>
           <UniqueDropdown
             name="foo"
             options={[{ label: "foo" }]}
@@ -26,7 +27,7 @@ describe("UniqueDropdown", () => {
     const options = [{ label: "foo" }, { label: "bar" }]
 
     const { getAllByTestId } = render(
-      <ScaffoldForm onSubmit={jest.fn()}>
+      <ScaffoldForm onSubmit={vi.fn()}>
         <UniqueDropdown
           name="foo[0]"
           options={options}

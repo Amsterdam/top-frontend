@@ -1,4 +1,4 @@
-import formatBoolean from "app/features/shared/utils/formatBoolean"
+import formatBoolean from "./formatBoolean"
 
 describe("formatBoolean", () => {
   it("undefined", () => {
