@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import { useFormState } from "react-final-form"
-import { Spinner, themeColor, themeSpacing } from "@amsterdam/asc-ui"
+import { Spinner } from "@amsterdam/asc-ui"
 
 import displayAddress from "app/features/shared/utils/displayAddress"
 
@@ -14,11 +14,9 @@ type Props = {
 
 const Wrap = styled.div`
   display: flex;
-
-  margin: 0 -${ themeSpacing(4) } 0 -${ themeSpacing(4) };
-  padding: ${ themeSpacing(0) } ${ themeSpacing(4) } ${ themeSpacing(3) } ${ themeSpacing(4) };
-
-  border-bottom: 1px solid ${ themeColor("tint", "level3") }
+  margin: 0 -16px 0 -16px;
+  padding: 0px 16px 12px 16px;
+  border-bottom: 1px solid #E6E6E6
 `
 
 const Title = styled.div`

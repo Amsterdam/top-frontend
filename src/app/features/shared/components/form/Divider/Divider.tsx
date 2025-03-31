@@ -1,7 +1,5 @@
 import React from "react"
 import styled from "styled-components"
-
-import { themeColor, themeSpacing } from "@amsterdam/asc-ui"
 import { ComposedField, Dimensions, Responsive } from "@amsterdam/amsterdam-react-final-form"
 
 export type DividerProps = {
@@ -9,10 +7,10 @@ export type DividerProps = {
 }
 
 const Hr = styled.hr`
-  margin: ${ themeSpacing(3) } 0 ${ themeSpacing(1) };
+  margin: 12px 0 4px;
   border: 0;
   height: 1px;
-  background: ${ themeColor("tint", "level4") };
+  background: #B4B4B4;
   width: 100%;
 `
 

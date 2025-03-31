@@ -1,6 +1,6 @@
 import React from "react"
 import styled from "styled-components"
-import { Heading, themeSpacing } from "@amsterdam/asc-ui"
+import { Heading } from "@amsterdam/asc-ui"
 import { CaseIdDisplay } from "@amsterdam/wonen-ui"
 import { useCase } from "app/state/rest"
 import Label from "app/features/shared/components/atoms/Label/Label"
@@ -27,8 +27,8 @@ const PostalCode = styled.p`
 const BadgesRow = styled.div`
   display: flex;
   flex-wrap: wrap;
-  margin-bottom: ${ themeSpacing(2) };
-  gap: ${ themeSpacing(2) };
+  margin-bottom: 8px;
+  gap: 8px;
 `
 
 const General: React.FC<Props> = ({ caseId }) => {

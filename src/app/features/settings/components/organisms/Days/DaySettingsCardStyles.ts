@@ -1,9 +1,8 @@
 import styled from "styled-components"
-import { themeColor, themeSpacing } from "@amsterdam/asc-ui"
 
 export const Section = styled.section`
-  background-color: ${ themeColor("tint", "level2") };
-  padding: ${ themeSpacing(4) };
+  background-color: #F5F5F5;
+  padding: 16px;
 `
 
 export const Header = styled.header`
@@ -20,7 +19,7 @@ export const Column = styled.div`
   flex: 1;
 
   &:not(:last-child) {
-    padding-right: ${ themeSpacing(4) };
+    padding-right: 16px;
   }
 `
 
@@ -28,14 +27,14 @@ export const Dl = styled.dl`
   margin: 0;
 
   &:not(:last-child) {
-    margin-bottom: ${ themeSpacing(4) };
+    margin-bottom: 16px;
   }
 `
 
 export const Dt = styled.dt`
-  margin-bottom: ${ themeSpacing(1) };
+  margin-bottom: 4px;
   font-weight: 500;
-  color: ${ themeColor("tint", "level5") };
+  color: #767676;
 `
 
 export const Dd = styled.dd`
@@ -44,10 +43,10 @@ export const Dd = styled.dd`
 
 export const Ul = styled.ul`
   margin: 0;
-  padding: 0 0 0 ${ themeSpacing(5) };
+  padding: 0 0 0 20px;
 `
 
 export const Li = styled.li`
   margin: 0;
-  padding: 0 0 ${ themeSpacing(1) };
+  padding: 0 0 4px;
 `

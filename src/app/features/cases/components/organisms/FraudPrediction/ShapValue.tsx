@@ -1,6 +1,6 @@
 import React from "react"
 import styled, { keyframes } from "styled-components"
-import { themeColor } from "@amsterdam/asc-ui"
+
 
 type Props = {
   title: string
@@ -19,7 +19,7 @@ type BarProps = Pick<Props, "shap" | "isPositive">
 const Bar = styled.div`
   width: 0;
 
-  background-color: ${ ({ isPositive }: BarProps) => themeColor(isPositive ? "secondary" : "primary") };
+  background-color: ${ ({ isPositive }: BarProps) => isPositive ? "#EC0000" : "#004699" };
   border-radius: 3px;
   height: 10px;
 

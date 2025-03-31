@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 
-import { Button, Header, themeColor, themeSpacing } from "@amsterdam/asc-ui"
+import { Button, Header } from "@amsterdam/asc-ui"
 import { Logout } from "@amsterdam/asc-assets"
 
 import to from "app/features/shared/routing/to"
@@ -13,14 +13,12 @@ import { useAuth } from "react-oidc-context"
 const Main = styled.main`
   display: flex;
   flex-direction: column;
-  min-width: 100vw;
   min-height: calc(100vh - 100px);
-  padding: ${ themeSpacing(4) };;
+  padding: 16px;
 `
 
 const HeaderWrap = styled.div`
   position: fixed;
-  background-color: ${ themeColor("tint", "white") };
   width: 100%;
   z-index: 500;
 `

@@ -1,6 +1,6 @@
 import React from "react"
 import useNavigation from "app/features/shared/routing/useNavigation"
-import { Button, themeSpacing } from "@amsterdam/asc-ui"
+import { Button } from "@amsterdam/asc-ui"
 import styled from "styled-components"
 import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
 import DeleteItineraryItemButton from "app/features/itineraries/components/molecules/DeleteItineraryItemButton/DeleteItineraryItemButton"
@@ -21,13 +21,13 @@ type Props = {
 }
 
 const StyledSpan = styled.span`
-  margin-left: ${ themeSpacing(3) };
+  margin-left: 12px;
 `
 
 const TextWithIcon = styled.div`
   display: flex;
   span {
-    margin-right: ${ themeSpacing(2) };
+    margin-right: 8px;
   }
 `
 

@@ -14,11 +14,12 @@ const Column = styled.div`
   align-items: start;
 `
 
-const StadiumBadge: React.FC<Props> = ({ stadium, variant }) =>
-    (<Column>
-      <Badge variant={ variant ?? "primary" }>
-        { stadium }
-      </Badge>
-    </Column>)
+const StadiumBadge: React.FC<Props> = ({ stadium, variant }) => (
+  <Column>
+    <Badge variant={variant ?? "primary"}>
+      {stadium}
+    </Badge>
+  </Column>
+)
 
 export default StadiumBadge

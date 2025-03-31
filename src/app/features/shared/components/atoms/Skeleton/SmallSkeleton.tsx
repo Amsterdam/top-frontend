@@ -1,6 +1,4 @@
 import React, { useMemo } from "react"
-import styled, { keyframes } from "styled-components"
-import { themeColor, themeSpacing } from "@amsterdam/asc-ui"
 
 export type Props = {
   height?: number
@@ -27,8 +25,8 @@ const backgroundAnimation = keyframes`
 const StyledDiv = styled.div<StyledDivProps>`
   width: ${ props => props.width }px;
   max-width: 100%;
-  height: ${ props => themeSpacing(props.height) };
-  background: linear-gradient(270deg, ${ themeColor("tint", "level3") }, ${ themeColor("tint", "level4") });
+  height: ${ props => props.height * 4 }px;
+  background: linear-gradient(270deg, #E6E6E6, #B4B4B4);
   background-size: 400% 400%;
   animation: ${ backgroundAnimation } 4s linear infinite;
 `

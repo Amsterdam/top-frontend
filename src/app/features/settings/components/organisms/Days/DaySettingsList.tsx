@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import { Link } from "react-router-dom"
-import { Heading, Paragraph, themeColor, themeSpacing } from "@amsterdam/asc-ui"
+import { Heading, Paragraph } from "@amsterdam/asc-ui"
 
 import {
   useTeamSettings,
@@ -24,27 +24,27 @@ import { daysOfTheWeek } from "../../../utils/daysOfTheWeek"
 
 const Day = styled.div`
   display: flex;
-  gap: ${ themeSpacing(6) };
+  gap: 24px;
   position: relative; /* Positioning context for CenteredSpinner */
 `
 
 const Left = styled.div`
   flex-basis: 160px;
-  padding: ${ themeSpacing(4) } 0;
+  padding: 16px 0;
 `
 
 const Grid = styled.div`
   flex: auto;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(512px, 1fr));
-  gap: ${ themeSpacing(4) };
+  gap: 16px;
 `
 
 const Hr = styled.hr`
-  margin: ${ themeSpacing(4) } 0;
+  margin: 16px 0;
   border: 0;
   height: 1px;
-  background: ${ themeColor("tint", "level4") };
+  background: #B4B4B4;
 `
 
 type Props = {

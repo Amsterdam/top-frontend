@@ -1,6 +1,5 @@
 import React, { FC } from "react"
 import styled from "styled-components"
-import { themeColor } from "@amsterdam/asc-ui"
 
 type Props = {
   note: string
@@ -12,7 +11,7 @@ const Div = styled.div`
 
 const P = styled.p`
   margin: 0;
-  color: ${ themeColor("tint", "level4") };
+  color: #B4B4B4;
 `
 
 const maxLength = 48

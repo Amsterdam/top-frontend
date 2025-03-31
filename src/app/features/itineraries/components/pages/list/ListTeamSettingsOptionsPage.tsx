@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import { ChevronRight } from "@amsterdam/asc-assets"
-import { Button, Heading, themeSpacing } from "@amsterdam/asc-ui"
+import { Button, Heading } from "@amsterdam/asc-ui"
 import { useThemes } from "app/state/rest"
 import { useLoggedInUser } from "app/state/rest/custom/useLoggedInUser"
 import Greeting from "app/features/shared/components/atoms/Greeting/Greeting"
@@ -13,7 +13,7 @@ import useNavigation from "app/features/shared/routing/useNavigation"
 const Grid = styled.div`
   display: grid;
   justify-items: start;
-  gap: ${ themeSpacing(4) };
+  gap: 16px;
 `
 
 const Illustration = styled.div`

@@ -1,5 +1,5 @@
 import React from "react"
-import { Button, themeSpacing } from "@amsterdam/asc-ui"
+import { Button } from "@amsterdam/asc-ui"
 import styled from "styled-components"
 import { useVisit, useItineraries, useItineraryItem } from "app/state/rest"
 import CheckmarkIcon from "app/features/itineraries/components/atoms/CheckmarkIcon/CheckmarkIcon"
@@ -12,7 +12,7 @@ type Props = {
 }
 
 const StyledSpan = styled.span`
-  margin-left: ${ themeSpacing(2) };
+  margin-left: 8px;
 `
 
 const CompleteVisitButton: React.FC<Props> = ({ visit, itineraryId }) => {

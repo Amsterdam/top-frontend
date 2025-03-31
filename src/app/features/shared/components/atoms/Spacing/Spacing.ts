@@ -1,5 +1,4 @@
 import styled, { css } from "styled-components"
-import { themeSpacing } from "@amsterdam/asc-ui"
 
 type Props = {
   p?: number
@@ -10,11 +9,11 @@ type Props = {
 }
 
 const Spacing = styled.div<Props>`
-  ${ (props) => props.p && css`padding: ${ themeSpacing(props.p) }` }
-  ${ (props) => props.pt && css`padding-top: ${ themeSpacing(props.pt) }` }
-  ${ (props) => props.pb && css`padding-bottom: ${ themeSpacing(props.pb) }` }
-  ${ (props) => props.pr && css`padding-right: ${ themeSpacing(props.pr) }` }
-  ${ (props) => props.pl && css`padding-left: ${ themeSpacing(props.pl) }` }
+  ${ (props) => props.p && css`padding: ${ props.p * 4 }px` }
+  ${ (props) => props.pt && css`padding-top: ${ props.pt * 4 }px` }
+  ${ (props) => props.pb && css`padding-bottom: ${ props.pb * 4 }px` }
+  ${ (props) => props.pr && css`padding-right: ${ props.pr * 4 }px` }
+  ${ (props) => props.pl && css`padding-left: ${ props.pl * 4 }px` }
 `
 
 export default Spacing

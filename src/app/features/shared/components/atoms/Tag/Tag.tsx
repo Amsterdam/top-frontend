@@ -1,6 +1,5 @@
 import React from "react"
 import styled from "styled-components"
-import { themeColor } from "@amsterdam/asc-ui"
 
 type Props = {
   color?: string
@@ -8,11 +7,11 @@ type Props = {
 
 const StyledTag = styled.span<Props>`
   display: inline-block;
-  background-color: ${ (props) => props.color ?? themeColor("primary") };
+  background-color: ${ (props) => props.color ?? "#004699" };
   border-radius: 6px;
   padding: 4px 8px;
   font-weight: 500;
-  color: ${ themeColor("tint", "level1") };
+  color: #FFFFFF;
 `
 
 const Column = styled.div`

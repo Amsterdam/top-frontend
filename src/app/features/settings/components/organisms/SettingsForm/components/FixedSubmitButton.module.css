@@ -1,0 +1,23 @@
+.stickyFooter {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  min-height: 85px;
+  padding: 16px;
+  gap: 12px;
+  background-color: #ffffff;
+  border-top: 1px solid #767676;
+}
+
+.actionButtons {
+  display: flex;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+  width: auto;
+  gap: 12px;
+}

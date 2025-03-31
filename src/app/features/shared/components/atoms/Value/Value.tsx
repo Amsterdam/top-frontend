@@ -1,6 +1,5 @@
 import React, { FunctionComponent } from "react"
 import styled from "styled-components"
-import { themeColor } from "@amsterdam/asc-ui"
 
 import formatBoolean from "app/features/shared/utils/formatBoolean"
 
@@ -15,7 +14,7 @@ const Text = styled.span`
 `
 
 const InvalidValue = styled.span`
-  color: ${ themeColor("support", "invalid") };
+  color: #EC0000;
 `
 
 /**

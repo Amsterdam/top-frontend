@@ -1,7 +1,7 @@
 import React, { useEffect } from "react"
 import { Link } from "react-router-dom"
 import styled from "styled-components"
-import { Heading, Paragraph, themeSpacing } from "@amsterdam/asc-ui"
+import { Heading, Paragraph } from "@amsterdam/asc-ui"
 
 import { useItineraries } from "app/state/rest"
 import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
@@ -11,7 +11,7 @@ import { useRedirectToCorrectItineraryPage } from "app/features/itineraries/util
 import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner"
 
 const Li = styled.li`
-  margin-bottom: ${ themeSpacing(4) };
+  margin-bottom: 16px;
 `
 
 const TeamName = styled.strong`

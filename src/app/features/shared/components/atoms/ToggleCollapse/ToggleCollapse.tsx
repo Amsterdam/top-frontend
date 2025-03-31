@@ -1,5 +1,5 @@
 import React from "react"
-import { Button, themeSpacing } from "@amsterdam/asc-ui"
+import { Button } from "@amsterdam/asc-ui"
 import { ButtonVariant } from "@amsterdam/asc-ui/lib/components/Button/Button"
 import styled from "styled-components"
 
@@ -12,7 +12,7 @@ export type Props = Omit<React.ComponentProps<typeof Button>, "onClick"> & {
 }
 
 const StyledButton = styled(Button)`
-  margin-bottom: ${ themeSpacing(5) };
+  margin-bottom: 20px;
 `
 
 const ToggleCollapse: React.FC<Props> = (
