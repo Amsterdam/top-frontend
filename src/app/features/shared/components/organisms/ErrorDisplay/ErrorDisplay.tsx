@@ -1,7 +1,7 @@
 import React, { useContext } from "react"
 import styled from "styled-components"
 import { Close } from "@amsterdam/asc-assets"
-import { Button, Heading, Paragraph, themeColor, themeSpacing } from "@amsterdam/asc-ui"
+import { Button, Heading, Paragraph } from "@amsterdam/asc-ui"
 
 import { Severity } from "app/features/types"
 import { ErrorContext } from "app/state/error/ErrorProvider"
@@ -21,8 +21,8 @@ const Wrap = styled.div<{ severity: Severity }>`
   top: 0;
   display: flex;
   width: 100%;
-  padding: ${ themeSpacing(4) };
-  background-color: ${ props => props.severity === "INFO" ? themeColor("primary") : themeColor("support", "invalid") };
+  padding: 16px;
+  background-color: ${ props => props.severity === "INFO" ? "#004699" : "#EC0000" };
 `
 
 const Stretch = styled.div`
@@ -30,11 +30,11 @@ const Stretch = styled.div`
 `
 
 const InverseHeading = styled(Heading)`
-  color: ${ themeColor("tint", "level1") };
+  color: #FFFFFF;
 `
 
 const InverseParagraph = styled(Paragraph)`
-  color: ${ themeColor("tint", "level1") };
+  color: #FFFFFF;
 `
 
 const ErrorDisplay: React.FC = () => {

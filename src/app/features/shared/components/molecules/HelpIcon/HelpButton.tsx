@@ -1,5 +1,5 @@
 import React, { useCallback } from "react"
-import { Button, themeColor, themeSpacing } from "@amsterdam/asc-ui"
+import { Button } from "@amsterdam/asc-ui"
 
 import InfoIcon from "app/features/shared/components/atoms/InfoIcon/InfoIcon"
 
@@ -26,10 +26,10 @@ const Overlay = styled.div`
 `
 
 const HelpText = styled.div`
-  padding: ${ themeSpacing(3) };
+  padding: 12px;
   position: absolute;
-  border: 1px solid ${ themeColor("tint", "level2") };
-  background-color: ${ themeColor("tint", "level1") };
+  border: 1px solid #F5F5F5;
+  background-color: #FFFFFF;
   z-index: 500;
 
   width: ${ HELP_TEXT_WIDTH }px;

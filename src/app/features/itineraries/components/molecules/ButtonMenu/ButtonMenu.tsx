@@ -1,6 +1,5 @@
 import React, { FC, ReactNode } from "react"
 import styled from "styled-components"
-import { themeColor } from "@amsterdam/asc-ui"
 
 type Props = {
   children: ReactNode
@@ -14,10 +13,10 @@ const Div = styled.div`
   width: 280px;
   display: flex;
   flex-direction: column;
-  background: ${ themeColor("tint", "level1") };
+  background: #FFFFFF;
   padding: 12px;
   padding-bottom: 0;
-  border: 1px solid ${ themeColor("tint", "level5") };
+  border: 1px solid #767676;
   button {
     margin-bottom: 12px;
   }

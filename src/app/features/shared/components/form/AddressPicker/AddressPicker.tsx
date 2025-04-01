@@ -3,9 +3,6 @@ import { ComposedField } from "@amsterdam/amsterdam-react-final-form"
 import { Button } from "@amsterdam/asc-ui"
 import { Link } from "react-router-dom"
 import { useField } from "react-final-form"
-
-import Box from "app/features/shared/components/atoms/Box/Box"
-
 import { useStartAddressModal } from "./hooks/useStartAddressModal"
 import StartAddress from "./components/StartAddress/StartAddress"
 import AddStartAddressModal from "./components/AddStartAddressModal/AddStartAddressModal"
@@ -27,11 +24,11 @@ const AddressPicker: React.FC<AddressPickerProps> = ({ position, align, label, h
       { value
         ? (<>
           <StartAddress caseId={ value } />
-          <Box pt={ 2 } pl={ 1 }>
+          <div style={{ padding: "12px 8px" }}>
             <Button type="button" variant="textButton" onClick={ () => onChange(undefined) }>
               Verwijder startadres
             </Button>
-          </Box>
+          </div>
         </>)
         : (
           <Link to={ getStartAddressUrl() }>

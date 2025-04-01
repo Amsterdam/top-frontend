@@ -1,13 +1,12 @@
 import React, { FC } from "react"
 import styled from "styled-components"
-import { themeColor } from "@amsterdam/asc-ui"
 
 export type Props = {
   text: string
 }
 
 const P = styled.p`
-  color: ${ themeColor("support", "invalid") };
+  color: #ec0000;
   margin-bottom: 18px;
 `
 

@@ -1,6 +1,6 @@
 import React from "react"
 import styled from "styled-components"
-import { Spinner, themeColor, themeSpacing } from "@amsterdam/asc-ui"
+import { Spinner } from "@amsterdam/asc-ui"
 
 import { useCase } from "app/state/rest"
 import displayAddress from "app/features/shared/utils/displayAddress"
@@ -16,8 +16,8 @@ type Props = {
 }
 
 const Card = styled.div`
-  padding: ${ themeSpacing(3) } ${ themeSpacing(2) };
-  background-color: ${ themeColor("tint", "level2") };
+  padding: 12px 8px;
+  background-color: #F5F5F5;
 `
 
 const normalize = (object: Case, href: string): React.ComponentProps<typeof ItineraryItemCard> => ({

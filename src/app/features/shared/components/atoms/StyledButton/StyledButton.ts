@@ -1,8 +1,8 @@
 import styled from "styled-components"
-import { Button, themeColor } from "@amsterdam/asc-ui"
+import { Button } from "@amsterdam/asc-ui"
 
 const StyledButton = styled(Button)`
-  border: solid 1px ${ themeColor("tint", "level6") };   
+  border: solid 1px #323232;   
 `
 
 export default StyledButton

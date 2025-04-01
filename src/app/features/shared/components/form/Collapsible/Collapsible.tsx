@@ -1,6 +1,6 @@
 import React from "react"
 import styled from "styled-components"
-import { Accordion, AccordionWrapper, themeSpacing } from "@amsterdam/asc-ui"
+import { Accordion, AccordionWrapper } from "@amsterdam/asc-ui"
 import { ComposedField, Scaffold, ScaffoldFields } from "@amsterdam/amsterdam-react-final-form"
 
 export type CollapsibleProps = React.ComponentProps<typeof ComposedField> & {
@@ -9,7 +9,7 @@ export type CollapsibleProps = React.ComponentProps<typeof ComposedField> & {
 }
 
 const Wrap = styled.div`
-  padding: ${ themeSpacing(1) } 0;
+  padding: 4px 0;
 `
 
 /**

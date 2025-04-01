@@ -3,7 +3,7 @@ import styled from "styled-components"
 import { useThemes } from "app/state/rest"
 import { useLoggedInUser } from "app/state/rest/custom/useLoggedInUser"
 import { ChevronRight } from "@amsterdam/asc-assets"
-import { Button, Heading, themeSpacing } from "@amsterdam/asc-ui"
+import { Button, Heading } from "@amsterdam/asc-ui"
 import Greeting from "app/features/shared/components/atoms/Greeting/Greeting"
 import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
 import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout"
@@ -12,7 +12,7 @@ import useNavigation from "app/features/shared/routing/useNavigation"
 const ButtonsLayout = styled.div`
   display: grid;
   justify-items: start;
-  gap: ${ themeSpacing(6) };
+  gap: 24px;
 `
 
 const TeamSettingsListPage: React.FC = () => {

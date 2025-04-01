@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react"
-import { Heading, themeColor, themeSpacing } from "@amsterdam/asc-ui"
+import { Heading } from "@amsterdam/asc-ui"
 import { useParams } from "react-router-dom"
 import { Card, ChevronDown, Enlarge, TrashBin } from "@amsterdam/asc-assets"
 import styled from "styled-components"
@@ -28,14 +28,14 @@ import { createUserWithLabel } from "app/features/itineraries/utils/mapUsersToLa
 
 
 const TeamMemberWrap = styled.div`
-  padding-top: ${ themeSpacing(2) };
-  padding-bottom: ${ themeSpacing(4) };
-  border-bottom: 1px solid ${ themeColor("tint", "level3") };
+  padding-top: 8px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #E6E6E6;
 `
 
 type ColumnWrapProps = { border: boolean }
 const ColumnWrap = styled.div<ColumnWrapProps>`
-  padding: ${ themeSpacing(2) } 0;
+  padding: 8px 0;
   display: flex;
 `
 
@@ -48,13 +48,13 @@ const Right = styled.div`
 
 const FloatRight = styled.div`
   float: right;
-  margin-left: ${ themeSpacing(2) };
-  margin-bottom: ${ themeSpacing(2) };
+  margin-left: 8px;
+  margin-bottom: 8px;
 `
 
 const TeamName = styled.div`
   font-weight: bold;
-  margin-bottom: ${ themeSpacing(1) };
+  margin-bottom: 4px;
 `
 
 const ButtonMenuWrap = styled.div`

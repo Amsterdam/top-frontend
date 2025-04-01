@@ -10,7 +10,6 @@ import {
 } from "@amsterdam/amsterdam-react-final-form"
 import { getCurrentTime } from "app/features/visits/components/organisms/NoteWizard/utils/getCurrentTime"
 import styled from "styled-components"
-import { themeSpacing } from "@amsterdam/asc-ui"
 
 export type CurrentTimeProps = {
   position?: Responsive<Dimensions>
@@ -20,7 +19,7 @@ export type CurrentTimeProps = {
 }
 
 const Wrap = styled.div`
-  margin: 0 ${ themeSpacing(-2) };
+  margin: 0 -8px;
 `
 
 const CurrentTime: React.FC<CurrentTimeProps> = ({ position, name, label, initialValue }) => {

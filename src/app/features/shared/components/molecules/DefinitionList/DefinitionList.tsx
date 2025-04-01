@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react"
-import { Heading, themeColor, themeSpacing } from "@amsterdam/asc-ui"
+import { Heading } from "@amsterdam/asc-ui"
 import styled from "styled-components"
 
 import SmallSkeleton from "app/features/shared/components/atoms/Skeleton/SmallSkeleton"
@@ -16,23 +16,23 @@ type Props = {
 }
 
 const StyledDl = styled.dl`
-  margin-bottom: ${ themeSpacing(10) };
-  border-top: 1px solid ${ themeColor("tint", "level3") };
+  margin-bottom: 40px;
+  border-top: 1px solid #E6E6E6;
 
   div {
     display: flex;
-    gap: ${ themeSpacing(4) };
-    border-bottom: 1px solid ${ themeColor("tint", "level3") };
+    gap: 16px;
+    border-bottom: 1px solid #E6E6E6;
   }
 
   dd, dt {
     margin: 0;
-    padding: ${ themeSpacing(3) } 0;
+    padding: 12px 0;
   }
 
   dt {
     flex: 2;
-    color: ${ themeColor("tint", "level5") };
+    color: #767676;
     word-wrap: break-word;
   }
 

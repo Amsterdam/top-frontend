@@ -1,5 +1,4 @@
 import React, { useCallback } from "react"
-import { themeColor, themeSpacing } from "@amsterdam/asc-ui"
 import { ScaffoldForm } from "@amsterdam/amsterdam-react-final-form"
 import styled from "styled-components"
 import { ItineraryItem } from "app/features/types"
@@ -28,10 +27,10 @@ type Props = {
 }
 
 const ButtonWrap = styled.div`
-  margin: 0 -${ themeSpacing(4) } 0 -${ themeSpacing(4) };
-  padding: ${ themeSpacing(3) } ${ themeSpacing(4) } ${ themeSpacing(3) } ${ themeSpacing(4) };
-  border-bottom: 1px solid ${ themeColor("tint", "level3") };
-  background-color: ${ themeColor("tint", "level2") };
+  margin: 0 -16px 0 -16px;
+  padding: 12px 16px 12px 16px;
+  border-bottom: 1px solid #E6E6E6;
+  background-color: #F5F5F5;
   text-align: right;
 `
 
