@@ -9,32 +9,14 @@ import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinne
 const allowList = /^\/login|^\/authentication\/|^\/auth/
 
 const Router: React.FC = () => (
-  <Suspense fallback={<CenteredSpinner explanation="Even geduld…" size={ 60 }/>}>
+  <Suspense fallback={<CenteredSpinner explanation="Even geduld…" size={60} />}>
     <Routes>
-      {
-        // Pages that do NOT match the allowList are protected
-        Object
-          .entries(routes)
-          .filter(([ path ]) => !path.match(allowList))
-          .map(([ path, Page ]) => (
-            // <ProtectedRoute page={ Page } key={ path } path={ path } />
-            <Route
-              key={path}
-              path={path}
-              element={<ProtectedRoute page={Page} />}
-            />
-          ))
-      }
-      {
-        // Pages that do match the allowList are NOT protected
-        Object
-          .entries(routes)
-          .filter(([ path ]) => path.match(allowList))
-          .map(([ path, Page ]) => (
-            // <Page key={ path } path={ path } />
-            <Route key={path} path={path} element={<Page />} />
-          ))
-      }
+      {Object.entries(routes).map(([path, Page]) => {
+        const isPublic = allowList.test(path)
+        const element = isPublic ? <Page /> : <ProtectedRoute page={Page} />
+
+        return <Route key={path} path={path} element={element} />
+      })}
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   </Suspense>

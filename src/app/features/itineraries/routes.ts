@@ -1,6 +1,6 @@
 import { lazy } from "react"
+import HomePage from "app/features/shared/components/pages/HomePage"
 
-const HomePage = lazy(() => import("app/features/shared/components/pages/HomePage"))
 const ItineraryPage = lazy(() => import("./components/pages/itinerary/ItineraryPage"))
 const ListItinerariesPage = lazy(() => import("./components/pages/list/ListItinerariesPage"))
 const ListTeamSettingsOptionsPage = lazy(() => import("./components/pages/list/ListTeamSettingsOptionsPage"))

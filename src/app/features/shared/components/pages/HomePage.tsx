@@ -2,8 +2,10 @@ import React, { useEffect } from "react"
 import { useItineraries } from "app/state/rest"
 import { useRedirectToCorrectItineraryPage } from "app/features/itineraries/utils/useRedirectToCorrectItineraryPage"
 import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner"
+import useRedirectFromState from "app/features/shared/routing/useRedirectFromState"
 
 const HomePage: React.FC = () => {
+  useRedirectFromState()
   const { data, errors } = useItineraries()
   const { redirectToCorrectItineraryPage } = useRedirectToCorrectItineraryPage()
 
