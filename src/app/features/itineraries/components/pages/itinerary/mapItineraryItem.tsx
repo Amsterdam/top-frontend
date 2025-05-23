@@ -19,6 +19,7 @@ export const mapItineraryItem = (itineraryId: string, daySettings: Components.Sc
         },
         workflows,
         reason,
+        project,
         schedules,
         tags,
         deleted
@@ -51,6 +52,7 @@ export const mapItineraryItem = (itineraryId: string, daySettings: Components.Sc
       : undefined,
     position,
     postalCode: postal_code,
+    project,
     reason,
     tags,
     hasPriority: (schedules && schedules[0]?.priority?.weight >= 0.5) ?? false,
