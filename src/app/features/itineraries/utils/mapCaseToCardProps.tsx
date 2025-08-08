@@ -17,10 +17,17 @@ export const casesToCardCaseProps = (
     return []
   }
 
+  // Only return unique cases
+  const uniqueCases = cases.filter(
+    (c, index, self) => index === self.findIndex((other) => other.id === c.id)
+  )
+
   const caseIdMap = getCaseIdMap(
     (itinerary?.items ?? []) as unknown as ItineraryItem[]
   )
-  return cases.map(mapCaseToCardProps(itinerary?.id, caseIdMap, addDistance))
+  return uniqueCases.map(
+    mapCaseToCardProps(itinerary?.id, caseIdMap, addDistance)
+  )
 }
 
 const getCaseIdMap = (items: ItineraryItem[]) =>
@@ -48,7 +55,7 @@ const mapCaseToCardProps =
       address?.suffix_letter,
       address?.suffix
     )
-    
+
     const badge =
       workflows && workflows.length > 0 ? (
         <StadiumBadge stadium={workflows[0].state.name || ""} />
