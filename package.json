@@ -71,7 +71,7 @@
     "@testing-library/react-hooks": "^8.0.1",
     "@types/node": "^24.2.0",
     "dtsgenerator": "^3.19.2",
-    "vitest": "^3.1.1"
+    "vitest": "^3.2.4"
   },
   "eslintConfig": {
     "extends": "react-app"
