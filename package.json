@@ -59,7 +59,7 @@
     "react-router-dom": "^6.28.0",
     "styled-components": "^5.3.11",
     "typescript": "5.9.2",
-    "vite": "^6.3.5",
+    "vite": "^7.1.2",
     "vite-tsconfig-paths": "^5.1.4"
   },
   "devDependencies": {
