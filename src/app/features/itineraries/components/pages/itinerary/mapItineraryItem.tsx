@@ -1,6 +1,5 @@
 import React from "react"
 
-import FraudProbability from "app/features/shared/components/atoms/FraudProbability/FraudProbability"
 import StadiumBadge from "app/features/shared/components/molecules/StadiumBadge/StadiumBadge"
 import displayAddress from "app/features/shared/utils/displayAddress"
 import to from "app/features/shared/routing/to"
@@ -8,7 +7,6 @@ import to from "app/features/shared/routing/to"
 import { ItineraryItem } from "app/features/types"
 import ItineraryItemCardButtons from "../../molecules/ItineraryItemCardButtons/ItineraryItemCardButtons"
 import Notes from "../../molecules/Notes/Notes"
-import { hideFraudProbability } from "app/features/shared/utils/fraudPredictionPilot"
 
 export const mapItineraryItem = (itineraryId: string, daySettings: Components.Schemas.DaySettings) => (
   {
@@ -24,8 +22,7 @@ export const mapItineraryItem = (itineraryId: string, daySettings: Components.Sc
         tags,
         deleted
       },
-      id: caseId,
-      fraud_prediction
+      id: caseId
     },
     id,
     position,
@@ -42,7 +39,6 @@ export const mapItineraryItem = (itineraryId: string, daySettings: Components.Sc
     address: displayAddress(street_name, number, suffix_letter, suffix),
     badge,
     daySettings,
-    fraudProbability: (fraud_prediction && !hideFraudProbability(caseId, daySettings?.team_settings?.fraudprediction_pilot_enabled)) ? <FraudProbability fraudProbability={ fraud_prediction?.fraud_probability } /> : "",
     href: to("/cases/:id", { id: caseId.toString() ?? "" }),
     id: id.toString(),
     isVisited: visits.length > 0,
