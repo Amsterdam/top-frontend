@@ -4,13 +4,6 @@ export type BusinessRules = Record<string, number>
 
 export type ShapValues = Record<string, number>
 
-export type FraudPrediction = {
-  business_rules: BusinessRules
-  fraud_prediction: boolean
-  fraud_probability: number
-  shap_values: ShapValues
-}
-
 export type BagData = {
   gebruiksdoelOmschrijvingen: string[]
   indicatie_geconstateerd?: boolean
@@ -87,7 +80,6 @@ export type Case = {
   brk_data: BrkData | BrkDataError
   workflows: CaseWorkflow[]
   day_settings_id: number | null | undefined
-  fraud_prediction: FraudPrediction | undefined
   id: number | string
   reason: CaseReason
   schedules: any

@@ -4,7 +4,6 @@ import StadiumBadge from "app/features/shared/components/molecules/StadiumBadge/
 import ItineraryItemCard from "app/features/shared/components/molecules/ItineraryItemCard/ItineraryItemCard"
 import displayAddress from "app/features/shared/utils/displayAddress"
 import AddItineraryItemButton from "../components/molecules/AddItineraryItemButton/AddItineraryItemButton"
-import FraudProbability from "app//features/shared/components/atoms/FraudProbability/FraudProbability"
 import { Case, Itinerary, ItineraryItem } from "app/features/types"
 import to from "../../shared/routing/to"
 
@@ -43,7 +42,6 @@ const mapCaseToCardProps =
     address,
     workflows,
     distance,
-    fraud_prediction,
     id,
     reason,
     schedules,
@@ -88,11 +86,6 @@ const mapCaseToCardProps =
       backgroundColor: "#F5F5F5",
       badge,
       buttons,
-      fraudProbability: (
-        <FraudProbability
-          fraudProbability={fraud_prediction?.fraud_probability}
-        />
-      ),
       hasPriority:
         (schedules && schedules[0]?.priority?.weight >= 0.5) ?? false,
       href: to("/cases/:id", { id: String(id) }),

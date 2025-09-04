@@ -1,18 +1,9 @@
 declare namespace Components {
     namespace Schemas {
-        export type BlankEnum = "";
         export interface Case {
             id: string;
             data: {
                 [name: string]: any;
-            };
-            fraud_prediction: {
-                fraud_prediction_model?: null & (/* * `onderhuur` - onderhuur */ FraudPredictionModelEnum | BlankEnum | NullEnum);
-                fraud_probability: number; // double
-                fraud_prediction: boolean;
-                business_rules: any;
-                shap_values: any;
-                sync_date: string; // date-time
             };
         }
         export interface CaseProject {
@@ -75,15 +66,10 @@ declare namespace Components {
             team_settings: {
                 id: number;
                 name: string;
-                /**
-                 * enables fraudprediction A/B testing for this theme on AZA cases
-                 */
-                fraudprediction_pilot_enabled?: boolean;
                 zaken_team_id?: number | null;
                 observation_choices: Observation[];
                 situation_choices: any[];
                 suggest_next_visit_choices: SuggestNextVisit[];
-                fraud_prediction_model?: null & (/* * `onderhuur` - onderhuur */ FraudPredictionModelEnum | BlankEnum | NullEnum);
             };
             used_today_count: number;
             max_use_limit?: number;
@@ -100,29 +86,12 @@ declare namespace Components {
             team_settings: {
                 id: number;
                 name: string;
-                /**
-                 * enables fraudprediction A/B testing for this theme on AZA cases
-                 */
-                fraudprediction_pilot_enabled?: boolean;
                 zaken_team_id?: number | null;
                 observation_choices: Observation[];
                 situation_choices: any[];
                 suggest_next_visit_choices: SuggestNextVisit[];
-                fraud_prediction_model?: null & (/* * `onderhuur` - onderhuur */ FraudPredictionModelEnum | BlankEnum | NullEnum);
             };
         }
-        export interface FraudPrediction {
-            fraud_prediction_model?: null & (/* * `onderhuur` - onderhuur */ FraudPredictionModelEnum | BlankEnum | NullEnum);
-            fraud_probability: number; // double
-            fraud_prediction: boolean;
-            business_rules: any;
-            shap_values: any;
-            sync_date: string; // date-time
-        }
-        /**
-         * * `onderhuur` - onderhuur
-         */
-        export type FraudPredictionModelEnum = "onderhuur";
         export interface HousingCorporation {
             id: number;
             name: string;
@@ -157,14 +126,6 @@ declare namespace Components {
                 id: string;
                 data: {
                     [name: string]: any;
-                };
-                fraud_prediction: {
-                    fraud_prediction_model?: null & (/* * `onderhuur` - onderhuur */ FraudPredictionModelEnum | BlankEnum | NullEnum);
-                    fraud_probability: number; // double
-                    fraud_prediction: boolean;
-                    business_rules: any;
-                    shap_values: any;
-                    sync_date: string; // date-time
                 };
             };
             visits: Visit[];
@@ -205,9 +166,6 @@ declare namespace Components {
                 team_settings: UserTeamSettingsId[];
             };
         }
-        /**
-         * Specific serializer for Meldingen data.
-         */
         export interface Meldingen {
             pageNumber: number;
             pageSize: number;
@@ -551,15 +509,10 @@ declare namespace Components {
             team_settings?: {
                 id: number;
                 name: string;
-                /**
-                 * enables fraudprediction A/B testing for this theme on AZA cases
-                 */
-                fraudprediction_pilot_enabled?: boolean;
                 zaken_team_id?: number | null;
                 observation_choices: Observation[];
                 situation_choices: any[];
                 suggest_next_visit_choices: SuggestNextVisit[];
-                fraud_prediction_model?: null & (/* * `onderhuur` - onderhuur */ FraudPredictionModelEnum | BlankEnum | NullEnum);
             };
             used_today_count?: number;
             max_use_limit?: number;
@@ -596,16 +549,11 @@ declare namespace Components {
         export interface PatchedTeamSettings {
             id?: number;
             name?: string;
-            /**
-             * enables fraudprediction A/B testing for this theme on AZA cases
-             */
-            fraudprediction_pilot_enabled?: boolean;
             zaken_team_id?: number | null;
             observation_choices?: Observation[];
             situation_choices?: any[];
             suggest_next_visit_choices?: SuggestNextVisit[];
             day_settings_list?: DaySettingsCompact[];
-            fraud_prediction_model?: null & (/* * `onderhuur` - onderhuur */ FraudPredictionModelEnum | BlankEnum | NullEnum);
         }
         export interface PatchedVisit {
             id?: number;
@@ -641,17 +589,18 @@ declare namespace Components {
             initator: string | null;
             datuM_TOT: string | null; // date-time
         }
-        /**
-         * Specific serializer for Registration Details.
-         */
         export interface RegistrationDetails {
-            pageNumber: number;
-            pageSize: number;
-            totalPages: number;
-            totalRecords: number;
-            data: {
+            registrationNumber: string;
+            requester: {
                 [name: string]: any;
-            }[];
+            };
+            rentalHouse: {
+                [name: string]: any;
+            };
+            requestForOther: boolean;
+            requestForBedAndBreakfast: boolean;
+            createdAt: string; // date-time
+            agreementDate: string; // date-time
         }
         export interface SuggestNextVisit {
             value: string;
@@ -666,29 +615,19 @@ declare namespace Components {
         export interface TeamSettings {
             id: number;
             name: string;
-            /**
-             * enables fraudprediction A/B testing for this theme on AZA cases
-             */
-            fraudprediction_pilot_enabled?: boolean;
             zaken_team_id?: number | null;
             observation_choices: Observation[];
             situation_choices: any[];
             suggest_next_visit_choices: SuggestNextVisit[];
             day_settings_list: DaySettingsCompact[];
-            fraud_prediction_model?: null & (/* * `onderhuur` - onderhuur */ FraudPredictionModelEnum | BlankEnum | NullEnum);
         }
         export interface TeamSettingsCompact {
             id: number;
             name: string;
-            /**
-             * enables fraudprediction A/B testing for this theme on AZA cases
-             */
-            fraudprediction_pilot_enabled?: boolean;
             zaken_team_id?: number | null;
             observation_choices: Observation[];
             situation_choices: any[];
             suggest_next_visit_choices: SuggestNextVisit[];
-            fraud_prediction_model?: null & (/* * `onderhuur` - onderhuur */ FraudPredictionModelEnum | BlankEnum | NullEnum);
         }
         export interface TeamSettingsTheme {
             id: number;
@@ -789,7 +728,7 @@ declare namespace Paths {
             start_date?: Parameters.StartDate /* date */;
         }
         namespace Responses {
-            export type $200 = /* Specific serializer for Meldingen data. */ Components.Schemas.Meldingen[];
+            export type $200 = Components.Schemas.Meldingen[];
         }
     }
     namespace AddressesPermitsPowerbrowserList {
@@ -811,15 +750,21 @@ declare namespace Paths {
             bag_id: Parameters.BagId;
         }
         namespace Responses {
-            export type $200 = /* Specific serializer for Registration Details. */ Components.Schemas.RegistrationDetails[];
+            export type $200 = Components.Schemas.RegistrationDetails[];
         }
     }
-    namespace AddressesResidentsRetrieve {
+    namespace AddressesResidentsCreate {
         namespace Parameters {
             export type BagId = string;
         }
         export interface PathParameters {
             bag_id: Parameters.BagId;
+        }
+        export interface RequestBody {
+            /**
+             * access_token for OBO-flow
+             */
+            obo_access_token: string;
         }
         namespace Responses {
             export interface $200 {
@@ -1010,9 +955,15 @@ declare namespace Paths {
     namespace ItinerariesSuggestionsRetrieve {
         namespace Parameters {
             export type Id = number;
+            export type Lat = string;
+            export type Lng = string;
         }
         export interface PathParameters {
             id: Parameters.Id;
+        }
+        export interface QueryParameters {
+            lat?: Parameters.Lat;
+            lng?: Parameters.Lng;
         }
         namespace Responses {
             export type $200 = Components.Schemas.Itinerary;

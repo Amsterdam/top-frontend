@@ -11,7 +11,6 @@ type Props = {
   badge?: JSX.Element
   buttons?: (onDeleteButtonClick: () => void) => JSX.Element
   daySettings?: Components.Schemas.DaySettings
-  fraudProbability?: string | JSX.Element
   href?: string
   isVisited?: boolean
   notes?: JSX.Element
@@ -31,7 +30,6 @@ const ItineraryItemCard: React.FC<Props> = ({
   badge,
   buttons,
   daySettings,
-  fraudProbability,
   href,
   isVisited,
   notes,
@@ -74,10 +72,6 @@ const ItineraryItemCard: React.FC<Props> = ({
         >
           <h1 className={styles.addressTitle}>{address}</h1>
           <p className={styles.postalCode}>{postalCode}</p>
-          {fraudProbability &&
-            daySettings?.team_settings.fraud_prediction_model && (
-              <p className={styles.fraudProbability}>{fraudProbability}</p>
-            )}
           <p className={styles.reason}>
             {reason?.name}
             {project?.name ? `: ${project?.name}` : ""}
