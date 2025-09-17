@@ -3,8 +3,8 @@ import styled from "styled-components"
 export const Body = styled.div`
   background-color: white;
   flex: 1;
-    
-  overflow-y: auto;
+  
+  overflow: hidden auto;
   
   padding: 15px;
            
