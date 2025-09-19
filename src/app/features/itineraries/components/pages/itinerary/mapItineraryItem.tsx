@@ -27,13 +27,16 @@ export const mapItineraryItem = (itineraryId: string, daySettings: Components.Sc
     id,
     position,
     visits
-  }: ItineraryItem) =>
-{
+  }: ItineraryItem) => {
   const statusName = workflows?.length > 0 ? workflows[0].state.name ?? "" : undefined
-  const isVisitStatus = ["Huisbezoek", "Hercontrole"].includes(statusName!)
   const badge = statusName
-    ? <StadiumBadge stadium={ statusName } />
+    ? <StadiumBadge stadium={statusName} />
     : undefined
+
+  const isVisitStatus = workflows?.some(
+    workflow => workflow?.state?.name?.includes("Huisbezoek") ||
+      workflow?.state?.name?.includes("Hercontrole")
+  ) || false
 
   return {
     address: displayAddress(street_name, number, suffix_letter, suffix),
@@ -44,7 +47,7 @@ export const mapItineraryItem = (itineraryId: string, daySettings: Components.Sc
     isVisited: visits.length > 0,
     itemId: id.toString(),
     notes: visits[0]?.personal_notes
-      ? <Notes note={ visits[0].personal_notes } />
+      ? <Notes note={visits[0].personal_notes} />
       : undefined,
     position,
     postalCode: postal_code,
@@ -55,12 +58,12 @@ export const mapItineraryItem = (itineraryId: string, daySettings: Components.Sc
     hasWarrant: (schedules && schedules[0]?.priority?.weight >= 1.0) ?? false,
     buttons: (onDeleteButtonClicked: () => void) =>
       <ItineraryItemCardButtons
-        caseId={ caseId.toString() }
-        itineraryId={ itineraryId }
-        itineraryItemId={ id }
-        isVisitStatus={ isVisitStatus }
-        onDeleteButtonClicked={ onDeleteButtonClicked }
-        visits={ visits }
+        caseId={caseId.toString()}
+        itineraryId={itineraryId}
+        itineraryItemId={id}
+        isVisitStatus={isVisitStatus}
+        onDeleteButtonClicked={onDeleteButtonClicked}
+        visits={visits}
       />,
     deleted
   }
