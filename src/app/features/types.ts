@@ -53,6 +53,7 @@ export type Address = {
   suffix: string | null
   lat: number | null
   lng: number | null
+  housing_corporation: number | null
 }
 
 export type CaseWorkflowState = {
