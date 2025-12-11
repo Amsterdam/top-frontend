@@ -2,11 +2,11 @@ import React from "react"
 import styled from "styled-components"
 import { Heading } from "@amsterdam/asc-ui"
 import { CaseIdDisplay } from "@amsterdam/wonen-ui"
-import { useCase } from "app/state/rest"
+import { useCase, useCorporations } from "app/state/rest"
 import Label from "app/features/shared/components/atoms/Label/Label"
 import Value from "app/features/shared/components/atoms/Value/Value"
 import StadiumBadge from "app/features/shared/components/molecules/StadiumBadge/StadiumBadge"
-import { getAddress } from "../utils"
+import { getAddress, getNameById } from "../utils"
 import {
   StyledAnchor,
   Grid,
@@ -33,6 +33,8 @@ const BadgesRow = styled.div`
 
 const General: React.FC<Props> = ({ caseId }) => {
   const { data: caseData } = useCase(caseId)
+  const { data: corporations } = useCorporations()
+  const corporationName = getNameById(corporations || [], caseData?.address?.housing_corporation || "")
 
   if (!caseData) {
     return null
@@ -70,6 +72,12 @@ const General: React.FC<Props> = ({ caseId }) => {
             <>
               <Label>Onderwerpen</Label>
               <Value>{ caseData?.subjects.map((subject: { name: string }) => subject.name).join(", ") }</Value>
+            </>
+          )}
+          { corporationName && (
+            <>
+              <Label>Woningcorporatie</Label>
+              <Value>{ corporationName }</Value>
             </>
           )}
         </Grid>

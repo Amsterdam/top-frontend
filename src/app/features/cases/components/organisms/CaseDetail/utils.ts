@@ -28,3 +28,16 @@ const logbookTranslationsMap: Record<string, string> = {
 }
 
 export const mapLogbookValue = (key: string): string => logbookTranslationsMap[key] ?? key
+
+export type Item = {
+  id: string | number
+  name: string
+}
+
+export function getNameById(
+  items: Item[],
+  id: string | number
+): string | undefined {
+  const match = items.find(item => String(item.id) === String(id))
+  return match ? match.name : undefined
+}
