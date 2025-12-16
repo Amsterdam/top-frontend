@@ -1,6 +1,5 @@
 import React from "react"
 import { Button, Heading } from "@amsterdam/asc-ui"
-import { useDaySettings } from "app/state/rest"
 import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner"
 import formatDate from "app/features/shared/utils/formatDate"
 import ValueList from "../../atoms/ValueList/ValueList"
@@ -11,7 +10,7 @@ import useNavigation from "app/features/shared/routing/useNavigation"
 
 type Props = {
   teamSettings: Components.Schemas.TeamSettings
-  daySettingsId: string
+  daySettings: Components.Schemas.DaySettings
   caseReasons?: Components.Schemas.CaseReason[]
   teamScheduleTypes?: Components.Schemas.TeamScheduleTypes
   caseStateTypes?: Components.Schemas.CaseStateType[]
@@ -25,7 +24,7 @@ type Props = {
 const DaySettingsCard: React.FC<Props> = (
   {
     teamSettings,
-    daySettingsId,
+    daySettings,
     caseReasons,
     teamScheduleTypes,
     caseStateTypes,
@@ -36,10 +35,9 @@ const DaySettingsCard: React.FC<Props> = (
     districts
   }
 ) => {
-  const { data: daySettings, isBusy } = useDaySettings(daySettingsId!)
   const { navigateTo } = useNavigation()
 
-  if (!teamSettings || !daySettings || isBusy) {
+  if (!teamSettings || !daySettings) {
     return <CenteredSpinner explanation="Daginstellingen ophalen…" size={ 60 } />
   }
 

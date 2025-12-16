@@ -93,7 +93,7 @@ const DaySettingsList: React.FC<Props> = ({ teamSettingsId }) => {
                   <DaySettingsCard
                     key={ daySettings.id }
                     teamSettings={ teamSettings }
-                    daySettingsId={ daySettings.id.toString() }
+                    daySettings={ daySettings }
                     caseReasons={ caseReasons }
                     teamScheduleTypes={ teamScheduleTypes }
                     caseStateTypes={ caseStateTypes }

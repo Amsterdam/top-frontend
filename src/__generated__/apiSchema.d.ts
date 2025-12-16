@@ -77,21 +77,6 @@ declare namespace Components {
                 [name: string]: any;
             };
         }
-        export interface DaySettingsCompact {
-            id: number;
-            name: string;
-            week_days: number[];
-            used_today_count: number;
-            max_use_limit?: number;
-            team_settings: {
-                id: number;
-                name: string;
-                zaken_team_id?: number | null;
-                observation_choices: Observation[];
-                situation_choices: any[];
-                suggest_next_visit_choices: SuggestNextVisit[];
-            };
-        }
         export interface HousingCorporation {
             id: number;
             name: string;
@@ -553,7 +538,7 @@ declare namespace Components {
             observation_choices?: Observation[];
             situation_choices?: any[];
             suggest_next_visit_choices?: SuggestNextVisit[];
-            day_settings_list?: DaySettingsCompact[];
+            day_settings_list?: DaySettings[];
         }
         export interface PatchedVisit {
             id?: number;
@@ -619,7 +604,7 @@ declare namespace Components {
             observation_choices: Observation[];
             situation_choices: any[];
             suggest_next_visit_choices: SuggestNextVisit[];
-            day_settings_list: DaySettingsCompact[];
+            day_settings_list: DaySettings[];
         }
         export interface TeamSettingsCompact {
             id: number;
@@ -753,18 +738,12 @@ declare namespace Paths {
             export type $200 = Components.Schemas.RegistrationDetails[];
         }
     }
-    namespace AddressesResidentsCreate {
+    namespace AddressesResidentsRetrieve {
         namespace Parameters {
             export type BagId = string;
         }
         export interface PathParameters {
             bag_id: Parameters.BagId;
-        }
-        export interface RequestBody {
-            /**
-             * access_token for OBO-flow
-             */
-            obo_access_token: string;
         }
         namespace Responses {
             export interface $200 {
