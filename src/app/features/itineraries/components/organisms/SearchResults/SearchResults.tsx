@@ -31,17 +31,20 @@ const SearchResults: React.FC<Props> = ({
     suffix,
     teamName
   )
-  const items = useMemo(
-    () => casesToCardCaseProps(data?.cases, itinerary),
-    [itinerary, data]
-  )
 
-  const title = "Zaken gevonden in AZA:"
+  const items = useMemo(() => {
+    if (!data?.cases) return []
+    return casesToCardCaseProps(data.cases, itinerary)
+  }, [itinerary, data])
 
-  return items.length > 0 ? (
-    <ItineraryItemCardList items={items} title={title} />
-  ) : isBusy ? null : (
-    <p>Geen resultaten in AZA.</p>
+  if (isBusy) return null
+
+  if (items.length === 0) {
+    return <p>Geen resultaten in AZA.</p>
+  }
+
+  return (
+    <ItineraryItemCardList items={items} title="Zaken gevonden in AZA:" />
   )
 }
 

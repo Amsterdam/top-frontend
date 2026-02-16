@@ -12,7 +12,6 @@ import ItineraryItemCard from "app/features/shared/components/molecules/Itinerar
 import ItineraryItemCardList
   from "app/features/itineraries/components/organisms/ItineraryItemCardList/ItineraryItemCardList"
 import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner"
-import FraudProbability from "../../../../atoms/FraudProbability/FraudProbability"
 import { useCaseModal } from "../../hooks/useCaseModal"
 import { Case } from "app/features/types"
 
@@ -39,7 +38,6 @@ const mapResults = (handleAdd: HandleAddCallback, getUrl: (string: string) => st
     },
     reason,
     workflows,
-    fraud_prediction,
     teams
   }: Case
 ): React.ComponentProps<typeof ItineraryItemCard> => {
@@ -52,7 +50,6 @@ const mapResults = (handleAdd: HandleAddCallback, getUrl: (string: string) => st
     postalCode: postal_code,
     reason: reason,
     badge: <StadiumBadge stadium={ lastStadiumLabel! } />,
-    fraudProbability: <FraudProbability fraudProbability={ fraud_prediction?.fraud_probability } />,
     buttons: teamMembersList ? undefined : (() => <StyledButton icon={ <Enlarge /> }
                                                                 onClick={ () => handleAdd(String(id)) } />),
     teamMembersList

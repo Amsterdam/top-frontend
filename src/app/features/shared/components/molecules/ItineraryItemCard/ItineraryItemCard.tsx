@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import StadiumBadge from "app/features/shared/components/molecules/StadiumBadge/StadiumBadge"
-import { CaseReason } from "app/features/types"
+import { CaseReason, Project } from "app/features/types"
 import Tag from "app/features/shared/components/atoms/Tag/Tag"
 import styles from "./ItineraryItemCard.module.css"
 
@@ -11,12 +11,12 @@ type Props = {
   badge?: JSX.Element
   buttons?: (onDeleteButtonClick: () => void) => JSX.Element
   daySettings?: Components.Schemas.DaySettings
-  fraudProbability?: string | JSX.Element
   href?: string
   isVisited?: boolean
   notes?: JSX.Element
   postalCode: string | JSX.Element
   reason: CaseReason
+  project?: Project
   tags?: Components.Schemas.CaseTag[]
   teamMembersList?: string
   hasPriority?: boolean
@@ -30,11 +30,11 @@ const ItineraryItemCard: React.FC<Props> = ({
   badge,
   buttons,
   daySettings,
-  fraudProbability,
   href,
   isVisited,
   notes,
   postalCode,
+  project,
   reason,
   tags = [],
   teamMembersList,
@@ -72,11 +72,10 @@ const ItineraryItemCard: React.FC<Props> = ({
         >
           <h1 className={styles.addressTitle}>{address}</h1>
           <p className={styles.postalCode}>{postalCode}</p>
-          {fraudProbability &&
-            daySettings?.team_settings.fraud_prediction_model && (
-              <p className={styles.fraudProbability}>{fraudProbability}</p>
-            )}
-          <p className={styles.reason}>{reason?.name}</p>
+          <p className={styles.reason}>
+            {reason?.name}
+            {project?.name ? `: ${project?.name}` : ""}
+          </p>
         </div>
         <div className={styles.cardActions}>
           {buttons && buttons(setBeingDeleted)}

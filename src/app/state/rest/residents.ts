@@ -1,30 +1,22 @@
-import { useEffect, useState } from "react"
-import { useOboToken } from "./tokenOboService"
-import { env } from "app/config/env"
-import { makeGatewayUrl } from "./hooks/utils/utils"
+import { makeGatewayUrl, useErrorHandler } from "./hooks/utils/utils"
 import useApiRequest from "./hooks/useApiRequest"
+import { Options } from "."
 
-export const useResidents = (bagId: string) => {
-  const [isBusy, setIsBusy] = useState<boolean>(false)
-  const { fetchOboToken } = useOboToken(env.VITE_OIDC_OBO_SCOPE_BRP)
-  const { data, execPost, errors } = useApiRequest<any>({
-    lazy: true,
+type Brp = {
+  type: string
+  personen: {
+    [name: string]: any
+  }[]
+}
+
+export const useResidents = (bagId: string, options?: Options) => {
+  const handleError = useErrorHandler()
+  return useApiRequest<Brp>({
+    ...options,
     url: makeGatewayUrl(["addresses", bagId, "residents"]),
     groupName: "residents",
+    handleError,
     isProtected: true,
     noForbiddenRedirect: true
   })
-
-  useEffect(() => {
-    if (data) return
-    setIsBusy(true)
-    fetchOboToken()
-      .then((obo_access_token) => {
-        execPost({ obo_access_token }, { useResponseAsCache: true })
-      })
-      .finally(() => setIsBusy(false))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [bagId])
-
-  return { data, isBusy, errors }
 }

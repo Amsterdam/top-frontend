@@ -28,13 +28,6 @@
   margin-bottom: 0;
 }
 
-.fraudProbability {
-  display: inline-block;
-  margin: 4px 0 4px 24px;
-  font-weight: 500;
-  color: #B4B4B4;
-}
-
 .postalCode {
   display: inline-block;
   font-weight: 500;
