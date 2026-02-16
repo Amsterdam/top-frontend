@@ -1,4 +1,4 @@
-import { ResidentsV2 } from "@amsterdam/wonen-ui"
+import { Residents } from "@amsterdam/wonen-ui"
 import CaseDetailSection from "app/features/cases/components/organisms/CaseDetail/CaseDetailSection"
 import { useResidents } from "app/state/rest"
 
@@ -15,7 +15,7 @@ const ResidentsView: React.FC<Props> = ({ bagId }) => {
           <>{ errors[0]?.data?.message }</>
         ) : (
           <div className="blur">
-            <ResidentsV2 data={ data } loading={ isBusy } />
+            <Residents data={ data } loading={ isBusy } />
           </div>
       )}
     </CaseDetailSection>
