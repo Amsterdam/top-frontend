@@ -123,11 +123,16 @@ export const createDefinition = (
       props: {
         shouldShow: () => isSublet, // Sublet use only.
         field: {
-          type: "Boolean",
+          type: "RadioFields",
           props: {
+            isRequired: true,
             label: "Wil je deze looplijst samenlopen met een corporatie?",
             name: "housing_corporation_combiteam",
-            checkboxLabel: "Ja"
+            options: {
+              include: "Ja",
+              exclude: "Nee",
+              ignore: "Geen voorkeur"
+            }
           }
         }
       }
