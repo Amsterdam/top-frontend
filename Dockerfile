@@ -6,7 +6,7 @@ FROM node:$NODE_VERSION-alpine AS builder
 
 ARG COMMIT_HASH
 
-ENV DIR /var/www
+ENV DIR=/var/www
 COPY . $DIR/
 RUN ls -la $DIR
 
