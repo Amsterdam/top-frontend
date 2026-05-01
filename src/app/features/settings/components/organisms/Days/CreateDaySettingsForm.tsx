@@ -27,7 +27,7 @@ import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinne
 import { filterEmptyPostalCodes } from "app/features/settings/utils/filterEmptyPostalCodes"
 import { useQueryStringProp } from "app/features/shared/hooks/queryString/useQueryStringProp"
 import { daysOfTheWeek } from "app/features/settings/utils/daysOfTheWeek"
-import { fixDateFormat } from "app/features/settings/utils/fixDateFormat"
+import { prepareDaySettingsPayload } from "../SettingsForm/services/prepare-payload"
 
 const Wrap = styled.div`
   margin: 0 8px 100px 8px;
@@ -77,16 +77,12 @@ const CreateDaySettingsForm: React.FC<Props> = ({ teamSettingsId }) => {
   )
 
   const handleSubmit = useCallback(async (data: any) => {
-    const values = filterEmptyPostalCodes(data)
     setErrorMessage("")
 
-    if (data.postal_codes_type === "postcode") {
-      values.districts = []
-    } else if (data.postal_codes_type === "stadsdeel") {
-      values.postal_code_ranges = []
-    }
-    // TODO: Fix safari bug in framework
-    values.opening_date = fixDateFormat(values.opening_date)
+    const values = prepareDaySettingsPayload(
+      filterEmptyPostalCodes(data)
+    )
+
     try {
       await execPost(values, { skipCacheClear: false, useResponseAsCache: false })
         .then((resp: any) => {

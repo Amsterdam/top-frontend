@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useMemo, useState } from "react"
+import { FC, useCallback, useMemo, useState } from "react"
 import { Link } from "react-router-dom"
 import styled from "styled-components"
 import { ScaffoldForm } from "@amsterdam/amsterdam-react-final-form"
@@ -29,7 +29,8 @@ import FixedSubmitButton from "../SettingsForm/components/FixedSubmitButton"
 import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner"
 import { filterEmptyPostalCodes } from "app/features/settings/utils/filterEmptyPostalCodes"
 import { daysOfTheWeek } from "app/features/settings/utils/daysOfTheWeek"
-import { fixDateFormat } from "app/features/settings/utils/fixDateFormat"
+import { prepareDaySettingsPayload } from "../SettingsForm/services/prepare-payload"
+import { mapCombiteamToString } from "../SettingsForm/mappers/combiteam.mapper"
 
 const Wrap = styled.div`
   margin: 0 8px 100px 8px;
@@ -81,15 +82,12 @@ const DaySettingsForm: FC<Props> = ({ teamSettingsId, daySettingsId }) => {
   )
 
   const handleSubmit = useCallback(async (data: any) => {
-    const values = filterEmptyPostalCodes(data)
     setErrorMessage("")
 
-    if (data.postal_codes_type === "postcode") {
-      values.districts = []
-    } else if (data.postal_codes_type === "stadsdeel") {
-      values.postal_code_ranges = []
-    }
-    values.opening_date = fixDateFormat(values.opening_date)
+    const values = prepareDaySettingsPayload(
+      filterEmptyPostalCodes(data)
+    )
+
     try {
       await execPut(values, { skipCacheClear: false, useResponseAsCache: false })
     } catch (error: any) {
@@ -127,7 +125,8 @@ const DaySettingsForm: FC<Props> = ({ teamSettingsId, daySettingsId }) => {
       postal_codes_type: (settings.districts ?? []).length > 0 ? "stadsdeel" : "postcode",
       postal_code_ranges: (settings.districts ?? []).length > 0 ? config.settings.defaultPostalCodeRanges : settings.postal_code_ranges,
       team_settings: teamSettingsId,
-      week_days: settings.week_days?.map((wd: number) => wd.toString())
+      week_days: settings.week_days?.map((wd: number) => wd.toString()),
+      housing_corporation_combiteam: mapCombiteamToString(settings.housing_corporation_combiteam)
     }
   }
 
