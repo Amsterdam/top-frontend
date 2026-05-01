@@ -66,7 +66,13 @@ const DaySettingsCard: React.FC<Props> = (
             <>
               <Dl>
                 <Dt>Samenlopen met een corporatie</Dt>
-                <Dd>{ daySettings?.housing_corporation_combiteam ? "Ja" : "Nee" }</Dd>
+                <Dd>
+                  {daySettings?.housing_corporation_combiteam === true
+                    ? "Ja"
+                    : daySettings?.housing_corporation_combiteam === false
+                    ? "Nee"
+                    : "Geen voorkeur"}
+                </Dd>
               </Dl>
               <ValueList
                 labels={ [ "Corporaties", "Corporaties" ] }
