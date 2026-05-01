@@ -6,7 +6,7 @@ FROM node:$NODE_VERSION-alpine AS builder
 
 ARG COMMIT_HASH
 
-ENV DIR /var/www
+ENV DIR=/var/www
 COPY . $DIR/
 RUN ls -la $DIR
 
@@ -15,7 +15,7 @@ RUN mkdir -p $DIR/builds/application
 
 WORKDIR $DIR
 COPY package*.json $DIR/
-RUN npm ci --production --unsafe-perm --ignore-scripts .
+RUN npm ci
 
 # global variables
 RUN echo "REACT_APP_GIT_COMMIT_HASH=$COMMIT_HASH" > .env.local
