@@ -1,6 +1,6 @@
-import { useQueryStringProp } from "./useQueryStringProp"
+import { useQueryStringProp } from "./useQueryStringProp";
 
-const DEFAULT_ID: string = "1"
+const DEFAULT_ID: string = "1";
 
 /**
  * ```
@@ -16,28 +16,28 @@ const DEFAULT_ID: string = "1"
  */
 
 export const useQueryStringModal = (prop: string) => {
-  const queryStringProp = useQueryStringProp(prop)
+  const queryStringProp = useQueryStringProp(prop);
 
   const shouldShow = queryStringProp
-    .exists()
+    .exists();
 
   const id = queryStringProp
-    .get()
+    .get();
 
   const getUrl = (id: string = DEFAULT_ID) =>
     queryStringProp
       .set(id)
-      .getUrl()
+      .getUrl();
 
   const handleClose = () =>
     queryStringProp
       .del()
-      .navigateToUrl()
+      .navigateToUrl();
 
   return {
     id,
     shouldShow,
     handleClose,
-    getUrl
-  }
-}
+    getUrl,
+  };
+};

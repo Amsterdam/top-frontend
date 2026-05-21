@@ -1,11 +1,11 @@
-import React from "react"
-import { useFormState } from "react-final-form"
+import React from "react";
+import { useFormState } from "react-final-form";
 
-import Scaffold from "app/features/shared/components/form/Scaffold"
-import translation from "app/features/visits/lang/nl_nl"
+import Scaffold from "app/features/shared/components/form/Scaffold";
+import translation from "app/features/visits/lang/nl_nl";
 
-import * as formDefinitions from "./NoteWizardFormDefinitions"
-import { OnBackButtonClick, WizardStep } from "app/features/visits/components/organisms/NoteWizard/types"
+import * as formDefinitions from "./NoteWizardFormDefinitions";
+import { OnBackButtonClick, WizardStep } from "app/features/visits/components/organisms/NoteWizard/types";
 
 type Props = {
   step: WizardStep
@@ -14,28 +14,28 @@ type Props = {
 }
 
 const NoteWizardFormScaffoldFields: React.FC<Props> = ({ step, onBackButtonClicked, daySettings }) => {
-  const { values } = useFormState()
+  const { values } = useFormState();
 
   const friendlySituation = values.situation === "nobody_present"
     ? "Er was niemand aanwezig"
-    : "Je kreeg geen medewerking"
+    : "Je kreeg geen medewerking";
 
   const choices = Object.keys({
     observation_choices: daySettings.team_settings.observation_choices,
-    suggest_next_visit_choices: daySettings.team_settings.suggest_next_visit_choices
+    suggest_next_visit_choices: daySettings.team_settings.suggest_next_visit_choices,
   }).reduce((previousValue, currentValue) => {
     // @ts-ignore
     previousValue[currentValue] = daySettings.team_settings[currentValue].reduce((prev, curr) => {
-      prev[curr.value] = curr.verbose
-      return prev
-    }, {})
-    return previousValue
-  }, {}) as Components.Schemas.TeamSettings
+      prev[curr.value] = curr.verbose;
+      return prev;
+    }, {});
+    return previousValue;
+  }, {}) as Components.Schemas.TeamSettings;
 
   const situation_choices = daySettings.team_settings.situation_choices.reduce((t, c) => {
-    t[c] = translation["visit_situation_" + c]
-    return t
-  }, {})
+    t[c] = translation["visit_situation_" + c];
+    return t;
+  }, {});
 
   return (
     <Scaffold
@@ -45,11 +45,11 @@ const NoteWizardFormScaffoldFields: React.FC<Props> = ({ step, onBackButtonClick
           choices.observation_choices,
           choices.suggest_next_visit_choices,
           situation_choices,
-          daySettings
+          daySettings,
         )
       }
     />
-  )
-}
+  );
+};
 
-export default NoteWizardFormScaffoldFields
+export default NoteWizardFormScaffoldFields;

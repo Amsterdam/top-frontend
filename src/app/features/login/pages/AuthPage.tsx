@@ -1,22 +1,22 @@
-import React from "react"
-import { Alert, Heading, Paragraph } from "@amsterdam/asc-ui"
+import React from "react";
+import { Alert, Heading, Paragraph } from "@amsterdam/asc-ui";
 
-import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout"
-import DefinitionList from "app/features/shared/components/molecules/DefinitionList/DefinitionList"
-import { useIsAuthorized } from "app/state/rest"
-import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
-import { useDecodedToken } from "app/state/auth/oidc/useDecodedToken"
+import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout";
+import DefinitionList from "app/features/shared/components/molecules/DefinitionList/DefinitionList";
+import { useIsAuthorized } from "app/state/rest";
+import Spacing from "app/features/shared/components/atoms/Spacing/Spacing";
+import { useDecodedToken } from "app/state/auth/oidc/useDecodedToken";
 
 const AuthPage: React.FC = () => {
-  const { data } = useIsAuthorized()
-  const decodedToken = useDecodedToken()
-  const showUnauthorized = data?.isAuthorized === false
+  const { data } = useIsAuthorized();
+  const decodedToken = useDecodedToken();
+  const showUnauthorized = data?.isAuthorized === false;
 
   const values = {
     "Voornaam": decodedToken?.given_name ?? "–",
     "Achternaam": decodedToken?.family_name ?? "–",
-    "E-mail": decodedToken?.unique_name ?? "–"
-  }
+    "E-mail": decodedToken?.unique_name ?? "–",
+  };
 
   return (
     <DefaultLayout>
@@ -42,7 +42,7 @@ const AuthPage: React.FC = () => {
       <Heading forwardedAs="h2">Micrososft Entra-ID account</Heading>
       <DefinitionList values={ values } />
     </DefaultLayout>
-  )
-}
+  );
+};
 
-export default AuthPage
+export default AuthPage;

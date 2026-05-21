@@ -1,5 +1,5 @@
-import React from "react"
-import styled from "styled-components"
+import React from "react";
+import styled from "styled-components";
 
 type Props = {
   items: string[]
@@ -8,11 +8,11 @@ type Props = {
 const Ul = styled.ul`
   margin: 0;
   padding: 0;
-`
+`;
 
 const Li = styled.li`
   margin: 0 0 8px;
-`
+`;
 
 const List: React.FC<Props> = ({ items }) => (
   <Ul>
@@ -22,6 +22,6 @@ const List: React.FC<Props> = ({ items }) => (
       </Li>)
     }
   </Ul>
-)
+);
 
-export default List
+export default List;

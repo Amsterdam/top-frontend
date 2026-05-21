@@ -1,15 +1,15 @@
-import React from "react"
-import { isRequired } from "@amsterdam/amsterdam-react-final-form"
-import { FormPositioner } from "@amsterdam/amsterdam-react-final-form"
-import { ChevronLeft } from "@amsterdam/asc-assets"
-import { Fields } from "app/features/shared/components/form/Scaffold"
-import { getDaySettingsOptions } from "app/features/itineraries/components/organisms/ItineraryForm/getDaySettingsOptions"
-import { NavigateToFunction } from "app/features/shared/routing/useNavigation"
+import React from "react";
+import { isRequired } from "@amsterdam/amsterdam-react-final-form";
+import { FormPositioner } from "@amsterdam/amsterdam-react-final-form";
+import { ChevronLeft } from "@amsterdam/asc-assets";
+import { Fields } from "app/features/shared/components/form/Scaffold";
+import { getDaySettingsOptions } from "app/features/itineraries/components/organisms/ItineraryForm/getDaySettingsOptions";
+import { NavigateToFunction } from "app/features/shared/routing/useNavigation";
 
 export const generateItineraryFormDefinition = (
   users: Components.Schemas.User[],
   daySettingsOptions: ReturnType<typeof getDaySettingsOptions>,
-  navigateTo: NavigateToFunction
+  navigateTo: NavigateToFunction,
 ) => {
   const definition: Fields = {
     user0: {
@@ -20,8 +20,8 @@ export const generateItineraryFormDefinition = (
         options: users,
         optionLabelField: "label",
         withEmptyOption: true,
-        validate: isRequired()
-      }
+        validate: isRequired(),
+      },
     },
     user1: {
       type: "UniqueDropdown",
@@ -31,8 +31,8 @@ export const generateItineraryFormDefinition = (
         options: users,
         optionLabelField: "label",
         withEmptyOption: true,
-        validate: isRequired()
-      }
+        validate: isRequired(),
+      },
     },
     user2: {
       type: "UniqueDropdown",
@@ -42,8 +42,8 @@ export const generateItineraryFormDefinition = (
         options: users,
         optionLabelField: "label",
         withEmptyOption: true,
-        validate: isRequired()
-      }
+        validate: isRequired(),
+      },
     },
     daySettings: {
       type: "ComplexRadioFields",
@@ -51,8 +51,8 @@ export const generateItineraryFormDefinition = (
         label: "Wat voor looplijst wil je maken?",
         name: "daySettings",
         optionLabelField: "label",
-        options: daySettingsOptions
-      }
+        options: daySettingsOptions,
+      },
     },
     numAddresses: {
       type: "NumberField",
@@ -61,15 +61,15 @@ export const generateItineraryFormDefinition = (
         name: "numAddresses",
         min: 1,
         max: 20,
-        validate: isRequired()
-      }
+        validate: isRequired(),
+      },
     },
     startAddress: {
       type: "AddressPicker",
       props: {
         label: "Startadres (optioneel)",
-        name: "startAddress"
-      }
+        name: "startAddress",
+      },
     },
     previous: {
       type: "Button",
@@ -78,18 +78,18 @@ export const generateItineraryFormDefinition = (
         label: "Vorige",
         onClick: () => navigateTo("/lijst-instellingen"),
         style: { marginTop: "16px" },
-        variant: "textButton"
-      }
+        variant: "textButton",
+      },
     },
     submit: {
       type: "SubmitButton",
       props: {
         align: "right",
         label: "Genereer looplijst",
-        style: { minWidth: "initial" }
-      }
-    }
-  }
+        style: { minWidth: "initial" },
+      },
+    },
+  };
 
   return new FormPositioner(definition)
     .setGrid("mobileS", "1fr 1fr", [
@@ -99,7 +99,7 @@ export const generateItineraryFormDefinition = (
       [ "daySettings", "daySettings" ],
       [ "numAddresses", "numAddresses" ],
       [ "startAddress", "startAddress" ],
-      [ "previous", "submit" ]
+      [ "previous", "submit" ],
     ])
-    .getFields()
-}
+    .getFields();
+};

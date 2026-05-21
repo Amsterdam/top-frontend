@@ -10,8 +10,8 @@ const months = [
   "sep",
   "okt",
   "nov",
-  "dec"
-]
+  "dec",
+];
 
 const days = [
   "zo",
@@ -20,29 +20,29 @@ const days = [
   "wo",
   "do",
   "vr",
-  "za"
-]
+  "za",
+];
 
 const formatDate = (date: string | Date, includeWeekDay = false, includeYear = true): string | undefined => {
-  const dateObj = (typeof date === "object") ? date : new Date(date)
+  const dateObj = (typeof date === "object") ? date : new Date(date);
 
   if (dateObj.toString() === "Invalid Date") {
-    return undefined
+    return undefined;
   }
 
-  let formattedDate: any[] = []
+  let formattedDate: any[] = [];
 
   if (includeWeekDay) {
-    formattedDate.push(days[dateObj.getDay()])
+    formattedDate.push(days[dateObj.getDay()]);
   }
 
-  formattedDate.push(dateObj.getDate(), months[dateObj.getMonth()])
+  formattedDate.push(dateObj.getDate(), months[dateObj.getMonth()]);
 
   if (includeYear) {
-    formattedDate.push(dateObj.getFullYear())
+    formattedDate.push(dateObj.getFullYear());
   }
 
-  return formattedDate.join(" ")
-}
+  return formattedDate.join(" ");
+};
 
-export default formatDate
+export default formatDate;

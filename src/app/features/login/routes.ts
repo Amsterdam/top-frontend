@@ -1,9 +1,9 @@
-import { lazy } from "react"
+import { lazy } from "react";
 
-const AuthPage = lazy(() => import("./pages/AuthPage"))
+const AuthPage = lazy(() => import("./pages/AuthPage"));
 
 const routes = {
-  "/auth": AuthPage
-}
+  "/auth": AuthPage,
+};
 
-export default routes
+export default routes;

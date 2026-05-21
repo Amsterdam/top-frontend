@@ -1,7 +1,7 @@
-import React, { createContext } from "react"
-import { useNoteWizardProvider } from "./hooks/useNoteWizardProvider"
+import React, { createContext } from "react";
+import { useNoteWizardProvider } from "./hooks/useNoteWizardProvider";
 
-const noop = () => undefined
+const noop = () => undefined;
 
 export const NoteWizardContext = createContext<ReturnType<typeof useNoteWizardProvider>>({
   state: {},
@@ -10,14 +10,14 @@ export const NoteWizardContext = createContext<ReturnType<typeof useNoteWizardPr
   pushStep: noop,
   popStep: noop,
   clearSteps: noop,
-  getCurrentStep: noop
-})
+  getCurrentStep: noop,
+});
 
 const NoteWizardProvider: React.FC = ({ children }) => {
-  const value = useNoteWizardProvider()
+  const value = useNoteWizardProvider();
   return <NoteWizardContext.Provider value={ value }>
     { children }
-  </NoteWizardContext.Provider>
-}
+  </NoteWizardContext.Provider>;
+};
 
-export default NoteWizardProvider
+export default NoteWizardProvider;

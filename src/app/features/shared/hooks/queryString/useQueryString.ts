@@ -1,5 +1,5 @@
-import { useLocation, useNavigate } from "react-router-dom"
-import { parse, queryString } from "./queryString"
+import { useLocation, useNavigate } from "react-router-dom";
+import { parse, queryString } from "./queryString";
 
 /**
  * Example usage:
@@ -19,7 +19,7 @@ import { parse, queryString } from "./queryString"
  */
 
 export const useQueryString = () => {
-  const { pathname, search } = useLocation()
-  const navigate = useNavigate()
-  return queryString(pathname, parse(search), navigate)
-}
+  const { pathname, search } = useLocation();
+  const navigate = useNavigate();
+  return queryString(pathname, parse(search), navigate);
+};

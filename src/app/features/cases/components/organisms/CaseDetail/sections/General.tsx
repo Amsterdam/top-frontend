@@ -1,19 +1,19 @@
-import React from "react"
-import styled from "styled-components"
-import { Heading } from "@amsterdam/asc-ui"
-import { CaseIdDisplay } from "@amsterdam/wonen-ui"
-import { useCase, useCorporations } from "app/state/rest"
-import Label from "app/features/shared/components/atoms/Label/Label"
-import Value from "app/features/shared/components/atoms/Value/Value"
-import StadiumBadge from "app/features/shared/components/molecules/StadiumBadge/StadiumBadge"
-import { getAddress, getNameById } from "../utils"
+import React from "react";
+import styled from "styled-components";
+import { Heading } from "@amsterdam/asc-ui";
+import { CaseIdDisplay } from "@amsterdam/wonen-ui";
+import { useCase, useCorporations } from "app/state/rest";
+import Label from "app/features/shared/components/atoms/Label/Label";
+import Value from "app/features/shared/components/atoms/Value/Value";
+import StadiumBadge from "app/features/shared/components/molecules/StadiumBadge/StadiumBadge";
+import { getAddress, getNameById } from "../utils";
 import {
   StyledAnchor,
   Grid,
   Section,
-  SectionRow
-} from "app/features/cases/components/organisms/CaseDetail/CaseDetailSectionStyles"
-import Tag from "app/features/shared/components/atoms/Tag/Tag"
+  SectionRow,
+} from "app/features/cases/components/organisms/CaseDetail/CaseDetailSectionStyles";
+import Tag from "app/features/shared/components/atoms/Tag/Tag";
 
 type Props = {
   caseId: string
@@ -22,31 +22,31 @@ type Props = {
 const PostalCode = styled.p`
   font-weight: bold;
   margin-bottom: 8px;
-`
+`;
 
 const BadgesRow = styled.div`
   display: flex;
   flex-wrap: wrap;
   margin-bottom: 8px;
   gap: 8px;
-`
+`;
 
 const General: React.FC<Props> = ({ caseId }) => {
-  const { data: caseData } = useCase(caseId)
-  const { data: corporations } = useCorporations()
-  const corporationName = getNameById(corporations || [], caseData?.address?.housing_corporation || "")
+  const { data: caseData } = useCase(caseId);
+  const { data: corporations } = useCorporations();
+  const corporationName = getNameById(corporations || [], caseData?.address?.housing_corporation || "");
 
   if (!caseData) {
-    return null
+    return null;
   }
 
-  const address = getAddress(caseData.address)
-  const postalCode = caseData.address.postal_code
+  const address = getAddress(caseData.address);
+  const postalCode = caseData.address.postal_code;
 
-  const hasPriority = (caseData.schedules && caseData.schedules[0]?.priority?.weight >= 0.5) ?? false
-  const hasWarrant = (caseData.schedules && caseData.schedules[0]?.priority?.weight >= 1.0) ?? false
-  const lastStadiumLabel = caseData.workflows?.length > 0 ? caseData.workflows[0].state.name : undefined
-  const hasProject = caseData?.project?.name !== undefined
+  const hasPriority = (caseData.schedules && caseData.schedules[0]?.priority?.weight >= 0.5) ?? false;
+  const hasWarrant = (caseData.schedules && caseData.schedules[0]?.priority?.weight >= 1.0) ?? false;
+  const lastStadiumLabel = caseData.workflows?.length > 0 ? caseData.workflows[0].state.name : undefined;
+  const hasProject = caseData?.project?.name !== undefined;
 
   return (
     <Section>
@@ -92,7 +92,7 @@ const General: React.FC<Props> = ({ caseId }) => {
         </StyledAnchor>
       </SectionRow>
     </Section>
-  )
-}
+  );
+};
 
-export default General
+export default General;

@@ -1,5 +1,5 @@
-import React, { FC, FormEvent } from "react"
-import styled from "styled-components"
+import React, { FC, FormEvent } from "react";
+import styled from "styled-components";
 
 type Props = {
   onClick: (e: FormEvent) => void
@@ -18,7 +18,7 @@ const Div = styled.div`
   &:hover {
     box-shadow: 0 5px 8px rgba(0, 0, 0, 0.6);
   }
-`
+`;
 
 const Button = styled.button`
   display: block;
@@ -29,7 +29,7 @@ const Button = styled.button`
   border: none;
   outline: none;
   cursor: pointer;
-`
+`;
 
 const Img = styled.span`
   display: inline-block;
@@ -39,13 +39,13 @@ const Img = styled.span`
   background-image: url('/icons/eye@2x.png');
   background-repeat: no-repeat;
   background-size: contain;
-`
+`;
 
 const ImgDisabled = styled(Img)`
   height: 36px;
   margin: 18px;
   background-image: url('/icons/eye-disabled@2x.png');
-`
+`;
 
 /**
  * Displays a round button with an eye in it, either open or closed.
@@ -54,7 +54,7 @@ const ImgDisabled = styled(Img)`
  * @param isOpen Whether to show an open eye in the button.
  */
 const EyeButton: FC<Props> = ({ onClick, isOpen }) => {
-  const getStyle = (isHidden: boolean) => isHidden ? { display: "none" } : undefined
+  const getStyle = (isHidden: boolean) => isHidden ? { display: "none" } : undefined;
 
   return (
     <Div>
@@ -63,7 +63,7 @@ const EyeButton: FC<Props> = ({ onClick, isOpen }) => {
         <ImgDisabled style={ getStyle(isOpen) } />
       </Button>
     </Div>
-  )
-}
+  );
+};
 
-export default EyeButton
+export default EyeButton;

@@ -1,12 +1,12 @@
-import React from "react"
-import { render, fireEvent } from "@testing-library/react"
-import { ScaffoldForm } from "@amsterdam/amsterdam-react-final-form"
-import UniqueDropdown from "./UniqueDropdown"
-import { vi, expect } from "vitest"
+import React from "react";
+import { render, fireEvent } from "@testing-library/react";
+import { ScaffoldForm } from "@amsterdam/amsterdam-react-final-form";
+import UniqueDropdown from "./UniqueDropdown";
+import { vi, expect } from "vitest";
 
 describe("UniqueDropdown", () => {
   it("should throw an error when given name is non array like", () => {
-    vi.spyOn(console, "error").mockImplementation(() => {})
+    vi.spyOn(console, "error").mockImplementation(() => {});
 
     expect(() =>
       render(
@@ -16,15 +16,15 @@ describe("UniqueDropdown", () => {
             options={[{ label: "foo" }]}
             optionLabelField="label"
           />
-        </ScaffoldForm>
-      )
-    ).toThrow()
+        </ScaffoldForm>,
+      ),
+    ).toThrow();
 
-    expect(console.error).toHaveBeenCalled()
-  })
+    expect(console.error).toHaveBeenCalled();
+  });
 
   it("should hide options if they are selected in another field", () => {
-    const options = [{ label: "foo" }, { label: "bar" }]
+    const options = [{ label: "foo" }, { label: "bar" }];
 
     const { getAllByTestId } = render(
       <ScaffoldForm onSubmit={vi.fn()}>
@@ -40,15 +40,15 @@ describe("UniqueDropdown", () => {
           optionLabelField="label"
           data-testid="unique-dropdown"
         />
-      </ScaffoldForm>
-    )
+      </ScaffoldForm>,
+    );
 
-    const dropdowns = getAllByTestId("unique-dropdown")
+    const dropdowns = getAllByTestId("unique-dropdown");
 
-    fireEvent.change(dropdowns[0], { target: { value: 0 } })
+    fireEvent.change(dropdowns[0], { target: { value: 0 } });
 
-    const otherOptions = dropdowns[1].querySelectorAll("option")
-    expect(otherOptions.length).toEqual(1)
-    expect(otherOptions[0].textContent).toEqual("bar")
-  })
-})
+    const otherOptions = dropdowns[1].querySelectorAll("option");
+    expect(otherOptions.length).toEqual(1);
+    expect(otherOptions[0].textContent).toEqual("bar");
+  });
+});

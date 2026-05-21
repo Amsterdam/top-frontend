@@ -1,5 +1,5 @@
-import { useEffect } from "react"
-import { useNavigate } from "react-router-dom"
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 /**
  * Custom React hook that checks the URL for the second part of the "state" parameter 
@@ -19,20 +19,20 @@ import { useNavigate } from "react-router-dom"
  */
 
 export const useRedirectFromState = () => {
-  const navigate = useNavigate()
-  const url = new URL(window.location.href)
-  const state = url.searchParams.get("state")
+  const navigate = useNavigate();
+  const url = new URL(window.location.href);
+  const state = url.searchParams.get("state");
 
   useEffect(() => {
-    if (!state) return
-    const [, originalUrl] = state.split(";")
+    if (!state) return;
+    const [, originalUrl] = state.split(";");
     if (originalUrl) {
-      const decodedUrl = decodeURIComponent(originalUrl)
-      window.history.replaceState({}, document.title, window.location.pathname)
-      navigate(decodedUrl)
+      const decodedUrl = decodeURIComponent(originalUrl);
+      window.history.replaceState({}, document.title, window.location.pathname);
+      navigate(decodedUrl);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [navigate])
-}
+  }, [navigate]);
+};
 
-export default useRedirectFromState
+export default useRedirectFromState;

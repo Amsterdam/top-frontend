@@ -1,6 +1,6 @@
-import React, { useCallback } from "react"
-import { Button } from "@amsterdam/asc-ui"
-import { useNavigate } from "react-router-dom"
+import React, { useCallback } from "react";
+import { Button } from "@amsterdam/asc-ui";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
   teamSettingsId: string
@@ -8,14 +8,14 @@ type Props = {
 }
 
 const AddDaySettingsButton: React.FC<Props> = ({ teamSettingsId, dayOfTheWeekId }) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleClick = useCallback(
     () => navigate(`/team-settings/${ teamSettingsId }/nieuw?d=${ dayOfTheWeekId }`),
-    [navigate, teamSettingsId, dayOfTheWeekId]
-  )
+    [navigate, teamSettingsId, dayOfTheWeekId],
+  );
 
-  return <Button variant="primaryInverted" onClick={ handleClick }>Toevoegen</Button>
-}
+  return <Button variant="primaryInverted" onClick={ handleClick }>Toevoegen</Button>;
+};
 
-export default AddDaySettingsButton
+export default AddDaySettingsButton;

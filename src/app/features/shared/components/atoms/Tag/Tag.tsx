@@ -1,5 +1,5 @@
-import React from "react"
-import styled from "styled-components"
+import React from "react";
+import styled from "styled-components";
 
 type Props = {
   color?: string
@@ -12,13 +12,13 @@ const StyledTag = styled.span<Props>`
   padding: 4px 8px;
   font-weight: 500;
   color: #FFFFFF;
-`
+`;
 
 const Column = styled.div`
   display: flex;
   flex-direction: column;
   align-items: start;
-`
+`;
 
 const Tag: React.FC<Props> = ({ color, children }) => (
   <Column>
@@ -26,6 +26,6 @@ const Tag: React.FC<Props> = ({ color, children }) => (
       { children }
     </StyledTag>
   </Column>
-)
+);
 
-export default Tag
+export default Tag;

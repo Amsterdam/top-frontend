@@ -1,10 +1,10 @@
-import React, { useContext } from "react"
-import styled from "styled-components"
-import { Close } from "@amsterdam/asc-assets"
-import { Button, Heading, Paragraph } from "@amsterdam/asc-ui"
+import React, { useContext } from "react";
+import styled from "styled-components";
+import { Close } from "@amsterdam/asc-assets";
+import { Button, Heading, Paragraph } from "@amsterdam/asc-ui";
 
-import { Severity } from "app/features/types"
-import { ErrorContext } from "app/state/error/ErrorProvider"
+import { Severity } from "app/features/types";
+import { ErrorContext } from "app/state/error/ErrorProvider";
 
 const Backdrop = styled.div`
   position: fixed;
@@ -14,7 +14,7 @@ const Backdrop = styled.div`
   right: 0;
   z-index: 10;
   background-color: rgba(0, 0, 0, .7);
-`
+`;
 
 const Wrap = styled.div<{ severity: Severity }>`
   position: fixed;
@@ -23,25 +23,25 @@ const Wrap = styled.div<{ severity: Severity }>`
   width: 100%;
   padding: 16px;
   background-color: ${ props => props.severity === "INFO" ? "#004699" : "#EC0000" };
-`
+`;
 
 const Stretch = styled.div`
   flex: 1;
-`
+`;
 
 const InverseHeading = styled(Heading)`
   color: #FFFFFF;
-`
+`;
 
 const InverseParagraph = styled(Paragraph)`
   color: #FFFFFF;
-`
+`;
 
 const ErrorDisplay: React.FC = () => {
-  const { message, severity, title, clearError } = useContext(ErrorContext)
+  const { message, severity, title, clearError } = useContext(ErrorContext);
 
   if (!message) {
-    return null
+    return null;
   }
 
   return (
@@ -61,7 +61,7 @@ const ErrorDisplay: React.FC = () => {
         />
       </Wrap>
     </Backdrop>
-  )
-}
+  );
+};
 
-export default ErrorDisplay
+export default ErrorDisplay;

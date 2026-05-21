@@ -1,8 +1,8 @@
-import React, { useCallback } from "react"
-import { TrashBin } from "@amsterdam/asc-assets"
+import React, { useCallback } from "react";
+import { TrashBin } from "@amsterdam/asc-assets";
 
-import StyledButton from "app/features/shared/components/atoms/StyledButton/StyledButton"
-import { useItineraryItem } from "app/state/rest"
+import StyledButton from "app/features/shared/components/atoms/StyledButton/StyledButton";
+import { useItineraryItem } from "app/state/rest";
 
 type Props = {
   onDeleteButtonClicked: () => void
@@ -10,16 +10,16 @@ type Props = {
 }
 
 const DeleteItineraryItemButton: React.FC<Props> = ({ id, onDeleteButtonClicked }) => {
-  const { execDelete } = useItineraryItem(id, { lazy: true })
+  const { execDelete } = useItineraryItem(id, { lazy: true });
 
   const handleClick = useCallback(() => {
     if (window.confirm("Weet je zeker dat je deze zaak uit je lijst wilt verwijderen?")) {
-      onDeleteButtonClicked()
-      return execDelete()
+      onDeleteButtonClicked();
+      return execDelete();
     }
-  }, [ execDelete, onDeleteButtonClicked ])
+  }, [ execDelete, onDeleteButtonClicked ]);
 
-  return <StyledButton variant="blank" onClick={ handleClick } icon={ <TrashBin /> } />
-}
+  return <StyledButton variant="blank" onClick={ handleClick } icon={ <TrashBin /> } />;
+};
 
-export default DeleteItineraryItemButton
+export default DeleteItineraryItemButton;

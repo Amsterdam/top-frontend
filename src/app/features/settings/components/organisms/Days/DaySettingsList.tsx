@@ -1,7 +1,7 @@
-import React from "react"
-import styled from "styled-components"
-import { Link } from "react-router-dom"
-import { Heading, Paragraph } from "@amsterdam/asc-ui"
+import React from "react";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
+import { Heading, Paragraph } from "@amsterdam/asc-ui";
 
 import {
   useTeamSettings,
@@ -12,58 +12,58 @@ import {
   useTeamSettingsSubjects,
   useTeamSettingsTags,
   useCorporations,
-  useDistricts
-} from "app/state/rest"
+  useDistricts,
+} from "app/state/rest";
 
-import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
-import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner"
-import DaySettingsCard from "app/features/settings/components/organisms/Days/DaySettingsCard"
-import AddDaySettingsButton from "app/features/settings/components/molecules/AddDaySettingsButton/AddDaySettingsButton"
-import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout"
-import { daysOfTheWeek } from "../../../utils/daysOfTheWeek"
+import Spacing from "app/features/shared/components/atoms/Spacing/Spacing";
+import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner";
+import DaySettingsCard from "app/features/settings/components/organisms/Days/DaySettingsCard";
+import AddDaySettingsButton from "app/features/settings/components/molecules/AddDaySettingsButton/AddDaySettingsButton";
+import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout";
+import { daysOfTheWeek } from "../../../utils/daysOfTheWeek";
 
 const Day = styled.div`
   display: flex;
   gap: 24px;
   position: relative; /* Positioning context for CenteredSpinner */
-`
+`;
 
 const Left = styled.div`
   flex-basis: 160px;
   padding: 16px 0;
-`
+`;
 
 const Grid = styled.div`
   flex: auto;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(512px, 1fr));
   gap: 16px;
-`
+`;
 
 const Hr = styled.hr`
   margin: 16px 0;
   border: 0;
   height: 1px;
   background: #B4B4B4;
-`
+`;
 
 type Props = {
   teamSettingsId: string
 }
 
 const DaySettingsList: React.FC<Props> = ({ teamSettingsId }) => {
-  const { data: teamSettings, isBusy: isBusySettings } = useTeamSettings(teamSettingsId!)
-  const { data: caseReasons } = useTeamSettingsReasons(teamSettingsId!)
-  const { data: teamScheduleTypes } = useTeamSettingsScheduleTypes(teamSettingsId!)
-  const { data: caseStateTypes } = useTeamSettingsStateTypes(teamSettingsId!)
-  const { data: caseProjects } = useTeamSettingsProjects(teamSettingsId!)
-  const { data: caseSubjects } = useTeamSettingsSubjects(teamSettingsId!)
-  const { data: caseTags } = useTeamSettingsTags(teamSettingsId!)
-  const { data: corporations } = useCorporations()
-  const { data: districts, isBusy: isBusyDistricts } = useDistricts()
+  const { data: teamSettings, isBusy: isBusySettings } = useTeamSettings(teamSettingsId!);
+  const { data: caseReasons } = useTeamSettingsReasons(teamSettingsId!);
+  const { data: teamScheduleTypes } = useTeamSettingsScheduleTypes(teamSettingsId!);
+  const { data: caseStateTypes } = useTeamSettingsStateTypes(teamSettingsId!);
+  const { data: caseProjects } = useTeamSettingsProjects(teamSettingsId!);
+  const { data: caseSubjects } = useTeamSettingsSubjects(teamSettingsId!);
+  const { data: caseTags } = useTeamSettingsTags(teamSettingsId!);
+  const { data: corporations } = useCorporations();
+  const { data: districts, isBusy: isBusyDistricts } = useDistricts();
 
   if (!teamSettings || isBusySettings || !districts || isBusyDistricts) {
-    return <CenteredSpinner explanation="Planning ophalen…" size={ 60 } />
+    return <CenteredSpinner explanation="Planning ophalen…" size={ 60 } />;
   }
 
   return (
@@ -102,14 +102,14 @@ const DaySettingsList: React.FC<Props> = ({ teamSettingsId }) => {
                     caseTags={ caseTags }
                     corporations={ corporations }
                     districts={ districts }
-                  />
+                  />,
               ) }
             </Grid>
           </Day>
-        </React.Fragment>
+        </React.Fragment>,
       ) }
     </DefaultLayout>
-  )
-}
+  );
+};
 
-export default DaySettingsList
+export default DaySettingsList;

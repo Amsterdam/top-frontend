@@ -1,8 +1,8 @@
-import loginRoutes from "../features/login/routes"
-import itinerariesRoutes from "../features/itineraries/routes"
-import settingsRoutes from "../features/settings/routes"
-import casesRoutes from "../features/cases/routes"
-import visitsRoutes from "../features/visits/routes"
+import loginRoutes from "../features/login/routes";
+import itinerariesRoutes from "../features/itineraries/routes";
+import settingsRoutes from "../features/settings/routes";
+import casesRoutes from "../features/cases/routes";
+import visitsRoutes from "../features/visits/routes";
 
 const routes = {
   // NOTE: add your own feature here for routing.
@@ -10,9 +10,9 @@ const routes = {
   ...itinerariesRoutes,
   ...settingsRoutes,
   ...casesRoutes,
-  ...visitsRoutes
-}
+  ...visitsRoutes,
+};
 
 export type Routes = typeof routes
 
-export default routes
+export default routes;

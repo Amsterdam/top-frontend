@@ -1,18 +1,18 @@
-import React from "react"
-import { useParams } from "react-router-dom"
-import { Heading } from "@amsterdam/asc-ui"
-import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout"
-import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner"
-import Suggestions from "./Suggestions"
-import { useGeoLocation } from "app/features/shared/hooks/useGeoLocation/useGeoLocation" 
+import React from "react";
+import { useParams } from "react-router-dom";
+import { Heading } from "@amsterdam/asc-ui";
+import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout";
+import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner";
+import Suggestions from "./Suggestions";
+import { useGeoLocation } from "app/features/shared/hooks/useGeoLocation/useGeoLocation"; 
 
 type Params = {
   itineraryId: string
 }
 
 const SuggestionsPage: React.FC = () => {
-  const { itineraryId } = useParams<Params>()
-  const { location, isBusy } = useGeoLocation()
+  const { itineraryId } = useParams<Params>();
+  const { location, isBusy } = useGeoLocation();
 
   return (
     <DefaultLayout>
@@ -26,7 +26,7 @@ const SuggestionsPage: React.FC = () => {
         />
       )}
     </DefaultLayout>
-  )
-}
+  );
+};
 
-export default SuggestionsPage
+export default SuggestionsPage;

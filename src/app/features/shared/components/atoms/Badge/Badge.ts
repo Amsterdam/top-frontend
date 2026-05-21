@@ -1,4 +1,4 @@
-import styled from "styled-components"
+import styled from "styled-components";
 
 export type Props = {
   variant?: "primary" | "secondary" | "tint"
@@ -16,6 +16,6 @@ const Badge = styled.span<Props>`
   padding: 4px 8px;
   font-weight: 500;
   color: #FFFFFF;
-`
+`;
 
-export default Badge
+export default Badge;

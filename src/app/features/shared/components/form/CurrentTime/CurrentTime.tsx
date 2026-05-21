@@ -1,15 +1,15 @@
-import React, { useCallback, useMemo, useState } from "react"
-import { useField } from "react-final-form"
+import React, { useCallback, useMemo, useState } from "react";
+import { useField } from "react-final-form";
 import {
   ComposedField,
   Dimensions,
   isRequired,
   Responsive,
   UnboundSelectField,
-  UnboundTextField
-} from "@amsterdam/amsterdam-react-final-form"
-import { getCurrentTime } from "app/features/visits/components/organisms/NoteWizard/utils/getCurrentTime"
-import styled from "styled-components"
+  UnboundTextField,
+} from "@amsterdam/amsterdam-react-final-form";
+import { getCurrentTime } from "app/features/visits/components/organisms/NoteWizard/utils/getCurrentTime";
+import styled from "styled-components";
 
 export type CurrentTimeProps = {
   position?: Responsive<Dimensions>
@@ -20,32 +20,32 @@ export type CurrentTimeProps = {
 
 const Wrap = styled.div`
   margin: 0 -8px;
-`
+`;
 
 const CurrentTime: React.FC<CurrentTimeProps> = ({ position, name, label, initialValue }) => {
-  const [ choice, setChoice ] = useState<string | undefined>()
-  const { input } = useField(name, { initialValue: initialValue, validate: isRequired() })
+  const [ choice, setChoice ] = useState<string | undefined>();
+  const { input } = useField(name, { initialValue: initialValue, validate: isRequired() });
 
   const handleChoice = useCallback((e: React.FormEvent<HTMLSelectElement>) => {
-    const choice = e.currentTarget.value
-    setChoice(choice)
-    input.onChange({ target: { value: choice === "now" ? getCurrentTime() : undefined } })
-  }, [ setChoice, input ])
+    const choice = e.currentTarget.value;
+    setChoice(choice);
+    input.onChange({ target: { value: choice === "now" ? getCurrentTime() : undefined } });
+  }, [ setChoice, input ]);
 
   const handleTextFieldChange = useCallback((e: React.FormEvent<HTMLInputElement>) => {
-    input.onChange({ target: { value: e.currentTarget.value } })
-  }, [ input ])
+    input.onChange({ target: { value: e.currentTarget.value } });
+  }, [ input ]);
 
   const options = useMemo(() => ({
     "now": `Nu (${ getCurrentTime() })`,
-    "other": "Anders..."
-  }), [])
+    "other": "Anders...",
+  }), []);
 
   const selectValue = input.value && input.value === getCurrentTime()
     ? "now"
     : input.value
       ? "other"
-      : undefined
+      : undefined;
 
   return (
     <ComposedField position={ position } label={ label }>
@@ -57,7 +57,7 @@ const CurrentTime: React.FC<CurrentTimeProps> = ({ position, name, label, initia
         }
       </Wrap>
     </ComposedField>
-  )
-}
+  );
+};
 
-export default CurrentTime
+export default CurrentTime;

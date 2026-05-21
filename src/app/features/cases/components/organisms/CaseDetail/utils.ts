@@ -1,16 +1,16 @@
-import { BagData, BagDataError, Case, Address } from "app/features/types"
-import displayAddress from "app/features/shared/utils/displayAddress"
+import { BagData, BagDataError, Case, Address } from "app/features/types";
+import displayAddress from "app/features/shared/utils/displayAddress";
 
-export const getAddress = (address: Address) => displayAddress(address.street_name, address.number, address.suffix_letter || undefined, address.suffix || undefined)
+export const getAddress = (address: Address) => displayAddress(address.street_name, address.number, address.suffix_letter || undefined, address.suffix || undefined);
 
 export const getBagId = (caseData: Case) => {
-  const hasBagData = (caseData?.bag_data as BagDataError).error === undefined
-  const bagData = caseData?.bag_data as BagData
+  const hasBagData = (caseData?.bag_data as BagDataError).error === undefined;
+  const bagData = caseData?.bag_data as BagData;
 
-  return hasBagData ? (bagData.verblijfsobjectIdentificatie ?? bagData.ligplaatsIdentificatie) : undefined
-}
+  return hasBagData ? (bagData.verblijfsobjectIdentificatie ?? bagData.ligplaatsIdentificatie) : undefined;
+};
 
-export const isNullish = (a: any): a is undefined | null => a === undefined || a === null || a === ""
+export const isNullish = (a: any): a is undefined | null => a === undefined || a === null || a === "";
 
 const logbookTranslationsMap: Record<string, string> = {
   nobody_present: "Niemand aanwezig",
@@ -24,10 +24,10 @@ const logbookTranslationsMap: Record<string, string> = {
   daytime: "Overdag",
   weekend: "Weekend",
   evening: "'s Avonds",
-  unknown: "Onbekend"
-}
+  unknown: "Onbekend",
+};
 
-export const mapLogbookValue = (key: string): string => logbookTranslationsMap[key] ?? key
+export const mapLogbookValue = (key: string): string => logbookTranslationsMap[key] ?? key;
 
 export type Item = {
   id: string | number
@@ -36,8 +36,8 @@ export type Item = {
 
 export function getNameById(
   items: Item[],
-  id: string | number
+  id: string | number,
 ): string | undefined {
-  const match = items.find(item => String(item.id) === String(id))
-  return match ? match.name : undefined
+  const match = items.find(item => String(item.id) === String(id));
+  return match ? match.name : undefined;
 }

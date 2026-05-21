@@ -1,7 +1,7 @@
-import React, { useCallback } from "react"
-import { useDaySettings } from "app/state/rest"
-import useNavigation from "app/features/shared/routing/useNavigation"
-import { Button } from "@amsterdam/asc-ui"
+import React, { useCallback } from "react";
+import { useDaySettings } from "app/state/rest";
+import useNavigation from "app/features/shared/routing/useNavigation";
+import { Button } from "@amsterdam/asc-ui";
 
 type Props = {
   teamSettingsId: string
@@ -9,17 +9,17 @@ type Props = {
 }
 
 const DeleteDaySettingsButton: React.FC<Props> = ({ teamSettingsId, daySettingsId }) => {
-  const { execDelete } = useDaySettings(daySettingsId, { lazy: true })
-  const { navigateTo } = useNavigation()
+  const { execDelete } = useDaySettings(daySettingsId, { lazy: true });
+  const { navigateTo } = useNavigation();
 
   const handleClick = useCallback(async () => {
     if (window.confirm("Weet je zeker dat je deze daginstelling wilt verwijderen?")) {
-      await navigateTo("/team-settings/:teamSettingsId", { teamSettingsId })
-      return execDelete()
+      await navigateTo("/team-settings/:teamSettingsId", { teamSettingsId });
+      return execDelete();
     }
-  }, [execDelete, navigateTo, teamSettingsId])
+  }, [execDelete, navigateTo, teamSettingsId]);
 
-  return <Button variant="primaryInverted" onClick={ handleClick }>Verwijderen</Button>
-}
+  return <Button variant="primaryInverted" onClick={ handleClick }>Verwijderen</Button>;
+};
 
-export default DeleteDaySettingsButton
+export default DeleteDaySettingsButton;

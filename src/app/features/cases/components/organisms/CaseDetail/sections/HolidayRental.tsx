@@ -1,13 +1,13 @@
-import React from "react"
+import React from "react";
 import {
   HolidayRentalReports,
   HolidayRentalRegistrations,
-  HolidayRentalReport
-} from "@amsterdam/wonen-ui"
-import { useCase, useMeldingen, useRegistrations } from "app/state/rest"
-import { getBagId } from "../utils"
-import CaseDetailSection from "../CaseDetailSection"
-import styled from "styled-components"
+  HolidayRentalReport,
+} from "@amsterdam/wonen-ui";
+import { useCase, useMeldingen, useRegistrations } from "app/state/rest";
+import { getBagId } from "../utils";
+import CaseDetailSection from "../CaseDetailSection";
+import styled from "styled-components";
 
 type Props = {
   caseId: string
@@ -15,14 +15,14 @@ type Props = {
 
 const Wrapper = styled.div`
   margin-bottom: 32px;
-`
+`;
 
 const HolidayRental: React.FC<Props> = ({ caseId }) => {
-  const { data: caseData } = useCase(caseId)
-  const bagId = getBagId(caseData!)
+  const { data: caseData } = useCase(caseId);
+  const bagId = getBagId(caseData!);
 
-  const { data: registrations, isBusy: isBusyRegistrations } = useRegistrations(bagId!, { lazy: !bagId })
-  const { data: meldingen, isBusy: isBusyMeldingen } = useMeldingen(bagId!, { lazy: !bagId })
+  const { data: registrations, isBusy: isBusyRegistrations } = useRegistrations(bagId!, { lazy: !bagId });
+  const { data: meldingen, isBusy: isBusyMeldingen } = useMeldingen(bagId!, { lazy: !bagId });
 
   return (
     <CaseDetailSection
@@ -46,7 +46,7 @@ const HolidayRental: React.FC<Props> = ({ caseId }) => {
         horizontalBordered={false}
       />
     </CaseDetailSection>
-  )
-}
+  );
+};
 
-export default HolidayRental
+export default HolidayRental;

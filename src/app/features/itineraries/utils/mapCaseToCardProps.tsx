@@ -1,42 +1,42 @@
-import React from "react"
+import React from "react";
 
-import StadiumBadge from "app/features/shared/components/molecules/StadiumBadge/StadiumBadge"
-import ItineraryItemCard from "app/features/shared/components/molecules/ItineraryItemCard/ItineraryItemCard"
-import displayAddress from "app/features/shared/utils/displayAddress"
-import AddItineraryItemButton from "../components/molecules/AddItineraryItemButton/AddItineraryItemButton"
-import { Case, Itinerary, ItineraryItem } from "app/features/types"
-import to from "../../shared/routing/to"
+import StadiumBadge from "app/features/shared/components/molecules/StadiumBadge/StadiumBadge";
+import ItineraryItemCard from "app/features/shared/components/molecules/ItineraryItemCard/ItineraryItemCard";
+import displayAddress from "app/features/shared/utils/displayAddress";
+import AddItineraryItemButton from "../components/molecules/AddItineraryItemButton/AddItineraryItemButton";
+import { Case, Itinerary, ItineraryItem } from "app/features/types";
+import to from "../../shared/routing/to";
 
 export const casesToCardCaseProps = (
   cases?: Case[],
   itinerary?: Itinerary,
-  addDistance: boolean = false
+  addDistance: boolean = false,
 ) => {
   if (!cases) {
-    return []
+    return [];
   }
 
   // Only return unique cases
   const uniqueCases = cases.filter(
-    (c, index, self) => index === self.findIndex((other) => other.id === c.id)
-  )
+    (c, index, self) => index === self.findIndex((other) => other.id === c.id),
+  );
 
   const caseIdMap = getCaseIdMap(
-    (itinerary?.items ?? []) as unknown as ItineraryItem[]
-  )
+    (itinerary?.items ?? []) as unknown as ItineraryItem[],
+  );
   return uniqueCases.map(
-    mapCaseToCardProps(itinerary?.id, caseIdMap, addDistance)
-  )
-}
+    mapCaseToCardProps(itinerary?.id, caseIdMap, addDistance),
+  );
+};
 
 const getCaseIdMap = (items: ItineraryItem[]) =>
-  items.reduce((acc, item) => ({ ...acc, [item.case.id ?? ""]: item.id }), {})
+  items.reduce((acc, item) => ({ ...acc, [item.case.id ?? ""]: item.id }), {});
 
 const mapCaseToCardProps =
   (
     itineraryId: number | undefined,
     itineraryItemIds: Record<string, number>,
-    addDistance: boolean = false
+    addDistance: boolean = false,
   ) =>
   ({
     address,
@@ -45,27 +45,27 @@ const mapCaseToCardProps =
     id,
     reason,
     schedules,
-    teams
+    teams,
   }: Case): React.ComponentProps<typeof ItineraryItemCard> => {
     const addressObject = displayAddress(
       address?.street_name,
       address?.number,
       address?.suffix_letter,
-      address?.suffix
-    )
+      address?.suffix,
+    );
 
     const badge =
       workflows && workflows.length > 0 ? (
         <StadiumBadge stadium={workflows[0].state.name || ""} />
       ) : (
         <StadiumBadge stadium={""} />
-      )
+      );
 
     const teamMembersList = teams?.length
       ? teams[0]
           .map((team: { user: { full_name: string } }) => team.user.full_name)
           .join(", ")
-      : ""
+      : "";
 
     const buttons = (onDeleteButtonClick: () => void) => (
       <>
@@ -79,7 +79,7 @@ const mapCaseToCardProps =
           <AddItineraryItemButton caseId={id} itinerary={itineraryId} />
         ) : null}
       </>
-    )
+    );
 
     return {
       address: addressObject,
@@ -91,6 +91,6 @@ const mapCaseToCardProps =
       href: to("/cases/:id", { id: String(id) }),
       postalCode: address.postal_code,
       reason: reason,
-      teamMembersList
-    }
-  }
+      teamMembersList,
+    };
+  };

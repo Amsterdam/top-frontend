@@ -1,42 +1,42 @@
-import { queryString } from "./queryString"
+import { queryString } from "./queryString";
 
 describe("queryString", () => {
   it("should be able to set a parameter", () => {
     const url = queryString("path", { foo: "fooVal" })
       .setParameter("bar", "barVal")
-      .getUrl()
+      .getUrl();
 
-    expect(url).toEqual("path?foo=fooVal&bar=barVal")
-  })
+    expect(url).toEqual("path?foo=fooVal&bar=barVal");
+  });
 
   it("should be able to check if a parameter exists", () => {
     const result = queryString("path", {})
       .setParameter("bar", "barVal")
-      .hasParameter("bar")
+      .hasParameter("bar");
 
-    expect(result).toEqual(true)
-  })
+    expect(result).toEqual(true);
+  });
 
   it("should be able to get a parameter", () => {
     const result = queryString("path", { foo: "fooVal" })
-      .getParameter("foo")
+      .getParameter("foo");
 
-    expect(result).toEqual("fooVal")
-  })
+    expect(result).toEqual("fooVal");
+  });
 
   it("should be able to delete a parameter", () => {
     const url = queryString("path", { foo: "fooVal", bar: "barVal" })
       .deleteParameter("foo")
-      .getUrl()
+      .getUrl();
 
-    expect(url).toEqual("path?bar=barVal")
-  })
+    expect(url).toEqual("path?bar=barVal");
+  });
 
   it("should strip the question mark if no parameters are left", () => {
     const url = queryString("path", { foo: "fooVal" })
       .deleteParameter("foo")
-      .getUrl()
+      .getUrl();
 
-    expect(url).toEqual("path")
-  })
-})
+    expect(url).toEqual("path");
+  });
+});

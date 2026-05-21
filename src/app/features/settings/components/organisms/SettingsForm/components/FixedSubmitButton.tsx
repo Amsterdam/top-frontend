@@ -1,11 +1,11 @@
-import React from "react"
-import { Button } from "@amsterdam/asc-ui"
-import { Checkmark, ChevronLeft } from "@amsterdam/asc-assets"
-import { useFormState } from "react-final-form"
-import ErrorMessage from "app/features/shared/components/atoms/ErrorMessage/ErrorMessage"
-import SuccessMessage from "app/features/shared/components/atoms/SuccessMessage/SuccessMessage"
-import SmallSpinner from "app/features/shared/components/atoms/SmallSpinner/SmallSpinner"
-import styles from "./FixedSubmitButton.module.css"
+import React from "react";
+import { Button } from "@amsterdam/asc-ui";
+import { Checkmark, ChevronLeft } from "@amsterdam/asc-assets";
+import { useFormState } from "react-final-form";
+import ErrorMessage from "app/features/shared/components/atoms/ErrorMessage/ErrorMessage";
+import SuccessMessage from "app/features/shared/components/atoms/SuccessMessage/SuccessMessage";
+import SmallSpinner from "app/features/shared/components/atoms/SmallSpinner/SmallSpinner";
+import styles from "./FixedSubmitButton.module.css";
 
 type Props = {
   errorMessage?: string
@@ -17,7 +17,7 @@ type Props = {
  * Renders a submit button in a fixed-positioned container
  */
 const FixedSubmitButton: React.FC<Props> = ({ errorMessage, caseCount, onClose }) => {
-  const { submitSucceeded, submitting, hasValidationErrors, dirty, dirtySinceLastSubmit } = useFormState()
+  const { submitSucceeded, submitting, hasValidationErrors, dirty, dirtySinceLastSubmit } = useFormState();
 
   return (
     <div>
@@ -44,7 +44,7 @@ const FixedSubmitButton: React.FC<Props> = ({ errorMessage, caseCount, onClose }
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default FixedSubmitButton
+export default FixedSubmitButton;

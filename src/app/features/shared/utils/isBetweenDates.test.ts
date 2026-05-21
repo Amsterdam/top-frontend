@@ -1,11 +1,11 @@
-import isBetweenDates from "./isBetweenDates"
+import isBetweenDates from "./isBetweenDates";
 
 describe("isBetweenDates", () => {
   it("false", () => {
-    expect(isBetweenDates(new Date("01-01-2019"), new Date("01-02-2019"), new Date("01-03-2019"))).toBe(false)
-  })
+    expect(isBetweenDates(new Date("01-01-2019"), new Date("01-02-2019"), new Date("01-03-2019"))).toBe(false);
+  });
 
   it("true", () => {
-    expect(isBetweenDates(new Date("01-01-2019"), new Date("01-03-2019"), new Date("01-02-2019"))).toBe(true)
-  })
-})
+    expect(isBetweenDates(new Date("01-01-2019"), new Date("01-03-2019"), new Date("01-02-2019"))).toBe(true);
+  });
+});

@@ -1,22 +1,22 @@
-import React, { useCallback } from "react"
-import { ScaffoldForm } from "@amsterdam/amsterdam-react-final-form"
-import styled from "styled-components"
-import { ItineraryItem } from "app/features/types"
-import { useLoggedInUser } from "app/state/rest/custom/useLoggedInUser"
-import { useItinerary } from "app/state/rest/custom/useItinerary"
-import useNavigation from "app/features/shared/routing/useNavigation"
-import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner"
-import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
-import { useNoteWizard } from "./hooks/useNoteWizard"
-import NoteWizardManager from "app/features/visits/components/organisms/NoteWizard/components/NoteWizardManager"
-import NoteWizardFormScaffoldFields from "./components/NoteWizardFormScaffoldFields"
-import NodeWizardSubtitle from "./components/NoteWizardSubtitle"
-import DeleteVisitButton from "app/features/visits/components/molecules/DeleteVisitButton/DeleteVisitButton"
-import { mapPostValues } from "./utils/mapValues"
-import { FormValues } from "app/features/visits/components/organisms/NoteWizard/types"
-import { useItineraries, useItineraryItem } from "app/state/rest"
-import calculateNewPosition from "app/features/itineraries/components/organisms/DraggableItineraryItemCardList/calculateNewPosition"
-import { itemsPositionSorter } from "app/features/itineraries/components/organisms/DraggableItineraryItemCardList/DraggableItineraryItemCardList"
+import React, { useCallback } from "react";
+import { ScaffoldForm } from "@amsterdam/amsterdam-react-final-form";
+import styled from "styled-components";
+import { ItineraryItem } from "app/features/types";
+import { useLoggedInUser } from "app/state/rest/custom/useLoggedInUser";
+import { useItinerary } from "app/state/rest/custom/useItinerary";
+import useNavigation from "app/features/shared/routing/useNavigation";
+import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner";
+import Spacing from "app/features/shared/components/atoms/Spacing/Spacing";
+import { useNoteWizard } from "./hooks/useNoteWizard";
+import NoteWizardManager from "app/features/visits/components/organisms/NoteWizard/components/NoteWizardManager";
+import NoteWizardFormScaffoldFields from "./components/NoteWizardFormScaffoldFields";
+import NodeWizardSubtitle from "./components/NoteWizardSubtitle";
+import DeleteVisitButton from "app/features/visits/components/molecules/DeleteVisitButton/DeleteVisitButton";
+import { mapPostValues } from "./utils/mapValues";
+import { FormValues } from "app/features/visits/components/organisms/NoteWizard/types";
+import { useItineraries, useItineraryItem } from "app/state/rest";
+import calculateNewPosition from "app/features/itineraries/components/organisms/DraggableItineraryItemCardList/calculateNewPosition";
+import { itemsPositionSorter } from "app/features/itineraries/components/organisms/DraggableItineraryItemCardList/DraggableItineraryItemCardList";
 
 type Props = {
   valuesFromApi?: FormValues
@@ -32,80 +32,80 @@ const ButtonWrap = styled.div`
   border-bottom: 1px solid #E6E6E6;
   background-color: #F5F5F5;
   text-align: right;
-`
+`;
 
 const NoteWizard: React.FC<Props> = ({ itineraryId, caseId, onSubmit, valuesFromApi, visitId }) => {
-  const { data: itinerary } = useItinerary(itineraryId)
+  const { data: itinerary } = useItinerary(itineraryId);
   const {
     pushStep,
     popStep,
     getCurrentStep,
     clearSteps,
     setValues,
-    getValues: getUnsubmittedValues
-  } = useNoteWizard(caseId)
-  const { navigateTo } = useNavigation()
-  const user = useLoggedInUser()
-  const { data } = useItineraries({ lazy: true })
-  const itineraryItem = itinerary?.items.find(item => item.case.id.toString() === caseId) as ItineraryItem
-  const { execPatch: execPatchItineraryItem } = useItineraryItem(itineraryItem?.id ?? "", { lazy: true })
+    getValues: getUnsubmittedValues,
+  } = useNoteWizard(caseId);
+  const { navigateTo } = useNavigation();
+  const user = useLoggedInUser();
+  const { data } = useItineraries({ lazy: true });
+  const itineraryItem = itinerary?.items.find(item => item.case.id.toString() === caseId) as ItineraryItem;
+  const { execPatch: execPatchItineraryItem } = useItineraryItem(itineraryItem?.id ?? "", { lazy: true });
 
-  const wizardStep = getCurrentStep() ?? "stepOne"
+  const wizardStep = getCurrentStep() ?? "stepOne";
 
   const handleBackButtonClick = useCallback((e: React.MouseEvent) => {
-    e.preventDefault()
-    popStep()
-  }, [ popStep ])
+    e.preventDefault();
+    popStep();
+  }, [ popStep ]);
 
   const moveItemToBottomList = useCallback(() => {
     // Get all items from the Itinerary list.
-    const items = data?.itineraries.find(_ => _.id.toString() === itineraryId)?.items ?? []
+    const items = data?.itineraries.find(_ => _.id.toString() === itineraryId)?.items ?? [];
     // Sort for position like the DraggableItineraryItemCardList.
-    const sortedItems = [ ...items ].sort(itemsPositionSorter)
+    const sortedItems = [ ...items ].sort(itemsPositionSorter);
     // Find the current index.
-    const sourceIndex = sortedItems.findIndex((_) => _.case.id === itineraryItem.case.id)
+    const sourceIndex = sortedItems.findIndex((_) => _.case.id === itineraryItem.case.id);
     // Destination index will be the bottom of the list
-    const destinationIndex = sortedItems.length - 1
+    const destinationIndex = sortedItems.length - 1;
     // Calculate new position with the current index and the destination index.
-    const position = calculateNewPosition(sortedItems, sourceIndex, destinationIndex)
-    execPatchItineraryItem({ position })
-  },[data?.itineraries, execPatchItineraryItem, itineraryId, itineraryItem?.case?.id])
+    const position = calculateNewPosition(sortedItems, sourceIndex, destinationIndex);
+    execPatchItineraryItem({ position });
+  },[data?.itineraries, execPatchItineraryItem, itineraryId, itineraryItem?.case?.id]);
 
   const handleSubmit = useCallback((values) => {
-    setValues(values)
+    setValues(values);
 
     const submit = () => onSubmit(mapPostValues(values, itineraryItem.id, itineraryItem.case.id.toString(), user!.id))
       .then(() => {
-        clearSteps()
-        moveItemToBottomList()
+        clearSteps();
+        moveItemToBottomList();
       })
-      .finally(() => navigateTo("/lijst/:itineraryId", { itineraryId }))
+      .finally(() => navigateTo("/lijst/:itineraryId", { itineraryId }));
 
     switch (wizardStep) {
       case "stepOne":
         pushStep(
           values.situation === "access_granted"
             ? "accessGranted"
-            : "notableThings"
-        )
-        break
+            : "notableThings",
+        );
+        break;
       case "notableThings":
-        pushStep("suggestion")
-        break
+        pushStep("suggestion");
+        break;
       case "suggestion":
         if (values.suggest_next_visit !== "unknown") {
-          pushStep("nextVisit")
+          pushStep("nextVisit");
         } else {
-          return submit()
+          return submit();
         }
-        break
+        break;
       case "nextVisit":
       case "accessGranted":
-        return submit()
+        return submit();
     }
 
-    return Promise.resolve(true)
-  }, [setValues, wizardStep, onSubmit, itineraryItem?.id, itineraryItem?.case?.id, user, clearSteps, moveItemToBottomList, navigateTo, itineraryId, pushStep])
+    return Promise.resolve(true);
+  }, [setValues, wizardStep, onSubmit, itineraryItem?.id, itineraryItem?.case?.id, user, clearSteps, moveItemToBottomList, navigateTo, itineraryId, pushStep]);
 
   return (
     itinerary && itineraryItem && user
@@ -131,7 +131,7 @@ const NoteWizard: React.FC<Props> = ({ itineraryId, caseId, onSubmit, valuesFrom
           </Spacing>
         </ScaffoldForm>
       ) : <CenteredSpinner size={ 60 } />
-  )
-}
+  );
+};
 
-export default NoteWizard
+export default NoteWizard;

@@ -1,27 +1,27 @@
-import { Itinerary } from "app/features/types"
-import useNavigation from "app/features/shared/routing/useNavigation"
+import { Itinerary } from "app/features/types";
+import useNavigation from "app/features/shared/routing/useNavigation";
 
 
 export const useRedirectToCorrectItineraryPage = () => {
-  const { navigateTo } = useNavigation()
+  const { navigateTo } = useNavigation();
 
   const redirectToCorrectItineraryPage = (itineraries?: Itinerary[], itineraryId?: string) => {
     if (!itineraries) {
-      return
+      return;
     }
 
     if (itineraries.length === 0) {
-      navigateTo("/lijst-instellingen")
+      navigateTo("/lijst-instellingen");
     }
 
     if (itineraries.length === 1) {
-      navigateTo("/lijst/:itineraryId", { itineraryId: itineraries[0].id.toString() })
+      navigateTo("/lijst/:itineraryId", { itineraryId: itineraries[0].id.toString() });
     }
 
     if (itineraries.length > 1 && !itineraryId) {
-      navigateTo("/kies-looplijst")
+      navigateTo("/kies-looplijst");
     }
-  }
+  };
 
-  return { redirectToCorrectItineraryPage }
-}
+  return { redirectToCorrectItineraryPage };
+};

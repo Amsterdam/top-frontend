@@ -1,12 +1,12 @@
-import React, { useCallback, useMemo } from "react"
-import { ScaffoldForm } from "@amsterdam/amsterdam-react-final-form"
+import React, { useCallback, useMemo } from "react";
+import { ScaffoldForm } from "@amsterdam/amsterdam-react-final-form";
 
-import { useTeam, useUsers } from "app/state/rest"
-import Scaffold from "app/features/shared/components/form/Scaffold"
+import { useTeam, useUsers } from "app/state/rest";
+import Scaffold from "app/features/shared/components/form/Scaffold";
 
-import { generateFormDefinition } from "./TeamMemberFormDefinition"
-import TeamMemberWarning from "./TeamMemberWarning"
-import mapUsersToLabel from "app/features/itineraries/utils/mapUsersToLabel"
+import { generateFormDefinition } from "./TeamMemberFormDefinition";
+import TeamMemberWarning from "./TeamMemberWarning";
+import mapUsersToLabel from "app/features/itineraries/utils/mapUsersToLabel";
 
 type Props = {
   itineraryId: number
@@ -19,16 +19,16 @@ type FormValues = {
 }
 
 const TeamMemberForm: React.FC<Props> = ({ toggleForm, itineraryId, initialUsers }) => {
-  const { data, isBusy } = useUsers()
-  const { execPut } = useTeam(itineraryId, { lazy: true })
+  const { data, isBusy } = useUsers();
+  const { execPut } = useTeam(itineraryId, { lazy: true });
 
-  const userOptions = mapUsersToLabel(data?.results ?? [])
-  const fields = useMemo(() => generateFormDefinition(userOptions, toggleForm), [ userOptions, toggleForm ])
+  const userOptions = mapUsersToLabel(data?.results ?? []);
+  const fields = useMemo(() => generateFormDefinition(userOptions, toggleForm), [ userOptions, toggleForm ]);
 
   const handleSubmit = useCallback(async (values: FormValues) => {
-    await execPut({ team_members: values.team_members.map(user => ({ user })) })
-    toggleForm()
-  }, [ execPut, toggleForm ])
+    await execPut({ team_members: values.team_members.map(user => ({ user })) });
+    toggleForm();
+  }, [ execPut, toggleForm ]);
 
   return (
     <ScaffoldForm
@@ -39,7 +39,7 @@ const TeamMemberForm: React.FC<Props> = ({ toggleForm, itineraryId, initialUsers
       <Scaffold fields={ fields } />
       <TeamMemberWarning />
     </ScaffoldForm>
-  )
-}
+  );
+};
 
-export default TeamMemberForm
+export default TeamMemberForm;

@@ -1,5 +1,5 @@
-import React from "react"
-import { Dd, Dl, Dt, Li, Ul } from "../../organisms/Days/DaySettingsCardStyles"
+import React from "react";
+import { Dd, Dl, Dt, Li, Ul } from "../../organisms/Days/DaySettingsCardStyles";
 
 type Props = {
   labels: string[]
@@ -7,11 +7,11 @@ type Props = {
   values?: any[] | null
 }
 
-const getNameById = (array: any[] | undefined, id: number) => array?.map((item) => (item.id === id) ? item.name : undefined)
+const getNameById = (array: any[] | undefined, id: number) => array?.map((item) => (item.id === id) ? item.name : undefined);
 
 const ValueList: React.FC<Props> = (({ labels, options, values }) => {
   if (!options) {
-    return null
+    return null;
   }
 
   return (
@@ -29,7 +29,7 @@ const ValueList: React.FC<Props> = (({ labels, options, values }) => {
           : "–" }
       </Dd>
     </Dl>
-  )
-})
+  );
+});
 
-export default ValueList
+export default ValueList;

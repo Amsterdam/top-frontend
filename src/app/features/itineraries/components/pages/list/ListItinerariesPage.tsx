@@ -1,32 +1,32 @@
-import React, { useEffect } from "react"
-import { Link } from "react-router-dom"
-import styled from "styled-components"
-import { Heading, Paragraph } from "@amsterdam/asc-ui"
+import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+import { Heading, Paragraph } from "@amsterdam/asc-ui";
 
-import { useItineraries } from "app/state/rest"
-import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
-import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout"
-import to from "app/features/shared/routing/to"
-import { useRedirectToCorrectItineraryPage } from "app/features/itineraries/utils/useRedirectToCorrectItineraryPage"
-import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner"
+import { useItineraries } from "app/state/rest";
+import Spacing from "app/features/shared/components/atoms/Spacing/Spacing";
+import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout";
+import to from "app/features/shared/routing/to";
+import { useRedirectToCorrectItineraryPage } from "app/features/itineraries/utils/useRedirectToCorrectItineraryPage";
+import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner";
 
 const Li = styled.li`
   margin-bottom: 16px;
-`
+`;
 
 const TeamName = styled.strong`
   display: block;
   font-weight: 500;
-`
+`;
 
 const ListItinerariesPage: React.FC = () => {
-  const { data, isBusy } = useItineraries()
-  const { redirectToCorrectItineraryPage } = useRedirectToCorrectItineraryPage()
+  const { data, isBusy } = useItineraries();
+  const { redirectToCorrectItineraryPage } = useRedirectToCorrectItineraryPage();
 
   useEffect(() => {
-    redirectToCorrectItineraryPage(data?.itineraries)
+    redirectToCorrectItineraryPage(data?.itineraries);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data])
+  }, [data]);
 
   return (
     <DefaultLayout>
@@ -52,7 +52,7 @@ const ListItinerariesPage: React.FC = () => {
         </>
       ) }
     </DefaultLayout>
-  )
-}
+  );
+};
 
-export default ListItinerariesPage
+export default ListItinerariesPage;

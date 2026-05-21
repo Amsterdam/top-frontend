@@ -1,42 +1,42 @@
-import React from "react"
+import React from "react";
 
-import StadiumBadge from "app/features/shared/components/molecules/StadiumBadge/StadiumBadge"
-import displayAddress from "app/features/shared/utils/displayAddress"
-import to from "app/features/shared/routing/to"
+import StadiumBadge from "app/features/shared/components/molecules/StadiumBadge/StadiumBadge";
+import displayAddress from "app/features/shared/utils/displayAddress";
+import to from "app/features/shared/routing/to";
 
-import { ItineraryItem } from "app/features/types"
-import ItineraryItemCardButtons from "../../molecules/ItineraryItemCardButtons/ItineraryItemCardButtons"
-import Notes from "../../molecules/Notes/Notes"
+import { ItineraryItem } from "app/features/types";
+import ItineraryItemCardButtons from "../../molecules/ItineraryItemCardButtons/ItineraryItemCardButtons";
+import Notes from "../../molecules/Notes/Notes";
 
 export const mapItineraryItem = (itineraryId: string, daySettings: Components.Schemas.DaySettings) => (
   {
     case: {
       data: {
         address: {
-          street_name, number, suffix_letter, suffix, postal_code
+          street_name, number, suffix_letter, suffix, postal_code,
         },
         workflows,
         reason,
         project,
         schedules,
         tags,
-        deleted
+        deleted,
       },
-      id: caseId
+      id: caseId,
     },
     id,
     position,
-    visits
+    visits,
   }: ItineraryItem) => {
-  const statusName = workflows?.length > 0 ? workflows[0].state.name ?? "" : undefined
+  const statusName = workflows?.length > 0 ? workflows[0].state.name ?? "" : undefined;
   const badge = statusName
     ? <StadiumBadge stadium={statusName} />
-    : undefined
+    : undefined;
 
   const isVisitStatus = workflows?.some(
     workflow => workflow?.state?.name?.includes("Huisbezoek") ||
-      workflow?.state?.name?.includes("Hercontrole")
-  ) || false
+      workflow?.state?.name?.includes("Hercontrole"),
+  ) || false;
 
   return {
     address: displayAddress(street_name, number, suffix_letter, suffix),
@@ -65,6 +65,6 @@ export const mapItineraryItem = (itineraryId: string, daySettings: Components.Sc
         onDeleteButtonClicked={onDeleteButtonClicked}
         visits={visits}
       />,
-    deleted
-  }
-}
+    deleted,
+  };
+};

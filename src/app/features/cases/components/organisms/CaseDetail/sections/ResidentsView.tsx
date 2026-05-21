@@ -1,13 +1,13 @@
-import { Residents } from "@amsterdam/wonen-ui"
-import CaseDetailSection from "app/features/cases/components/organisms/CaseDetail/CaseDetailSection"
-import { useResidents } from "app/state/rest"
+import { Residents } from "@amsterdam/wonen-ui";
+import CaseDetailSection from "app/features/cases/components/organisms/CaseDetail/CaseDetailSection";
+import { useResidents } from "app/state/rest";
 
 type Props = {
   bagId: string
 }
 
 const ResidentsView: React.FC<Props> = ({ bagId }) => {
-  const { data, isBusy, errors } = useResidents(bagId)
+  const { data, isBusy, errors } = useResidents(bagId);
 
   return (
     <CaseDetailSection title="Ingeschreven personen" dataSource="BRP">
@@ -19,7 +19,7 @@ const ResidentsView: React.FC<Props> = ({ bagId }) => {
           </div>
       )}
     </CaseDetailSection>
-  )
-}
+  );
+};
 
-export default ResidentsView
+export default ResidentsView;

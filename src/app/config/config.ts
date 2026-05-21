@@ -4,14 +4,14 @@ const config = {
     defaultPostalCodeRanges: [
       {
         range_start: 1000,
-        range_end: 1109
+        range_end: 1109,
       },{
         range_start: 1380,
-        range_end: 1384
-      }
-    ]
+        range_end: 1384,
+      },
+    ],
 
-  }
-}
+  },
+};
 
-export default config
+export default config;

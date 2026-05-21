@@ -1,4 +1,4 @@
-import { env } from "app/config/env"
+import { env } from "app/config/env";
 
 /*
  ** You must provide an implementation of onSigninCallback to oidcConfig to remove the payload from the URL upon successful login.
@@ -6,8 +6,8 @@ import { env } from "app/config/env"
  */
 
  export const onSigninCallback = () => {
-  window.history.replaceState({}, document.title, window.location.pathname)
-}
+  window.history.replaceState({}, document.title, window.location.pathname);
+};
 
 export const oidcConfig = {
   authority: "https://login.microsoftonline.com/72fca1b1-2c2e-4376-a445-294d80196804",
@@ -20,7 +20,7 @@ export const oidcConfig = {
     issuer: "https://login.microsoftonline.com/72fca1b1-2c2e-4376-a445-294d80196804/v2.0",
     authorization_endpoint: "https://login.microsoftonline.com/72fca1b1-2c2e-4376-a445-294d80196804/oauth2/v2.0/authorize",
     token_endpoint: "https://login.microsoftonline.com/72fca1b1-2c2e-4376-a445-294d80196804/oauth2/v2.0/token",
-    end_session_endpoint: "https://login.microsoftonline.com/common/oauth2/v2.0/logout"
+    end_session_endpoint: "https://login.microsoftonline.com/common/oauth2/v2.0/logout",
   },
-  onSigninCallback
-}
+  onSigninCallback,
+};

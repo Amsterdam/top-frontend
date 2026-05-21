@@ -1,12 +1,12 @@
-import React from "react"
-import { ComposedField } from "@amsterdam/amsterdam-react-final-form"
-import { Button } from "@amsterdam/asc-ui"
-import { Link } from "react-router-dom"
-import { useField } from "react-final-form"
-import { useStartAddressModal } from "./hooks/useStartAddressModal"
-import StartAddress from "./components/StartAddress/StartAddress"
-import AddStartAddressModal from "./components/AddStartAddressModal/AddStartAddressModal"
-import CaseModal from "./components/CaseModal/CaseModal"
+import React from "react";
+import { ComposedField } from "@amsterdam/amsterdam-react-final-form";
+import { Button } from "@amsterdam/asc-ui";
+import { Link } from "react-router-dom";
+import { useField } from "react-final-form";
+import { useStartAddressModal } from "./hooks/useStartAddressModal";
+import StartAddress from "./components/StartAddress/StartAddress";
+import AddStartAddressModal from "./components/AddStartAddressModal/AddStartAddressModal";
+import CaseModal from "./components/CaseModal/CaseModal";
 
 export type AddressPickerProps = React.ComponentProps<typeof ComposedField> & {
   name: string
@@ -16,8 +16,8 @@ export type AddressPickerProps = React.ComponentProps<typeof ComposedField> & {
  * Opens a modal in which you can select an address
  */
 const AddressPicker: React.FC<AddressPickerProps> = ({ position, align, label, hint, name }) => {
-  const { getUrl: getStartAddressUrl } = useStartAddressModal()
-  const { input: { value, onChange } } = useField<string>(name, {})
+  const { getUrl: getStartAddressUrl } = useStartAddressModal();
+  const { input: { value, onChange } } = useField<string>(name, {});
 
   return (
     <ComposedField position={ position } align={ align } label={ label } hint={ hint }>
@@ -38,10 +38,10 @@ const AddressPicker: React.FC<AddressPickerProps> = ({ position, align, label, h
           </Link>
         )
       }
-      <AddStartAddressModal onAddStartAddress={ (caseId: any) => { onChange(caseId) } } />
+      <AddStartAddressModal onAddStartAddress={ (caseId: any) => { onChange(caseId); } } />
       <CaseModal />
     </ComposedField>
-  )
-}
+  );
+};
 
-export default AddressPicker
+export default AddressPicker;

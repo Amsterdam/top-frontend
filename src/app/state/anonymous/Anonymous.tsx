@@ -1,8 +1,8 @@
-import React, { FC, useContext } from "react"
-import { AnonymousContext } from "./AnonymousProvider"
+import React, { FC, useContext } from "react";
+import { AnonymousContext } from "./AnonymousProvider";
 
 const Anonymous: FC = () => {
-  const { isAnonymous } = useContext(AnonymousContext)
+  const { isAnonymous } = useContext(AnonymousContext);
   return isAnonymous
     ? (
     <style>
@@ -21,7 +21,7 @@ const Anonymous: FC = () => {
         `
       }
     </style>
-    ) : null
-}
+    ) : null;
+};
 
-export default Anonymous
+export default Anonymous;

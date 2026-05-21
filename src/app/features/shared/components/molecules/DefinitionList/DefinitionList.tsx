@@ -1,9 +1,9 @@
-import React, { useCallback, useState } from "react"
-import { Heading } from "@amsterdam/asc-ui"
-import styled from "styled-components"
+import React, { useCallback, useState } from "react";
+import { Heading } from "@amsterdam/asc-ui";
+import styled from "styled-components";
 
-import SmallSkeleton from "app/features/shared/components/atoms/Skeleton/SmallSkeleton"
-import ToggleCollapse from "app/features/shared/components/atoms/ToggleCollapse/ToggleCollapse"
+import SmallSkeleton from "app/features/shared/components/atoms/Skeleton/SmallSkeleton";
+import ToggleCollapse from "app/features/shared/components/atoms/ToggleCollapse/ToggleCollapse";
 
 type Value = string | number | JSX.Element | undefined | null
 type Props = {
@@ -40,7 +40,7 @@ const StyledDl = styled.dl`
     flex: 3;
   }
 }
-`
+`;
 
 type LoadingRowsProps = {
   numRows: number
@@ -52,13 +52,13 @@ const LoadingRows: React.FC<LoadingRowsProps> = ({ numRows }) => <>
       <dd><SmallSkeleton /></dd>
     </div>
   )) }
-</>
+</>;
 
 const castValue = (value: Value): string | JSX.Element => {
-  if (value == null) return "–"
-  if (typeof value === "number") return `${ value }`
-  return value
-}
+  if (value == null) return "–";
+  if (typeof value === "number") return `${ value }`;
+  return value;
+};
 
 const DefinitionList: React.FC<Props> = ({
                                            isLoading,
@@ -66,19 +66,19 @@ const DefinitionList: React.FC<Props> = ({
                                            numInitialVisibleRows = Number.MAX_VALUE,
                                            title,
                                            values,
-                                           headingSize = "h2"
+                                           headingSize = "h2",
                                          }) => {
-  const [ isCollapsed, setIsCollapsed ] = useState(true)
+  const [ isCollapsed, setIsCollapsed ] = useState(true);
 
-  const toggleCollapsed = useCallback(() => setIsCollapsed(!isCollapsed), [ setIsCollapsed, isCollapsed ])
+  const toggleCollapsed = useCallback(() => setIsCollapsed(!isCollapsed), [ setIsCollapsed, isCollapsed ]);
 
-  const valueEntries = Object.entries(values)
+  const valueEntries = Object.entries(values);
 
-  const isCollapsible = valueEntries.length > numInitialVisibleRows
+  const isCollapsible = valueEntries.length > numInitialVisibleRows;
 
   const rows = isCollapsible && isCollapsed
     ? valueEntries.slice(0, numInitialVisibleRows)
-    : valueEntries
+    : valueEntries;
 
   return (
     <div>
@@ -100,7 +100,7 @@ const DefinitionList: React.FC<Props> = ({
       </StyledDl>
       { isCollapsible && <ToggleCollapse onClick={ toggleCollapsed } isCollapsed={ isCollapsed } /> }
     </div>
-  )
-}
+  );
+};
 
-export default DefinitionList
+export default DefinitionList;

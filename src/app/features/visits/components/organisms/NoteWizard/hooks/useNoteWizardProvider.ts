@@ -1,7 +1,7 @@
-import { useCallback, useReducer } from "react"
-import { produce } from "immer"
+import { useCallback, useReducer } from "react";
+import { produce } from "immer";
 
-import { FormValues, WizardStep } from "app/features/visits/components/organisms/NoteWizard/types"
+import { FormValues, WizardStep } from "app/features/visits/components/organisms/NoteWizard/types";
 
 export type WizardState = {
   steps: WizardStep[]
@@ -17,58 +17,58 @@ type Action =
 
 const reducer = produce((draft: State, action: Action) => {
   if (draft[action.caseId] === undefined) {
-    draft[action.caseId] = { steps: [], formValues: { start_time: "" } }
+    draft[action.caseId] = { steps: [], formValues: { start_time: "" } };
   }
 
   switch (action.type) {
     case "SET_VALUES":
-      draft[action.caseId].formValues = action.formValues
-      break
+      draft[action.caseId].formValues = action.formValues;
+      break;
     case "PUSH_STEP":
-      draft[action.caseId].steps.push(action.step)
-      break
+      draft[action.caseId].steps.push(action.step);
+      break;
     case "POP_STEP":
-      draft[action.caseId].steps.pop()
-      break
+      draft[action.caseId].steps.pop();
+      break;
     case "CLEAR_STEPS":
-      draft[action.caseId].formValues = undefined
-      draft[action.caseId].steps = []
-      break
+      draft[action.caseId].formValues = undefined;
+      draft[action.caseId].steps = [];
+      break;
   }
-})
+});
 
 export const useNoteWizardProvider = () => {
-  const [ state, dispatch ] = useReducer(reducer, {} as State)
+  const [ state, dispatch ] = useReducer(reducer, {} as State);
 
   const setValues = useCallback((caseId: string, formValues: FormValues) =>
       dispatch({ type: "SET_VALUES", caseId, formValues }),
-    [ dispatch ]
-  )
+    [ dispatch ],
+  );
 
   const getValues = useCallback((caseId: string): FormValues | undefined =>
       state[caseId]?.formValues as FormValues,
-    [ state ]
-  )
+    [ state ],
+  );
 
   const pushStep = useCallback((caseId: string, step: WizardStep) =>
       dispatch({ type: "PUSH_STEP", caseId, step }),
-    [ dispatch ]
-  )
+    [ dispatch ],
+  );
 
   const popStep = useCallback((caseId: string) =>
       dispatch({ type: "POP_STEP", caseId }),
-    [ dispatch ]
-  )
+    [ dispatch ],
+  );
 
   const clearSteps = useCallback((caseId: string) =>
       dispatch({ type: "CLEAR_STEPS", caseId }),
-    [ dispatch ]
-  )
+    [ dispatch ],
+  );
 
   const getCurrentStep = useCallback((caseId: string): WizardStep | undefined =>
       state[caseId]?.steps[state[caseId].steps.length - 1],
-    [ state ]
-  )
+    [ state ],
+  );
 
   return {
     state,
@@ -77,6 +77,6 @@ export const useNoteWizardProvider = () => {
     pushStep,
     popStep,
     clearSteps,
-    getCurrentStep
-  }
-}
+    getCurrentStep,
+  };
+};
