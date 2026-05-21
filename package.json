@@ -37,7 +37,7 @@
     "@types/react": "^17.0.43",
     "@types/react-dom": "^17.0.11",
     "@types/styled-components": "^5.1.26",
-    "@vitejs/plugin-react": "^5.1.4",
+    "@vitejs/plugin-react": "^6.0.2",
     "axios": "^1.15.2",
     "dayjs": "^1.11.19",
     "dompurify": "^3.4.1",
