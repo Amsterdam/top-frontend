@@ -1,8 +1,8 @@
-import React, { FC, useContext } from "react"
-import styled from "styled-components"
+import React, { FC, useContext } from "react";
+import styled from "styled-components";
 
-import EyeButton from "../../atoms/EyeButton/EyeButton"
-import { AnonymousContext } from "../../../../../state/anonymous/AnonymousProvider"
+import EyeButton from "../../atoms/EyeButton/EyeButton";
+import { AnonymousContext } from "../../../../../state/anonymous/AnonymousProvider";
 
 const Div = styled.div`
   position: fixed;
@@ -14,7 +14,7 @@ const Div = styled.div`
   display: flex;
   justify-content: flex-end;
   padding-right: 12px;
-`
+`;
 
 const Span = styled.span`
   position: fixed;
@@ -31,17 +31,17 @@ const Span = styled.span`
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2);
   transition: opacity 0.2s ease-out;
   opacity: ${ (props: { isHidden: boolean }) => props.isHidden ? 0 : 1 };
-`
+`;
 
 const AnonymousToggle: FC = () => {
-  const { isAnonymous, toggleAnonymous } = useContext(AnonymousContext)
+  const { isAnonymous, toggleAnonymous } = useContext(AnonymousContext);
 
   return (
     <Div>
       <Span isHidden={ !isAnonymous }>Privé modus staat aan</Span>
       <EyeButton onClick={ toggleAnonymous } isOpen={ isAnonymous } />
     </Div>
-  )
-}
+  );
+};
 
-export default AnonymousToggle
+export default AnonymousToggle;

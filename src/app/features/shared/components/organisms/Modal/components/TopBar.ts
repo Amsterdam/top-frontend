@@ -1,5 +1,5 @@
-import styled from "styled-components"
-import { ascDefaultTheme, constants } from "@amsterdam/asc-ui"
+import styled from "styled-components";
+import { ascDefaultTheme, constants } from "@amsterdam/asc-ui";
 
 export const TopBar = styled.div`
   box-sizing: border-box;
@@ -15,4 +15,4 @@ export const TopBar = styled.div`
     flex: 1;
     margin:0;
   }
-`
+`;

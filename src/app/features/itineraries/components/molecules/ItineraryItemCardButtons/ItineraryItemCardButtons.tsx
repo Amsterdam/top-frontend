@@ -1,15 +1,15 @@
-import React from "react"
-import useNavigation from "app/features/shared/routing/useNavigation"
-import { Button } from "@amsterdam/asc-ui"
-import styled from "styled-components"
-import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
-import DeleteItineraryItemButton from "app/features/itineraries/components/molecules/DeleteItineraryItemButton/DeleteItineraryItemButton"
-import CheckmarkIcon from "app/features/itineraries/components/atoms/CheckmarkIcon/CheckmarkIcon"
-import ClockIcon from "app/features/itineraries/components/atoms/ClockIcon/ClockIcon"
-import StyledButton from "app/features/shared/components/atoms/StyledButton/StyledButton"
-import EditDocumentIcon from "app/features/itineraries/components/atoms/EditDocumentIcon/EditDocumentIcon"
-import { mapDateToTime } from "app/features/visits/components/organisms/NoteWizard/utils/mapDateToTime"
-import CompleteVisitButton from "./CompleteVisitButton"
+import React from "react";
+import useNavigation from "app/features/shared/routing/useNavigation";
+import { Button } from "@amsterdam/asc-ui";
+import styled from "styled-components";
+import Spacing from "app/features/shared/components/atoms/Spacing/Spacing";
+import DeleteItineraryItemButton from "app/features/itineraries/components/molecules/DeleteItineraryItemButton/DeleteItineraryItemButton";
+import CheckmarkIcon from "app/features/itineraries/components/atoms/CheckmarkIcon/CheckmarkIcon";
+import ClockIcon from "app/features/itineraries/components/atoms/ClockIcon/ClockIcon";
+import StyledButton from "app/features/shared/components/atoms/StyledButton/StyledButton";
+import EditDocumentIcon from "app/features/itineraries/components/atoms/EditDocumentIcon/EditDocumentIcon";
+import { mapDateToTime } from "app/features/visits/components/organisms/NoteWizard/utils/mapDateToTime";
+import CompleteVisitButton from "./CompleteVisitButton";
 
 type Props = {
   itineraryId: string
@@ -22,14 +22,14 @@ type Props = {
 
 const StyledSpan = styled.span`
   margin-left: 12px;
-`
+`;
 
 const TextWithIcon = styled.div`
   display: flex;
   span {
     margin-right: 8px;
   }
-`
+`;
 
 const ItineraryItemCardButtons: React.FC<Props> = (
   {
@@ -38,19 +38,19 @@ const ItineraryItemCardButtons: React.FC<Props> = (
     caseId,
     isVisitStatus,
     visits,
-    onDeleteButtonClicked
-  }
+    onDeleteButtonClicked,
+  },
 ) => {
-  const { navigateTo } = useNavigation()
-  const visit = visits?.find((e: any) => e.case_id.case_id === caseId)
-  const isCompleted = visit?.completed
+  const { navigateTo } = useNavigation();
+  const visit = visits?.find((e: any) => e.case_id.case_id === caseId);
+  const isCompleted = visit?.completed;
 
   const deleteButton = (
     <DeleteItineraryItemButton
       onDeleteButtonClicked={ onDeleteButtonClicked }
       id={ itineraryItemId }
     />
-  )
+  );
 
   return visits[0] !== undefined ? (
     <>
@@ -99,7 +99,7 @@ const ItineraryItemCardButtons: React.FC<Props> = (
         { deleteButton }
       </Spacing>
     </>
-  )
-}
+  );
+};
 
-export default ItineraryItemCardButtons
+export default ItineraryItemCardButtons;

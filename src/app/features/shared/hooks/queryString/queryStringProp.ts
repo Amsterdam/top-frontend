@@ -1,4 +1,4 @@
-import { queryString } from "./queryString"
+import { queryString } from "./queryString";
 
 /**
  * Immutable queryString manager for a single prop.
@@ -8,15 +8,15 @@ import { queryString } from "./queryString"
  */
 
 export const queryStringProp = (qs: ReturnType<typeof queryString>, param: string) => {
-  const get = () => qs.getParameter(param)
+  const get = () => qs.getParameter(param);
 
-  const exists = () => qs.hasParameter(param)
+  const exists = () => qs.hasParameter(param);
 
   const del = () =>
-    queryStringProp(qs.deleteParameter(param), param)
+    queryStringProp(qs.deleteParameter(param), param);
 
   const set = (value: string) =>
-    queryStringProp(qs.setParameter(param, value), param)
+    queryStringProp(qs.setParameter(param, value), param);
 
   return {
     getUrl: qs.getUrl,
@@ -24,6 +24,6 @@ export const queryStringProp = (qs: ReturnType<typeof queryString>, param: strin
     get,
     set,
     exists,
-    del
-  }
-}
+    del,
+  };
+};

@@ -1,19 +1,19 @@
-import React, { useMemo } from "react"
-import { Enlarge } from "@amsterdam/asc-assets"
-import { useParams } from "react-router-dom"
+import React, { useMemo } from "react";
+import { Enlarge } from "@amsterdam/asc-assets";
+import { useParams } from "react-router-dom";
 
-import { useSearch, useTeamSettings } from "app/state/rest"
+import { useSearch, useTeamSettings } from "app/state/rest";
 
-import StadiumBadge from "app/features/shared/components/molecules/StadiumBadge/StadiumBadge"
-import displayAddress from "app/features/shared/utils/displayAddress"
-import StyledButton from "app/features/shared/components/atoms/StyledButton/StyledButton"
+import StadiumBadge from "app/features/shared/components/molecules/StadiumBadge/StadiumBadge";
+import displayAddress from "app/features/shared/utils/displayAddress";
+import StyledButton from "app/features/shared/components/atoms/StyledButton/StyledButton";
 
-import ItineraryItemCard from "app/features/shared/components/molecules/ItineraryItemCard/ItineraryItemCard"
+import ItineraryItemCard from "app/features/shared/components/molecules/ItineraryItemCard/ItineraryItemCard";
 import ItineraryItemCardList
-  from "app/features/itineraries/components/organisms/ItineraryItemCardList/ItineraryItemCardList"
-import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner"
-import { useCaseModal } from "../../hooks/useCaseModal"
-import { Case } from "app/features/types"
+  from "app/features/itineraries/components/organisms/ItineraryItemCardList/ItineraryItemCardList";
+import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner";
+import { useCaseModal } from "../../hooks/useCaseModal";
+import { Case } from "app/features/types";
 
 type HandleAddCallback = (caseId: string) => void
 
@@ -34,15 +34,15 @@ const mapResults = (handleAdd: HandleAddCallback, getUrl: (string: string) => st
       number,
       suffix_letter,
       suffix,
-      postal_code
+      postal_code,
     },
     reason,
     workflows,
-    teams
-  }: Case
+    teams,
+  }: Case,
 ): React.ComponentProps<typeof ItineraryItemCard> => {
-  const teamMembersList = teams?.length ? teams[0].map((team: { user: { full_name: string } }) => team.user.full_name).join(", ") : ""
-  const lastStadiumLabel = workflows?.length > 0 ? workflows[0].state.name : ""
+  const teamMembersList = teams?.length ? teams[0].map((team: { user: { full_name: string } }) => team.user.full_name).join(", ") : "";
+  const lastStadiumLabel = workflows?.length > 0 ? workflows[0].state.name : "";
   return {
     href: getUrl(String(id)),
     backgroundColor: "#F5F5F5",
@@ -52,9 +52,9 @@ const mapResults = (handleAdd: HandleAddCallback, getUrl: (string: string) => st
     badge: <StadiumBadge stadium={ lastStadiumLabel! } />,
     buttons: teamMembersList ? undefined : (() => <StyledButton icon={ <Enlarge /> }
                                                                 onClick={ () => handleAdd(String(id)) } />),
-    teamMembersList
-  }
-}
+    teamMembersList,
+  };
+};
 
 const StartAddressSearchResults: React.FC<Props> = (
   {
@@ -62,29 +62,29 @@ const StartAddressSearchResults: React.FC<Props> = (
     postalCode,
     streetName,
     streetNumber,
-    suffix
-  }
+    suffix,
+  },
 ) => {
-  const { teamSettingsId } = useParams()
-  const { data: teamSettings } = useTeamSettings(teamSettingsId!)
+  const { teamSettingsId } = useParams();
+  const { data: teamSettings } = useTeamSettings(teamSettingsId!);
   const { data, isBusy } = useSearch(
     streetNumber,
     postalCode,
     streetName,
     suffix,
-    teamSettings?.zaken_team_id || 0
-  )
-  const { getUrl } = useCaseModal()
+    teamSettings?.zaken_team_id || 0,
+  );
+  const { getUrl } = useCaseModal();
 
   const items = useMemo(
     () => data?.cases.map(mapResults(handleAddButtonClick, getUrl)),
-    [ data, handleAddButtonClick, getUrl ]
-  )
+    [ data, handleAddButtonClick, getUrl ],
+  );
   return isBusy || !items
     ? <CenteredSpinner explanation="Zaken ophalen…" size={ 60 } />
     : items && items.length > 0
       ? <ItineraryItemCardList items={ items } title="Deze zaken voldoen aan je zoekopdracht:" />
-      : <p>Geen zaken gevonden.</p>
-}
+      : <p>Geen zaken gevonden.</p>;
+};
 
-export default StartAddressSearchResults
+export default StartAddressSearchResults;

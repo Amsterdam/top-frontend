@@ -1,19 +1,19 @@
-import React, { useCallback } from "react"
-import { Button } from "@amsterdam/asc-ui"
+import React, { useCallback } from "react";
+import { Button } from "@amsterdam/asc-ui";
 
-import InfoIcon from "app/features/shared/components/atoms/InfoIcon/InfoIcon"
+import InfoIcon from "app/features/shared/components/atoms/InfoIcon/InfoIcon";
 
-import { useToggle } from "app/features/shared/hooks/useToggle/useToggle"
-import styled from "styled-components"
+import { useToggle } from "app/features/shared/hooks/useToggle/useToggle";
+import styled from "styled-components";
 
-const GUTTER = 8
-const HELP_TEXT_WIDTH = 320
+const GUTTER = 8;
+const HELP_TEXT_WIDTH = 320;
 
-const DIM = 20
+const DIM = 20;
 const Wrap = styled.div`
   width: ${ DIM }px;
   height: ${ DIM }px;
-`
+`;
 
 const Overlay = styled.div`
   position: fixed;
@@ -23,7 +23,7 @@ const Overlay = styled.div`
   right: 0;
   z-index: 100;
   background-color: rgba(0,0,0,.4);
-`
+`;
 
 const HelpText = styled.div`
   padding: 12px;
@@ -39,20 +39,20 @@ const HelpText = styled.div`
   p {
     white-space: normal;
   }
-`
+`;
 
 const StyledButton = styled(Button)`
   padding: 10px;
   border-radius: 50%;
-`
+`;
 
 const HelpButton: React.FC = ({ children }) => {
-  const [ isOpen, toggleOpen ] = useToggle(false)
+  const [ isOpen, toggleOpen ] = useToggle(false);
 
   const handleClick = useCallback((e: React.MouseEvent) => {
-    e.preventDefault()
-    toggleOpen()
-  }, [ toggleOpen ])
+    e.preventDefault();
+    toggleOpen();
+  }, [ toggleOpen ]);
 
   return (
     <Wrap>
@@ -68,7 +68,7 @@ const HelpButton: React.FC = ({ children }) => {
         </>
       ) }
     </Wrap>
-  )
-}
+  );
+};
 
-export default HelpButton
+export default HelpButton;

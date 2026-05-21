@@ -1,7 +1,7 @@
-import React from "react"
-import styled from "styled-components"
+import React from "react";
+import styled from "styled-components";
 
-import Badge, { Props as BadgeProps } from "app/features/shared/components/atoms/Badge/Badge"
+import Badge, { Props as BadgeProps } from "app/features/shared/components/atoms/Badge/Badge";
 
 type Props = {
   stadium: string
@@ -12,7 +12,7 @@ const Column = styled.div`
   display: flex;
   flex-direction: column;
   align-items: start;
-`
+`;
 
 const StadiumBadge: React.FC<Props> = ({ stadium, variant }) => (
   <Column>
@@ -20,6 +20,6 @@ const StadiumBadge: React.FC<Props> = ({ stadium, variant }) => (
       {stadium}
     </Badge>
   </Column>
-)
+);
 
-export default StadiumBadge
+export default StadiumBadge;

@@ -1,6 +1,6 @@
-import { useNavigate } from "react-router-dom"
-import { Routes } from "app/config/routes"
-import { to, RouteParams } from "./to"
+import { useNavigate } from "react-router-dom";
+import { Routes } from "app/config/routes";
+import { to, RouteParams } from "./to";
 
 export type NavigateToFunction = <T extends Routes, K extends keyof T>(
   path: K,
@@ -8,16 +8,16 @@ export type NavigateToFunction = <T extends Routes, K extends keyof T>(
 ) => void;
 
 const useNavigation = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const navigateTo = <T extends Routes, K extends keyof T>(
     path: K,
-    params?: RouteParams<T, K>
+    params?: RouteParams<T, K>,
   ) => {
-    navigate(to(path, params))
-  }
+    navigate(to(path, params));
+  };
 
-  return { navigateTo }
-}
+  return { navigateTo };
+};
 
-export default useNavigation
+export default useNavigation;

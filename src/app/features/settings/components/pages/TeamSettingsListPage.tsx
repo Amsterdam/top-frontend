@@ -1,26 +1,26 @@
-import React from "react"
-import styled from "styled-components"
-import { useThemes } from "app/state/rest"
-import { useLoggedInUser } from "app/state/rest/custom/useLoggedInUser"
-import { ChevronRight } from "@amsterdam/asc-assets"
-import { Button, Heading } from "@amsterdam/asc-ui"
-import Greeting from "app/features/shared/components/atoms/Greeting/Greeting"
-import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
-import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout"
-import useNavigation from "app/features/shared/routing/useNavigation"
+import React from "react";
+import styled from "styled-components";
+import { useThemes } from "app/state/rest";
+import { useLoggedInUser } from "app/state/rest/custom/useLoggedInUser";
+import { ChevronRight } from "@amsterdam/asc-assets";
+import { Button, Heading } from "@amsterdam/asc-ui";
+import Greeting from "app/features/shared/components/atoms/Greeting/Greeting";
+import Spacing from "app/features/shared/components/atoms/Spacing/Spacing";
+import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout";
+import useNavigation from "app/features/shared/routing/useNavigation";
 
 const ButtonsLayout = styled.div`
   display: grid;
   justify-items: start;
   gap: 24px;
-`
+`;
 
 const TeamSettingsListPage: React.FC = () => {
-  const { data } = useThemes()
-  const loggedInUser = useLoggedInUser()
-  const { navigateTo } = useNavigation()
+  const { data } = useThemes();
+  const loggedInUser = useLoggedInUser();
+  const { navigateTo } = useNavigation();
 
-  const themes = data?.results ?? []
+  const themes = data?.results ?? [];
 
   return (
     <DefaultLayout>
@@ -50,7 +50,7 @@ const TeamSettingsListPage: React.FC = () => {
         </>
       ) }
     </DefaultLayout>
-  )
-}
+  );
+};
 
-export default TeamSettingsListPage
+export default TeamSettingsListPage;

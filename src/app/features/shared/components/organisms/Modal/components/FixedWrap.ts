@@ -1,4 +1,4 @@
-import styled from "styled-components"
+import styled from "styled-components";
 
 export const FixedWrap = styled.div`    
   z-index: 99999; // HeaderWrap has z-index of 9999, we have top that. 
@@ -11,4 +11,4 @@ export const FixedWrap = styled.div`
   
   display: flex;
   flex-direction: column;     
-`
+`;

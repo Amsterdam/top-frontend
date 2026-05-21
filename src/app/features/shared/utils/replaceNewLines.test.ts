@@ -1,13 +1,13 @@
-import replaceNewLines from "./replaceNewLines"
+import replaceNewLines from "./replaceNewLines";
 
 describe("replaceNewLines", () => {
   it("default", () => {
-    const str = "Abc\nword\nlast"
-    expect(replaceNewLines(str)).toBe("Abc<br />word<br />last")
-  })
+    const str = "Abc\nword\nlast";
+    expect(replaceNewLines(str)).toBe("Abc<br />word<br />last");
+  });
 
   it("replaceWith", () => {
-    const str = "Abc\nword"
-    expect(replaceNewLines(str, "<br /><br />")).toBe("Abc<br /><br />word")
-  })
-})
+    const str = "Abc\nword";
+    expect(replaceNewLines(str, "<br /><br />")).toBe("Abc<br /><br />word");
+  });
+});

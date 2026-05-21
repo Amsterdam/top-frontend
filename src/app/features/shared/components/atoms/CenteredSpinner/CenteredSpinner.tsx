@@ -1,7 +1,7 @@
-import React, { FC } from "react"
-import styled from "styled-components"
-import { Spinner } from "@amsterdam/asc-ui"
-import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
+import React, { FC } from "react";
+import styled from "styled-components";
+import { Spinner } from "@amsterdam/asc-ui";
+import Spacing from "app/features/shared/components/atoms/Spacing/Spacing";
 
 export type Props = {
   explanation?: string
@@ -18,12 +18,12 @@ const CenterInViewport = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`
+`;
 
 const P = styled.p`
   margin: 0;
   font-weight: 500;
-`
+`;
 
 /**
  * Blah blah
@@ -38,6 +38,6 @@ const CenteredSpinner: FC<Props> = ({ size, explanation }) => (
     </Spacing>
     { explanation && <P>{ explanation }</P> }
   </CenterInViewport>
-)
+);
 
-export default CenteredSpinner
+export default CenteredSpinner;

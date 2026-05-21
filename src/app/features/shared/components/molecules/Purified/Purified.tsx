@@ -1,5 +1,5 @@
-import React from "react"
-import DOMPurify from "dompurify"
+import React from "react";
+import DOMPurify from "dompurify";
 
 type Props = {
   text: string
@@ -7,9 +7,9 @@ type Props = {
 }
 
 const Purified: React.FC<Props> = ({ text, className = "" }) => {
-  const purifiedText = DOMPurify.sanitize(text)
+  const purifiedText = DOMPurify.sanitize(text);
 
-  return <div className={ className } dangerouslySetInnerHTML={ { __html: purifiedText } } />
-}
+  return <div className={ className } dangerouslySetInnerHTML={ { __html: purifiedText } } />;
+};
 
-export default Purified
+export default Purified;

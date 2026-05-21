@@ -1,4 +1,4 @@
-import styled from "styled-components"
+import styled from "styled-components";
 
 export const Footer = styled.div`
   background-color: white;
@@ -7,4 +7,4 @@ export const Footer = styled.div`
   >button:not(:last-of-type) {
     margin-right: 15px;
   }
-`
+`;

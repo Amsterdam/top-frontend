@@ -1,11 +1,11 @@
-import { isRequired } from "@amsterdam/amsterdam-react-final-form"
-import { FormPositioner, FormPositionerFields } from "@amsterdam/amsterdam-react-final-form"
-import _isEmpty from "lodash/isEmpty"
+import { isRequired } from "@amsterdam/amsterdam-react-final-form";
+import { FormPositioner, FormPositionerFields } from "@amsterdam/amsterdam-react-final-form";
+import _isEmpty from "lodash/isEmpty";
 
-import config from "app/config/config"
-import { Field } from "app/features/shared/components/form/ScaffoldField"
-import postalCodeSiblingValidator from "../SettingsForm/validators/postalCodeSiblingValidator"
-import isSubletting from "app/features/settings/utils/isSubletting"
+import config from "app/config/config";
+import { Field } from "app/features/shared/components/form/ScaffoldField";
+import postalCodeSiblingValidator from "../SettingsForm/validators/postalCodeSiblingValidator";
+import isSubletting from "app/features/settings/utils/isSubletting";
 
 /**
  * Creates form definition for planningSettings
@@ -22,10 +22,10 @@ export const createDefinition = (
   tagOptions: any,
   corporationOptions: any,
   districtOptions: any,
-  teamSettings?: Components.Schemas.TeamSettings | Components.Schemas.DaySettings["team_settings"]
+  teamSettings?: Components.Schemas.TeamSettings | Components.Schemas.DaySettings["team_settings"],
 ) => {
-  const { allowedPostalCodes } = config.settings
-  const isSublet = isSubletting(teamSettings) // Onderhuur
+  const { allowedPostalCodes } = config.settings;
+  const isSublet = isSubletting(teamSettings); // Onderhuur
 
   const definition: FormPositionerFields<Field> = {
     name: {
@@ -34,8 +34,8 @@ export const createDefinition = (
         label: "Geef deze daginstelling een naam",
         name: "name",
         type: "text",
-        validate: isRequired()
-      }
+        validate: isRequired(),
+      },
     },
     opening_date: {
       type: "TextField",
@@ -43,16 +43,16 @@ export const createDefinition = (
         label: "Begindatum van ingeplande bezoeken",
         name: "opening_date",
         type: "date",
-        validate: isRequired()
-      }
+        validate: isRequired(),
+      },
     },
     max_use_limit: {
       type: "SelectField",
       props: {
         label: "Hoeveel looplijsten mogen deze instelling gebruiken?",
         name: "max_use_limit",
-        options: { "0": "Onbeperkt", "1": "1", "2": "2", "3": "3", "4": "4", "5": "5" }
-      }
+        options: { "0": "Onbeperkt", "1": "1", "2": "2", "3": "3", "4": "4", "5": "5" },
+      },
     },
     geo_type: {
       type: "RadioFields",
@@ -62,9 +62,9 @@ export const createDefinition = (
         name: "postal_codes_type",
         options: {
           postcode: "Postcodes",
-          stadsdeel: "Stadsdelen"
-        }
-      }
+          stadsdeel: "Stadsdelen",
+        },
+      },
     },
     postal_codes: {
       type: "ShowHide",
@@ -79,7 +79,7 @@ export const createDefinition = (
             minItems: 1,
             columns: {
               "tabletM": "1fr 1fr 1fr",
-              "laptopM": "1fr 1fr 1fr 1fr"
+              "laptopM": "1fr 1fr 1fr 1fr",
             },
             scaffoldFields: {
               postal_code_range_start: {
@@ -87,21 +87,21 @@ export const createDefinition = (
                 props: {
                   name: "range_start",
                   label: "Van",
-                  validate: postalCodeSiblingValidator("start", allowedPostalCodes)
-                }
+                  validate: postalCodeSiblingValidator("start", allowedPostalCodes),
+                },
               },
               postal_code_range_end: {
                 type: "NumberField",
                 props: {
                   name: "range_end",
                   label: "Tot en met",
-                  validate: postalCodeSiblingValidator("end", allowedPostalCodes)
-                }
-              }
-            }
-          }
-        }
-      }
+                  validate: postalCodeSiblingValidator("end", allowedPostalCodes),
+                },
+              },
+            },
+          },
+        },
+      },
     },
     districts: {
       type: "ShowHide",
@@ -113,10 +113,10 @@ export const createDefinition = (
             name: "districts",
             options: districtOptions,
             columnCount: { mobileM: 2, tabletM: 4 },
-            validate: isRequired()
-          }
-        }
-      }
+            validate: isRequired(),
+          },
+        },
+      },
     },
     housingCorporationCombiteam: {
       type: "ShowHide",
@@ -131,11 +131,11 @@ export const createDefinition = (
             options: {
               include: "Ja",
               exclude: "Nee",
-              ignore: "Geen voorkeur"
-            }
-          }
-        }
-      }
+              ignore: "Geen voorkeur",
+            },
+          },
+        },
+      },
     },
     housingCorporations: {
       type: "ShowHide",
@@ -147,10 +147,10 @@ export const createDefinition = (
             label: "Met welke corporaties wil je dat de looplijsten gegenereerd worden?",
             name: "housing_corporations",
             options: corporationOptions,
-            columnCount: { mobileM: 2, tabletM: 4 }
-          }
-        }
-      }
+            columnCount: { mobileM: 2, tabletM: 4 },
+          },
+        },
+      },
     },
     reasons: {
       type: "CheckboxFields",
@@ -159,8 +159,8 @@ export const createDefinition = (
         name: "reasons",
         options: reasonsOptions,
         columnCount: { mobileM: 2, tabletM: 4 },
-        validate: isRequired()
-      }
+        validate: isRequired(),
+      },
     },
     filteredProjects: {
       type: "ShowHide",
@@ -172,10 +172,10 @@ export const createDefinition = (
             label: "Met welke projecten wil je dat de looplijsten gegenereerd worden? (niet verplicht)",
             name: "project_ids",
             options: projectOptions,
-            columnCount: { mobileM: 2, tabletM: 4 }
-          }
-        }
-      }
+            columnCount: { mobileM: 2, tabletM: 4 },
+          },
+        },
+      },
     },
     subjects: {
       type: "ShowHide",
@@ -187,10 +187,10 @@ export const createDefinition = (
             label: "Met welke onderwerpen wil je dat de looplijsten gegenereerd worden? (niet verplicht)",
             name: "subjects",
             options: subjectOptions,
-            columnCount: { mobileM: 2, tabletM: 4 }
-          }
-        }
-      }
+            columnCount: { mobileM: 2, tabletM: 4 },
+          },
+        },
+      },
     },
     tags: {
       type: "ShowHide",
@@ -202,10 +202,10 @@ export const createDefinition = (
             label: "Met welke tags wil je dat de looplijsten gegenereerd worden? (niet verplicht)",
             name: "tags",
             options: tagOptions,
-            columnCount: { mobileM: 2, tabletM: 4 }
-          }
-        }
-      }
+            columnCount: { mobileM: 2, tabletM: 4 },
+          },
+        },
+      },
     },
     stateTypes: {
       type: "CheckboxFields",
@@ -214,8 +214,8 @@ export const createDefinition = (
         name: "state_types",
         options: stateTypeOptions,
         columnCount: { mobileM: 2, tabletM: 4 },
-        validate: isRequired()
-      }
+        validate: isRequired(),
+      },
     },
     daySegments: {
       type: "CheckboxFields",
@@ -224,8 +224,8 @@ export const createDefinition = (
         name: "day_segments",
         options: daySegmentsOptions,
         columnCount: { mobileM: 2, tabletM: 4 },
-        validate: isRequired()
-      }
+        validate: isRequired(),
+      },
     },
     weekSegments: {
       type: "CheckboxFields",
@@ -234,8 +234,8 @@ export const createDefinition = (
         name: "week_segments",
         options: weekSegmentsOptions,
         columnCount: { mobileM: 2, tabletM: 4 },
-        validate: isRequired()
-      }
+        validate: isRequired(),
+      },
     },
     priorities: {
       type: "CheckboxFields",
@@ -244,20 +244,20 @@ export const createDefinition = (
         name: "priorities",
         options: prioritiesOptions,
         columnCount: { mobileM: 2, tabletM: 4 },
-        validate: isRequired()
-      }
+        validate: isRequired(),
+      },
     },
     divider1: {
       type: "Divider",
-      props: {}
+      props: {},
     },
     divider2: {
       type: "Divider",
-      props: {}
+      props: {},
     },
     divider3: {
       type: "Divider",
-      props: {}
+      props: {},
     },
     divider4: {
       type: "ShowHide",
@@ -265,29 +265,29 @@ export const createDefinition = (
         shouldShow: () => !_isEmpty(projectOptions), // If there are no projects, remove question and divider.
         field: {
           type: "Divider",
-          props: {}
-        }
-      }
+          props: {},
+        },
+      },
     },
     divider5: {
       type: "Divider",
-      props: {}
+      props: {},
     },
     divider6: {
       type: "Divider",
-      props: {}
+      props: {},
     },
     divider7: {
       type: "Divider",
-      props: {}
+      props: {},
     },
     divider8: {
       type: "Divider",
-      props: {}
+      props: {},
     },
     divider9: {
       type: "Divider",
-      props: {}
+      props: {},
     },
     divider10: {
       type: "ShowHide",
@@ -295,9 +295,9 @@ export const createDefinition = (
         shouldShow: () => isSublet, // Sublet use only.
         field: {
           type: "Divider",
-          props: {}
-        }
-      }
+          props: {},
+        },
+      },
     },
     divider11: {
       type: "ShowHide",
@@ -305,9 +305,9 @@ export const createDefinition = (
         shouldShow: () => !_isEmpty(subjectOptions), // If there are no subjects, remove question and divider.
         field: {
           type: "Divider",
-          props: {}
-        }
-      }
+          props: {},
+        },
+      },
     },
     divider12: {
       type: "ShowHide",
@@ -315,11 +315,11 @@ export const createDefinition = (
         shouldShow: () => !_isEmpty(tagOptions), // If there are no subjects, remove question and divider.
         field: {
           type: "Divider",
-          props: {}
-        }
-      }
-    }
-  }
+          props: {},
+        },
+      },
+    },
+  };
 
   // Align properties:
   return new FormPositioner(definition)
@@ -350,7 +350,7 @@ export const createDefinition = (
       [ "weekSegments", "weekSegments", "weekSegments" ],
       [ "divider7", "divider7", "divider7" ],
       [ "priorities", "priorities", "priorities" ],
-      [ "divider8", "divider8", "divider8" ]
+      [ "divider8", "divider8", "divider8" ],
     ])
     .setGrid("laptop", "1fr 1fr 1fr 1fr 1fr", [
       [ "divider1", "divider1", "divider1", "divider1", "divider1" ],
@@ -378,7 +378,7 @@ export const createDefinition = (
       [ "weekSegments", "weekSegments", "weekSegments", "weekSegments", "weekSegments" ],
       [ "divider7", "divider7", "divider7", "divider7", "divider7" ],
       [ "priorities", "priorities", "priorities", "priorities", "priorities" ],
-      [ "divider8", "divider8", "divider8", "divider8", "divider8" ]
+      [ "divider8", "divider8", "divider8", "divider8", "divider8" ],
     ])
-    .getScaffoldProps()
-}
+    .getScaffoldProps();
+};

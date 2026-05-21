@@ -1,21 +1,21 @@
-import React from "react"
-import { useParams } from "react-router-dom"
+import React from "react";
+import { useParams } from "react-router-dom";
 
-import { useCase } from "app/state/rest"
+import { useCase } from "app/state/rest";
 
-import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout"
-import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner"
+import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout";
+import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner";
 
-import CaseDetail from "app/features/cases/components/organisms/CaseDetail/CaseDetail"
-import AnonymousToggle from "app/features/cases/components/molecules/AnonymousToggle/AnonymousToggle"
+import CaseDetail from "app/features/cases/components/organisms/CaseDetail/CaseDetail";
+import AnonymousToggle from "app/features/cases/components/molecules/AnonymousToggle/AnonymousToggle";
 
 type Props = {
   id: string
 }
 
 const CaseDetailPage: React.FC = () => {
-  const { id } = useParams<Props>()
-  const { data, isBusy } = useCase(id!)
+  const { id } = useParams<Props>();
+  const { data, isBusy } = useCase(id!);
 
   return (
     <DefaultLayout>
@@ -24,7 +24,7 @@ const CaseDetailPage: React.FC = () => {
       { data && id && <AnonymousToggle /> }
       { !isBusy && !data && <p>Geen zaak gevonden met id ‘{ id }’.</p> }
     </DefaultLayout>
-  )
-}
+  );
+};
 
-export default CaseDetailPage
+export default CaseDetailPage;

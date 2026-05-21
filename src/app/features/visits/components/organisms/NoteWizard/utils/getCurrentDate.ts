@@ -1,6 +1,6 @@
 const getCurrentDate = () => {
-  const date = new Date()
-  return `${ date.getFullYear() }-${ date.getMonth() + 1 }-${ date.getDate() }`
-}
+  const date = new Date();
+  return `${ date.getFullYear() }-${ date.getMonth() + 1 }-${ date.getDate() }`;
+};
 
-export default getCurrentDate
+export default getCurrentDate;

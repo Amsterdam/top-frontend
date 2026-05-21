@@ -1,8 +1,8 @@
-import React, { FC, MouseEvent, useCallback, useRef } from "react"
-import { DocumentText } from "@amsterdam/asc-assets"
-import styled from "styled-components"
+import React, { FC, MouseEvent, useCallback, useRef } from "react";
+import { DocumentText } from "@amsterdam/asc-assets";
+import styled from "styled-components";
 
-import StyledButton from "app/features/shared/components/atoms/StyledButton/StyledButton"
+import StyledButton from "app/features/shared/components/atoms/StyledButton/StyledButton";
 
 type Props = {
   text: string
@@ -12,23 +12,23 @@ type Props = {
 const TextArea = styled.textarea`
   position: absolute;
   left: -9999px;
-`
+`;
 
 const CopyToClipboardButton: FC<Props> = ({ text, onClick }) => {
-  const ref = useRef<HTMLTextAreaElement>(null)
+  const ref = useRef<HTMLTextAreaElement>(null);
 
   const handleOnClick = useCallback((event: MouseEvent) => {
-    event.preventDefault()
-    const textarea = ref.current
-    if (textarea === null) return
-    textarea.value = text
-    textarea.select()
-    document.execCommand("copy")
+    event.preventDefault();
+    const textarea = ref.current;
+    if (textarea === null) return;
+    textarea.value = text;
+    textarea.select();
+    document.execCommand("copy");
 
     if (onClick) {
-      onClick()
+      onClick();
     }
-  }, [ onClick, text ])
+  }, [ onClick, text ]);
 
   return (
     <>
@@ -36,7 +36,7 @@ const CopyToClipboardButton: FC<Props> = ({ text, onClick }) => {
         clipboard</StyledButton>
       <TextArea ref={ ref } readOnly />
     </>
-  )
-}
+  );
+};
 
-export default CopyToClipboardButton
+export default CopyToClipboardButton;

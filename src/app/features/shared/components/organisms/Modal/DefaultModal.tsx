@@ -1,12 +1,12 @@
-import React, { useEffect } from "react"
-import { Close } from "@amsterdam/asc-assets"
-import { Button, Heading } from "@amsterdam/asc-ui"
+import React, { useEffect } from "react";
+import { Close } from "@amsterdam/asc-assets";
+import { Button, Heading } from "@amsterdam/asc-ui";
 
-import { FixedWrap } from "app/features/shared/components/organisms/Modal/components/FixedWrap"
-import { Body } from "app/features/shared/components/organisms/Modal/components/Body"
-import { Footer } from "app/features/shared/components/organisms/Modal/components/Footer"
-import { TopBar } from "app/features/shared/components/organisms/Modal/components/TopBar"
-import Portal from "app/features/shared/components/organisms/Modal/Portal"
+import { FixedWrap } from "app/features/shared/components/organisms/Modal/components/FixedWrap";
+import { Body } from "app/features/shared/components/organisms/Modal/components/Body";
+import { Footer } from "app/features/shared/components/organisms/Modal/components/Footer";
+import { TopBar } from "app/features/shared/components/organisms/Modal/components/TopBar";
+import Portal from "app/features/shared/components/organisms/Modal/Portal";
 
 type Props = {
   title?: string
@@ -14,22 +14,22 @@ type Props = {
   footer?: JSX.Element
 }
 
-const ESCAPE_KEYS = [ "Escape", "27" ]
-const defaultCloseHandler = () => window.history.back()
+const ESCAPE_KEYS = [ "Escape", "27" ];
+const defaultCloseHandler = () => window.history.back();
 
 const DefaultModal: React.FC<Props> = ({ title, onClose, children, footer }) => {
-  const close = () => onClose ? onClose() : defaultCloseHandler()
+  const close = () => onClose ? onClose() : defaultCloseHandler();
 
   const onKeyDown = (event: KeyboardEvent) => {
     if (ESCAPE_KEYS.includes(event.key)) {
-      close()
+      close();
     }
-  }
+  };
 
   useEffect(() => {
-    document.addEventListener("keydown", onKeyDown)
-    return () => document.removeEventListener("keydown", onKeyDown)
-  })
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  });
 
   return (
     <Portal>
@@ -47,7 +47,7 @@ const DefaultModal: React.FC<Props> = ({ title, onClose, children, footer }) => 
         { footer && <Footer>{ footer }</Footer> }
       </FixedWrap>
     </Portal>
-  )
-}
+  );
+};
 
-export default DefaultModal
+export default DefaultModal;

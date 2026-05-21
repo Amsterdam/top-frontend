@@ -1,25 +1,25 @@
-import React from "react"
-import { FormPositioner } from "@amsterdam/amsterdam-react-final-form"
+import React from "react";
+import { FormPositioner } from "@amsterdam/amsterdam-react-final-form";
 
-import { Fields } from "app/features/shared/components/form/Scaffold"
-import HelpButton from "app/features/shared/components/molecules/HelpIcon/HelpButton"
+import { Fields } from "app/features/shared/components/form/Scaffold";
+import HelpButton from "app/features/shared/components/molecules/HelpIcon/HelpButton";
 
-import { OnBackButtonClick } from "app/features/visits/components/organisms/NoteWizard/types"
+import { OnBackButtonClick } from "app/features/visits/components/organisms/NoteWizard/types";
 
 export const stepOne = (
     handleBack: OnBackButtonClick,
     situation: string,
     observationChoices: {},
     suggestNextVisitChoices: {},
-    situationChoices: {}
+    situationChoices: {},
   ) => {
   const fields: Fields = {
     time: {
       type: "CurrentTime",
       props: {
         name: "start_time",
-        label: "Starttijd onderzoek"
-      }
+        label: "Starttijd onderzoek",
+      },
     },
     status: {
       type: "RadioFields",
@@ -30,23 +30,23 @@ export const stepOne = (
         options: situationChoices || {
           nobody_present: "Niemand aanwezig",
           no_cooperation: "Geen medewerking",
-          access_granted: "Toegang verleend"
-        }
-      }
+          access_granted: "Toegang verleend",
+        },
+      },
     },
     submit: {
       type: "SubmitButton",
       props: {
         align: "right",
-        label: "Volgende"
-      }
-    }
-  }
+        label: "Volgende",
+      },
+    },
+  };
 
   return new FormPositioner(fields)
     .setVertical("mobileS")
-    .getScaffoldProps()
-}
+    .getScaffoldProps();
+};
 
 export const notableThings = (handleBack: OnBackButtonClick, situation: string, observationChoices: {}) => {
   const fields: Fields = ({
@@ -61,34 +61,34 @@ export const notableThings = (handleBack: OnBackButtonClick, situation: string, 
           intercom: "Contact via intercom",
           hotel_furnished: "Hotelmatig ingericht",
           vacant: "Leegstand",
-          likely_inhabited: "Vermoedelijk bewoond"
-        }
-      }
+          likely_inhabited: "Vermoedelijk bewoond",
+        },
+      },
     },
     back: {
       type: "Button",
       props: {
         variant: "tertiary",
         onClick: handleBack,
-        label: "Vorige"
-      }
+        label: "Vorige",
+      },
     },
     submit: {
       type: "SubmitButton",
       props: {
         align: "right",
-        label: "Volgende"
-      }
-    }
-  })
+        label: "Volgende",
+      },
+    },
+  });
 
   return new FormPositioner(fields)
     .setGrid("mobileS", "1fr 1fr", [
       [ "observations", "observations" ],
-      [ "back", "submit" ]
+      [ "back", "submit" ],
     ])
-    .getScaffoldProps()
-}
+    .getScaffoldProps();
+};
 
 export const suggestion = (handleBack: OnBackButtonClick, situation: string, observationChoices: {}, suggestNextVisitChoices: {}) => {
   const fields: Fields = ({
@@ -103,9 +103,9 @@ export const suggestion = (handleBack: OnBackButtonClick, situation: string, obs
           daytime: "Overdag",
           weekend: "Weekend",
           evening: "'s Avonds",
-          unknown: "Niet meer uitzetten"
-        }
-      }
+          unknown: "Niet meer uitzetten",
+        },
+      },
     },
     suggest_next_visit_description_evening: {
       type: "ShowHide",
@@ -116,10 +116,10 @@ export const suggestion = (handleBack: OnBackButtonClick, situation: string, obs
           props: {
             isRequired: true,
             label: "Geef toelichting",
-            name: "suggest_next_visit_description_evening"
-          }
-        }
-      }
+            name: "suggest_next_visit_description_evening",
+          },
+        },
+      },
     },
     suggest_next_visit_description_unknown: {
       type: "ShowHide",
@@ -130,10 +130,10 @@ export const suggestion = (handleBack: OnBackButtonClick, situation: string, obs
           props: {
             isRequired: true,
             label: "Geef toelichting",
-            name: "suggest_next_visit_description_unknown"
-          }
-        }
-      }
+            name: "suggest_next_visit_description_unknown",
+          },
+        },
+      },
     },
     suggest_next_visit_description_weekend: {
       type: "ShowHide",
@@ -144,27 +144,27 @@ export const suggestion = (handleBack: OnBackButtonClick, situation: string, obs
           props: {
             isRequired: true,
             label: "Geef toelichting",
-            name: "suggest_next_visit_description_weekend"
-          }
-        }
-      }
+            name: "suggest_next_visit_description_weekend",
+          },
+        },
+      },
     },
     back: {
       type: "Button",
       props: {
         variant: "tertiary",
         onClick: handleBack,
-        label: "Vorige"
-      }
+        label: "Vorige",
+      },
     },
     submit: {
       type: "SubmitButton",
       props: {
         align: "right",
-        label: "Volgende"
-      }
-    }
-  })
+        label: "Volgende",
+      },
+    },
+  });
 
   return new FormPositioner(fields)
     .setGrid("mobileS", "1fr 1fr", [
@@ -172,10 +172,10 @@ export const suggestion = (handleBack: OnBackButtonClick, situation: string, obs
       [ "suggest_next_visit_description_weekend", "suggest_next_visit_description_weekend" ],
       [ "suggest_next_visit_description_evening", "suggest_next_visit_description_evening" ],
       [ "suggest_next_visit_description_unknown", "suggest_next_visit_description_unknown" ],
-      [ "back", "submit" ]
+      [ "back", "submit" ],
     ])
-    .getScaffoldProps()
-}
+    .getScaffoldProps();
+};
 
 export const nextVisit = (
   handleBack: OnBackButtonClick,
@@ -183,14 +183,14 @@ export const nextVisit = (
   observationChoices: {},
   suggestNextVisitChoices: {},
   situationChoices: {},
-  daySettings: Components.Schemas.DaySettings
+  daySettings: Components.Schemas.DaySettings,
 ) => {
   const options: any = {
     yes: "Ja, doorlaten",
-    no: "Nee, tegenhouden"
-  }
+    no: "Nee, tegenhouden",
+  };
   if (daySettings?.team_settings?.name === "Ondermijning") {
-    delete options.yes
+    delete options.yes;
   }
   const fields: Fields = {
     next_visit: {
@@ -208,8 +208,8 @@ export const nextVisit = (
             Tegenhouden (nee): de zaak kan niet direct worden uitgezet. <em>Voorbeeld: machtiging vereist.</em>
           </p>
         </HelpButton>,
-        options
-      }
+        options,
+      },
     },
     next_visit_description_no: {
       type: "ShowHide",
@@ -220,10 +220,10 @@ export const nextVisit = (
           props: {
             isRequired: true,
             name: "can_next_visit_go_ahead_description_no",
-            label: "Waarom niet?"
-          }
-        }
-      }
+            label: "Waarom niet?",
+          },
+        },
+      },
     },
     next_visit_description_yes: {
       type: "ShowHide",
@@ -234,37 +234,37 @@ export const nextVisit = (
           props: {
             name: "can_next_visit_go_ahead_description_yes",
             label: "Aanvullende informatie (optioneel)",
-            hint: "Zijn er nog noemenswaardigheden?"
-          }
-        }
-      }
+            hint: "Zijn er nog noemenswaardigheden?",
+          },
+        },
+      },
     },
     back: {
       type: "Button",
       props: {
         variant: "tertiary",
         onClick: handleBack,
-        label: "Vorige"
-      }
+        label: "Vorige",
+      },
     },
     submit: {
       type: "SubmitButton",
       props: {
         label: "Opslaan",
-        align: "right"
-      }
-    }
-  }
+        align: "right",
+      },
+    },
+  };
 
   return new FormPositioner(fields)
     .setGrid("mobileS", "1fr 1fr", [
       [ "next_visit", "next_visit" ],
       [ "next_visit_description_no", "next_visit_description_no" ],
       [ "next_visit_description_yes", "next_visit_description_yes" ],
-      [ "back", "submit" ]
+      [ "back", "submit" ],
     ])
-    .getScaffoldProps()
-}
+    .getScaffoldProps();
+};
 
 export const accessGranted = (handleBack: OnBackButtonClick) => {
   const fields: Fields = {
@@ -277,8 +277,8 @@ export const accessGranted = (handleBack: OnBackButtonClick) => {
         rows: 12,
         extraLabel: <HelpButton>
           <p>Eigen notities ten behoeve van rapportage en debrief. Alleen zichtbaar voor je team.</p>
-        </HelpButton>
-      }
+        </HelpButton>,
+      },
     },
     description: {
       type: "TextAreaField",
@@ -287,31 +287,31 @@ export const accessGranted = (handleBack: OnBackButtonClick) => {
         name: "description",
         extraLabel: <HelpButton>
           <p>Deze korte toelichting van je bezoek is voor iedereen zichtbaar in het logboek van de TOP-app</p>
-        </HelpButton>
-      }
+        </HelpButton>,
+      },
     },
     back: {
       type: "Button",
       props: {
         variant: "tertiary",
         onClick: handleBack,
-        label: "Vorige"
-      }
+        label: "Vorige",
+      },
     },
     submit: {
       type: "SubmitButton",
       props: {
         align: "right",
-        label: "Opslaan"
-      }
-    }
-  }
+        label: "Opslaan",
+      },
+    },
+  };
 
   return new FormPositioner(fields)
     .setGrid("mobileS", "1fr 1fr", [
       [ "notes", "notes" ],
       [ "description", "description" ],
-      [ "back", "submit" ]
+      [ "back", "submit" ],
     ])
-    .getScaffoldProps()
-}
+    .getScaffoldProps();
+};

@@ -1,34 +1,34 @@
-import React from "react"
-import styled from "styled-components"
-import { ChevronRight } from "@amsterdam/asc-assets"
-import { Button, Heading } from "@amsterdam/asc-ui"
-import { useThemes } from "app/state/rest"
-import { useLoggedInUser } from "app/state/rest/custom/useLoggedInUser"
-import Greeting from "app/features/shared/components/atoms/Greeting/Greeting"
-import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
-import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout"
-import useNavigation from "app/features/shared/routing/useNavigation"
+import React from "react";
+import styled from "styled-components";
+import { ChevronRight } from "@amsterdam/asc-assets";
+import { Button, Heading } from "@amsterdam/asc-ui";
+import { useThemes } from "app/state/rest";
+import { useLoggedInUser } from "app/state/rest/custom/useLoggedInUser";
+import Greeting from "app/features/shared/components/atoms/Greeting/Greeting";
+import Spacing from "app/features/shared/components/atoms/Spacing/Spacing";
+import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout";
+import useNavigation from "app/features/shared/routing/useNavigation";
 
 
 const Grid = styled.div`
   display: grid;
   justify-items: start;
   gap: 16px;
-`
+`;
 
 const Illustration = styled.div`
   max-width: 30em;
   flex: auto;
   background: url('/images/background.webp') no-repeat bottom;
   background-size: contain;
-`
+`;
 
 const ListTeamSettingsOptionsPage: React.FC = () => {
-  const { data } = useThemes()
-  const loggedInUser = useLoggedInUser()
-  const { navigateTo } = useNavigation()
+  const { data } = useThemes();
+  const loggedInUser = useLoggedInUser();
+  const { navigateTo } = useNavigation();
 
-  const themes = data?.results ?? []
+  const themes = data?.results ?? [];
 
   return (
     <DefaultLayout>
@@ -58,7 +58,7 @@ const ListTeamSettingsOptionsPage: React.FC = () => {
         </Illustration>
       ) }
     </DefaultLayout>
-  )
-}
+  );
+};
 
-export default ListTeamSettingsOptionsPage
+export default ListTeamSettingsOptionsPage;

@@ -1,20 +1,20 @@
 /* eslint-disable no-restricted-globals */
-import { useEffect, useState } from "react"
-import { Button } from "@amsterdam/asc-ui"
-import { BrowserRouter } from "react-router-dom"
-import { useAuth, hasAuthParams } from "react-oidc-context"
-import Router from "./app/features/shared/routing/Router"
-import ApiProvider from "./app/state/rest/provider/ApiProvider"
-import AnonymousProvider from "./app/state/anonymous/AnonymousProvider"
-import Anonymous from "./app/state/anonymous/Anonymous"
-import NoteWizardProvider from "./app/features/visits/components/organisms/NoteWizard/NoteWizardProvider"
-import SearchFormProvider from "./app/features/shared/components/organisms/SearchForm/SearchFormProvider"
-import ErrorProvider from "./app/state/error/ErrorProvider"
-import { LoadingScreen, FullScreenWrapper } from "./app/features/login/pages/LoadingScreen"
+import { useEffect, useState } from "react";
+import { Button } from "@amsterdam/asc-ui";
+import { BrowserRouter } from "react-router-dom";
+import { useAuth, hasAuthParams } from "react-oidc-context";
+import Router from "./app/features/shared/routing/Router";
+import ApiProvider from "./app/state/rest/provider/ApiProvider";
+import AnonymousProvider from "./app/state/anonymous/AnonymousProvider";
+import Anonymous from "./app/state/anonymous/Anonymous";
+import NoteWizardProvider from "./app/features/visits/components/organisms/NoteWizard/NoteWizardProvider";
+import SearchFormProvider from "./app/features/shared/components/organisms/SearchForm/SearchFormProvider";
+import ErrorProvider from "./app/state/error/ErrorProvider";
+import { LoadingScreen, FullScreenWrapper } from "./app/features/login/pages/LoadingScreen";
 
 const App = () => {
-  const auth = useAuth()
-  const [hasTriedSignin, setHasTriedSignin] = useState(false)
+  const auth = useAuth();
+  const [hasTriedSignin, setHasTriedSignin] = useState(false);
 
   useEffect(() => {
     if (
@@ -24,18 +24,18 @@ const App = () => {
       !auth.isLoading &&
       !hasTriedSignin
     ) {
-      const currentUrl = new URL(window.location.href)
-      const fullPathWithQuery = `${ currentUrl.pathname }${ currentUrl.search }`
+      const currentUrl = new URL(window.location.href);
+      const fullPathWithQuery = `${ currentUrl.pathname }${ currentUrl.search }`;
 
       auth.signinRedirect({        
-        url_state: fullPathWithQuery 
-      })
-      setHasTriedSignin(true)
+        url_state: fullPathWithQuery, 
+      });
+      setHasTriedSignin(true);
     }
-  }, [auth, hasTriedSignin])
+  }, [auth, hasTriedSignin]);
 
   if (auth.isLoading) {
-    return <LoadingScreen/>
+    return <LoadingScreen/>;
   }
 
   if (auth.error) {
@@ -45,11 +45,11 @@ const App = () => {
         Oops... {auth.error.message}
         <Button variant="primary" onClick={ () => location.href = "/" } style={{ marginTop: 24 }}>Probeer opnieuw</Button>
       </FullScreenWrapper>
-    )
+    );
   }
 
   if (!auth.isAuthenticated) {
-    return <FullScreenWrapper>Sorry, het is niet gelukt om in te loggen.</FullScreenWrapper>
+    return <FullScreenWrapper>Sorry, het is niet gelukt om in te loggen.</FullScreenWrapper>;
   }
   
   return (
@@ -68,7 +68,7 @@ const App = () => {
         </ApiProvider>
       </ErrorProvider>
     </BrowserRouter>
-  )
-}
+  );
+};
 
-export default App
+export default App;

@@ -1,7 +1,7 @@
-import React from "react"
-import { Button } from "@amsterdam/asc-ui"
-import { ButtonVariant } from "@amsterdam/asc-ui/lib/components/Button/Button"
-import styled from "styled-components"
+import React from "react";
+import { Button } from "@amsterdam/asc-ui";
+import { ButtonVariant } from "@amsterdam/asc-ui/lib/components/Button/Button";
+import styled from "styled-components";
 
 export type Props = Omit<React.ComponentProps<typeof Button>, "onClick"> & {
   onClick: () => void
@@ -13,7 +13,7 @@ export type Props = Omit<React.ComponentProps<typeof Button>, "onClick"> & {
 
 const StyledButton = styled(Button)`
   margin-bottom: 20px;
-`
+`;
 
 const ToggleCollapse: React.FC<Props> = (
   {
@@ -21,9 +21,9 @@ const ToggleCollapse: React.FC<Props> = (
     isCollapsed,
     variant = "textButton",
     textToOpen = "+ Toon alle",
-    textToClose = "- Toon minder"
+    textToClose = "- Toon minder",
   }) => (
   <StyledButton onClick={ onClick } variant={ variant }>{ isCollapsed ? textToOpen : textToClose }</StyledButton>
-)
+);
 
-export default ToggleCollapse
+export default ToggleCollapse;

@@ -1,7 +1,7 @@
-import styled, { keyframes } from "styled-components"
+import styled, { keyframes } from "styled-components";
 
-const backgroundColor = "#E6E6E6"
-const backgroundWidth = "256px"
+const backgroundColor = "#E6E6E6";
+const backgroundWidth = "256px";
 
 const animation = keyframes`
   0% {
@@ -10,7 +10,7 @@ const animation = keyframes`
   100% {
     background-position: calc(${ backgroundWidth } + 100%) 0;
   }
-`
+`;
 
 /**
  * A neutral rectangular box representing a value still being loaded.
@@ -32,6 +32,6 @@ const InlineSkeleton = styled.span`
     content: "Ophalen…"; // Provides appropriate dimensions and enables baseline alignment
     opacity: 0;
   }
-`
+`;
 
-export default InlineSkeleton
+export default InlineSkeleton;

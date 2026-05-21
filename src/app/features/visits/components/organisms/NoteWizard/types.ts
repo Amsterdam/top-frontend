@@ -1,5 +1,5 @@
-import React from "react"
-import * as wizardSteps from "./components/NoteWizardFormDefinitions"
+import React from "react";
+import * as wizardSteps from "./components/NoteWizardFormDefinitions";
 
 type FormValuesBase = {
   id?: number

@@ -5,5 +5,5 @@ export const daysOfTheWeek: Record<number, string> = {
   3: "Donderdag",
   4: "Vrijdag",
   5: "Zaterdag",
-  6: "Zondag"
-}
+  6: "Zondag",
+};

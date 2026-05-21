@@ -2,10 +2,10 @@ import {
   combineValidators,
   isMatchingRegex,
   isRequired,
-  ScaffoldAvailableFields
-} from "@amsterdam/amsterdam-react-final-form"
-import { FormPositioner, FormPositionerFields } from "@amsterdam/amsterdam-react-final-form"
-import isRequiredWhenEmpty from "./validators/isRequiredWhenEmpty"
+  ScaffoldAvailableFields,
+} from "@amsterdam/amsterdam-react-final-form";
+import { FormPositioner, FormPositionerFields } from "@amsterdam/amsterdam-react-final-form";
+import isRequiredWhenEmpty from "./validators/isRequiredWhenEmpty";
 
 export const createDefinition = (onResetButtonClick: () => void) => {
   const definition: FormPositionerFields<ScaffoldAvailableFields> = {
@@ -16,8 +16,8 @@ export const createDefinition = (onResetButtonClick: () => void) => {
         name: "streetName",
         validate: isRequiredWhenEmpty("postalCode", "Vul een straatnaam of postcode in"),
         autoFocus: true,
-        tabIndex: 1
-      }
+        tabIndex: 1,
+      },
     },
     postalCode: {
       type: "TextField",
@@ -26,10 +26,10 @@ export const createDefinition = (onResetButtonClick: () => void) => {
         name: "postalCode",
         validate: combineValidators(
           isRequiredWhenEmpty("streetName", "Vul een postcode of straatnaam in"),
-          isMatchingRegex(/\s*[1-9][0-9]{3}\s?[a-zA-Z]{2}\s*/, "Geldige postcodes zijn: 1234AA of 1234 aa")
+          isMatchingRegex(/\s*[1-9][0-9]{3}\s?[a-zA-Z]{2}\s*/, "Geldige postcodes zijn: 1234AA of 1234 aa"),
         ),
-        tabIndex: 2
-      }
+        tabIndex: 2,
+      },
     },
     streetNumber: {
       type: "NumberField",
@@ -42,16 +42,16 @@ export const createDefinition = (onResetButtonClick: () => void) => {
         title: "Alleen cijfers zijn geldig",
         hideNumberSpinner: true,
         validate: isRequired(),
-        tabIndex: 3
-      }
+        tabIndex: 3,
+      },
     },
     suffix: {
       type: "TextField",
       props: {
         label: "Toevoeging",
         name: "suffix",
-        tabIndex: 4
-      }
+        tabIndex: 4,
+      },
     },
     reset: {
       type: "ResetButton",
@@ -59,8 +59,8 @@ export const createDefinition = (onResetButtonClick: () => void) => {
         alignedHorizontally: { tabletM: true },
         label: "Wis",
         onClick: onResetButtonClick,
-        style: { minWidth: "initial" } // Override ASC
-      }
+        style: { minWidth: "initial" }, // Override ASC
+      },
     },
     submit: {
       type: "SubmitButton",
@@ -69,16 +69,16 @@ export const createDefinition = (onResetButtonClick: () => void) => {
         alignedHorizontally: { tabletM: true },
         label: "Zoek",
         style: { minWidth: "initial" }, // Override ASC
-        tabIndex: 5
-      }
-    }
-  }
+        tabIndex: 5,
+      },
+    },
+  };
 
   return new FormPositioner(definition)
     .setGrid("mobileS", "1fr 1fr 1fr", [
       [ "streetName", "streetName", "streetName" ],
       [ "postalCode", "streetNumber", "suffix" ],
-      [ "reset", "submit", "submit" ]
+      [ "reset", "submit", "submit" ],
     ])
-    .getScaffoldProps()
-}
+    .getScaffoldProps();
+};

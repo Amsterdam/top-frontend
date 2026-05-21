@@ -1,4 +1,4 @@
-import styled from "styled-components"
+import styled from "styled-components";
 
 export const Body = styled.div`
   background-color: white;
@@ -9,4 +9,4 @@ export const Body = styled.div`
   padding: 15px;
            
   -webkit-overflow-scrolling: touch;  // iOS momentum scrolling. @see: https://developer.mozilla.org/en-US/docs/Web/CSS/-webkit-overflow-scrolling
-`
+`;

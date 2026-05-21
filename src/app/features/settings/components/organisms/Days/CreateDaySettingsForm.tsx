@@ -1,10 +1,10 @@
-import React, { useCallback, useMemo, useState } from "react"
-import { Link } from "react-router-dom"
-import styled from "styled-components"
-import { ScaffoldForm } from "@amsterdam/amsterdam-react-final-form"
-import { Heading } from "@amsterdam/asc-ui"
-import config from "app/config/config"
-import to from "app/features/shared/routing/to"
+import React, { useCallback, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+import { ScaffoldForm } from "@amsterdam/amsterdam-react-final-form";
+import { Heading } from "@amsterdam/asc-ui";
+import config from "app/config/config";
+import to from "app/features/shared/routing/to";
 import {
   useDaySettingsList,
   useTeamSettings,
@@ -15,47 +15,47 @@ import {
   useTeamSettingsSubjects,
   useTeamSettingsTags,
   useCorporations,
-  useDistricts
-} from "app/state/rest"
-import useNavigation from "app/features/shared/routing/useNavigation"
-import Spacing from "app/features/shared/components/atoms/Spacing/Spacing"
-import Scaffold from "app/features/shared/components/form/Scaffold"
-import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout"
-import { createDefinition } from "./DaySettingsFormDefinition"
-import FixedSubmitButton from "../SettingsForm/components/FixedSubmitButton"
-import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner"
-import { filterEmptyPostalCodes } from "app/features/settings/utils/filterEmptyPostalCodes"
-import { useQueryStringProp } from "app/features/shared/hooks/queryString/useQueryStringProp"
-import { daysOfTheWeek } from "app/features/settings/utils/daysOfTheWeek"
-import { prepareDaySettingsPayload } from "../SettingsForm/services/prepare-payload"
+  useDistricts,
+} from "app/state/rest";
+import useNavigation from "app/features/shared/routing/useNavigation";
+import Spacing from "app/features/shared/components/atoms/Spacing/Spacing";
+import Scaffold from "app/features/shared/components/form/Scaffold";
+import DefaultLayout from "app/features/shared/components/layouts/DefaultLayout/DefaultLayout";
+import { createDefinition } from "./DaySettingsFormDefinition";
+import FixedSubmitButton from "../SettingsForm/components/FixedSubmitButton";
+import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner";
+import { filterEmptyPostalCodes } from "app/features/settings/utils/filterEmptyPostalCodes";
+import { useQueryStringProp } from "app/features/shared/hooks/queryString/useQueryStringProp";
+import { daysOfTheWeek } from "app/features/settings/utils/daysOfTheWeek";
+import { prepareDaySettingsPayload } from "../SettingsForm/services/prepare-payload";
 
 const Wrap = styled.div`
   margin: 0 8px 100px 8px;
-`
+`;
 
 type Props = {
   teamSettingsId?: string
 }
 
 const CreateDaySettingsForm: React.FC<Props> = ({ teamSettingsId }) => {
-  const { data: teamSettings } = useTeamSettings(teamSettingsId!)
-  const { execPost } = useDaySettingsList({ lazy: true })
-  const { data: caseReasons } = useTeamSettingsReasons(teamSettingsId!)
-  const { data: teamScheduleTypes } = useTeamSettingsScheduleTypes(teamSettingsId!)
-  const { data: caseStateTypes } = useTeamSettingsStateTypes(teamSettingsId!)
-  const { data: caseProjects } = useTeamSettingsProjects(teamSettingsId!)
-  const { data: caseSubjects } = useTeamSettingsSubjects(teamSettingsId!)
-  const { data: caseTags } = useTeamSettingsTags(teamSettingsId!)
-  const { data: corporations } = useCorporations()
-  const { data: districts, isBusy: isBusyDistricts } = useDistricts()
-  const { navigateTo } = useNavigation()
-  const [ errorMessage, setErrorMessage ] = useState("")
-  const dayOfTheWeek = useQueryStringProp("d")
+  const { data: teamSettings } = useTeamSettings(teamSettingsId!);
+  const { execPost } = useDaySettingsList({ lazy: true });
+  const { data: caseReasons } = useTeamSettingsReasons(teamSettingsId!);
+  const { data: teamScheduleTypes } = useTeamSettingsScheduleTypes(teamSettingsId!);
+  const { data: caseStateTypes } = useTeamSettingsStateTypes(teamSettingsId!);
+  const { data: caseProjects } = useTeamSettingsProjects(teamSettingsId!);
+  const { data: caseSubjects } = useTeamSettingsSubjects(teamSettingsId!);
+  const { data: caseTags } = useTeamSettingsTags(teamSettingsId!);
+  const { data: corporations } = useCorporations();
+  const { data: districts, isBusy: isBusyDistricts } = useDistricts();
+  const { navigateTo } = useNavigation();
+  const [ errorMessage, setErrorMessage ] = useState("");
+  const dayOfTheWeek = useQueryStringProp("d");
 
   const prepareDefinition = (definitionEntry: any) => definitionEntry?.reduce((t: any, c: any) => {
-    t[String(c.id)] = c.name
-    return t
-  }, {}) || []
+    t[String(c.id)] = c.name;
+    return t;
+  }, {}) || [];
   const definition = useMemo(
     () => createDefinition(
       prepareDefinition(teamScheduleTypes?.day_segments),
@@ -68,35 +68,35 @@ const CreateDaySettingsForm: React.FC<Props> = ({ teamSettingsId }) => {
       prepareDefinition(caseTags),
       prepareDefinition(corporations),
       prepareDefinition(districts),
-      teamSettings
+      teamSettings,
     ),
     [
       teamScheduleTypes, caseReasons, caseStateTypes, districts,
-      caseProjects, caseSubjects, caseTags, teamSettings, corporations
-    ]
-  )
+      caseProjects, caseSubjects, caseTags, teamSettings, corporations,
+    ],
+  );
 
   const handleSubmit = useCallback(async (data: any) => {
-    setErrorMessage("")
+    setErrorMessage("");
 
     const values = prepareDaySettingsPayload(
-      filterEmptyPostalCodes(data)
-    )
+      filterEmptyPostalCodes(data),
+    );
 
     try {
       await execPost(values, { skipCacheClear: false, useResponseAsCache: false })
         .then((resp: any) => {
           // Navigate to the update form to show the possible cases for these settings.
-          navigateTo("/team-settings/:teamSettingsId/:daySettingsId", { teamSettingsId, daySettingsId: resp.data.id })
-        })
+          navigateTo("/team-settings/:teamSettingsId/:daySettingsId", { teamSettingsId, daySettingsId: resp.data.id });
+        });
     } catch (error: any) {
-      setErrorMessage(error.response.data.message)
-      return error
+      setErrorMessage(error.response.data.message);
+      return error;
     }
-  }, [execPost, navigateTo, teamSettingsId])
+  }, [execPost, navigateTo, teamSettingsId]);
 
   if (!districts || isBusyDistricts) {
-    return <CenteredSpinner explanation="Instellingen ophalen…" size={ 60 } />
+    return <CenteredSpinner explanation="Instellingen ophalen…" size={ 60 } />;
   }
 
 
@@ -105,8 +105,8 @@ const CreateDaySettingsForm: React.FC<Props> = ({ teamSettingsId }) => {
     opening_date: "2019-01-01",
     postal_code_ranges: config.settings.defaultPostalCodeRanges,
     postal_codes_type: "postcode",
-    week_days: dayOfTheWeek.exists() ? [ dayOfTheWeek.get() ] : Object.keys(daysOfTheWeek).map(d => d.toString())
-  }
+    week_days: dayOfTheWeek.exists() ? [ dayOfTheWeek.get() ] : Object.keys(daysOfTheWeek).map(d => d.toString()),
+  };
 
   return (
     <DefaultLayout>
@@ -125,7 +125,7 @@ const CreateDaySettingsForm: React.FC<Props> = ({ teamSettingsId }) => {
         </ScaffoldForm>
       </Wrap>
     </DefaultLayout>
-  )
-}
+  );
+};
 
-export default CreateDaySettingsForm
+export default CreateDaySettingsForm;

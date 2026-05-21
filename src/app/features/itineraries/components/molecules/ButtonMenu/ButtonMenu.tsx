@@ -1,5 +1,5 @@
-import React, { FC, ReactNode } from "react"
-import styled from "styled-components"
+import React, { FC, ReactNode } from "react";
+import styled from "styled-components";
 
 type Props = {
   children: ReactNode
@@ -20,12 +20,12 @@ const Div = styled.div`
   button {
     margin-bottom: 12px;
   }
-`
+`;
 
 const ButtonMenu: FC<Props> = ({ children }) => (
   <Div>
     { children }
   </Div>
-)
+);
 
-export default ButtonMenu
+export default ButtonMenu;

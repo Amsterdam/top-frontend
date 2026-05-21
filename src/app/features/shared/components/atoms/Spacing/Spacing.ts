@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components"
+import styled, { css } from "styled-components";
 
 type Props = {
   p?: number
@@ -14,6 +14,6 @@ const Spacing = styled.div<Props>`
   ${ (props) => props.pb && css`padding-bottom: ${ props.pb * 4 }px` }
   ${ (props) => props.pr && css`padding-right: ${ props.pr * 4 }px` }
   ${ (props) => props.pl && css`padding-left: ${ props.pl * 4 }px` }
-`
+`;
 
-export default Spacing
+export default Spacing;

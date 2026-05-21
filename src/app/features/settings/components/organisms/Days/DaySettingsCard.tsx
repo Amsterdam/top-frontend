@@ -1,13 +1,13 @@
-import React from "react"
-import { Button, Heading } from "@amsterdam/asc-ui"
-import { useDaySettings } from "app/state/rest"
-import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner"
-import formatDate from "app/features/shared/utils/formatDate"
-import ValueList from "../../atoms/ValueList/ValueList"
-import { Body, Column, Dd, Dl, Dt, Header, Li, Section, Ul } from "./DaySettingsCardStyles"
-import isSubletting from "app/features/settings/utils/isSubletting"
-import { District } from "app/features/types"
-import useNavigation from "app/features/shared/routing/useNavigation"
+import React from "react";
+import { Button, Heading } from "@amsterdam/asc-ui";
+import { useDaySettings } from "app/state/rest";
+import CenteredSpinner from "app/features/shared/components/atoms/CenteredSpinner/CenteredSpinner";
+import formatDate from "app/features/shared/utils/formatDate";
+import ValueList from "../../atoms/ValueList/ValueList";
+import { Body, Column, Dd, Dl, Dt, Header, Li, Section, Ul } from "./DaySettingsCardStyles";
+import isSubletting from "app/features/settings/utils/isSubletting";
+import { District } from "app/features/types";
+import useNavigation from "app/features/shared/routing/useNavigation";
 
 type Props = {
   teamSettings: Components.Schemas.TeamSettings
@@ -33,22 +33,22 @@ const DaySettingsCard: React.FC<Props> = (
     caseSubjects,
     caseTags,
     corporations,
-    districts
-  }
+    districts,
+  },
 ) => {
-  const { data: daySettings, isBusy } = useDaySettings(daySettingsId!)
-  const { navigateTo } = useNavigation()
+  const { data: daySettings, isBusy } = useDaySettings(daySettingsId!);
+  const { navigateTo } = useNavigation();
 
   if (!teamSettings || !daySettings || isBusy) {
-    return <CenteredSpinner explanation="Daginstellingen ophalen…" size={ 60 } />
+    return <CenteredSpinner explanation="Daginstellingen ophalen…" size={ 60 } />;
   }
 
   const goToEditForm = () => navigateTo("/team-settings/:teamSettingsId/:daySettingsId", {
     teamSettingsId: teamSettings.id,
-    daySettingsId: daySettings?.id
-  })
+    daySettingsId: daySettings?.id,
+  });
 
-  const isSublet = isSubletting(teamSettings) // Onderhuur
+  const isSublet = isSubletting(teamSettings); // Onderhuur
 
   return (
     <Section>
@@ -110,7 +110,7 @@ const DaySettingsCard: React.FC<Props> = (
                 <Ul>
                   {
                     daySettings?.postal_code_ranges?.map((range: any, index: number) =>
-                      <Li key={ "range-" + index }>{ range.range_start }–{ range.range_end }</Li>
+                      <Li key={ "range-" + index }>{ range.range_start }–{ range.range_end }</Li>,
                     )
                   }
                 </Ul>
@@ -151,7 +151,7 @@ const DaySettingsCard: React.FC<Props> = (
         </Column>
       </Body>
     </Section>
-  )
-}
+  );
+};
 
-export default DaySettingsCard
+export default DaySettingsCard;

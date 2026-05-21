@@ -1,15 +1,15 @@
-import { useEffect, useRef } from "react"
+import { useEffect, useRef } from "react";
 
 /**
  * Returns a RefObject, the current value is true when the component is still mounted
  */
 const useIsMounted = () => {
-  const isMounted = useRef(false)
+  const isMounted = useRef(false);
   useEffect(() => {
-    isMounted.current = true
-    return () => { isMounted.current = false }
-  }, [])
-  return isMounted
-}
+    isMounted.current = true;
+    return () => { isMounted.current = false; };
+  }, []);
+  return isMounted;
+};
 
-export default useIsMounted
+export default useIsMounted;

@@ -1,7 +1,7 @@
-import React, { FunctionComponent } from "react"
-import styled from "styled-components"
+import React, { FunctionComponent } from "react";
+import styled from "styled-components";
 
-import formatBoolean from "app/features/shared/utils/formatBoolean"
+import formatBoolean from "app/features/shared/utils/formatBoolean";
 
 export type Props = {
   sensitive?: boolean
@@ -11,11 +11,11 @@ export type Props = {
 
 const Text = styled.span`
   word-break: break-word;
-`
+`;
 
 const InvalidValue = styled.span`
   color: #EC0000;
-`
+`;
 
 /**
  * Displays a value.
@@ -31,22 +31,22 @@ const InvalidValue = styled.span`
  */
 const Value: FunctionComponent<Props> = ({ sensitive, valid, value, children }) => {
   if (valid === false) {
-    return <InvalidValue>–</InvalidValue>
+    return <InvalidValue>–</InvalidValue>;
   }
 
   if (value === undefined && !children) {
-    return <span>–</span>
+    return <span>–</span>;
   }
 
   if (typeof value === "boolean" || [ "True", "False", "UNKNOWN" ].includes(value)) {
-    value = formatBoolean(value)
+    value = formatBoolean(value);
   }
 
   if (typeof value === "number") {
-    value = String(value)
+    value = String(value);
   }
 
-  return <Text className={ sensitive ? "anonymous" : undefined }>{ value ?? children }</Text>
-}
+  return <Text className={ sensitive ? "anonymous" : undefined }>{ value ?? children }</Text>;
+};
 
-export default Value
+export default Value;

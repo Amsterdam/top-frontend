@@ -1,13 +1,13 @@
-import { EventsTimeline, CaseEvent } from "@amsterdam/wonen-ui"
-import CaseDetailSection from "app/features/cases/components/organisms/CaseDetail/CaseDetailSection"
-import { useCaseEvents } from "app/state/rest"
+import { EventsTimeline, CaseEvent } from "@amsterdam/wonen-ui";
+import CaseDetailSection from "app/features/cases/components/organisms/CaseDetail/CaseDetailSection";
+import { useCaseEvents } from "app/state/rest";
 
 type Props = {
   caseId: string
 }
 
 const History: React.FC<Props> = ({ caseId }) => {
-  const { data } = useCaseEvents(caseId)
+  const { data } = useCaseEvents(caseId);
 
   return (
     <CaseDetailSection title="Zaakhistorie" dataSource="AZA">
@@ -19,7 +19,7 @@ const History: React.FC<Props> = ({ caseId }) => {
         />
       }
     </CaseDetailSection>
-  )
-}
+  );
+};
 
-export default History
+export default History;

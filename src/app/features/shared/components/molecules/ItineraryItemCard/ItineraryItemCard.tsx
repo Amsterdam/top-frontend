@@ -1,9 +1,9 @@
-import React, { useCallback, useState } from "react"
-import { useNavigate } from "react-router-dom"
-import StadiumBadge from "app/features/shared/components/molecules/StadiumBadge/StadiumBadge"
-import { CaseReason, Project } from "app/features/types"
-import Tag from "app/features/shared/components/atoms/Tag/Tag"
-import styles from "./ItineraryItemCard.module.css"
+import React, { useCallback, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import StadiumBadge from "app/features/shared/components/molecules/StadiumBadge/StadiumBadge";
+import { CaseReason, Project } from "app/features/types";
+import Tag from "app/features/shared/components/atoms/Tag/Tag";
+import styles from "./ItineraryItemCard.module.css";
 
 type Props = {
   address: string | JSX.Element
@@ -40,28 +40,28 @@ const ItineraryItemCard: React.FC<Props> = ({
   teamMembersList,
   hasPriority,
   hasWarrant,
-  deleted = false
+  deleted = false,
 }) => {
-  const navigate = useNavigate()
-  const [isBeingDeleted, setIsBeingDeleted] = useState(false)
+  const navigate = useNavigate();
+  const [isBeingDeleted, setIsBeingDeleted] = useState(false);
 
   const setBeingDeleted = useCallback(
     () => setIsBeingDeleted(true),
-    [setIsBeingDeleted]
-  )
+    [setIsBeingDeleted],
+  );
 
   const handleClick = useCallback(() => {
     if (href) {
-      return navigate(href)
+      return navigate(href);
     }
-  }, [href, navigate])
+  }, [href, navigate]);
 
   return (
     <article
       className={styles.card}
       style={{
         opacity: deleted ? 0.4 : 1,
-        backgroundColor: backgroundColor || "#FFFFFF"
+        backgroundColor: backgroundColor || "#FFFFFF",
       }}
     >
       <div className={styles.flex}>
@@ -98,7 +98,7 @@ const ItineraryItemCard: React.FC<Props> = ({
         )}
       </div>
     </article>
-  )
-}
+  );
+};
 
-export default ItineraryItemCard
+export default ItineraryItemCard;

@@ -1,7 +1,7 @@
-import React, { FC } from "react"
-import { Icon } from "@amsterdam/asc-ui"
-import { DocumentEdit } from "@amsterdam/asc-assets"
+import React, { FC } from "react";
+import { Icon } from "@amsterdam/asc-ui";
+import { DocumentEdit } from "@amsterdam/asc-assets";
 
-const EditDocumentIcon: FC = () => (<Icon><DocumentEdit /></Icon>)
+const EditDocumentIcon: FC = () => (<Icon><DocumentEdit /></Icon>);
 
-export default EditDocumentIcon
+export default EditDocumentIcon;

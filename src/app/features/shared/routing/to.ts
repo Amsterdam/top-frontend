@@ -1,5 +1,5 @@
-import { ComponentProps, ComponentType } from "react"
-import { Routes } from "app/config/routes"
+import { ComponentProps, ComponentType } from "react";
+import { Routes } from "app/config/routes";
 
 // RouteParams for given K in Routes
 export type RouteParams<T extends Routes, K extends keyof T> =
@@ -14,7 +14,7 @@ export type RouteParams<T extends Routes, K extends keyof T> =
 const toString = (obj: any): string =>
   typeof obj?.toString === "function"
     ? obj.toString()
-    : ""
+    : "";
 
 /**
  * Example:
@@ -27,8 +27,8 @@ export const applyRouteParams = <T extends Routes, K extends keyof T>
     .entries(params)
     .reduce(
       (url, [ key, value ]) => url.replace(`:${ key }`, toString(value)),
-      url
-    )
+      url,
+    );
 
 /**
  * Typesafe routes.
@@ -39,10 +39,10 @@ export const applyRouteParams = <T extends Routes, K extends keyof T>
  */
 export const to = <T extends Routes, K extends keyof T>
 (path: K, params?: RouteParams<T, K>) => {
-  const str = path.toString()
+  const str = path.toString();
     return params !== undefined
     ? applyRouteParams(str, params)
-    : str
-}
+    : str;
+};
 
-export default to
+export default to;

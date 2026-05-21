@@ -1,12 +1,12 @@
-import qs, { ParsedQs } from "qs"
+import qs, { ParsedQs } from "qs";
 
-export const parse = (search: string) => qs.parse(search, { ignoreQueryPrefix: true })
-const stringify = (parsed: ParsedQs) => qs.stringify(parsed, { addQueryPrefix: true })
+export const parse = (search: string) => qs.parse(search, { ignoreQueryPrefix: true });
+const stringify = (parsed: ParsedQs) => qs.stringify(parsed, { addQueryPrefix: true });
 
 const removeProp = (obj: ParsedQs, prop: string) => Object
   .entries(obj)
   .filter(([ key ]) => key !== prop)
-  .reduce((acc, [ key, val ]) => ({ ...acc, [key]: val }), {})
+  .reduce((acc, [ key, val ]) => ({ ...acc, [key]: val }), {});
 
 /**
  * Immutable queryString manager.
@@ -16,17 +16,17 @@ const removeProp = (obj: ParsedQs, prop: string) => Object
  */
 
 export const queryString = (path: string, parsedQs: ParsedQs, navigate: any) => {
-  const getUrl = () => `${ path }${ stringify(parsedQs) }`
+  const getUrl = () => `${ path }${ stringify(parsedQs) }`;
 
-  const navigateToUrl = () => navigate(getUrl())
+  const navigateToUrl = () => navigate(getUrl());
 
-  const getParameter = (param: string) => parsedQs[param]
+  const getParameter = (param: string) => parsedQs[param];
 
-  const hasParameter = (param: string) => parsedQs[param] !== undefined
+  const hasParameter = (param: string) => parsedQs[param] !== undefined;
 
-  const setParameter = (param: string, value: string) => queryString(path, { ...parsedQs, [param]: value }, navigate)
+  const setParameter = (param: string, value: string) => queryString(path, { ...parsedQs, [param]: value }, navigate);
 
-  const deleteParameter = (param: string) => queryString(path, removeProp(parsedQs, param), navigate)
+  const deleteParameter = (param: string) => queryString(path, removeProp(parsedQs, param), navigate);
 
   return {
     getUrl,
@@ -34,6 +34,6 @@ export const queryString = (path: string, parsedQs: ParsedQs, navigate: any) => 
     getParameter,
     hasParameter,
     setParameter,
-    deleteParameter
-  }
-}
+    deleteParameter,
+  };
+};
